@@ -363,6 +363,23 @@
     .section { padding: 48px 24px; }
     /* Founder section */
     div[style*="grid-template-columns:340px"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+    /* Review cards mobile */
+    div[style*="grid-template-columns:repeat(3"] { 
+      grid-template-columns: 1fr !important; 
+      gap: 24px !important;
+    }
+    div[style*="background:var(--card)"][style*="border"] {
+      padding: 28px !important;
+    }
+    div[style*="font-size:15px"][style*="color:#ccc"] {
+      font-size: 15px !important;
+      line-height: 1.7 !important;
+    }
+    div[style*="width:40px"][style*="height:40px"] {
+      width: 44px !important;
+      height: 44px !important;
+      font-size: 16px !important;
+    }
   }
 </style>
 </head>
@@ -370,7 +387,7 @@
 
 <!-- NAV -->
 <nav>
-  <img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" style="height:32px;display:block;" />
+  <img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" style="height:28px;max-width:140px;display:block;object-fit:contain;" />
   <a href="https://whop.com/liftoffr/liftoffr-elite/" target="_blank" class="btn-red">Join Elite — $49/mo</a>
 </nav>
 
