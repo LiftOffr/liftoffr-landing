@@ -300,6 +300,13 @@
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 24px;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+  }
+  .module-card:hover {
+    transform: scale(1.04) translateY(-4px);
+    border-color: var(--red);
+    box-shadow: 0 8px 32px rgba(230, 57, 70, 0.18);
   }
   .module-num {
     font-size: 10px; font-weight: 800; color: var(--red);
@@ -381,6 +388,60 @@
       height: 44px !important;
       font-size: 16px !important;
     }
+  }
+
+  /* ── Scroll-in fade ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Result / proof cards hover ── */
+  .result-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .result-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+  }
+
+  /* ── Proof stat items ── */
+  .proof-item {
+    transition: transform 0.2s ease;
+  }
+  .proof-item:hover {
+    transform: scale(1.06);
+  }
+
+  /* ── CTA button pulse ── */
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(230,57,70,0.5); }
+    50% { box-shadow: 0 0 0 10px rgba(230,57,70,0); }
+  }
+  .btn-pulse {
+    animation: pulse-red 2.4s ease-in-out infinite;
+  }
+
+  /* ── FAQ hover ── */
+  .faq-q {
+    transition: color 0.2s ease;
+  }
+  .faq-q:hover {
+    color: var(--red) !important;
+  }
+
+  /* ── Pricing card glow on hover ── */
+  .pricing-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pricing-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(230,57,70,0.2);
   }
 </style>
 </head>
@@ -715,6 +776,32 @@
       document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
       if (!isOpen) item.classList.add('open');
     });
+  });
+</script>
+<script>
+  // Scroll-in reveal
+  const revealEls = document.querySelectorAll(
+    '.module-card, .result-card, .proof-item, .faq-item'
+  );
+  revealEls.forEach(el => el.classList.add('reveal'));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // Pulse red CTA buttons
+  document.querySelectorAll('a, button').forEach(el => {
+    const bg = el.style.background || el.style.backgroundColor || '';
+    if (bg.includes('e63946') || bg.includes('var(--red)')) {
+      el.classList.add('btn-pulse');
+    }
   });
 </script>
 </body>
