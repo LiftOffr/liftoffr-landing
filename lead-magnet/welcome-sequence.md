@@ -124,7 +124,7 @@ The members who actually compound returns aren't the ones with the most knowledg
 
 If you've been getting value from these emails, the brief is the same thing — every day, before market hours.
 
-[See what's inside →](https://liftoffr.com/)
+[See what's inside →](https://liftoffr.com/?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_4)
 
 — Torin
 
@@ -155,7 +155,7 @@ What you get:
 - AI Q&A bot trained on the curriculum
 - Private Discord community
 
-[Start today — $49/mo →](https://whop.com/liftoffr/liftoffr-elite/)
+[Start today — $49/mo →](https://whop.com/liftoffr/liftoffr-elite/?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_5)
 
 Either way — you've got the checklist now. Use it. Print it. Run the score every Sunday. That alone puts you ahead of 99% of crypto investors.
 
