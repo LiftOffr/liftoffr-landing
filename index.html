@@ -157,7 +157,7 @@
   }
   // Click attribution: every Whop CTA click fires a conversion-intent event
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href*="whop.com/liftoffr"]');
+    var a = e.target.closest('a[href*="whop.com/"]');
     if (!a) return;
     var u = new URL(a.href, location.href);
     var utm = getUtms();
