@@ -125,6 +125,8 @@
 <link rel="dns-prefetch" href="https://ui-avatars.com">
 <link rel="dns-prefetch" href="https://www.clarity.ms">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preload" as="image" href="/img/torin-hero-bg-mobile.jpg?v=20260503b" media="(max-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="/img/torin-hero-bg.jpg?v=20260503b" media="(min-width: 769px)" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script defer src="/_vercel/insights/script.js"></script>
 
@@ -274,12 +276,19 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('/img/torin-hero-bg.jpg?v=20260503b');
+    background-image: image-set(
+      url('/img/torin-hero-bg.jpg?v=20260503b') 1x
+    );
     background-size: cover;
     background-position: center 25%;
     background-repeat: no-repeat;
     filter: grayscale(15%) brightness(0.7) contrast(1.05);
     opacity: 1;
+  }
+  @media (max-width: 768px) {
+    .hero-bg::before {
+      background-image: url('/img/torin-hero-bg-mobile.jpg?v=20260503b');
+    }
   }
   .hero-bg::after {
     content: '';
@@ -615,9 +624,10 @@
     .section { padding: 56px 18px; }
     .deliv-grid { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr; gap: 12px; }
-    .ind-grid { grid-template-columns: repeat(2, 1fr); }
+    .ind-grid { grid-template-columns: 1fr; }
+    .ind { padding: 22px 20px; }
     .founder-grid { grid-template-columns: 1fr; gap: 28px; text-align: left; }
-    .founder-grid img { max-width: 240px; margin: 0 auto; }
+    .founder-grid img { max-width: 280px; margin: 0 auto; }
     .pricing-card { padding: 32px 22px; }
     .price-amount { font-size: 54px; }
     .lm-wrap { grid-template-columns: 1fr; gap: 28px; }
