@@ -430,6 +430,69 @@
   .faq-a { display: none; padding-bottom: 20px; color: #888; font-size: 15px; line-height: 1.7; }
   .faq-item.open .faq-a { display: block; }
 
+  /* LEAD MAGNET BANNER */
+  .lm-section {
+    background: linear-gradient(135deg, #0a0000 0%, #1a0808 100%);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 72px 24px;
+  }
+  .lm-wrap {
+    max-width: 900px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .lm-pdf-mock {
+    background: #fff;
+    color: #111;
+    border-radius: 10px;
+    padding: 28px 24px;
+    box-shadow: 0 24px 60px rgba(230,57,70,0.25), 0 0 0 1px rgba(230,57,70,0.4);
+    transform: rotate(-3deg);
+    font-family: Arial, sans-serif;
+  }
+  .lm-pdf-mock .lmm-brand { font-weight: 900; letter-spacing: 3px; color: #e63946; font-size: 11px; margin-bottom: 16px; }
+  .lm-pdf-mock h3 { font-size: 22px; line-height: 1.1; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 14px; }
+  .lm-pdf-mock h3 em { color: #e63946; font-style: normal; }
+  .lm-pdf-mock .lmm-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 11px; }
+  .lm-pdf-mock .lmm-row:last-child { border-bottom: none; }
+  .lm-pdf-mock .lmm-row strong { color: #e63946; font-weight: 800; }
+  .lm-content h2 { font-size: clamp(26px,3.4vw,38px); margin-bottom: 16px; }
+  .lm-content h2 em { color: var(--red); font-style: normal; }
+  .lm-content p { color: #aaa; font-size: 15px; line-height: 1.65; margin-bottom: 24px; }
+  .lm-form { display: flex; gap: 8px; flex-wrap: wrap; max-width: 420px; margin-bottom: 12px; }
+  .lm-form input[type=email] {
+    flex: 1; min-width: 220px;
+    padding: 14px 16px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    font-family: var(--font);
+    font-size: 15px;
+  }
+  .lm-form input[type=email]:focus { outline: none; border-color: var(--red); }
+  .lm-form button {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: var(--font);
+    white-space: nowrap;
+  }
+  .lm-form button:hover { opacity: 0.9; }
+  .lm-trust { font-size: 12px; color: #555; }
+  @media (max-width: 768px) {
+    .lm-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .lm-pdf-mock { transform: none; max-width: 320px; margin: 0 auto; }
+  }
+
   /* FINAL CTA */
   .final-cta {
     text-align: center;
@@ -861,6 +924,36 @@
     </div>
   </div>
 </div>
+
+<!-- LEAD MAGNET / EMAIL CAPTURE -->
+<section class="lm-section" id="free-checklist">
+  <div class="lm-wrap">
+    <div class="lm-pdf-mock" aria-hidden="true">
+      <div class="lmm-brand">LIFTOFFR</div>
+      <h3>The BTC Cycle <em>Top Checklist</em></h3>
+      <div class="lmm-row"><span>1. CBBI</span><strong>85+ TOP</strong></div>
+      <div class="lmm-row"><span>2. Pi Cycle Top</span><strong>BINARY</strong></div>
+      <div class="lmm-row"><span>3. MVRV Z-Score</span><strong>5+ TOP</strong></div>
+      <div class="lmm-row"><span>4. Market Cipher B</span><strong>WEEKLY DIV</strong></div>
+      <div class="lmm-row"><span>5. Rainbow Chart</span><strong>RED ZONE</strong></div>
+      <div class="lmm-row"><span>6. 2Y MA Multiplier</span><strong>5× LINE</strong></div>
+      <div class="lmm-row"><span>7. Fear & Greed</span><strong>90+</strong></div>
+      <div class="lmm-row"><span>8. Google Trends</span><strong>80+</strong></div>
+      <div style="margin-top:14px;font-size:10px;color:#888;text-align:center;">8 indicators · Trigger zones · Plain English</div>
+    </div>
+    <div class="lm-content">
+      <div class="section-label">Free Download</div>
+      <h2>Get the <em>BTC Cycle Top Checklist</em></h2>
+      <p>The 8 indicators serious investors watch — with current trigger thresholds, plain-English commentary, and a confluence score that tells you exactly when to start taking profits. Free PDF. No spam.</p>
+      <!-- TODO: Replace this form action with your Beehiiv embed URL: https://embeds.beehiiv.com/<your-publication-id> -->
+      <form class="lm-form" action="https://embeds.beehiiv.com/REPLACE_WITH_PUBLICATION_ID" method="post" target="_blank">
+        <input type="email" name="email" placeholder="your@email.com" required>
+        <button type="submit">Send Me The PDF →</button>
+      </form>
+      <div class="lm-trust">No spam · Unsubscribe anytime · Used by 60+ LiftOffr members</div>
+    </div>
+  </div>
+</section>
 
 <!-- FINAL CTA -->
 <div class="final-cta" style="background: linear-gradient(180deg, #080808 0%, #0d0000 100%); border-top: 1px solid var(--border);">
