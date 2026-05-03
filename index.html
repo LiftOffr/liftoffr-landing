@@ -864,29 +864,169 @@
 </section>
 
 <!-- PRICING -->
+<style>
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    max-width: 1080px;
+    margin: 36px auto 0;
+    align-items: stretch;
+  }
+  .ptier {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .ptier:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+  .ptier-featured {
+    border: 2px solid var(--red);
+    background: linear-gradient(180deg, #1a0808 0%, #110404 100%);
+    box-shadow: 0 0 32px rgba(230,57,70,0.18);
+  }
+  .ptier-featured::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: var(--red);
+    border-radius: 16px 16px 0 0;
+  }
+  .ptier-badge {
+    display: inline-block;
+    background: rgba(230,57,70,0.12);
+    color: var(--red);
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 14px;
+    align-self: flex-start;
+  }
+  .ptier-badge.featured { background: var(--red); color: #fff; }
+  .ptier-name { font-size: 14px; color: #ccc; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.3px; }
+  .ptier-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
+  .ptier-price .num { font-size: 38px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
+  .ptier-price .per { font-size: 14px; color: #888; }
+  .ptier-orig { font-size: 13px; color: #666; text-decoration: line-through; margin-bottom: 8px; height: 16px; }
+  .ptier-frame { font-size: 13px; color: #999; margin-bottom: 18px; min-height: 18px; }
+  .ptier-frame strong { color: #fff; font-weight: 600; }
+  .ptier-features { list-style: none; padding: 0; margin: 0 0 22px; flex: 1; }
+  .ptier-features li { font-size: 13px; color: #bbb; padding: 5px 0; line-height: 1.45; }
+  .ptier-features li::before { content: '✓'; color: var(--red); font-weight: 700; margin-right: 8px; }
+  .ptier-cta {
+    display: block; text-align: center;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-weight: 700; font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .ptier-cta-primary { background: var(--red); color: #fff; }
+  .ptier-cta-primary:hover { background: #d62b3b; transform: translateY(-1px); }
+  .ptier-cta-secondary { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border); }
+  .ptier-cta-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--red); }
+  .ptier-stock {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .pricing-frame {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    max-width: 620px;
+    margin: 28px auto 0;
+    line-height: 1.65;
+  }
+  .pricing-frame strong { color: #fff; }
+  @media (max-width: 880px) {
+    .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 480px; }
+  }
+</style>
 <section class="pricing-section" id="pricing">
   <div class="section-wide">
     <div class="section-label">Get access</div>
-    <h2 style="text-align:center;">One plan. <em>Everything included.</em></h2>
-    <p style="color:var(--muted);margin-top:10px;font-size:16px;">No tiers. No upsells. The full system for $49/month.</p>
+    <h2 style="text-align:center;">One system. <em>Three ways in.</em></h2>
+    <p style="color:var(--muted);margin-top:10px;font-size:16px;">Same product. Same Discord. Same daily briefs. Pick the commitment level that fits.</p>
 
-    <div class="pricing-card">
-      <div class="pricing-badge">LiftOffr Elite</div>
-      <div><span class="price-amount">$49</span><span class="price-per">/mo</span></div>
-      <div class="price-sub">Cancel anytime. No contracts. Instant Discord access.</div>
-      <ul class="features-list">
-        <li><span class="check">✓</span> Daily BTC market brief — 8am MT, every weekday</li>
-        <li><span class="check">✓</span> Live cycle indicator dashboard (CBBI · Pi Cycle · MVRV-Z · Puell · Rainbow)</li>
-        <li><span class="check">✓</span> 4-hour trade-setup alerts (entry, target, invalidation)</li>
-        <li><span class="check">✓</span> Macro event watch (FOMC, CPI, NFP — auto-alerted 2 days out)</li>
-        <li><span class="check">✓</span> Full 6-module course (lifetime access)</li>
-        <li><span class="check">✓</span> AI Q&A bot trained on the curriculum</li>
-        <li><span class="check">✓</span> Private Discord community (60+ members)</li>
-        <li><span class="check">✓</span> 30-day money-back guarantee</li>
-      </ul>
-      <a href="https://whop.com/liftoffr/liftoffr-elite/?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing" target="_blank" rel="noopener" class="btn-red-xl" style="width:100%;text-align:center;display:block;">Start Timing the Cycle — $49/mo →</a>
-      <div class="guarantee-text">🛡️ 30-day money-back guarantee. If LiftOffr isn't right for you in the first 30 days, request a full refund. No questions, no friction.</div>
+    <div style="text-align:center;color:#777;font-size:14px;margin-top:16px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.65;">
+      Most crypto courses charge $497–$2,000 for static modules. We charge from <strong style="color:#fff;">$29/mo</strong> for live signals + indicator dashboard + the course included.
     </div>
+
+    <div class="pricing-grid">
+
+      <!-- ANNUAL (anchor) -->
+      <div class="ptier">
+        <span class="ptier-badge">Annual</span>
+        <div class="ptier-name">Best value, full year</div>
+        <div class="ptier-price"><span class="num">$390</span><span class="per">/yr</span></div>
+        <div class="ptier-orig">$588 if paid monthly</div>
+        <div class="ptier-frame">$32.50/mo · <strong>save $198</strong> vs. monthly</div>
+        <ul class="ptier-features">
+          <li>Daily BTC brief (weekday 8am MT)</li>
+          <li>Live cycle indicator dashboard</li>
+          <li>4hr trade-setup alerts</li>
+          <li>Macro event watch</li>
+          <li>Full 6-module course</li>
+          <li>Private Discord community</li>
+          <li>30-day money-back</li>
+          <li><strong style="color:#fff;">Locked-in pricing for 12 months</strong></li>
+        </ul>
+        <a href="https://whop.com/checkout/plan_NdlOR0aexgtg5?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_annual" target="_blank" rel="noopener" class="ptier-cta ptier-cta-secondary">Get the Year — $390 →</a>
+      </div>
+
+      <!-- FOUNDER LIFETIME (featured / decoy) -->
+      <div class="ptier ptier-featured">
+        <span class="ptier-badge featured">⚡ Founder — First 30 only</span>
+        <div class="ptier-name">Lock in the lowest rate, forever</div>
+        <div class="ptier-price"><span class="num">$29</span><span class="per">/mo lifetime</span></div>
+        <div class="ptier-orig">$49/mo public price</div>
+        <div class="ptier-frame">Less than $1/day · <strong>price never increases</strong></div>
+        <ul class="ptier-features">
+          <li>Everything in Annual, billed monthly</li>
+          <li>Daily BTC brief (weekday 8am MT)</li>
+          <li>Live cycle indicator dashboard</li>
+          <li>4hr trade-setup alerts + macro watch</li>
+          <li>Full 6-module course</li>
+          <li>Private Discord community</li>
+          <li>30-day money-back</li>
+          <li><strong style="color:var(--red);">Founder badge in Discord</strong></li>
+        </ul>
+        <a href="https://whop.com/checkout/plan_vQax3l3E38zWz?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_founder" target="_blank" rel="noopener" class="ptier-cta ptier-cta-primary">Claim Founder Rate →</a>
+        <div class="ptier-stock">⚠ First 30 members only · then $49/mo</div>
+      </div>
+
+      <!-- MONTHLY -->
+      <div class="ptier">
+        <span class="ptier-badge">Monthly</span>
+        <div class="ptier-name">Try it, no commitment</div>
+        <div class="ptier-price"><span class="num">$49</span><span class="per">/mo</span></div>
+        <div class="ptier-orig">&nbsp;</div>
+        <div class="ptier-frame">Cancel anytime · <strong>30-day refund</strong></div>
+        <ul class="ptier-features">
+          <li>Daily BTC brief (weekday 8am MT)</li>
+          <li>Live cycle indicator dashboard</li>
+          <li>4hr trade-setup alerts</li>
+          <li>Macro event watch</li>
+          <li>Full 6-module course</li>
+          <li>Private Discord community</li>
+          <li>30-day money-back</li>
+          <li>Refund any day, no questions</li>
+        </ul>
+        <a href="https://whop.com/liftoffr/liftoffr-elite/?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_monthly" target="_blank" rel="noopener" class="ptier-cta ptier-cta-secondary">Start Monthly — $49 →</a>
+      </div>
+
+    </div>
+
+    <p class="pricing-frame">That's <strong>$1.60–$0.97/day</strong> for the system that decides when you exit your stack. Less than your morning coffee, more than most people spend on the framework that decides their financial future.</p>
   </div>
 </section>
 
