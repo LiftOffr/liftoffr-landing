@@ -1,0 +1,45 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/ig",
+      "destination": "/links/?utm_source=instagram&utm_medium=bio&utm_campaign=evergreen&utm_content=ig_bio",
+      "permanent": false
+    },
+    {
+      "source": "/yt",
+      "destination": "/?utm_source=youtube&utm_medium=channel&utm_campaign=evergreen&utm_content=yt_channel",
+      "permanent": false
+    },
+    {
+      "source": "/tiktok",
+      "destination": "/links/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen&utm_content=tiktok_bio",
+      "permanent": false
+    },
+    {
+      "source": "/x",
+      "destination": "/links/?utm_source=twitter&utm_medium=bio&utm_campaign=evergreen&utm_content=x_bio",
+      "permanent": false
+    },
+    {
+      "source": "/checklist",
+      "destination": "/?utm_source=shortlink&utm_medium=share&utm_campaign=evergreen&utm_content=checklist#free-checklist",
+      "permanent": false
+    },
+    {
+      "source": "/join",
+      "destination": "https://whop.com/checkout/plan_aYmWvRCWPXqdB?utm_source=shortlink&utm_medium=share&utm_campaign=evergreen&utm_content=join",
+      "permanent": false
+    },
+    {
+      "source": "/founder",
+      "destination": "https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=shortlink&utm_medium=share&utm_campaign=evergreen&utm_content=founder",
+      "permanent": false
+    },
+    {
+      "source": "/discord",
+      "destination": "https://whop.com/liftoffr/?utm_source=shortlink&utm_medium=share&utm_campaign=evergreen&utm_content=discord",
+      "permanent": false
+    }
+  ]
+}
