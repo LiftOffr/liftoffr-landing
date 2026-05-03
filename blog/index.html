@@ -24,6 +24,25 @@
     .blog-meta { font-size: 0.9rem; color: #777; }
     a { color: #dc2626; }
   </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/liftoffr"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+})();
+</script>
+
 </head>
 <body>
 

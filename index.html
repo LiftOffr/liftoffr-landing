@@ -119,8 +119,69 @@
 <link rel="dns-prefetch" href="https://framerusercontent.com">
 <link rel="dns-prefetch" href="https://ui-avatars.com">
 <link rel="dns-prefetch" href="https://www.clarity.ms">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script defer src="/_vercel/insights/script.js"></script>
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(name, params) {
+    if (typeof gtag === 'function') gtag('event', name, params || {});
+    if (window.clarity) try { window.clarity('event', name); } catch(e){}
+  }
+  function getUtms() {
+    var p = new URLSearchParams(window.location.search);
+    return {
+      source: p.get('utm_source') || '(direct)',
+      medium: p.get('utm_medium') || '(none)',
+      campaign: p.get('utm_campaign') || '(none)',
+      content: p.get('utm_content') || '(none)'
+    };
+  }
+  // Click attribution: every Whop CTA click fires a conversion-intent event
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="whop.com/liftoffr"]');
+    if (!a) return;
+    var u = new URL(a.href, location.href);
+    var utm = getUtms();
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: u.searchParams.get('utm_content') || 'unknown',
+      destination: 'whop_checkout',
+      page: location.pathname,
+      utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign
+    });
+  }, true);
+  // Beehiiv form submit (popup or inline) — listen for postMessage from beehiiv iframe
+  window.addEventListener('message', function(e){
+    if (!e.origin || !/beehiiv\.com$/.test(new URL(e.origin).hostname)) return;
+    var d = e.data || {};
+    if (d && (d.type === 'beehiiv:subscribe' || d.event === 'subscribed' || /subscribe/i.test(d.type || ''))) {
+      var utm = getUtms();
+      track('lead_captured', { source: 'beehiiv_popup', page: location.pathname,
+        utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign });
+    }
+  });
+  // Pageview-level UTM capture (for funnel analysis)
+  window.addEventListener('load', function(){
+    var utm = getUtms();
+    if (utm.source !== '(direct)') {
+      track('utm_landing', { utm_source: utm.source, utm_medium: utm.medium,
+        utm_campaign: utm.campaign, utm_content: utm.content, page: location.pathname });
+    }
+  });
+})();
+</script>
 
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
