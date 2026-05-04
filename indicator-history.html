@@ -327,13 +327,25 @@
     flex-wrap: wrap; gap: 12px;
   }
 
+  /* TABLE SCROLL WRAPPER */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    margin-bottom: 4px;
+  }
+  .ind-table { min-width: 580px; }
+
   /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 12px 16px; }
     .hero { padding: 40px 18px 28px; }
     .section { padding: 0 18px 48px; }
-    .ind-table { font-size: 13px; }
-    .ind-table thead th, .ind-table tbody td { padding: 10px 12px; }
+    .ind-table { font-size: 13px; min-width: 520px; }
+    .ind-table thead th, .ind-table tbody td { padding: 10px 10px; }
+    /* Hide the Notes column on mobile — Indicator + Reading + Signal still visible */
+    .ind-table th:nth-child(4),
+    .ind-table td:nth-child(4) { display: none; }
     .cycle-year { font-size: 22px; }
     .confluence-box { padding: 22px 20px; }
     footer { flex-direction: column; text-align: center; padding: 20px; }
@@ -694,6 +706,15 @@
     <a href="https://www.youtube.com/@torin-liftoffr" rel="me noopener" target="_blank" style="color:#555;">YouTube</a>
   </div>
 </footer>
+
+<script>
+  document.querySelectorAll('.ind-table').forEach(function(t) {
+    var w = document.createElement('div');
+    w.className = 'table-wrap';
+    t.parentNode.insertBefore(w, t);
+    w.appendChild(t);
+  });
+</script>
 
 </body>
 </html>
