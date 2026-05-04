@@ -690,6 +690,40 @@
     .problem-block p.kicker { font-size: 18px; padding-left: 14px; }
   }
 
+  /* MOBILE STICKY CTA */
+  .mobile-sticky-cta {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(8,8,8,0.96);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+  }
+  .mobile-sticky-cta a {
+    display: block;
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 0 24px rgba(230,57,70,0.35);
+  }
+  .mobile-sticky-cta .sticky-sub {
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+    margin-top: 6px;
+  }
+  @media (max-width: 768px) {
+    .mobile-sticky-cta { display: block; }
+    body { padding-bottom: 80px; }
+  }
+
   /* Scroll-in fade */
   .reveal {
     opacity: 0; transform: translateY(24px);
@@ -1092,6 +1126,10 @@
     </div>
 
     <p class="pricing-frame">That's <strong>$1.60–$0.97/day</strong> for the system that decides when you exit your stack. Less than your morning coffee, more than most people spend on the framework that decides their financial future.</p>
+
+    <p style="text-align:center;color:#555;font-size:13px;margin-top:20px;">
+      Checkout and membership are managed by <a href="https://whop.com" target="_blank" rel="noopener" style="color:#777;text-decoration:underline;">Whop</a> — a secure platform used by 100,000+ communities. Takes under 60 seconds. Cancel with one click, no questions.
+    </p>
   </div>
 </section>
 
@@ -1222,6 +1260,12 @@
   </div>
 </section>
 
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-sticky-cta" id="mobileStickyCta">
+  <a href="https://whop.com/checkout/plan_aYmWvRCWPXqdB?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=mobile_sticky" target="_blank" rel="noopener">Join LiftOffr Elite — $49/mo →</a>
+  <div class="sticky-sub">30-day refund · Cancel anytime · Instant Discord access</div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" loading="lazy" decoding="async" style="height:22px;display:block;opacity:0.7;" />
@@ -1239,6 +1283,18 @@
 </footer>
 
 <script>
+  // Mobile sticky CTA — hide when pricing section is in view
+  (function() {
+    var sticky = document.getElementById('mobileStickyCta');
+    var pricing = document.getElementById('pricing');
+    if (!sticky || !pricing) return;
+    var io = new IntersectionObserver(function(entries) {
+      sticky.style.opacity = entries[0].isIntersecting ? '0' : '1';
+      sticky.style.pointerEvents = entries[0].isIntersecting ? 'none' : '';
+    }, { threshold: 0.1 });
+    io.observe(pricing);
+  })();
+
   // FAQ accordion
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
