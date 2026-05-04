@@ -590,6 +590,58 @@
   .lm-content p { color: #aaa; font-size: 15px; line-height: 1.65; margin-bottom: 20px; }
   .lm-trust { font-size: 12px; color: #555; margin-top: 8px; }
 
+  /* TESTIMONIALS */
+  .testimonials-section {
+    padding: 72px 20px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1080px;
+    margin: 36px auto 0;
+  }
+  .testimonial-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .testimonial-card::before {
+    content: '"';
+    position: absolute; top: 16px; left: 22px;
+    font-size: 48px; line-height: 1;
+    color: var(--red); opacity: 0.4;
+    font-family: Georgia, serif;
+  }
+  .testimonial-text {
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    padding-top: 20px;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .testimonial-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(230,57,70,0.15);
+    border: 1px solid rgba(230,57,70,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: var(--red);
+    flex-shrink: 0;
+  }
+  .testimonial-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .testimonial-meta { font-size: 12px; color: #666; margin-top: 2px; }
+  @media (max-width: 860px) {
+    .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; }
+  }
+
   /* FINAL CTA */
   .final-cta {
     text-align: center;
@@ -1108,6 +1160,50 @@
       <div class="lm-form-wrap" id="beehiivFormMount" style="min-height:140px"></div>
       <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="f449a9d6-c087-4224-b1a8-9aaf2576f9f9"></script>
       <div class="lm-trust">No spam · Unsubscribe anytime · Used by 60+ LiftOffr members</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS — add real member quotes then remove the `hidden` attribute -->
+<section class="testimonials-section" hidden>
+  <div class="section-wide">
+    <div class="section-label">What members say</div>
+    <h2 style="text-align:center;">Real exits. <em>Real results.</em></h2>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <p class="testimonial-text"><!-- PASTE MEMBER QUOTE HERE --></p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><!-- INITIALS --></div>
+          <div>
+            <div class="testimonial-name"><!-- NAME --></div>
+            <div class="testimonial-meta"><!-- e.g. "Member since Jan 2026" --></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-text"><!-- PASTE MEMBER QUOTE HERE --></p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><!-- INITIALS --></div>
+          <div>
+            <div class="testimonial-name"><!-- NAME --></div>
+            <div class="testimonial-meta"><!-- e.g. "Member since Feb 2026" --></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="testimonial-text"><!-- PASTE MEMBER QUOTE HERE --></p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><!-- INITIALS --></div>
+          <div>
+            <div class="testimonial-name"><!-- NAME --></div>
+            <div class="testimonial-meta"><!-- e.g. "Member since Mar 2026" --></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

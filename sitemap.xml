@@ -12,12 +12,7 @@
   </url>
   <url>
     <loc>https://liftoffr.com/blog/mvrv-ratio-bitcoin-indicator</loc>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://liftoffr.com/links</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>
