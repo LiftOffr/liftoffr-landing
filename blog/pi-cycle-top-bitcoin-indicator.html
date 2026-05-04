@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn the Pi Cycle Top indicator for Bitcoin: how the 111-day MA crossing above 2× the 350-day MA has called every major cycle peak within days. Historical track record, the math behind π, and how to use it in confluence.">
+    <meta name="keywords" content="pi cycle top bitcoin, pi cycle top indicator, bitcoin pi cycle indicator, bitcoin cycle top signal, 111 day moving average bitcoin">
+    <meta property="og:title" content="Pi Cycle Top Indicator for Bitcoin: The MA Cross That Called Every Cycle Peak">
+    <meta property="og:description" content="The Pi Cycle Top indicator has fired within days of every major Bitcoin cycle top. Learn the math, the history, and how to use it without overtrading.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://liftoffr.com/blog/pi-cycle-top-bitcoin-indicator">
+    <meta property="og:image" content="https://liftoffr.com/og-image.png">
+    <title>Pi Cycle Top Indicator for Bitcoin: The MA Cross That Called Every Cycle Peak</title>
+    <link rel="canonical" href="https://liftoffr.com/blog/pi-cycle-top-bitcoin-indicator">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://liftoffr.com/blog/pi-cycle-top-bitcoin-indicator#article",
+          "headline": "Pi Cycle Top Indicator for Bitcoin: The MA Cross That Called Every Cycle Peak",
+          "description": "Learn the Pi Cycle Top indicator for Bitcoin: how the 111-day MA crossing above 2× the 350-day MA has called every major cycle peak within days. Historical track record, the math behind π, and how to use it in confluence.",
+          "datePublished": "2026-05-04",
+          "dateModified": "2026-05-04",
+          "author": {
+            "@type": "Person",
+            "name": "Torin Christianson",
+            "url": "https://liftoffr.com/",
+            "sameAs": [
+              "https://www.instagram.com/torin_christianson/",
+              "https://www.youtube.com/@torin-liftoffr"
+            ]
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "LiftOffr",
+            "url": "https://liftoffr.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://liftoffr.com/blog/pi-cycle-top-bitcoin-indicator"
+          },
+          "image": "https://liftoffr.com/og-image.png",
+          "isPartOf": {
+            "@type": "Blog",
+            "name": "LiftOffr Bitcoin Cycle Trading Guides",
+            "url": "https://liftoffr.com/blog"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the Pi Cycle Top indicator for Bitcoin?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Pi Cycle Top is a technical indicator that fires when Bitcoin's 111-day moving average crosses above twice the 350-day moving average (350MA×2). It is named after the mathematical constant π (pi) because the ratio 350/111 ≈ 3.153, which is close to π ≈ 3.14159."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How accurate has the Pi Cycle Top indicator been historically?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Pi Cycle Top fired within a few days of Bitcoin's cycle peak in 2013, 2017, and April 2021. However, the April 2021 signal coincided with a local top, not the final cycle peak — Bitcoin went on to make a new all-time high in November 2021. This makes it essential to use Pi Cycle alongside other confluence indicators rather than as a standalone sell trigger."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between the April 2021 and November 2021 tops?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Pi Cycle indicator fired in mid-April 2021, when Bitcoin was trading around $64,000. Bitcoin then corrected roughly 50% before recovering and making a new all-time high of approximately $69,000 in November 2021. The indicator did not re-fire at the November top, which is why LiftOffr and other analysts treat it as one signal among many rather than an automatic exit trigger."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I watch the Pi Cycle Top indicator?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Pi Cycle Top is available on LookIntoBitcoin (lookintobitcoin.com), which displays the 111-day MA and 2× 350-day MA overlaid on the Bitcoin price chart in real time. It is also available on TradingView as a community script."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Should I sell all my Bitcoin when the Pi Cycle fires?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. The Pi Cycle is a binary signal — it either fires or it does not — and it has only fired three times with confirmed cycle-top proximity. Acting on it alone, without confirmation from other indicators like MVRV, CBBI, or on-chain flow data, introduces unnecessary risk of exiting too early or missing a final leg higher, as happened in 2021."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why are the numbers 111 and 350 used in the Pi Cycle indicator?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The specific values 111 and 350 were identified by analyst Philip Swift through backtesting. The ratio 350 ÷ 111 ≈ 3.153, which is very close to π (pi ≈ 3.14159). This mathematical near-coincidence, combined with the indicator's historical accuracy at cycle tops, is why it was named the Pi Cycle Top indicator."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "LiftOffr",
+              "item": "https://liftoffr.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://liftoffr.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Pi Cycle Top Indicator for Bitcoin",
+              "item": "https://liftoffr.com/blog/pi-cycle-top-bitcoin-indicator"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a1a; font-size: 2.2em; margin-bottom: 0.5em; }
+        h2 { color: #2c3e50; font-size: 1.8em; margin-top: 1.2em; margin-bottom: 0.6em; border-bottom: 3px solid #f39c12; padding-bottom: 0.3em; }
+        h3 { color: #34495e; font-size: 1.4em; margin-top: 1em; margin-bottom: 0.4em; }
+        p { margin-bottom: 1em; font-size: 1.05em; }
+        .meta { color: #7f8c8d; font-size: 0.95em; margin-bottom: 2em; border-bottom: 1px solid #ecf0f1; padding-bottom: 1em; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-left: 4px solid #f39c12; margin: 1.5em 0; border-radius: 4px; }
+        .threshold-box { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 1.5em 0; border: 1px solid #dee2e6; }
+        .signal-table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
+        .signal-table th, .signal-table td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
+        .signal-table th { background-color: #f39c12; color: white; }
+        .signal-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .author { color: #7f8c8d; font-style: italic; margin-top: 2em; padding-top: 1em; border-top: 1px solid #ecf0f1; }
+        .internal-link { color: #667eea; text-decoration: none; }
+        .internal-link:hover { text-decoration: underline; }
+        ul { margin: 1em 0; padding-left: 25px; }
+        li { margin-bottom: 0.7em; }
+        strong { font-weight: 600; }
+        .diagram-desc { background-color: #f0f7ff; padding: 20px; border-radius: 4px; margin: 1.5em 0; border-left: 4px solid #3498db; }
+        .site-nav { background: #080808; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e1e1e; margin: -20px -20px 32px; }
+        .site-nav img { height: 24px; display: block; }
+        .site-nav-links { display: flex; align-items: center; gap: 20px; }
+        .site-nav-links a { color: #bbb; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .site-nav-links a:hover { color: #fff; }
+        .site-nav-cta { background: #e63946; color: #fff !important; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+        .site-nav-cta:hover { opacity: 0.9; }
+        .breadcrumb { font-size: 13px; color: #888; margin-bottom: 20px; }
+        .breadcrumb a { color: #e63946; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .cta-box { background: linear-gradient(135deg, #1a0808 0%, #2d0a0a 100%); color: white; padding: 30px; border-radius: 12px; margin-top: 2em; text-align: center; border: 1px solid rgba(230,57,70,0.35); box-shadow: 0 0 32px rgba(230,57,70,0.1); }
+        .cta-box h3 { color: white; border: none; font-size: 1.4em; margin-bottom: 0.5em; }
+        .cta-box p { color: #ccc; }
+        .cta-box a { background-color: #e63946; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; display: inline-block; margin-top: 16px; transition: opacity 0.2s, transform 0.2s; font-size: 15px; }
+        .cta-box a:hover { opacity: 0.9; transform: translateY(-1px); }
+        .cta-box ul { color: #bbb; text-align: left; display: inline-block; margin-top: 12px; }
+        .faq-section { margin-top: 3em; padding-top: 2em; border-top: 2px solid #ecf0f1; }
+        .faq-section h2 { font-size: 1.4em; margin-bottom: 1em; }
+        .faq-item-blog { margin-bottom: 1.2em; }
+        .faq-item-blog summary { font-weight: 600; cursor: pointer; padding: 10px 0; color: #2c3e50; list-style: none; display: flex; justify-content: space-between; }
+        .faq-item-blog summary::-webkit-details-marker { display: none; }
+        .faq-item-blog summary::after { content: '+'; color: #e63946; font-size: 18px; }
+        details[open] .faq-item-blog summary::after { content: '−'; }
+        .faq-item-blog p { color: #555; margin: 8px 0 0; padding-bottom: 12px; }
+        details { border-bottom: 1px solid #dee2e6; }
+        .disclaimer { background-color: #f8f9fa; border-left: 4px solid #6c757d; padding: 14px 18px; margin-top: 2em; border-radius: 4px; font-size: 0.92em; color: #6c757d; }
+    </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  // Scroll depth tracking
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
+})();
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/"><img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" /></a>
+  <div class="site-nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/indicator-history">Indicators</a>
+    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=pi_cycle_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo</a>
+  </div>
+</nav>
+
+    <article>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Pi Cycle Top Indicator</p>
+        <div class="meta">
+            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+        </div>
+
+        <h1>Pi Cycle Top Indicator for Bitcoin: The MA Cross That Called Every Cycle Peak</h1>
+
+        <p>Of all the technical indicators used to time Bitcoin cycle tops, the Pi Cycle Top stands out for one reason that is hard to ignore: it has fired within a handful of days of every major Bitcoin cycle peak on record. Not close — within days. In 2013, in 2017, and at a local top in April 2021, the signal triggered as Bitcoin was forming its cycle high.</p>
+
+        <p>That track record draws attention. It also invites misunderstanding. This article covers exactly what the Pi Cycle Top indicator is, the math behind it, why it is named after π, its historical accuracy, the important nuances in the 2021 cycle, and how to use it responsibly as part of a broader confluence framework — rather than as a standalone exit signal.</p>
+
+        <h2>1. What Is the Pi Cycle Top Indicator?</h2>
+
+        <p>The Pi Cycle Top is a Bitcoin-specific technical indicator created by analyst Philip Swift. It plots two moving averages on a Bitcoin price chart and generates a signal — a binary "fired" or "not fired" — when one crosses above the other.</p>
+
+        <p>The two lines are:</p>
+
+        <ul>
+            <li><strong>The 111-day simple moving average (111MA)</strong> — a shorter-term average that reacts more quickly to recent price movement.</li>
+            <li><strong>2× the 350-day simple moving average (350MA×2)</strong> — a longer-term average, doubled, that rises more slowly and represents the underlying cycle trend amplified.</li>
+        </ul>
+
+        <p>The signal fires when the 111MA crosses <em>above</em> the 350MA×2 line. At that precise moment — historically — Bitcoin has been at or very near a major cycle top.</p>
+
+        <div class="highlight">
+            <strong>The core signal:</strong> When the 111-day MA crosses above 2× the 350-day MA, the Pi Cycle Top indicator has fired. Historically, this crossover has occurred within 1 to 14 days of a major Bitcoin cycle peak.
+        </div>
+
+        <p>Unlike many indicators, Pi Cycle produces no numeric score or gradient reading. There is no "getting closer" or "partially fired." It is on or off. Either the crossover has happened or it has not. This binary nature is both its greatest strength — clarity — and a key reason it must be combined with other signals.</p>
+
+        <h2>2. The Math Behind the Indicator — and Why It Is Named After π</h2>
+
+        <p>The name is not marketing. There is genuine mathematics behind it.</p>
+
+        <p>The ratio of the two period lengths — 350 divided by 111 — equals approximately <strong>3.153</strong>. The mathematical constant π (pi) is approximately <strong>3.14159</strong>. The two values differ by less than 0.4%.</p>
+
+        <div class="diagram-desc">
+            <strong>The math:</strong> 350 ÷ 111 = 3.1531... &nbsp;|&nbsp; π = 3.14159... &nbsp;|&nbsp; Difference: ~0.36%
+        </div>
+
+        <p>Philip Swift noticed this relationship while backtesting different moving average combinations to find which crossover historically aligned most closely with Bitcoin cycle tops. The period lengths that worked best — 111 days and 350 days — happened to produce a ratio almost identical to pi. The name followed naturally.</p>
+
+        <p>It is worth being clear about what this means and what it does not mean. The indicator does not rely on some mystical property of π. The explanation most likely lies in Bitcoin's four-year halving cycle: 350 days is close to one year, and 111 days is roughly one-third of a year, a relationship that maps onto the cyclical rhythm of Bitcoin's market structure. The pi coincidence is notable but not causal. What matters is that the specific moving average periods have been predictive of cycle tops in the historical data.</p>
+
+        <h3>Why These Periods Work (The Practical Explanation)</h3>
+
+        <p>The 350-day MA moves slowly. It smooths out short-term noise and reflects the long-term price trend — the underlying bull market structure. Doubling it (350MA×2) creates a ceiling line that rises more steeply than the raw average, tracking the upper bound of the cycle's price expansion.</p>
+
+        <p>The 111-day MA is faster. It tracks medium-term price momentum. During a bull run, price surges and pulls the 111MA upward rapidly. At cycle tops, momentum becomes so extreme that the 111MA catches and crosses the 350MA×2 line — even though the 350MA×2 is itself elevated by the doubling factor.</p>
+
+        <p>The crossover, in other words, marks a point where short-to-medium-term momentum has outrun even the amplified long-term trend. That is historically a sign of overextension.</p>
+
+        <h2>3. Historical Track Record: 2013, 2017, and 2021</h2>
+
+        <p>The Pi Cycle Top has generated three confirmed signals since Bitcoin's price history became long enough to calculate both moving averages. Here is what happened at each.</p>
+
+        <table class="signal-table">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Signal Date (Approx.)</th>
+                    <th>Outcome</th>
+                    <th>Days to Actual Top</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2013</td>
+                    <td>Late November 2013</td>
+                    <td>Bitcoin peaked near $1,150 shortly after signal fired</td>
+                    <td>~3 days</td>
+                </tr>
+                <tr>
+                    <td>2017</td>
+                    <td>Early December 2017</td>
+                    <td>Bitcoin peaked near $19,500 within days of signal</td>
+                    <td>~5 days</td>
+                </tr>
+                <tr>
+                    <td>2021 (local top)</td>
+                    <td>Mid-April 2021</td>
+                    <td>Bitcoin peaked near $64,000 — but made a new ATH in November 2021</td>
+                    <td>1–2 days to local top; cycle top was 7 months later</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>The 2013 and 2017 signals were nearly perfect. Bitcoin formed its cycle top within days of the crossover in both cases, then entered prolonged bear markets. If you were watching the indicator and understood its signal, the timing was remarkable.</p>
+
+        <p>The 2021 cycle is more complicated — and more instructive.</p>
+
+        <h3>The April 2021 vs. November 2021 Nuance</h3>
+
+        <p>In mid-April 2021, the Pi Cycle Top fired when Bitcoin was trading around $64,000. Bitcoin then sold off sharply — dropping roughly 50% to around $29,000 by late July 2021. By that measure, the signal worked: it identified a major local top.</p>
+
+        <p>But Bitcoin did not stay down. The market recovered through the summer and made a new all-time high of approximately $69,000 in November 2021. The Pi Cycle indicator did <em>not</em> re-fire at that second, higher top.</p>
+
+        <p>This is the single most important nuance in the indicator's history, and it illustrates both the power and the limitation of the signal:</p>
+
+        <ul>
+            <li><strong>The power:</strong> It correctly identified a major local top in April 2021. Anyone who reduced exposure significantly when it fired avoided a 50% drawdown.</li>
+            <li><strong>The limitation:</strong> It did not identify the final cycle peak. The November 2021 top — which turned out to be the true cycle high — occurred without the indicator re-firing, and was only identifiable in hindsight through other signals (MVRV at extreme levels, on-chain data, weakening momentum).</li>
+        </ul>
+
+        <div class="highlight">
+            <strong>The lesson from 2021:</strong> A Pi Cycle signal is a serious warning. It is not a guaranteed final-top signal. The 2021 cycle showed that Bitcoin can form a new all-time high after the indicator fires. This is exactly why confluence with other indicators is essential.
+        </div>
+
+        <p>See how Pi Cycle performed at every Bitcoin cycle top — including full indicator context — at <a href="/indicator-history" class="internal-link">the LiftOffr indicator history page</a>.</p>
+
+        <h2>4. How the Pi Cycle Fits into a Confluence Framework</h2>
+
+        <p>At LiftOffr, we track eight indicators in confluence. No single one of them — not Pi Cycle, not MVRV, not any other — is treated as a standalone trade trigger. The reason is simple: Bitcoin's market is complex enough that any single signal will eventually produce a false or incomplete read. The 2021 cycle demonstrated this for Pi Cycle specifically.</p>
+
+        <p>Confluence means waiting for multiple independent signals to agree before acting with conviction. When they align, the probability of being correct increases substantially. When they diverge, it is a signal to wait and gather more information.</p>
+
+        <h3>Pi Cycle + MVRV: A Powerful Combination</h3>
+
+        <p>The <a href="/blog/mvrv-ratio-bitcoin-indicator" class="internal-link">MVRV ratio</a> measures Bitcoin's market capitalization relative to what investors actually paid for their coins (the realized cap). When MVRV climbs into extreme territory — historically above 5.0 — it indicates that the market is significantly overvalued relative to investor cost basis. Major tops have historically formed when MVRV was elevated.</p>
+
+        <p>Pi Cycle is price-based and technical. MVRV is on-chain and fundamental. When both are elevated simultaneously — Pi Cycle has fired <em>and</em> MVRV is above 4.5 — the confluence of a technical momentum extreme and a fundamental overvaluation extreme creates a much stronger case for caution than either signal alone.</p>
+
+        <p>In the April 2021 local top, both signals aligned. In November 2021 (the actual cycle peak), MVRV was at a lower reading than April, which provided additional context that the November top was less extreme from an on-chain perspective — even though it was a higher price.</p>
+
+        <h3>Pi Cycle + Other Signals</h3>
+
+        <p>Other indicators that work well alongside Pi Cycle in a confluence framework include:</p>
+
+        <ul>
+            <li><strong>CBBI (Crypto Bottom Indicator):</strong> A composite of multiple on-chain metrics scored 0–100. When CBBI climbs above 85 and Pi Cycle fires, the combination has historically aligned with major tops.</li>
+            <li><strong>Exchange inflows:</strong> Large spikes in Bitcoin flowing to exchanges signal that holders are preparing to sell. When this occurs alongside a Pi Cycle signal, it confirms selling pressure.</li>
+            <li><strong>Long-term holder behavior:</strong> On-chain data tracking whether long-term Bitcoin holders are distributing to newer, shorter-term buyers. Distribution at cycle tops is a consistent pattern.</li>
+            <li><strong>Momentum indicators:</strong> Price momentum weakening (lower highs in RSI, divergences in other oscillators) at the same time Pi Cycle fires adds technical confirmation.</li>
+        </ul>
+
+        <h2>5. How to Watch the Pi Cycle Top Indicator</h2>
+
+        <p>The Pi Cycle Top is available on <strong>LookIntoBitcoin</strong> (lookintobitcoin.com), which provides a real-time chart showing the 111-day MA and the 2× 350-day MA overlaid on the Bitcoin price. It is one of the most widely referenced on-chain charting platforms in the Bitcoin analysis community and updates daily.</p>
+
+        <p>The indicator is also available as a community script on TradingView, where you can add it to any Bitcoin chart.</p>
+
+        <p>When watching the Pi Cycle, the key things to monitor are:</p>
+
+        <ul>
+            <li><strong>The gap between the two lines:</strong> As the 111MA approaches the 350MA×2, the gap narrows. A narrowing gap — especially during a bull market — is an early warning that the crossover may be approaching.</li>
+            <li><strong>How fast the gap is closing:</strong> A rapid narrowing (driven by a sharp price rally accelerating the 111MA) is more urgent than a slow convergence.</li>
+            <li><strong>Whether it has fired:</strong> Once the crossover occurs, the signal is active. It does not reset until the lines diverge again and conditions reset — which typically requires a significant price decline and subsequent recovery phase.</li>
+        </ul>
+
+        <div class="diagram-desc">
+            <strong>What to look for on the chart:</strong> Two lines plotted over the Bitcoin price. The lower, slower-moving line is 2× the 350-day MA. The faster line is the 111-day MA. When they are far apart (111MA below 350MA×2), the indicator is dormant. When they converge and the 111MA crosses above, the indicator fires.
+        </div>
+
+        <h2>6. What the Pi Cycle Cannot Tell You</h2>
+
+        <p>Understanding the limits of any indicator is as important as understanding its strengths. For Pi Cycle specifically:</p>
+
+        <ul>
+            <li><strong>It does not give you a price target.</strong> The indicator fires based on moving average relationships, not price levels. It says nothing about how high Bitcoin might go before or after the signal.</li>
+            <li><strong>It does not tell you which top is the final one.</strong> As 2021 showed, there can be a local top followed by a new all-time high. Pi Cycle fired at the local top, not the final one.</li>
+            <li><strong>It provides no numeric score.</strong> Unlike MVRV or CBBI, there is no gradient. You cannot say "Pi Cycle is at 70% of the way to firing." Either it has fired or it has not.</li>
+            <li><strong>It has a limited sample size.</strong> Three confirmed signals across three cycles is a small dataset. The indicator has been accurate across those three instances, but three data points cannot provide statistical certainty about future behavior.</li>
+            <li><strong>It says nothing about bottoms.</strong> Pi Cycle is purely a top signal. It has no analog for identifying cycle lows.</li>
+        </ul>
+
+        <h2>7. Using the Pi Cycle Responsibly: An Educational Framework</h2>
+
+        <p>Given both the indicator's track record and its limitations, a responsible approach treats it as an important input rather than a final answer. When the Pi Cycle fires, the appropriate response is heightened awareness and a review of the full confluence picture — not an automatic exit.</p>
+
+        <p>A practical framework for using Pi Cycle as one of multiple signals:</p>
+
+        <div class="threshold-box">
+            <strong>Pi Cycle Signal States and Suggested Response:</strong>
+            <ul>
+                <li><strong>Not fired, lines far apart:</strong> No immediate concern from this indicator. Focus on other signals for current cycle positioning.</li>
+                <li><strong>Not fired, lines converging rapidly:</strong> Early warning. Begin reviewing overall exposure and checking MVRV, on-chain flows, and other confluence indicators more frequently.</li>
+                <li><strong>Just fired:</strong> This is a significant event. Review the full confluence picture immediately. Is MVRV elevated? Are on-chain signals pointing to distribution? Are other technical signals weakening? If multiple signals agree, this warrants a measured reduction in risk exposure.</li>
+                <li><strong>Fired, but other signals are neutral:</strong> Exercise caution but do not act in isolation. The 2021 cycle showed that the indicator can fire at a local top while the cycle continues. Monitor closely and wait for confluence before making major position changes.</li>
+            </ul>
+        </div>
+
+        <p>This is the approach at LiftOffr. We synthesize Pi Cycle with seven other indicators every day in a single confluence brief. The goal is not to react to any single signal — it is to understand the weight of evidence across all signals and act when that weight becomes overwhelming in one direction.</p>
+
+        <p>This approach is fundamentally educational and analytical. Nothing in this article — or in the Pi Cycle indicator itself — constitutes financial advice. Every investor's situation is different, and cycle indicators are tools for understanding market conditions, not guarantees of future outcomes.</p>
+
+        <div class="highlight">
+            <strong>Bottom line on Pi Cycle:</strong> It is one of the most remarkable technical signals in Bitcoin's history, and its track record is genuinely impressive. Treat it as a serious warning when it fires. Do not treat it as a definitive final answer on its own. Pair it with on-chain data, other technical signals, and your own risk management framework.
+        </div>
+
+        <h2>Pi Cycle and the LiftOffr Approach</h2>
+
+        <p>At LiftOffr, Pi Cycle is one of eight indicators we track in confluence. It sits alongside MVRV, CBBI, long-term holder behavior, exchange flow data, and several other signals. Every morning, members receive a plain-English daily brief synthesizing where all eight indicators stand — not as a trade signal, but as an educational read on where the cycle appears to be.</p>
+
+        <p>When Pi Cycle fires in a future cycle, members will know about it immediately. More importantly, they will see how it lines up with the other seven signals — whether the confluence is building toward a top or whether other indicators are telling a different story. That context is what separates informed decision-making from reacting to a single data point.</p>
+
+        <div class="cta-box">
+            <h3>Track Pi Cycle Alongside 7 Other Indicators — Daily</h3>
+            <p>LiftOffr members get a daily confluence brief covering Pi Cycle, MVRV, CBBI, and five more signals — synthesized into one clear read on the Bitcoin cycle every morning.</p>
+            <p><strong>Founder Rate: $29/month</strong> — lock it in before the price increases.</p>
+            <ul>
+                <li>Daily indicator confluence brief (8am MT)</li>
+                <li>Pi Cycle, MVRV, CBBI, and 5 more signals tracked in real time</li>
+                <li>Historical cycle context for every indicator</li>
+                <li>Private community of serious Bitcoin cycle analysts</li>
+                <li>30-day money-back guarantee</li>
+            </ul>
+            <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=pi_cycle_article_cta" target="_blank" rel="noopener">Join LiftOffr at the Founder Rate</a>
+        </div>
+
+        <div class="faq-section">
+          <h2>FAQ: Pi Cycle Top Indicator</h2>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What is the Pi Cycle Top indicator for Bitcoin?</summary>
+              <p>The Pi Cycle Top is a technical indicator that fires when Bitcoin's 111-day moving average crosses above twice the 350-day moving average (350MA×2). It is named after the mathematical constant π (pi) because the ratio 350/111 ≈ 3.153, which is very close to π ≈ 3.14159.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>How accurate has the Pi Cycle Top been historically?</summary>
+              <p>The Pi Cycle Top fired within a few days of Bitcoin's cycle peak in 2013, 2017, and April 2021. However, the April 2021 signal coincided with a local top, not the final cycle peak — Bitcoin went on to make a new all-time high in November 2021. This makes it essential to use Pi Cycle alongside other confluence indicators rather than as a standalone signal.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What happened with the 2021 Pi Cycle signal?</summary>
+              <p>The Pi Cycle indicator fired in mid-April 2021, when Bitcoin was trading around $64,000. Bitcoin then corrected roughly 50% before recovering and making a new all-time high of approximately $69,000 in November 2021. The indicator did not re-fire at the November top. This is why LiftOffr and most serious analysts treat Pi Cycle as one signal among many rather than an automatic exit trigger.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Where can I watch the Pi Cycle Top indicator?</summary>
+              <p>The Pi Cycle Top is available on LookIntoBitcoin (lookintobitcoin.com), which displays the 111-day MA and 2× 350-day MA overlaid on the Bitcoin price chart in real time. It is also available on TradingView as a community script. LiftOffr members see Pi Cycle status summarized daily in the morning confluence brief.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Should I sell all my Bitcoin when the Pi Cycle fires?</summary>
+              <p>No. The Pi Cycle is a binary signal with only three confirmed historical instances. Acting on it alone — without confirmation from other indicators like MVRV, CBBI, or on-chain flow data — introduces the risk of exiting too early or missing a final leg higher, as happened in 2021. It is a serious warning that warrants careful review of the full picture, not an automatic action trigger.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Why are the numbers 111 and 350 specifically used?</summary>
+              <p>The specific values 111 and 350 were identified by analyst Philip Swift through backtesting — these were the moving average periods that historically aligned most closely with Bitcoin cycle tops. The ratio 350 ÷ 111 ≈ 3.153, which is very close to π (pi ≈ 3.14159). The practical reason these periods work is likely tied to Bitcoin's four-year halving cycle rhythm: 350 days is close to one year, and 111 days is roughly one-third of a year.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This article is for educational purposes only and does not constitute financial advice. Bitcoin and other cryptocurrencies are highly volatile assets. Past indicator performance does not guarantee future results. Always do your own research and consult a qualified financial advisor before making investment decisions.
+        </div>
+
+        <div class="author">
+            <p>— Torin, Founder of LiftOffr</p>
+            <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to retail investors.</em></p>
+        </div>
+    </article>
+</body>
+</html>

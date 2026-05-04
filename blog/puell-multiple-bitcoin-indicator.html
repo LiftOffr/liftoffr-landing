@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn the Puell Multiple indicator for Bitcoin: how miner profitability signals cycle tops and bottoms, historical readings at every major peak, and how halvings distort the metric.">
+    <meta name="keywords" content="Puell Multiple Bitcoin, Puell Multiple indicator, bitcoin miner profitability indicator, on-chain analysis, crypto cycle indicators">
+    <meta property="og:title" content="Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops">
+    <meta property="og:description" content="Understand the Puell Multiple: the miner profitability indicator that has flagged every major Bitcoin cycle top. Historical readings, halving effects, and confluence strategy inside.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://liftoffr.com/blog/puell-multiple-bitcoin-indicator">
+    <meta property="og:image" content="https://liftoffr.com/og-image.png">
+    <title>Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops</title>
+    <link rel="canonical" href="https://liftoffr.com/blog/puell-multiple-bitcoin-indicator">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://liftoffr.com/blog/puell-multiple-bitcoin-indicator#article",
+          "headline": "Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops",
+          "description": "Learn the Puell Multiple indicator for Bitcoin: how miner profitability signals cycle tops and bottoms, historical readings at every major peak, and how halvings distort the metric.",
+          "datePublished": "2026-05-04",
+          "dateModified": "2026-05-04",
+          "author": {
+            "@type": "Person",
+            "name": "Torin Christianson",
+            "url": "https://liftoffr.com/",
+            "sameAs": [
+              "https://www.instagram.com/torin_christianson/",
+              "https://www.youtube.com/@torin-liftoffr"
+            ]
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "LiftOffr",
+            "url": "https://liftoffr.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://liftoffr.com/blog/puell-multiple-bitcoin-indicator"
+          },
+          "image": "https://liftoffr.com/og-image.png",
+          "isPartOf": {
+            "@type": "Blog",
+            "name": "LiftOffr Bitcoin Cycle Trading Guides",
+            "url": "https://liftoffr.com/blog"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the Puell Multiple in Bitcoin?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Puell Multiple measures daily Bitcoin miner revenue (in USD) divided by the 365-day moving average of daily miner revenue. It was created by analyst David Puell. A reading above 4 suggests miners are extremely overpaid relative to their historical average — historically a top signal. A reading below 0.5 suggests miners are deeply underpaid — historically a bottom signal."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What does a high Puell Multiple mean?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A high Puell Multiple (above 4) means miners are earning far more than their yearly average, giving them strong incentive to sell coins to lock in profits. Historically, this elevated selling pressure from miners has coincided with Bitcoin cycle tops."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the Bitcoin halving affect the Puell Multiple?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The halving cuts daily coin issuance in half overnight. This immediately compresses the Puell Multiple since the numerator (today's issuance value) drops sharply while the denominator (365-day average) adjusts slowly. After a halving, Puell often spikes strongly as price rises post-halving, while the 365-day average still reflects the pre-halving higher issuance. This is a known distortion to account for when interpreting readings near halving events."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why didn't the Puell Multiple fully fire at the November 2021 top?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The November 2021 peak was the second top of a double-top cycle. By that point, the 365-day moving average of miner revenue had already absorbed many high-price days from earlier in 2021. The Puell Multiple only reached approximately 2.5–3x — well below the 4+ danger zone. This is an important lesson in why confluence with other indicators matters: Puell alone would not have confirmed a definitive top in November 2021, but other signals were flashing caution."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can the Puell Multiple predict Bitcoin bottoms?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. When the Puell Multiple drops below 0.5, it indicates that miners are earning far below their historical average. Economically weak miners cannot cover costs and begin shutting down — a process called miner capitulation. Historically, these extreme low readings have marked the deepest bear market troughs. The 2018–2019 bear market bottom and the 2022 bottom both saw Puell readings in this deeply compressed range."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Should I use the Puell Multiple alone to time Bitcoin trades?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No single indicator is sufficient. The November 2021 top is a clear example of Puell underperforming in isolation. LiftOffr tracks 8 indicators in confluence — including the Puell Multiple, MVRV ratio, and others — to generate a combined signal. When multiple independent metrics agree, the probability of a meaningful cycle inflection is much higher than any single reading alone."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "LiftOffr",
+              "item": "https://liftoffr.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://liftoffr.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Puell Multiple Bitcoin Indicator",
+              "item": "https://liftoffr.com/blog/puell-multiple-bitcoin-indicator"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a1a; font-size: 2.2em; margin-bottom: 0.5em; }
+        h2 { color: #2c3e50; font-size: 1.8em; margin-top: 1.2em; margin-bottom: 0.6em; border-bottom: 3px solid #f39c12; padding-bottom: 0.3em; }
+        h3 { color: #34495e; font-size: 1.4em; margin-top: 1em; margin-bottom: 0.4em; }
+        p { margin-bottom: 1em; font-size: 1.05em; }
+        .meta { color: #7f8c8d; font-size: 0.95em; margin-bottom: 2em; border-bottom: 1px solid #ecf0f1; padding-bottom: 1em; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-left: 4px solid #f39c12; margin: 1.5em 0; border-radius: 4px; }
+        .threshold-box { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 1.5em 0; border: 1px solid #dee2e6; }
+        .signal-table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
+        .signal-table th, .signal-table td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
+        .signal-table th { background-color: #f39c12; color: white; }
+        .signal-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .author { color: #7f8c8d; font-style: italic; margin-top: 2em; padding-top: 1em; border-top: 1px solid #ecf0f1; }
+        .internal-link { color: #667eea; text-decoration: none; }
+        .internal-link:hover { text-decoration: underline; }
+        ul { margin: 1em 0; padding-left: 25px; }
+        li { margin-bottom: 0.7em; }
+        strong { font-weight: 600; }
+        .diagram-desc { background-color: #f0f7ff; padding: 20px; border-radius: 4px; margin: 1.5em 0; border-left: 4px solid #3498db; }
+        .disclaimer { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 14px 18px; margin: 2em 0; font-size: 0.93em; color: #666; }
+        .site-nav { background: #080808; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e1e1e; margin: -20px -20px 32px; }
+        .site-nav img { height: 24px; display: block; }
+        .site-nav-links { display: flex; align-items: center; gap: 20px; }
+        .site-nav-links a { color: #bbb; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .site-nav-links a:hover { color: #fff; }
+        .site-nav-cta { background: #e63946; color: #fff !important; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+        .site-nav-cta:hover { opacity: 0.9; }
+        .breadcrumb { font-size: 13px; color: #888; margin-bottom: 20px; }
+        .breadcrumb a { color: #e63946; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .cta-box { background: linear-gradient(135deg, #1a0808 0%, #2d0a0a 100%); color: white; padding: 30px; border-radius: 12px; margin-top: 2em; text-align: center; border: 1px solid rgba(230,57,70,0.35); box-shadow: 0 0 32px rgba(230,57,70,0.1); }
+        .cta-box h3 { color: white; border: none; font-size: 1.4em; margin-bottom: 0.5em; }
+        .cta-box p { color: #ccc; }
+        .cta-box a { background-color: #e63946; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; display: inline-block; margin-top: 16px; transition: opacity 0.2s, transform 0.2s; font-size: 15px; }
+        .cta-box a:hover { opacity: 0.9; transform: translateY(-1px); }
+        .cta-box ul { color: #bbb; text-align: left; display: inline-block; margin-top: 12px; }
+        .faq-section { margin-top: 3em; padding-top: 2em; border-top: 2px solid #ecf0f1; }
+        .faq-section h2 { font-size: 1.4em; margin-bottom: 1em; }
+        .faq-item-blog { margin-bottom: 1.2em; }
+        .faq-item-blog summary { font-weight: 600; cursor: pointer; padding: 10px 0; color: #2c3e50; list-style: none; display: flex; justify-content: space-between; }
+        .faq-item-blog summary::-webkit-details-marker { display: none; }
+        .faq-item-blog summary::after { content: '+'; color: #e63946; font-size: 18px; }
+        details[open] .faq-item-blog summary::after { content: '−'; }
+        .faq-item-blog p { color: #555; margin: 8px 0 0; padding-bottom: 12px; }
+        details { border-bottom: 1px solid #dee2e6; }
+    </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  // Scroll depth tracking
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
+})();
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/"><img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" /></a>
+  <div class="site-nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/indicator-history">Indicators</a>
+    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=puell_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo Founder Rate</a>
+  </div>
+</nav>
+
+    <article>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Puell Multiple</p>
+        <div class="meta">
+            <p>Published: May 2026 | Reading time: ~9 minutes | By Torin Christianson</p>
+        </div>
+
+        <h1>Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops</h1>
+
+        <p>Most Bitcoin indicators focus on price. The Puell Multiple looks somewhere more fundamental: the economics of the people who produce Bitcoin in the first place.</p>
+
+        <p>Created by analyst David Puell, the Puell Multiple measures miner profitability relative to its own historical average. The premise is straightforward — when miners are making extraordinary profits, they have every incentive to sell. That collective selling pressure has, historically, coincided with Bitcoin cycle tops. When miners are deeply underpaid, the weakest ones shut down and capitulate — and those moments have historically marked the deepest bear market troughs.</p>
+
+        <p>This guide covers what the Puell Multiple is, how to calculate it, what the historical readings at each cycle top actually looked like, how halvings complicate the signal, and — critically — why the November 2021 top is the most important case study for understanding its limits.</p>
+
+        <h2>1. What Is the Puell Multiple?</h2>
+
+        <p>The Puell Multiple is a ratio comparing two things:</p>
+
+        <ul>
+            <li><strong>The numerator:</strong> The USD value of all Bitcoin issued (mined) on a given day. This is simply today's block reward times the number of blocks mined, converted to dollars at today's price.</li>
+            <li><strong>The denominator:</strong> The 365-day moving average of that same daily issuance value.</li>
+        </ul>
+
+        <div class="threshold-box">
+            <strong>Formula:</strong>
+            <br><br>
+            <strong>Puell Multiple = Daily coin issuance value (USD) ÷ 365-day moving average of daily issuance value (USD)</strong>
+            <br><br>
+            A reading of 1.0 means miners are earning exactly their yearly average today. A reading of 4.0 means they're earning four times their yearly average. A reading of 0.4 means they're earning less than half their yearly average.
+        </div>
+
+        <p>The metric was designed to capture miner behavior, because miners are one of the most important structural sell-side forces in Bitcoin markets. Unlike retail traders who may hold indefinitely, miners have real operating costs — electricity, hardware depreciation, facilities — and must sell a portion of their Bitcoin to fund those costs. When they're earning far more than usual, they have both the ability and the incentive to sell aggressively. When they're earning far less than usual, economically weak operations shut down entirely.</p>
+
+        <h2>2. The Miner Economics Logic: Why This Actually Works</h2>
+
+        <p>To understand why the Puell Multiple has signal value, you need to understand what miners actually do.</p>
+
+        <h3>Miners as Structural Sellers</h3>
+
+        <p>Every day, Bitcoin miners collectively earn the block subsidy (currently 3.125 BTC per block as of the 2024 halving) plus transaction fees. In dollar terms, this revenue fluctuates dramatically with price. A miner earning $1 million per day during a flat market might suddenly earn $8 million per day after Bitcoin has tripled in price.</p>
+
+        <p>But the miner's cost structure doesn't triple. Their electricity bills, loan payments on ASIC hardware, and facility costs are largely fixed in fiat terms. So when Bitcoin price surges, miner profit margins explode — and with them, miners' capacity and incentive to sell above their operating costs.</p>
+
+        <p><strong>This creates genuine selling pressure:</strong> miners who were previously selling just enough to cover costs can now sell multiples of that amount, bank profits, and expand operations. The Puell Multiple captures exactly this dynamic. When it's elevated, it means the daily dollar value flowing out of the Bitcoin mining ecosystem — and potentially into the market as sell pressure — is far above the historical norm.</p>
+
+        <h3>Miner Capitulation at the Bottom</h3>
+
+        <p>The logic inverts at market bottoms. When Bitcoin price collapses, miner revenue (in USD) collapses with it. The 365-day average adjusts slowly — it still reflects the higher prices of the past year. So the Puell Multiple compresses sharply.</p>
+
+        <p>When it falls below 0.5, it means miners are earning less than half their yearly average in dollar terms. At that point, electricity costs alone can exceed revenue for less efficient operations. These miners are forced to shut down, liquidate their Bitcoin holdings, and exit the market entirely. This process — miner capitulation — historically concentrates a large amount of forced selling into a short window, accelerating the bottom. Once the weakest miners have capitulated and exited, the selling pressure subsides, and the market can stabilize and recover.</p>
+
+        <div class="diagram-desc">
+            <strong>Mental model:</strong> Think of the Puell Multiple as a thermostat reading for miner stress. When it's very high, miners are flush with profit and selling freely. When it's very low, miners are under economic duress and being forced to sell or shut down. Both extremes, paradoxically, tend to be cycle inflection points — but for different reasons.
+        </div>
+
+        <h2>3. Reading the Signal: Key Thresholds</h2>
+
+        <p>LiftOffr uses the following zones when tracking the Puell Multiple as part of its 8-indicator confluence system:</p>
+
+        <table class="signal-table">
+            <thead>
+                <tr>
+                    <th>Puell Multiple Range</th>
+                    <th>Market Condition</th>
+                    <th>Historical Significance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Below 0.5</td>
+                    <td>Miner capitulation / deep bear</td>
+                    <td>Historically coincides with major cycle bottoms; extreme accumulation zone</td>
+                </tr>
+                <tr>
+                    <td>0.5 – 1.0</td>
+                    <td>Miners underpaid; bear/recovery</td>
+                    <td>Bear market or early recovery phase; miners under pressure but not yet capitulating</td>
+                </tr>
+                <tr>
+                    <td>1.0 – 2.0</td>
+                    <td>Neutral / fair value</td>
+                    <td>Miners earning near historical average; no strong signal in either direction</td>
+                </tr>
+                <tr>
+                    <td>2.0 – 4.0</td>
+                    <td>Miners well-paid; bull market</td>
+                    <td>Healthy bull market; miner sell pressure increasing but not yet extreme</td>
+                </tr>
+                <tr>
+                    <td>Above 4.0</td>
+                    <td>Miners extremely overpaid; top territory</td>
+                    <td>Historically coincides with major cycle tops; elevated risk zone</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="highlight">
+            <strong>LiftOffr thresholds:</strong> Above 4.0 is treated as the top danger zone. Below 0.5 is the accumulation zone. These aren't arbitrary — they reflect the historical extremes where Bitcoin has made its most significant cycle turns.
+        </div>
+
+        <h2>4. Historical Readings at Every Bitcoin Cycle Top</h2>
+
+        <p>One of the most compelling things about the Puell Multiple is the historical track record. Let's look at what the indicator actually read at each major cycle peak — including one important miss.</p>
+
+        <h3>2013 Cycle Peaks</h3>
+
+        <p>Bitcoin's 2013 cycle featured two separate price peaks — one in April and one in December. At the December 2013 peak (~$1,150), the Puell Multiple reached approximately <strong>10–12×</strong>. That's the highest reading in Bitcoin's history. Miners were earning more than ten times their yearly average in a single day. At that level, the selling pressure from the mining community was unprecedented, and the market ultimately corrected severely into 2014–2015.</p>
+
+        <p>The extreme readings in 2013 reflected both the speculative mania of that cycle and the fact that Bitcoin's market was still small enough that miner revenue was a significant fraction of total market volume.</p>
+
+        <h3>2017 Cycle Peak (~$19,500)</h3>
+
+        <p>The December 2017 top saw the Puell Multiple reach approximately <strong>6–8×</strong>. This was substantially below the 2013 extreme, partly because Bitcoin's market cap had grown much larger and miner revenue was a smaller fraction of total market flows. Nevertheless, the reading was deeply in the danger zone — well above the 4.0 threshold that LiftOffr uses as the top signal. The bear market that followed saw Bitcoin fall roughly 84% from peak to trough.</p>
+
+        <h3>April 2021 Local Top (~$64,000)</h3>
+
+        <p>The April 2021 top — before the summer correction — saw the Puell Multiple reach approximately <strong>6–7×</strong>. This was a clear danger-zone reading. Bitcoin subsequently fell from ~$64k to ~$29k between May and July 2021, a correction of nearly 55%. Traders who were tracking Puell alongside other indicators had ample warning that miner conditions were unsustainably bullish.</p>
+
+        <h3>November 2021 Peak (~$69,000): The Important Miss</h3>
+
+        <p>Here is the most instructive case study for understanding the Puell Multiple's limits. When Bitcoin hit its all-time high of approximately $69,000 in November 2021, the Puell Multiple only registered around <strong>2.5–3×</strong> — well below the 4.0 danger threshold.</p>
+
+        <p>Why? Because of the 365-day denominator. By November 2021, the trailing year already included many high-price days from the spring 2021 bull run. The 365-day moving average of miner revenue had already been elevated for months. So even though miners were still earning significant sums, the ratio looked moderate rather than extreme.</p>
+
+        <p>This is a critical lesson: <strong>Puell alone did not confirm a definitive cycle top in November 2021.</strong> Traders relying solely on Puell would have seen a moderate reading and potentially stayed long through the subsequent crash. This is precisely why confluence with other indicators is essential. Other metrics — including on-chain signals, price structure, and sentiment indicators — were flashing caution in November 2021 even when Puell was not.</p>
+
+        <div class="highlight">
+            <strong>The November 2021 lesson:</strong> No indicator is infallible. The Puell Multiple is most reliable as a top signal when it exceeds 4.0, but the November 2021 cycle shows that major tops can form even when Puell is in a moderate range. This is why LiftOffr tracks 8 indicators in confluence — so that a miss on one is caught by the others.
+        </div>
+
+        <p>See how the Puell Multiple performed at every Bitcoin cycle top in detail: <a href="/indicator-history" class="internal-link">See how Puell Multiple performed at every Bitcoin cycle top →</a></p>
+
+        <h2>5. How Bitcoin Halvings Affect the Puell Multiple</h2>
+
+        <p>The Bitcoin halving — which cuts the block subsidy in half approximately every four years — creates a predictable and significant distortion in the Puell Multiple that every user of this metric needs to understand.</p>
+
+        <h3>The Immediate Post-Halving Effect</h3>
+
+        <p>On halving day, the daily coin issuance drops by 50% overnight. If price hasn't moved, that means the numerator of the Puell Multiple (today's issuance value) immediately drops by roughly half. The denominator (the 365-day average) barely moves — it takes a full year to fully reflect the new lower issuance rate. The result: the Puell Multiple often drops sharply immediately after a halving, sometimes into or near the capitulation zone, even though nothing fundamental has changed in Bitcoin's market structure other than the supply schedule.</p>
+
+        <h3>The Post-Halving Spike</h3>
+
+        <p>As Bitcoin price typically rises in the months following a halving — driven by reduced supply issuance into what has historically been growing demand — the Puell Multiple can spike significantly even though miners are producing fewer coins. The math works like this: if price doubles while issuance is cut in half, the daily USD value of new coins is the same as before the halving. But the 365-day average is still partly anchored to pre-halving, lower-price days. This can produce elevated Puell readings that don't necessarily signal an imminent top — they may simply reflect the normal post-halving price appreciation cycle.</p>
+
+        <div class="diagram-desc">
+            <strong>How to account for halvings:</strong> When interpreting Puell Multiple readings in the 6–18 months following a halving, consider how much of the reading is driven by the halving's mathematical effect versus genuine miner overcompensation. In the first year after a halving, Puell readings should be contextualized against the new supply schedule, not just historical absolute thresholds.
+        </div>
+
+        <p>This halving effect is one reason the Puell Multiple should never be used in isolation. At LiftOffr, we contextualize it against the current point in the halving cycle alongside the other 7 indicators in our confluence model.</p>
+
+        <h2>6. How to Use the Puell Multiple in a Confluence Strategy</h2>
+
+        <p>The Puell Multiple is most powerful not as a standalone signal but as one layer of a multi-indicator approach. Here's how to think about using it constructively.</p>
+
+        <h3>When Puell Confirms Other Signals</h3>
+
+        <p>The strongest signals occur when the Puell Multiple is in an extreme zone AND other independent indicators agree. For example:</p>
+
+        <ul>
+            <li><strong>At a potential top:</strong> Puell above 4.0, combined with an elevated MVRV ratio and other overbought signals, represents a high-conviction confluence read. The probability of an impending major correction is substantially higher when multiple independent metrics agree.</li>
+            <li><strong>At a potential bottom:</strong> Puell below 0.5, combined with deep undervaluation signals from other on-chain metrics, suggests miner capitulation is underway and the bottom may be forming. This kind of confluence has historically preceded multi-hundred-percent recoveries.</li>
+        </ul>
+
+        <h3>When Puell Diverges from Other Signals</h3>
+
+        <p>The November 2021 situation — where Puell was moderate but other signals were bearish — is exactly the scenario where a confluence approach protects you. If one indicator gives a mild reading while others are screaming extreme, weight the ensemble rather than the individual metric.</p>
+
+        <p>Conversely, if Puell is elevated but other indicators are neutral, that's a reason for increased caution rather than an immediate exit signal. Puell above 4.0 with other indicators in neutral territory suggests watching closely, not acting immediately.</p>
+
+        <h3>A Practical Framework for Tracking Puell</h3>
+
+        <div class="threshold-box">
+            <strong>Puell Multiple Decision Framework:</strong>
+            <ul>
+                <li><strong>Puell below 0.5:</strong> Accumulation signal. Historically the deepest capitulation zone. Worth noting as a potential bottom area when combined with other supporting data.</li>
+                <li><strong>Puell 0.5–1.0:</strong> Caution — bear market or recovery. Not a buy signal on its own, but the worst forced selling pressure from miners is easing.</li>
+                <li><strong>Puell 1.0–2.0:</strong> Neutral zone. No strong signal. Monitor other indicators for direction.</li>
+                <li><strong>Puell 2.0–4.0:</strong> Elevated bull market. Miner sell pressure rising. Begin tightening risk management. Watch other indicators for confirmation of extended top.</li>
+                <li><strong>Puell above 4.0:</strong> Top alert zone. Historically, readings here have preceded major cycle corrections. This is LiftOffr's active danger threshold — but always confirm with the broader 8-indicator model before drawing conclusions.</li>
+            </ul>
+        </div>
+
+        <h3>The Role of Confluence: Why 8 Indicators Matter</h3>
+
+        <p>Bitcoin's cycle dynamics are driven by multiple overlapping forces — miner behavior, investor cost basis, price momentum, network activity, sentiment. No single indicator captures all of these simultaneously.</p>
+
+        <p>The Puell Multiple captures the miner supply-side dynamic exceptionally well. But it is blind to investor cost basis (that's what <a href="/blog/mvrv-ratio-bitcoin-indicator" class="internal-link">MVRV</a> addresses), price momentum extremes, and on-chain transaction signals. A comprehensive cycle-timing approach requires all of these working in concert.</p>
+
+        <p>When 6 or 7 of your 8 indicators are flashing the same message — whether that's extreme top or deep bottom — the signal is far more reliable than any single metric. The November 2021 miss by Puell alone is a perfect illustration of why.</p>
+
+        <div class="cta-box">
+            <h3>Track Puell Multiple Alongside 7 Other Indicators — Every Day</h3>
+            <p>LiftOffr synthesizes the Puell Multiple, MVRV, and 6 additional Bitcoin cycle indicators into a single daily confluence read. No fragmented dashboards. No indicator isolation errors. One clear signal every morning.</p>
+            <p><strong>Founder Rate: $29/month — limited availability</strong></p>
+            <ul>
+                <li>Daily confluence report covering all 8 indicators</li>
+                <li>Puell Multiple + MVRV + 6 more on-chain and technical signals</li>
+                <li>Alerts when multiple indicators align at extremes</li>
+                <li>Historical cycle context at every current reading</li>
+                <li>Direct access to Torin and the LiftOffr member community</li>
+            </ul>
+            <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=puell_article_cta" target="_blank" rel="noopener">Join at Founder Rate — $29/mo</a>
+        </div>
+
+        <div class="faq-section">
+          <h2>FAQ: Puell Multiple Questions</h2>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What is the Puell Multiple in Bitcoin?</summary>
+              <p>The Puell Multiple measures daily Bitcoin miner revenue (in USD) divided by the 365-day moving average of daily miner revenue. It was created by analyst David Puell. A reading above 4 suggests miners are extremely overpaid relative to their historical average — historically a top signal. A reading below 0.5 suggests miners are deeply underpaid — historically a bottom signal.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What does a high Puell Multiple mean?</summary>
+              <p>A high Puell Multiple (above 4) means miners are earning far more than their yearly average, giving them strong incentive to sell coins to lock in profits. Historically, this elevated selling pressure from miners has coincided with Bitcoin cycle tops. The 2013, 2017, and April 2021 peaks all saw Puell readings well above 4.0.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>How does the Bitcoin halving affect the Puell Multiple?</summary>
+              <p>The halving cuts daily coin issuance in half overnight. This immediately compresses the Puell Multiple since the numerator (today's issuance value) drops sharply while the denominator (365-day average) adjusts slowly. After a halving, Puell often spikes as price rises post-halving while the 365-day average still reflects pre-halving higher issuance levels. This is a known distortion to account for when interpreting readings near halving events.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Why didn't the Puell Multiple fully fire at the November 2021 top?</summary>
+              <p>The November 2021 peak was the second top of a double-top cycle. By that point, the 365-day moving average of miner revenue had already absorbed many high-price days from earlier in 2021, so the ratio looked moderate (approximately 2.5–3×) rather than extreme. This is an important lesson in why confluence matters: Puell alone would not have confirmed a definitive top in November 2021, but other signals were already flashing caution at that level.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Can the Puell Multiple predict Bitcoin bottoms?</summary>
+              <p>Yes. When the Puell Multiple drops below 0.5, it indicates that miners are earning far below their historical average. Economically weak miners cannot cover costs and begin shutting down — a process called miner capitulation. Historically, these extreme low readings have marked the deepest bear market troughs. The 2018–2019 and 2022 bear market bottoms both saw Puell readings in this deeply compressed range.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Should I use the Puell Multiple alone to time Bitcoin trades?</summary>
+              <p>No single indicator is sufficient. The November 2021 top is a clear example of Puell underperforming in isolation. LiftOffr tracks 8 indicators in confluence — including the Puell Multiple, MVRV ratio, and others — to generate a combined signal. When multiple independent metrics agree, the probability of a meaningful cycle inflection is much higher than any single reading alone.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This article is for educational purposes only and does not constitute financial advice. Bitcoin and cryptocurrency investments carry significant risk, including the risk of total loss. Past indicator readings and historical patterns are not a guarantee of future results. Always conduct your own research and consult a qualified financial professional before making investment decisions.
+        </div>
+
+        <div class="author">
+            <p>— Torin, Founder of LiftOffr</p>
+            <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence tools to individual investors.</em></p>
+        </div>
+    </article>
+</body>
+</html>

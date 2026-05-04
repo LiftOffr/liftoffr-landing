@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CBBI Bitcoin indicator explained: how Colin Talks Crypto's Bitcoin Bull Run Index composites 9 on-chain signals into a single 0–100 score for reading cycle tops and bottoms.">
+    <meta name="keywords" content="CBBI indicator bitcoin, CBBI bitcoin explained, Colin Talks Crypto bitcoin indicator, bitcoin bull run index, crypto cycle indicators">
+    <meta property="og:title" content="CBBI Bitcoin Indicator Explained: The Composite Score That Reads Cycle Tops">
+    <meta property="og:description" content="Colin Talks Crypto's CBBI combines 9 on-chain and market cycle sub-indicators into one 0–100 score. Learn how to read it, what historical readings meant at cycle tops, and how LiftOffr uses it.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://liftoffr.com/blog/cbbi-bitcoin-indicator">
+    <meta property="og:image" content="https://liftoffr.com/og-image.png">
+    <title>CBBI Bitcoin Indicator Explained: The Composite Score That Reads Cycle Tops</title>
+    <link rel="canonical" href="https://liftoffr.com/blog/cbbi-bitcoin-indicator">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://liftoffr.com/blog/cbbi-bitcoin-indicator#article",
+          "headline": "CBBI Bitcoin Indicator Explained: The Composite Score That Reads Cycle Tops",
+          "description": "CBBI Bitcoin indicator explained: how Colin Talks Crypto's Bitcoin Bull Run Index composites 9 on-chain signals into a single 0–100 score for reading cycle tops and bottoms.",
+          "datePublished": "2026-05-04",
+          "dateModified": "2026-05-04",
+          "author": {
+            "@type": "Person",
+            "name": "Torin Christianson",
+            "url": "https://liftoffr.com/",
+            "sameAs": [
+              "https://www.instagram.com/torin_christianson/",
+              "https://www.youtube.com/@torin-liftoffr"
+            ]
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "LiftOffr",
+            "url": "https://liftoffr.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://liftoffr.com/blog/cbbi-bitcoin-indicator"
+          },
+          "image": "https://liftoffr.com/og-image.png",
+          "isPartOf": {
+            "@type": "Blog",
+            "name": "LiftOffr Bitcoin Cycle Trading Guides",
+            "url": "https://liftoffr.com/blog"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What does CBBI stand for?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CBBI stands for Colin Talks Crypto's Bitcoin Bull Run Index. It was created by Colin, who runs the colintalkscrypto.com website, as a composite score combining roughly nine on-chain and market cycle indicators into a single 0–100 reading."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What score on CBBI signals a cycle top?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Historically, CBBI readings above 85 enter what analysts consider top territory, where de-risking becomes prudent. Readings above 90 represent an elevated alert zone, and readings above 95 have appeared only at or very near major cycle tops. In the 2021 cycle, CBBI reached approximately 96 near the April local top and approximately 94 near the November final top."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What sub-indicators does CBBI include?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "CBBI composites approximately nine signals, which have included the Pi Cycle Top, RUPL/NUPL, the Puell Multiple, Stock-to-Flow, the Golden Ratio Multiplier, the Bitcoin Investor Tool, Woobull charts, Reserve Risk, and others. The exact composition may be updated over time by the creator."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is CBBI different from just watching individual indicators?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Individual indicators can fire early or late in any given cycle. CBBI smooths those timing errors by averaging across nine signals simultaneously. One indicator being elevated while eight others are neutral produces only a modest CBBI reading, which keeps you from acting on a false alarm. Broad agreement across the composite produces an extreme reading, and that is when the signal carries the most weight."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where can I find the CBBI score?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The official CBBI is published by Colin at colintalkscrypto.com/cbbi/. LiftOffr members also see the current CBBI reading synthesized alongside seven other indicators in the daily brief each morning."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does a low CBBI score signal a good buying opportunity?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A CBBI reading below 15 has historically appeared near cycle bottoms, when the majority of its sub-indicators are simultaneously depressed. This is educational context only and not financial advice. Whether a low CBBI represents a buying opportunity depends on your own risk tolerance, time horizon, and full market context."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "LiftOffr",
+              "item": "https://liftoffr.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://liftoffr.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "CBBI Bitcoin Indicator",
+              "item": "https://liftoffr.com/blog/cbbi-bitcoin-indicator"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a1a; font-size: 2.2em; margin-bottom: 0.5em; }
+        h2 { color: #2c3e50; font-size: 1.8em; margin-top: 1.2em; margin-bottom: 0.6em; border-bottom: 3px solid #f39c12; padding-bottom: 0.3em; }
+        h3 { color: #34495e; font-size: 1.4em; margin-top: 1em; margin-bottom: 0.4em; }
+        p { margin-bottom: 1em; font-size: 1.05em; }
+        .meta { color: #7f8c8d; font-size: 0.95em; margin-bottom: 2em; border-bottom: 1px solid #ecf0f1; padding-bottom: 1em; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-left: 4px solid #f39c12; margin: 1.5em 0; border-radius: 4px; }
+        .threshold-box { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 1.5em 0; border: 1px solid #dee2e6; }
+        .signal-table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
+        .signal-table th, .signal-table td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
+        .signal-table th { background-color: #f39c12; color: white; }
+        .signal-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .cta-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 8px; margin-top: 2em; text-align: center; }
+        .cta-box h3 { color: white; border: none; }
+        .cta-box a { background-color: white; color: #667eea; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block; margin-top: 15px; transition: transform 0.2s; }
+        .cta-box a:hover { transform: scale(1.05); }
+        .author { color: #7f8c8d; font-style: italic; margin-top: 2em; padding-top: 1em; border-top: 1px solid #ecf0f1; }
+        .internal-link { color: #667eea; text-decoration: none; }
+        .internal-link:hover { text-decoration: underline; }
+        ul { margin: 1em 0; padding-left: 25px; }
+        li { margin-bottom: 0.7em; }
+        strong { font-weight: 600; }
+        .diagram-desc { background-color: #f0f7ff; padding: 20px; border-radius: 4px; margin: 1.5em 0; border-left: 4px solid #3498db; }
+        .site-nav { background: #080808; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e1e1e; margin: -20px -20px 32px; }
+        .site-nav img { height: 24px; display: block; }
+        .site-nav-links { display: flex; align-items: center; gap: 20px; }
+        .site-nav-links a { color: #bbb; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .site-nav-links a:hover { color: #fff; }
+        .site-nav-cta { background: #e63946; color: #fff !important; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+        .site-nav-cta:hover { opacity: 0.9; }
+        .breadcrumb { font-size: 13px; color: #888; margin-bottom: 20px; }
+        .breadcrumb a { color: #e63946; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .cta-box { background: linear-gradient(135deg, #1a0808 0%, #2d0a0a 100%); color: white; padding: 30px; border-radius: 12px; margin-top: 2em; text-align: center; border: 1px solid rgba(230,57,70,0.35); box-shadow: 0 0 32px rgba(230,57,70,0.1); }
+        .cta-box h3 { color: white; border: none; font-size: 1.4em; margin-bottom: 0.5em; }
+        .cta-box p { color: #ccc; }
+        .cta-box a { background-color: #e63946; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; display: inline-block; margin-top: 16px; transition: opacity 0.2s, transform 0.2s; font-size: 15px; }
+        .cta-box a:hover { opacity: 0.9; transform: translateY(-1px); }
+        .cta-box ul { color: #bbb; text-align: left; display: inline-block; margin-top: 12px; }
+        .faq-section { margin-top: 3em; padding-top: 2em; border-top: 2px solid #ecf0f1; }
+        .faq-section h2 { font-size: 1.4em; margin-bottom: 1em; }
+        .faq-item-blog { margin-bottom: 1.2em; }
+        .faq-item-blog summary { font-weight: 600; cursor: pointer; padding: 10px 0; color: #2c3e50; list-style: none; display: flex; justify-content: space-between; }
+        .faq-item-blog summary::-webkit-details-marker { display: none; }
+        .faq-item-blog summary::after { content: '+'; color: #e63946; font-size: 18px; }
+        details[open] .faq-item-blog summary::after { content: '−'; }
+        .faq-item-blog p { color: #555; margin: 8px 0 0; padding-bottom: 12px; }
+        details { border-bottom: 1px solid #dee2e6; }
+        .disclaimer { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 14px 18px; margin-top: 2em; font-size: 0.92em; color: #6c757d; }
+    </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  // Scroll depth tracking
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
+})();
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/"><img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" /></a>
+  <div class="site-nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/indicator-history">Indicators</a>
+    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=cbbi_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo</a>
+  </div>
+</nav>
+
+    <article>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › CBBI Bitcoin Indicator</p>
+        <div class="meta">
+            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+        </div>
+
+        <h1>CBBI Bitcoin Indicator Explained: The Composite Score That Reads Cycle Tops</h1>
+
+        <p>Most cycle indicators give you a single lens on the market. MVRV looks at valuation. The Pi Cycle Top watches momentum. The Puell Multiple tracks miner revenue. Each is useful in isolation — but each can also fire early, fire late, or stay quiet when the others are screaming.</p>
+
+        <p>The CBBI takes a different approach. Instead of adding yet another single-purpose signal to your watchlist, it aggregates roughly nine of the most respected Bitcoin cycle indicators into one composite score that runs from 0 to 100. High readings flag top territory. Low readings flag bottom territory. And because the score reflects broad agreement across many signals at once, it is much harder for noise to push it to an extreme.</p>
+
+        <p>This article covers what CBBI is, what goes into it, how to read its thresholds, what it showed at the major cycle tops in 2021, and how LiftOffr incorporates it into an eight-indicator confluence framework.</p>
+
+        <h2>1. What Is CBBI? Origin and Purpose</h2>
+
+        <p>CBBI stands for <strong>Colin Talks Crypto's Bitcoin Bull Run Index</strong>. It was built and is maintained by Colin, a Bitcoin analyst who publishes the live score at colintalkscrypto.com/cbbi/. Colin's premise was straightforward: no individual on-chain metric perfectly captures where Bitcoin is in its four-year cycle, but if you weight and average enough of the best ones together, the composite becomes more reliable than any single component.</p>
+
+        <p>The result is a smooth, continuously updated score. There is no on/off binary trigger. The score drifts up as Bitcoin enters euphoria and drifts down as it enters capitulation. That continuity is by design — it lets you watch the trajectory, not just react to threshold crossings.</p>
+
+        <div class="highlight">
+            <strong>Key concept:</strong> CBBI is a meta-indicator. It does not measure one thing about the Bitcoin market. It measures the average health of many things at once, which makes it more resistant to the timing errors that plague individual indicators.
+        </div>
+
+        <h2>2. What Goes Into the CBBI Composite</h2>
+
+        <p>The CBBI is built from approximately nine sub-indicators. These have included, across various versions of the index:</p>
+
+        <ul>
+            <li><strong>Pi Cycle Top Indicator</strong> — Compares the 111-day and 350-day moving averages of Bitcoin's price. A crossing of the shorter MA above twice the longer MA has historically appeared within days of major cycle tops.</li>
+            <li><strong>RUPL / NUPL (Net Unrealized Profit/Loss)</strong> — Measures the aggregate unrealized profit or loss held by all Bitcoin investors. Extreme greed (NUPL near 0.75) has appeared at tops; extreme fear (NUPL negative) at bottoms.</li>
+            <li><strong>Puell Multiple</strong> — Compares daily miner issuance revenue to its 365-day moving average. Elevated multiples suggest miners are selling into strength at historically expensive prices.</li>
+            <li><strong>Stock-to-Flow (S2F)</strong> — Models Bitcoin's value based on scarcity: total existing supply divided by annual new issuance. Extreme deviations above the model have appeared near tops.</li>
+            <li><strong>Golden Ratio Multiplier</strong> — Identifies price levels tied to Fibonacci multiples of the 350-day moving average, which have historically acted as cycle top resistance zones.</li>
+            <li><strong>Bitcoin Investor Tool (2-Year MA Multiplier)</strong> — Tracks when price deviates far above the two-year moving average, a level that has corresponded with historical selling opportunities.</li>
+            <li><strong>Woobull Charts (various)</strong> — On-chain price models developed by analyst Willy Woo, measuring price relative to network fundamentals.</li>
+            <li><strong>Reserve Risk</strong> — Weighs the conviction of long-term holders against the current price. High reserve risk means long-term holders are being incentivized to sell into current prices.</li>
+            <li><strong>Additional on-chain metrics</strong> — The exact composition may be updated by Colin over time as new data becomes available or as older metrics lose explanatory power.</li>
+        </ul>
+
+        <p>Each sub-indicator is normalized to a 0–100 scale, and the composite CBBI score is derived from the weighted combination of all of them. Because the components cover valuation, momentum, miner behavior, holder conviction, and price models, the resulting composite spans multiple independent dimensions of market health.</p>
+
+        <div class="diagram-desc">
+            <strong>Why this matters:</strong> If you only watch MVRV, you get one data point about valuation. CBBI gives you MVRV plus eight other independent signals, averaged together. An anomaly in one sub-indicator gets diluted. Genuine broad-market extremity gets amplified into a high composite reading.
+        </div>
+
+        <h2>3. How to Read the CBBI Score: Thresholds and Zones</h2>
+
+        <p>The CBBI score moves between 0 and 100 on a continuous scale. Here is how to interpret it:</p>
+
+        <table class="signal-table">
+            <thead>
+                <tr>
+                    <th>CBBI Score</th>
+                    <th>Market Zone</th>
+                    <th>What It Suggests</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0–15</td>
+                    <td>Deep bottom territory</td>
+                    <td>Majority of sub-indicators are at or near cycle lows; historically near bear market bottoms</td>
+                </tr>
+                <tr>
+                    <td>15–40</td>
+                    <td>Accumulation / early bull</td>
+                    <td>Depressed but recovering; conditions improving across multiple metrics</td>
+                </tr>
+                <tr>
+                    <td>40–65</td>
+                    <td>Mid-cycle</td>
+                    <td>Healthy bull market progression; no extreme readings in either direction</td>
+                </tr>
+                <tr>
+                    <td>65–85</td>
+                    <td>Late-cycle / caution</td>
+                    <td>Several sub-indicators elevated; approaching the zone where historical tops have formed</td>
+                </tr>
+                <tr>
+                    <td>85–90</td>
+                    <td>Top territory</td>
+                    <td>LiftOffr threshold for beginning to de-risk; broad agreement across sub-indicators that market is stretched</td>
+                </tr>
+                <tr>
+                    <td>90–95</td>
+                    <td>Elevated alert</td>
+                    <td>LiftOffr elevated alert zone; historically very close to or at major cycle tops</td>
+                </tr>
+                <tr>
+                    <td>95–100</td>
+                    <td>Deep top territory</td>
+                    <td>Extreme readings; CBBI has only reached this zone at or just before major tops</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>The score is smooth and continuous, which means you can watch it drift and react to the trend rather than waiting for a sudden threshold cross. A CBBI that moves from 72 to 78 to 83 over six weeks is telling you something meaningful about the direction of the market even before it hits the 85 threshold.</p>
+
+        <h3>What "No Binary Signal" Actually Means</h3>
+
+        <p>Many traders search for indicators that flash green or red on a specific date. CBBI does not work that way, and that is a feature rather than a limitation. The absence of a hard trigger means you are forced to think in probability gradients rather than certainties. A CBBI of 88 does not guarantee a top — it tells you that the preponderance of evidence across nine independent signals says the market is in top territory. That is a more honest and more useful piece of information than a flashing light.</p>
+
+        <h2>4. Historical Readings at the 2021 Cycle Tops</h2>
+
+        <p>The 2021 cycle provided two distinct major peaks, and CBBI behaved usefully at both of them.</p>
+
+        <h3>April 2021 — Local Top Near $64,000</h3>
+
+        <p>Bitcoin reached approximately $64,000 in mid-April 2021 before pulling back sharply into the summer. At the time of that local top, CBBI reached approximately <strong>96</strong> — well into deep top territory by any threshold definition. Multiple sub-indicators were simultaneously elevated: NUPL was in the euphoria band, the Puell Multiple was stretched, Reserve Risk was elevated, and the Pi Cycle Top had triggered.</p>
+
+        <p>The broad agreement across components was reflected in the composite. Anyone watching CBBI as it climbed from 85 into the low 90s during March 2021 had weeks of warning that the market was entering historically dangerous territory.</p>
+
+        <h3>November 2021 — Final Cycle Top at $69,000</h3>
+
+        <p>Bitcoin recovered from the summer correction and made a new all-time high near $69,000 in November 2021. The CBBI reading at that final top was approximately <strong>94</strong>. The fact that it was slightly lower than the April reading reflected real information: some sub-indicators did not confirm the new price high, suggesting the rally was driven by fewer supporting forces than the April move.</p>
+
+        <p>This kind of divergence between price and composite score is one of the more nuanced things CBBI can show you. A new price high with a lower CBBI than the previous top means the composite is telling you that the second move was less supported on-chain — which is consistent with what we now know about how the late-2021 cycle played out.</p>
+
+        <div class="highlight">
+            <strong>Pattern to remember:</strong> In the 2021 cycle, CBBI crossed 85 well before both major tops. Traders who treated 85+ as a signal to begin de-risking and 90+ as an elevated alert had multiple weeks of lead time before both peaks. That lead time matters more than pinpointing the exact top.
+        </div>
+
+        <p>For a detailed breakdown of how CBBI and LiftOffr's other tracked indicators read at each historical Bitcoin cycle top, see <a href="/indicator-history" class="internal-link">how CBBI performed at every Bitcoin cycle top →</a></p>
+
+        <h2>5. Why a Composite Beats Individual Signals</h2>
+
+        <p>The honest reality of cycle indicator analysis is that every individual indicator has a failure mode.</p>
+
+        <ul>
+            <li>The Pi Cycle Top has triggered with perfect accuracy in past cycles — but it is a price-based technical signal, and technical signals can be distorted by unusual market structures.</li>
+            <li>NUPL can reach euphoria levels early in a bull run and stay there for months while price continues higher, causing early exits.</li>
+            <li>Reserve Risk can remain elevated for extended periods, creating ambiguity about timing.</li>
+            <li>Stock-to-Flow deviations can persist longer than historical precedent suggests.</li>
+        </ul>
+
+        <p>Each of these timing failures can be costly if you act on the signal alone. When one of these indicators fires early, the composite CBBI remains moderate because the other eight sub-indicators have not confirmed. The false alarm from one component gets absorbed and diluted.</p>
+
+        <p>Conversely, when a genuine top is forming, the signals tend to converge. NUPL reaches euphoria at the same time that the Puell Multiple is elevated at the same time that Reserve Risk is high at the same time that S2F deviation is stretched. The CBBI composite reflects all of that convergence as a high score — and the confidence behind a high CBBI reading is proportional to how many sub-indicators are contributing to it.</p>
+
+        <div class="threshold-box">
+            <strong>The averaging effect in practice:</strong>
+            <ul>
+                <li>One sub-indicator at extreme + eight at neutral = CBBI around 25–35. Low concern.</li>
+                <li>Three sub-indicators at extreme + six at neutral = CBBI around 55–65. Watch developing.</li>
+                <li>Six sub-indicators at extreme + three at neutral = CBBI around 78–85. Caution zone.</li>
+                <li>Eight or nine sub-indicators at extreme = CBBI above 90. Deep top territory.</li>
+            </ul>
+        </div>
+
+        <h2>6. How LiftOffr Uses CBBI in an Eight-Indicator Framework</h2>
+
+        <p>At LiftOffr, CBBI is one of eight indicators tracked in confluence every day. The others include MVRV, the Pi Cycle Top, the Puell Multiple, the Bitcoin Investor Tool, on-chain exchange flows, Market Cipher B, and relative strength metrics. Each indicator adds a different dimension of information about where Bitcoin is in its cycle.</p>
+
+        <p>The reason we track eight indicators instead of just CBBI is that even a well-constructed composite like CBBI benefits from external validation. When CBBI is at 88 and MVRV is simultaneously stretched and the Pi Cycle is approaching a cross, the confluence across those independent frameworks is more compelling than any single reading alone.</p>
+
+        <h3>LiftOffr's CBBI Thresholds</h3>
+
+        <p>Within the LiftOffr daily brief and member dashboard, CBBI readings are interpreted as follows:</p>
+
+        <ul>
+            <li><strong>CBBI below 15:</strong> Bottom territory flag. Multiple sub-indicators simultaneously depressed; historically near bear market lows.</li>
+            <li><strong>CBBI 15–65:</strong> Neutral to constructive. No extreme readings in either direction across the composite.</li>
+            <li><strong>CBBI 65–85:</strong> Late-cycle caution. Worth monitoring trajectory and watching for confluence with other indicators beginning to elevate.</li>
+            <li><strong>CBBI 85+:</strong> Top territory. De-risking becomes a priority according to individual plan and risk tolerance. This is not a prediction of an imminent top — it is a signal that the composite is entering the zone where historical tops have formed.</li>
+            <li><strong>CBBI 90+:</strong> Elevated alert. The majority of sub-indicators are simultaneously stretched. Historically this has appeared very close to major cycle tops.</li>
+        </ul>
+
+        <p>These thresholds are framing tools for educational context, not buy or sell instructions. Every member's situation is different, and what constitutes the appropriate response to a CBBI reading of 88 depends on time horizon, position size, and personal risk tolerance.</p>
+
+        <h3>The Daily Brief Format</h3>
+
+        <p>Each morning, LiftOffr members receive a plain-English confluence verdict that includes the current CBBI score alongside the other seven indicators. Instead of checking nine different dashboards and trying to mentally average them, members see a single synthesized read on where the composite of all indicators sits right now — and what the overall signal is telling us about the current point in the cycle.</p>
+
+        <h2>7. Where to Find the CBBI Score</h2>
+
+        <p>The official and authoritative source for the CBBI is Colin's website at colintalkscrypto.com/cbbi/. The score is updated daily and the site shows a chart of the composite over Bitcoin's entire history, which is useful for developing intuition about how the score behaves across full cycles.</p>
+
+        <p>LiftOffr members see the current CBBI reading synthesized in the daily brief each morning alongside the other tracked indicators, so there is no need to check multiple external sites. The context is provided alongside the raw number.</p>
+
+        <div class="highlight">
+            <strong>Educational note:</strong> The CBBI website also shows each of the nine sub-indicators individually so you can see which components are elevated and which are not. A CBBI of 87 driven primarily by one or two sub-indicators tells a different story than a CBBI of 87 where seven or eight sub-indicators are simultaneously elevated. The component breakdown adds useful nuance beyond the composite score alone.
+        </div>
+
+        <h2>8. Limitations of CBBI</h2>
+
+        <p>No indicator — composite or otherwise — is a perfect predictor of future price action. CBBI has several characteristics worth understanding before incorporating it into your framework.</p>
+
+        <p><strong>It is backward-looking by construction.</strong> All nine sub-indicators are derived from historical on-chain data. The composite reflects what has already happened on the blockchain, not what will happen tomorrow. This is true of all on-chain analysis.</p>
+
+        <p><strong>Cycle dynamics can shift.</strong> If a future Bitcoin cycle unfolds differently from historical precedent — due to changes in market structure, the involvement of institutional players, ETF dynamics, or other factors — the sub-indicators inside CBBI may behave differently than they have in prior cycles. The composite inherits this uncertainty from its components.</p>
+
+        <p><strong>The composition may change.</strong> Colin can and does update the sub-indicators included in the CBBI over time. This means that a CBBI reading of 85 in one cycle may not be directly comparable to the same reading in a future cycle if the underlying composition has changed.</p>
+
+        <p><strong>It cannot tell you how long.</strong> CBBI can tell you that the market appears to be in top territory. It cannot tell you whether that top is one week away or three months away. A CBBI of 90 in March might precede a top in April — or the market might grind higher for another four months while the score oscillates between 88 and 94.</p>
+
+        <p>These limitations are not reasons to dismiss CBBI. They are reasons to treat it as one input in a broader framework, which is exactly how LiftOffr uses it.</p>
+
+        <div class="cta-box">
+            <h3>Track CBBI Alongside 7 Other Indicators — Every Morning</h3>
+            <p>LiftOffr synthesizes CBBI, MVRV, Pi Cycle, and five other indicators into a single plain-English confluence read delivered before the US market open. No spreadsheets. No tab-switching.</p>
+            <p><strong>Founder Rate: $29/month — Limited availability</strong></p>
+            <p>Membership includes:</p>
+            <ul>
+                <li>Daily brief: CBBI + 7-indicator confluence verdict each morning</li>
+                <li>Full indicator history going back to prior Bitcoin cycles</li>
+                <li>Threshold alerts when CBBI crosses 85 or 90</li>
+                <li>Private community of cycle-focused members</li>
+                <li>Weekly deep dives on individual indicators and on-chain data</li>
+            </ul>
+            <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=cbbi_article_cta" target="_blank" rel="noopener">Join at Founder Rate — $29/mo</a>
+        </div>
+
+        <div class="faq-section">
+          <h2>FAQ: Common CBBI Questions</h2>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What does CBBI stand for?</summary>
+              <p>CBBI stands for Colin Talks Crypto's Bitcoin Bull Run Index. It was created by Colin, who runs the colintalkscrypto.com website, as a composite score combining roughly nine on-chain and market cycle indicators into a single 0–100 reading.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What score on CBBI signals a cycle top?</summary>
+              <p>Historically, CBBI readings above 85 enter what analysts consider top territory, where de-risking becomes worth considering. Readings above 90 represent an elevated alert zone, and readings above 95 have appeared only at or very near major cycle tops. In the 2021 cycle, CBBI reached approximately 96 near the April local top and approximately 94 near the November final top. These are educational reference points, not financial advice.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What sub-indicators does CBBI include?</summary>
+              <p>CBBI composites approximately nine signals, which have included the Pi Cycle Top, RUPL/NUPL, the Puell Multiple, Stock-to-Flow, the Golden Ratio Multiplier, the Bitcoin Investor Tool, Woobull charts, Reserve Risk, and others. The exact composition may be updated over time by the creator.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>How is CBBI different from just watching individual indicators?</summary>
+              <p>Individual indicators can fire early or late in any given cycle. CBBI smooths those timing errors by averaging across nine signals simultaneously. One indicator being elevated while eight others are neutral produces only a modest CBBI reading, which keeps you from acting on a false alarm. Broad agreement across the composite produces an extreme reading, and that is when the signal carries the most weight.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Where can I find the CBBI score?</summary>
+              <p>The official CBBI is published by Colin at colintalkscrypto.com/cbbi/. LiftOffr members also see the current CBBI reading synthesized alongside seven other indicators in the daily brief each morning.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Does a low CBBI score signal a good buying opportunity?</summary>
+              <p>A CBBI reading below 15 has historically appeared near cycle bottoms, when the majority of its sub-indicators are simultaneously depressed. This is educational context only and not financial advice. Whether a low CBBI represents a buying opportunity depends on your own risk tolerance, time horizon, and full market context.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This article is for educational purposes only and does not constitute financial advice. Bitcoin and cryptocurrency markets are highly volatile. Past indicator behavior does not guarantee future results. Always conduct your own research and consult a qualified financial advisor before making investment decisions.
+        </div>
+
+        <div class="author">
+            <p>— Torin, Founder of LiftOffr</p>
+            <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to retail investors.</em></p>
+        </div>
+    </article>
+</body>
+</html>
