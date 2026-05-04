@@ -182,7 +182,24 @@
   document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
   window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
   window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  // Scroll depth tracking
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
 })();
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
 </script>
 
 </head>
