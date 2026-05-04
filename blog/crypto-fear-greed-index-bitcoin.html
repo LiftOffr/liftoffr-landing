@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how the Crypto Fear & Greed Index works, how its 6 inputs are weighted, and how to use it as a sentiment gauge alongside on-chain data to track Bitcoin cycle tops and bottoms.">
+    <meta name="keywords" content="crypto fear and greed index, bitcoin fear and greed index explained, fear and greed index bitcoin cycle, bitcoin sentiment indicator">
+    <meta property="og:title" content="Crypto Fear & Greed Index Explained: Using Sentiment to Spot Bitcoin Cycle Tops">
+    <meta property="og:description" content="Understand the Fear & Greed Index score zones, its 6 weighted inputs, historical context for 2021 cycle peaks, and why it works best in confluence with on-chain data.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin">
+    <meta property="og:image" content="https://liftoffr.com/og-image.png">
+    <title>Crypto Fear & Greed Index Explained: Using Sentiment to Spot Bitcoin Cycle Tops</title>
+    <link rel="canonical" href="https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin#article",
+          "headline": "Crypto Fear & Greed Index Explained: Using Sentiment to Spot Bitcoin Cycle Tops",
+          "description": "Learn how the Crypto Fear & Greed Index works, how its 6 inputs are weighted, and how to use it as a sentiment gauge alongside on-chain data to track Bitcoin cycle tops and bottoms.",
+          "datePublished": "2026-05-04",
+          "dateModified": "2026-05-04",
+          "author": {
+            "@type": "Person",
+            "name": "Torin Christianson",
+            "url": "https://liftoffr.com/",
+            "sameAs": [
+              "https://www.instagram.com/torin_christianson/",
+              "https://www.youtube.com/@torin-liftoffr"
+            ]
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "LiftOffr",
+            "url": "https://liftoffr.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin"
+          },
+          "image": "https://liftoffr.com/og-image.png",
+          "isPartOf": {
+            "@type": "Blog",
+            "name": "LiftOffr Bitcoin Cycle Trading Guides",
+            "url": "https://liftoffr.com/blog"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What does a Fear & Greed score of 90 or above mean?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A score of 90 or above puts the index deep into Extreme Greed territory. At LiftOffr, we treat 90+ as an elevated caution signal — not a mandatory sell, but a prompt to verify whether other on-chain indicators are also flashing warning. Extreme Greed can persist for weeks during parabolic moves, so confirmation from additional signals matters."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why does LiftOffr show N/A for the 2013 and 2017 cycle tops?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The Crypto Fear & Greed Index was not created until 2018. There is simply no data for the 2013 or 2017 bull cycles. Any site claiming Fear & Greed readings for those years is presenting fabricated numbers. LiftOffr marks those cycles as N/A to preserve accuracy."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can the Fear & Greed Index be manipulated?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To a limited degree, yes. The social media and Google Trends components can be influenced by coordinated narratives or viral content. This is one reason the index is best used as a confirmatory signal alongside on-chain metrics like MVRV, which are derived from immutable blockchain data."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is Extreme Fear always a buying opportunity?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Historically, scores below 20 have coincided with attractive accumulation windows. That said, fear can persist during prolonged bear markets. LiftOffr uses a threshold below 20 as an accumulation signal, but only acts with conviction when other indicators — particularly on-chain supply and demand data — agree."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the Fear & Greed Index work for altcoins?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The index measures Bitcoin-centric sentiment and includes Bitcoin Dominance as one of its inputs. While overall crypto sentiment often moves altcoins, it is not specifically calibrated for individual altcoin cycles. For altcoin timing, broader market sentiment data is more useful than this index alone."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How often is the Crypto Fear & Greed Index updated?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Alternative.me publishes an updated reading every day. The value reflects the current composite score based on all active inputs at the time of calculation. Surveys, one of the six original inputs, are currently paused and excluded from the daily calculation."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "LiftOffr",
+              "item": "https://liftoffr.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://liftoffr.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Crypto Fear & Greed Index",
+              "item": "https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a1a; font-size: 2.2em; margin-bottom: 0.5em; }
+        h2 { color: #2c3e50; font-size: 1.8em; margin-top: 1.2em; margin-bottom: 0.6em; border-bottom: 3px solid #f39c12; padding-bottom: 0.3em; }
+        h3 { color: #34495e; font-size: 1.4em; margin-top: 1em; margin-bottom: 0.4em; }
+        p { margin-bottom: 1em; font-size: 1.05em; }
+        .meta { color: #7f8c8d; font-size: 0.95em; margin-bottom: 2em; border-bottom: 1px solid #ecf0f1; padding-bottom: 1em; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-left: 4px solid #f39c12; margin: 1.5em 0; border-radius: 4px; }
+        .threshold-box { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 1.5em 0; border: 1px solid #dee2e6; }
+        .signal-table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
+        .signal-table th, .signal-table td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
+        .signal-table th { background-color: #f39c12; color: white; }
+        .signal-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .cta-box { background: linear-gradient(135deg, #1a0808 0%, #2d0a0a 100%); color: white; padding: 30px; border-radius: 12px; margin-top: 2em; text-align: center; border: 1px solid rgba(230,57,70,0.35); box-shadow: 0 0 32px rgba(230,57,70,0.1); }
+        .cta-box h3 { color: white; border: none; font-size: 1.4em; margin-bottom: 0.5em; }
+        .cta-box p { color: #ccc; }
+        .cta-box a { background-color: #e63946; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; display: inline-block; margin-top: 16px; transition: opacity 0.2s, transform 0.2s; font-size: 15px; }
+        .cta-box a:hover { opacity: 0.9; transform: translateY(-1px); }
+        .cta-box ul { color: #bbb; text-align: left; display: inline-block; margin-top: 12px; }
+        .author { color: #7f8c8d; font-style: italic; margin-top: 2em; padding-top: 1em; border-top: 1px solid #ecf0f1; }
+        .internal-link { color: #667eea; text-decoration: none; }
+        .internal-link:hover { text-decoration: underline; }
+        ul { margin: 1em 0; padding-left: 25px; }
+        li { margin-bottom: 0.7em; }
+        strong { font-weight: 600; }
+        .diagram-desc { background-color: #f0f7ff; padding: 20px; border-radius: 4px; margin: 1.5em 0; border-left: 4px solid #3498db; }
+        .site-nav { background: #080808; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e1e1e; margin: -20px -20px 32px; }
+        .site-nav img { height: 24px; display: block; }
+        .site-nav-links { display: flex; align-items: center; gap: 20px; }
+        .site-nav-links a { color: #bbb; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .site-nav-links a:hover { color: #fff; }
+        .site-nav-cta { background: #e63946; color: #fff !important; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+        .site-nav-cta:hover { opacity: 0.9; }
+        .breadcrumb { font-size: 13px; color: #888; margin-bottom: 20px; }
+        .breadcrumb a { color: #e63946; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .faq-section { margin-top: 3em; padding-top: 2em; border-top: 2px solid #ecf0f1; }
+        .faq-section h2 { font-size: 1.4em; margin-bottom: 1em; }
+        .faq-item-blog { margin-bottom: 1.2em; }
+        .faq-item-blog summary { font-weight: 600; cursor: pointer; padding: 10px 0; color: #2c3e50; list-style: none; display: flex; justify-content: space-between; }
+        .faq-item-blog summary::-webkit-details-marker { display: none; }
+        .faq-item-blog summary::after { content: '+'; color: #e63946; font-size: 18px; }
+        details[open] .faq-item-blog summary::after { content: '−'; }
+        .faq-item-blog p { color: #555; margin: 8px 0 0; padding-bottom: 12px; }
+        details { border-bottom: 1px solid #dee2e6; }
+        .disclaimer { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px; padding: 16px; margin-top: 2em; font-size: 0.9em; color: #6c757d; }
+        .disclaimer strong { color: #495057; }
+        .zone-bar { display: flex; border-radius: 6px; overflow: hidden; height: 28px; margin: 1.2em 0 0.4em; font-size: 12px; font-weight: 700; }
+        .zone-bar span { display: flex; align-items: center; justify-content: center; flex: 1; color: #fff; }
+        .zone-ef { background: #c0392b; }
+        .zone-f  { background: #e67e22; }
+        .zone-g  { background: #f1c40f; color: #333; }
+        .zone-eg { background: #27ae60; }
+        .zone-labels { display: flex; font-size: 11px; color: #888; margin-bottom: 1.2em; }
+        .zone-labels span { flex: 1; text-align: center; }
+    </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  // Scroll depth tracking
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
+})();
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/"><img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" /></a>
+  <div class="site-nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/indicator-history">Indicators</a>
+    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=fear_greed_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo</a>
+  </div>
+</nav>
+
+    <article>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Crypto Fear &amp; Greed Index</p>
+        <div class="meta">
+            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+        </div>
+
+        <h1>Crypto Fear &amp; Greed Index Explained: Using Sentiment to Spot Bitcoin Cycle Tops</h1>
+
+        <p>There's a saying that cuts to the heart of every Bitcoin bull run: be fearful when others are greedy, and greedy when others are fearful. It's easy to say. It's much harder to act on — because when everyone around you is euphoric about Bitcoin hitting new highs, selling feels wrong. When crypto Twitter is in full panic mode, buying feels insane.</p>
+
+        <p>The Crypto Fear &amp; Greed Index exists to give you an objective number for that crowd psychology. Published daily by Alternative.me, it aggregates six market signals into a single 0–100 score. At 0, the market is in extreme fear. At 100, it is in extreme greed. And historically, the most dangerous buying decisions happen when the crowd is at maximum euphoria — while the best accumulation windows appear when fear is most intense.</p>
+
+        <p>This guide covers how the index is calculated, how to read its four zones, what the historical record looks like (including what it did and did not show during the 2021 cycle), and critically — why it works better as a temperature gauge alongside on-chain data than as a standalone signal.</p>
+
+        <h2>1. What Is the Crypto Fear &amp; Greed Index?</h2>
+
+        <p>The Crypto Fear &amp; Greed Index is a daily sentiment composite published by Alternative.me. The concept is borrowed from the CNN Fear &amp; Greed Index for equities, adapted specifically for Bitcoin and the broader crypto market.</p>
+
+        <p>The premise is behavioral: markets are driven by two emotional extremes. Fear causes investors to sell below fair value. Greed causes investors to buy above it. If you can measure how far the crowd has swung toward either extreme, you gain an edge — not because sentiment perfectly predicts price, but because extreme readings cluster around inflection points in cycles.</p>
+
+        <div class="highlight">
+            <strong>The contrarian framework in one sentence:</strong> When the crowd is most fearful, the risk of buying is typically lower. When the crowd is most greedy, the risk of holding is typically higher. The index gives you a daily number to quantify which extreme you're in.
+        </div>
+
+        <p>The index scores from 0 to 100 and is divided into four zones:</p>
+
+        <div class="zone-bar">
+            <span class="zone-ef">Extreme Fear</span>
+            <span class="zone-f">Fear</span>
+            <span class="zone-g">Greed</span>
+            <span class="zone-eg">Extreme Greed</span>
+        </div>
+        <div class="zone-labels">
+            <span>0–24</span>
+            <span>25–49</span>
+            <span>50–74</span>
+            <span>75–100</span>
+        </div>
+
+        <table class="signal-table">
+            <thead>
+                <tr>
+                    <th>Zone</th>
+                    <th>Score Range</th>
+                    <th>What It Suggests</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Extreme Fear</td>
+                    <td>0–24</td>
+                    <td>Crowd is panicking; historically a window for accumulation</td>
+                </tr>
+                <tr>
+                    <td>Fear</td>
+                    <td>25–49</td>
+                    <td>Cautious market; sellers outweigh buyers in sentiment</td>
+                </tr>
+                <tr>
+                    <td>Greed</td>
+                    <td>50–74</td>
+                    <td>Optimism building; momentum in buyers' favor</td>
+                </tr>
+                <tr>
+                    <td>Extreme Greed</td>
+                    <td>75–100</td>
+                    <td>Crowd is euphoric; historically elevated risk near cycle tops</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>2. How the Score Is Calculated: The 6 Inputs</h2>
+
+        <p>The index is not just a Twitter poll. Alternative.me combines six distinct data sources, each weighted by their perceived contribution to overall market sentiment. Understanding each input helps you appreciate what the score is actually measuring — and where its blind spots are.</p>
+
+        <h3>Volatility — 25%</h3>
+
+        <p>Bitcoin's current volatility is compared against its 30-day and 90-day rolling averages. Unusual spikes in volatility — particularly to the downside — are treated as a fear signal. The underlying logic: when Bitcoin is crashing hard and fast, fear dominates. When volatility is low and price is drifting upward, complacency (a form of greed) takes hold.</p>
+
+        <h3>Market Momentum and Volume — 25%</h3>
+
+        <p>Current trading volume and price momentum are compared against historical norms. When Bitcoin is rising on high volume, momentum is positive and the score shifts toward greed. When price is falling on elevated sell-volume, the score shifts toward fear. This input captures what the market is actually doing, not just what people are saying about it.</p>
+
+        <h3>Social Media Sentiment — 15%</h3>
+
+        <p>Alternative.me analyzes the volume and sentiment of cryptocurrency-related posts across social platforms. A surge in positive, high-engagement posts about Bitcoin is associated with greed. Heavy negative sentiment or panic-driven posting shifts the score toward fear. This input is one of the more manipulable components, which is a relevant limitation discussed later.</p>
+
+        <h3>Surveys — 15% (Currently Paused)</h3>
+
+        <p>Historically, the index included weekly polls of crypto market participants asking directly about their sentiment outlook. This component carried a 15% weight. As of the time of writing, surveys are paused and not contributing to the daily calculation. When active, they served as a direct measure of retail investor opinion.</p>
+
+        <h3>Bitcoin Dominance — 10%</h3>
+
+        <p>Bitcoin's market share as a percentage of total crypto market cap serves as a proxy for risk appetite. When Bitcoin dominance rises, it typically means investors are rotating out of riskier altcoins into Bitcoin — a flight-to-relative-safety move that the index interprets as a mild fear signal. When dominance falls, investors are piling into speculative altcoins, signaling greed.</p>
+
+        <h3>Google Trends — 10%</h3>
+
+        <p>Search volume data from Google Trends tracks interest in Bitcoin-related queries. A massive spike in searches for "buy Bitcoin" or "Bitcoin price" suggests retail excitement, which correlates with greed. Unusual spikes in searches for "Bitcoin crash" or "Bitcoin sell" correlate with fear. This input captures attention — the fuel that powers parabolic moves and panics.</p>
+
+        <div class="diagram-desc">
+            <strong>Input summary:</strong> Volatility (25%) + Market Momentum/Volume (25%) + Social Media (15%) + Surveys (15%, paused) + Bitcoin Dominance (10%) + Google Trends (10%). The two heaviest inputs — volatility and market momentum — are market-data-driven. The remaining inputs are sentiment proxies. This weighting means the index responds to actual price behavior more than to social chatter alone.
+        </div>
+
+        <h2>3. Historical Context: What the Index Has — and Has Not — Shown</h2>
+
+        <p>This is where accuracy matters enormously, and where a lot of content gets it wrong.</p>
+
+        <h3>No Data Before 2018</h3>
+
+        <p>The Crypto Fear &amp; Greed Index did not exist until 2018. This means there is no Fear &amp; Greed data for the <strong>2013 cycle top</strong> or the <strong>2017 cycle top</strong>. None. Zero. Any chart or article claiming to show Fear &amp; Greed readings at the December 2017 peak is presenting fabricated or retroactively modeled numbers — not real data.</p>
+
+        <p>At LiftOffr, when we display historical indicator data on our <a href="/indicator-history" class="internal-link">indicator history page</a>, we mark Fear &amp; Greed as N/A for both the 2013 and 2017 cycles. That's the honest answer. Inventing data to fill the gap would undermine the entire purpose of using this indicator.</p>
+
+        <h3>The 2021 Cycle: Real Readings</h3>
+
+        <p>The 2021 cycle is where Fear &amp; Greed has an actual track record to examine — and the picture is instructive, not perfect.</p>
+
+        <p><strong>April 2021 (Local top around $65,000):</strong> In the weeks leading up to the April high, the Fear &amp; Greed Index climbed into the 80–90+ range — deep Extreme Greed. Bitcoin then sold off sharply, falling roughly 55% to approximately $29,000 by late June. The index was flashing extreme readings during the euphoria. In retrospect, a score above 90 was telling you something real about crowd positioning.</p>
+
+        <p><strong>Summer 2021 (Fear bottom):</strong> By mid-summer, as Bitcoin languished in the $30,000 range and sentiment collapsed, Fear &amp; Greed dropped back into the Fear and Extreme Fear zones. This corresponded with what turned out to be one of the better re-accumulation windows before the second leg higher.</p>
+
+        <p><strong>November 2021 (Cycle peak at approximately $69,000):</strong> The November all-time high again coincided with Extreme Greed readings in the 80–90 range. But here's the important nuance: the index had been elevated for weeks before the actual peak. It did not flip from Greed to Fear the day before the top. It stayed in the upper zones for an extended period while Bitcoin ground higher. This is the defining limitation of the indicator — Extreme Greed can persist for a long time during parabolic moves.</p>
+
+        <div class="highlight">
+            <strong>The key takeaway from 2021:</strong> Fear &amp; Greed correctly identified the sentiment environment at both major 2021 tops — but it was not a precise timing signal. It told you the crowd was dangerously euphoric. It did not tell you which specific day to sell. That distinction matters for how you use it.
+        </div>
+
+        <h2>4. LiftOffr Thresholds: How We Use the Index</h2>
+
+        <p>At LiftOffr, we track eight indicators in confluence to build a complete picture of where Bitcoin is in its cycle. Fear &amp; Greed is one of them — specifically as the sentiment layer. Here are the thresholds that matter to us:</p>
+
+        <h3>90+ — Elevated Caution Signal</h3>
+
+        <p>When the index climbs above 90, we treat it as a prompt to check whether other indicators are also confirming late-cycle conditions. A score of 90+ alone does not trigger a signal — it triggers a review. If MVRV is simultaneously stretched, if on-chain exchange inflows are rising (suggesting holders moving coins to sell), and if the index is also in the 90s, that confluence carries real weight.</p>
+
+        <h3>Below 20 — Accumulation Zone</h3>
+
+        <p>Scores below 20 have historically coincided with some of the best buying windows in Bitcoin's history. Deep Extreme Fear readings signal that the crowd has largely given up, weak hands have capitulated, and the market is dominated by sellers at a loss. Alone, a score below 20 is interesting. Combined with on-chain signals showing supply absorption, it becomes actionable.</p>
+
+        <h3>The Middle Range: 25–75</h3>
+
+        <p>In the middle range, the index is background noise. It tells you the market is neither panicking nor euphoric, which is the default state during most of a cycle. We do not trade off middle-range readings — they require no response and carry no strong signal in isolation.</p>
+
+        <h2>5. The Core Limitation: A Sentiment Indicator That Lags Price</h2>
+
+        <p>Here is the most important thing to understand about the Fear &amp; Greed Index: it is fundamentally a lagging indicator. It measures how the crowd feels right now, which is heavily influenced by what price has already done.</p>
+
+        <p>When Bitcoin rises 30% in a month, the index moves toward Extreme Greed because people are excited about the gains they've already made. When Bitcoin falls 40%, the index moves toward Extreme Fear because people are reacting to losses they've already suffered. The index does not predict price — it reflects the crowd's emotional reaction to price.</p>
+
+        <p>This creates a specific failure mode that every user of this indicator needs to understand: <strong>during a parabolic move, Extreme Greed can persist for weeks or months.</strong> Selling the moment the index hits 75 in a strong bull run can mean exiting months before the actual top, missing the most explosive portion of the move. This happened repeatedly in 2021.</p>
+
+        <div class="diagram-desc">
+            <strong>The temperature gauge analogy:</strong> Think of the Fear &amp; Greed Index as a thermometer for market sentiment. A thermometer tells you how hot it is right now. It does not tell you when the temperature will peak or drop. Used correctly, it informs your awareness of current conditions. Used incorrectly — as a precise timing trigger — it generates false exits and missed opportunities.
+        </div>
+
+        <p>A second limitation: the social media and Google Trends inputs can be influenced by coordinated campaigns, viral moments, or celebrity endorsements that have nothing to do with fundamental market conditions. A single high-profile tweet can temporarily spike social sentiment. This is why the index should be read in the context of its trend over days and weeks — not reacted to on any single daily reading.</p>
+
+        <h2>6. How It Fits Into the 8-Indicator Confluence System</h2>
+
+        <p>LiftOffr tracks eight indicators across two categories: on-chain supply and demand metrics, and sentiment overlays. Fear &amp; Greed sits firmly in the sentiment overlay category. Its role is to tell us <em>how the crowd is positioned</em>, not <em>what the underlying Bitcoin market structure looks like</em>.</p>
+
+        <p>On-chain metrics — like MVRV (which compares market value to realized value), exchange inflows and outflows, and miner behavior — tell you what holders are actually doing with their coins. These are ground-truth signals derived from immutable blockchain data. Sentiment indicators like Fear &amp; Greed tell you what the crowd is thinking and feeling, which is relevant but separable.</p>
+
+        <p>The confluence approach works like this:</p>
+
+        <ul>
+            <li><strong>Fear &amp; Greed at 90+</strong> asks the question: is the crowd euphoric right now?</li>
+            <li><strong>MVRV above 4.0</strong> answers: is Bitcoin historically overvalued relative to what investors paid?</li>
+            <li><strong>Rising exchange inflows</strong> confirms: are holders actually moving coins toward selling?</li>
+            <li><strong>All three aligned</strong> creates a confluence signal that carries far more weight than any single reading.</li>
+        </ul>
+
+        <p>Conversely, in accumulation territory:</p>
+
+        <ul>
+            <li><strong>Fear &amp; Greed below 20</strong> tells you the crowd has capitulated emotionally.</li>
+            <li><strong>MVRV below 1.2</strong> tells you Bitcoin is at or below its cost basis for the average holder.</li>
+            <li><strong>Low exchange inflows and high exchange outflows</strong> tells you coins are being withdrawn from exchanges — a supply reduction signal.</li>
+            <li><strong>All three together</strong> creates a high-conviction accumulation thesis.</li>
+        </ul>
+
+        <p>You can review how Fear &amp; Greed has aligned with other indicators at major historical inflection points on the <a href="/indicator-history" class="internal-link">LiftOffr indicator history page</a>. The pattern of confluence is visible across the 2020–2021 and 2022–2024 cycles — the periods where full data exists.</p>
+
+        <div class="highlight">
+            <strong>Why confluence beats a single indicator:</strong> Every indicator has a failure mode. MVRV can stay stretched for months during a parabolic blow-off. Fear &amp; Greed can spike and then stay elevated. No single signal is reliable enough to act on alone. When multiple independent signals — sentiment, on-chain, and technical — all point in the same direction, the probability of a major inflection point rises substantially.
+        </div>
+
+        <h2>7. What the Index Does Not Tell You</h2>
+
+        <p>To use Fear &amp; Greed well, you also need to understand what it cannot tell you:</p>
+
+        <ul>
+            <li><strong>It does not predict magnitude.</strong> A score of 90 tells you sentiment is extreme. It does not tell you whether the correction will be 20% or 60%.</li>
+            <li><strong>It does not give you a sell date.</strong> Extreme Greed can persist for weeks during parabolic moves. The index will not flip to Fear the week before the top in a reliable way.</li>
+            <li><strong>It has no data before 2018.</strong> Applying it to historical cycles prior to that date requires modeled estimates, not real readings.</li>
+            <li><strong>It reflects Bitcoin-centric sentiment.</strong> It is not a precise altcoin timing tool, though broader sentiment clearly affects all crypto assets.</li>
+            <li><strong>It can be temporarily distorted.</strong> Viral social media moments, celebrity endorsements, or coordinated messaging can push short-term sentiment readings without reflecting real market conditions.</li>
+        </ul>
+
+        <p>None of these limitations invalidate the index. They define how it should be positioned in your analysis toolkit — as one signal among many, weighted appropriately for what it does well.</p>
+
+        <div class="cta-box">
+            <h3>Track All 8 Indicators in One Daily Brief</h3>
+            <p>Fear &amp; Greed is just one of the eight signals LiftOffr monitors every day. Each morning at 8am MT, members receive a plain-English confluence read that synthesizes sentiment, on-chain data, and cycle timing into one clear verdict.</p>
+            <p><strong>LiftOffr Founder Rate: $29/month</strong></p>
+            <p>Membership includes:</p>
+            <ul>
+                <li>Daily confluence brief covering all 8 indicators</li>
+                <li>Fear &amp; Greed zone alerts when readings enter extreme territory</li>
+                <li>On-chain signal dashboard (MVRV, exchange flows, miner behavior)</li>
+                <li>Historical indicator data across Bitcoin cycles</li>
+                <li>Private member community and weekly analysis</li>
+            </ul>
+            <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=fear_greed_article_cta" target="_blank" rel="noopener">Join LiftOffr — $29/mo Founder Rate</a>
+        </div>
+
+        <div class="faq-section">
+          <h2>FAQ: Crypto Fear &amp; Greed Index Questions</h2>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What does a Fear &amp; Greed score of 90 or above mean?</summary>
+              <p>A score of 90 or above puts the index deep into Extreme Greed territory. At LiftOffr, we treat 90+ as an elevated caution signal — not a mandatory sell, but a prompt to verify whether other on-chain indicators are also flashing warning. Extreme Greed can persist for weeks during parabolic moves, so confirmation from additional signals matters.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Why does LiftOffr show N/A for the 2013 and 2017 cycle tops?</summary>
+              <p>The Crypto Fear &amp; Greed Index was not created until 2018. There is simply no data for the 2013 or 2017 bull cycles. Any site claiming Fear &amp; Greed readings for those years is presenting fabricated numbers. LiftOffr marks those cycles as N/A to preserve accuracy.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Can the Fear &amp; Greed Index be manipulated?</summary>
+              <p>To a limited degree, yes. The social media and Google Trends components can be influenced by coordinated narratives or viral content. This is one reason the index is best used as a confirmatory signal alongside on-chain metrics like MVRV, which are derived from immutable blockchain data.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Is Extreme Fear always a buying opportunity?</summary>
+              <p>Historically, scores below 20 have coincided with attractive accumulation windows. That said, fear can persist during prolonged bear markets. LiftOffr uses a threshold below 20 as an accumulation signal, but only acts with conviction when other indicators — particularly on-chain supply and demand data — agree.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Does the Fear &amp; Greed Index work for altcoins?</summary>
+              <p>The index measures Bitcoin-centric sentiment and includes Bitcoin Dominance as one of its inputs. While overall crypto sentiment often moves altcoins, it is not specifically calibrated for individual altcoin cycles. For altcoin timing, broader market sentiment data is more useful than this index alone.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>How often is the Crypto Fear &amp; Greed Index updated?</summary>
+              <p>Alternative.me publishes an updated reading every day. The value reflects the current composite score based on all active inputs at the time of calculation. Surveys, one of the six original inputs, are currently paused and excluded from the daily calculation.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> This article is for educational purposes only and does not constitute financial advice. Bitcoin and cryptocurrency markets carry substantial risk. Past indicator readings and historical cycle patterns are not a guarantee of future results. All investment decisions involve risk of loss. LiftOffr provides cycle intelligence and market education — not personalized financial advice. Always conduct your own research before making any investment decision.
+        </div>
+
+        <div class="author">
+            <p>— Torin, Founder of LiftOffr</p>
+            <p><em>Torin has been analyzing Bitcoin on-chain metrics and cycle indicators since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to everyday Bitcoin investors.</em></p>
+        </div>
+    </article>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how the Bitcoin 2-Year MA Multiplier works: two lines that identify cycle tops and accumulation zones. Created by Philip Swift. Historical readings, logic, and how LiftOffr uses it alongside MVRV and Puell.">
+    <meta name="keywords" content="bitcoin 2 year ma multiplier, bitcoin 2 year moving average multiplier, philip swift bitcoin indicator, bitcoin cycle indicator, bitcoin long term moving average">
+    <meta property="og:title" content="Bitcoin 2-Year MA Multiplier: The Long-Term Mean Reversion Indicator">
+    <meta property="og:description" content="The 2-Year MA Multiplier uses two lines to identify Bitcoin cycle tops and accumulation zones. Learn the logic, the history, and how to use it alongside MVRV and Puell.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier">
+    <meta property="og:image" content="https://liftoffr.com/og-image.png">
+    <title>Bitcoin 2-Year MA Multiplier: The Long-Term Mean Reversion Indicator</title>
+    <link rel="canonical" href="https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Article",
+          "@id": "https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier#article",
+          "headline": "Bitcoin 2-Year MA Multiplier: The Long-Term Mean Reversion Indicator",
+          "description": "Learn how the Bitcoin 2-Year MA Multiplier works: two lines that identify cycle tops and accumulation zones. Created by Philip Swift. Historical readings, logic, and how LiftOffr uses it alongside MVRV and Puell.",
+          "datePublished": "2026-05-04",
+          "dateModified": "2026-05-04",
+          "author": {
+            "@type": "Person",
+            "name": "Torin Christianson",
+            "url": "https://liftoffr.com/",
+            "sameAs": [
+              "https://www.instagram.com/torin_christianson/",
+              "https://www.youtube.com/@torin-liftoffr"
+            ]
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "LiftOffr",
+            "url": "https://liftoffr.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier"
+          },
+          "image": "https://liftoffr.com/og-image.png",
+          "isPartOf": {
+            "@type": "Blog",
+            "name": "LiftOffr Bitcoin Cycle Trading Guides",
+            "url": "https://liftoffr.com/blog"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Who created the Bitcoin 2-Year MA Multiplier?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The 2-Year MA Multiplier was created by Philip Swift, who also founded LookIntoBitcoin, one of the most widely used on-chain and cycle analytics platforms in the Bitcoin space."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the two lines in the 2-Year MA Multiplier?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The first line is the 2-year simple moving average (730-day MA) of Bitcoin's price. The second line is 5 times that 2-year MA. Price entering the zone above the 5x line has historically indicated cycle tops; price falling below the 2-year MA has historically indicated accumulation zones."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why does the 5x line get harder to reach over time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "As Bitcoin's market capitalization grows, it takes an increasingly large amount of capital to push price to extreme multiples of the long-term mean. The same percentage extension that was possible when Bitcoin was a $1B asset requires trillions of dollars of inflow at today's scale. This is why the 2021 peaks fell well short of the 5x line compared to 2013 and 2017."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does the 2-Year MA Multiplier work on its own?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No indicator works best in isolation. The 2-Year MA Multiplier is most useful as a valuation context tool — it tells you where price stands relative to its long-term mean. Combined with on-chain indicators like MVRV and Puell, it forms part of a stronger confluence picture."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What does it mean if Bitcoin is below the 2-year MA?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Price falling below the 2-year moving average has historically marked deep accumulation zones — the periods where long-term buyers have been rewarded most. It doesn't guarantee an immediate reversal, but historically these have been low-risk, high-reward entry windows."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does LiftOffr use the 2-Year MA Multiplier?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "LiftOffr tracks the 2-Year MA Multiplier as a valuation context layer alongside MVRV, Puell Multiple, and other indicators. Approaching the 5x line triggers elevated caution in the daily brief. Price below the 2-year MA activates a strong accumulation signal. The indicator is never used in isolation — it's part of an 8-indicator confluence framework."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "LiftOffr",
+              "item": "https://liftoffr.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://liftoffr.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "2-Year MA Multiplier",
+              "item": "https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; max-width: 900px; margin: 0 auto; }
+        h1 { color: #1a1a1a; font-size: 2.2em; margin-bottom: 0.5em; }
+        h2 { color: #2c3e50; font-size: 1.8em; margin-top: 1.2em; margin-bottom: 0.6em; border-bottom: 3px solid #f39c12; padding-bottom: 0.3em; }
+        h3 { color: #34495e; font-size: 1.4em; margin-top: 1em; margin-bottom: 0.4em; }
+        p { margin-bottom: 1em; font-size: 1.05em; }
+        .meta { color: #7f8c8d; font-size: 0.95em; margin-bottom: 2em; border-bottom: 1px solid #ecf0f1; padding-bottom: 1em; }
+        .highlight { background-color: #fff3cd; padding: 15px; border-left: 4px solid #f39c12; margin: 1.5em 0; border-radius: 4px; }
+        .threshold-box { background-color: #f8f9fa; padding: 15px; border-radius: 4px; margin: 1.5em 0; border: 1px solid #dee2e6; }
+        .signal-table { width: 100%; border-collapse: collapse; margin: 1.5em 0; }
+        .signal-table th, .signal-table td { padding: 12px; text-align: left; border-bottom: 1px solid #dee2e6; }
+        .signal-table th { background-color: #f39c12; color: white; }
+        .signal-table tr:nth-child(even) { background-color: #f9f9f9; }
+        .author { color: #7f8c8d; font-style: italic; margin-top: 2em; padding-top: 1em; border-top: 1px solid #ecf0f1; }
+        .internal-link { color: #667eea; text-decoration: none; }
+        .internal-link:hover { text-decoration: underline; }
+        ul { margin: 1em 0; padding-left: 25px; }
+        li { margin-bottom: 0.7em; }
+        strong { font-weight: 600; }
+        .diagram-desc { background-color: #f0f7ff; padding: 20px; border-radius: 4px; margin: 1.5em 0; border-left: 4px solid #3498db; }
+        .disclaimer { background-color: #f8f9fa; padding: 16px 20px; border-left: 4px solid #aaa; margin: 2em 0; border-radius: 4px; font-size: 0.92em; color: #666; }
+        .site-nav { background: #080808; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1e1e1e; margin: -20px -20px 32px; }
+        .site-nav img { height: 24px; display: block; }
+        .site-nav-links { display: flex; align-items: center; gap: 20px; }
+        .site-nav-links a { color: #bbb; text-decoration: none; font-size: 14px; font-weight: 600; }
+        .site-nav-links a:hover { color: #fff; }
+        .site-nav-cta { background: #e63946; color: #fff !important; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+        .site-nav-cta:hover { opacity: 0.9; }
+        .breadcrumb { font-size: 13px; color: #888; margin-bottom: 20px; }
+        .breadcrumb a { color: #e63946; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .cta-box { background: linear-gradient(135deg, #1a0808 0%, #2d0a0a 100%); color: white; padding: 30px; border-radius: 12px; margin-top: 2em; text-align: center; border: 1px solid rgba(230,57,70,0.35); box-shadow: 0 0 32px rgba(230,57,70,0.1); }
+        .cta-box h3 { color: white; border: none; font-size: 1.4em; margin-bottom: 0.5em; }
+        .cta-box p { color: #ccc; }
+        .cta-box a { background-color: #e63946; color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 8px; font-weight: 700; display: inline-block; margin-top: 16px; transition: opacity 0.2s, transform 0.2s; font-size: 15px; }
+        .cta-box a:hover { opacity: 0.9; transform: translateY(-1px); }
+        .cta-box ul { color: #bbb; text-align: left; display: inline-block; margin-top: 12px; }
+        .faq-section { margin-top: 3em; padding-top: 2em; border-top: 2px solid #ecf0f1; }
+        .faq-section h2 { font-size: 1.4em; margin-bottom: 1em; }
+        .faq-item-blog { margin-bottom: 1.2em; }
+        .faq-item-blog summary { font-weight: 600; cursor: pointer; padding: 10px 0; color: #2c3e50; list-style: none; display: flex; justify-content: space-between; }
+        .faq-item-blog summary::-webkit-details-marker { display: none; }
+        .faq-item-blog summary::after { content: '+'; color: #e63946; font-size: 18px; }
+        details[open] .faq-item-blog summary::after { content: '−'; }
+        .faq-item-blog p { color: #555; margin: 8px 0 0; padding-bottom: 12px; }
+        details { border-bottom: 1px solid #dee2e6; }
+    </style>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+</script>
+<!-- LiftOffr conversion tracking -->
+<script>
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('message',function(e){if(!e.origin||!/beehiiv\.com$/.test(new URL(e.origin).hostname))return;var d=e.data||{};if(d&&(d.type==='beehiiv:subscribe'||d.event==='subscribed'||/subscribe/i.test(d.type||''))){var t=utms();track('lead_captured',{source:'beehiiv_popup',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})}});
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  // Scroll depth tracking
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
+})();
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/"><img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" /></a>
+  <div class="site-nav-links">
+    <a href="/blog">Blog</a>
+    <a href="/indicator-history">Indicators</a>
+    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=2yma_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo</a>
+  </div>
+</nav>
+
+    <article>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › 2-Year MA Multiplier</p>
+        <div class="meta">
+            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+        </div>
+
+        <h1>Bitcoin 2-Year MA Multiplier: The Long-Term Mean Reversion Indicator</h1>
+
+        <p>Most Bitcoin indicators ask a narrow question. MVRV asks: are investors profitable? The Puell Multiple asks: are miners stressed? The 2-Year MA Multiplier asks something more fundamental: <strong>how far has price drifted from its long-term gravitational center?</strong></p>
+
+        <p>Created by Philip Swift — the analyst behind LookIntoBitcoin — the 2-Year MA Multiplier is one of the simplest cycle tools in existence. Just two lines on a chart. But the logic behind those lines is grounded in something real: Bitcoin's price has never permanently escaped its 2-year moving average. Every time it has stretched too far, it has eventually come back. And every time it has fallen below, it has eventually recovered.</p>
+
+        <p>This article explains how the indicator works, why the math makes sense, what history shows at major cycle tops and bottoms, and how LiftOffr uses it as one layer in an 8-indicator confluence framework.</p>
+
+        <h2>1. What Is the 2-Year MA Multiplier? The Two Lines Explained</h2>
+
+        <p>The indicator is built from a single input — Bitcoin's historical price — and two derived lines:</p>
+
+        <h3>Line 1: The 2-Year Moving Average (730-Day MA)</h3>
+
+        <p>This is the simple moving average of Bitcoin's price over the past 730 days (approximately two years). It moves slowly, filtering out daily volatility and shorter-term cycles, leaving behind a smooth representation of Bitcoin's "center of gravity" across a full market cycle.</p>
+
+        <p>Two years is not an arbitrary choice. A single Bitcoin cycle — from one halving to the next — spans roughly four years. A two-year window captures half that cycle: long enough to include the accumulation phase, the early bull run, and the peak territory within the same average. It is the closest approximation we have to a mean price across a complete cycle arc.</p>
+
+        <h3>Line 2: 5x the 2-Year Moving Average</h3>
+
+        <p>The second line is simply that 2-year MA multiplied by five. It does not represent a prediction. It represents a historically observed boundary — the region above which Bitcoin's price has entered extreme overextension territory in past cycles.</p>
+
+        <div class="diagram-desc">
+            <strong>How to read it at a glance:</strong> Plot both lines on a Bitcoin price chart. When the current price is between the two lines, you are in mid-cycle territory. When price climbs above the 5x line, the indicator signals potential top territory. When price falls below the 2-year MA, the indicator signals a historical accumulation zone.
+        </div>
+
+        <h2>2. The Logic: Why Mean Reversion Works for Bitcoin</h2>
+
+        <p>Mean reversion is not a Bitcoin-specific theory. It describes a universal feature of markets driven by human psychology: prices that move far from their long-term average tend, over time, to return toward it. The further the extension, the stronger the eventual pull back.</p>
+
+        <p>What makes Bitcoin particularly well-suited to this framework is its <strong>four-year halving cycle</strong>. Every approximately four years, the rate at which new Bitcoin is created is cut in half. This reliably tightens supply at predictable intervals. The result is a repeating pattern: supply squeeze, price expansion, speculative excess, correction, accumulation, repeat.</p>
+
+        <p>The 2-year MA anchors itself in the middle of this cycle. It is long enough to smooth through the noise but short enough to respond to structural price changes across cycles. When price is running well above this average, it is telling you the market has priced in a great deal of future optimism. When price falls below it, the market has discounted a great deal of future pessimism — sometimes more than the fundamental picture warrants.</p>
+
+        <div class="highlight">
+            <strong>Why 5x specifically?</strong> Philip Swift observed that, across Bitcoin's history, the point at which price tended to find major resistance and reverse was consistently in the range of 5 times the 2-year MA. It is not a magic number — it is a historically observed ceiling that reflects how far speculative mania can push price above its long-run mean before gravity asserts itself.
+        </div>
+
+        <h2>3. Historical Readings at Cycle Tops and Bottoms</h2>
+
+        <p>The most useful thing about the 2-Year MA Multiplier is its track record. Here is what the indicator showed at each major cycle event in Bitcoin's history.</p>
+
+        <h3>2013 Cycle Peak</h3>
+
+        <p>Bitcoin's market capitalization was tiny by today's standards. The price rose from single digits to over $1,000 in 2013. Price entered the 5x zone briefly during this run. At Bitcoin's scale at the time, the capital required to reach extreme multiples of the 2-year MA was small, and the retail speculative wave of late 2013 was sufficient to push price well into and briefly above the 5x line. The crash that followed was severe.</p>
+
+        <h3>2017 Cycle Peak (~$20,000)</h3>
+
+        <p>The 2017 bull market brought Bitcoin to mainstream attention for the first time. Price reached approximately $19,500 in December 2017 and briefly approached or touched the 5x line near that peak. Those who were tracking the indicator had clear context: price had entered a zone associated with extreme cycle extension in prior history. The 84% drawdown that followed over the next year validated the signal.</p>
+
+        <h3>2021 April Peak (~$65,000)</h3>
+
+        <p>By the 2021 cycle, Bitcoin's market cap had grown enormously. The April 2021 peak near $65,000 saw price approach the 5x line but not clearly break above it. The indicator was flashing caution, but not the same definitive "above the ceiling" reading that earlier cycles produced. Price subsequently fell roughly 55% into the summer.</p>
+
+        <h3>2021 November Peak (~$69,000)</h3>
+
+        <p>The November 2021 all-time high near $69,000 was the final peak of that cycle. By this point, the 5x line had itself risen significantly — anchored to a higher 2-year MA — and price was well below it. The indicator did not produce the same kind of extreme overextension signal it had in 2017. This is one of the most instructive data points in the indicator's history.</p>
+
+        <div class="highlight">
+            <strong>The compression effect:</strong> As Bitcoin's market capitalization grows, it takes more capital to move price to extreme multiples of the long-term mean. What was achievable at a $10B market cap requires orders of magnitude more inflow at a $1T+ market cap. This means the 5x line becomes progressively harder to reach in each successive cycle — which is why confluence with other indicators matters so much.
+        </div>
+
+        <h3>Bear Market Bottoms: Below the 2-Year MA</h3>
+
+        <p>The lower signal — price falling below the 2-year MA — has appeared at each major cycle bottom. The 2018–2019 bottom in the $3,000–$4,000 range saw price drop below the 2-year MA. The 2022 capitulation bottom near $16,000 saw price fall significantly below it again. In both cases, the indicator was telling you that price had compressed to a level historically associated with the early stages of accumulation — not guaranteed to be the exact bottom, but consistently in the territory of long-term buying opportunity.</p>
+
+        <table class="signal-table">
+            <thead>
+                <tr>
+                    <th>Price Zone</th>
+                    <th>Indicator Reading</th>
+                    <th>Historical Context</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Well above 5x line</td>
+                    <td>Extreme top territory</td>
+                    <td>Preceded major crashes in 2013, approached in 2017</td>
+                </tr>
+                <tr>
+                    <td>Approaching 5x line</td>
+                    <td>Elevated caution zone</td>
+                    <td>Late-cycle signal; risk/reward begins to deteriorate</td>
+                </tr>
+                <tr>
+                    <td>Between 2Y MA and 5x line</td>
+                    <td>Mid-cycle / bull market</td>
+                    <td>Normal bull market territory; trend intact</td>
+                </tr>
+                <tr>
+                    <td>Near the 2Y MA</td>
+                    <td>Fair value / late bear</td>
+                    <td>Transitional zone; watch for direction</td>
+                </tr>
+                <tr>
+                    <td>Below the 2Y MA</td>
+                    <td>Accumulation zone</td>
+                    <td>Historical bottoms form here; long-term buy signal</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Why the 5x Line Gets Harder to Reach Over Time</h2>
+
+        <p>This is the most important nuance in the entire indicator — and the one most analysts gloss over.</p>
+
+        <p>In 2013, Bitcoin's total market capitalization at the peak was roughly $15 billion. Pushing price to five times its two-year moving average required a relatively small amount of incremental capital. The speculative frenzy of that era — driven by early adopters, Silk Road notoriety, and Winklevoss ETF speculation — was sufficient to do it.</p>
+
+        <p>By 2017, the market cap at peak was approximately $330 billion. Still accessible to retail speculation, but already requiring meaningfully more capital. Price touched or briefly exceeded the 5x line.</p>
+
+        <p>By 2021, the market cap at peak exceeded $1.2 trillion. Pushing price to five times a 2-year MA anchored at much higher levels would have required several trillion dollars of sustained inflow. That did not happen. The 5x line remained out of reach.</p>
+
+        <p>This is not a failure of the indicator — it is the indicator doing its job. It is telling you that extreme overextension becomes structurally harder to achieve as the asset matures and its market cap deepens. The ceiling rises in absolute dollar terms with each cycle. The <em>multiple</em> you can realistically expect to see at cycle peaks will likely compress further over time.</p>
+
+        <p>This is precisely why LiftOffr does not rely on any single indicator. You can see the full context of how the 2-Year MA Multiplier lines up against current cycle conditions alongside our other tracked indicators at <a href="/indicator-history" class="internal-link">the LiftOffr indicator history page</a>.</p>
+
+        <h2>5. How the 2-Year MA Multiplier Fits Alongside MVRV and Puell</h2>
+
+        <p>At LiftOffr, we track eight indicators in confluence. The 2-Year MA Multiplier, MVRV, and the Puell Multiple form a natural grouping — three different tools all attempting to answer a related question: <strong>how extended is price from some measure of fair value?</strong></p>
+
+        <h3>What Each One Measures</h3>
+
+        <ul>
+            <li><strong>MVRV</strong> measures how far Bitcoin's market cap has stretched above the aggregate cost basis of all Bitcoin holders on-chain. It is a measure of investor unrealized profit.</li>
+            <li><strong>Puell Multiple</strong> measures how elevated today's miner revenue (in USD) is relative to its 365-day average. It captures whether miners are flush with profit — which historically precedes selling pressure — or stressed, which historically coincides with bottoms.</li>
+            <li><strong>2-Year MA Multiplier</strong> measures how far price has extended above or fallen below its own 2-year moving average. It is the purest form of mean reversion analysis applied to Bitcoin's price.</li>
+        </ul>
+
+        <h3>How They Complement Each Other</h3>
+
+        <p>The three indicators are constructed from different inputs — on-chain cost basis data, miner revenue data, and raw price data — which means they are not simply measuring the same thing in different ways. When all three signal the same condition simultaneously, the convergence is meaningful.</p>
+
+        <p><strong>At a cycle top:</strong> You would typically see MVRV in extreme territory (investors are massively profitable), Puell Multiple elevated (miners are earning well above their yearly average), and price approaching or above the 5x line on the 2-Year MA Multiplier. Three different lenses, same conclusion: overextended.</p>
+
+        <p><strong>At a cycle bottom:</strong> MVRV falls below or near 1.0 (investors are collectively at or below break-even), Puell falls to extreme lows (miners are under severe revenue pressure, often capitulating), and price drops below the 2-year MA. Again, three independent signals converging on the same conclusion: deeply undervalued by historical standards.</p>
+
+        <div class="diagram-desc">
+            <strong>Confluence in practice:</strong> No single indicator signals a perfect top or bottom on every cycle. But when MVRV, Puell, and the 2-Year MA Multiplier all enter extreme territory at the same time, the signal-to-noise ratio improves substantially. That is the entire premise of confluence-based cycle analysis.
+        </div>
+
+        <h2>6. How LiftOffr Uses the 2-Year MA Multiplier</h2>
+
+        <p>Within the LiftOffr framework, the 2-Year MA Multiplier functions as a <strong>valuation context layer</strong>. It is not used to trigger entries or exits on its own. It is used to establish the backdrop against which the other seven indicators are read.</p>
+
+        <h3>Approaching the 5x Line: Elevated Caution</h3>
+
+        <p>When Bitcoin's price begins to close in on the 5x moving average line, LiftOffr's daily brief reflects elevated caution. This does not mean selling everything immediately — price can spend weeks or months approaching and oscillating around that zone. But it does mean the risk/reward profile for new positions has deteriorated significantly, and the weight of historical evidence suggests the cycle is entering its most dangerous phase.</p>
+
+        <h3>Below the 2-Year MA: Strong Accumulation Signal</h3>
+
+        <p>When Bitcoin's price falls below the 2-year moving average, LiftOffr treats it as one of the strongest accumulation signals in the framework. Combined with depressed MVRV and extreme Puell lows, a price below the 2-year MA has historically marked the window where long-term conviction buyers have been most rewarded.</p>
+
+        <h3>Between the Lines: Monitoring Mode</h3>
+
+        <p>When price is between the 2-year MA and the 5x line, the 2-Year MA Multiplier is not generating a strong directional signal. In this zone, the other indicators in the LiftOffr framework carry more weight — on-chain flow data, the MVRV Z-Score, Puell's position within its historical range, and momentum indicators help determine where in the mid-cycle we are.</p>
+
+        <div class="threshold-box">
+            <strong>LiftOffr's 2-Year MA Multiplier Framework:</strong>
+            <ul>
+                <li><strong>Price well above the 5x line:</strong> Top territory — historically preceded by major drawdowns</li>
+                <li><strong>Price approaching the 5x line:</strong> Elevated caution — risk/reward deteriorating</li>
+                <li><strong>Price between 2Y MA and 5x line:</strong> Mid-cycle — monitor other indicators</li>
+                <li><strong>Price near the 2Y MA:</strong> Transitional — watch closely for direction</li>
+                <li><strong>Price below the 2Y MA:</strong> Accumulation zone — one of the strongest historical buy signals</li>
+            </ul>
+        </div>
+
+        <h2>7. The Limits of the Indicator — and Why That's the Point</h2>
+
+        <p>The 2-Year MA Multiplier is not a perfect timing tool, and it is not presented as one. There are several specific limitations worth understanding.</p>
+
+        <p><strong>It does not give you precise exit prices.</strong> Knowing that price is "approaching the 5x zone" tells you to be cautious, but it does not tell you exactly when to sell or how much. Price can spend months in the danger zone before the reversal happens.</p>
+
+        <p><strong>The 5x line's relevance compresses over time.</strong> As discussed above, increasingly large market caps make extreme price multiples harder to achieve. In future cycles, the relevant "danger zone" may be closer to 3x or 4x rather than 5x. The indicator requires interpretation in the context of each cycle's market cap environment.</p>
+
+        <p><strong>It says nothing about the speed of the move.</strong> Price can fall below the 2-year MA and stay there for 12–18 months before recovering. "Accumulation zone" is not the same as "imminent reversal." Patience is required.</p>
+
+        <p>These limitations are not reasons to ignore the indicator. They are reasons to use it as one layer of a broader framework — which is exactly what LiftOffr does.</p>
+
+        <div class="disclaimer">
+            <strong>Educational disclaimer:</strong> This article is for informational and educational purposes only. Nothing here constitutes financial advice, investment recommendations, or a solicitation to buy or sell any asset. Bitcoin markets are volatile and unpredictable. Past indicator behavior does not guarantee future results. Always conduct your own research and consult a qualified financial professional before making investment decisions.
+        </div>
+
+        <div class="cta-box">
+            <h3>Track the 2-Year MA Multiplier Alongside 7 Other Indicators — Every Day</h3>
+            <p>LiftOffr's daily brief synthesizes the 2-Year MA Multiplier, MVRV, Puell Multiple, and five more indicators into a single confluence read every morning. No spreadsheets. No tab-switching. One clear signal.</p>
+            <p><strong>Founder Rate: $29/month — limited availability</strong></p>
+            <ul>
+                <li>Daily confluence brief at 8am MT</li>
+                <li>8-indicator dashboard updated in real time</li>
+                <li>Historical indicator readings by cycle phase</li>
+                <li>Private community of cycle-focused members</li>
+                <li>Direct access to Torin's analysis and Q&amp;A</li>
+            </ul>
+            <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=2yma_article_cta" target="_blank" rel="noopener">Join LiftOffr — $29/mo Founder Rate</a>
+        </div>
+
+        <div class="faq-section">
+          <h2>FAQ: Bitcoin 2-Year MA Multiplier</h2>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Who created the Bitcoin 2-Year MA Multiplier?</summary>
+              <p>The 2-Year MA Multiplier was created by Philip Swift, who also founded LookIntoBitcoin, one of the most widely used on-chain and cycle analytics platforms in the Bitcoin space.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What are the two lines in the 2-Year MA Multiplier?</summary>
+              <p>The first line is the 2-year simple moving average (730-day MA) of Bitcoin's price. The second line is 5 times that 2-year MA. Price entering the zone above the 5x line has historically indicated cycle tops; price falling below the 2-year MA has historically indicated accumulation zones.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Why does the 5x line get harder to reach over time?</summary>
+              <p>As Bitcoin's market capitalization grows, it takes an increasingly large amount of capital to push price to extreme multiples of the long-term mean. The same percentage extension that was possible when Bitcoin was a $1B asset requires trillions of dollars of inflow at today's scale. This is why the 2021 peaks fell well short of the 5x line compared to 2013 and 2017.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>Does the 2-Year MA Multiplier work on its own?</summary>
+              <p>No indicator works best in isolation. The 2-Year MA Multiplier is most useful as a valuation context tool — it tells you where price stands relative to its long-term mean. Combined with on-chain indicators like MVRV and Puell, it forms part of a stronger confluence picture.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>What does it mean if Bitcoin is below the 2-year MA?</summary>
+              <p>Price falling below the 2-year moving average has historically marked deep accumulation zones — the periods where long-term buyers have been rewarded most. It does not guarantee an immediate reversal, but historically these have been low-risk, high-reward entry windows over a 1–2 year time horizon.</p>
+            </div>
+          </details>
+
+          <details>
+            <div class="faq-item-blog">
+              <summary>How does LiftOffr use the 2-Year MA Multiplier?</summary>
+              <p>LiftOffr tracks the 2-Year MA Multiplier as a valuation context layer alongside MVRV, Puell Multiple, and other indicators. Approaching the 5x line triggers elevated caution in the daily brief. Price below the 2-year MA activates a strong accumulation signal. The indicator is never used in isolation — it is part of an 8-indicator confluence framework delivered every morning.</p>
+            </div>
+          </details>
+        </div>
+
+        <div class="author">
+            <p>— Torin, Founder of LiftOffr</p>
+            <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to individual investors.</em></p>
+        </div>
+    </article>
+</body>
+</html>
