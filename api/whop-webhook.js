@@ -81,6 +81,36 @@ async function sendGa4Event({ measurementId, apiSecret, name, clientId, userId, 
   return { status: r.status, ok: r.ok };
 }
 
+async function postDiscordAlert(webhookUrl, lines) {
+  await fetch(webhookUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      content: lines.filter(Boolean).join("\n"),
+      allowed_mentions: { parse: [] },
+    }),
+  });
+}
+
+async function postNewMemberAlert(webhookUrl, eventType, data) {
+  const email = data.user?.email || data.email || "(no email)";
+  const username = data.user?.username || data.user?.name || "(unknown user)";
+  const plan = data.plan?.name || data.plan_id || data.product?.name || "?";
+  const value = data.amount_after_fees ?? data.subtotal ?? data.amount;
+  const valueStr = value ? `$${(value / 100).toFixed(2)}` : "";
+  const utmSource = data.utm_source || data.referral?.utm_source || data.metadata?.utm_source;
+
+  await postDiscordAlert(webhookUrl, [
+    `🎉 **New member joined!**`,
+    `• User: \`${username}\` · ${email}`,
+    `• Plan: ${plan}`,
+    valueStr ? `• Amount: ${valueStr}` : null,
+    utmSource ? `• Source: ${utmSource}` : null,
+    ``,
+    `[View in Whop](https://dash.whop.com/memberships)`,
+  ]);
+}
+
 // Post a churn-event alert to a Discord webhook so the operator can act fast
 // (eg failed-payment recovery DM, save-offer outreach).
 async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
@@ -100,7 +130,7 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
   const valueStr = value ? `$${(value / 100).toFixed(2)}` : "";
   const utmSource = data.utm_source || data.referral?.utm_source || data.metadata?.utm_source;
 
-  const lines = [
+  await postDiscordAlert(webhookUrl, [
     `**${headline}**`,
     `• Member: \`${username}\` · ${email}`,
     `• Plan: ${plan}`,
@@ -108,18 +138,9 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
     valueStr ? `• Amount: ${valueStr}` : null,
     reason ? `• Reason: ${reason}` : null,
     utmSource ? `• Original source: ${utmSource}` : null,
-    "",
-    `⎺ [View in Whop](https://whop.com/dashboard/biz_1PHI81i7fkqRUZ/users/${data.user?.id || ""})`,
-  ].filter(Boolean);
-
-  await fetch(webhookUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: lines.join("\n"),
-      allowed_mentions: { parse: [] },
-    }),
-  });
+    ``,
+    `[View in Whop](https://dash.whop.com/memberships)`,
+  ]);
 }
 
 // Send a `purchase` event to GA4 via Measurement Protocol.
@@ -207,13 +228,24 @@ export default async function handler(req, res) {
       type === "membership.cancel_at_period_end_changed";
 
     if (isPaid) {
+      const value = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100 || 29;
+      const currency = (data.currency || "USD").toUpperCase();
+
+      // Discord new-member alert
+      const opsWebhook = process.env.DISCORD_OPS_WEBHOOK;
+      if (opsWebhook) {
+        try {
+          await postNewMemberAlert(opsWebhook, type, data);
+        } catch (e) {
+          console.warn("[whop-webhook] discord new-member alert failed:", e?.message || e);
+        }
+      }
+
       if (!measurementId || !apiSecret) {
-        console.warn("[whop-webhook] GA4 env not set, skipping forward");
+        console.warn("[whop-webhook] GA4 env not set, skipping GA4 forward");
         res.status(200).json({ ok: true, ga4: "skipped" });
         return;
       }
-      const value = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100 || 49;
-      const currency = (data.currency || "USD").toUpperCase();
       const transactionId = data.id || data.payment_id || data.membership_id || `whop-${Date.now()}`;
       const ga = await sendGa4Purchase({
         measurementId,
