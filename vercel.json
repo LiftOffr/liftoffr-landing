@@ -4,6 +4,12 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.liftoffr.com" }],
+      "destination": "https://liftoffr.com/:path*",
+      "permanent": true
+    },
+    {
       "source": "/ig",
       "destination": "/links/?utm_source=instagram&utm_medium=bio&utm_campaign=evergreen&utm_content=ig_bio",
       "permanent": true
