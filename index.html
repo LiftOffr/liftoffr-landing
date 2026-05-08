@@ -195,6 +195,33 @@
         utm_campaign: utm.campaign, utm_content: utm.content, page: location.pathname });
     }
   });
+  // Scroll depth (25/50/75/100%)
+  (function(){
+    var marks = [25,50,75,100], fired = {};
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var pct = Math.round((h.scrollTop + h.clientHeight) / h.scrollHeight * 100);
+      marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
+    }, {passive:true});
+  })();
+  // Section visibility — fires when #pricing or #free-checklist enters viewport
+  (function(){
+    if (!window.IntersectionObserver) return;
+    [['pricing','#pricing'],['checklist','#free-checklist']].forEach(function(s){
+      var el = document.querySelector(s[1]);
+      if (!el) return;
+      var seen = false;
+      new IntersectionObserver(function(entries){
+        if (!seen && entries[0].isIntersecting){ seen=true; track('section_viewed',{section:s[0],page:location.pathname}); }
+      },{threshold:0.3}).observe(el);
+    });
+  })();
+  // FAQ interaction — high-intent signal
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('button.faq-q');
+    if (!btn) return;
+    track('faq_opened',{question:(btn.textContent||'').trim().replace(/[+\-×]\s*$/,'').trim().slice(0,80)});
+  });
 })();
 </script>
 
