@@ -382,7 +382,7 @@
     border-right: 1px solid var(--border);
     transition: transform 0.2s ease;
   }
-  .proof-item:hover { transform: scale(1.04); }
+  .proof-item:hover { transform: none; }
   .proof-item:last-child { border-right: none; }
   .proof-num { font-size: 22px; font-weight: 900; color: var(--red); letter-spacing: -0.5px; }
   .proof-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
@@ -1087,6 +1087,7 @@
   .pricing-frame strong { color: #fff; }
   @media (max-width: 880px) {
     .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 480px; }
+    .ptier-featured { order: -1; }
   }
 </style>
 <section class="pricing-section" id="pricing">
@@ -1139,7 +1140,7 @@
           <li><strong style="color:var(--red);">Founder badge in Discord</strong></li>
         </ul>
         <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_founder" target="_blank" rel="noopener" class="ptier-cta ptier-cta-primary">Claim Founder Rate →</a>
-        <div class="ptier-stock">⚠ 30 of 30 spots remaining · closes at $49/mo forever</div>
+        <div class="ptier-stock">⚠ Limited founder spots · price locks in at $29/mo forever</div>
       </div>
 
       <!-- MONTHLY -->
