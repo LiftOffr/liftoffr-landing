@@ -28,6 +28,18 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href*="whop.com/"]');
+    if(!a)return;
+    var u=new URL(a.href,location.href);
+    track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname});
+  },true);
+  var _sd={};
+  window.addEventListener('scroll',function(){
+    var pct=Math.round(document.documentElement.scrollTop/(document.documentElement.scrollHeight-window.innerHeight)*100);
+    [25,50,75,90].forEach(function(m){if(pct>=m&&!_sd[m]){_sd[m]=1;track('scroll_depth',{depth:m,page:location.pathname});}});
+  },{passive:true});
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 
