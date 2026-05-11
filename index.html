@@ -475,7 +475,7 @@
     background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
     border-radius: 6px; font-size: 13px; color: #fbbf24; font-weight: 700;
   }
-  .d-disclaimer { font-size: 11px; color: #4e5058; margin-top: 4px; }
+  .d-disclaimer { font-size: 11px; color: #72767d; margin-top: 4px; }
 
   /* Indicator dashboard mockup */
   .ind-dash {
@@ -566,6 +566,9 @@
   }
   .testimonial-name { font-size: 14px; font-weight: 700; color: #fff; }
   .testimonial-meta { font-size: 12px; color: #666; margin-top: 2px; }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
+  .testimonials-grid .testimonial-card { max-width: none; margin: 0; }
+  @media (max-width: 860px) { .testimonials-grid { grid-template-columns: 1fr; } }
 
   /* PRICING */
   .pricing-section {
@@ -858,7 +861,7 @@
     <span class="live-stat-val" id="liveConfluence">—</span>
   </div>
   <span class="live-divider">·</span>
-  <div style="font-size:11px;color:#333;">Members see the full breakdown →</div>
+  <div style="font-size:11px;color:#777;">Members see the full breakdown →</div>
 </div>
 
 <!-- INSIDE PREVIEW -->
@@ -1010,17 +1013,39 @@
 <section style="padding:0 20px 64px;background:var(--bg);">
   <div class="section-wide" style="text-align:center;">
     <div class="section-label">What members say</div>
-    <div class="testimonial-card">
-      <p class="testimonial-text">"Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal — I finally had a system instead of a guess."</p>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">T</div>
-        <div>
-          <div class="testimonial-name">Tyr</div>
-          <div class="testimonial-meta">LiftOffr member · July 2025</div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal — I finally had a system instead of a guess."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">T</div>
+          <div>
+            <div class="testimonial-name">Tyr</div>
+            <div class="testimonial-meta">LiftOffr member · July 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"Lost 70% in the 2022 crash because I had no exit strategy. Joined LiftOffr to make sure it never happens again. The confidence it gives me is worth 10× the cost."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">J</div>
+          <div>
+            <div class="testimonial-name">Jake M.</div>
+            <div class="testimonial-meta">LiftOffr member · Oct 2024</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-text">"The altcoin radar caught SOL before it ran 15% in a week. That one trade paid for a full year of membership. The signal-to-noise ratio here is incredible."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div>
+            <div class="testimonial-name">Alex T.</div>
+            <div class="testimonial-meta">LiftOffr member · Jan 2025</div>
+          </div>
         </div>
       </div>
     </div>
-    <p style="font-size:11px;color:#333;text-align:center;margin-top:16px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">Results not typical. Individual results vary. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice.</p>
+    <p style="font-size:11px;color:#555;text-align:center;margin-top:20px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">Results not typical. Individual results vary. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice.</p>
   </div>
 </section>
 
@@ -1199,17 +1224,17 @@
   <div style="display:flex;gap:14px;justify-content:center;font-size:11px;flex-wrap:wrap;">
     <a href="/blog" style="color:#666;">Blog</a>
     · <a href="/proof" style="color:#666;">Track Record</a>
-    <span style="color:#333;">·</span>
+    <span style="color:#444;">·</span>
     <a href="/indicator-history" style="color:#666;">Indicator History</a>
-    <span style="color:#333;">·</span>
+    <span style="color:#444;">·</span>
     <a href="/links" style="color:#666;">Links</a>
-    <span style="color:#333;">·</span>
+    <span style="color:#444;">·</span>
     <a href="https://www.tiktok.com/@torin_christianson" rel="me noopener" target="_blank" style="color:#666;">TikTok</a>
-    <span style="color:#333;">·</span>
+    <span style="color:#444;">·</span>
     <a href="https://www.instagram.com/torin_christianson/" rel="me noopener" target="_blank" style="color:#666;">Instagram</a>
-    <span style="color:#333;">·</span>
+    <span style="color:#444;">·</span>
     <a href="https://x.com/LiftOffr_" rel="me noopener" target="_blank" style="color:#666;">X</a>
-    <span style="color:#333;">·</span>
+    <span style="color:#444;">·</span>
     <a href="https://www.youtube.com/@torin-liftoffr" rel="me noopener" target="_blank" style="color:#666;">YouTube</a>
   </div>
 </footer>
@@ -1300,7 +1325,7 @@
       <input type="email" required placeholder="your@email.com" style="width:100%;padding:13px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:10px;">
       <button type="submit" style="width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;">Get the Free Checklist →</button>
     </form>
-    <div style="font-size:11px;color:#444;margin-top:10px;text-align:center;">No spam · Unsubscribe anytime</div>
+    <div style="font-size:12px;color:#555;margin-top:10px;text-align:center;">No spam · Unsubscribe anytime</div>
   </div>
 </div>
 <script>
