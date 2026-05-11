@@ -338,6 +338,39 @@
   }
   .trust-row span.dot { color: #333; }
 
+  /* LIVE STRIP */
+  .live-strip {
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 28px; flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .live-dot {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: #22c55e;
+  }
+  .live-dot::before {
+    content: '';
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22c55e;
+    animation: livepulse 2s ease-in-out infinite;
+    display: block;
+  }
+  @keyframes livepulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .live-stat { display: flex; align-items: center; gap: 7px; color: #bbb; }
+  .live-stat-label { color: #555; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .live-stat-val { font-weight: 700; color: #fff; }
+  .live-stat-badge {
+    font-size: 10px; font-weight: 800; padding: 2px 6px; border-radius: 3px;
+  }
+  .live-divider { color: #222; }
+
   /* PROOF BAR */
   .proof-bar {
     border-top: 1px solid var(--border);
@@ -691,6 +724,41 @@
   }
   .mobile-sticky-cta .sticky-sub { text-align: center; font-size: 11px; color: #666; margin-top: 6px; }
 
+  /* EXIT INTENT */
+  .exit-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 9998;
+    background: rgba(0,0,0,0.82); align-items: center; justify-content: center; padding: 20px;
+  }
+  .exit-modal {
+    background: #0e0e0e; border: 1px solid #2a2a2a;
+    border-radius: 18px; max-width: 520px; width: 100%;
+    padding: 36px 32px; position: relative;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(230,57,70,0.12);
+  }
+  .exit-modal-close {
+    position: absolute; top: 14px; right: 16px;
+    background: none; border: none; color: #444;
+    font-size: 24px; cursor: pointer; line-height: 1; padding: 4px;
+  }
+  .exit-modal-close:hover { color: #888; }
+  .exit-calls { display: flex; flex-direction: column; gap: 10px; margin: 20px 0 24px; }
+  .exit-call {
+    background: rgba(255,255,255,0.03); border: 1px solid #1e1e1e;
+    border-radius: 10px; padding: 12px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .exit-call-year {
+    font-size: 13px; font-weight: 900; color: var(--red);
+    min-width: 36px; padding-top: 1px;
+  }
+  .exit-call-body { flex: 1; }
+  .exit-call-peak { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .exit-call-signals { font-size: 12px; color: #666; line-height: 1.5; }
+  .exit-call-result {
+    font-size: 11px; font-weight: 800; color: #22c55e;
+    margin-top: 4px; letter-spacing: 0.3px;
+  }
+
   /* Scroll-in fade */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -767,6 +835,29 @@
   <div class="proof-item"><div class="proof-num">2013 · 2017 · 2021</div><div class="proof-lbl">Cycle Tops Called</div></div>
   <div class="proof-item"><div class="proof-num">8</div><div class="proof-lbl">Confluence Indicators</div></div>
   <div class="proof-item"><div class="proof-num">30-Day</div><div class="proof-lbl">Full Refund</div></div>
+</div>
+
+<!-- LIVE INDICATOR STRIP -->
+<div class="live-strip" id="liveStrip">
+  <div class="live-dot">Live</div>
+  <div class="live-stat">
+    <span class="live-stat-label">BTC</span>
+    <span class="live-stat-val" id="liveBtcPrice">—</span>
+    <span class="live-stat-badge" id="liveBtcChange" style="background:rgba(34,197,94,0.12);color:#22c55e;"></span>
+  </div>
+  <span class="live-divider">·</span>
+  <div class="live-stat">
+    <span class="live-stat-label">Fear &amp; Greed</span>
+    <span class="live-stat-val" id="liveFng">—</span>
+    <span class="live-stat-badge" id="liveFngLabel" style="background:rgba(148,163,184,0.1);color:#94a3b8;"></span>
+  </div>
+  <span class="live-divider">·</span>
+  <div class="live-stat">
+    <span class="live-stat-label">Confluence</span>
+    <span class="live-stat-val" id="liveConfluence">—</span>
+  </div>
+  <span class="live-divider">·</span>
+  <div style="font-size:11px;color:#333;">Members see the full breakdown →</div>
 </div>
 
 <!-- INSIDE PREVIEW -->
@@ -1157,6 +1248,45 @@
   revealEls.forEach(el => observer.observe(el));
 </script>
 
+<!-- EXIT INTENT MODAL -->
+<div id="exitModal" class="exit-modal-overlay">
+  <div class="exit-modal">
+    <button class="exit-modal-close" onclick="dismissExitModal()">×</button>
+    <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;">Before you go</div>
+    <h3 style="font-size:22px;font-weight:900;letter-spacing:-0.5px;color:#fff;line-height:1.2;margin-bottom:6px;">This is what the system called.</h3>
+    <p style="font-size:14px;color:#666;margin-bottom:4px;">Same 8 indicators. Every cycle. On-chain data doesn't lie.</p>
+    <div class="exit-calls">
+      <div class="exit-call">
+        <div class="exit-call-year">2013</div>
+        <div class="exit-call-body">
+          <div class="exit-call-peak">BTC Peak — $1,150</div>
+          <div class="exit-call-signals">MVRV-Z hit 9.6 · CBBI 0.95 · Pi Cycle crossed</div>
+          <div class="exit-call-result">✓ Top called within 2 weeks of the signal</div>
+        </div>
+      </div>
+      <div class="exit-call">
+        <div class="exit-call-year">2017</div>
+        <div class="exit-call-body">
+          <div class="exit-call-peak">BTC Peak — $19,783</div>
+          <div class="exit-call-signals">MVRV-Z hit 9.7 · CBBI 0.97 · Pi Cycle crossed · Puell 10×</div>
+          <div class="exit-call-result">✓ Top called within 3 days of the signal</div>
+        </div>
+      </div>
+      <div class="exit-call">
+        <div class="exit-call-year">2021</div>
+        <div class="exit-call-body">
+          <div class="exit-call-peak">BTC Peaks — $64k &amp; $69k</div>
+          <div class="exit-call-signals">MVRV-Z 8.0 / 7.5 · Pi Cycle crossed both peaks · CBBI 0.91</div>
+          <div class="exit-call-result">✓ Both tops called within days of each signal</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:#555;margin-bottom:20px;line-height:1.55;">The same indicators are running right now. When they align again, you'll want to already be inside.</p>
+    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=exit_intent&utm_campaign=evergreen&utm_content=exit_modal" target="_blank" rel="noopener" onclick="dismissExitModal()" style="display:block;text-align:center;padding:15px;background:var(--red);color:#fff;border-radius:10px;font-weight:800;font-size:15px;margin-bottom:10px;">Join for $29/mo — Lock in Founder Rate →</a>
+    <button onclick="dismissExitModal()" style="width:100%;padding:11px;background:none;border:1px solid #222;border-radius:10px;color:#555;font-size:13px;cursor:pointer;font-family:inherit;">No thanks, I'll figure it out on my own</button>
+  </div>
+</div>
+
 <!-- Email capture popup -->
 <div id="emailPopup" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;padding:20px;">
   <div style="background:#111;border:1px solid #2a2a2a;border-radius:16px;max-width:420px;width:100%;padding:32px 28px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
@@ -1200,5 +1330,96 @@
   }
 </script>
 
+<script>
+// ── LIVE INDICATOR STRIP ──────────────────────────────────────────────
+(function() {
+  function fngColor(v) {
+    if (v <= 24) return { bg: 'rgba(230,57,70,0.12)', color: '#ef4444' };
+    if (v <= 46) return { bg: 'rgba(249,115,22,0.12)', color: '#f97316' };
+    if (v <= 53) return { bg: 'rgba(148,163,184,0.1)', color: '#94a3b8' };
+    if (v <= 75) return { bg: 'rgba(251,191,36,0.12)', color: '#fbbf24' };
+    return { bg: 'rgba(34,197,94,0.12)', color: '#22c55e' };
+  }
+  function confluenceFromFng(v) {
+    if (v <= 24) return { label: 'Extreme Fear', color: '#ef4444' };
+    if (v <= 46) return { label: 'Fear', color: '#f97316' };
+    if (v <= 53) return { label: 'Neutral', color: '#94a3b8' };
+    if (v <= 75) return { label: 'Greed', color: '#fbbf24' };
+    return { label: 'Extreme Greed', color: '#22c55e' };
+  }
+
+  // BTC Price
+  fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var price = d.bitcoin.usd;
+      var change = d.bitcoin.usd_24h_change;
+      var el = document.getElementById('liveBtcPrice');
+      var badge = document.getElementById('liveBtcChange');
+      if (el) el.textContent = '$' + price.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      if (badge) {
+        var up = change >= 0;
+        badge.textContent = (up ? '+' : '') + change.toFixed(1) + '%';
+        badge.style.background = up ? 'rgba(34,197,94,0.12)' : 'rgba(230,57,70,0.12)';
+        badge.style.color = up ? '#22c55e' : '#ef4444';
+      }
+    }).catch(function() {});
+
+  // Fear & Greed
+  fetch('https://api.alternative.me/fng/')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      var val = parseInt(d.data[0].value, 10);
+      var label = d.data[0].value_classification;
+      var fngEl = document.getElementById('liveFng');
+      var fngLabel = document.getElementById('liveFngLabel');
+      var confEl = document.getElementById('liveConfluence');
+      if (fngEl) fngEl.textContent = val;
+      if (fngLabel) {
+        var c = fngColor(val);
+        fngLabel.textContent = label;
+        fngLabel.style.background = c.bg;
+        fngLabel.style.color = c.color;
+      }
+      if (confEl) {
+        var conf = confluenceFromFng(val);
+        confEl.textContent = conf.label;
+        confEl.style.color = conf.color;
+      }
+    }).catch(function() {});
+})();
+
+// ── EXIT INTENT POPUP ─────────────────────────────────────────────────
+(function() {
+  var KEY = 'liftoffr_exit_dismissed';
+  if (sessionStorage.getItem(KEY)) return;
+
+  var modal = document.getElementById('exitModal');
+  var fired = false;
+
+  function show() {
+    if (fired || sessionStorage.getItem(KEY)) return;
+    fired = true;
+    modal.style.display = 'flex';
+    if (typeof gtag === 'function') gtag('event', 'exit_intent_shown', { page: location.pathname });
+  }
+
+  // Desktop: mouse leaving toward top of viewport
+  document.addEventListener('mouseleave', function(e) {
+    if (e.clientY <= 5) show();
+  });
+
+  // Mobile fallback: back button / visibility change
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') show();
+  });
+})();
+
+function dismissExitModal() {
+  document.getElementById('exitModal').style.display = 'none';
+  sessionStorage.setItem('liftoffr_exit_dismissed', '1');
+  if (typeof gtag === 'function') gtag('event', 'exit_intent_dismissed', { page: location.pathname });
+}
+</script>
 </body>
 </html>
