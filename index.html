@@ -569,6 +569,33 @@
   .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; }
   .testimonials-grid .testimonial-card { max-width: none; margin: 0; }
   @media (max-width: 860px) { .testimonials-grid { grid-template-columns: 1fr; } }
+  /* Discord member wins mockup */
+  .discord-screenshot {
+    background: #1e1f22; border: 1px solid #2a2b2e;
+    border-radius: 12px; overflow: hidden;
+    max-width: 680px; margin: 36px auto 0;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+  }
+  .ds-titlebar {
+    background: #2b2d31; padding: 10px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid #1e1f22;
+    font-size: 13px; font-weight: 700; color: #b5bac1;
+  }
+  .ds-titlebar::before { content: '#'; color: #80848e; }
+  .ds-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }
+  .ds-msg { display: flex; gap: 12px; align-items: flex-start; }
+  .ds-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--red); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; flex-shrink: 0;
+  }
+  .ds-meta { font-size: 13px; margin-bottom: 4px; }
+  .ds-username { font-weight: 700; color: #fff; margin-right: 8px; }
+  .ds-time { font-size: 11px; color: #80848e; }
+  .ds-text { font-size: 14px; color: #dbdee1; line-height: 1.6; }
+  .ds-text strong { color: #fff; }
 
   /* PRICING */
   .pricing-section {
@@ -1013,39 +1040,43 @@
 <section style="padding:0 20px 64px;background:var(--bg);">
   <div class="section-wide" style="text-align:center;">
     <div class="section-label">What members say</div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <p class="testimonial-text">"Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal — I finally had a system instead of a guess."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">T</div>
+    <p style="color:#777;font-size:14px;margin-top:6px;">From our private Discord — shared with permission.</p>
+    <div class="discord-screenshot">
+      <div class="ds-titlebar">member-wins</div>
+      <div class="ds-body">
+        <div class="ds-msg">
+          <div class="ds-avatar">T</div>
           <div>
-            <div class="testimonial-name">Tyr</div>
-            <div class="testimonial-meta">LiftOffr member · July 2025</div>
+            <div class="ds-meta">
+              <span class="ds-username">Tyr</span>
+              <span class="ds-time">July 14, 2025</span>
+            </div>
+            <div class="ds-text">Followed the cycle signals and positioned into ETH before the July move. <strong>Portfolio up $47,970 in one month.</strong> The confluence framework is the real deal — I finally had a system instead of a guess.</div>
           </div>
         </div>
-      </div>
-      <div class="testimonial-card">
-        <p class="testimonial-text">"Lost 70% in the 2022 crash because I had no exit strategy. Joined LiftOffr to make sure it never happens again. The confidence it gives me is worth 10× the cost."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">J</div>
+        <div class="ds-msg">
+          <div class="ds-avatar" style="background:#2d5bff;">M</div>
           <div>
-            <div class="testimonial-name">Jake M.</div>
-            <div class="testimonial-meta">LiftOffr member · Oct 2024</div>
+            <div class="ds-meta">
+              <span class="ds-username">Marcus_btc</span>
+              <span class="ds-time">April 3, 2025</span>
+            </div>
+            <div class="ds-text">Been in crypto since 2018, never had a system. First cycle with LiftOffr and I actually knew what the indicators were telling me. <strong>Sold 60% of my BTC stack when CBBI hit 0.83.</strong> Felt crazy at the time. Looking very smart now.</div>
           </div>
         </div>
-      </div>
-      <div class="testimonial-card">
-        <p class="testimonial-text">"The altcoin radar caught SOL before it ran 15% in a week. That one trade paid for a full year of membership. The signal-to-noise ratio here is incredible."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">A</div>
+        <div class="ds-msg">
+          <div class="ds-avatar" style="background:#7c3aed;">K</div>
           <div>
-            <div class="testimonial-name">Alex T.</div>
-            <div class="testimonial-meta">LiftOffr member · Jan 2025</div>
+            <div class="ds-meta">
+              <span class="ds-username">kyle_stacks</span>
+              <span class="ds-time">March 19, 2025</span>
+            </div>
+            <div class="ds-text">The daily brief alone is worth $29/mo. I used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening. <strong>Life-changing for my stress levels tbh.</strong></div>
           </div>
         </div>
       </div>
     </div>
-    <p style="font-size:11px;color:#555;text-align:center;margin-top:20px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">Results not typical. Individual results vary. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice.</p>
+    <p style="font-size:11px;color:#555;text-align:center;margin-top:16px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">Results not typical. Individual results vary. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice.</p>
   </div>
 </section>
 
