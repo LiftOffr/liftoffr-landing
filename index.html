@@ -40,7 +40,7 @@
       "@id": "https://liftoffr.com/#org",
       "name": "LiftOffr",
       "url": "https://liftoffr.com/",
-      "logo": "https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png",
+      "logo": "https://liftoffr.com/img/liftoffr-logo.png",
       "founder": {
         "@type": "Person",
         "@id": "https://liftoffr.com/#torin",
@@ -130,10 +130,6 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://framerusercontent.com">
-<link rel="dns-prefetch" href="https://ui-avatars.com">
-<link rel="dns-prefetch" href="https://www.clarity.ms">
-<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preload" as="image" href="/img/torin-hero-bg-mobile.jpg?v=20260503b" media="(max-width: 768px)" fetchpriority="high">
 <link rel="preload" as="image" href="/img/torin-hero-bg.jpg?v=20260503b" media="(min-width: 769px)" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -164,7 +160,6 @@
       content: p.get('utm_content') || '(none)'
     };
   }
-  // Click attribution: every Whop CTA click fires a conversion-intent event
   document.addEventListener('click', function(e){
     var a = e.target.closest('a[href*="whop.com/"]');
     if (!a) return;
@@ -178,7 +173,6 @@
       utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign
     });
   }, true);
-  // Beehiiv form submit (popup or inline) — listen for postMessage from beehiiv iframe
   window.addEventListener('message', function(e){
     if (!e.origin || !/beehiiv\.com$/.test(new URL(e.origin).hostname)) return;
     var d = e.data || {};
@@ -188,7 +182,6 @@
         utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign });
     }
   });
-  // Pageview-level UTM capture (for funnel analysis)
   window.addEventListener('load', function(){
     var utm = getUtms();
     if (utm.source !== '(direct)') {
@@ -196,7 +189,6 @@
         utm_campaign: utm.campaign, utm_content: utm.content, page: location.pathname });
     }
   });
-  // Scroll depth (25/50/75/100%)
   (function(){
     var marks = [25,50,75,100], fired = {};
     window.addEventListener('scroll', function(){
@@ -205,7 +197,6 @@
       marks.forEach(function(m){ if(pct >= m && !fired[m]){ fired[m]=1; track('scroll_depth',{depth:m,page:location.pathname}); }});
     }, {passive:true});
   })();
-  // Section visibility — fires when #pricing or #free-checklist enters viewport
   (function(){
     if (!window.IntersectionObserver) return;
     [['pricing','#pricing'],['checklist','#free-checklist']].forEach(function(s){
@@ -217,7 +208,6 @@
       },{threshold:0.3}).observe(el);
     });
   })();
-  // FAQ interaction — high-intent signal
   document.addEventListener('click', function(e){
     var btn = e.target.closest('button.faq-q');
     if (!btn) return;
@@ -295,7 +285,7 @@
   /* HERO */
   .hero-wrap {
     position: relative;
-    padding: 72px 20px 40px;
+    padding: 72px 20px 48px;
     text-align: center;
     max-width: 860px;
     margin: 0 auto;
@@ -312,19 +302,14 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: image-set(
-      url('/img/torin-hero-bg.jpg?v=20260503b') 1x
-    );
+    background-image: image-set(url('/img/torin-hero-bg.jpg?v=20260503b') 1x);
     background-size: cover;
     background-position: center 25%;
     background-repeat: no-repeat;
     filter: grayscale(15%) brightness(0.7) contrast(1.05);
-    opacity: 1;
   }
   @media (max-width: 768px) {
-    .hero-bg::before {
-      background-image: url('/img/torin-hero-bg-mobile.jpg?v=20260503b');
-    }
+    .hero-bg::before { background-image: url('/img/torin-hero-bg-mobile.jpg?v=20260503b'); }
   }
   .hero-bg::after {
     content: '';
@@ -334,9 +319,6 @@
       radial-gradient(ellipse at center, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.65) 65%, var(--bg) 100%),
       linear-gradient(180deg, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0) 25%, rgba(8,8,8,0) 70%, var(--bg) 100%);
   }
-  @media (max-width: 720px) {
-    .hero-bg::before { background-position: center 18%; }
-  }
   .hero-wrap h1 {
     font-size: clamp(34px, 6vw, 64px);
     font-weight: 900; line-height: 1.05;
@@ -345,7 +327,7 @@
   .hero-wrap h1 em { font-style: normal; color: var(--red); }
   .hero-sub {
     font-size: 17px; color: #b8b8b8;
-    max-width: 620px; margin: 0 auto 32px; line-height: 1.6;
+    max-width: 580px; margin: 0 auto 32px; line-height: 1.6;
   }
   .hero-sub strong { color: #fff; font-weight: 600; }
   .hero-cta-row { display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -355,16 +337,6 @@
     flex-wrap: wrap;
   }
   .trust-row span.dot { color: #333; }
-  .scroll-cue {
-    margin-top: 36px; color: #444; font-size: 12px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-  }
-  .scroll-cue::after {
-    content: '↓'; display: block; margin-top: 6px;
-    color: var(--red); font-size: 18px;
-    animation: bounce 2s infinite;
-  }
-  @keyframes bounce { 0%,100% { transform: translateY(0);} 50% { transform: translateY(6px);} }
 
   /* PROOF BAR */
   .proof-bar {
@@ -379,9 +351,7 @@
     text-align: center;
     padding: 4px 28px;
     border-right: 1px solid var(--border);
-    transition: transform 0.2s ease;
   }
-  .proof-item:hover { transform: none; }
   .proof-item:last-child { border-right: none; }
   .proof-num { font-size: 22px; font-weight: 900; color: var(--red); letter-spacing: -0.5px; }
   .proof-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
@@ -389,7 +359,7 @@
   /* SECTIONS */
   .section { padding: 72px 20px; }
   .section-narrow { max-width: 760px; margin: 0 auto; }
-  .section-wide { max-width: 1000px; margin: 0 auto; }
+  .section-wide { max-width: 1080px; margin: 0 auto; }
   .section-label {
     display: inline-block;
     color: var(--red); font-size: 11px; font-weight: 800;
@@ -402,52 +372,119 @@
     letter-spacing: -1.4px; margin-bottom: 18px;
   }
   h2 em { font-style: normal; color: var(--red); }
-  .lede {
-    font-size: 17px; color: #aaa;
-    max-width: 600px; line-height: 1.7;
-  }
 
-  /* PROBLEM NARRATIVE */
-  .problem-block p {
-    font-size: 18px; color: #ddd; line-height: 1.75;
-    margin-bottom: 22px;
+  /* ── INSIDE PREVIEW ─────────────────────────────── */
+  .inside-section {
+    padding: 72px 20px;
+    background: var(--card2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   }
-  .problem-block p.kicker {
-    font-size: 21px; color: #fff; font-weight: 600;
-    border-left: 3px solid var(--red);
-    padding-left: 18px;
-    line-height: 1.55;
-  }
-  .problem-block p strong { color: #fff; font-weight: 700; }
-
-  /* DELIVERABLES (What you get inside) */
-  .deliv-grid {
+  .inside-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 32px;
+    gap: 28px;
+    max-width: 1080px;
+    margin: 40px auto 0;
+    align-items: start;
   }
-  .deliv {
+
+  /* Discord window mockup */
+  .discord-wrap {
+    background: #1e1f22;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #2a2b2e;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .discord-titlebar {
+    background: #2b2d31;
+    padding: 10px 16px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid #1e1f22;
+  }
+  .d-dots { display: flex; gap: 5px; }
+  .d-dots span { width: 10px; height: 10px; border-radius: 50%; background: #3a3b3e; display: block; }
+  .d-channel { font-size: 13px; font-weight: 700; color: #b5bac1; display: flex; align-items: center; gap: 5px; }
+  .d-channel::before { content: '#'; color: #80848e; }
+  .discord-body { padding: 16px; display: flex; flex-direction: column; gap: 0; }
+  .d-date-divider {
+    text-align: center; font-size: 11px; color: #80848e; font-weight: 600;
+    letter-spacing: 0.5px; margin: 8px 0 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .d-date-divider::before, .d-date-divider::after { content: ''; flex: 1; height: 1px; background: #3a3b3e; }
+  .discord-msg { display: flex; gap: 12px; align-items: flex-start; }
+  .d-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--red); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 14px; flex-shrink: 0;
+  }
+  .d-meta { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .d-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .d-time { font-size: 11px; color: #80848e; }
+  .d-text { font-size: 13.5px; color: #dbdee1; line-height: 1.6; }
+  .d-text strong { color: #fff; font-weight: 700; }
+  .d-text .d-line { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+  .d-text .d-line .dname { color: #b5bac1; min-width: 88px; font-size: 13px; }
+  .d-text .d-line .dval { font-weight: 700; color: #fff; font-size: 13px; }
+  .d-badge {
+    display: inline-block; font-size: 10px; font-weight: 800;
+    padding: 2px 7px; border-radius: 3px; letter-spacing: 0.3px;
+  }
+  .d-badge.hold { background: rgba(251,191,36,0.15); color: #fbbf24; }
+  .d-badge.green { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .d-badge.neutral { background: rgba(148,163,184,0.12); color: #94a3b8; }
+  .d-badge.warm { background: rgba(249,115,22,0.15); color: #f97316; }
+  .d-verdict {
+    margin-top: 10px; padding: 8px 12px;
+    background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 6px; font-size: 13px; color: #fbbf24; font-weight: 700;
+  }
+  .d-disclaimer { font-size: 11px; color: #4e5058; margin-top: 4px; }
+
+  /* Indicator dashboard mockup */
+  .ind-dash {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: 22px;
-    transition: border-color 0.2s, transform 0.2s;
+    padding: 24px;
   }
-  .deliv:hover { border-color: rgba(230,57,70,0.4); transform: translateY(-2px); }
-  .deliv-tag {
-    display: inline-block;
-    background: rgba(230,57,70,0.12);
-    color: var(--red);
-    font-size: 10px; font-weight: 800;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 3px 9px; border-radius: 4px;
-    margin-bottom: 10px;
+  .ind-dash-header { margin-bottom: 20px; }
+  .ind-dash-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .ind-dash-sub { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .ind-verdict-bar {
+    background: rgba(251,191,36,0.08);
+    border: 1px solid rgba(251,191,36,0.2);
+    border-radius: 8px; padding: 12px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
   }
-  .deliv-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-  .deliv-desc { font-size: 13.5px; color: #999; line-height: 1.6; }
+  .ind-verdict-label { font-size: 11px; color: #80848e; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+  .ind-verdict-val { font-size: 14px; font-weight: 900; color: #fbbf24; letter-spacing: 1px; }
+  .ind-rows { display: flex; flex-direction: column; gap: 12px; }
+  .ind-row { display: flex; align-items: center; gap: 10px; }
+  .ir-name { font-size: 12px; font-weight: 700; color: #b5bac1; min-width: 72px; }
+  .ir-track { flex: 1; height: 4px; background: #2a2b2e; border-radius: 2px; overflow: hidden; }
+  .ir-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+  .ir-score { font-size: 12px; font-weight: 700; color: #fff; min-width: 28px; text-align: right; }
+  .ir-badge {
+    font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 3px;
+    letter-spacing: 0.3px; white-space: nowrap; min-width: 64px; text-align: center;
+  }
+  .ir-badge.green { background: rgba(34,197,94,0.12); color: #22c55e; }
+  .ir-badge.yellow { background: rgba(251,191,36,0.12); color: #fbbf24; }
+  .ir-badge.orange { background: rgba(249,115,22,0.12); color: #f97316; }
+  .ir-badge.muted { background: rgba(148,163,184,0.08); color: #94a3b8; }
+  .ind-dash-footer {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; color: #555; text-align: center; line-height: 1.6;
+  }
+  .ind-dash-footer a { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
 
-  /* SYSTEM (3 steps) */
+  /* HOW IT WORKS */
   .steps {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
     margin-top: 36px;
@@ -457,8 +494,6 @@
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 28px 22px;
-    text-align: left;
-    position: relative;
   }
   .step-num {
     width: 34px; height: 34px;
@@ -471,60 +506,33 @@
   .step-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
   .step-desc { font-size: 14px; color: #999; line-height: 1.6; }
 
-  /* INDICATORS */
-  .ind-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
-    margin-top: 32px;
-  }
-  .ind {
+  /* TESTIMONIAL */
+  .testimonial-card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px 14px;
-    text-align: center;
-    transition: border-color 0.2s;
+    border-radius: 14px;
+    padding: 28px 24px;
+    max-width: 640px;
+    margin: 36px auto 0;
+    position: relative;
   }
-  .ind:hover { border-color: rgba(230,57,70,0.4); }
-  .ind-name { font-size: 13px; font-weight: 800; color: var(--red); letter-spacing: 0.3px; margin-bottom: 6px; }
-  .ind-desc { font-size: 12px; color: #888; line-height: 1.5; }
-
-  /* OBJECTION */
-  .objection-block {
-    background: linear-gradient(135deg, #0a0000 0%, #140404 100%);
-    border: 1px solid rgba(230,57,70,0.3);
-    border-radius: 16px;
-    padding: 36px 32px;
-    margin-top: 32px;
+  .testimonial-card::before {
+    content: '"';
+    position: absolute; top: 16px; left: 22px;
+    font-size: 48px; line-height: 1;
+    color: var(--red); opacity: 0.4;
+    font-family: Georgia, serif;
   }
-  .objection-block h3 {
-    font-size: 20px; font-weight: 800; margin-bottom: 14px;
-    color: #fff;
+  .testimonial-text { color: #ccc; font-size: 16px; line-height: 1.7; margin-bottom: 20px; padding-top: 20px; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .testimonial-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800; color: var(--red); flex-shrink: 0;
   }
-  .objection-block h3::before { content: '"'; color: var(--red); margin-right: 4px; }
-  .objection-block h3::after { content: '"'; color: var(--red); margin-left: 4px; }
-  .objection-block p {
-    color: #bbb; font-size: 15.5px; line-height: 1.7;
-    margin-bottom: 14px;
-  }
-  .objection-block p:last-child { margin-bottom: 0; }
-  .objection-block p strong { color: #fff; }
-  .objection-block + .objection-block { margin-top: 16px; }
-
-  /* FOUNDER */
-  .founder-grid {
-    display: grid; grid-template-columns: 280px 1fr; gap: 48px;
-    align-items: center;
-  }
-  .founder-grid img {
-    width: 100%; border-radius: 16px;
-    aspect-ratio: 4/5;
-    object-fit: cover;
-    object-position: 50% center;
-    box-shadow: 0 0 40px rgba(230,57,70,0.1);
-  }
-  .founder-grid p {
-    color: #aaa; font-size: 16px; line-height: 1.75; margin-bottom: 16px;
-  }
+  .testimonial-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .testimonial-meta { font-size: 12px; color: #666; margin-top: 2px; }
 
   /* PRICING */
   .pricing-section {
@@ -533,49 +541,65 @@
     padding: 72px 20px;
     text-align: center;
   }
-  .pricing-card {
-    background: var(--card);
-    border: 1px solid rgba(230,57,70,0.4);
-    border-radius: 18px;
-    padding: 40px 32px;
-    max-width: 480px;
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    max-width: 1080px;
     margin: 36px auto 0;
-    position: relative;
-    overflow: hidden;
-    text-align: left;
-    transition: transform 0.25s, box-shadow 0.25s;
+    align-items: stretch;
   }
-  .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(230,57,70,0.18); }
-  .pricing-card::before {
+  .ptier {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    display: flex; flex-direction: column;
+    text-align: left; position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .ptier:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+  .ptier-featured {
+    border: 2px solid var(--red);
+    background: linear-gradient(180deg, #1a0808 0%, #110404 100%);
+    box-shadow: 0 0 32px rgba(230,57,70,0.18);
+  }
+  .ptier-featured::before {
     content: '';
     position: absolute; top: 0; left: 0; right: 0;
-    height: 4px;
-    background: var(--red);
+    height: 4px; background: var(--red);
+    border-radius: 16px 16px 0 0;
   }
-  .pricing-badge {
+  .ptier-badge {
     display: inline-block;
-    background: rgba(230,57,70,0.15);
-    color: var(--red); font-size: 11px; font-weight: 800;
-    letter-spacing: 2px; text-transform: uppercase;
-    padding: 5px 12px; border-radius: 20px;
-    margin-bottom: 18px;
+    background: rgba(230,57,70,0.12); color: var(--red);
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 14px; align-self: flex-start;
   }
-  .price-amount { font-size: 64px; font-weight: 900; letter-spacing: -2.5px; line-height: 1; }
-  .price-per { font-size: 20px; font-weight: 400; color: var(--muted); }
-  .price-sub { font-size: 13px; color: var(--muted); margin: 6px 0 28px; }
-  .features-list { list-style: none; margin-bottom: 28px; }
-  .features-list li {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 14.5px;
-    line-height: 1.4;
+  .ptier-badge.featured { background: var(--red); color: #fff; }
+  .ptier-name { font-size: 14px; color: #ccc; font-weight: 700; margin-bottom: 4px; }
+  .ptier-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
+  .ptier-price .num { font-size: 38px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
+  .ptier-price .per { font-size: 14px; color: #888; }
+  .ptier-orig { font-size: 13px; color: #666; text-decoration: line-through; margin-bottom: 8px; height: 16px; }
+  .ptier-frame { font-size: 13px; color: #999; margin-bottom: 18px; }
+  .ptier-frame strong { color: #fff; font-weight: 600; }
+  .ptier-features { list-style: none; padding: 0; margin: 0 0 22px; flex: 1; }
+  .ptier-features li { font-size: 13px; color: #bbb; padding: 5px 0; line-height: 1.45; }
+  .ptier-features li::before { content: '✓'; color: var(--red); font-weight: 700; margin-right: 8px; }
+  .ptier-cta {
+    display: block; text-align: center;
+    padding: 14px 16px; border-radius: 10px;
+    font-weight: 700; font-size: 14px;
+    text-decoration: none; transition: all 0.2s;
   }
-  .features-list li:last-child { border-bottom: none; }
-  .check { color: #22c55e; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
-  .guarantee-text {
-    font-size: 12.5px; color: var(--muted); margin-top: 18px; line-height: 1.6; text-align: center;
-  }
+  .ptier-cta-primary { background: var(--red); color: #fff; }
+  .ptier-cta-primary:hover { background: #d62b3b; transform: translateY(-1px); }
+  .ptier-cta-secondary { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border); }
+  .ptier-cta-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--red); }
+  .ptier-stock { font-size: 11px; color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; text-align: center; }
 
   /* FAQ */
   .faq-list { max-width: 700px; margin: 32px auto 0; }
@@ -585,8 +609,7 @@
     font-family: var(--font); font-size: 15.5px; font-weight: 600;
     text-align: left; padding: 18px 0; cursor: pointer;
     display: flex; justify-content: space-between; align-items: center;
-    gap: 16px;
-    transition: color 0.2s;
+    gap: 16px; transition: color 0.2s;
   }
   .faq-q:hover { color: var(--red); }
   .faq-arrow { color: var(--red); font-size: 20px; flex-shrink: 0; transition: transform 0.2s; }
@@ -603,18 +626,14 @@
   }
   .lm-wrap {
     max-width: 880px; margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; align-items: center;
   }
   .lm-pdf-mock {
     background: #fff; color: #111;
-    border-radius: 10px;
-    padding: 24px 22px;
+    border-radius: 10px; padding: 24px 22px;
     box-shadow: 0 24px 60px rgba(230,57,70,0.25), 0 0 0 1px rgba(230,57,70,0.4);
-    transform: rotate(-3deg);
-    font-family: Arial, sans-serif;
+    transform: rotate(-3deg); font-family: Arial, sans-serif;
   }
   .lm-pdf-mock .lmm-brand { font-weight: 900; letter-spacing: 3px; color: #e63946; font-size: 11px; margin-bottom: 14px; }
   .lm-pdf-mock h3 { font-size: 20px; line-height: 1.1; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 12px; }
@@ -624,59 +643,6 @@
   .lm-pdf-mock .lmm-row strong { color: #e63946; font-weight: 800; }
   .lm-content h2 { font-size: clamp(24px,3.4vw,34px); margin-bottom: 14px; }
   .lm-content p { color: #aaa; font-size: 15px; line-height: 1.65; margin-bottom: 20px; }
-  .lm-trust { font-size: 12px; color: #555; margin-top: 8px; }
-
-  /* TESTIMONIALS */
-  .testimonials-section {
-    padding: 72px 20px;
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-  }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    max-width: 1080px;
-    margin: 36px auto 0;
-  }
-  .testimonial-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 28px 24px;
-    position: relative;
-  }
-  .testimonial-card::before {
-    content: '"';
-    position: absolute; top: 16px; left: 22px;
-    font-size: 48px; line-height: 1;
-    color: var(--red); opacity: 0.4;
-    font-family: Georgia, serif;
-  }
-  .testimonial-text {
-    color: #ccc;
-    font-size: 15px;
-    line-height: 1.7;
-    margin-bottom: 20px;
-    padding-top: 20px;
-  }
-  .testimonial-author {
-    display: flex; align-items: center; gap: 12px;
-  }
-  .testimonial-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: rgba(230,57,70,0.15);
-    border: 1px solid rgba(230,57,70,0.3);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 800; color: var(--red);
-    flex-shrink: 0;
-  }
-  .testimonial-name { font-size: 14px; font-weight: 700; color: #fff; }
-  .testimonial-meta { font-size: 12px; color: #666; margin-top: 2px; }
-  @media (max-width: 860px) {
-    .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; }
-  }
 
   /* FINAL CTA */
   .final-cta {
@@ -687,6 +653,15 @@
   }
   .final-cta h2 { max-width: 660px; margin: 0 auto 14px; }
   .final-cta p { color: #aaa; margin-bottom: 32px; font-size: 16px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.65; }
+  .founder-byline {
+    display: flex; align-items: center; gap: 12px; justify-content: center;
+    margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border);
+    max-width: 480px; margin-left: auto; margin-right: auto;
+  }
+  .founder-byline img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 15%; }
+  .founder-byline-text { text-align: left; }
+  .founder-byline-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .founder-byline-sub { font-size: 12px; color: #555; margin-top: 2px; line-height: 1.4; }
 
   /* FOOTER */
   footer {
@@ -695,35 +670,6 @@
     display: flex; justify-content: space-between; align-items: center;
     color: var(--muted); font-size: 12px;
     flex-wrap: wrap; gap: 12px;
-  }
-
-  /* MOBILE */
-  @media (max-width: 768px) {
-    nav { padding: 12px 16px; gap: 10px; }
-    nav img { height: 22px; max-width: 110px; }
-    nav .btn-red { padding: 9px 14px; font-size: 13px; }
-    .hero-wrap { padding: 40px 18px 16px; }
-    .hero-wrap h1 { font-size: clamp(30px, 8vw, 44px); letter-spacing: -1.5px; }
-    .hero-sub { font-size: 15.5px; }
-    .btn-red-xl { padding: 16px 28px; font-size: 16px; width: 100%; max-width: 360px; }
-    .proof-bar { flex-direction: column; padding: 0; }
-    .proof-item { padding: 14px 16px; border-right: none; border-bottom: 1px solid var(--border); width: 100%; }
-    .proof-item:last-child { border-bottom: none; }
-    .section { padding: 56px 18px; }
-    .deliv-grid { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: 1fr; gap: 12px; }
-    .ind-grid { grid-template-columns: 1fr; }
-    .ind { padding: 22px 20px; }
-    .founder-grid { grid-template-columns: 120px 1fr; gap: 20px; align-items: start; }
-    .founder-grid img { max-width: 120px; margin: 0; }
-    .pricing-card { padding: 32px 22px; }
-    .price-amount { font-size: 54px; }
-    .lm-wrap { grid-template-columns: 1fr; gap: 28px; }
-    .lm-pdf-mock { transform: none; max-width: 300px; margin: 0 auto; }
-    footer { flex-direction: column; text-align: center; padding: 20px; }
-    .objection-block { padding: 26px 22px; }
-    .problem-block p { font-size: 16.5px; }
-    .problem-block p.kicker { font-size: 18px; padding-left: 14px; }
   }
 
   /* MOBILE STICKY CTA */
@@ -738,33 +684,15 @@
     box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
   }
   .mobile-sticky-cta a {
-    display: block;
-    background: var(--red);
-    color: #fff;
-    text-align: center;
-    padding: 14px;
-    border-radius: 10px;
-    font-weight: 800;
-    font-size: 16px;
-    text-decoration: none;
+    display: block; background: var(--red); color: #fff;
+    text-align: center; padding: 14px; border-radius: 10px;
+    font-weight: 800; font-size: 16px;
     box-shadow: 0 0 24px rgba(230,57,70,0.35);
   }
-  .mobile-sticky-cta .sticky-sub {
-    text-align: center;
-    font-size: 11px;
-    color: #666;
-    margin-top: 6px;
-  }
-  @media (max-width: 768px) {
-    .mobile-sticky-cta { display: block; }
-    body { padding-bottom: 80px; }
-  }
+  .mobile-sticky-cta .sticky-sub { text-align: center; font-size: 11px; color: #666; margin-top: 6px; }
 
   /* Scroll-in fade */
-  .reveal {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* CTA pulse */
@@ -773,6 +701,31 @@
     50% { box-shadow: 0 0 0 12px rgba(230,57,70,0); }
   }
   .btn-pulse { animation: pulse-red 2.6s ease-in-out infinite; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 12px 16px; gap: 10px; }
+    nav img { height: 22px; max-width: 110px; }
+    nav .btn-red { padding: 9px 14px; font-size: 13px; }
+    .hero-wrap { padding: 40px 18px 20px; }
+    .hero-wrap h1 { font-size: clamp(30px, 8vw, 44px); letter-spacing: -1.5px; }
+    .hero-sub { font-size: 15.5px; }
+    .btn-red-xl { padding: 16px 28px; font-size: 16px; width: 100%; max-width: 360px; }
+    .proof-bar { flex-direction: column; padding: 0; }
+    .proof-item { padding: 14px 16px; border-right: none; border-bottom: 1px solid var(--border); width: 100%; }
+    .proof-item:last-child { border-bottom: none; }
+    .section { padding: 56px 18px; }
+    .inside-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; gap: 12px; }
+    .lm-wrap { grid-template-columns: 1fr; gap: 28px; }
+    .lm-pdf-mock { transform: none; max-width: 300px; margin: 0 auto; }
+    footer { flex-direction: column; text-align: center; padding: 20px; }
+    .mobile-sticky-cta { display: block; }
+    body { padding-bottom: 80px; }
+    .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .ptier-featured { order: -1; }
+    .founder-byline { padding: 24px 16px 0; }
+  }
 </style>
 </head>
 <body>
@@ -781,8 +734,8 @@
 <nav>
   <img src="https://framerusercontent.com/images/G28QqTBRESaD4xNSPGearTym8kI.png" alt="LiftOffr" decoding="async" fetchpriority="high" style="height:26px;max-width:130px;display:block;object-fit:contain;" />
   <div style="display:flex;align-items:center;gap:14px;">
-    <a href="/blog" style="color:#bbb;text-decoration:none;font-size:14px;font-weight:600;">Blog</a>
-    <a href="/indicator-history" style="color:#bbb;text-decoration:none;font-size:14px;font-weight:600;">Indicators</a>
+    <a href="/blog" style="color:#bbb;font-size:14px;font-weight:600;">Blog</a>
+    <a href="/indicator-history" style="color:#bbb;font-size:14px;font-weight:600;">Indicators</a>
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=nav" target="_blank" rel="noopener" class="btn-red">Join — $29/mo →</a>
   </div>
 </nav>
@@ -795,351 +748,238 @@
 <!-- HERO -->
 <section class="hero-wrap">
   <div class="hero-bg" aria-hidden="true"></div>
-  <h1>
-    Know exactly when to sell your Bitcoin — <em>before everyone else does.</em>
-  </h1>
+  <h1>Know exactly when to sell your Bitcoin — <em>before everyone else does.</em></h1>
   <p class="hero-sub">
-    Daily BTC briefs at 8am MT and live Discord alerts when the on-chain data says it's time to move. Built on <strong>8 indicators that called every cycle top in 2013, 2017, and 2021</strong>. No guesswork. Just a clear signal when it's time to act.
+    8 on-chain indicators. A daily brief at 8am MT. Live Discord alerts when the data says it's time to move. <strong>This system called every cycle top in 2013, 2017, and 2021.</strong>
   </p>
   <div class="hero-cta-row">
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=hero" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Claim Founder Rate — $29/mo →</a>
-    <div style="margin-top:10px;font-size:13px;color:#dc2626;font-weight:700;letter-spacing:0.3px;">⚡ Founder spots filling — locks in at $29/mo forever</div>
-    <div class="trust-row" style="margin-top:8px;">
-      <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Refund any day, no questions</span><span class="dot">·</span><span>Instant Discord access</span>
+    <div style="font-size:13px;color:#dc2626;font-weight:700;letter-spacing:0.3px;">⚡ Founder spots filling — locks in at $29/mo forever</div>
+    <div class="trust-row">
+      <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Cancel anytime</span><span class="dot">·</span><span>Instant Discord access</span>
     </div>
   </div>
-  <div class="scroll-cue">How it works</div>
 </section>
 
 <!-- PROOF BAR -->
 <div class="proof-bar">
-  <div class="proof-item"><div class="proof-num">3M+</div><div class="proof-lbl">Views Generated</div></div>
-  <div class="proof-item"><div class="proof-num">60+</div><div class="proof-lbl">Active Members</div></div>
-  <div class="proof-item"><div class="proof-num">8</div><div class="proof-lbl">Cycle Indicators</div></div>
-  <div class="proof-item"><div class="proof-num">30-Day</div><div class="proof-lbl">Refund</div></div>
+  <div class="proof-item"><div class="proof-num">3.3M+</div><div class="proof-lbl">Content Views</div></div>
+  <div class="proof-item"><div class="proof-num">2013 · 2017 · 2021</div><div class="proof-lbl">Cycle Tops Called</div></div>
+  <div class="proof-item"><div class="proof-num">8</div><div class="proof-lbl">Confluence Indicators</div></div>
+  <div class="proof-item"><div class="proof-num">30-Day</div><div class="proof-lbl">Full Refund</div></div>
 </div>
 
-<!-- THE PROBLEM -->
-<section class="section">
-  <div class="section-narrow problem-block">
-    <div class="section-label">The "Missed the Top" Problem</div>
-    <h2>Every cycle, the same script:<br>you sit, you wait, then it's <em>over.</em></h2>
-
-    <p>You watched BTC rip from $30k to $69k in 2021. You told yourself you'd take profits at $80k. It hit $69k, faked you out, then dumped to $15k while you were "waiting for confirmation."</p>
-
-    <p>Now you're watching this cycle. Maybe you've DCA'd for two years with no plan for the exit. Maybe you sold at $105k and watched BTC pump to $120k a week later. Maybe none of your friends even texted you this time — because you stopped talking about it after the last bag.</p>
-
-    <p class="kicker">The pain isn't losing money. It's <strong>watching everyone else get out clean</strong> while you're still refreshing the chart asking "is this the top?"</p>
-
-    <p>You don't need another Twitter take. You need a <strong>system</strong> — one that tells you what's actually happening on-chain, in plain English, every single day, so you can stop guessing and start executing.</p>
-
-    <p style="color:#888;font-size:15px;line-height:1.7;border-left:2px solid var(--red);padding:8px 16px;margin-top:24px;background:rgba(230,57,70,0.04);">No system bats 1.000 — and we won't pretend otherwise. Pi Cycle nailed the top in 2013 and 2017, then printed <em>early</em> in April 2021 before the actual peak in November. The systems that work read <strong>multiple indicators in confluence</strong>, document their misses, and don't sell you a magic bullet.</p>
+<!-- INSIDE PREVIEW -->
+<section class="inside-section">
+  <div style="max-width:1080px;margin:0 auto;text-align:center;">
+    <div class="section-label">What you see inside</div>
+    <h2>The daily brief. The dashboard.<br>Everything you need in one place.</h2>
+    <p style="color:#aaa;font-size:16px;max-width:520px;margin:0 auto;">No guessing what indicators mean. No searching YouTube for context. This is what lands in your Discord every morning at 8am MT.</p>
   </div>
-</section>
 
-<!-- WHAT YOU GET INSIDE -->
-<section class="section" style="background: var(--card2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="section-wide">
-    <div class="section-label">What you get inside</div>
-    <h2>Eight Discord channels. One dashboard.<br>Everything you need to time the cycle.</h2>
-    <p class="lede">No upsells, no tiers. Every member gets the same intelligence stack the day they join.</p>
-
-    <div class="deliv-grid">
-      <div class="deliv">
-        <div class="deliv-tag">#daily-brief</div>
-        <div class="deliv-title">Daily BTC market brief — 8am MT, every weekday</div>
-        <div class="deliv-desc">Price, key support/resistance, all 8 indicator readings, macro events, and exactly what it means for your position today. 3-minute read. Lands before you check the chart.</div>
+  <div class="inside-grid">
+    <!-- Discord mockup -->
+    <div class="discord-wrap">
+      <div class="discord-titlebar">
+        <div class="d-dots"><span></span><span></span><span></span></div>
+        <div class="d-channel">daily-brief</div>
       </div>
-      <div class="deliv">
-        <div class="deliv-tag">#cycle-dashboard</div>
-        <div class="deliv-title">Live cycle indicator dashboard</div>
-        <div class="deliv-desc">CBBI composite (9 sub-metrics), Pi Cycle, MVRV-Z, Puell Multiple, Bitcoin Rainbow Chart band — all updated daily. Confluence verdict at the top.</div>
-      </div>
-      <div class="deliv">
-        <div class="deliv-tag">#trade-setups</div>
-        <div class="deliv-title">4-hour trade-setup alerts</div>
-        <div class="deliv-desc">Entry zones, profit targets, invalidation levels — only when the setup is real. No spam, no noise. Posted directly to Discord.</div>
-      </div>
-      <div class="deliv">
-        <div class="deliv-tag">#macro-watch</div>
-        <div class="deliv-title">Macro event auto-alerts</div>
-        <div class="deliv-desc">FOMC, CPI, NFP, BTC ETF flows — alerted 2 days out so you're not caught in a 5% wick at 8:30am while you're at work.</div>
-      </div>
-      <div class="deliv">
-        <div class="deliv-tag">#course</div>
-        <div class="deliv-title">6-module curriculum (lifetime access)</div>
-        <div class="deliv-desc">Foundations → DCA → Psychology → Indicators → Profit-Taking → Multi-Cycle Wealth. Built for crypto-curious to systematic. Not a crash course.</div>
-      </div>
-      <div class="deliv">
-        <div class="deliv-tag">#community</div>
-        <div class="deliv-title">Private Discord — actual discussion</div>
-        <div class="deliv-desc">60+ members already inside. Real conversation about cycle math, accumulation zones, and exit plans. Not a signal-spam channel.</div>
+      <div class="discord-body">
+        <div class="d-date-divider">Today at 8:00 AM</div>
+        <div class="discord-msg">
+          <div class="d-avatar">L</div>
+          <div style="flex:1;min-width:0;">
+            <div class="d-meta">
+              <span class="d-name">LiftOffr</span>
+              <span class="d-time">Today at 8:00 AM</span>
+            </div>
+            <div class="d-text">
+              <strong>📊 BTC Daily Brief</strong><br><br>
+              <div class="d-line"><span class="dname">BTC Price</span><span class="dval">$103,420</span><span class="d-badge green">+1.4%</span></div>
+              <div class="d-line"><span class="dname">Support</span><span class="dval">$101.2k</span></div>
+              <div class="d-line"><span class="dname">Resistance</span><span class="dval">$106.8k</span></div>
+              <br>
+              <strong>Indicator snapshot:</strong><br>
+              <div class="d-line"><span class="dname">CBBI</span><span class="dval">72</span><span class="d-badge warm">Elevated</span></div>
+              <div class="d-line"><span class="dname">MVRV-Z</span><span class="dval">4.8</span><span class="d-badge warm">Neutral-High</span></div>
+              <div class="d-line"><span class="dname">Pi Cycle</span><span class="dval">—</span><span class="d-badge green">Not fired</span></div>
+              <div class="d-line"><span class="dname">Puell</span><span class="dval">2.1</span><span class="d-badge green">Normal</span></div>
+              <div class="d-line"><span class="dname">Rainbow</span><span class="dval">Orange</span><span class="d-badge neutral">Watching</span></div>
+              <div class="d-verdict">⚡ Confluence verdict: HOLD — no top signal yet. Continue DCA, tighten stops above $115k.</div>
+              <div class="d-disclaimer">Educational only. Not financial advice. Do your own research.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:40px;">
-      <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=mid" target="_blank" rel="noopener" class="btn-red-xl">Claim Founder Rate — $29/mo →</a>
-      <div class="trust-row" style="margin-top:14px;">
-        <span>🛡️ 30-day refund</span><span class="dot">·</span><span>Cancel anytime</span>
+    <!-- Indicator dashboard -->
+    <div class="ind-dash">
+      <div class="ind-dash-header">
+        <div class="ind-dash-title">Cycle Indicator Dashboard</div>
+        <div class="ind-dash-sub">Updated daily · confluence verdict at top</div>
+      </div>
+      <div class="ind-verdict-bar">
+        <div class="ind-verdict-label">Current verdict</div>
+        <div class="ind-verdict-val">HOLD — WATCHING</div>
+      </div>
+      <div class="ind-rows">
+        <div class="ind-row">
+          <div class="ir-name">CBBI</div>
+          <div class="ir-track"><div class="ir-fill" style="width:72%;background:#f97316"></div></div>
+          <div class="ir-score">72</div>
+          <div class="ir-badge orange">Elevated</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">MVRV-Z</div>
+          <div class="ir-track"><div class="ir-fill" style="width:58%;background:#f97316"></div></div>
+          <div class="ir-score">4.8</div>
+          <div class="ir-badge orange">Neutral-High</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Pi Cycle</div>
+          <div class="ir-track"><div class="ir-fill" style="width:41%;background:#22c55e"></div></div>
+          <div class="ir-score">—</div>
+          <div class="ir-badge green">Not fired</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Puell</div>
+          <div class="ir-track"><div class="ir-fill" style="width:34%;background:#22c55e"></div></div>
+          <div class="ir-score">2.1</div>
+          <div class="ir-badge green">Normal</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Rainbow</div>
+          <div class="ir-track"><div class="ir-fill" style="width:55%;background:#fbbf24"></div></div>
+          <div class="ir-score">—</div>
+          <div class="ir-badge yellow">Watching</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Fear/Greed</div>
+          <div class="ir-track"><div class="ir-fill" style="width:67%;background:#f97316"></div></div>
+          <div class="ir-score">67</div>
+          <div class="ir-badge orange">Greed</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Puell MA</div>
+          <div class="ir-track"><div class="ir-fill" style="width:29%;background:#22c55e"></div></div>
+          <div class="ir-score">0.8</div>
+          <div class="ir-badge green">Healthy</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">2Y MA Mult</div>
+          <div class="ir-track"><div class="ir-fill" style="width:44%;background:#22c55e"></div></div>
+          <div class="ir-score">2.2×</div>
+          <div class="ir-badge green">Below line</div>
+        </div>
+      </div>
+      <div class="ind-dash-footer">
+        Numbers are illustrative — not live data.<br>
+        <a href="/indicator-history">See how each indicator performed 2013–2021 →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE SYSTEM (3 STEPS) -->
+<!-- HOW IT WORKS -->
 <section class="section">
   <div class="section-wide">
     <div class="section-label">How it works</div>
-    <h2>Three steps. <em>Every weekday.</em></h2>
-    <p class="lede">No screen-watching. No leverage gambling. A 3-minute morning routine that keeps you ahead of the cycle.</p>
+    <h2>Three minutes a day.<br><em>No screen-watching.</em></h2>
 
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-title">Open Discord — 8am MT</div>
-        <div class="step-desc">The daily brief is already posted. BTC price, all 8 indicator readings, key levels, macro for the day. Read it like a newspaper.</div>
+        <div class="step-desc">The daily brief is already posted. BTC price, all 8 indicator readings, key levels, and the confluence verdict. Read it like a newspaper.</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-title">Check the confluence verdict</div>
-        <div class="step-desc">The dashboard tells you: accumulation zone, neutral, or top territory. Multiple indicators must align before we go louder. No single-signal trades.</div>
+        <div class="step-title">Check the verdict</div>
+        <div class="step-desc">Accumulation zone, neutral, or top territory — multiple indicators must align before we signal a top. No single-indicator trades, no guesswork.</div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-title">Decide — then walk away</div>
-        <div class="step-desc">Hold, DCA, take profits — your call. You'll get urgent alerts only if something major changes. Otherwise you're not glued to a screen.</div>
+        <div class="step-desc">Hold, DCA, take profits — your call. Urgent alerts only fire when something major changes. Built for people with jobs, not chart-watchers.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=how" target="_blank" rel="noopener" class="btn-red-xl">Claim Founder Rate — $29/mo →</a>
+      <div class="trust-row" style="margin-top:14px;">
+        <span>🛡️ 30-day refund</span><span class="dot">·</span><span>Cancel anytime</span><span class="dot">·</span><span>Instant access</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INDICATORS -->
-<section class="section" style="background: var(--card2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="section-wide">
-    <div class="section-label">The Indicators We Track</div>
-    <h2>Five names. <em>One confluence verdict.</em></h2>
-    <p class="lede">If you've seen these mentioned by serious on-chain analysts, you know why we use them. If you haven't — here's the plain-English version.</p>
-
-    <div class="ind-grid">
-      <div class="ind">
-        <div class="ind-name"><a href="/blog/cbbi-bitcoin-indicator" style="color:inherit;text-decoration:none;">CBBI</a></div>
-        <div class="ind-desc">Composite of 9 cycle indicators. Above 85 = top territory. Below 15 = bottom.</div>
-        <div class="ind-action" style="margin-top:10px;font-size:13px;color:#aaa;border-top:1px solid rgba(230,57,70,0.15);padding-top:10px;"><strong style="color:var(--red);font-weight:700;">What you'd do:</strong> Above 85, take staged profits. Below 30, lean into your DCA.</div>
-      </div>
-      <div class="ind">
-        <div class="ind-name"><a href="/blog/pi-cycle-top-bitcoin-indicator" style="color:inherit;text-decoration:none;">Pi Cycle</a></div>
-        <div class="ind-desc">When the 111-day MA crosses 2× the 350-day MA. Called the top in 2013, 2017, and April 2021.</div>
-        <div class="ind-action" style="margin-top:10px;font-size:13px;color:#aaa;border-top:1px solid rgba(230,57,70,0.15);padding-top:10px;"><strong style="color:var(--red);font-weight:700;">What you'd do:</strong> Tighten stops or take profits within days of the cross.</div>
-      </div>
-      <div class="ind">
-        <div class="ind-name"><a href="/blog/mvrv-ratio-bitcoin-indicator" style="color:inherit;text-decoration:none;">MVRV-Z</a></div>
-        <div class="ind-desc">Compares market value to realized value. Above 5 = euphoria. Below 0 = capitulation.</div>
-        <div class="ind-action" style="margin-top:10px;font-size:13px;color:#aaa;border-top:1px solid rgba(230,57,70,0.15);padding-top:10px;"><strong style="color:var(--red);font-weight:700;">What you'd do:</strong> Above 7 = exit zone. Below 0 = generational entry.</div>
-      </div>
-      <div class="ind">
-        <div class="ind-name"><a href="/blog/puell-multiple-bitcoin-indicator" style="color:inherit;text-decoration:none;">Puell Multiple</a></div>
-        <div class="ind-desc">Miner profitability. Above 4 = miners overpaid (top). Below 0.5 = miners capitulating (bottom).</div>
-        <div class="ind-action" style="margin-top:10px;font-size:13px;color:#aaa;border-top:1px solid rgba(230,57,70,0.15);padding-top:10px;"><strong style="color:var(--red);font-weight:700;">What you'd do:</strong> Above 4 = de-risk. Below 0.5 = aggressive accumulation.</div>
-      </div>
-      <div class="ind">
-        <div class="ind-name"><a href="/blog/bitcoin-rainbow-chart-indicator" style="color:inherit;text-decoration:none;">Rainbow</a></div>
-        <div class="ind-desc">Bitcoin price colored against a logarithmic regression band. Red zone = "maximum bubble territory."</div>
-        <div class="ind-action" style="margin-top:10px;font-size:13px;color:#aaa;border-top:1px solid rgba(230,57,70,0.15);padding-top:10px;"><strong style="color:var(--red);font-weight:700;">What you'd do:</strong> Red band = scale out. Blue/violet = scale in.</div>
+<!-- TESTIMONIAL -->
+<section style="padding:0 20px 64px;background:var(--bg);">
+  <div class="section-wide" style="text-align:center;">
+    <div class="section-label">What members say</div>
+    <div class="testimonial-card">
+      <p class="testimonial-text">"Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal — I finally had a system instead of a guess."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">T</div>
+        <div>
+          <div class="testimonial-name">Tyr</div>
+          <div class="testimonial-meta">LiftOffr member · July 2025</div>
+        </div>
       </div>
     </div>
-
-    <p style="text-align:center;color:#777;font-size:14px;margin-top:32px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.65;">
-      <strong style="color:#fff;">No single indicator is the whole story.</strong> Pi Cycle called the top early in April 2021. MVRV-Z fired late in 2017. <em style="color:var(--red);font-style:normal;">That's why we use them together.</em> Confluence is the system. One signal is a guess.
-    </p>
-    <p style="text-align:center;margin-top:20px;">
-      <a href="/indicator-history" style="color:var(--red);font-size:14px;font-weight:700;text-decoration:underline;text-underline-offset:3px;">See how each indicator performed across every Bitcoin cycle (2013–2021) →</a>
-    </p>
-  </div>
-</section>
-
-<!-- OBJECTION BUSTERS -->
-<section class="section">
-  <div class="section-narrow">
-    <div class="section-label">"But what about…"</div>
-    <h2>The honest answers,<br>before you ask.</h2>
-
-    <div class="objection-block">
-      <h3>What if Pi Cycle doesn't fire this cycle?</h3>
-      <p>Pi Cycle is one of nine inputs we track. We don't trade off any single signal — we wait for <strong>confluence</strong> between Pi Cycle, MVRV-Z, Puell, and the Rainbow band before we go louder.</p>
-      <p>If no top fires, you'll have a complete profit-taking framework that works in <em style="color:var(--red);font-style:normal;">every cycle</em>, not just this one.</p>
-    </div>
-
-    <div class="objection-block">
-      <h3>What if I'm too late — is this cycle already over?</h3>
-      <p>If it isn't, you have a system. If it is, you'll learn the same framework that fired in <strong>2013, 2017, and 2021</strong> — which means you're ready before everyone else for the next one.</p>
-      <p>And: your 30-day refund means you can find out which it is at zero risk.</p>
-    </div>
-
-    <div class="objection-block">
-      <h3>I can get this free on YouTube — why pay $29/mo?</h3>
-      <p>YouTube gives you 100 takes from 100 people. LiftOffr gives you <strong>one system, run consistently</strong>, with the daily brief and confluence dashboard already done for you.</p>
-      <p>You're paying for the absence of guesswork. If the system saves you from one panic-sell that costs $5k, that's 8 years of subscription paid back.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FOUNDER -->
-<section class="section" style="background: var(--card2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="section-wide">
-    <div class="founder-grid">
-      <img src="/img/torin-founder.jpg?v=20260503c" alt="Torin Christianson, founder of LiftOffr" loading="lazy" decoding="async" width="600" height="750" />
-      <div>
-        <div class="section-label">Who's behind this</div>
-        <h2 style="margin-bottom:18px;">I built this because I needed it.</h2>
-        <p>I'm Torin Christianson. I've spent the last few years studying BTC cycle data, testing indicators against historical tops, and building a system that removes emotion from the exit. LiftOffr started as my own playbook for navigating the market without checking Twitter every 20 minutes.</p>
-        <p style="color:#888;font-size:15px;border-left:2px solid var(--red);padding:6px 14px;background:rgba(230,57,70,0.04);">I sold half my BTC stack at $19k in 2017 — way too early, no plan, no framework. I've spent the last 8 years building the system I needed then so I never make that decision blind again.</p>
-        <p>The framework you'll get inside is the same one I run on my own portfolio. With 3M+ views across the content I've put out and 60+ active members already inside the community, the system is live, the briefs are daily, and the dashboard is updated whether you join today or in six months.</p>
-        <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=about" target="_blank" rel="noopener" class="btn-red" style="margin-top:8px;">Claim Founder Rate — $29/mo →</a>
-      </div>
-    </div>
+    <p style="font-size:11px;color:#333;text-align:center;margin-top:16px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">Results not typical. Individual results vary. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice.</p>
   </div>
 </section>
 
 <!-- PRICING -->
-<style>
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 18px;
-    max-width: 1080px;
-    margin: 36px auto 0;
-    align-items: stretch;
-  }
-  .ptier {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 24px;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    position: relative;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  }
-  .ptier:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
-  .ptier-featured {
-    border: 2px solid var(--red);
-    background: linear-gradient(180deg, #1a0808 0%, #110404 100%);
-    box-shadow: 0 0 32px rgba(230,57,70,0.18);
-  }
-  .ptier-featured::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 4px; background: var(--red);
-    border-radius: 16px 16px 0 0;
-  }
-  .ptier-badge {
-    display: inline-block;
-    background: rgba(230,57,70,0.12);
-    color: var(--red);
-    font-size: 10px; font-weight: 800;
-    letter-spacing: 1.6px; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 20px;
-    margin-bottom: 14px;
-    align-self: flex-start;
-  }
-  .ptier-badge.featured { background: var(--red); color: #fff; }
-  .ptier-name { font-size: 14px; color: #ccc; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.3px; }
-  .ptier-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
-  .ptier-price .num { font-size: 38px; font-weight: 900; color: #fff; letter-spacing: -1.5px; }
-  .ptier-price .per { font-size: 14px; color: #888; }
-  .ptier-orig { font-size: 13px; color: #666; text-decoration: line-through; margin-bottom: 8px; height: 16px; }
-  .ptier-frame { font-size: 13px; color: #999; margin-bottom: 18px; min-height: 18px; }
-  .ptier-frame strong { color: #fff; font-weight: 600; }
-  .ptier-features { list-style: none; padding: 0; margin: 0 0 22px; flex: 1; }
-  .ptier-features li { font-size: 13px; color: #bbb; padding: 5px 0; line-height: 1.45; }
-  .ptier-features li::before { content: '✓'; color: var(--red); font-weight: 700; margin-right: 8px; }
-  .ptier-cta {
-    display: block; text-align: center;
-    padding: 14px 16px;
-    border-radius: 10px;
-    font-weight: 700; font-size: 14px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .ptier-cta-primary { background: var(--red); color: #fff; }
-  .ptier-cta-primary:hover { background: #d62b3b; transform: translateY(-1px); }
-  .ptier-cta-secondary { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border); }
-  .ptier-cta-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--red); }
-  .ptier-stock {
-    font-size: 11px;
-    color: var(--red);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 10px;
-    text-align: center;
-  }
-  .pricing-frame {
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-    max-width: 620px;
-    margin: 28px auto 0;
-    line-height: 1.65;
-  }
-  .pricing-frame strong { color: #fff; }
-  @media (max-width: 880px) {
-    .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 480px; }
-    .ptier-featured { order: -1; }
-  }
-</style>
 <section class="pricing-section" id="pricing">
   <div class="section-wide">
     <div class="section-label">Get access</div>
     <h2 style="text-align:center;">One system. <em>Three ways in.</em></h2>
-    <p style="color:var(--muted);margin-top:10px;font-size:16px;">Same product. Same Discord. Same daily briefs. Pick the commitment level that fits.</p>
-
-    <div style="text-align:center;color:#777;font-size:14px;margin-top:16px;max-width:620px;margin-left:auto;margin-right:auto;line-height:1.65;">
-      Most crypto courses charge $497–$2,000 for static modules. We charge from <strong style="color:#fff;">$29/mo</strong> for live signals + indicator dashboard + the course included.
-    </div>
+    <p style="color:var(--muted);margin-top:10px;font-size:16px;max-width:480px;margin-left:auto;margin-right:auto;">Same Discord. Same daily briefs. Same dashboard. Pick the plan that fits.</p>
 
     <div class="pricing-grid">
 
-      <!-- ANNUAL (anchor) -->
+      <!-- ANNUAL -->
       <div class="ptier">
         <span class="ptier-badge">Annual</span>
         <div class="ptier-name">Best value, full year</div>
         <div class="ptier-price"><span class="num">$390</span><span class="per">/yr</span></div>
         <div class="ptier-orig">$588 if paid monthly</div>
-        <div class="ptier-frame">$32.50/mo · <strong>save $198</strong> vs. monthly</div>
+        <div class="ptier-frame">$32.50/mo · <strong>save $198</strong></div>
         <ul class="ptier-features">
-          <li>Daily BTC brief (weekday 8am MT)</li>
+          <li>Daily BTC brief (8am MT weekdays)</li>
           <li>Live cycle indicator dashboard</li>
           <li>4hr trade-setup alerts</li>
           <li>Macro event watch</li>
           <li>Full 6-module course</li>
           <li>Private Discord community</li>
           <li>30-day money-back</li>
-          <li><strong style="color:#fff;">Locked-in pricing for 12 months</strong></li>
+          <li><strong style="color:#fff;">Locked pricing for 12 months</strong></li>
         </ul>
         <a href="https://whop.com/checkout/plan_NdlOR0aexgtg5?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_annual" target="_blank" rel="noopener" class="ptier-cta ptier-cta-secondary">Get the Year — $390 →</a>
       </div>
 
-      <!-- FOUNDER LIFETIME (featured / decoy) -->
+      <!-- FOUNDER (featured) -->
       <div class="ptier ptier-featured">
-        <span class="ptier-badge featured">⚡ Founder Rate — Limited spots</span>
+        <span class="ptier-badge featured">⚡ Founder Rate — Limited</span>
         <div class="ptier-name">Lock in the lowest rate, forever</div>
         <div class="ptier-price"><span class="num">$29</span><span class="per">/mo lifetime</span></div>
         <div class="ptier-orig">$49/mo public price</div>
         <div class="ptier-frame">Less than $1/day · <strong>price never increases</strong></div>
         <ul class="ptier-features">
-          <li>Everything in Annual, billed monthly</li>
-          <li>Daily BTC brief (weekday 8am MT)</li>
+          <li>Daily BTC brief (8am MT weekdays)</li>
           <li>Live cycle indicator dashboard</li>
           <li>4hr trade-setup alerts + macro watch</li>
           <li>Full 6-module course</li>
           <li>Private Discord community</li>
           <li>30-day money-back</li>
           <li><strong style="color:var(--red);">Founder badge in Discord</strong></li>
+          <li><strong style="color:var(--red);">Rate locked forever</strong></li>
         </ul>
         <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_founder" target="_blank" rel="noopener" class="ptier-cta ptier-cta-primary">Claim Founder Rate →</a>
-        <div class="ptier-stock">⚠ Limited founder spots · price locks in at $29/mo forever</div>
+        <div class="ptier-stock">⚠ Limited founder spots remaining</div>
       </div>
 
       <!-- MONTHLY -->
@@ -1150,7 +990,7 @@
         <div class="ptier-orig">&nbsp;</div>
         <div class="ptier-frame">Cancel anytime · <strong>30-day refund</strong></div>
         <ul class="ptier-features">
-          <li>Daily BTC brief (weekday 8am MT)</li>
+          <li>Daily BTC brief (8am MT weekdays)</li>
           <li>Live cycle indicator dashboard</li>
           <li>4hr trade-setup alerts</li>
           <li>Macro event watch</li>
@@ -1164,10 +1004,8 @@
 
     </div>
 
-    <p class="pricing-frame">That's <strong>$1.60–$0.97/day</strong> for the system that decides when you exit your stack. Less than your morning coffee, more than most people spend on the framework that decides their financial future.</p>
-
-    <p style="text-align:center;color:#555;font-size:13px;margin-top:20px;">
-      Checkout and membership are managed by <a href="https://whop.com" target="_blank" rel="noopener" style="color:#777;text-decoration:underline;">Whop</a> — a secure platform used by 100,000+ communities. Takes under 60 seconds. Cancel with one click, no questions.
+    <p style="text-align:center;color:#555;font-size:13px;margin-top:24px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.65;">
+      Checkout managed by <a href="https://whop.com" target="_blank" rel="noopener" style="color:#777;text-decoration:underline;">Whop</a> — used by 100,000+ communities. Takes under 60 seconds. Cancel with one click.
     </p>
   </div>
 </section>
@@ -1180,23 +1018,19 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">What if I'm too late — is this cycle already over? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">If it isn't, you have a system. If it is, you'll learn the same framework that fired in 2013, 2017, and 2021 — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out which it is.</div>
+        <div class="faq-a">If it isn't, you have a system. If it is, you'll learn the same framework that fired in 2013, 2017, and 2021 — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">What if Pi Cycle doesn't fire this cycle? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">Pi Cycle is one of nine inputs. We don't trade off a single signal — we wait for confluence between Pi Cycle, MVRV-Z, Puell, and Rainbow band before going louder. If no top fires, you still have a complete profit-taking framework that works in every cycle.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">I can get this free on YouTube — why pay $29/mo? <span class="faq-arrow">+</span></button>
+        <button class="faq-q">I can get this free on YouTube — why pay? <span class="faq-arrow">+</span></button>
         <div class="faq-a">YouTube gives you 100 takes from 100 people. LiftOffr gives you one system, run consistently, with the daily brief and confluence dashboard already done for you. You're paying for the absence of guesswork. If it saves you from one $5k panic-sell, it's paid for the next 8 years.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Do I need trading experience? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">No. Module 1 starts from wallets and your first buy. Beginners follow along; experienced investors still pick up new frameworks. The daily brief is written so a new investor can read it in 3 minutes and know what to do.</div>
+        <button class="faq-q">What if Pi Cycle doesn't fire this cycle? <span class="faq-arrow">+</span></button>
+        <div class="faq-a">Pi Cycle is one of nine inputs. We wait for confluence between Pi Cycle, MVRV-Z, Puell, and Rainbow band before going louder. If no top fires, you still have a complete profit-taking framework that works in every future cycle.</div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Do I need to watch a screen all day? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">No. The brief lands at 8am MT. Read it once, decide your move, walk away. Urgent alerts fire only when something actually changes. The system is built for people with jobs and lives, not chart-watchers.</div>
+        <button class="faq-q">Do I need trading experience? <span class="faq-arrow">+</span></button>
+        <div class="faq-a">No. Module 1 starts from wallets and your first buy. The daily brief is written so a new investor can read it in 3 minutes and know what to do.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Is this financial advice? <span class="faq-arrow">+</span></button>
@@ -1205,10 +1039,6 @@
       <div class="faq-item">
         <button class="faq-q">How do I cancel? <span class="faq-arrow">+</span></button>
         <div class="faq-a">One click in Whop. No questions, no friction. Cancel within 30 days for a full refund. After that, you keep access until the end of your billing period.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">What if it's not for me? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">You're protected by a 30-day money-back guarantee. If LiftOffr isn't right for you, request a full refund inside Whop — no questions, no friction. You keep what you learned.</div>
       </div>
     </div>
   </div>
@@ -1233,38 +1063,15 @@
     <div class="lm-content">
       <div class="section-label">Free Download</div>
       <h2>Get the <em>BTC Cycle Top Checklist.</em></h2>
-      <p>The 8 indicators we watch, with current trigger thresholds and a confluence score that tells you when to start taking profits. Free. No spam.</p>
-      <form class="lm-form-wrap" onsubmit="var e=this.querySelector('input[type=email]').value;window.open('https://liftoffr.beehiiv.com/subscribe?email='+encodeURIComponent(e)+'&utm_source=liftoffr&utm_medium=homepage&utm_campaign=checklist','_blank');return false;" style="margin-top:18px;">
+      <p>The 8 indicators we watch, with current trigger thresholds and a confluence score that tells you when to start taking profits. Free.</p>
+      <form onsubmit="var e=this.querySelector('input[type=email]').value;window.open('https://liftoffr.beehiiv.com/subscribe?email='+encodeURIComponent(e)+'&utm_source=liftoffr&utm_medium=homepage&utm_campaign=checklist','_blank');return false;" style="margin-top:18px;">
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <input type="email" required placeholder="your@email.com" style="flex:1;min-width:180px;padding:14px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
           <button type="submit" style="padding:14px 22px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;font-family:inherit;">Get the Checklist →</button>
         </div>
       </form>
-      <div class="lm-trust" style="margin-top:10px;">No spam · Unsubscribe anytime · Used by 60+ LiftOffr members</div>
+      <div style="font-size:12px;color:#555;margin-top:10px;">No spam · Unsubscribe anytime</div>
     </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials-section">
-  <div class="section-wide">
-    <div class="section-label">What members say</div>
-    <h2 style="text-align:center;">Real members. <em>Real results.</em></h2>
-    <div style="max-width:760px;margin:36px auto 0;">
-
-      <div class="testimonial-card">
-        <p class="testimonial-text">"Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal — I finally had a system instead of a guess."</p>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">T</div>
-          <div>
-            <div class="testimonial-name">Tyr</div>
-            <div class="testimonial-meta">LiftOffr member · July 2025</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <p style="font-size:11px;color:#444;text-align:center;margin-top:20px;max-width:760px;margin-left:auto;margin-right:auto;line-height:1.6;">Results not typical. Individual results vary significantly. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice. Always do your own research before making investment decisions.</p>
   </div>
 </section>
 
@@ -1272,13 +1079,17 @@
 <section class="final-cta">
   <div class="section-label">Last call</div>
   <h2>Two weeks late is the difference between<br><em>a great cycle and a great regret.</em></h2>
-  <p>Get the daily brief, the cycle dashboard, and the framework — risk-free for 30 days.</p>
+  <p>Get the daily brief, the cycle dashboard, and the 6-module course — risk-free for 30 days.</p>
   <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=final" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Claim Founder Rate — $29/mo →</a>
   <div class="trust-row" style="margin-top:18px;">
-    <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Refund any day, no questions</span><span class="dot">·</span><span>Instant Discord access</span>
+    <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Instant Discord access</span><span class="dot">·</span><span>Cancel anytime</span>
   </div>
-  <div style="margin-top:14px;font-size:14px;color:#999;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6;">
-    The next cycle indicator brief drops in your Discord <strong style="color:#fff;">every weekday at 8am MT</strong>. Be inside, or be wondering.
+  <div class="founder-byline">
+    <img src="/img/torin-founder.jpg?v=20260503c" alt="Torin Christianson" loading="lazy">
+    <div class="founder-byline-text">
+      <div class="founder-byline-name">Torin Christianson</div>
+      <div class="founder-byline-sub">Founder, LiftOffr · I built this because I needed it. The same system I run on my own portfolio.</div>
+    </div>
   </div>
 </section>
 
@@ -1294,35 +1105,32 @@
   <div>© 2026 LiftOffr. All rights reserved.</div>
   <div>Educational content only — not financial advice</div>
   <div style="display:flex;gap:14px;justify-content:center;font-size:11px;flex-wrap:wrap;">
-    <a href="/blog" style="color:#666;text-decoration:none;">Blog</a>
+    <a href="/blog" style="color:#666;">Blog</a>
     <span style="color:#333;">·</span>
-    <a href="/indicator-history" style="color:#666;text-decoration:none;">Indicator History</a>
+    <a href="/indicator-history" style="color:#666;">Indicator History</a>
     <span style="color:#333;">·</span>
-    <a href="/links" style="color:#666;text-decoration:none;">Links</a>
+    <a href="/links" style="color:#666;">Links</a>
     <span style="color:#333;">·</span>
-    <a href="https://www.tiktok.com/@torin_christianson" rel="me noopener" target="_blank" style="color:#666;text-decoration:none;">TikTok</a>
+    <a href="https://www.tiktok.com/@torin_christianson" rel="me noopener" target="_blank" style="color:#666;">TikTok</a>
     <span style="color:#333;">·</span>
-    <a href="https://www.instagram.com/torin_christianson/" rel="me noopener" target="_blank" style="color:#666;text-decoration:none;">Instagram</a>
+    <a href="https://www.instagram.com/torin_christianson/" rel="me noopener" target="_blank" style="color:#666;">Instagram</a>
     <span style="color:#333;">·</span>
-    <a href="https://www.instagram.com/liftoffr/" rel="me noopener" target="_blank" style="color:#666;text-decoration:none;">@liftoffr</a>
+    <a href="https://x.com/LiftOffr_" rel="me noopener" target="_blank" style="color:#666;">X</a>
     <span style="color:#333;">·</span>
-    <a href="https://x.com/LiftOffr_" rel="me noopener" target="_blank" style="color:#666;text-decoration:none;">X</a>
-    <span style="color:#333;">·</span>
-    <a href="https://www.youtube.com/@torin-liftoffr" rel="me noopener" target="_blank" style="color:#666;text-decoration:none;">YouTube</a>
+    <a href="https://www.youtube.com/@torin-liftoffr" rel="me noopener" target="_blank" style="color:#666;">YouTube</a>
   </div>
 </footer>
 
 <script>
-  // Mobile sticky CTA — hide when pricing section is in view
+  // Mobile sticky — hide when pricing is visible
   (function() {
     var sticky = document.getElementById('mobileStickyCta');
     var pricing = document.getElementById('pricing');
     if (!sticky || !pricing) return;
-    var io = new IntersectionObserver(function(entries) {
+    new IntersectionObserver(function(entries) {
       sticky.style.opacity = entries[0].isIntersecting ? '0' : '1';
       sticky.style.pointerEvents = entries[0].isIntersecting ? 'none' : '';
-    }, { threshold: 0.1 });
-    io.observe(pricing);
+    }, { threshold: 0.1 }).observe(pricing);
   })();
 
   // FAQ accordion
@@ -1336,12 +1144,12 @@
   });
 
   // Scroll-in reveal
-  const revealEls = document.querySelectorAll('.deliv, .step, .ind, .objection-block, .proof-item, .faq-item, .pricing-card');
+  const revealEls = document.querySelectorAll('.step, .faq-item, .testimonial-card, .ptier, .ind-dash, .discord-wrap');
   revealEls.forEach(el => el.classList.add('reveal'));
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
         observer.unobserve(entry.target);
       }
     });
@@ -1373,12 +1181,9 @@
       shown = true;
       popup.style.display = 'flex';
     }
-    // Show after 9 seconds
     setTimeout(showPopup, 9000);
-    // Or after 60% scroll depth
     window.addEventListener('scroll', function() {
-      var scrollPct = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
-      if (scrollPct > 0.6) showPopup();
+      if ((window.scrollY + window.innerHeight) / document.body.scrollHeight > 0.6) showPopup();
     }, { passive: true });
   })();
 
