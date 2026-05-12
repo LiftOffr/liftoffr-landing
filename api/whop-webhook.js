@@ -263,7 +263,7 @@ async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, tra
           items: [
             {
               item_id: "liftoffr-elite",
-              item_name: productName || "LiftOffr Elite",
+              item_name: productName || "LiftOffr",
               price: value,
               quantity: 1,
             },
@@ -385,7 +385,7 @@ export default async function handler(req, res) {
         value,
         currency,
         utm,
-        productName: data.plan?.product?.name || data.product?.name || data.plan_name || "LiftOffr Elite",
+        productName: data.plan?.product?.name || data.product?.name || data.plan_name || "LiftOffr",
       });
       console.log(`[whop-webhook] purchase forwarded type=${type} ga4=${ga.status} value=${value} ${currency} utm=${JSON.stringify(utm)}`);
       res.status(200).json({ ok: true, type, ga4_status: ga.status });

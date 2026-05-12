@@ -2,7 +2,7 @@
 
 **Trigger:** New subscriber via "BTC Cycle Top Checklist" lead magnet
 **Sequence length:** 5 emails over 7 days
-**Goal:** Deliver value → build trust → convert ~10% to LiftOffr Elite ($49/mo)
+**Goal:** Deliver value → build trust → convert ~10% to LiftOffr Founder ($29/mo)
 
 Paste each into Beehiiv as an Automation step. Subject lines tested for crypto creator inbox conversion (curiosity > clickbait).
 
