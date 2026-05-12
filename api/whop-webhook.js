@@ -97,7 +97,7 @@ async function postDiscordAlert(webhookUrl, lines) {
 }
 
 // Default channel IDs (overridable via env)
-const DEFAULT_WELCOME_CHANNEL    = "1442207480766664714"; // #elite-announcements
+const DEFAULT_WELCOME_CHANNEL    = "1380272240150708326"; // #announcements
 const DEFAULT_HOW_TO_USE_CHANNEL = "1442207394439626802"; // #how-to-use-this-course
 const DEFAULT_ELITE_QNA_CHANNEL  = "1442207548156416020"; // #elite-qna
 

@@ -29,7 +29,7 @@ The signing secret should already match `WHOP_WEBHOOK_SECRET` in Vercel env. If 
 - `DISCORD_OPS_WEBHOOK` — already set
 - `GA4_MEASUREMENT_ID`, `GA4_API_SECRET` — already set
 - `DISCORD_BOT_TOKEN` — **ADD THIS** — value from `~/.openclaw/secrets/discord.env`
-- `DISCORD_WELCOME_CHANNEL_ID` (optional) — defaults to `#elite-announcements`
+- `DISCORD_WELCOME_CHANNEL_ID` (optional) — defaults to `#announcements`
 
 After adding `DISCORD_BOT_TOKEN`, redeploy (any commit to main, or hit "Redeploy" in Vercel).
 
@@ -69,6 +69,6 @@ Whop dashboard → **Settings → Membership → Cancellation Flow** (or similar
 
 ## After it's all configured
 
-- New member subscribes → public welcome in `#elite-announcements` + DM (if their DMs are open) + ops alert to your private channel
+- New member subscribes → public welcome in `#announcements` + DM (if their DMs are open) + ops alert to your private channel
 - Member tries to cancel → sees feedback form + matched save offer → if they go through, you get a churn alert in `#churn-alerts` so you can do a personal save outreach within an hour
 - All events log to GA4 so you can build retention dashboards
