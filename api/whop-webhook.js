@@ -11,6 +11,10 @@
 //   GA4_MEASUREMENT_ID     – e.g. G-015PKWM24J
 //   GA4_API_SECRET         – GA4 Admin → Data Streams → Measurement Protocol API secrets
 //   DISCORD_OPS_WEBHOOK    – (optional) Discord webhook URL for ops channel alerts on churn events
+//   DISCORD_BOT_TOKEN      – (optional) Mission Control bot token, enables public welcome + DM on new sub
+//   DISCORD_WELCOME_CHANNEL_ID – (optional) channel id for public welcome; defaults to #elite-announcements
+//   DISCORD_HOW_TO_USE_CHANNEL_ID – (optional) channel id mentioned in welcome message; defaults to #how-to-use-this-course
+//   DISCORD_ELITE_QNA_CHANNEL_ID – (optional) channel id mentioned in welcome message; defaults to #elite-qna
 //
 // Vercel auto-routes this file to /api/whop-webhook (Node serverless).
 
@@ -90,6 +94,101 @@ async function postDiscordAlert(webhookUrl, lines) {
       allowed_mentions: { parse: [] },
     }),
   });
+}
+
+// Default channel IDs (overridable via env)
+const DEFAULT_WELCOME_CHANNEL    = "1442207480766664714"; // #elite-announcements
+const DEFAULT_HOW_TO_USE_CHANNEL = "1442207394439626802"; // #how-to-use-this-course
+const DEFAULT_ELITE_QNA_CHANNEL  = "1442207548156416020"; // #elite-qna
+
+// Pull a likely Discord user ID from a Whop membership payload.
+// Whop's payload shape varies: try common locations.
+function extractDiscordId(data) {
+  const u = data.user || {};
+  return (
+    u.discord_id ||
+    u.discord_user_id ||
+    u.discord?.id ||
+    data.discord_id ||
+    data.discord_user_id ||
+    u.social_accounts?.discord?.id ||
+    null
+  );
+}
+
+function extractUsername(data) {
+  const u = data.user || {};
+  return (
+    u.username ||
+    u.name ||
+    u.discord_username ||
+    u.email?.split("@")[0] ||
+    data.email?.split("@")[0] ||
+    "new member"
+  );
+}
+
+async function postPublicWelcome(botToken, channelId, discordId, username) {
+  const howTo = process.env.DISCORD_HOW_TO_USE_CHANNEL_ID || DEFAULT_HOW_TO_USE_CHANNEL;
+  const qna   = process.env.DISCORD_ELITE_QNA_CHANNEL_ID  || DEFAULT_ELITE_QNA_CHANNEL;
+  const mention = discordId ? `<@${discordId}>` : `**${username}**`;
+
+  const content =
+    `🎉  Welcome to LiftOffr, ${mention}!\n\n` +
+    `Start here → <#${howTo}>\n\n` +
+    `Read the 3 pinned messages, then work through Module 1 in order. ` +
+    `Questions? Drop them in <#${qna}> or DM me anytime.\n\n` +
+    `Glad you're in. — Torin`;
+
+  const r = await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bot ${botToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      content,
+      allowed_mentions: { parse: ["users"] },
+    }),
+  });
+  return { status: r.status, ok: r.ok };
+}
+
+async function sendWelcomeDM(botToken, discordId, username) {
+  if (!discordId) return { ok: false, reason: "no discord id" };
+
+  // Step 1: open a DM channel with the user
+  const dmRes = await fetch("https://discord.com/api/v10/users/@me/channels", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bot ${botToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ recipient_id: String(discordId) }),
+  });
+  if (!dmRes.ok) {
+    return { ok: false, reason: `open DM failed: ${dmRes.status}` };
+  }
+  const dm = await dmRes.json();
+
+  const content =
+    `Hey ${username} — welcome to LiftOffr.\n\n` +
+    `Torin here. This DM is automated but I personally read every reply.\n\n` +
+    `The course lives in the **ELITE-HUB** category. Start with **#how-to-use-this-course** — ` +
+    `the 3 pinned messages walk you through the whole thing.\n\n` +
+    `If you have a question about a lesson, an indicator, or anything crypto-related — ` +
+    `reply here or ping me in **#elite-qna**. I'll get back to you fast.\n\n` +
+    `Glad you're in.`;
+
+  const sendRes = await fetch(`https://discord.com/api/v10/channels/${dm.id}/messages`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bot ${botToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ content }),
+  });
+  return { ok: sendRes.ok, status: sendRes.status };
 }
 
 async function postNewMemberAlert(webhookUrl, eventType, data) {
@@ -231,13 +330,43 @@ export default async function handler(req, res) {
       const value = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100 || 29;
       const currency = (data.currency || "USD").toUpperCase();
 
-      // Discord new-member alert
+      // Discord new-member alert to ops channel (private notification for Torin)
       const opsWebhook = process.env.DISCORD_OPS_WEBHOOK;
       if (opsWebhook) {
         try {
           await postNewMemberAlert(opsWebhook, type, data);
         } catch (e) {
           console.warn("[whop-webhook] discord new-member alert failed:", e?.message || e);
+        }
+      }
+
+      // Public welcome in #elite-announcements + DM the new member.
+      // Only fires on membership.activated (the actual "they joined" event) —
+      // payment.succeeded fires on every renewal too and we don't want to spam.
+      const botToken = process.env.DISCORD_BOT_TOKEN;
+      if (botToken && type === "membership.activated") {
+        const discordId = extractDiscordId(data);
+        const username  = extractUsername(data);
+
+        // Public welcome
+        try {
+          const welcomeCh = process.env.DISCORD_WELCOME_CHANNEL_ID || DEFAULT_WELCOME_CHANNEL;
+          const pub = await postPublicWelcome(botToken, welcomeCh, discordId, username);
+          console.log(`[whop-webhook] public welcome status=${pub.status} for ${username}`);
+        } catch (e) {
+          console.warn("[whop-webhook] public welcome failed:", e?.message || e);
+        }
+
+        // DM (best-effort — fails if user has DMs disabled)
+        if (discordId) {
+          try {
+            const dm = await sendWelcomeDM(botToken, discordId, username);
+            console.log(`[whop-webhook] welcome DM ok=${dm.ok} reason=${dm.reason || "sent"}`);
+          } catch (e) {
+            console.warn("[whop-webhook] welcome DM failed:", e?.message || e);
+          }
+        } else {
+          console.log(`[whop-webhook] no discord_id in payload for ${username}, skipping DM`);
         }
       }
 
