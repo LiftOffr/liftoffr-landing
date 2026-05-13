@@ -305,12 +305,12 @@ tradesData.forEach(t => {
   const isSell = t.type === 'sell';
   const actionClass = isSell ? 'sell' : 'buy';
   const amtClass = isSell ? 'sell' : 'buy';
-  const amtPrefix = isSell ? '+' : '−';
+  const arrow = isSell ? '↓' : '↑';
   div.innerHTML = `
     <div class="trade-date">${t.date}</div>
-    <div class="trade-action ${actionClass}">${t.action}</div>
+    <div class="trade-action ${actionClass}">${arrow} ${t.action}</div>
     <div class="trade-price">BTC @ $${Number(t.price).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
-    <div class="trade-amount ${amtClass}">${amtPrefix}$${Number(t.amount).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+    <div class="trade-amount ${amtClass}">$${Number(t.amount).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
   `;
   tlEl.appendChild(div);
 });
