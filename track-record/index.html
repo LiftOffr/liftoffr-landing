@@ -47,6 +47,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .compare-item .num{font-size:24px;font-weight:900;letter-spacing:-0.5px}
 .compare-item .delta{font-size:13px;color:#999;margin-top:4px}
 
+.tier-table{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.tier-row{display:grid;grid-template-columns:90px 1fr 130px 140px;gap:14px;padding:13px 14px;border-radius:8px;font-size:14px;align-items:center}
+.tier-row.tier-head{background:transparent;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-bottom:8px}
+.tier-row:not(.tier-head):nth-child(even){background:var(--card2)}
+.tier-row.tier-highlight{background:rgba(230,57,70,0.10);border:1px solid rgba(230,57,70,0.30)}
+.tier-row .r{text-align:right;font-family:monospace}
+@media(max-width:640px){.tier-row{grid-template-columns:80px 1fr 110px;font-size:12px}.tier-row > div:nth-child(3){display:none}}
+
 .trades{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px}
 .trades h2{font-size:18px;font-weight:800;margin-bottom:18px}
 .trade-row{display:grid;grid-template-columns:110px 1fr 110px 110px;gap:10px;padding:12px 0;border-top:1px solid #1a1a1a;font-size:13px;align-items:center}
@@ -142,6 +150,30 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
         <div class="delta">+7602% — $1,665,560 more, lower drawdown</div>
       </div>
     </div>
+  </div>
+
+  <!-- Multi-tier — what works at different DCA amounts -->
+  <div class="compare">
+    <h2>Run the numbers for yourself</h2>
+    <p style="color:#aaa;font-size:14px;margin-bottom:18px;line-height:1.5;">
+      Returns scale linearly with contribution — the framework's % gains stay the same. Find your level:
+    </p>
+    <div class="tier-table">
+      <div class="tier-row tier-head">
+        <div>Weekly DCA</div>
+        <div>Lifestyle equivalent</div>
+        <div class="r">Total contributed</div>
+        <div class="r">Final value</div>
+      </div>
+      <div class="tier-row"><div>$10/wk</div><div>A daily coffee</div><div class="r">$4,890</div><div class="r" style="color:#22c55e">~$376,638</div></div>
+      <div class="tier-row"><div>$25/wk</div><div>Spotify + Netflix</div><div class="r">$12,225</div><div class="r" style="color:#22c55e">~$941,597</div></div>
+      <div class="tier-row tier-highlight"><div><strong>$50/wk</strong></div><div>Most committed retail</div><div class="r">$24,450</div><div class="r" style="color:#22c55e"><strong>$1,883,194</strong></div></div>
+      <div class="tier-row"><div>$100/wk</div><div>Middle-class committed</div><div class="r">$48,900</div><div class="r" style="color:#22c55e">~$3,766,388</div></div>
+      <div class="tier-row"><div>$200/wk</div><div>High-earner serious</div><div class="r">$97,800</div><div class="r" style="color:#22c55e">~$7,532,776</div></div>
+    </div>
+    <p style="color:#666;font-size:12px;margin-top:14px;text-align:center;">
+      Compounding effect, fees, and taxes are not modeled. Results assume identical signal execution at any tier.
+    </p>
   </div>
 
   <!-- Calendar visualization -->
