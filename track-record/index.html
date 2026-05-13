@@ -285,7 +285,7 @@ new Chart(ctx, {
     interaction: { mode: 'index', intersect: false },
     scales: {
       x: { ticks: { color: '#666', maxRotation: 0, autoSkip: true, maxTicksLimit: 8 }, grid: { color: '#1a1a1a' } },
-      y: { ticks: { color: '#888', callback: v => '$' + (v/1000).toFixed(0) + 'K' }, grid: { color: '#1a1a1a' } }
+      y: { ticks: { color: '#888', callback: v => v >= 1000000 ? '$' + (v/1000000).toFixed(2) + 'M' : '$' + (v/1000).toFixed(0) + 'K' }, grid: { color: '#1a1a1a' } }
     },
     plugins: {
       legend: { display: false },
