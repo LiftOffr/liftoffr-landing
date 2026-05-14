@@ -70,24 +70,69 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .stats { font-size: 12px; color: #555; margin-top: 8px; letter-spacing: 0.5px; }
   .stats span { color: var(--red); font-weight: 800; }
 
-  /* PRIMARY (lead magnet) — visually loudest */
+  /* PRIMARY (lead magnet) — visually loudest, with inline form */
   .link-primary {
     display: block;
     background: linear-gradient(135deg, var(--red) 0%, #c12838 100%);
     color: #fff;
-    padding: 22px 24px;
+    padding: 20px 22px;
     border-radius: 14px;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     box-shadow: 0 8px 30px rgba(230,57,70,0.35);
-    transition: transform 0.2s, box-shadow 0.2s;
-    text-decoration: none;
     border: 1px solid rgba(255,255,255,0.1);
   }
-  .link-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(230,57,70,0.5); }
   .link-primary .lp-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: 0.85; margin-bottom: 6px; }
   .link-primary .lp-title { font-size: 19px; font-weight: 900; letter-spacing: -0.3px; }
-  .link-primary .lp-sub { font-size: 12px; opacity: 0.85; margin-top: 4px; }
+  .link-primary .lp-sub { font-size: 12px; opacity: 0.85; margin-top: 4px; margin-bottom: 14px; }
+  .lp-form { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .lp-form input { width: 100%; padding: 12px 14px; border-radius: 8px; border: none; background: rgba(0,0,0,0.25); color: #fff; font-size: 15px; font-family: inherit; outline: none; }
+  .lp-form input::placeholder { color: rgba(255,255,255,0.55); }
+  .lp-form button { width: 100%; padding: 12px; background: #fff; color: #c12838; border: none; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; font-family: inherit; letter-spacing: 0.3px; }
+  .lp-form button:disabled { opacity: 0.65; }
+  .lp-msg { display: none; margin-top: 10px; font-size: 13px; line-height: 1.5; }
+  .lp-tiny { font-size: 10px; opacity: 0.65; margin-top: 8px; letter-spacing: 0.4px; }
+
+  /* JOIN — secondary loudest, dark with red glow */
+  .link-join {
+    display: flex; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, #160505 0%, #0d0000 100%);
+    border: 1px solid var(--red);
+    color: #fff;
+    padding: 18px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 24px rgba(230,57,70,0.18);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .link-join:hover { transform: translateY(-1px); box-shadow: 0 10px 32px rgba(230,57,70,0.32); }
+  .link-join .lj-icon { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--red); border-radius: 10px; }
+  .link-join .lj-text { flex: 1; }
+  .link-join .lj-title { font-weight: 900; font-size: 15px; letter-spacing: -0.2px; }
+  .link-join .lj-sub { font-size: 12px; color: #ccc; margin-top: 3px; }
+  .link-join .lj-arrow { color: var(--red); font-size: 20px; font-weight: 800; }
+
+  /* PROOF — track record card */
+  .link-proof {
+    display: flex; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, #061a0d 0%, #03110a 100%);
+    border: 1px solid rgba(34,197,94,0.35);
+    color: #fff;
+    padding: 16px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-bottom: 14px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .link-proof:hover { transform: translateY(-1px); border-color: #22c55e; }
+  .link-proof .lpr-icon { width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; background: rgba(34,197,94,0.12); border-radius: 8px; }
+  .link-proof .lpr-text { flex: 1; }
+  .link-proof .lpr-title { font-weight: 800; font-size: 15px; }
+  .link-proof .lpr-sub { font-size: 12px; color: #22c55e; margin-top: 2px; font-weight: 700; }
+  .link-proof .lpr-arrow { color: #22c55e; font-size: 18px; opacity: 0.7; }
+
+  .section-label { text-align: center; font-size: 11px; color: #555; margin: 20px 0 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
 
   /* STANDARD LINK */
   .link {
@@ -162,14 +207,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="stats"><span>3M+</span> views · Daily BTC analysis</div>
   </div>
 
-  <!-- PRIMARY: Lead Magnet -->
-  <a href="https://liftoffr.beehiiv.com/subscribe?utm_source=liftoffr&utm_medium=links&utm_campaign=checklist&utm_content=links_primary" target="_blank" rel="noopener" class="link-primary">
+  <!-- 1. PRIMARY: Lead Magnet with inline email form -->
+  <div class="link-primary">
     <div class="lp-eyebrow">🎁 Free Download</div>
     <div class="lp-title">The BTC Cycle Top Checklist</div>
     <div class="lp-sub">8 indicators · Trigger thresholds · No spam</div>
+    <form data-lead-form data-medium="links_primary" onsubmit="return submitLeadForm(this);" class="lp-form">
+      <input type="email" name="email" required placeholder="your@email.com" autocomplete="email">
+      <button type="submit">Send Me the Checklist →</button>
+      <div data-form-body style="display:none"></div>
+      <div data-form-message class="lp-msg"></div>
+    </form>
+    <div class="lp-tiny">Instant delivery · Unsubscribe anytime</div>
+  </div>
+
+  <!-- 2. JOIN: Whop Founder Rate (moved up from bottom) -->
+  <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_join" target="_blank" rel="noopener" class="link-join">
+    <div class="lj-icon">🚀</div>
+    <div class="lj-text">
+      <div class="lj-title">Claim Founder Rate — $29/mo</div>
+      <div class="lj-sub">Locks in forever · Daily briefs + signals + community</div>
+    </div>
+    <div class="lj-arrow">→</div>
   </a>
 
-  <!-- Long-form -->
+  <!-- 3. PROOF: Track Record -->
+  <a href="https://liftoffr.com/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_track_record" class="link-proof">
+    <div class="lpr-icon">📊</div>
+    <div class="lpr-text">
+      <div class="lpr-title">See the Track Record</div>
+      <div class="lpr-sub">$50/wk DCA + signals → $1.88M since 2017</div>
+    </div>
+    <div class="lpr-arrow">→</div>
+  </a>
+
+  <!-- 4. Site -->
+  <a href="https://liftoffr.com/?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_site" class="link">
+    <div class="link-icon">🌐</div>
+    <div class="link-text">
+      <div class="link-title">What is LiftOffr?</div>
+      <div class="link-sub">The full system breakdown</div>
+    </div>
+    <div class="link-arrow">→</div>
+  </a>
+
+  <div class="section-label">Follow along</div>
+
+  <!-- 5. YouTube -->
   <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="link">
     <div class="link-icon">📺</div>
     <div class="link-text">
@@ -179,27 +263,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="link-arrow">→</div>
   </a>
 
-  <!-- TikTok -->
-  <a href="https://www.tiktok.com/@torin_christianson" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">🎵</div>
-    <div class="link-text">
-      <div class="link-title">TikTok</div>
-      <div class="link-sub">Daily lifestyle & Bitcoin takes</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <!-- Instagram personal -->
-  <a href="https://www.instagram.com/torin_christianson/" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">📸</div>
-    <div class="link-text">
-      <div class="link-title">Instagram</div>
-      <div class="link-sub">Daily lifestyle & cycle updates</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <!-- Instagram LiftOffr -->
+  <!-- 6. Instagram LiftOffr (brand) -->
   <a href="https://www.instagram.com/liftoffr/" target="_blank" rel="noopener me" class="link">
     <div class="link-icon">📊</div>
     <div class="link-text">
@@ -209,7 +273,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="link-arrow">→</div>
   </a>
 
-  <!-- X / Twitter -->
+  <!-- 7. X / Twitter -->
   <a href="https://x.com/LiftOffr_" target="_blank" rel="noopener me" class="link">
     <div class="link-icon">𝕏</div>
     <div class="link-text">
@@ -219,26 +283,96 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="link-arrow">→</div>
   </a>
 
-  <!-- Site link -->
-  <a href="https://liftoffr.com/?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_site" class="link">
-    <div class="link-icon">🌐</div>
+  <!-- 8. TikTok -->
+  <a href="https://www.tiktok.com/@torin_christianson" target="_blank" rel="noopener me" class="link">
+    <div class="link-icon">🎵</div>
     <div class="link-text">
-      <div class="link-title">What is LiftOffr?</div>
-      <div class="link-sub">The system behind the 3M+ views — full breakdown</div>
+      <div class="link-title">TikTok</div>
+      <div class="link-sub">Daily lifestyle & Bitcoin takes</div>
     </div>
     <div class="link-arrow">→</div>
   </a>
 
-  <!-- Membership LAST -->
-  <div style="text-align:center; font-size:12px; color:#555; margin-top:24px; margin-bottom:8px; letter-spacing:0.5px; text-transform:uppercase; font-weight:700;">The system behind 3M+ views</div>
-  <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_join" target="_blank" rel="noopener" class="link link-member">
-    <div class="link-icon">🚀</div>
+  <!-- 9. Instagram personal -->
+  <a href="https://www.instagram.com/torin_christianson/" target="_blank" rel="noopener me" class="link">
+    <div class="link-icon">📸</div>
     <div class="link-text">
-      <div class="link-title">Claim Founder Rate — $29/mo</div>
-      <div class="link-sub">Locks in forever · limited spots · Daily briefs + signals</div>
+      <div class="link-title">Instagram — @torin_christianson</div>
+      <div class="link-sub">Daily lifestyle & cycle updates</div>
     </div>
     <div class="link-arrow">→</div>
   </a>
+
+  <script>
+    function getLeadUtms() {
+      try {
+        var u = new URL(location.href);
+        return {
+          utm_source: u.searchParams.get('utm_source') || '',
+          utm_medium: u.searchParams.get('utm_medium') || '',
+          utm_campaign: u.searchParams.get('utm_campaign') || '',
+          utm_content: u.searchParams.get('utm_content') || ''
+        };
+      } catch (e) { return {}; }
+    }
+
+    function submitLeadForm(form) {
+      var emailInput = form.querySelector('input[type=email]');
+      var email = (emailInput || {}).value || '';
+      var medium = form.getAttribute('data-medium') || 'links';
+      var btn = form.querySelector('button[type=submit]');
+      var msg = form.querySelector('[data-form-message]');
+      var oldLabel = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      if (emailInput) emailInput.disabled = true;
+
+      var pageUtms = getLeadUtms();
+      var payload = {
+        email: email,
+        utm_source: pageUtms.utm_source || 'liftoffr',
+        utm_medium: medium,
+        utm_campaign: pageUtms.utm_campaign || 'checklist',
+        utm_content: pageUtms.utm_content || 'links_primary'
+      };
+
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r){
+        return r.json().then(function(data){ return { ok: r.ok, data: data }; });
+      }).then(function(result){
+        if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+        form.style.display = 'none';
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.color = '#fff';
+          msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.';
+          form.parentNode.appendChild(msg);
+        }
+        if (typeof track === 'function') {
+          track('lead_captured', {
+            source: medium,
+            page: location.pathname,
+            utm_source: payload.utm_source,
+            utm_medium: payload.utm_medium,
+            utm_campaign: payload.utm_campaign
+          });
+        }
+      }).catch(function(err){
+        if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
+        if (emailInput) emailInput.disabled = false;
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.color = '#ffdada';
+          msg.textContent = 'Something went wrong. Try again in a moment.';
+        }
+        console.error('submitLeadForm error:', err);
+      });
+
+      return false;
+    }
+  </script>
 
   <footer>
     Educational content only — not financial advice<br>
