@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>LiftOffr — Logo Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Mulish:wght@900&family=Manrope:wght@800&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --card: #111;
+    --border: #1e1e1e;
+    --red: #e63946;
+    --white: #fff;
+    --black: #000;
+    --muted: #777;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--white);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh; padding: 40px 24px;
+  }
+  .page-title { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+  .page-sub { color: var(--muted); margin-bottom: 32px; font-size: 14px; }
+
+  /* Logo style baseline — Supreme-inspired: heavy weight, italic, tight tracking */
+  .logo-base {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
+    line-height: 1;
+    display: inline-block;
+  }
+  .logo-alt-mulish { font-family: 'Mulish', sans-serif; }
+  .logo-alt-manrope { font-family: 'Manrope', sans-serif; font-weight: 800; }
+  .logo-alt-archivo { font-family: 'Archivo Black', sans-serif; font-style: italic; font-weight: 400; }
+
+  .variant-grid {
+    display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 800px; margin: 0 auto;
+  }
+  .variant {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 28px; display: flex; align-items: center; gap: 24px;
+  }
+  .variant-preview {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    min-height: 100px; padding: 20px; border-radius: 6px;
+    background: var(--bg);
+  }
+  .variant-preview.on-white { background: var(--white); }
+  .variant-preview.on-red { background: var(--red); }
+  .variant-meta {
+    width: 180px; flex-shrink: 0;
+  }
+  .variant-num {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    background: var(--red); color: var(--white);
+    padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .variant-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .variant-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* Box logo style — red rectangle wrapping the wordmark */
+  .box {
+    display: inline-block;
+    background: var(--red);
+    padding: 6px 14px 8px;
+    border-radius: 2px;
+  }
+  .box-white { background: var(--white); }
+  .box-black { background: var(--black); }
+
+  /* Color helpers */
+  .c-w { color: var(--white); }
+  .c-r { color: var(--red); }
+  .c-b { color: var(--black); }
+
+  /* Sizes for showing scale */
+  .sz-32 { font-size: 32px; }
+  .sz-48 { font-size: 48px; }
+  .sz-64 { font-size: 64px; }
+  .sz-96 { font-size: 96px; }
+
+  /* Spacing/alignment tweaks per variant */
+  .variant-preview .logo-base { line-height: 0.85; }
+
+  /* Final picks panel */
+  .picks-bar {
+    max-width: 800px; margin: 32px auto 0; padding: 18px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    font-size: 13px; color: var(--muted);
+  }
+  .picks-bar strong { color: var(--white); }
+</style>
+</head>
+<body>
+
+<div style="max-width:800px;margin:0 auto;">
+  <h1 class="page-title">LiftOffr Logo Lab</h1>
+  <p class="page-sub">Six variants — same wordmark, different color treatments. Pick a number and I'll apply it across the dashboard and site.</p>
+</div>
+
+<div class="variant-grid">
+
+  <!-- 1: LIFT white + OFFR red, no box, dark bg -->
+  <div class="variant">
+    <div class="variant-preview">
+      <span class="logo-base sz-64"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+    </div>
+    <div class="variant-meta">
+      <span class="variant-num">01</span>
+      <div class="variant-name">Split / white + red</div>
+      <div class="variant-desc">Clean wordmark. <strong>Lift</strong> in white, <strong>offr</strong> in red. Works on dark backgrounds.</div>
+    </div>
+  </div>
+
+  <!-- 2: LIFT red + OFFR white -->
+  <div class="variant">
+    <div class="variant-preview">
+      <span class="logo-base sz-64"><span class="c-r">lift</span><span class="c-w">offr</span></span>
+    </div>
+    <div class="variant-meta">
+      <span class="variant-num">02</span>
+      <div class="variant-name">Split / red + white</div>
+      <div class="variant-desc">Inverted: red <strong>lift</strong>, white <strong>offr</strong>. Pushes the "lift" action more.</div>
+    </div>
+  </div>
+
+  <!-- 3: Box logo — red rectangle with white italic LIFTOFFR (Supreme classic) -->
+  <div class="variant">
+    <div class="variant-preview">
+      <span class="box"><span class="logo-base sz-48 c-w">liftoffr</span></span>
+    </div>
+    <div class="variant-meta">
+      <span class="variant-num">03</span>
+      <div class="variant-name">Box logo / red</div>
+      <div class="variant-desc">Red box with white italic — the Supreme box-logo treatment. Maximum brand recall.</div>
+    </div>
+  </div>
+
+  <!-- 4: Box logo with internal color split (white LIFT + black OFFR inside red box) -->
+  <div class="variant">
+    <div class="variant-preview">
+      <span class="box"><span class="logo-base sz-48"><span class="c-w">lift</span><span class="c-b">offr</span></span></span>
+    </div>
+    <div class="variant-meta">
+      <span class="variant-num">04</span>
+      <div class="variant-name">Box / split inside</div>
+      <div class="variant-desc">Red box with internal split: white <strong>lift</strong>, black <strong>offr</strong>. Bolder, more graphic.</div>
+    </div>
+  </div>
+
+  <!-- 5: White box with red and black inside -->
+  <div class="variant">
+    <div class="variant-preview on-white">
+      <span class="logo-base sz-64"><span class="c-r">lift</span><span class="c-b">offr</span></span>
+    </div>
+    <div class="variant-meta">
+      <span class="variant-num">05</span>
+      <div class="variant-name">Light mode</div>
+      <div class="variant-desc">For white backgrounds, social posts, light merch. Red <strong>lift</strong>, black <strong>offr</strong>.</div>
+    </div>
+  </div>
+
+  <!-- 6: Black box, white LIFT + red OFFR -->
+  <div class="variant">
+    <div class="variant-preview" style="background:#000;border:1px solid var(--border);">
+      <span class="box box-black" style="background:#000;"><span class="logo-base sz-48"><span class="c-w">lift</span><span class="c-r">offr</span></span></span>
+    </div>
+    <div class="variant-meta">
+      <span class="variant-num">06</span>
+      <div class="variant-name">Black + split</div>
+      <div class="variant-desc">Black box with white <strong>lift</strong> + red <strong>offr</strong>. Quietest, most premium.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Size showcase of variant 1 (will swap to chosen later) -->
+<div style="max-width:800px;margin:48px auto 0;">
+  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:14px;font-weight:700;">Variant 01 at different sizes</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;display:flex;flex-direction:column;gap:24px;align-items:flex-start;">
+    <span class="logo-base sz-32"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+    <span class="logo-base sz-48"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+    <span class="logo-base sz-96"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+  </div>
+</div>
+
+<!-- Font comparison panel — show variant 1 in 4 different free fonts -->
+<div style="max-width:800px;margin:48px auto 0;">
+  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:14px;font-weight:700;">Font comparison (Variant 01 layout)</h2>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:32px;display:flex;flex-direction:column;gap:20px;align-items:flex-start;">
+    <div>
+      <span class="logo-base sz-48"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+      <span style="color:var(--muted);font-size:12px;margin-left:14px;font-weight:500;">Inter Black Italic 900</span>
+    </div>
+    <div>
+      <span class="logo-base logo-alt-mulish sz-48"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+      <span style="color:var(--muted);font-size:12px;margin-left:14px;font-weight:500;">Mulish Black Italic 900</span>
+    </div>
+    <div>
+      <span class="logo-base logo-alt-manrope sz-48"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+      <span style="color:var(--muted);font-size:12px;margin-left:14px;font-weight:500;">Manrope ExtraBold Italic 800</span>
+    </div>
+    <div>
+      <span class="logo-base logo-alt-archivo sz-48"><span class="c-w">lift</span><span class="c-r">offr</span></span>
+      <span style="color:var(--muted);font-size:12px;margin-left:14px;font-weight:500;">Archivo Black Italic (closest to actual Supreme/Futura)</span>
+    </div>
+  </div>
+</div>
+
+<div class="picks-bar">
+  <strong>How to pick:</strong> tell me a variant number (01–06) and a font (Inter / Mulish / Manrope / Archivo Black). I'll wire it into the dashboard top bar first, then the main site if you like it. Default if undecided: Variant 01 in Archivo Black (closest to Supreme's actual look).
+</div>
+
+</body>
+</html>
