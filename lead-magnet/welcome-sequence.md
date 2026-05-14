@@ -43,13 +43,15 @@ P.S. If the PDF didn't open, [click here to grab it again](LINK_TO_PDF).
 
 ---
 
-The Pi Cycle Top Indicator has called the BTC top within 3 days on every previous cycle.
+The Pi Cycle Top Indicator has called the BTC top within 3 days on three of the last four cycles.
 
 2013 top? Called it.
 2017 top? Called it.
-2021 top? Called it.
+April 2021 local top? Called it.
 
-That's a 100% hit rate across 3 cycles. Most people who hear that fall in love and start trading off it alone.
+But it missed the November 2021 ATH at $69K. And it completely missed the October 2025 cycle peak at $124,824 — peaked at only 83% of the cross threshold and never fired.
+
+That's 3 hits, 2 misses across documented cycles. Most people who hear "100% hit rate" fall in love and start trading off it alone.
 
 **Don't.**
 
@@ -143,7 +145,7 @@ You've got the checklist. You understand confluence. You know the exit framework
 
 You can absolutely DIY this. Read the indicators yourself, run the score every Sunday, build your own discipline.
 
-Or — if you'd rather have the daily briefs done for you, the live signals delivered to Discord, and the 6-module course that walks you through every phase of the cycle — LiftOffr is $49/mo.
+Or — if you'd rather have the daily briefs done for you, the live signals delivered to Discord, and the 6-module course that walks you through every phase of the cycle — LiftOffr's Founder Rate is **$29/mo, locked in forever**.
 
 **Risk-free for 30 days.** If it's not for you in the first month, full refund. No questions, no friction.
 
@@ -155,7 +157,7 @@ What you get:
 - AI Q&A bot trained on the curriculum
 - Private Discord community
 
-[Start today — $49/mo →](https://whop.com/liftoffr/liftoffr-elite/?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_5)
+[Claim Founder Rate — $29/mo locked forever →](https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_5)
 
 Either way — you've got the checklist now. Use it. Print it. Run the score every Sunday. That alone puts you ahead of 99% of crypto investors.
 
