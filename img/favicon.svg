@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&amp;display=swap');
+    .l { fill: #ffffff; font-family: 'Archivo Black', sans-serif; font-style: italic; font-weight: 400; font-size: 24px; }
+  </style>
+  <rect width="32" height="32" fill="#e63946" rx="4"/>
+  <text x="16" y="24" class="l" text-anchor="middle">L</text>
+</svg>

@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Cycle Dashboard — LiftOffr</title>
-<link rel="icon" href="https://liftoffr.com/img/liftoffr-logo.png">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
 <style>
   :root {
     /* LiftOffr brand palette — matches liftoffr.com */
@@ -207,7 +208,10 @@
 
 <div class="topbar">
   <div class="topbar-left">
-    <div class="logo">Lift<span class="accent">Offr</span><span class="logo-dot">.</span> <span style="color:var(--text-dim);font-weight:400;font-size:13px;text-transform:none;letter-spacing:0;">Cycle Dashboard</span></div>
+    <a href="https://liftoffr.com/" aria-label="LiftOffr home" style="text-decoration:none;display:inline-flex;align-items:center;gap:10px;">
+      <span class="lo-logo lo-md"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span>
+      <span style="color:var(--text-dim);font-weight:500;font-size:13px;">Cycle Dashboard</span>
+    </a>
     <div class="phase-badge"><span class="dot"></span> <span id="currentPhase">Loading...</span></div>
   </div>
   <div class="price-block">

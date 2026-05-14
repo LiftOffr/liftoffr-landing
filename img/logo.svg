@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&amp;display=swap');
+    .lift { fill: #ffffff; font-family: 'Archivo Black', sans-serif; font-style: italic; font-weight: 400; font-size: 54px; }
+    .offr { fill: #000000; font-family: 'Archivo Black', sans-serif; font-style: italic; font-weight: 400; font-size: 54px; }
+  </style>
+  <rect x="0" y="0" width="320" height="80" fill="#e63946" rx="4"/>
+  <text x="22" y="60" class="lift" letter-spacing="-1">lift</text>
+  <text x="148" y="60" class="offr" letter-spacing="-1">offr</text>
+</svg>

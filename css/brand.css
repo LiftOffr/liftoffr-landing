@@ -1,0 +1,54 @@
+/* LiftOffr brand assets — shared across every page.
+   The logo is HTML/CSS based so it scales perfectly and stays sharp.
+   Variant 04: red box, white "lift", black "offr" inside, Archivo Black Italic.
+
+   Include via:  <link rel="stylesheet" href="/css/brand.css">
+   Markup:       <a href="/" aria-label="LiftOffr home"><span class="lo-logo"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+
+/* Primary box logo — variant 04 */
+.lo-logo {
+  display: inline-flex;
+  align-items: baseline;
+  background: #e63946;
+  padding: 5px 11px 6px;
+  border-radius: 3px;
+  font-family: 'Archivo Black', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  text-transform: lowercase;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.lo-logo .lo-lift { color: #fff; }
+.lo-logo .lo-offr { color: #000; }
+
+/* Plain wordmark variant — for tight spaces where the box doesn't fit (favicons cropped, small avatars) */
+.lo-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: 'Archivo Black', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  text-transform: lowercase;
+  text-decoration: none;
+  user-select: none;
+  white-space: nowrap;
+}
+.lo-wordmark .lo-lift { color: #fff; }
+.lo-wordmark .lo-offr { color: #e63946; }
+
+/* Size helpers — override by setting font-size directly if these don't fit */
+.lo-logo.lo-sm { font-size: 16px; padding: 4px 8px 5px; }
+.lo-logo.lo-md { font-size: 22px; }
+.lo-logo.lo-lg { font-size: 36px; padding: 8px 16px 10px; }
+.lo-logo.lo-xl { font-size: 56px; padding: 12px 22px 14px; }
