@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "CBBI Bitcoin Indicator Explained: The Composite Score That Reads Cycle Tops",
           "description": "CBBI Bitcoin indicator explained: how Colin Talks Crypto's Bitcoin Bull Run Index composites 9 on-chain signals into a single 0–100 score for reading cycle tops and bottoms.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -198,6 +198,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .faq-item-blog p { color: #aaa; margin: 8px 0 0; padding-bottom: 12px; }
         details { border-bottom: 1px solid #2a2a2a; }
         .disclaimer { background-color: #111; border: 1px solid #222; border-radius: 4px; padding: 14px 18px; margin-top: 2em; font-size: 0.92em; color: #666; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -253,13 +256,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › CBBI Bitcoin Indicator</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › CBBI Bitcoin Indicator</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~8 minutes · By Torin Christianson</p>
         </div>
 
         <h1>CBBI Bitcoin Indicator Explained: The Composite Score That Reads Cycle Tops</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>The CBBI (Colin Talks Crypto's Bitcoin Bull Run Index) is a composite Bitcoin cycle indicator that blends nine on-chain signals into a single 0–100 score. Readings above 85 have historically marked cycle top territory; readings below 15 have appeared near cycle bottoms. In the 2021 cycle, CBBI hit 96 at the April local top and 94 at the November final top — multiple weeks of advance warning both times.</p>
+        </div>
 
         <p>Most cycle indicators give you a single lens on the market. MVRV looks at valuation. The Pi Cycle Top watches momentum. The Puell Multiple tracks miner revenue. Each is useful in isolation — but each can also fire early, fire late, or stay quiet when the others are screaming.</p>
 
@@ -409,6 +416,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>The reason we track eight indicators instead of just CBBI is that even a well-constructed composite like CBBI benefits from external validation. When CBBI is at 88 and MVRV is simultaneously stretched and the Pi Cycle is approaching a cross, the confluence across those independent frameworks is more compelling than any single reading alone.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including CBBI — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <h3>LiftOffr's CBBI Thresholds</h3>
 
         <p>Within the LiftOffr daily brief and member dashboard, CBBI readings are interpreted as follows:</p>
@@ -454,7 +463,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track CBBI Alongside 7 Other Indicators — Every Morning</h3>
             <p>LiftOffr synthesizes CBBI, MVRV, Pi Cycle, and five other indicators into a single plain-English confluence read delivered before the US market open. No spreadsheets. No tab-switching.</p>
-            <p><strong>Founder Rate: $29/month — Limited availability</strong></p>
+            <p><strong>Founder Rate: $29/month — <span data-founder-text>Limited availability</span></strong></p>
             <p>Membership includes:</p>
             <ul>
                 <li>Daily brief: CBBI + 7-indicator confluence verdict each morning</li>
@@ -521,5 +530,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to retail investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
