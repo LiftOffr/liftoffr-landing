@@ -62,7 +62,9 @@ function makeJWT(method, path, keyId, secretB64) {
 }
 
 async function cb(path, keyId, secret) {
-  const jwt = makeJWT("GET", path, keyId, secret);
+  // JWT uri claim must NOT include query string — Coinbase signs path only
+  const pathOnly = path.split("?")[0];
+  const jwt = makeJWT("GET", pathOnly, keyId, secret);
   const r = await fetch(`https://${HOST}${path}`, {
     headers: {
       Authorization: `Bearer ${jwt}`,
