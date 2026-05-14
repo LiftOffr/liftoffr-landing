@@ -206,6 +206,22 @@
 
 <div class="container">
 
+  <!-- Live Coinbase balance + reconciliation -->
+  <div class="card" id="balanceCard" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div class="stat-label">Coinbase Live Balance</div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:4px;">
+          <span class="num" style="font-size:22px;font-weight:600;" id="cbBtc">—</span>
+          <span class="num dim" id="cbUsd">—</span>
+        </div>
+      </div>
+      <div id="reconcileBlock" style="text-align:right;font-size:13px;"></div>
+      <button class="btn btn-secondary" id="refreshBalanceBtn" style="align-self:center;">↻ Refresh</button>
+    </div>
+    <div id="cbExtraBalances" style="margin-top:10px;font-size:12px;color:var(--text-faint);"></div>
+  </div>
+
   <!-- Stack stats -->
   <div class="grid-4">
     <div class="card" style="margin-bottom:0">
@@ -428,6 +444,60 @@ function saveState() {
 function uid() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
+
+// --- Coinbase live balance ---
+let CB_BALANCE = null;
+async function fetchBalance() {
+  try {
+    const r = await fetch("/api/coinbase-balance");
+    if (!r.ok) return;
+    const d = await r.json();
+    CB_BALANCE = d;
+    renderBalance();
+  } catch (e) { console.error("balance fetch failed", e); }
+}
+
+function renderBalance() {
+  if (!CB_BALANCE) return;
+  const card = document.getElementById("balanceCard");
+  card.style.display = "block";
+
+  document.getElementById("cbBtc").textContent = CB_BALANCE.btc.toFixed(8) + " BTC";
+  document.getElementById("cbUsd").textContent = LIVE_PRICE
+    ? "= " + FMT_USD0.format(CB_BALANCE.btc * LIVE_PRICE)
+    : "";
+
+  // Reconcile against trade-history (Coinbase-source trades only)
+  const tradedBtc = STATE.trades
+    .filter((t) => t.source === "coinbase")
+    .reduce((s, t) => s + (t.type === "buy" ? Number(t.btc || 0) : -Number(t.btc || 0)), 0);
+  const diff = CB_BALANCE.btc - tradedBtc;
+  const rec = document.getElementById("reconcileBlock");
+  if (Math.abs(diff) < 1e-7) {
+    rec.innerHTML = `<span class="green">✓ Reconciled</span><div class="dim" style="font-size:11px;">Trade history matches balance</div>`;
+  } else if (diff > 0) {
+    rec.innerHTML = `<span style="color:var(--yellow)">⚠ ${diff.toFixed(8)} BTC unaccounted</span><div class="dim" style="font-size:11px;">Balance higher than tracked trades — may be Simple Buy or transfer-in</div>`;
+  } else {
+    rec.innerHTML = `<span style="color:var(--yellow)">⚠ Trades show ${(-diff).toFixed(8)} BTC more</span><div class="dim" style="font-size:11px;">Tracked more than balance — possible withdrawal or sell missing</div>`;
+  }
+
+  // Non-BTC balances (USD, USDC, etc.)
+  const others = (CB_BALANCE.allBalances || []).filter((b) => b.currency !== "BTC");
+  if (others.length > 0) {
+    document.getElementById("cbExtraBalances").innerHTML =
+      "Also on Coinbase: " +
+      others.map((b) => `<span class="num">${b.available.toFixed(2)} ${b.currency}</span>`).join(" · ");
+  } else {
+    document.getElementById("cbExtraBalances").innerHTML = "";
+  }
+}
+
+document.getElementById("refreshBalanceBtn").addEventListener("click", () => {
+  document.getElementById("refreshBalanceBtn").textContent = "↻ Refreshing...";
+  fetchBalance().finally(() => {
+    document.getElementById("refreshBalanceBtn").textContent = "↻ Refresh";
+  });
+});
 
 // --- BTC price fetch ---
 async function fetchPrice() {
@@ -785,6 +855,7 @@ document.getElementById("syncCoinbaseBtn").addEventListener("click", async () =>
     saveState();
     renderAll();
     setSyncStatus(`Coinbase sync done — added ${added} new trade${added===1?"":"s"}, skipped ${skipped} (already imported). Last synced ${new Date().toLocaleString()}.`);
+    fetchBalance();
   } catch (e) {
     setSyncStatus("Coinbase sync failed: " + e.message, true);
   } finally {
@@ -921,7 +992,9 @@ document.getElementById("seedBtn").addEventListener("click", () => {
 
 // --- Boot ---
 fetchPrice();
+fetchBalance();
 setInterval(fetchPrice, 90000);
+setInterval(fetchBalance, 120000);
 renderAll();
 </script>
 
