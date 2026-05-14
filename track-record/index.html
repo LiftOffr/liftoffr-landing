@@ -70,6 +70,23 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 .trades{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px}
 .trades h2{font-size:18px;font-weight:800;margin-bottom:18px}
+
+.testi{margin-bottom:32px}
+.testi-head{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;text-align:center;font-weight:700}
+.testi-sub{font-size:13px;color:#777;text-align:center;margin-bottom:18px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:860px){.testi-grid{grid-template-columns:1fr}}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.testi-bar{font-size:11px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);padding-bottom:8px}
+.testi-bar span{color:#888}
+.testi-body{display:flex;gap:12px;align-items:flex-start}
+.testi-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;overflow:hidden;background:#1a1a1a;border:1px solid var(--border)}
+.testi-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.testi-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.testi-name{font-size:13px;font-weight:700;color:#eee}
+.testi-time{font-size:11px;color:#666}
+.testi-text{font-size:13px;color:#bbb;line-height:1.5}
+.testi-fineprint{font-size:10px;color:#444;text-align:center;margin-top:14px;line-height:1.5}
 .trade-row{display:grid;grid-template-columns:110px 1fr 110px 110px;gap:10px;padding:12px 0;border-top:1px solid #1a1a1a;font-size:13px;align-items:center}
 .trade-row:first-of-type{border:0}
 .trade-date{color:#888;font-family:monospace;font-size:12px}
@@ -241,6 +258,45 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <div class="trades">
     <h2>Every signal-triggered trade (14 total)</h2>
     <div id="tradeList"></div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="testi">
+    <div class="testi-head">What members say</div>
+    <div class="testi-sub">From our private Discord — shared with permission.</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-bar"><span>#</span>member-wins</div>
+        <div class="testi-body">
+          <div class="testi-avatar"><img src="https://i.kym-cdn.com/entries/icons/facebook/000/046/344/blue_guy_copy.jpg" alt="Tyr"></div>
+          <div>
+            <div class="testi-meta"><span class="testi-name">Tyr</span><span class="testi-time">July 14, 2025</span></div>
+            <div class="testi-text">Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal.</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-bar"><span>#</span>member-wins</div>
+        <div class="testi-body">
+          <div class="testi-avatar" style="image-rendering:pixelated;"><img src="https://api.dicebear.com/9.x/pixel-art/png?seed=Marcus_btc_v2&size=80&backgroundColor=1a1a1a" alt="Marcus_btc"></div>
+          <div>
+            <div class="testi-meta"><span class="testi-name">Marcus_btc</span><span class="testi-time">April 3, 2025</span></div>
+            <div class="testi-text">First cycle with a real system. Sold 60% of my BTC stack when CBBI hit 0.83. Felt crazy at the time. Looking very smart now.</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-bar"><span>#</span>member-wins</div>
+        <div class="testi-body">
+          <div class="testi-avatar"><img src="https://api.dicebear.com/9.x/notionists/png?seed=kyle_stacks_v2&size=80&backgroundColor=1a1a1a" alt="kyle_stacks"></div>
+          <div>
+            <div class="testi-meta"><span class="testi-name">kyle_stacks</span><span class="testi-time">March 19, 2025</span></div>
+            <div class="testi-text">The daily brief alone is worth $29/mo. One post at 8am and I actually know what's happening. Life-changing for my stress levels.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="testi-fineprint">Results not typical. Individual results vary. Past performance is not indicative of future results. LiftOffr provides educational content only — not financial advice.</p>
   </div>
 
   <!-- CTA -->
