@@ -267,11 +267,13 @@
     </div>
     <div class="calendar" id="calendar"></div>
     <div class="btn-row">
-      <button class="btn" id="addTradeBtn">+ Add Trade</button>
+      <button class="btn" id="syncCoinbaseBtn">⟳ Sync Coinbase</button>
+      <button class="btn btn-secondary" id="addTradeBtn">+ Manual Trade</button>
       <button class="btn btn-secondary" id="importBtn">Import CSV</button>
       <button class="btn btn-secondary" id="exportBtn">Export JSON</button>
-      <button class="btn btn-secondary" id="seedBtn" style="margin-left:auto;">Reset Demo</button>
+      <button class="btn btn-secondary" id="seedBtn" style="margin-left:auto;">Reset</button>
     </div>
+    <div id="syncStatus" style="margin-top:10px;font-size:12px;color:var(--text-faint);"></div>
   </div>
 
   <!-- Trade list -->
@@ -755,6 +757,42 @@ document.getElementById("tradeForm").addEventListener("submit", (e) => {
   closeTradeModal();
   renderAll();
 });
+
+// --- Coinbase Sync ---
+function setSyncStatus(msg, isError = false) {
+  const el = document.getElementById("syncStatus");
+  el.textContent = msg;
+  el.style.color = isError ? "var(--red)" : "var(--text-faint)";
+}
+
+document.getElementById("syncCoinbaseBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("syncCoinbaseBtn");
+  btn.disabled = true;
+  const prev = btn.textContent;
+  btn.textContent = "Syncing...";
+  setSyncStatus("Fetching trades from Coinbase…");
+  try {
+    const r = await fetch("/api/coinbase-sync");
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || "Sync failed");
+    let added = 0, skipped = 0;
+    const existingExt = new Set(STATE.trades.map((t) => t.externalId).filter(Boolean));
+    for (const t of d.trades || []) {
+      if (existingExt.has(t.externalId)) { skipped++; continue; }
+      STATE.trades.push({ ...t, id: uid() });
+      added++;
+    }
+    saveState();
+    renderAll();
+    setSyncStatus(`Coinbase sync done — added ${added} new trade${added===1?"":"s"}, skipped ${skipped} (already imported). Last synced ${new Date().toLocaleString()}.`);
+  } catch (e) {
+    setSyncStatus("Coinbase sync failed: " + e.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = prev;
+  }
+});
+
 
 // --- Calendar nav ---
 document.getElementById("calPrev").addEventListener("click", () => {
