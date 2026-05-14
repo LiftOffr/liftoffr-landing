@@ -936,11 +936,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:12px;">Free Resource</div>
     <h3 style="font-size:clamp(22px,3.5vw,30px);font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;">Not ready to join yet?<br>Get the checklist first.</h3>
     <p style="color:#888;font-size:15px;margin-bottom:28px;line-height:1.65;">The 8 indicators, current trigger thresholds, and the confluence score — all in one page. Free.</p>
-    <form onsubmit="var e=this.querySelector('input[type=email]').value;if(typeof track==='function')track('lead_captured',{source:'proof_checklist_form',page:location.pathname});window.open('https://liftoffr.beehiiv.com/subscribe?email='+encodeURIComponent(e)+'&utm_source=liftoffr&utm_medium=proof&utm_campaign=checklist','_blank');return false;" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:440px;margin:0 auto;">
-      <input type="email" required placeholder="your@email.com" style="flex:1;min-width:200px;padding:14px 16px;border-radius:8px;border:1px solid #2a2a2a;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
-      <button type="submit" style="padding:14px 22px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;font-family:inherit;">Get the Checklist →</button>
+    <form id="proofLeadForm" onsubmit="return submitProofLeadForm(this);" style="max-width:440px;margin:0 auto;">
+      <div data-form-body style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+        <input type="email" name="email" required placeholder="your@email.com" autocomplete="email" style="flex:1;min-width:200px;padding:14px 16px;border-radius:8px;border:1px solid #2a2a2a;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+        <button type="submit" style="padding:14px 22px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;font-family:inherit;">Get the Checklist →</button>
+      </div>
+      <div data-form-message style="display:none;margin-top:14px;font-size:14px;line-height:1.5;"></div>
     </form>
     <div style="font-size:12px;color:#555;margin-top:12px;">Free · No spam · Unsubscribe anytime</div>
+    <script>
+    function submitProofLeadForm(form) {
+      var email = (form.querySelector('input[type=email]') || {}).value || '';
+      var body = form.querySelector('[data-form-body]');
+      var msg = form.querySelector('[data-form-message]');
+      var btn = form.querySelector('button[type=submit]');
+      var input = form.querySelector('input[type=email]');
+      var oldLabel = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; btn.textContent = 'Sending…'; }
+      if (input) input.disabled = true;
+
+      var u = new URL(location.href);
+      var payload = {
+        email: email,
+        utm_source: u.searchParams.get('utm_source') || 'liftoffr',
+        utm_medium: u.searchParams.get('utm_medium') || 'proof',
+        utm_campaign: u.searchParams.get('utm_campaign') || 'checklist',
+        utm_content: u.searchParams.get('utm_content') || 'proof_checklist_form'
+      };
+
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r){
+        return r.json().then(function(d){ return { ok: r.ok, data: d }; });
+      }).then(function(result){
+        if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+        if (body) body.style.display = 'none';
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.color = '#22c55e';
+          msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.';
+        }
+        if (typeof track === 'function') {
+          track('lead_captured', { source: 'proof_checklist_form', page: location.pathname,
+            utm_source: payload.utm_source, utm_medium: payload.utm_medium, utm_campaign: payload.utm_campaign });
+        }
+      }).catch(function(err){
+        if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = oldLabel || 'Try again'; }
+        if (input) input.disabled = false;
+        if (msg) {
+          msg.style.display = 'block';
+          msg.style.color = '#ef4444';
+          msg.textContent = 'Something went wrong. Try again in a moment.';
+        }
+        console.error('submitProofLeadForm error:', err);
+      });
+
+      return false;
+    }
+    </script>
   </div>
 </section>
 
