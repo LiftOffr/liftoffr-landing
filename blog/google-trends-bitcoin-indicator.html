@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "Google Trends Bitcoin: How Search Interest Signals Cycle Tops",
           "description": "Learn how Google Trends search interest signals Bitcoin cycle tops. Discover the retail FOMO indicator, which search terms to watch, historical readings, and how LiftOffr uses it alongside on-chain data.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -198,6 +198,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .faq-item-blog p { color: #aaa; margin: 8px 0 0; padding-bottom: 12px; }
         details { border-bottom: 1px solid #2a2a2a; }
         .disclaimer { background: #111; border-left: 4px solid #444; padding: 14px 18px; border-radius: 4px; margin-top: 2.5em; font-size: 0.9em; color: #666; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -253,13 +256,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › Google Trends Bitcoin</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Google Trends Bitcoin</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~7 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~7 minutes · By Torin Christianson</p>
         </div>
 
         <h1>Google Trends Bitcoin: How Search Interest Signals Cycle Tops</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>Google Trends for Bitcoin tracks weekly search interest on a relative 0–100 scale, where 100 anchors to the peak in the selected time window. It is a retail-FOMO sentiment indicator: when terms like "Bitcoin," "buy Bitcoin," and "how to buy Bitcoin" spike, the late-cycle crowd has arrived. The December 2017 cycle top sits at or near 100 on a multi-year chart — searches went mainstream within weeks of the $19,500 peak. LiftOffr flags readings of 80+ on the "Bitcoin" term as the caution zone.</p>
+        </div>
 
         <p>There is a recurring pattern in every Bitcoin bull cycle: the people who should have known better — the ones who watched Bitcoin go from $1,000 to $10,000 without buying — finally cave near the top. Prices are up 10x, their coworkers are talking about it, their group chats are lit up. They Google "how to buy Bitcoin." They open a Coinbase account. They buy.</p>
 
@@ -425,10 +432,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>The key question each week is not "what is the number today?" but "is search interest accelerating or decelerating relative to the prior weeks?" A reading that climbs from 40 to 55 to 70 over three consecutive weeks is a more significant signal than a single spike to 70 followed by a return to 40.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including Google Trends — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <div class="cta-box">
             <h3>Track All 8 Indicators in One Place</h3>
             <p>Google Trends is one piece of the puzzle. LiftOffr synthesizes all 8 cycle indicators — on-chain data, sentiment, technical signals, and search trends — into a single weekly confluence read.</p>
-            <p><strong>LiftOffr Founder Rate: $29/month</strong></p>
+            <p><strong>LiftOffr Founder Rate: $29/month — <span data-founder-text>Limited availability</span></strong></p>
             <p>Get access to:</p>
             <ul style="text-align: left; display: inline-block;">
                 <li>Weekly confluence briefings when indicators align</li>
@@ -495,5 +504,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to everyday investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

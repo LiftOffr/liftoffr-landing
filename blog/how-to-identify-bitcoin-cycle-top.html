@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "How to Identify a Bitcoin Cycle Top: The 8-Indicator Confluence Framework",
           "description": "Learn how to identify a Bitcoin cycle top using an 8-indicator confluence framework. When to sell Bitcoin, which on-chain signals matter, and how serious investors de-risk before the crash.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -212,6 +212,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .score-med .score-fill { background: #f39c12; width: 55%; }
         .score-high .score-fill { background: #e63946; width: 87%; }
         .score-extreme .score-fill { background: #800000; width: 100%; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -267,13 +270,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › How to Identify a Bitcoin Cycle Top</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › How to Identify a Bitcoin Cycle Top</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~12 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~12 minutes · By Torin Christianson</p>
         </div>
 
         <h1>How to Identify a Bitcoin Cycle Top: The 8-Indicator Confluence Framework</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>Identifying a Bitcoin cycle top means watching for confluence — multiple independent on-chain, technical, and sentiment indicators reaching extreme territory at the same time. The LiftOffr framework tracks eight: CBBI, Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart, 2-Year MA Multiplier, Fear &amp; Greed Index, and Google Trends. Five or more indicators in elevated territory historically warrants serious de-risking; 7–8 has marked every prior major top including 2017 (~$19,500) and November 2021 (~$69,000).</p>
+        </div>
 
         <p>Every Bitcoin cycle ends the same way: prices that felt unstoppable collapse, often 70–80% from peak to trough. The people who protect their gains are not lucky. They are not watching some secret feed that retail investors can't access. They are reading the same on-chain data that has been publicly available for years — and they are reading it systematically, not emotionally.</p>
 
@@ -436,10 +443,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>Beyond the daily brief, members get access to the full indicator history, the confluence scoring model, and a community of investors who are using the same framework — which means accountability when emotions push toward "just hold a little longer" during the topping phase.</p>
 
+        <p>For a full backtest of how the eight-indicator framework performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <div class="cta-box">
             <h3>Stop Watching Cycles Go By. Start Using the Framework.</h3>
             <p>LiftOffr tracks all 8 indicators daily and synthesizes them into a single confluence verdict. Know where the cycle stands every morning — without piecing together data from five different sources.</p>
-            <p><strong>Founder Rate: $29/month | 30-day money-back guarantee</strong></p>
+            <p><strong>Founder Rate: $29/month · <span data-founder-text>Limited availability</span> · 30-day money-back guarantee</strong></p>
             <ul>
                 <li>Daily 8-indicator confluence brief, 8am MT</li>
                 <li>Full indicator history: every top and bottom, 2013–present</li>
@@ -505,5 +514,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring a systematic, data-driven framework for cycle timing to retail investors who are tired of guessing.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

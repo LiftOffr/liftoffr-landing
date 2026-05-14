@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops",
           "description": "Learn the Puell Multiple indicator for Bitcoin: how miner profitability signals cycle tops and bottoms, historical readings at every major peak, and how halvings distort the metric.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -194,6 +194,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         details[open] .faq-item-blog summary::after { content: '−'; }
         .faq-item-blog p { color: #aaa; margin: 8px 0 0; padding-bottom: 12px; }
         details { border-bottom: 1px solid #2a2a2a; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -249,13 +252,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › Puell Multiple</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Puell Multiple</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~9 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~9 minutes · By Torin Christianson</p>
         </div>
 
         <h1>Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>The Puell Multiple is an on-chain Bitcoin indicator created by David Puell that divides daily miner revenue (USD) by its 365-day moving average. Readings above 4.0 signal miners are extremely overpaid — historically a cycle top zone. Readings below 0.5 indicate miner capitulation — historically a cycle bottom zone. The 2013 top hit 10–12×, the 2017 top hit 6–8×, and the April 2021 local top hit 6–7×. The November 2021 ATH only registered 2.5–3× due to the trailing-year denominator distortion.</p>
+        </div>
 
         <p>Most Bitcoin indicators focus on price. The Puell Multiple looks somewhere more fundamental: the economics of the people who produce Bitcoin in the first place.</p>
 
@@ -439,10 +446,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>When 6 or 7 of your 8 indicators are flashing the same message — whether that's extreme top or deep bottom — the signal is far more reliable than any single metric. The November 2021 miss by Puell alone is a perfect illustration of why.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including the Puell Multiple — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <div class="cta-box">
             <h3>Track Puell Multiple Alongside 7 Other Indicators — Every Day</h3>
             <p>LiftOffr synthesizes the Puell Multiple, MVRV, and 6 additional Bitcoin cycle indicators into a single daily confluence read. No fragmented dashboards. No indicator isolation errors. One clear signal every morning.</p>
-            <p><strong>Founder Rate: $29/month — limited availability</strong></p>
+            <p><strong>Founder Rate: $29/month — <span data-founder-text>limited availability</span></strong></p>
             <ul>
                 <li>Daily confluence report covering all 8 indicators</li>
                 <li>Puell Multiple + MVRV + 6 more on-chain and technical signals</li>
@@ -508,5 +517,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence tools to individual investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

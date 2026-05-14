@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "MVRV Ratio Indicator for Bitcoin: Predict Market Tops & Cycle Timing",
           "description": "Learn the MVRV ratio indicator for Bitcoin: how to identify market tops, bottoms, and cycle timing using on-chain data. Real thresholds, historical examples, and actionable trading signals.",
           "datePublished": "2026-05-01",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -181,6 +181,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         details[open] .faq-item-blog summary::after { content: '−'; }
         .faq-item-blog p { color: #aaa; margin: 8px 0 0; padding-bottom: 12px; }
         details { border-bottom: 1px solid #2a2a2a; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -236,13 +239,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › MVRV Ratio Indicator</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › MVRV Ratio Indicator</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~8 minutes · By Torin Christianson</p>
         </div>
 
         <h1>MVRV Ratio Indicator for Bitcoin: Predict Market Tops & Cycle Timing</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>The MVRV ratio is an on-chain Bitcoin indicator that divides market cap by realized cap — comparing what the market thinks Bitcoin is worth to what investors actually paid for their coins on average. Readings above 5.0 have historically marked cycle tops; readings below 1.0 have marked cycle bottoms. MVRV hit 7.6 at the November 2021 peak ($69k) and crashed to 0.82 at the FTX-driven bottom in November 2022 ($16k).</p>
+        </div>
 
         <p>If you've spent any time in crypto trading communities, you've probably heard traders obsessing over the MVRV ratio. They talk about it like it's a crystal ball for Bitcoin cycle tops. And here's the thing: there's real data behind the hype.</p>
 
@@ -518,10 +525,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>That's where <strong>LiftOffr</strong> comes in. The daily brief synthesizes MVRV, Pi Cycle, CBBI, and on-chain metrics into a single plain-English confluence verdict every morning at 8am MT. You get one clear read on the cycle — not four conflicting signals from four different tabs.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including MVRV — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <div class="cta-box">
             <h3>Ready to Stop Guessing and Start Winning?</h3>
             <p>Want to combine MVRV with Pi Cycle, CBBI, and Market Cipher B signals in real-time? Join 60+ traders who are timing Bitcoin cycles with precision.</p>
-            <p><strong>LiftOffr Membership: $49/month | 30-day money-back guarantee</strong></p>
+            <p><strong>Founder Rate: $29/month · <span data-founder-text>Limited availability</span> · 30-day money-back guarantee</strong></p>
             <p>Get access to:</p>
             <ul style="text-align: left; display: inline-block;">
                 <li>✅ Real-time MVRV, Pi Cycle, and CBBI dashboards</li>
@@ -570,5 +579,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade trading tools to retail investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

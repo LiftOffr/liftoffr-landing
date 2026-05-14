@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "Bitcoin Rainbow Chart Explained: Reading the Color Bands at Cycle Tops",
           "description": "Learn how the Bitcoin Rainbow Chart works: what each color band means, how to read logarithmic regression zones, and how LiftOffr uses it as a big-picture cycle context indicator.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -202,6 +202,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .band-label { font-weight: 700; min-width: 160px; font-size: 0.95em; }
         .band-desc { font-size: 0.95em; color: #444; }
         .disclaimer { background: #111; border-left: 4px solid #444; padding: 14px 18px; margin: 2em 0; border-radius: 4px; font-size: 0.9em; color: #666; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -257,13 +260,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › Bitcoin Rainbow Chart</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Bitcoin Rainbow Chart</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~7 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~7 minutes · By Torin Christianson</p>
         </div>
 
         <h1>Bitcoin Rainbow Chart Explained: Reading the Color Bands at Cycle Tops</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>The Bitcoin Rainbow Chart overlays nine color-coded valuation bands on Bitcoin's log-scale price history, derived from a logarithmic regression fit to price data since 2012. Dark red is "Maximum Bubble Territory"; deep violet is "Basically a Fire Sale." The 2013 (~$1,150) and 2017 (~$19,500) cycle tops both reached the dark red band; the April 2021 top ($64,000) reached orange/red, and the November 2021 top ($69,000) only reached the orange band — a notable cycle-over-cycle compression.</p>
+        </div>
 
         <p>Few Bitcoin charts get passed around more often than the Rainbow Chart. It shows up on crypto Twitter in every bull run, with traders pointing at the bright red upper band and asking: "Is this the top?" And in every bear market, someone posts it with Bitcoin sitting in the deep blue band and calls it a "fire sale."</p>
 
@@ -444,6 +451,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>We don't use the Rainbow Chart as a standalone sell trigger. "Bitcoin is in the orange band, therefore sell" is too blunt. The 2021 cycle spent months in the orange band. Traders who sold mechanically on that reading left significant upside on the table. The Rainbow Chart tells you the environment — other indicators tell you the timing.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including the Rainbow Chart — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <div class="diagram-desc">
             <strong>Analogy:</strong> Think of the Rainbow Chart as weather altitude data for a mountain hiker. It tells you how high you've climbed relative to the usual summit. But knowing you're at 90% of the typical summit altitude doesn't mean you stop — it means you start watching the sky more carefully and prepare your descent gear. The Rainbow Chart is your altitude reading. MVRV, Pi Cycle, and the others are the weather conditions that tell you when to turn back.
         </div>
@@ -481,7 +490,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>See Every Indicator — All in One Place</h3>
             <p>The Rainbow Chart is just one of eight signals LiftOffr tracks in confluence. Join traders who are reading the full stack every morning instead of chasing individual charts.</p>
-            <p><strong>LiftOffr Founder Rate: $29/month | Limited availability</strong></p>
+            <p><strong>LiftOffr Founder Rate: $29/month | <span data-founder-text>Limited availability</span></strong></p>
             <p>Get access to:</p>
             <ul>
                 <li>Daily confluence brief across all 8 cycle indicators</li>
@@ -548,5 +557,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to everyday investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

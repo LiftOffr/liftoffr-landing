@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "Bitcoin 2-Year MA Multiplier: The Long-Term Mean Reversion Indicator",
           "description": "Learn how the Bitcoin 2-Year MA Multiplier works: two lines that identify cycle tops and accumulation zones. Created by Philip Swift. Historical readings, logic, and how LiftOffr uses it alongside MVRV and Puell.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -194,6 +194,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         details[open] .faq-item-blog summary::after { content: '−'; }
         .faq-item-blog p { color: #aaa; margin: 8px 0 0; padding-bottom: 12px; }
         details { border-bottom: 1px solid #2a2a2a; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -249,13 +252,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › 2-Year MA Multiplier</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › 2-Year MA Multiplier</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~8 minutes · By Torin Christianson</p>
         </div>
 
         <h1>Bitcoin 2-Year MA Multiplier: The Long-Term Mean Reversion Indicator</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>The Bitcoin 2-Year MA Multiplier is a long-term mean-reversion indicator created by Philip Swift (LookIntoBitcoin). It plots two lines: the 730-day moving average of Bitcoin's price, and that same average multiplied by 5. Price entering the zone above the 5x line has historically signaled cycle tops (2013 and 2017 reached or briefly exceeded it); price below the 2-year MA has historically marked accumulation bottoms (2018–19 around $3–4k, 2022 around $16k). The 5x ceiling becomes structurally harder to reach as Bitcoin's market cap grows.</p>
+        </div>
 
         <p>Most Bitcoin indicators ask a narrow question. MVRV asks: are investors profitable? The Puell Multiple asks: are miners stressed? The 2-Year MA Multiplier asks something more fundamental: <strong>how far has price drifted from its long-term gravitational center?</strong></p>
 
@@ -400,6 +407,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>Within the LiftOffr framework, the 2-Year MA Multiplier functions as a <strong>valuation context layer</strong>. It is not used to trigger entries or exits on its own. It is used to establish the backdrop against which the other seven indicators are read.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including the 2-Year MA Multiplier — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <h3>Approaching the 5x Line: Elevated Caution</h3>
 
         <p>When Bitcoin's price begins to close in on the 5x moving average line, LiftOffr's daily brief reflects elevated caution. This does not mean selling everything immediately — price can spend weeks or months approaching and oscillating around that zone. But it does mean the risk/reward profile for new positions has deteriorated significantly, and the weight of historical evidence suggests the cycle is entering its most dangerous phase.</p>
@@ -442,7 +451,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track the 2-Year MA Multiplier Alongside 7 Other Indicators — Every Day</h3>
             <p>LiftOffr's daily brief synthesizes the 2-Year MA Multiplier, MVRV, Puell Multiple, and five more indicators into a single confluence read every morning. No spreadsheets. No tab-switching. One clear signal.</p>
-            <p><strong>Founder Rate: $29/month — limited availability</strong></p>
+            <p><strong>Founder Rate: $29/month — <span data-founder-text>limited availability</span></strong></p>
             <ul>
                 <li>Daily confluence brief at 8am MT</li>
                 <li>8-indicator dashboard updated in real time</li>
@@ -504,5 +513,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to individual investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>

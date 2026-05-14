@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "headline": "Pi Cycle Top Indicator for Bitcoin: The MA Cross That Called Every Cycle Peak",
           "description": "Learn the Pi Cycle Top indicator for Bitcoin: how the 111-day MA crossing above 2× the 350-day MA has called every major cycle peak within days. Historical track record, the math behind π, and how to use it in confluence.",
           "datePublished": "2026-05-04",
-          "dateModified": "2026-05-04",
+          "dateModified": "2026-05-13",
           "author": {
             "@type": "Person",
             "name": "Torin Christianson",
@@ -194,6 +194,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .faq-item-blog p { color: #aaa; margin: 8px 0 0; padding-bottom: 12px; }
         details { border-bottom: 1px solid #2a2a2a; }
         .disclaimer { background-color: #111; border-left: 4px solid #444; padding: 14px 18px; margin-top: 2em; border-radius: 4px; font-size: 0.92em; color: #666; }
+        .tldr { background: rgba(34,197,94,0.08); border-left: 4px solid #22c55e; padding: 18px 22px; border-radius: 6px; margin: 1.2em 0 2em; color: #cfe8d4; font-size: 1.05em; line-height: 1.6; }
+        .tldr-label { color: #22c55e; text-transform: uppercase; letter-spacing: 1.4px; font-size: 0.78em; font-weight: 800; display: block; margin-bottom: 6px; }
+        .tldr p { margin: 0; color: #d4d4d4; }
     </style>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
@@ -249,13 +252,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </nav>
 
     <article>
-        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a>
-    <a href="/proof">Track Record</a> › Pi Cycle Top Indicator</p>
+        <p class="breadcrumb"><a href="/">LiftOffr</a> › <a href="/blog">Blog</a> › Pi Cycle Top Indicator</p>
         <div class="meta">
-            <p>Published: May 2026 | Reading time: ~8 minutes | By Torin Christianson</p>
+            <p>Published: May 2026 · Last updated: May 13, 2026 · Reading time: ~8 minutes · By Torin Christianson</p>
         </div>
 
         <h1>Pi Cycle Top Indicator for Bitcoin: The MA Cross That Called Every Cycle Peak</h1>
+
+        <div class="tldr">
+          <span class="tldr-label">Quick answer</span>
+          <p>The Pi Cycle Top indicator is a Bitcoin-specific technical signal that fires when the 111-day moving average crosses above 2× the 350-day moving average. It's named after π because 350 ÷ 111 ≈ 3.153, almost exactly pi. The signal has fired within days of three major cycle tops: late November 2013 (~$1,150), early December 2017 (~$19,500), and mid-April 2021 ($64,000 local top). It did not re-fire at the November 2021 ATH ($69,000), which is why it should be used in confluence.</p>
+        </div>
 
         <p>Of all the technical indicators used to time Bitcoin cycle tops, the Pi Cycle Top stands out for one reason that is hard to ignore: it has fired within a handful of days of every major Bitcoin cycle peak on record. Not close — within days. In 2013, in 2017, and at a local top in April 2021, the signal triggered as Bitcoin was forming its cycle high.</p>
 
@@ -445,10 +452,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>When Pi Cycle fires in a future cycle, members will know about it immediately. More importantly, they will see how it lines up with the other seven signals — whether the confluence is building toward a top or whether other indicators are telling a different story. That context is what separates informed decision-making from reacting to a single data point.</p>
 
+        <p>For a full backtest of how the eight-indicator framework — including Pi Cycle — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr track record dashboard ($50/week DCA + cycle signals → $1.88M)</a>.</p>
+
         <div class="cta-box">
             <h3>Track Pi Cycle Alongside 7 Other Indicators — Daily</h3>
             <p>LiftOffr members get a daily confluence brief covering Pi Cycle, MVRV, CBBI, and five more signals — synthesized into one clear read on the Bitcoin cycle every morning.</p>
-            <p><strong>Founder Rate: $29/month</strong> — lock it in before the price increases.</p>
+            <p><strong>Founder Rate: $29/month</strong> — <span data-founder-text>limited availability</span>, lock it in before the price increases.</p>
             <ul>
                 <li>Daily indicator confluence brief (8am MT)</li>
                 <li>Pi Cycle, MVRV, CBBI, and 5 more signals tracked in real time</li>
@@ -514,5 +523,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to retail investors.</em></p>
         </div>
     </article>
+<script>
+// Live founder spot count — replaces [data-founder-text] with real
+// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
+</script>
 </body>
 </html>
