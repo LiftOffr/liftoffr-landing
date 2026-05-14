@@ -112,6 +112,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .link-join .lj-title { font-weight: 900; font-size: 15px; letter-spacing: -0.2px; }
   .link-join .lj-sub { font-size: 12px; color: #ccc; margin-top: 3px; }
   .link-join .lj-arrow { color: var(--red); font-size: 20px; font-weight: 800; }
+  .link-join .lj-stock { font-size: 10px; color: var(--red); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
+  .link-join .lj-stock:empty { display: none; }
 
   /* PROOF — track record card */
   .link-proof {
@@ -225,6 +227,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_join" target="_blank" rel="noopener" class="link-join">
     <div class="lj-icon">🚀</div>
     <div class="lj-text">
+      <div class="lj-stock" data-founder-text></div>
       <div class="lj-title">Claim Founder Rate — $29/mo</div>
       <div class="lj-sub">Locks in forever · Daily briefs + signals + community</div>
     </div>
@@ -372,6 +375,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       return false;
     }
+
+    // Live founder spot count
+    (function(){
+      fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+        if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+        if (d.remaining <= 0) return;
+        var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+        var els = document.querySelectorAll('[data-founder-text]');
+        for (var i = 0; i < els.length; i++) els[i].textContent = text;
+      }).catch(function(){});
+    })();
   </script>
 
   <footer>

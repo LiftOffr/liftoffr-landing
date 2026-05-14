@@ -864,7 +864,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- QUALIFIER -->
 <div class="qualifier">
-  The system behind Torin's calls &nbsp;·&nbsp; <a href="#pricing" style="color:inherit;text-decoration:underline;font-weight:800;">Founder Rate at $29/mo — limited spots →</a>
+  The system behind Torin's calls &nbsp;·&nbsp; <a href="#pricing" style="color:inherit;text-decoration:underline;font-weight:800;">Founder Rate at $29/mo — <span data-founder-text>limited spots</span> →</a>
 </div>
 
 <!-- HERO -->
@@ -1151,7 +1151,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><strong style="color:var(--red);">Rate locked forever</strong></li>
         </ul>
         <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_founder" target="_blank" rel="noopener" class="ptier-cta ptier-cta-primary">Claim Founder Rate →</a>
-        <div class="ptier-stock">⚠ Limited founder spots remaining</div>
+        <div class="ptier-stock">⚠ <span data-founder-text>Limited founder spots remaining</span></div>
       </div>
 
       <!-- MONTHLY -->
@@ -1574,6 +1574,18 @@ function dismissExitModal() {
   sessionStorage.setItem('liftoffr_exit_dismissed', '1');
   if (typeof gtag === 'function') gtag('event', 'exit_intent_dismissed', { page: location.pathname });
 }
+
+// Live founder spot count — replaces every [data-founder-text] with real
+// "X of 30 founder spots remaining" from the Whop API (cached at edge 5min).
+(function(){
+  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
+    if (d.remaining <= 0) return;
+    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var els = document.querySelectorAll('[data-founder-text]');
+    for (var i = 0; i < els.length; i++) els[i].textContent = text;
+  }).catch(function(){});
+})();
 </script>
 </body>
 </html>
