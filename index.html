@@ -1236,11 +1236,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="section-label">Free Download</div>
       <h2>Get the <em>BTC Cycle Top Checklist.</em></h2>
       <p>The 8 indicators we watch, with current trigger thresholds and a confluence score that tells you when to start taking profits. Free.</p>
-      <form onsubmit="var e=this.querySelector('input[type=email]').value;window.open('https://liftoffr.beehiiv.com/subscribe?email='+encodeURIComponent(e)+'&utm_source=liftoffr&utm_medium=homepage&utm_campaign=checklist','_blank');return false;" style="margin-top:18px;">
-        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <input type="email" required placeholder="your@email.com" style="flex:1;min-width:180px;padding:14px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+      <form data-lead-form data-medium="homepage" onsubmit="return submitLeadForm(this);" style="margin-top:18px;">
+        <div data-form-body style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input type="email" name="email" required placeholder="your@email.com" style="flex:1;min-width:180px;padding:14px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
           <button type="submit" style="padding:14px 22px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;font-family:inherit;">Get the Checklist →</button>
         </div>
+        <div data-form-message style="display:none;margin-top:10px;font-size:14px;line-height:1.5;"></div>
       </form>
       <div style="font-size:12px;color:#555;margin-top:10px;">No spam · Unsubscribe anytime</div>
     </div>
@@ -1376,9 +1377,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:10px;">🎁 Free Download</div>
     <h3 style="font-size:22px;font-weight:900;letter-spacing:-0.5px;margin-bottom:10px;color:#fff;line-height:1.2;">The BTC Cycle Top Checklist</h3>
     <p style="font-size:14px;color:#888;margin-bottom:20px;line-height:1.55;">8 indicators, trigger thresholds, and a confluence score — the exact framework for knowing when to sell. Free.</p>
-    <form onsubmit="submitPopup(this);return false;">
-      <input type="email" required placeholder="your@email.com" style="width:100%;padding:13px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:10px;">
-      <button type="submit" style="width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;">Get the Free Checklist →</button>
+    <form data-lead-form data-medium="popup" onsubmit="return submitLeadForm(this);">
+      <div data-form-body>
+        <input type="email" name="email" required placeholder="your@email.com" style="width:100%;padding:13px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:10px;">
+        <button type="submit" style="width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;">Get the Free Checklist →</button>
+      </div>
+      <div data-form-message style="display:none;margin-top:6px;font-size:14px;line-height:1.5;"></div>
     </form>
     <div style="font-size:12px;color:#555;margin-top:10px;text-align:center;">No spam · Unsubscribe anytime</div>
   </div>
@@ -1404,11 +1408,79 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     localStorage.setItem('liftoffr_popup_dismissed', '1');
   }
 
-  function submitPopup(form) {
-    var email = form.querySelector('input[type=email]').value;
-    localStorage.setItem('liftoffr_popup_dismissed', '1');
-    document.getElementById('emailPopup').style.display = 'none';
-    window.open('https://liftoffr.beehiiv.com/subscribe?email=' + encodeURIComponent(email) + '&utm_source=liftoffr&utm_medium=popup&utm_campaign=checklist', '_blank');
+  function getLeadUtms() {
+    try {
+      var u = new URL(location.href);
+      return {
+        utm_source: u.searchParams.get('utm_source') || '',
+        utm_medium: u.searchParams.get('utm_medium') || '',
+        utm_campaign: u.searchParams.get('utm_campaign') || '',
+        utm_content: u.searchParams.get('utm_content') || ''
+      };
+    } catch (e) { return {}; }
+  }
+
+  function submitLeadForm(form) {
+    var email = (form.querySelector('input[type=email]') || {}).value || '';
+    var medium = form.getAttribute('data-medium') || 'site';
+    var body = form.querySelector('[data-form-body]');
+    var msg = form.querySelector('[data-form-message]');
+    var btn = form.querySelector('button[type=submit]');
+    var input = form.querySelector('input[type=email]');
+    if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; var oldLabel = btn.textContent; btn.textContent = 'Sending…'; }
+    if (input) { input.disabled = true; }
+
+    var pageUtms = getLeadUtms();
+    var payload = {
+      email: email,
+      utm_source: pageUtms.utm_source || 'liftoffr',
+      utm_medium: medium,
+      utm_campaign: pageUtms.utm_campaign || 'checklist',
+      utm_content: pageUtms.utm_content || ''
+    };
+
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      return r.json().then(function(data){ return { ok: r.ok, data: data }; });
+    }).then(function(result){
+      if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+      if (body) body.style.display = 'none';
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.color = '#22c55e';
+        msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way (look for liftoffr.beehiiv.com).';
+      }
+      if (typeof track === 'function') {
+        track('lead_captured', {
+          source: medium,
+          page: location.pathname,
+          utm_source: payload.utm_source,
+          utm_medium: payload.utm_medium,
+          utm_campaign: payload.utm_campaign
+        });
+      }
+      if (medium === 'popup') {
+        localStorage.setItem('liftoffr_popup_dismissed', '1');
+        setTimeout(function(){
+          var popup = document.getElementById('emailPopup');
+          if (popup) popup.style.display = 'none';
+        }, 2400);
+      }
+    }).catch(function(err){
+      if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = oldLabel || 'Try again'; }
+      if (input) { input.disabled = false; }
+      if (msg) {
+        msg.style.display = 'block';
+        msg.style.color = '#ef4444';
+        msg.textContent = 'Something went wrong. Try again in a moment.';
+      }
+      console.error('submitLeadForm error:', err);
+    });
+
+    return false;
   }
 </script>
 
