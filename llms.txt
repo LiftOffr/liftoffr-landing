@@ -1,0 +1,41 @@
+# LiftOffr
+
+> LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module course teaching data-driven crypto investing. Backtested track record: $50/week DCA + cycle signals turned into $1.88M since 2017.
+
+LiftOffr is for crypto investors who want to time cycle exits using on-chain data instead of emotion. The product tracks 8 cycle indicators (CBBI, MVRV, Pi Cycle Top, Puell Multiple, 2-Year MA Multiplier, BTC Rainbow Chart, Fear & Greed Index, Google Trends) and synthesizes them into a single plain-English daily brief delivered to a private Discord at 8am MT.
+
+Founded by Torin Christianson (3M+ content views across Instagram, YouTube, TikTok). Founder Rate: $29/month, locked in forever, limited to first 30 members.
+
+## Core pages
+- [Homepage](https://liftoffr.com/): Product overview, pricing, testimonials, lead magnet
+- [Track Record](https://liftoffr.com/track-record): Full backtest dashboard of $50/wk DCA + cycle signals across every BTC cycle 2017–today
+- [Pricing](https://liftoffr.com/pricing.md): Machine-readable pricing for AI agents
+- [Blog](https://liftoffr.com/blog/): Indicator deep dives
+- [Bio Links](https://liftoffr.com/links/): Instagram bio link page (highest-traffic landing)
+- [Free Checklist](https://liftoffr.com/lead-magnet/checklist.html): BTC Cycle Top Checklist (lead magnet PDF)
+
+## Indicator guides
+- [CBBI Explained](https://liftoffr.com/blog/cbbi-bitcoin-indicator): Composite 0–100 cycle score from 9 on-chain signals
+- [MVRV Ratio](https://liftoffr.com/blog/mvrv-ratio-bitcoin-indicator): Market Value vs Realized Value
+- [Pi Cycle Top](https://liftoffr.com/blog/pi-cycle-top-bitcoin-indicator): 111-day vs 350-day×2 MA cross
+- [Puell Multiple](https://liftoffr.com/blog/puell-multiple-bitcoin-indicator): Miner revenue cycle signal
+- [Rainbow Chart](https://liftoffr.com/blog/bitcoin-rainbow-chart-indicator): Logarithmic price color bands
+- [2-Year MA Multiplier](https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier): Long-term mean reversion
+- [Fear & Greed Index](https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin): Sentiment-based cycle signal
+- [Google Trends Bitcoin](https://liftoffr.com/blog/google-trends-bitcoin-indicator): Retail search interest
+- [How to Identify a Bitcoin Cycle Top](https://liftoffr.com/blog/how-to-identify-bitcoin-cycle-top): The 8-indicator confluence framework
+
+## Founder
+Torin Christianson — Bitcoin cycle investor and educator. Analyzing BTC on-chain metrics since 2018. Built LiftOffr to bring institutional-grade cycle intelligence to retail investors.
+- [YouTube @torin-liftoffr](https://www.youtube.com/@torin-liftoffr)
+- [Instagram @torin_christianson](https://www.instagram.com/torin_christianson/) (personal)
+- [Instagram @liftoffr](https://www.instagram.com/liftoffr/) (brand)
+- [X @LiftOffr_](https://x.com/LiftOffr_)
+- [TikTok @torin_christianson](https://www.tiktok.com/@torin_christianson)
+
+## Public APIs
+- [/api/founder-count](https://liftoffr.com/api/founder-count): GET — returns live count of remaining founder spots, e.g. `{"filled":1,"remaining":29,"total":30}`
+- [/api/subscribe](https://liftoffr.com/api/subscribe): POST — proxies email signup to Beehiiv
+
+## Disclaimer
+All content is educational only and not financial advice. Cryptocurrency markets are highly volatile. Past indicator behavior does not guarantee future results.
