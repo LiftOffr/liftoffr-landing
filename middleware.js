@@ -3,7 +3,13 @@
 // Username can be anything; only the password is checked.
 
 export const config = {
-  matcher: ["/dashboard/:path*"],
+  matcher: [
+    "/dashboard/:path*",
+    "/api/coinbase-sync",
+    "/api/coinbase-balance",
+    "/api/analytics-ga4",
+    "/api/analytics-clarity",
+  ],
 };
 
 export default function middleware(request) {

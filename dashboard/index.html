@@ -327,6 +327,35 @@
     <div id="syncStatus" style="margin-top:10px;font-size:12px;color:var(--text-faint);"></div>
   </div>
 
+  <!-- Site Analytics (GA4 + Clarity) -->
+  <div class="card" id="analyticsCard" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <div class="card-title" style="margin-bottom:0;">Site Analytics — Last 30 days</div>
+      <button class="btn btn-secondary" id="refreshAnalyticsBtn" style="padding:4px 10px;font-size:12px;">↻ Refresh</button>
+    </div>
+
+    <div class="grid-4" id="analyticsKpis" style="margin-bottom:16px;"></div>
+
+    <div class="grid-2" style="gap:16px;">
+      <div>
+        <div class="stat-label">Top traffic sources</div>
+        <div id="analyticsTraffic" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+      </div>
+      <div>
+        <div class="stat-label">Top pages</div>
+        <div id="analyticsPages" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+      </div>
+    </div>
+
+    <div class="stat-label" style="margin-top:16px;">Funnel events</div>
+    <div id="analyticsFunnel" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+
+    <div class="stat-label" style="margin-top:16px;">Clarity (last 3 days)</div>
+    <div id="analyticsClarity" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+
+    <div id="analyticsErr" style="margin-top:12px;font-size:12px;color:var(--text-faint);"></div>
+  </div>
+
   <!-- Trade list -->
   <div class="card">
     <div class="card-title">All Trades</div>
@@ -603,6 +632,105 @@ document.getElementById("refreshBalanceBtn").addEventListener("click", () => {
   fetchBalance().finally(() => {
     document.getElementById("refreshBalanceBtn").textContent = "↻ Refresh";
   });
+});
+
+// --- Site Analytics ---
+async function fetchAnalytics() {
+  const card = document.getElementById("analyticsCard");
+  const errEl = document.getElementById("analyticsErr");
+  errEl.textContent = "";
+  try {
+    const [traffic, pages, events, funnel, clarity] = await Promise.all([
+      fetch("/api/analytics-ga4?report=traffic").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=pages").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=events").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=funnel").then(r => r.json()),
+      fetch("/api/analytics-clarity?days=3").then(r => r.json()).catch(() => ({ error: "Clarity unavailable" })),
+    ]);
+    card.style.display = "block";
+    renderAnalytics({ traffic, pages, events, funnel, clarity });
+  } catch (e) {
+    card.style.display = "block";
+    errEl.textContent = "Analytics fetch failed: " + e.message;
+  }
+}
+
+function ga4Rows(d) {
+  if (!d || !d.rows) return [];
+  const dims = (d.dimensionHeaders || []).map(h => h.name);
+  const mets = (d.metricHeaders || []).map(h => h.name);
+  return d.rows.map(r => {
+    const out = {};
+    (r.dimensionValues || []).forEach((v, i) => out[dims[i] || `d${i}`] = v.value);
+    (r.metricValues || []).forEach((v, i) => out[mets[i] || `m${i}`] = v.value);
+    return out;
+  });
+}
+
+function renderAnalytics({ traffic, pages, events, funnel, clarity }) {
+  // KPIs from traffic report
+  const trows = ga4Rows(traffic);
+  const totals = trows.reduce((acc, r) => {
+    acc.sessions += parseInt(r.sessions || "0", 10);
+    acc.users += parseInt(r.totalUsers || "0", 10);
+    acc.engaged += parseFloat(r.engagementRate || "0") * parseInt(r.sessions || "0", 10);
+    return acc;
+  }, { sessions: 0, users: 0, engaged: 0 });
+  const engRate = totals.sessions > 0 ? (totals.engaged / totals.sessions) : 0;
+
+  const erows = ga4Rows(events);
+  const eventTotal = erows.reduce((s, r) => s + parseInt(r.eventCount || "0", 10), 0);
+
+  const kpis = document.getElementById("analyticsKpis");
+  kpis.innerHTML = `
+    <div><div class="stat-label">Sessions</div><div class="stat-value num">${totals.sessions.toLocaleString()}</div></div>
+    <div><div class="stat-label">Unique users</div><div class="stat-value num">${totals.users.toLocaleString()}</div></div>
+    <div><div class="stat-label">Engagement rate</div><div class="stat-value num">${(engRate * 100).toFixed(1)}%</div></div>
+    <div><div class="stat-label">Events fired</div><div class="stat-value num">${eventTotal.toLocaleString()}</div></div>
+  `;
+
+  // Traffic sources
+  const tEl = document.getElementById("analyticsTraffic");
+  tEl.innerHTML = trows.length === 0
+    ? '<div class="dim">No data.</div>'
+    : trows.slice(0, 10).map(r => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>${r.sessionSourceMedium}</span><span class="num">${parseInt(r.sessions).toLocaleString()}</span></div>`).join("");
+
+  // Top pages
+  const prows = ga4Rows(pages);
+  const pEl = document.getElementById("analyticsPages");
+  pEl.innerHTML = prows.length === 0
+    ? '<div class="dim">No data.</div>'
+    : prows.slice(0, 10).map(r => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">${r.pagePath}</span><span class="num">${parseInt(r.screenPageViews).toLocaleString()}</span></div>`).join("");
+
+  // Funnel events
+  const frows = ga4Rows(funnel);
+  const fEl = document.getElementById("analyticsFunnel");
+  fEl.innerHTML = frows.length === 0
+    ? '<div class="dim">No custom funnel events fired yet (lead_magnet_submit, join_click, etc.). Check that track() calls match expected event names.</div>'
+    : '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;">' +
+      frows.map(r => `<div style="background:var(--bg-elev-2);padding:8px 10px;border-radius:6px;"><div class="dim" style="font-size:11px;">${r.eventName}</div><div class="num" style="font-weight:600;">${parseInt(r.eventCount).toLocaleString()}</div></div>`).join("") +
+      '</div>';
+
+  // Clarity
+  const cEl = document.getElementById("analyticsClarity");
+  if (clarity && clarity.error) {
+    cEl.innerHTML = `<div class="dim">${clarity.error}</div>`;
+  } else if (clarity && clarity.data) {
+    const arr = Array.isArray(clarity.data) ? clarity.data : (clarity.data.information || []);
+    if (arr.length === 0) {
+      cEl.innerHTML = '<div class="dim">Clarity returned no rows.</div>';
+    } else {
+      cEl.innerHTML = '<pre style="background:var(--bg-elev-2);padding:10px;border-radius:6px;font-size:11px;overflow-x:auto;max-height:200px;">' + JSON.stringify(arr.slice(0, 5), null, 2) + '</pre>';
+    }
+  } else {
+    cEl.innerHTML = '<div class="dim">No Clarity data.</div>';
+  }
+}
+
+document.getElementById("refreshAnalyticsBtn").addEventListener("click", () => {
+  const btn = document.getElementById("refreshAnalyticsBtn");
+  btn.textContent = "↻ Refreshing...";
+  fetchAnalytics().finally(() => { btn.textContent = "↻ Refresh"; });
 });
 
 // --- Price fetch (BTC + any alts in balance) ---
@@ -1111,8 +1239,10 @@ document.getElementById("seedBtn").addEventListener("click", () => {
 // --- Boot ---
 fetchPrice();
 fetchBalance();
+fetchAnalytics();
 setInterval(fetchPrice, 90000);
 setInterval(fetchBalance, 120000);
+setInterval(fetchAnalytics, 600000); // analytics: every 10 min
 renderAll();
 </script>
 
