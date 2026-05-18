@@ -99,7 +99,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-015PKWM24J');
-  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});}
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});} window.track = track;
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[href*="whop.com/"]');
     if(!a)return;

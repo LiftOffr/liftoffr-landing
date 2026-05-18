@@ -159,6 +159,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     if (typeof gtag === 'function') gtag('event', name, params || {});
     if (window.clarity) try { window.clarity('event', name); } catch(e){}
   }
+  window.track = track;
   function getUtms() {
     var p = new URLSearchParams(window.location.search);
     return {
@@ -1449,6 +1450,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       utm_content: pageUtms.utm_content || ''
     };
 
+    // Track the submission attempt — fires before the API call so we measure intent
+    if (typeof window.track === 'function') {
+      window.track('lead_magnet_submit', {
+        source: medium,
+        page: location.pathname,
+        utm_source: payload.utm_source,
+        utm_medium: payload.utm_medium,
+        utm_campaign: payload.utm_campaign
+      });
+    }
+
     fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -1463,8 +1475,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         msg.style.color = '#22c55e';
         msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way (look for liftoffr.beehiiv.com).';
       }
-      if (typeof track === 'function') {
-        track('lead_captured', {
+      if (typeof window.track === 'function') {
+        window.track('lead_captured', {
           source: medium,
           page: location.pathname,
           utm_source: payload.utm_source,

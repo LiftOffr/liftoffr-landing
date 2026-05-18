@@ -36,7 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-015PKWM24J');
-  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   document.addEventListener('click',function(e){
     var a=e.target.closest('a[href*="whop.com/"]');
     if(!a)return;
@@ -964,6 +964,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         utm_content: u.searchParams.get('utm_content') || 'proof_checklist_form'
       };
 
+      if (typeof window.track === 'function') {
+        window.track('lead_magnet_submit', {
+          source: 'proof_checklist_form', page: location.pathname,
+          utm_source: payload.utm_source, utm_medium: payload.utm_medium, utm_campaign: payload.utm_campaign
+        });
+      }
+
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -978,8 +985,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           msg.style.color = '#22c55e';
           msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.';
         }
-        if (typeof track === 'function') {
-          track('lead_captured', { source: 'proof_checklist_form', page: location.pathname,
+        if (typeof window.track === 'function') {
+          window.track('lead_captured', { source: 'proof_checklist_form', page: location.pathname,
             utm_source: payload.utm_source, utm_medium: payload.utm_medium, utm_campaign: payload.utm_campaign });
         }
       }).catch(function(err){
