@@ -2,5 +2,21 @@ User-agent: *
 Allow: /
 Disallow: /dashboard
 Disallow: /dashboard/
+Disallow: /logo-lab
+Disallow: /api/
+
+# AI search bots — explicitly allow for AI citation discoverability
+User-agent: GPTBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: Google-Extended
+Allow: /
 
 Sitemap: https://liftoffr.com/sitemap.xml
