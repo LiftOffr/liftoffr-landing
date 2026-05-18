@@ -4,9 +4,19 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/((?!sitemap\\.xml|robots\\.txt).*)",
+      "source": "/sitemap.xml",
       "has": [{ "type": "host", "value": "www.liftoffr.com" }],
-      "destination": "https://liftoffr.com/$1",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "has": [{ "type": "host", "value": "www.liftoffr.com" }],
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.liftoffr.com" }],
+      "destination": "https://liftoffr.com/:path*",
       "permanent": true
     },
     {
