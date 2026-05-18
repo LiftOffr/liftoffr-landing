@@ -4,9 +4,9 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/((?!sitemap\\.xml|robots\\.txt).*)",
       "has": [{ "type": "host", "value": "www.liftoffr.com" }],
-      "destination": "https://liftoffr.com/:path*",
+      "destination": "https://liftoffr.com/$1",
       "permanent": true
     },
     {
