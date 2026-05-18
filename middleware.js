@@ -9,6 +9,7 @@ export const config = {
     "/api/coinbase-balance",
     "/api/analytics-ga4",
     "/api/analytics-clarity",
+    "/api/analytics-gsc",
   ],
 };
 

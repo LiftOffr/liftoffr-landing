@@ -353,6 +353,19 @@
     <div class="stat-label" style="margin-top:16px;">Clarity (last 3 days)</div>
     <div id="analyticsClarity" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
 
+    <div class="stat-label" style="margin-top:16px;">Google Search Console — last 90 days</div>
+    <div class="grid-2" style="margin-top:8px;font-family:var(--mono);font-size:12px;">
+      <div>
+        <div style="font-size:11px;color:var(--text-faint);margin-bottom:4px;">Top queries</div>
+        <div id="gscQueries"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-faint);margin-bottom:4px;">Top pages</div>
+        <div id="gscPages"></div>
+      </div>
+    </div>
+    <div id="gscSitemap" style="margin-top:10px;font-size:11px;color:var(--text-faint);"></div>
+
     <div id="analyticsErr" style="margin-top:12px;font-size:12px;color:var(--text-faint);"></div>
   </div>
 
@@ -640,15 +653,18 @@ async function fetchAnalytics() {
   const errEl = document.getElementById("analyticsErr");
   errEl.textContent = "";
   try {
-    const [traffic, pages, events, funnel, clarity] = await Promise.all([
+    const [traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps] = await Promise.all([
       fetch("/api/analytics-ga4?report=traffic").then(r => r.json()),
       fetch("/api/analytics-ga4?report=pages").then(r => r.json()),
       fetch("/api/analytics-ga4?report=events").then(r => r.json()),
       fetch("/api/analytics-ga4?report=funnel").then(r => r.json()),
       fetch("/api/analytics-clarity?days=3").then(r => r.json()).catch(() => ({ error: "Clarity unavailable" })),
+      fetch("/api/analytics-gsc?report=queries&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-gsc?report=pages&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-gsc?report=sitemaps").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
     ]);
     card.style.display = "block";
-    renderAnalytics({ traffic, pages, events, funnel, clarity });
+    renderAnalytics({ traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps });
   } catch (e) {
     card.style.display = "block";
     errEl.textContent = "Analytics fetch failed: " + e.message;
@@ -667,7 +683,7 @@ function ga4Rows(d) {
   });
 }
 
-function renderAnalytics({ traffic, pages, events, funnel, clarity }) {
+function renderAnalytics({ traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps }) {
   // KPIs from traffic report
   const trows = ga4Rows(traffic);
   const totals = trows.reduce((acc, r) => {
@@ -710,6 +726,38 @@ function renderAnalytics({ traffic, pages, events, funnel, clarity }) {
     : '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;">' +
       frows.map(r => `<div style="background:var(--bg-elev-2);padding:8px 10px;border-radius:6px;"><div class="dim" style="font-size:11px;">${r.eventName}</div><div class="num" style="font-weight:600;">${parseInt(r.eventCount).toLocaleString()}</div></div>`).join("") +
       '</div>';
+
+  // GSC — queries
+  const qEl = document.getElementById("gscQueries");
+  if (gscQueries && gscQueries.error) {
+    qEl.innerHTML = `<div class="dim">${gscQueries.error}</div>`;
+  } else if (gscQueries && Array.isArray(gscQueries.rows) && gscQueries.rows.length > 0) {
+    qEl.innerHTML = gscQueries.rows.slice(0, 10).map(r =>
+      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%">${r.keys[0]}</span><span class="num">${r.clicks}c · ${r.impressions}i</span></div>`
+    ).join("");
+  } else {
+    qEl.innerHTML = '<div class="dim">No search queries yet — site hasn\'t earned organic rankings.</div>';
+  }
+  // GSC — pages
+  const gpEl = document.getElementById("gscPages");
+  if (gscPages && gscPages.error) {
+    gpEl.innerHTML = `<div class="dim">${gscPages.error}</div>`;
+  } else if (gscPages && Array.isArray(gscPages.rows) && gscPages.rows.length > 0) {
+    gpEl.innerHTML = gscPages.rows.slice(0, 10).map(r => {
+      const p = r.keys[0].replace(/^https?:\/\/(www\.)?liftoffr\.com/, "") || "/";
+      return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%">${p}</span><span class="num">${r.clicks}c · ${r.impressions}i</span></div>`;
+    }).join("");
+  } else {
+    gpEl.innerHTML = '<div class="dim">No indexed pages getting search impressions.</div>';
+  }
+  // Sitemap status
+  const smEl = document.getElementById("gscSitemap");
+  if (gscSitemaps && Array.isArray(gscSitemaps.sitemap) && gscSitemaps.sitemap.length > 0) {
+    smEl.innerHTML = gscSitemaps.sitemap.map(sm => {
+      const counts = (sm.contents || []).map(c => `${c.submitted}/${c.indexed} indexed`).join(", ");
+      return `Sitemap: <span class="num">${sm.path}</span> · ${counts || "—"} · errors ${sm.errors}, warnings ${sm.warnings}`;
+    }).join(" · ");
+  }
 
   // Clarity
   const cEl = document.getElementById("analyticsClarity");
