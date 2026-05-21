@@ -14,9 +14,10 @@ LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module
 - **Plan ID:** plan_aYmWvRCWPXqdB
 
 ## Annual
-- **Price:** $390/year ($32.50/month effective, ~33% off monthly)
+- **Price:** $249/year ($20.75/month effective, ~28% off monthly)
 - **Commitment:** Annual billing
-- **Plan ID:** plan_NdlOR0aexgtg5
+- **Plan ID:** plan_FJ3YmVpeeF4kH
+- **Checkout:** https://whop.com/checkout/plan_FJ3YmVpeeF4kH
 
 ## What's Included (all plans)
 - Daily Discord brief at 8am MT — 8-indicator confluence read in plain English
@@ -33,4 +34,4 @@ LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module
 USD only. Available worldwide where Whop checkout is supported.
 
 ## Last Updated
-2026-05-13
+2026-05-20

@@ -14,8 +14,27 @@
 
 export const config = { runtime: "nodejs" };
 
-const FOUNDER_PLAN_ID = "plan_CH1L53GLZsaq1";
+// Both the monthly "Founder Rate" and the new "Founder Annual" count toward
+// the 30-spot scarcity limit. Either commitment makes someone a "founder."
+const FOUNDER_PLAN_IDS = [
+  "plan_CH1L53GLZsaq1",  // Founder Rate — $29/mo lifetime locked
+  "plan_FJ3YmVpeeF4kH",  // Founder Annual — $249/yr
+];
 const FOUNDER_CAP = 30;
+
+async function countActive(apiKey, planId) {
+  const url = `https://api.whop.com/api/v2/memberships?plan_id=${encodeURIComponent(planId)}&status=active&per=1`;
+  const r = await fetch(url, {
+    headers: { "Authorization": `Bearer ${apiKey}`, "Accept": "application/json" },
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const err = new Error(`whop ${r.status}`); err.status = r.status; err.body = data;
+    throw err;
+  }
+  return (data && data.pagination && typeof data.pagination.total_count === "number")
+    ? data.pagination.total_count : 0;
+}
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
@@ -30,30 +49,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    const url = `https://api.whop.com/api/v2/memberships?plan_id=${encodeURIComponent(FOUNDER_PLAN_ID)}&status=active&per=1`;
-    const r = await fetch(url, {
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Accept": "application/json",
-      },
-    });
-    const data = await r.json().catch(() => ({}));
-
-    if (!r.ok) {
-      console.error("founder-count: whop api error", r.status, data);
-      return res.status(502).json({ error: "Upstream error", filled: null, remaining: null, total: FOUNDER_CAP });
-    }
-
-    const filled = (data && data.pagination && typeof data.pagination.total_count === "number")
-      ? data.pagination.total_count
-      : 0;
+    const counts = await Promise.all(FOUNDER_PLAN_IDS.map((id) => countActive(apiKey, id)));
+    const filled = counts.reduce((a, b) => a + b, 0);
     const remaining = Math.max(0, FOUNDER_CAP - filled);
 
     res.setHeader("Cache-Control", "public, s-maxage=300, stale-while-revalidate=3600");
 
-    return res.status(200).json({ filled, remaining, total: FOUNDER_CAP });
+    return res.status(200).json({
+      filled,
+      remaining,
+      total: FOUNDER_CAP,
+      breakdown: FOUNDER_PLAN_IDS.reduce((acc, id, i) => { acc[id] = counts[i]; return acc; }, {}),
+    });
   } catch (err) {
-    console.error("founder-count: exception", err);
-    return res.status(500).json({ error: "Internal error", filled: null, remaining: null, total: FOUNDER_CAP });
+    console.error("founder-count: exception", err.status, err.message, err.body);
+    return res.status(err.status || 500).json({
+      error: "Upstream or internal error",
+      filled: null, remaining: null, total: FOUNDER_CAP,
+    });
   }
 }
