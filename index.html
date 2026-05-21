@@ -1107,6 +1107,75 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- LIFTOFFR SCORE WIDGET -->
+<section class="lo-score-section" style="background:#080808;padding:80px 24px;border-top:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;">
+  <div class="section-wide" style="text-align:center;">
+    <div style="font-size:11px;color:#777;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-bottom:12px;">Live · auto-updated daily</div>
+    <h2 style="text-align:center;font-size:28px;font-weight:800;letter-spacing:-0.5px;">The <span style="color:var(--red);">LiftOffr Score</span></h2>
+    <p style="color:#999;margin:10px auto 40px;font-size:15px;max-width:520px;">A V7-weighted composite of 9 on-chain + market indicators. One number, 0–100. Above 85 = exit zone. Below 20 = accumulation.</p>
+
+    <div id="lo-score-card" style="display:inline-flex;flex-direction:column;align-items:center;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:18px;padding:36px 64px;min-width:320px;">
+      <div id="lo-score-number" style="font-family:JetBrains Mono,SF Mono,Menlo,monospace;font-size:96px;font-weight:700;line-height:1;letter-spacing:-3px;color:#fff;">--</div>
+      <div id="lo-score-zone" style="margin-top:8px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#999;">loading…</div>
+      <div id="lo-score-trend" style="margin-top:14px;font-size:13px;color:#bbb;font-family:JetBrains Mono,monospace;">—</div>
+      <div id="lo-score-commentary" style="margin-top:18px;max-width:380px;font-size:14px;color:#ccc;line-height:1.5;font-style:italic;">—</div>
+      <div style="margin-top:22px;width:100%;height:1px;background:#1e1e1e;"></div>
+      <div id="lo-score-asof" style="margin-top:14px;font-size:11px;color:#666;letter-spacing:0.5px;">—</div>
+    </div>
+
+    <div style="margin-top:36px;font-size:14px;color:#999;">
+      Want this in your inbox every Sunday?
+      <span style="display:block;margin-top:14px;">
+        <a href="/links#email" style="display:inline-block;background:var(--red);color:#fff;padding:14px 28px;border-radius:8px;font-weight:800;font-size:14px;text-decoration:none;">Get the weekly Score — free →</a>
+      </span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  fetch('/api/cycle-score')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d || typeof d.score !== 'number') return;
+      var n = document.getElementById('lo-score-number');
+      var z = document.getElementById('lo-score-zone');
+      var t = document.getElementById('lo-score-trend');
+      var c = document.getElementById('lo-score-commentary');
+      var a = document.getElementById('lo-score-asof');
+      if (n) n.textContent = d.score.toFixed(1);
+      var zoneColor = {
+        'exit':            '#ef4444',
+        'warning':         '#f97316',
+        'neutral':         '#fbbf24',
+        'accumulation':    '#22c55e',
+        'deep-accumulation':'#16a34a',
+      }[d.zone] || '#999';
+      var zoneLabel = {
+        'exit':              'EXIT ZONE',
+        'warning':           'WARNING',
+        'neutral':           'NEUTRAL',
+        'accumulation':      'ACCUMULATION',
+        'deep-accumulation': 'DEEP ACCUMULATION',
+      }[d.zone] || d.zone.toUpperCase();
+      if (z) { z.textContent = zoneLabel; z.style.color = zoneColor; }
+      if (n) n.style.color = zoneColor;
+      if (t) {
+        var arrow = d.trend === 'rising' ? '▲' : d.trend === 'falling' ? '▼' : '◆';
+        var sign = d.trendDelta7d >= 0 ? '+' : '';
+        t.textContent = arrow + '  ' + sign + d.trendDelta7d + ' over last 7 days';
+        t.style.color = d.trend === 'rising' ? '#fbbf24' : d.trend === 'falling' ? '#999' : '#999';
+      }
+      if (c) c.textContent = d.commentary;
+      if (a && d.asOf) {
+        var dt = new Date(d.asOf);
+        a.textContent = 'Updated ' + dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+      }
+    })
+    .catch(function(e){ console.error('cycle-score load failed', e); });
+})();
+</script>
+
 <!-- PRICING -->
 <section class="pricing-section" id="pricing">
   <div class="section-wide">
