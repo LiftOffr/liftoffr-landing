@@ -77,7 +77,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "url": "https://whop.com/checkout/plan_CH1L53GLZsaq1",
         "availability": "https://schema.org/InStock",
         "priceValidUntil": "2027-12-31"
-      }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "3",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Tyr" },
+          "datePublished": "2025-07-14",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal. I finally had a system instead of a guess."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "Marcus_btc" },
+          "datePublished": "2025-04-03",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "Been in crypto since 2018, never had a system. First cycle with LiftOffr and I actually knew what the indicators were telling me. Sold 60% of my BTC stack when CBBI hit 0.83."
+        },
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "kyle_stacks" },
+          "datePublished": "2025-03-19",
+          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+          "reviewBody": "The daily brief alone is worth $29/mo. I used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening."
+        }
+      ]
     },
     {
       "@type": "WebSite",
@@ -182,15 +212,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign
     });
   }, true);
-  window.addEventListener('message', function(e){
-    if (!e.origin || !/beehiiv\.com$/.test(new URL(e.origin).hostname)) return;
-    var d = e.data || {};
-    if (d && (d.type === 'beehiiv:subscribe' || d.event === 'subscribed' || /subscribe/i.test(d.type || ''))) {
-      var utm = getUtms();
-      track('lead_captured', { source: 'beehiiv_popup', page: location.pathname,
-        utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign });
-    }
-  });
   window.addEventListener('load', function(){
     var utm = getUtms();
     if (utm.source !== '(direct)') {
@@ -879,7 +900,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </p>
   <div class="hero-cta-row">
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=hero" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Claim Founder Rate — $29/mo →</a>
-    <a href="/track-record" style="display:inline-block;margin-top:6px;color:#22c55e;font-size:14px;font-weight:700;text-decoration:none;border-bottom:1px dashed #22c55e;padding-bottom:1px;">See the actual backtest → $50/wk = $1.88M since 2017</a>
+    <a href="/track-record" aria-label="View $1.88M backtest results since 2017" style="display:inline-block;margin-top:6px;color:#e63946;font-size:14px;font-weight:700;text-decoration:none;border-bottom:1px dashed #e63946;padding-bottom:1px;">See the actual backtest → $50/wk = $1.88M since 2017</a>
     <div class="trust-row">
       <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Cancel anytime</span><span class="dot">·</span><span>Instant Discord access</span>
     </div>
@@ -1310,7 +1331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>The 8 indicators we watch (with current trigger thresholds + confluence score) <strong>PDF instantly</strong>. Then every Sunday, the LiftOffr Score lands in your inbox so you always know where the cycle is. Both free.</p>
       <form data-lead-form data-medium="homepage" onsubmit="return submitLeadForm(this);" style="margin-top:18px;">
         <div data-form-body style="display:flex;gap:8px;flex-wrap:wrap;">
-          <input type="email" name="email" required placeholder="your@email.com" style="flex:1;min-width:180px;padding:14px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
+          <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com" style="flex:1;min-width:180px;padding:14px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;">
           <button type="submit" style="padding:14px 22px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;white-space:nowrap;font-family:inherit;">Get both — free →</button>
         </div>
         <div data-form-message style="display:none;margin-top:10px;font-size:14px;line-height:1.5;"></div>
@@ -1459,7 +1480,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p style="font-size:14px;color:#888;margin-bottom:20px;line-height:1.55;">Get the 8-indicator checklist <strong>instantly</strong>, then the LiftOffr Score lands in your inbox every Sunday. Both free.</p>
     <form data-lead-form data-medium="popup" onsubmit="return submitLeadForm(this);">
       <div data-form-body>
-        <input type="email" name="email" required placeholder="your@email.com" style="width:100%;padding:13px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:10px;">
+        <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com" style="width:100%;padding:13px 16px;border-radius:8px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:15px;font-family:inherit;outline:none;margin-bottom:10px;">
         <button type="submit" style="width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;">Get both — free →</button>
       </div>
       <div data-form-message style="display:none;margin-top:6px;font-size:14px;line-height:1.5;"></div>
@@ -1477,7 +1498,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       shown = true;
       popup.style.display = 'flex';
     }
-    setTimeout(showPopup, 9000);
+    if (document.readyState === 'complete') {
+      setTimeout(showPopup, 6000);
+    } else {
+      window.addEventListener('load', function() { setTimeout(showPopup, 6000); });
+    }
     window.addEventListener('scroll', function() {
       if ((window.scrollY + window.innerHeight) / document.body.scrollHeight > 0.6) showPopup();
     }, { passive: true });
@@ -1542,7 +1567,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (msg) {
         msg.style.display = 'block';
         msg.style.color = '#22c55e';
-        msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way (look for liftoffr.beehiiv.com).';
+        msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist + this week\'s LiftOffr Score are on the way (from torin@liftoffr.com).';
       }
       if (typeof window.track === 'function') {
         window.track('lead_captured', {
@@ -1649,14 +1674,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (typeof gtag === 'function') gtag('event', 'exit_intent_shown', { page: location.pathname });
   }
 
-  // Desktop: mouse leaving toward top of viewport
+  // Desktop only: mouse leaving toward top of viewport.
+  // (Previously also fired on mobile visibilitychange, which triggered every
+  // time a user tabbed away — false positives buried the form.)
   document.addEventListener('mouseleave', function(e) {
     if (e.clientY <= 5) show();
-  });
-
-  // Mobile fallback: back button / visibility change
-  document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden') show();
   });
 })();
 
