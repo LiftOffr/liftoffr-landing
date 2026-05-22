@@ -282,6 +282,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   nav .nav-link { color: #bbb; font-size: 14px; font-weight: 600; transition: color 0.15s; }
   nav .nav-link:hover { color: var(--red); }
+  nav .btn-outline {
+    color: var(--red);
+    background: transparent;
+    border: 1px solid rgba(230,57,70,0.55);
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+  nav .btn-outline:hover { background: rgba(230,57,70,0.10); border-color: var(--red); }
 
   /* BUTTONS */
   .btn-red {
@@ -840,9 +853,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (max-width: 768px) {
     nav { padding: 12px 14px; gap: 8px; }
     nav img { height: 22px; max-width: 110px; }
-    nav .btn-red { padding: 9px 14px; font-size: 13px; }
+    nav .btn-red { padding: 9px 12px; font-size: 12.5px; }
+    nav .btn-outline { padding: 8px 11px; font-size: 12px; }
     nav .nav-link { font-size: 13px; }
     nav .nav-link-tr, nav .nav-link-blog { display: none; }
+    nav > div { gap: 8px !important; }
     .hero-wrap { padding: 40px 18px 20px; }
     .hero-wrap h1 { font-size: clamp(30px, 8vw, 44px); letter-spacing: -1.5px; }
     .hero-sub { font-size: 15.5px; margin-bottom: 22px; }
@@ -887,6 +902,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/track-record" class="nav-link nav-link-tr">Track Record</a>
     <a href="/blog" class="nav-link nav-link-blog">Blog</a>
     <a href="/faq" class="nav-link">FAQ</a>
+    <a href="/lead-magnet/checklist.html" class="btn-outline">Free Checklist</a>
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=nav" target="_blank" rel="noopener" class="btn-red">Join — $29/mo →</a>
   </div>
 </nav>
