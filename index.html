@@ -280,6 +280,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     border-bottom: 1px solid var(--border);
     gap: 16px;
   }
+  nav .nav-link { color: #bbb; font-size: 14px; font-weight: 600; transition: color 0.15s; }
+  nav .nav-link:hover { color: var(--red); }
 
   /* BUTTONS */
   .btn-red {
@@ -836,9 +838,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* MOBILE */
   @media (max-width: 768px) {
-    nav { padding: 12px 16px; gap: 10px; }
+    nav { padding: 12px 14px; gap: 8px; }
     nav img { height: 22px; max-width: 110px; }
     nav .btn-red { padding: 9px 14px; font-size: 13px; }
+    nav .nav-link { font-size: 13px; }
+    nav .nav-link-tr, nav .nav-link-blog { display: none; }
     .hero-wrap { padding: 40px 18px 20px; }
     .hero-wrap h1 { font-size: clamp(30px, 8vw, 44px); letter-spacing: -1.5px; }
     .hero-sub { font-size: 15.5px; margin-bottom: 22px; }
@@ -879,9 +883,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <nav>
   <a href="/" aria-label="LiftOffr home" style="text-decoration:none;"><span class="lo-logo" style="font-size:20px;"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
   <div style="display:flex;align-items:center;gap:14px;">
-    <a href="/blog" style="color:#bbb;font-size:14px;font-weight:600;">Blog</a>
-    <a href="/proof" style="color:#bbb;font-size:14px;font-weight:600;">Track Record</a>
-    <a href="/indicator-history" style="color:#bbb;font-size:14px;font-weight:600;">Indicators</a>
+    <a href="/about" class="nav-link">About</a>
+    <a href="/track-record" class="nav-link nav-link-tr">Track Record</a>
+    <a href="/blog" class="nav-link nav-link-blog">Blog</a>
+    <a href="/faq" class="nav-link">FAQ</a>
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=nav" target="_blank" rel="noopener" class="btn-red">Join — $29/mo →</a>
   </div>
 </nav>

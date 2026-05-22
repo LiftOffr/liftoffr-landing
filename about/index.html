@@ -77,24 +77,95 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     min-height: 100vh;
     padding: 48px 20px 80px;
   }
-  .wrap { max-width: 720px; margin: 0 auto; }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .story-wrap { max-width: 720px; margin: 0 auto; }
   .back { display: inline-block; color: var(--muted); font-size: 13px; text-decoration: none; margin-bottom: 24px; }
   .back:hover { color: var(--red); }
   .eyebrow { font-size: 11px; color: var(--red); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
-  h1 { font-size: 38px; font-weight: 900; letter-spacing: -1.2px; line-height: 1.15; margin-bottom: 18px; }
+  h1 { font-size: 56px; font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 18px; }
   h1 em { color: var(--red); font-style: italic; }
-  .hero-row { display: flex; gap: 22px; align-items: center; margin-bottom: 36px; flex-wrap: wrap; }
-  .hero-img {
-    width: 96px; height: 96px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--red);
-    flex-shrink: 0;
-    box-shadow: 0 0 36px rgba(230,57,70,0.32);
+
+  /* Cinematic hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 64px;
   }
-  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .hero-meta { font-size: 14px; color: var(--muted); }
-  .hero-meta strong { color: #fff; font-weight: 800; }
+  .hero-text { padding-right: 12px; }
+  .hero-lede { font-size: 18px; color: #bdbdbd; line-height: 1.6; margin-bottom: 22px; max-width: 520px; }
+  .hero-meta-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-name { font-size: 16px; font-weight: 800; color: #fff; }
+  .hero-role { font-size: 13px; color: var(--muted); }
+  .hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .hero-pill {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: rgba(230,57,70,0.10);
+    border: 1px solid rgba(230,57,70,0.32);
+    color: var(--red);
+  }
+  .hero-img {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(230,57,70,0.18) inset;
+  }
+  .hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.02); }
+  .hero-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(230,57,70,0) 35%, rgba(8,8,8,0.75) 100%),
+                radial-gradient(ellipse at top right, rgba(230,57,70,0.18) 0%, rgba(230,57,70,0) 60%);
+    pointer-events: none;
+  }
+  .hero-img-tag {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  }
+  .hero-img-tag span { color: var(--red); }
+
+  /* Inline polaroid (mid-page photo) */
+  .polaroid {
+    margin: 38px auto;
+    max-width: 380px;
+    background: #fafafa;
+    padding: 12px 12px 18px;
+    border-radius: 4px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04);
+    transform: rotate(-1.6deg);
+  }
+  .polaroid img { width: 100%; display: block; border-radius: 2px; }
+  .polaroid-caption {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #222;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    letter-spacing: 0.2px;
+  }
   h2 { font-size: 24px; font-weight: 900; letter-spacing: -0.4px; margin-top: 44px; margin-bottom: 12px; }
   h2 em { color: var(--red); font-style: italic; }
   p { color: #cfcfcf; font-size: 16.5px; margin-bottom: 14px; }
@@ -134,10 +205,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .footer-links { margin-top: 60px; text-align: center; font-size: 12px; color: #555; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
   .footer-links a { color: #666; text-decoration: none; }
   .footer-links a:hover { color: var(--red); }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 28px; }
+    .hero-text { padding-right: 0; order: 2; }
+    .hero-img { order: 1; max-width: 520px; margin: 0 auto; width: 100%; aspect-ratio: 4 / 5; }
+    h1 { font-size: 44px; letter-spacing: -1.5px; }
+  }
   @media (max-width: 600px) {
-    h1 { font-size: 30px; }
+    h1 { font-size: 34px; letter-spacing: -1.2px; }
     h2 { font-size: 21px; }
     p { font-size: 16px; }
+    .hero-lede { font-size: 16.5px; }
+    .polaroid { transform: rotate(-1deg); margin: 32px auto; }
   }
 </style>
 </head>
@@ -146,26 +225,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="wrap">
   <a href="/" class="back">← LiftOffr home</a>
-  <div class="eyebrow">About</div>
-  <h1>I built the system <em>I needed</em>.</h1>
 
-  <div class="hero-row">
-    <div class="hero-img">
-      <img src="/img/torin-founder.jpg?v=20260503c" alt="Torin Christianson" loading="lazy">
+  <div class="hero">
+    <div class="hero-text">
+      <div class="eyebrow">About Torin</div>
+      <h1>I built the system <em>I needed</em>.</h1>
+      <p class="hero-lede">Round-tripped my 2021 portfolio. Watched $30K disappear between two college classes. Rebuilt with rules. DCA'd out cleanly through the 2025 top — and built LiftOffr so nobody else has to learn it the way I did.</p>
+      <div class="hero-pills">
+        <span class="hero-pill">Two-cycle BTC survivor</span>
+        <span class="hero-pill">2025 clean exit</span>
+        <span class="hero-pill">Anti-leverage · pro-custody</span>
+      </div>
+      <div class="hero-meta-row">
+        <span class="hero-name">Torin Christianson</span>
+        <span class="hero-role">Founder, LiftOffr</span>
+      </div>
     </div>
-    <div class="hero-meta">
-      <strong>Torin Christianson</strong><br>
-      Founder, LiftOffr<br>
-      Two-cycle BTC survivor · DCA'd out clean at the 2025 top
+    <div class="hero-img">
+      <img src="/img/torin-corvette.jpg" alt="Torin with his 2022 Corvette C8 — the car the system bought" fetchpriority="high">
+      <div class="hero-img-tag"><span>2026 ·</span> The C8 the system bought.</div>
     </div>
   </div>
 
-  <h2>2017: a basement in Iowa</h2>
+  <div class="story-wrap">
+  <h2>2017: a basement in Minnesota</h2>
   <p>I built my first mining rig in a friend's basement with RX 570s and 580s. We dodged the Micro Center one-per-customer limit by sending kids in waves. I was underage for legal exchange access, so I sold mined BTC online for Amazon gift cards — then sold the codes to my dad at face value.</p>
   <p>The wooden frame caught fire one night. NiceHash got hacked the next month. By the end of 2017 I'd learned every way to lose money in crypto, including ways the books didn't cover.</p>
 
   <h2>2018: the lawsuit summer</h2>
-  <p>Ran north of $100,000 in mining rigs the next summer. One client in Iowa stopped paying — I locked his HiveOS access for leverage and we ended up in court. The 2018 bear gutted what was left. I went into 2019 broke, but with a stack of lessons I couldn't have bought.</p>
+  <p>Ran north of $100,000 in mining rigs the next summer. A client out in Winona stopped paying — I locked his HiveOS access for leverage and we ended up in court. The 2018 bear gutted what was left. I went into 2019 broke, but with a stack of lessons I couldn't have bought.</p>
 
   <h2>2021: the round-trip</h2>
   <p>By 2021 I'd built up a real portfolio. And I gave it all back. <strong>I sat in my dorm room watching $30K disappear between two college classes.</strong> No system, no exit plan, no idea what the indicators were screaming. Just hopium.</p>
@@ -191,6 +279,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <h2>The dad callback</h2>
   <p>The same dad who bought Amazon gift cards from me in 2017 saw what came out the other side: a 2019 Civic Type R, a 2022 Corvette C8, a 2022 Macan S, Lambos rented in Vegas for friends. Not because the cars matter — because the kid selling gift cards had no idea any of that was possible.</p>
+
+  <div class="polaroid">
+    <img src="/img/torin-urus.jpg" alt="Torin in Tampa with a Lamborghini Urus" loading="lazy">
+    <div class="polaroid-caption">Tampa · gift-card kid grown up.</div>
+  </div>
+
   <p>If you're sitting where 2021-me was sitting — round-tripping, panicking, or just guessing — I built this for you.</p>
 
   <div class="cta-block">
@@ -198,6 +292,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>30-day refund. Cancel in one click. Founder Rate locks in forever.</p>
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=about&utm_campaign=evergreen&utm_content=about_cta" target="_blank" rel="noopener" class="cta-btn">Claim Founder Rate — $29/mo →</a>
   </div>
+
+  </div><!-- /story-wrap -->
 
   <div class="footer-links">
     <a href="/">Home</a>
