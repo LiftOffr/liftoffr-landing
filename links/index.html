@@ -424,6 +424,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     line-height: 1.5;
   }
 
+  /* COLLAPSIBLE PAST CALLS — native <details> expander, no JS needed.
+     Saves ~300px on first paint; users who want the evidence can open it. */
+  .lh-calls-expander {
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 14px;
+    margin: 22px 0 18px;
+  }
+  .lh-calls-expander summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 13px 16px;
+    text-align: center;
+    font-size: 11px; color: #999;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 800;
+    user-select: none;
+  }
+  .lh-calls-expander summary::-webkit-details-marker { display: none; }
+  .lh-calls-expander summary .arrow { color: var(--red); margin-left: 4px; transition: transform 0.2s; display:inline-block; }
+  .lh-calls-expander[open] summary { border-bottom: 1px solid #161616; }
+  .lh-calls-expander[open] summary .arrow { transform: rotate(90deg); }
+  .lh-calls-expander .lh-calls {
+    margin: 0;
+    padding: 8px 16px 14px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+  }
+  .lh-calls-expander .lh-calls-label { display: none; }
+
   /* REVIEWS CAROUSEL — auto-advancing, swipe-friendly, pauses on touch */
   .lh-carousel { margin: 22px 0 8px; overflow: hidden; }
   .lh-carousel-label {
@@ -604,8 +635,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- Outcome line -->
-  <div class="outcome-line">Know exactly when to sell your Bitcoin — <em>before everyone else does.</em></div>
+  <!-- Live LiftOffr Score (this week's read) — research's chart-first hero recommendation -->
+  <div class="lh-score">
+    <div class="lh-score-eyebrow"><span class="pulse"></span>Live · this week's LiftOffr Score</div>
+    <div id="lh-score-num" class="lh-score-num">--</div>
+    <div id="lh-score-zone" class="lh-score-zone">loading…</div>
+    <div id="lh-score-trend" class="lh-score-trend">—</div>
+    <div id="lh-score-commentary" class="lh-score-commentary">—</div>
+    <div id="lh-score-asof" class="lh-score-asof">—</div>
+    <div class="lh-score-cta">Members get this <b>every Sunday at 8am MT</b> with the full breakdown.</div>
+  </div>
 
   <!-- Verified backtest proof card -->
   <a href="https://liftoffr.com/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_hero_proof" class="lh-proof">
@@ -638,47 +677,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lp-tiny">Instant delivery · Unsubscribe anytime</div>
   </div>
 
-  <!-- Live LiftOffr Score (this week's read) -->
-  <div class="lh-score">
-    <div class="lh-score-eyebrow"><span class="pulse"></span>Live · this week's LiftOffr Score</div>
-    <div id="lh-score-num" class="lh-score-num">--</div>
-    <div id="lh-score-zone" class="lh-score-zone">loading…</div>
-    <div id="lh-score-trend" class="lh-score-trend">—</div>
-    <div id="lh-score-commentary" class="lh-score-commentary">—</div>
-    <div id="lh-score-asof" class="lh-score-asof">—</div>
-    <div class="lh-score-cta">Members get this <b>every Sunday at 8am MT</b> with the full breakdown.</div>
-  </div>
-
-  <!-- Past calls — 3 entries -->
-  <div class="lh-calls">
-    <div class="lh-calls-label">What the framework <em>flagged</em></div>
-
-    <div class="lh-call">
-      <div class="lh-call-icon buy">↑</div>
-      <div class="lh-call-body">
-        <div class="lh-call-date">Dec 15, 2018 <span class="tag buy">Bottom</span></div>
-        <div class="lh-call-text">Buy signal at $3.2K. <strong>BTC ran 21× to $69K.</strong></div>
+  <!-- Past calls — collapsible by default. Native <details>, no JS needed. -->
+  <details class="lh-calls-expander">
+    <summary>See past calls — 3 logged signals<span class="arrow">→</span></summary>
+    <div class="lh-calls">
+      <div class="lh-call">
+        <div class="lh-call-icon buy">↑</div>
+        <div class="lh-call-body">
+          <div class="lh-call-date">Dec 15, 2018 <span class="tag buy">Bottom</span></div>
+          <div class="lh-call-text">Buy signal at $3.2K. <strong>BTC ran 21× to $69K.</strong></div>
+        </div>
       </div>
-    </div>
 
-    <div class="lh-call">
-      <div class="lh-call-icon buy">↑</div>
-      <div class="lh-call-body">
-        <div class="lh-call-date">Nov 26, 2022 <span class="tag buy">Bottom</span></div>
-        <div class="lh-call-text">Buy signal at $16.5K, days after the FTX collapse. <strong>BTC ran 7.5× to $124,824.</strong></div>
+      <div class="lh-call">
+        <div class="lh-call-icon buy">↑</div>
+        <div class="lh-call-body">
+          <div class="lh-call-date">Nov 26, 2022 <span class="tag buy">Bottom</span></div>
+          <div class="lh-call-text">Buy signal at $16.5K, days after the FTX collapse. <strong>BTC ran 7.5× to $124,824.</strong></div>
+        </div>
       </div>
-    </div>
 
-    <div class="lh-call">
-      <div class="lh-call-icon sell">↓</div>
-      <div class="lh-call-body">
-        <div class="lh-call-date">Dec 15, 2024 <span class="tag sell">Top</span></div>
-        <div class="lh-call-text">Sell signal at $104K. BTC peaked Oct 2025 at $124K. <strong>Down 36% since.</strong></div>
+      <div class="lh-call">
+        <div class="lh-call-icon sell">↓</div>
+        <div class="lh-call-body">
+          <div class="lh-call-date">Dec 15, 2024 <span class="tag sell">Top</span></div>
+          <div class="lh-call-text">Sell signal at $104K. BTC peaked Oct 2025 at $124K. <strong>Down 36% since.</strong></div>
+        </div>
       </div>
-    </div>
 
-    <div class="lh-calls-note">All in the public backtest. <a href="/track-record" style="color:#999;text-decoration:underline;">See the full trade log →</a></div>
-  </div>
+      <div class="lh-calls-note">All in the public backtest. <a href="/track-record" style="color:#999;text-decoration:underline;">See the full trade log →</a></div>
+    </div>
+  </details>
 
   <!-- Whop Founder Rate -->
   <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_join" target="_blank" rel="noopener" class="link-join">
@@ -686,14 +715,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lj-text">
       <div class="lj-stock" data-founder-text></div>
       <div class="lj-title">Claim Founder Rate — $29/mo</div>
-      <div class="lj-sub">Locks forever · 30-day refund · Cancel anytime</div>
+      <div class="lj-sub">If signals don't earn back the fee, full refund — no questions.</div>
     </div>
     <div class="lj-arrow">→</div>
   </a>
 
   <!-- AUTO-SCROLL REVIEWS CAROUSEL — 3 Discord member testimonials, advances every 5s -->
   <div class="lh-carousel" id="lh-carousel">
-    <div class="lh-carousel-label">What members say</div>
+    <div class="lh-carousel-label">What <span id="lh-member-count">72</span> members say</div>
     <div class="lh-carousel-track" id="lh-carousel-track">
 
       <div class="lh-test">
