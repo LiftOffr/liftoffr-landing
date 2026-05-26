@@ -557,7 +557,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
     if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
     if (d.remaining <= 0) return;
-    var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+    var text = '$29/mo locked for life · public price $49';
     var els = document.querySelectorAll('[data-founder-text]');
     for (var i = 0; i < els.length; i++) els[i].textContent = text;
   }).catch(function(){});

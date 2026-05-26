@@ -207,7 +207,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="avatar"><img src="/links/torin-avatar.jpg?v=5" alt="Torin Christianson" width="100" height="100" loading="eager" /></div>
     <h1>Torin <span>Christianson</span></h1>
     <div class="tagline">Founder of LiftOffr · BTC Cycle Investor</div>
-    <div class="stats"><span>3M+</span> views · Daily BTC analysis</div>
+    <div class="stats"><span>3M+</span> views · Cycle tops called <span>2013·17·21·25</span> · Daily brief 8am MT</div>
   </div>
 
   <!-- 1. PRIMARY: Lead Magnet with inline email form -->
@@ -230,7 +230,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lj-text">
       <div class="lj-stock" data-founder-text></div>
       <div class="lj-title">Claim Founder Rate — $29/mo</div>
-      <div class="lj-sub">Locks in forever · Daily briefs + signals + community</div>
+      <div class="lj-sub">Locks forever · 30-day refund · Cancel anytime</div>
     </div>
     <div class="lj-arrow">→</div>
   </a>
@@ -389,7 +389,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
         if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
         if (d.remaining <= 0) return;
-        var text = d.remaining + ' of ' + d.total + ' founder spots remaining';
+        var text = '$29/mo locked for life · public price $49';
         var els = document.querySelectorAll('[data-founder-text]');
         for (var i = 0; i < els.length; i++) els[i].textContent = text;
       }).catch(function(){});
