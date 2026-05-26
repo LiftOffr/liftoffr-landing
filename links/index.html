@@ -166,6 +166,143 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   footer { text-align: center; margin-top: 40px; font-size: 11px; color: #444; }
   footer a { color: var(--red); text-decoration: none; }
+
+  /* OUTCOME LINE — bold one-liner that sets up the page intent */
+  .outcome-line {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+    color: #fff;
+    margin: 8px 4px 22px;
+  }
+  .outcome-line em { font-style: normal; color: var(--red); }
+
+  /* PROOF CARD — green-accented backtest stats, mirrors homepage hero-proof */
+  .lh-proof {
+    display: block;
+    background: rgba(15,15,15,0.85);
+    border: 1px solid rgba(34,197,94,0.32);
+    border-radius: 14px;
+    padding: 14px 18px 12px;
+    margin-bottom: 18px;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+  .lh-proof:hover {
+    transform: translateY(-1px);
+    border-color: rgba(34,197,94,0.65);
+    box-shadow: 0 6px 20px rgba(34,197,94,0.14);
+  }
+  .lh-proof-eyebrow {
+    font-size: 9.5px; font-weight: 800;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: #22c55e;
+    margin-bottom: 9px;
+    text-align: center;
+  }
+  .lh-proof-row { display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .lh-proof-stat { text-align: center; }
+  .lh-proof-num {
+    font-family: 'JetBrains Mono', SF Mono, Menlo, monospace;
+    font-size: 18px; font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #22c55e;
+    line-height: 1.1;
+  }
+  .lh-proof-num .arrow { color: #fff; padding: 0 4px; opacity: 0.55; font-weight: 500; }
+  .lh-proof-lbl { font-size: 10px; color: #aaa; margin-top: 3px; letter-spacing: 0.3px; }
+  .lh-proof-divider { width: 1px; height: 30px; background: #2a2a2a; }
+  .lh-proof-cta { margin-top: 10px; font-size: 11px; font-weight: 800; color: #22c55e; text-align: center; letter-spacing: 0.5px; }
+
+  /* SKIP-AHEAD CTA — appears inside the lead-magnet form success state.
+     Lets the visitor jump straight to Whop instead of waiting 5 days for nurture. */
+  .lp-skip {
+    display: block;
+    margin-top: 14px;
+    padding: 11px 14px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: 9px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.18s, border-color 0.18s;
+  }
+  .lp-skip:hover { background: rgba(0,0,0,0.6); border-color: #fff; }
+  .lp-skip-eyebrow { display: block; font-size: 10px; font-weight: 700; opacity: 0.65; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+
+  /* TESTIMONIALS — three Discord-styled cards from the homepage */
+  .lh-testimonials { margin: 28px 0 22px; }
+  .lh-testimonials-label {
+    text-align: center;
+    font-size: 11px; color: #555;
+    margin-bottom: 14px;
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;
+  }
+  .lh-test {
+    background: #0d0d0d;
+    border: 1px solid #1e1e1e;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .lh-test-bar {
+    font-size: 11px; color: #888;
+    margin-bottom: 8px; font-weight: 700;
+  }
+  .lh-test-bar .hash { color: #555; margin-right: 2px; }
+  .lh-test-body { display: flex; gap: 10px; }
+  .lh-test-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%; flex-shrink: 0;
+    overflow: hidden; background: #1a1a1a;
+  }
+  .lh-test-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .lh-test-content { flex: 1; min-width: 0; }
+  .lh-test-meta { font-size: 10.5px; color: #888; margin-bottom: 3px; }
+  .lh-test-name { color: #fff; font-weight: 700; margin-right: 6px; }
+  .lh-test-text { font-size: 13px; color: #ddd; line-height: 1.5; }
+
+  /* COMPACT SOCIALS — replaces the 5 prominent link cards. Demoted to a single row. */
+  .lh-socials { margin: 28px 0 12px; text-align: center; }
+  .lh-socials-label {
+    font-size: 11px; color: #555;
+    margin-bottom: 12px;
+    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;
+  }
+  .lh-socials-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .lh-social {
+    display: flex; align-items: center; gap: 6px;
+    padding: 8px 12px;
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 8px;
+    font-size: 12px; font-weight: 700;
+    color: #ccc; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lh-social:hover { border-color: var(--red); color: #fff; }
+  .lh-social-icon { font-size: 13px; }
+
+  /* SITE LINK — kept but compact, single row */
+  .lh-site {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: #ddd; text-decoration: none;
+    margin-top: 18px;
+    font-size: 13px; font-weight: 700;
+    transition: border-color 0.2s;
+  }
+  .lh-site:hover { border-color: var(--red); }
+  .lh-site .arrow { color: var(--red); font-weight: 800; }
 </style>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
@@ -210,7 +347,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="stats"><span>3M+</span> views · Cycle tops called <span>2013·17·21·25</span> · Daily brief 8am MT</div>
   </div>
 
-  <!-- 1. PRIMARY: Lead Magnet with inline email form -->
+  <!-- Bold outcome line — sets the page's intent before the offers -->
+  <div class="outcome-line">Know exactly when to sell your Bitcoin — <em>before everyone else does.</em></div>
+
+  <!-- Verified backtest proof card -->
+  <a href="https://liftoffr.com/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_hero_proof" class="lh-proof">
+    <div class="lh-proof-eyebrow">Verified backtest · 2017 → 2026</div>
+    <div class="lh-proof-row">
+      <div class="lh-proof-stat">
+        <div class="lh-proof-num">$50<span class="arrow">→</span>$1.88M</div>
+        <div class="lh-proof-lbl">From $50/wk + V7 signals</div>
+      </div>
+      <div class="lh-proof-divider"></div>
+      <div class="lh-proof-stat">
+        <div class="lh-proof-num">+7,602%</div>
+        <div class="lh-proof-lbl">vs pure DCA</div>
+      </div>
+    </div>
+    <div class="lh-proof-cta">See the full backtest →</div>
+  </a>
+
+  <!-- PRIMARY: Lead Magnet with inline email form -->
   <div class="link-primary">
     <div class="lp-eyebrow">🎁 Free · 2-in-1</div>
     <div class="lp-title">Cycle Top Checklist + Weekly LiftOffr Score</div>
@@ -224,7 +381,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lp-tiny">Instant delivery · Unsubscribe anytime</div>
   </div>
 
-  <!-- 2. JOIN: Whop Founder Rate (moved up from bottom) -->
+  <!-- SECONDARY: Whop Founder Rate -->
   <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_join" target="_blank" rel="noopener" class="link-join">
     <div class="lj-icon">🚀</div>
     <div class="lj-text">
@@ -235,77 +392,63 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lj-arrow">→</div>
   </a>
 
-  <!-- 3. PROOF: Track Record -->
-  <a href="https://liftoffr.com/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_track_record" class="link-proof">
-    <div class="lpr-icon">📊</div>
-    <div class="lpr-text">
-      <div class="lpr-title">See the Track Record</div>
-      <div class="lpr-sub">$50/wk DCA + signals → $1.88M since 2017</div>
+  <!-- TESTIMONIALS — three Discord member-wins from the private channel -->
+  <div class="lh-testimonials">
+    <div class="lh-testimonials-label">What members say</div>
+
+    <div class="lh-test">
+      <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
+      <div class="lh-test-body">
+        <div class="lh-test-avatar"><img src="https://i.kym-cdn.com/entries/icons/facebook/000/046/344/blue_guy_copy.jpg" alt=""></div>
+        <div class="lh-test-content">
+          <div class="lh-test-meta"><span class="lh-test-name">Tyr</span><span>July 14, 2025</span></div>
+          <div class="lh-test-text">Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. Finally had a system instead of a guess.</div>
+        </div>
+      </div>
     </div>
-    <div class="lpr-arrow">→</div>
+
+    <div class="lh-test">
+      <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
+      <div class="lh-test-body">
+        <div class="lh-test-avatar" style="image-rendering:pixelated;"><img src="https://api.dicebear.com/9.x/pixel-art/png?seed=Marcus_btc_v2&size=80&backgroundColor=1a1a1a" alt=""></div>
+        <div class="lh-test-content">
+          <div class="lh-test-meta"><span class="lh-test-name">Marcus_btc</span><span>April 3, 2025</span></div>
+          <div class="lh-test-text">In crypto since 2018, never had a system. First cycle with LiftOffr and I actually knew what the indicators were telling me. Sold 60% of my BTC stack when CBBI hit 0.83. Looking very smart now.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lh-test">
+      <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
+      <div class="lh-test-body">
+        <div class="lh-test-avatar"><img src="https://api.dicebear.com/9.x/notionists/png?seed=kyle_stacks_v2&size=80&backgroundColor=1a1a1a" alt=""></div>
+        <div class="lh-test-content">
+          <div class="lh-test-meta"><span class="lh-test-name">kyle_stacks</span><span>March 19, 2025</span></div>
+          <div class="lh-test-text">The daily brief alone is worth $29/mo. Used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:10px;color:#444;text-align:center;margin-top:10px;line-height:1.5;">Shared with permission · Results not typical · Educational, not financial advice</div>
+  </div>
+
+  <!-- SITE — compact single-row link -->
+  <a href="https://liftoffr.com/?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_site" class="lh-site">
+    <span>🌐 The full system breakdown — liftoffr.com</span>
+    <span class="arrow">→</span>
   </a>
 
-  <!-- 4. Site -->
-  <a href="https://liftoffr.com/?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_site" class="link">
-    <div class="link-icon">🌐</div>
-    <div class="link-text">
-      <div class="link-title">What is LiftOffr?</div>
-      <div class="link-sub">The full system breakdown</div>
+  <!-- DEMOTED SOCIAL CHANNELS — single compressed row instead of 5 prominent cards -->
+  <div class="lh-socials">
+    <div class="lh-socials-label">Find Torin on</div>
+    <div class="lh-socials-row">
+      <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">📺</span><span>YouTube</span></a>
+      <a href="https://www.instagram.com/liftoffr/" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">📊</span><span>@liftoffr</span></a>
+      <a href="https://www.instagram.com/torin_christianson/" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">📸</span><span>@torin</span></a>
+      <a href="https://x.com/LiftOffr_" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">𝕏</span><span>X</span></a>
+      <a href="https://www.tiktok.com/@torin_christianson" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">🎵</span><span>TikTok</span></a>
     </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <div class="section-label">Follow along</div>
-
-  <!-- 5. YouTube -->
-  <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">📺</div>
-    <div class="link-text">
-      <div class="link-title">YouTube</div>
-      <div class="link-sub">Weekly cycle analysis & long-form</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <!-- 6. Instagram LiftOffr (brand) -->
-  <a href="https://www.instagram.com/liftoffr/" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">📊</div>
-    <div class="link-text">
-      <div class="link-title">Instagram — @liftoffr</div>
-      <div class="link-sub">Indicator breakdowns & cycle education</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <!-- 7. X / Twitter -->
-  <a href="https://x.com/LiftOffr_" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">𝕏</div>
-    <div class="link-text">
-      <div class="link-title">X (Twitter)</div>
-      <div class="link-sub">Market takes & cycle analysis</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <!-- 8. TikTok -->
-  <a href="https://www.tiktok.com/@torin_christianson" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">🎵</div>
-    <div class="link-text">
-      <div class="link-title">TikTok</div>
-      <div class="link-sub">Daily lifestyle & Bitcoin takes</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
-
-  <!-- 9. Instagram personal -->
-  <a href="https://www.instagram.com/torin_christianson/" target="_blank" rel="noopener me" class="link">
-    <div class="link-icon">📸</div>
-    <div class="link-text">
-      <div class="link-title">Instagram — @torin_christianson</div>
-      <div class="link-sub">Daily lifestyle & cycle updates</div>
-    </div>
-    <div class="link-arrow">→</div>
-  </a>
+  </div>
 
   <script>
     function getLeadUtms() {
@@ -358,7 +501,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if (msg) {
           msg.style.display = 'block';
           msg.style.color = '#fff';
-          msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.';
+          // Success state: confirm + offer the direct path to Whop so visitors who
+          // are already sold don't have to wait 5 days for the nurture sequence.
+          msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.' +
+            '<a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_skip_ahead" target="_blank" rel="noopener" class="lp-skip">' +
+              '<span class="lp-skip-eyebrow">Skip the email · join now</span>' +
+              'Lock $29/mo Founder Rate forever →' +
+            '</a>';
           form.parentNode.appendChild(msg);
         }
         if (typeof window.track === 'function') {
