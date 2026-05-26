@@ -35,7 +35,8 @@ Torin Christianson — Bitcoin cycle investor and educator. Analyzing BTC on-cha
 
 ## Public APIs
 - [/api/founder-count](https://liftoffr.com/api/founder-count): GET — returns live count of remaining founder spots, e.g. `{"filled":1,"remaining":29,"total":30}`
-- [/api/subscribe](https://liftoffr.com/api/subscribe): POST — proxies email signup to Beehiiv
+- [/api/subscribe](https://liftoffr.com/api/subscribe): POST — adds email to LiftOffr free list and immediately sends the welcome email (Cycle Top Checklist PDF + current LiftOffr Score)
+- [/api/cycle-score](https://liftoffr.com/api/cycle-score): GET — returns the live LiftOffr Score (0-100 composite of 9 BTC cycle indicators), zone, trend, and component readings
 
 ## Disclaimer
 All content is educational only and not financial advice. Cryptocurrency markets are highly volatile. Past indicator behavior does not guarantee future results.

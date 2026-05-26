@@ -6,6 +6,10 @@
     {
       "path": "/api/cron-weekly-score",
       "schedule": "0 15 * * *"
+    },
+    {
+      "path": "/api/cron-welcome-followups",
+      "schedule": "0 17 * * *"
     }
   ],
   "redirects": [

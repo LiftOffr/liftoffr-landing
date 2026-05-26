@@ -7,15 +7,14 @@
 //   1. Day-of-week guard (Sunday only)
 //   2. Auth guard (CRON_SECRET header) so random callers can't fire sends
 //   3. Pull LiftOffr Score from /api/cycle-score (internal)
-//   4. Pull Beehiiv free-tier subscribers
+//   4. Pull Resend audience contacts (LiftOffr Free)
 //   5. Send a personalized email via Resend to each
 //   6. Return summary
 //
 // Env required:
 //   CRON_SECRET           — random string, must match the Vercel cron auth header
-//   BEEHIIV_API_KEY       — already set
-//   BEEHIIV_PUBLICATION_ID — already set
-//   RESEND_API_KEY        — already set
+//   RESEND_API_KEY        — Resend sending key (audience + send scope)
+//   RESEND_AUDIENCE_ID    — UUID of the "LiftOffr Free" audience
 
 export const config = { runtime: "nodejs" };
 
@@ -93,14 +92,14 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
   ].filter(Boolean).join("\n");
 }
 
-async function fetchBeehiivSubscribers() {
-  const key = process.env.BEEHIIV_API_KEY;
-  const pub = process.env.BEEHIIV_PUBLICATION_ID;
-  const r = await fetch(`https://api.beehiiv.com/v2/publications/${pub}/subscriptions?limit=500&status=active`, {
+async function fetchResendAudienceContacts() {
+  const key = process.env.RESEND_API_KEY;
+  const aud = process.env.RESEND_AUDIENCE_ID;
+  const r = await fetch(`https://api.resend.com/audiences/${aud}/contacts`, {
     headers: { Authorization: `Bearer ${key}`, Accept: "application/json" },
   });
   const data = await r.json();
-  return (data.data || []).filter((s) => s.email && s.status === "active");
+  return (data.data || []).filter((c) => c.email && !c.unsubscribed);
 }
 
 async function fetchScore(baseUrl) {
@@ -158,7 +157,7 @@ export default async function handler(req, res) {
 
     const [score, subs] = await Promise.all([
       fetchScore(baseUrl),
-      fetchBeehiivSubscribers(),
+      fetchResendAudienceContacts(),
     ]);
 
     const subject = `${SUBJECT_BASE}: ${score.score.toFixed(1)} (${score.zone})`;

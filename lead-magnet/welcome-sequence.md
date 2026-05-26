@@ -1,177 +1,140 @@
-# LiftOffr Welcome Email Sequence
+# LiftOffr Welcome Sequence — Consolidated (Checklist + Score)
 
-**Trigger:** New subscriber via "BTC Cycle Top Checklist" lead magnet
-**Sequence length:** 5 emails over 7 days
-**Goal:** Deliver value → build trust → convert ~10% to LiftOffr Founder ($29/mo)
+**Trigger:** New subscriber via "BTC Cycle Top Checklist + Weekly Score" form
+**Sequence length:** 3 emails over 7 days, then the recurring Sunday Score takes over
+**Goal:** Deliver the Checklist instantly → frame the Score as the recurring relationship → soft-pitch LiftOffr Founder once
 
-Paste each into Beehiiv as an Automation step. Subject lines tested for crypto creator inbox conversion (curiosity > clickbait).
+The Checklist is the *door*. The Sunday Score is the *room*. Don't separate them — treat them as one funnel where the welcome hands off cleanly into the weekly cadence.
 
 ---
 
 ## EMAIL 1 — Day 0 (Immediate)
 
-**Subject:** Your BTC Cycle Top Checklist (1 quick thing first)
-**Preheader:** Plus a heads-up about how I use this myself.
+**Subject:** Your Cycle Top Checklist + the Score you'll get every Sunday
+**Preheader:** Two things below. The checklist is the foundation; the Score is what you'll get from me weekly.
 
 ---
 
 Hey,
 
-Here's the checklist you asked for: **[👉 Download the PDF](LINK_TO_PDF)**
+Two things in this email — the checklist you asked for, and a quick heads-up about what shows up in your inbox every Sunday from now on.
 
-Print it. Stick it next to your screen. Every Sunday, run through the 8 indicators and count how many are in the trigger zone.
+**1. The BTC Cycle Top Checklist (your download):**
 
-Quick context on why I built this:
+[👉 Download the PDF](https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf)
 
-In 2021 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium and Twitter takes.
+Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.
 
-This checklist is the foundation of mine. When 5+ indicators flash "TOP ZONE" simultaneously, history says the cycle is near peak. No single one is reliable. Confluence is the signal.
+**2. The LiftOffr Score — every Sunday morning:**
 
-**One ask:** open the PDF. Skim it. Tomorrow I'll send you the indicator that's caused me the most pain (and the most profit) — and how to read it without getting faked out.
+Reading the checklist yourself takes ~15 minutes a week. The LiftOffr Score does it for you. It's a single number (0–100) that weights all 9 cycle indicators into one read.
+
+- Above 85 → historic top zone. Time to start scaling out.
+- 60–85 → late-cycle / warning. Tighten exits.
+- 40–60 → neutral. DCA continues.
+- 20–40 → accumulation. Buy more weekly.
+- Below 20 → deep accumulation. Aggressive DCA.
+
+This week's Score is **45.6 — neutral, falling**. Recovery / re-accumulation phase. Continue weekly DCA.
+
+You'll get a fresh read in your inbox every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what to do this week.
+
+**Why I built this:**
+
+In 2021 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. The Checklist + Score is the system I wish I'd had then.
+
+See you Sunday.
 
 — Torin
 *Founder, LiftOffr*
 
-P.S. If the PDF didn't open, [click here to grab it again](LINK_TO_PDF).
+P.S. The PDF link again in case the first one didn't open: [download here](https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf). Live dashboard with the current Score: [liftoffr.com/dashboard](https://liftoffr.com/dashboard).
 
 ---
 
-## EMAIL 2 — Day 2
+## EMAIL 2 — Day 3
 
-**Subject:** The indicator that's wrong 3% of the time (and right the other 97%)
-**Preheader:** Most people misread it. Here's the catch.
+**Subject:** How to actually use the Score (and what 60+ members do daily)
+**Preheader:** The checklist tells you when. The framework tells you how.
 
 ---
 
-The Pi Cycle Top Indicator has called the BTC top within 3 days on three of the last four cycles.
+Quick one.
 
-2013 top? Called it.
-2017 top? Called it.
-April 2021 local top? Called it.
+You've got the Checklist. You'll get the Score every Sunday. Here's the gap between *having information* and *running a system*:
 
-But it missed the November 2021 ATH at $69K. And it completely missed the October 2025 cycle peak at $124,824 — peaked at only 83% of the cross threshold and never fired.
+**The Score tells you the zone. The framework tells you what to do in each zone.**
 
-That's 3 hits, 2 misses across documented cycles. Most people who hear "100% hit rate" fall in love and start trading off it alone.
+Example: Score crosses 85.
 
-**Don't.**
+Most people: panic-sell 100% of their stack. Or worse — convince themselves "this time is different" and hold through the top.
 
-Here's the catch: it's a binary signal. It either fires or it doesn't. And in between, there are dozens of "almost crosses" that look identical to the real thing on Twitter. People sell the fake-out and miss the actual top by 30%.
+What works instead (this is Module 5 of the LiftOffr course):
 
-The fix is confluence. When Pi Cycle is *about* to cross AND CBBI is 90+, AND MVRV is 7+ — that's the real signal.
+- 25% out when Score hits 70
+- 25% out when Score hits 80
+- 25% out when Score hits 85
+- 25% out when 3+ binary triggers fire (Pi Cycle, MVRV 7+, CBBI 90+)
 
-Your checklist already lays this out (rows 1, 2, and 3). When the top three indicators line up, that's your "execute exit plan" moment. Anything less is a maybe.
+By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.
 
-Tomorrow: how to actually exit when the signal fires. Most people leave 40% on the table.
+**Why this matters:** The biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.
+
+Members of LiftOffr get this framework as part of the 6-module course, plus a daily 3-minute brief in Discord every morning at 8am MT that says "here's the read, here's what to do today." If you've been getting value from these emails, the daily brief is the same thing — every day, before market hours.
+
+[See what's inside →](https://liftoffr.com/?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_2)
 
 — Torin
 
 ---
 
-## EMAIL 3 — Day 4
+## EMAIL 3 — Day 7
 
-**Subject:** "Should I sell everything when the signal fires?" (no)
-**Preheader:** A profit-taking framework that actually scales out.
-
----
-
-Quick story.
-
-2021. CBBI hit 95. Pi Cycle was 2 weeks from crossing. MVRV was 7.5. The signals were screaming.
-
-A friend of mine sold 100% of his BTC at $58k. Felt like a genius. BTC then ran to $69k. He missed $11k of upside and watched it for two weeks before "buying back" at $64k... right before the actual top.
-
-The mistake: binary thinking. *"Sell everything"* or *"hold everything."*
-
-Here's what works instead — what we teach in Module 5:
-
-**Scaled exits:**
-- 25% out when CBBI hits 85
-- 25% out when CBBI hits 90
-- 25% out when Pi Cycle confirms
-- 25% out when MVRV hits 7+
-
-By the time the top is *obvious* in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.
-
-This is the difference between *information* (what the indicators say) and a *system* (what to actually do about it).
-
-The checklist tells you when. The framework tells you how.
-
-— Torin
-
-P.S. The full framework — entries, exits, and bear market positioning — is Module 5 of the course. More on that this weekend.
+**Subject:** Last welcome email — what happens next
+**Preheader:** From here on out it's just the Sunday Score. Plus a 30-day window if you want more.
 
 ---
 
-## EMAIL 4 — Day 5
+Last email in the welcome sequence.
 
-**Subject:** What 60+ members get every morning at 7am
-**Preheader:** The 3-minute brief that runs my entire day.
+From now on you'll get one email from me every Sunday morning — the LiftOffr Score, the zone, and a one-line read on what it means this week. That's the ongoing relationship. No daily spam, no sales sequences, no recycled Twitter takes.
 
----
+You can absolutely DIY this. Read the Score each Sunday, run the Checklist yourself, build your own discipline. That alone puts you ahead of 99% of crypto investors.
 
-Quick one today.
+But if you'd rather have it *done for you* — the daily briefs, the live dashboard, real-time signal alerts when triggers fire, the 6-module course, and the private Discord community — LiftOffr's Founder Rate is **$29/mo, locked in forever**.
 
-Every morning at 7am MT, members of LiftOffr get a brief in Discord. Takes me ~45 minutes to write. Takes them 3 minutes to read.
-
-Format never changes:
-
-1. **BTC price + 24h move** + key support/resistance
-2. **Cycle indicator deltas** (what changed since yesterday)
-3. **Macro context** (Fed, ETFs, anything moving the tape)
-4. **What it means for your position today** (the actionable line)
-
-That's it. No charts to interpret yourself. No vague takes. Just: here's the read, here's what to do.
-
-The members who actually compound returns aren't the ones with the most knowledge. They're the ones with a daily routine. The brief is that routine.
-
-If you've been getting value from these emails, the brief is the same thing — every day, before market hours.
-
-[See what's inside →](https://liftoffr.com/?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_4)
-
-— Torin
-
----
-
-## EMAIL 5 — Day 7
-
-**Subject:** Last one — and a 30-day window
-**Preheader:** Either it works or you get every dollar back.
-
----
-
-Last email in the welcome series.
-
-You've got the checklist. You understand confluence. You know the exit framework.
-
-You can absolutely DIY this. Read the indicators yourself, run the score every Sunday, build your own discipline.
-
-Or — if you'd rather have the daily briefs done for you, the live signals delivered to Discord, and the 6-module course that walks you through every phase of the cycle — LiftOffr's Founder Rate is **$29/mo, locked in forever**.
-
-**Risk-free for 30 days.** If it's not for you in the first month, full refund. No questions, no friction.
+**Risk-free for 30 days.** If it's not for you, full refund. No friction.
 
 What you get:
-- Daily BTC market briefs (every morning before market open)
-- Weekly cycle indicator dashboard with live confluence scoring
-- Live entry/exit signals when high-conviction setups appear
-- 6 modules covering foundations → multi-cycle wealth strategy
-- AI Q&A bot trained on the curriculum
-- Private Discord community
+- Daily BTC market brief in Discord (8am MT, weekdays)
+- Live dashboard with the current Score updated daily
+- Real-time signal alerts when V7 triggers fire
+- 6 modules: foundations → exit framework → multi-cycle wealth strategy
+- Custom AI Q&A bot trained on the LiftOffr curriculum
+- Founder badge + access to the private community
 
-[Claim Founder Rate — $29/mo locked forever →](https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_5)
+[Claim Founder Rate — $29/mo locked forever →](https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_3)
 
-Either way — you've got the checklist now. Use it. Print it. Run the score every Sunday. That alone puts you ahead of 99% of crypto investors.
+Either way — see you Sunday.
 
 — Torin
 *Founder, LiftOffr*
 
-P.S. I'll keep emailing you weekly with cycle updates. No more sequences. No spam. Just the read on where we are and what it means.
+P.S. The Founder Rate is capped at 30 spots. Live count at [liftoffr.com](https://liftoffr.com).
 
 ---
 
 ## Notes for Beehiiv setup
 
-1. Create new Automation: trigger = "Subscribed via form: cycle-top-checklist"
-2. Add 5 email steps with delays: 0d, 2d, 2d, 1d, 2d
-3. Replace `LINK_TO_PDF` with the hosted PDF URL once uploaded (Beehiiv has built-in file hosting, OR upload to Vercel and use `https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf`)
-4. Tag subscribers with `lead-magnet:cycle-checklist` for future segmentation
-5. After Day 7, drop them into the regular weekly newsletter list
+**The old 5-email sequence is replaced.** Delete Emails 4 and 5 from the existing automation (the "60+ members" and "30-day window" emails). Compress to 3 emails + 2 delays:
+
+1. **Email 1** (Day 0, immediate) — paste new EMAIL 1 above
+2. **Time delay** — 3 days
+3. **Email 2** (Day 3) — paste new EMAIL 2 above
+4. **Time delay** — 4 days
+5. **Email 3** (Day 7) — paste new EMAIL 3 above
+6. **End of automation** — subscribers fall into the recurring Sunday Score broadcast
+
+**Critical:** after Email 3 the subscriber is now in the "weekly Score" cadence. The Vercel cron at `/api/cron-weekly-score` pulls every active Beehiiv subscriber every Sunday and sends them the Score via Resend. No additional setup needed — they're already on the list.
+
+**Why 3 emails not 5:** the old sequence was a pure sales funnel ending at "buy LiftOffr." The new sequence positions the Score as the ongoing value, so the welcome only needs to: (a) deliver the Checklist, (b) set the Sunday expectation, (c) make one Founder pitch. After that, the Score does the selling every week by demonstrating value.
