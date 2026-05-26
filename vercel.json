@@ -25,8 +25,8 @@
     },
     {
       "source": "/tiktok",
-      "destination": "/links/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen&utm_content=tiktok_bio",
-      "permanent": true
+      "destination": "/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen&utm_content=tiktok_bio",
+      "permanent": false
     },
     {
       "source": "/x",
