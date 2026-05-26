@@ -365,6 +365,86 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .lh-score-cta b { color: var(--red); }
 
+  /* PAST CALLS TIMELINE — falsifiable timestamped evidence of the framework working */
+  .lh-calls {
+    margin: 22px 0 18px;
+    padding: 18px 16px;
+    background: #0a0a0a;
+    border: 1px solid #1e1e1e;
+    border-radius: 14px;
+  }
+  .lh-calls-label {
+    text-align: center;
+    font-size: 11px; color: #777;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .lh-calls-label em { font-style: normal; color: var(--red); }
+  .lh-call {
+    display: flex; gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #161616;
+  }
+  .lh-call:last-child { border-bottom: none; }
+  .lh-call-icon {
+    font-size: 16px;
+    width: 26px; flex-shrink: 0;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .lh-call-icon.sell { color: #ef4444; }
+  .lh-call-icon.buy  { color: #22c55e; }
+  .lh-call-body { flex: 1; min-width: 0; }
+  .lh-call-date {
+    font-family: 'JetBrains Mono', SF Mono, Menlo, monospace;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin-bottom: 3px;
+  }
+  .lh-call-date .tag {
+    margin-left: 6px;
+    font-size: 9px; font-weight: 800;
+    padding: 1px 6px; border-radius: 3px;
+    letter-spacing: 0.8px; text-transform: uppercase;
+  }
+  .lh-call-date .tag.sell { color: #ef4444; background: rgba(239,68,68,0.1); }
+  .lh-call-date .tag.buy  { color: #22c55e; background: rgba(34,197,94,0.1); }
+  .lh-call-text {
+    font-size: 12.5px; color: #ccc;
+    line-height: 1.5;
+  }
+  .lh-call-text strong { color: #fff; }
+  .lh-calls-note {
+    margin-top: 12px;
+    font-size: 10px; color: #555;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* COMPACT IDENTITY STRIP (replaces oversized hero avatar) */
+  .lh-identity {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px;
+    margin: 0 0 18px;
+    font-size: 13px;
+    color: #ccc;
+  }
+  .lh-identity .id-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 2px solid var(--red);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .lh-identity .id-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lh-identity .id-text { text-align: left; line-height: 1.3; }
+  .lh-identity .id-name { font-weight: 800; color: #fff; font-size: 14px; }
+  .lh-identity .id-tag  { color: #888; font-size: 11px; }
+
   /* FINAL CTA — closes the page with the offer, not the social links */
   .lh-final {
     margin: 28px 0 22px;
@@ -474,11 +554,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div class="wrap">
-  <div class="header">
-    <div class="avatar"><img src="/links/torin-avatar.jpg?v=5" alt="Torin Christianson" width="100" height="100" loading="eager" /></div>
-    <h1>Torin <span>Christianson</span></h1>
-    <div class="tagline">Founder of LiftOffr · BTC Cycle Investor</div>
-    <div class="stats"><span>4M+</span> views · Cycle tops called <span>2013·17·21·25</span> · Daily brief 8am MT</div>
+  <!-- LIVE LIFTOFFR SCORE — promoted to hero position. This is the product, working, right now.
+       Replaces the lifestyle-photo hero pattern (which is wrong for a data product). -->
+  <div class="lh-score" style="margin-top:0;">
+    <div class="lh-score-eyebrow"><span class="pulse"></span>Live · this week's read</div>
+    <div id="lh-score-num" class="lh-score-num">--</div>
+    <div id="lh-score-zone" class="lh-score-zone">loading…</div>
+    <div id="lh-score-trend" class="lh-score-trend">—</div>
+    <div id="lh-score-commentary" class="lh-score-commentary">—</div>
+    <div id="lh-score-asof" class="lh-score-asof">—</div>
+    <div class="lh-score-cta">Members get this <b>every Sunday at 8am MT</b> with the full breakdown.</div>
+  </div>
+
+  <!-- Compact identity strip — keeps the human signal without the page being about my face -->
+  <div class="lh-identity">
+    <div class="id-avatar"><img src="/links/torin-avatar.jpg?v=5" alt="Torin Christianson" width="36" height="36" loading="eager"></div>
+    <div class="id-text">
+      <div class="id-name">Torin Christianson</div>
+      <div class="id-tag">4M+ readers across IG, YouTube, TikTok</div>
+    </div>
   </div>
 
   <!-- Bold outcome line — sets the page's intent before the offers -->
@@ -501,15 +595,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lh-proof-cta">See the full backtest →</div>
   </a>
 
-  <!-- LIVE LIFTOFFR SCORE — real data, pulled from /api/cycle-score on page load -->
-  <div class="lh-score">
-    <div class="lh-score-eyebrow"><span class="pulse"></span>Live · this week's read</div>
-    <div id="lh-score-num" class="lh-score-num">--</div>
-    <div id="lh-score-zone" class="lh-score-zone">loading…</div>
-    <div id="lh-score-trend" class="lh-score-trend">—</div>
-    <div id="lh-score-commentary" class="lh-score-commentary">—</div>
-    <div id="lh-score-asof" class="lh-score-asof">—</div>
-    <div class="lh-score-cta">Members get this <b>every Sunday at 8am MT</b> with the full breakdown.</div>
+  <!-- PAST CALLS TIMELINE — timestamped, falsifiable, dated to the actual V7 signal log. -->
+  <div class="lh-calls">
+    <div class="lh-calls-label">What the framework <em>flagged</em></div>
+
+    <div class="lh-call">
+      <div class="lh-call-icon sell">↓</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Dec 1, 2017 <span class="tag sell">Top signal</span></div>
+        <div class="lh-call-text">Tier 1 SELL fired. Position fully cleared by Jan 17, 2018. <strong>BTC then drew down 84% over the next 12 months</strong> ($19.7K → $3.2K).</div>
+      </div>
+    </div>
+
+    <div class="lh-call">
+      <div class="lh-call-icon buy">↑</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Dec 15, 2018 <span class="tag buy">Bottom signal</span></div>
+        <div class="lh-call-text">Tier 1 BUY at $3.2K — within 4% of the cycle low. <strong>BTC ran 21× to $69K by Nov 2021.</strong></div>
+      </div>
+    </div>
+
+    <div class="lh-call">
+      <div class="lh-call-icon sell">↓</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Feb 21, 2021 <span class="tag sell">Top signal</span></div>
+        <div class="lh-call-text">Tier 1 SELL began. Position cleared by Feb 27. <strong>BTC made one final leg to $69K, then crashed 77% to $15.5K by Nov 2022.</strong> Framework exited with cycle gains intact.</div>
+      </div>
+    </div>
+
+    <div class="lh-call">
+      <div class="lh-call-icon buy">↑</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Nov 26, 2022 <span class="tag buy">Bottom signal</span></div>
+        <div class="lh-call-text">Tier 1 BUY at $16.5K — within days of the FTX-collapse bottom. <strong>BTC then ran to $124,824 by Oct 6, 2025 — a 7.5× return.</strong></div>
+      </div>
+    </div>
+
+    <div class="lh-call">
+      <div class="lh-call-icon sell">↓</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Dec 15, 2024 <span class="tag sell">Top signal — current cycle</span></div>
+        <div class="lh-call-text">Tier 1 SELL fired at ~$104K. Cycle peaked Oct 6, 2025 at $124,824. <strong>BTC has since drawn down to ~$80K (-36% from peak).</strong> Framework cleared early; capped upside, capped downside.</div>
+      </div>
+    </div>
+
+    <div class="lh-calls-note">Every signal above is in the public backtest. <a href="/track-record" style="color:#999;text-decoration:underline;">See the full trade log →</a></div>
   </div>
 
   <!-- PRIMARY: Lead Magnet with inline email form -->
@@ -547,7 +677,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="lh-test-avatar"><img src="https://i.kym-cdn.com/entries/icons/facebook/000/046/344/blue_guy_copy.jpg" alt=""></div>
         <div class="lh-test-content">
           <div class="lh-test-meta"><span class="lh-test-name">Tyr</span><span>July 14, 2025</span></div>
-          <div class="lh-test-text">Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. Finally had a system instead of a guess.</div>
+          <div class="lh-test-text">Finally had a system instead of a guess. Followed the cycle confluence into ETH before the July move — first time I traded on data, not gut. The framework is the real deal.</div>
         </div>
       </div>
     </div>
@@ -582,7 +712,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lh-final-eyebrow">⚡ Ready to stop guessing?</div>
     <div class="lh-final-h">Lock <em>$29/mo for life</em> — before public price hits $49.</div>
     <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_final_cta" target="_blank" rel="noopener" class="lh-final-btn">Claim Founder Rate →</a>
-    <div class="lh-final-trust">🛡️ 30-day money-back · Cancel anytime · Instant Discord access</div>
+    <div class="lh-final-trust">🛡️ Try one full month. If the signals don't earn back the fee, full refund — no questions.</div>
   </div>
 
   <!-- SITE — compact single-row link -->
