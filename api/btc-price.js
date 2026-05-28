@@ -45,6 +45,22 @@ const TICKER_TO_GECKO = {
   USD: null, USDC: null, USDT: null, DAI: null, PYUSD: null, GUSD: null, BUSD: null,
 };
 
+// Fetches ~1450 daily BTC prices from CoinGecko and computes simple
+// 200-week MA = average of the last 1400 daily closes.
+async function fetch200WeekMA() {
+  const r = await fetch(
+    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1450&interval=daily",
+    { headers: { Accept: "application/json" } }
+  );
+  if (!r.ok) throw new Error(`coingecko ma200w ${r.status}`);
+  const data = await r.json();
+  const prices = (data.prices || []).map((p) => p[1]).filter((v) => Number.isFinite(v));
+  if (prices.length < 1000) throw new Error(`only ${prices.length} daily prices`);
+  const window = prices.slice(-1400);
+  const value = window.reduce((s, v) => s + v, 0) / window.length;
+  return { value, weeksUsed: Math.floor(window.length / 7) };
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -53,6 +69,7 @@ export default async function handler(req, res) {
 
   const url = new URL(req.url, "http://localhost");
   const idsParam = url.searchParams.get("ids");
+  const want200wma = url.searchParams.get("ma200w") === "1";
 
   // Backwards-compat: no ids → just BTC, return legacy single-coin shape
   if (!idsParam) {
@@ -65,12 +82,30 @@ export default async function handler(req, res) {
       if (!r.ok || !data || !data.bitcoin) {
         return res.status(502).json({ error: "Upstream error", usd: null, change24h: null });
       }
-      res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
-      return res.status(200).json({
+
+      const payload = {
         usd: data.bitcoin.usd,
         change24h: data.bitcoin.usd_24h_change ?? null,
         ts: new Date().toISOString(),
-      });
+      };
+
+      // Optional: also compute 200-week MA (Cowen's "level of destiny")
+      if (want200wma) {
+        const ma = await fetch200WeekMA().catch((e) => {
+          console.error("200wma fetch failed", e);
+          return null;
+        });
+        if (ma) {
+          payload.ma200w = ma.value;
+          payload.ma200wWeeks = ma.weeksUsed;
+          payload.ma200wDelta = ((payload.usd - ma.value) / ma.value) * 100;
+        }
+      }
+
+      // Shorter cache when 200WMA included (still 1h — MA moves slowly)
+      const maxAge = want200wma ? 3600 : 60;
+      res.setHeader("Cache-Control", `public, s-maxage=${maxAge}, stale-while-revalidate=300`);
+      return res.status(200).json(payload);
     } catch (err) {
       console.error("price endpoint exception", err);
       return res.status(500).json({ error: "Internal error", usd: null, change24h: null });

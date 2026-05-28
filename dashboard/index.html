@@ -218,6 +218,9 @@
     <span class="price-label">BTC</span>
     <span class="price-value" id="btcPrice">—</span>
     <span class="price-change" id="btcChange">—</span>
+    <span class="price-label" style="margin-left:18px;" title="200-week MA — Cowen's 'level of destiny'. Touched at every cycle bottom since 2015.">200W MA</span>
+    <span class="price-value" id="ma200wValue" style="font-size:14px;">—</span>
+    <span class="price-change" id="ma200wDelta">—</span>
   </div>
 </div>
 
@@ -290,11 +293,11 @@
       <div id="phaseList"></div>
       <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 13px;">
         <span class="dim">Total deployed</span>
-        <span class="num" id="totalDeployed">$0 / $137,800</span>
+        <span class="num" id="totalDeployed">$0 / $127,182</span>
       </div>
       <div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 6px;">
         <span class="dim">Target stack</span>
-        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.07 BTC</span>
+        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.10 BTC</span>
       </div>
     </div>
 
@@ -473,31 +476,37 @@ const FMT_USD2 = new Intl.NumberFormat("en-US", { style: "currency", currency: "
 const FMT_BTC = new Intl.NumberFormat("en-US", { minimumFractionDigits: 4, maximumFractionDigits: 8 });
 const FMT_PCT = new Intl.NumberFormat("en-US", { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 2 });
 
-// --- Plan config (locked to the May 2026 cycle plan) ---
+// --- Plan config — Cowen-aligned hedged $127K deployment (revised 2026-05-28) ---
+// Every tier has a PRICE trigger (Cowen path) AND a TIME fallback (anti-Cowen path).
+// Sized to exact USDC balance on Coinbase: $127,181.71
 const PLAN = {
-  totalBudget: 137800,
-  targetBTC: 2.07,
+  totalBudget: 127182,
+  targetBTC: 2.10,
   targetExitPrice: 170000,
+  // DCA backbone: $500/wk × 40 weeks from May 28 2026 → early Mar 2027 = $20,000 total.
+  // Distributed across Phases 1-3 by weeks-in-phase. Each phase budget = lump tiers + DCA share.
   phases: [
-    { id: "p1", name: "Phase 1 — Bear Grind", start: "2026-05-14", end: "2026-12-31", budget: 38200, lumpTiers: [
-      { tier: "T1", trigger: "Open — May 18, 2026", target: 15000, targetPrice: 80000 },
-      { tier: "T2", trigger: "CBBI < 40 OR Puell < 0.40", target: 20000, targetPrice: 70000 },
+    { id: "p1", name: "Phase 1 — Bear Grind", start: "2026-05-28", end: "2026-08-31", budget: 36500, lumpTiers: [
+      { tier: "IMMEDIATE", trigger: "Fire today @ market (~$73K) — Cowen-wrong hedge", target: 15000, targetPrice: 73000, fallbackDate: "2026-05-28" },
+      { tier: "T1", trigger: "BTC < $68K (bear-band fail follow-through)", target: 15000, targetPrice: 68000, fallbackDate: "2026-07-31" },
+      { tier: "DCA-P1", trigger: "Always-on $500/wk × ~13 weeks", target: 6500, targetPrice: null, fallbackDate: null },
     ]},
-    { id: "p2", name: "Phase 2 — Capitulation", start: "2027-01-01", end: "2027-06-30", budget: 79400, lumpTiers: [
-      { tier: "T3", trigger: "CBBI < 30", target: 25000, targetPrice: 65000 },
-      { tier: "T4", trigger: "CBBI < 20 — max fear", target: 30000, targetPrice: 58000 },
-      { tier: "T5", trigger: "V7 BOTTOM (RHODL ≤ 0.391, Puell ≤ 0.093)", target: 20000, targetPrice: 56000 },
-      { tier: "AMP", trigger: "Capitulation amplifier — $300/wk × 6", target: 1800, targetPrice: 56000 },
+    { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 53500, lumpTiers: [
+      { tier: "T2", trigger: "BTC < $60K (Cowen sweep target)", target: 20000, targetPrice: 60000, fallbackDate: "2026-09-30" },
+      { tier: "T3", trigger: "BTC < $52K (200W MA touch — level of destiny)", target: 25000, targetPrice: 52000, fallbackDate: "2026-11-30" },
+      { tier: "DCA-P2", trigger: "Always-on $500/wk × ~17 weeks", target: 8500, targetPrice: null, fallbackDate: null },
     ]},
-    { id: "p3", name: "Phase 3 — Recovery", start: "2027-07-01", end: "2028-04-30", budget: 14000, lumpTiers: [
-      { tier: "T6", trigger: "CBBI back above 35, confirmed uptrend", target: 10000, targetPrice: 78000 },
+    { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 37182, lumpTiers: [
+      { tier: "T4", trigger: "BTC < $45K (deep capitulation — 200W MA −22%)", target: 20000, targetPrice: 45000, fallbackDate: "2027-01-31" },
+      { tier: "T5", trigger: "BTC < $38K (statistical bear extreme — 200W MA −35%)", target: 12182, targetPrice: 38000, fallbackDate: "2027-03-31" },
+      { tier: "DCA-P3", trigger: "Always-on $500/wk × ~10 weeks (ends early March)", target: 5000, targetPrice: null, fallbackDate: null },
     ]},
-    { id: "p4", name: "Phase 4 — Bull Hold", start: "2028-05-01", end: "2029-05-31", budget: 5200, lumpTiers: [] },
+    { id: "p4", name: "Phase 4 — Recovery / Bull Hold", start: "2027-04-01", end: "2029-05-31", budget: 0, lumpTiers: [] },
     { id: "p5", name: "Phase 5 — Distribution", start: "2029-06-01", end: "2029-12-31", budget: 0, lumpTiers: [
-      { tier: "S1", trigger: "Tier A: Sell 40% — CBBI 85 OR first V7 TOP", target: 0, sellPct: 40, targetPrice: 155000 },
-      { tier: "S2", trigger: "Tier B: Sell 30% — two V7 TOPs fire", target: 0, sellPct: 30, targetPrice: 170000 },
-      { tier: "S3", trigger: "Tier C: Sell 20% — all V7 TOPs + CBBI ≥ 90", target: 0, sellPct: 20, targetPrice: 185000 },
-      { tier: "S4", trigger: "Tier D: Sell 10% — trailing stop / blow-off", target: 0, sellPct: 10, targetPrice: 200000 },
+      { tier: "S1", trigger: "Sell 40% — CBBI 85 OR first V7 TOP", target: 0, sellPct: 40, targetPrice: 155000 },
+      { tier: "S2", trigger: "Sell 30% — two V7 TOPs fire", target: 0, sellPct: 30, targetPrice: 170000 },
+      { tier: "S3", trigger: "Sell 20% — all V7 TOPs + CBBI ≥ 90", target: 0, sellPct: 20, targetPrice: 185000 },
+      { tier: "S4", trigger: "Sell 10% — trailing stop / blow-off", target: 0, sellPct: 10, targetPrice: 200000 },
     ]},
   ],
 };
@@ -815,6 +824,29 @@ async function fetchPrice() {
   renderAll();
 }
 
+// 200-week MA — Cowen's "level of destiny". Updated separately (slow-moving).
+let MA200W = null;
+async function fetch200WMA() {
+  try {
+    const r = await fetch("/api/btc-price?ma200w=1");
+    const d = await r.json();
+    if (d && typeof d.ma200w === "number") {
+      MA200W = d.ma200w;
+      document.getElementById("ma200wValue").textContent = FMT_USD0.format(d.ma200w);
+      if (typeof d.ma200wDelta === "number") {
+        const above = d.ma200wDelta >= 0;
+        const el = document.getElementById("ma200wDelta");
+        el.textContent = (above ? "+" : "") + d.ma200wDelta.toFixed(1) + "%";
+        // Highlight when within 5% — capitulation zone
+        if (Math.abs(d.ma200wDelta) <= 5) el.className = "price-change red";
+        else el.className = "price-change " + (above ? "green" : "red");
+      }
+    }
+  } catch (e) {
+    console.error("200wma fetch failed", e);
+  }
+}
+
 // --- Phase helpers ---
 function getCurrentPhase(date = new Date()) {
   const iso = date.toISOString().slice(0, 10);
@@ -905,29 +937,85 @@ function renderPhases() {
 function renderTriggers() {
   const wrap = document.getElementById("triggerList");
   wrap.innerHTML = "";
-  const cur = getCurrentPhase();
-  // show current + next phase tiers that haven't been fully deployed
-  const phases = [cur, ...PLAN.phases.filter((p) => p.start > cur.end)].slice(0, 2);
-  let shown = 0;
-  for (const p of phases) {
+
+  // Always-on DCA backbone summary at top
+  const dcaRow = document.createElement("div");
+  dcaRow.className = "trigger-row";
+  dcaRow.innerHTML = `
+    <div><strong>DCA Backbone</strong> — $500/wk every Monday</div>
+    <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · $20K over 40 weeks (May 28, 2026 → Mar 1, 2027)</span></div>
+    <div class="trigger-meta">Set up: Coinbase Advanced Trade → Recurring → $500 weekly BTC-USD market order</div>
+  `;
+  wrap.appendChild(dcaRow);
+
+  // Flatten all unfilled buy tiers across active + future phases
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const activeTiers = [];
+  for (const p of PLAN.phases) {
+    if (p.end < todayIso) continue; // past
     for (const t of p.lumpTiers) {
-      if (shown >= 4) break;
-      const targetLabel = t.sellPct
-        ? `Sell ${t.sellPct}% near ~${FMT_USD0.format(t.targetPrice)}`
-        : `Buy ${FMT_USD0.format(t.target)} near ~${FMT_USD0.format(t.targetPrice)}`;
-      const row = document.createElement("div");
-      row.className = "trigger-row";
-      row.innerHTML = `
-        <div><strong>${t.tier}</strong> — ${t.trigger}</div>
-        <div class="trigger-cond">${targetLabel}</div>
-        <div class="trigger-meta">${p.name}</div>
-      `;
-      wrap.appendChild(row);
-      shown++;
+      if (t.sellPct) continue; // sell tiers shown separately
+      if (t.tier.startsWith("DCA")) continue; // DCA shown as a single backbone row below
+      // Skip if fully deployed
+      const deployed = STATE.trades
+        .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
+        .reduce((s, tr) => s + (tr.usd || 0), 0);
+      if (deployed >= (t.target || 0)) continue;
+      activeTiers.push({ phase: p, tier: t, deployed });
     }
   }
+
+  let shown = 0;
+  for (const { phase, tier, deployed } of activeTiers.slice(0, 6)) {
+    // Compute how close the price trigger is, and how close the fallback date is
+    let priceLine = "";
+    if (LIVE_PRICE && tier.targetPrice) {
+      const delta = ((LIVE_PRICE - tier.targetPrice) / tier.targetPrice) * 100;
+      if (delta <= 0) {
+        priceLine = `<span style="color:var(--green);font-weight:600;">🟢 PRICE HIT — fire now</span>`;
+      } else if (delta < 5) {
+        priceLine = `<span style="color:#f5a623;font-weight:600;">🟡 ${delta.toFixed(1)}% above ${FMT_USD0.format(tier.targetPrice)} — close</span>`;
+      } else {
+        priceLine = `<span class="dim">${delta.toFixed(1)}% above ${FMT_USD0.format(tier.targetPrice)} trigger</span>`;
+      }
+    } else if (tier.targetPrice) {
+      priceLine = `<span class="dim">Trigger ${FMT_USD0.format(tier.targetPrice)}</span>`;
+    } else {
+      priceLine = `<span class="dim">Always-on DCA</span>`;
+    }
+
+    let fallbackLine = "";
+    if (tier.fallbackDate && tier.fallbackDate !== todayIso) {
+      const fbDate = new Date(tier.fallbackDate + "T00:00:00");
+      const days = Math.ceil((fbDate - new Date()) / (24 * 3600 * 1000));
+      const fbStr = fbDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      if (days < 0) {
+        fallbackLine = `<span style="color:var(--red);font-weight:600;">⚠ Fallback overdue (${fbStr}) — force-deploy now</span>`;
+      } else if (days <= 30) {
+        fallbackLine = `<span style="color:#f5a623;">⏱ Fallback in ${days}d (${fbStr})</span>`;
+      } else {
+        fallbackLine = `<span class="dim">Fallback: ${fbStr} (${days}d)</span>`;
+      }
+    }
+
+    const sizeStr = `${FMT_USD0.format(tier.target - deployed)} remaining`;
+
+    const row = document.createElement("div");
+    row.className = "trigger-row";
+    row.innerHTML = `
+      <div><strong>${tier.tier}</strong> — ${tier.trigger}</div>
+      <div class="trigger-cond">${priceLine}</div>
+      ${fallbackLine ? `<div class="trigger-cond">${fallbackLine}</div>` : ""}
+      <div class="trigger-meta">${phase.name} · ${sizeStr}</div>
+    `;
+    wrap.appendChild(row);
+    shown++;
+  }
   if (shown === 0) {
-    wrap.innerHTML = '<div class="empty">No upcoming triggers.</div>';
+    const noneRow = document.createElement("div");
+    noneRow.className = "trigger-row";
+    noneRow.innerHTML = '<div class="empty">All lump tiers filled. DCA continuing in background.</div>';
+    wrap.appendChild(noneRow);
   }
 }
 
@@ -1288,9 +1376,11 @@ document.getElementById("seedBtn").addEventListener("click", () => {
 fetchPrice();
 fetchBalance();
 fetchAnalytics();
+fetch200WMA();
 setInterval(fetchPrice, 90000);
 setInterval(fetchBalance, 120000);
 setInterval(fetchAnalytics, 600000); // analytics: every 10 min
+setInterval(fetch200WMA, 3600000);   // 200W MA: hourly (moves slowly)
 renderAll();
 </script>
 
