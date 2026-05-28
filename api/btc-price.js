@@ -45,18 +45,22 @@ const TICKER_TO_GECKO = {
   USD: null, USDC: null, USDT: null, DAI: null, PYUSD: null, GUSD: null, BUSD: null,
 };
 
-// Fetches ~1450 daily BTC prices from CoinGecko and computes simple
-// 200-week MA = average of the last 1400 daily closes.
+// 200-week MA = average of last 1400 daily closes.
+// Source: CryptoCompare histoday (free, no auth, 1400-day limit works).
+// CoinGecko free is capped at 365d; Binance is geo-blocked from Vercel US.
 async function fetch200WeekMA() {
   const r = await fetch(
-    "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1450&interval=daily",
+    "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=1400&aggregate=1",
     { headers: { Accept: "application/json" } }
   );
-  if (!r.ok) throw new Error(`coingecko ma200w ${r.status}`);
+  if (!r.ok) throw new Error(`cryptocompare ma200w ${r.status}`);
   const data = await r.json();
-  const prices = (data.prices || []).map((p) => p[1]).filter((v) => Number.isFinite(v));
-  if (prices.length < 1000) throw new Error(`only ${prices.length} daily prices`);
-  const window = prices.slice(-1400);
+  if (data.Response !== "Success") throw new Error(`cryptocompare: ${data.Message || "bad response"}`);
+  const closes = (data.Data?.Data || [])
+    .map((c) => c.close)
+    .filter((v) => Number.isFinite(v) && v > 0);
+  if (closes.length < 1000) throw new Error(`only ${closes.length} daily closes`);
+  const window = closes.slice(-1400);
   const value = window.reduce((s, v) => s + v, 0) / window.length;
   return { value, weeksUsed: Math.floor(window.length / 7) };
 }
