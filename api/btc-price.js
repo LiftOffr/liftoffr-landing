@@ -65,6 +65,21 @@ async function fetch200WeekMA() {
   return { value, weeksUsed: Math.floor(window.length / 7) };
 }
 
+// Daily BTC close history for chart rendering — last N days (N <= 730).
+async function fetchBTCHistory(days = 365) {
+  const limit = Math.min(Math.max(days, 30), 730);
+  const r = await fetch(
+    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=${limit}&aggregate=1`,
+    { headers: { Accept: "application/json" } }
+  );
+  if (!r.ok) throw new Error(`cryptocompare history ${r.status}`);
+  const data = await r.json();
+  if (data.Response !== "Success") throw new Error(`cryptocompare: ${data.Message || "bad response"}`);
+  return (data.Data?.Data || [])
+    .filter((c) => Number.isFinite(c.close) && c.close > 0)
+    .map((c) => ({ t: c.time * 1000, close: c.close }));
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -74,6 +89,19 @@ export default async function handler(req, res) {
   const url = new URL(req.url, "http://localhost");
   const idsParam = url.searchParams.get("ids");
   const want200wma = url.searchParams.get("ma200w") === "1";
+  const chartDays = parseInt(url.searchParams.get("chart") || "0", 10);
+
+  // Chart history endpoint — return daily closes (no other fields).
+  if (chartDays > 0) {
+    try {
+      const history = await fetchBTCHistory(chartDays);
+      res.setHeader("Cache-Control", "public, s-maxage=3600, stale-while-revalidate=7200");
+      return res.status(200).json({ history, ts: new Date().toISOString() });
+    } catch (err) {
+      console.error("chart fetch failed", err);
+      return res.status(502).json({ error: "chart upstream", history: [] });
+    }
+  }
 
   // Backwards-compat: no ids → just BTC, return legacy single-coin shape
   if (!idsParam) {
