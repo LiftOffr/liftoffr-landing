@@ -148,7 +148,7 @@
   .stat-value { font-feature-settings: "tnum"; }
   .trigger-row {
     display: block;
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border);
     font-size: 13px;
   }
@@ -156,6 +156,47 @@
   .trigger-row strong { color: var(--text); font-weight: 700; letter-spacing: 0.2px; }
   .trigger-cond { font-family: var(--mono); font-size: 12px; margin-top: 4px; }
   .trigger-meta { font-size: 11px; color: var(--text-faint); margin-top: 4px; font-weight: 500; }
+  .trigger-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    gap: 14px;
+    align-items: start;
+  }
+  .trigger-row-main { min-width: 0; }
+  .trigger-amount { text-align: right; }
+  .trigger-amount-big {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -0.3px;
+  }
+  .trigger-amount-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .tier-progress-track {
+    height: 4px;
+    background: var(--bg-elev-2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid var(--border);
+  }
+  .tier-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-dim), var(--green));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  @media (max-width: 480px) {
+    .trigger-row-grid { grid-template-columns: 1fr; }
+    .trigger-amount { text-align: left; }
+  }
   .price-block { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .price-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); font-weight: 700; }
   .price-value { font-family: var(--mono); font-size: 16px; font-weight: 700; }
@@ -1239,11 +1280,17 @@ function renderTriggers() {
 
   // Always-on DCA backbone summary at top
   const dcaRow = document.createElement("div");
-  dcaRow.className = "trigger-row";
+  dcaRow.className = "trigger-row trigger-row-grid";
   dcaRow.innerHTML = `
-    <div><strong>DCA Backbone</strong> — $500/wk every Monday</div>
-    <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · $20K over 40 weeks (May 28, 2026 → Mar 1, 2027)</span></div>
-    <div class="trigger-meta">Set up: Coinbase Advanced Trade → Recurring → $500 weekly BTC-USD market order</div>
+    <div class="trigger-row-main">
+      <div><strong>DCA Backbone</strong> — $500/wk every Monday</div>
+      <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · 40 weeks (May 28, 2026 → Mar 1, 2027)</span></div>
+      <div class="trigger-meta">Coinbase Advanced Trade → Recurring → $500 weekly BTC-USD market order</div>
+    </div>
+    <div class="trigger-amount">
+      <div class="trigger-amount-big">$500<span style="font-size:12px;color:var(--text-faint);font-weight:500;">/wk</span></div>
+      <div class="trigger-amount-sub">$20,000 total over 40 weeks</div>
+    </div>
   `;
   wrap.appendChild(dcaRow);
 
@@ -1269,6 +1316,8 @@ function renderTriggers() {
     // Compute how close the price trigger is, and how close the fallback date is
     const triggerPx = effectiveTargetPrice(tier);
     const isLive = !!(tier.maMultiple && MA200W);
+    const remaining = Math.max(0, tier.target - deployed);
+    const tierPct = tier.target > 0 ? Math.min(100, (deployed / tier.target) * 100) : 0;
 
     let priceLine = "";
     if (LIVE_PRICE && triggerPx) {
@@ -1302,15 +1351,25 @@ function renderTriggers() {
       }
     }
 
-    const sizeStr = `${FMT_USD0.format(tier.target - deployed)} remaining`;
+    // Big buy-amount block on the right with mini progress bar below
+    const amountBlock = `
+      <div class="trigger-amount">
+        <div class="trigger-amount-big">${FMT_USD0.format(remaining)}</div>
+        <div class="trigger-amount-sub">of ${FMT_USD0.format(tier.target)} ${deployed > 0 ? `· ${FMT_USD0.format(deployed)} in` : ""}</div>
+        <div class="tier-progress-track"><div class="tier-progress-fill" style="width:${tierPct}%"></div></div>
+      </div>
+    `;
 
     const row = document.createElement("div");
-    row.className = "trigger-row";
+    row.className = "trigger-row trigger-row-grid";
     row.innerHTML = `
-      <div><strong>${tier.tier}</strong> — ${tier.trigger}</div>
-      <div class="trigger-cond">${priceLine}</div>
-      ${fallbackLine ? `<div class="trigger-cond">${fallbackLine}</div>` : ""}
-      <div class="trigger-meta">${phase.name} · ${sizeStr}</div>
+      <div class="trigger-row-main">
+        <div><strong>${tier.tier}</strong> — ${tier.trigger}</div>
+        <div class="trigger-cond">${priceLine}</div>
+        ${fallbackLine ? `<div class="trigger-cond">${fallbackLine}</div>` : ""}
+        <div class="trigger-meta">${phase.name}</div>
+      </div>
+      ${amountBlock}
     `;
     wrap.appendChild(row);
     shown++;
