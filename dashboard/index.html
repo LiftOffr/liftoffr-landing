@@ -684,7 +684,10 @@ const FMT_PCT = new Intl.NumberFormat("en-US", { style: "percent", minimumFracti
 //   $127,182 existing USDC on Coinbase
 //   + $2,000/mo × 9 months paycheck surplus = $18,000 fresh capital
 //   = ~$145,182 total budget
-// Monthly surplus flows through expanded daily DCA ($135/day × ~280 days = ~$38K).
+// DCA runs as TWO separate Coinbase recurring buys, ~$138/day combined:
+//   #1: $71/day BTC-USDC from USDC wallet (drains the $127K pile)
+//   #2: $67/day BTC-USD from linked bank (the $2K/mo paycheck contribution)
+// Total daily DCA ≈ $138/day × ~278 days ≈ $38K.
 const PLAN = {
   totalBudget: 145182,
   targetBTC: 2.40,
@@ -706,19 +709,19 @@ const PLAN = {
     { id: "p1", name: "Phase 1 — Bear Grind", start: "2026-05-28", end: "2026-08-31", budget: 42500, lumpTiers: [
       { tier: "IMMEDIATE", trigger: "Fire today @ market — Cowen-wrong hedge", target: 15000, targetPrice: 73000, fallbackDate: "2026-05-28" },
       { tier: "T1", trigger: "200W MA × 1.10 — bear-band fail follow-through", target: 15000, targetPrice: 68000, maMultiple: 1.10, fallbackDate: "2026-07-31" },
-      { tier: "DCA-P1", trigger: "Always-on $135/day × ~91 days", target: 12500, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P1", trigger: "Always-on $138/day ($71 USDC + $67 bank) × ~91 days", target: 12500, targetPrice: null, fallbackDate: null },
     ]},
     // DCA = $135/day × ~119 days = $16,500
     { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 61500, lumpTiers: [
       { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (Cowen base case)", target: 20000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
       { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (Cowen secondary)", target: 25000, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
-      { tier: "DCA-P2", trigger: "Always-on $135/day × ~119 days", target: 16500, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P2", trigger: "Always-on $138/day ($71 USDC + $67 bank) × ~119 days", target: 16500, targetPrice: null, fallbackDate: null },
     ]},
     // DCA = $135/day × ~67 days (Jan 1 → Mar 1) = $9,000
     { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 41182, lumpTiers: [
       { tier: "T4", trigger: "200W MA × 0.73 — flash penetration (2020 COVID-style)", target: 20000, targetPrice: 45000, maMultiple: 0.73, fallbackDate: "2027-01-31" },
       { tier: "T5", trigger: "200W MA × 0.62 — deep penetration (statistical bear hedge)", target: 12182, targetPrice: 38000, maMultiple: 0.62, fallbackDate: "2027-03-31" },
-      { tier: "DCA-P3", trigger: "Always-on $135/day × ~67 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P3", trigger: "Always-on $138/day ($71 USDC + $67 bank) × ~67 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
     ]},
     { id: "p4", name: "Phase 4 — Recovery / Bull Hold", start: "2027-04-01", end: "2029-05-31", budget: 0, lumpTiers: [] },
     { id: "p5", name: "Phase 5 — Distribution", start: "2029-06-01", end: "2029-12-31", budget: 0, lumpTiers: [
@@ -1466,18 +1469,21 @@ function renderTriggers() {
   const wrap = document.getElementById("triggerList");
   wrap.innerHTML = "";
 
-  // Always-on DCA backbone summary at top
+  // Always-on DCA backbone summary at top — TWO separate daily recurring buys
   const dcaRow = document.createElement("div");
   dcaRow.className = "trigger-row trigger-row-grid";
   dcaRow.innerHTML = `
     <div class="trigger-row-main">
-      <div><strong>DCA Backbone</strong> — $500/wk every Monday</div>
-      <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · 40 weeks (May 28, 2026 → Mar 1, 2027)</span></div>
-      <div class="trigger-meta">Coinbase Advanced Trade → Recurring → $500 weekly BTC-USD market order</div>
+      <div><strong>DCA Backbone</strong> — two daily recurring buys</div>
+      <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · ~278 days (May 28, 2026 → Mar 1, 2027)</span></div>
+      <div class="trigger-meta" style="line-height:1.7;">
+        <div>↳ <strong style="color:var(--text);">$71/day</strong> BTC-USDC from USDC wallet (drains the $127K pile)</div>
+        <div>↳ <strong style="color:var(--text);">$67/day</strong> BTC-USD from linked bank ($2K/mo paycheck contribution)</div>
+      </div>
     </div>
     <div class="trigger-amount">
-      <div class="trigger-amount-big">$500<span style="font-size:12px;color:var(--text-faint);font-weight:500;">/wk</span></div>
-      <div class="trigger-amount-sub">$20,000 total over 40 weeks</div>
+      <div class="trigger-amount-big">$138<span style="font-size:12px;color:var(--text-faint);font-weight:500;">/day</span></div>
+      <div class="trigger-amount-sub">~$38K total over 9 months</div>
     </div>
   `;
   wrap.appendChild(dcaRow);
