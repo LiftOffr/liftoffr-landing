@@ -1812,16 +1812,19 @@ document.getElementById("syncCoinbaseBtn").addEventListener("click", async () =>
     const r = await fetch("/api/coinbase-sync");
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || "Sync failed");
-    let added = 0, skipped = 0;
-    const existingExt = new Set(STATE.trades.map((t) => t.externalId).filter(Boolean));
-    for (const t of d.trades || []) {
-      if (existingExt.has(t.externalId)) { skipped++; continue; }
-      STATE.trades.push({ ...t, id: uid() });
-      added++;
-    }
+
+    // Rebuild Coinbase-source trades from the API truth on every sync.
+    // This way, if a normalization fix changes how a fill is represented,
+    // the corrected values overwrite the stale ones instead of being
+    // skipped by externalId-dedupe. Manual trades (no externalId or
+    // source !== "coinbase") are preserved.
+    const manualOrOther = STATE.trades.filter((t) => t.source !== "coinbase");
+    const fresh = (d.trades || []).map((t) => ({ ...t, id: uid() }));
+    const before = STATE.trades.filter((t) => t.source === "coinbase").length;
+    STATE.trades = [...manualOrOther, ...fresh];
     saveState();
     renderAll();
-    setSyncStatus(`Coinbase sync done — added ${added} new trade${added===1?"":"s"}, skipped ${skipped} (already imported). Last synced ${new Date().toLocaleString()}.`);
+    setSyncStatus(`Coinbase sync done — ${fresh.length} trades now imported (was ${before}). Manual trades preserved. Last synced ${new Date().toLocaleString()}.`);
     fetchBalance();
   } catch (e) {
     setSyncStatus("Coinbase sync failed: " + e.message, true);
