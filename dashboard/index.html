@@ -15,39 +15,53 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <style>
   :root {
-    /* LiftOffr brand palette — matches liftoffr.com */
-    --bg: #080808;
-    --bg-elev: #111111;
-    --bg-elev-2: #0f0f0f;
+    /* LiftOffr brand palette */
+    --bg: #050505;
+    --bg-elev: #0e0e0e;
+    --bg-elev-2: #131313;
     --bg-elev-3: #1a1a1a;
     --border: #1e1e1e;
     --border-strong: #2a2a2a;
     --text: #ffffff;
-    --text-dim: #999999;
-    --text-faint: #777777;
+    --text-dim: #a0a0a0;
+    --text-faint: #707070;
     --accent: #e63946;
     --accent-hover: #d62b3b;
-    --green: #22c55e;
-    --green-dim: #16a34a;
-    --red: #ef4444;
-    --yellow: #fbbf24;
-    --orange: #f97316;
-    --blue: #94a3b8;
+    --green: #34c759;
+    --green-dim: #2da147;
+    --red: #ff453a;
+    --yellow: #ffd60a;
+    --orange: #ff9f0a;
+    --blue: #64d2ff;
     --mono: 'JetBrains Mono', 'SF Mono', 'Menlo', 'Consolas', monospace;
+    /* Apple-style scale */
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-xl: 28px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: var(--bg); color: var(--text); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  html, body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-size: 14px; line-height: 1.5; min-height: 100vh;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.005em;
+  }
   .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
   .green { color: var(--green); }
   .red { color: var(--red); }
   .dim { color: var(--text-dim); }
   .faint { color: var(--text-faint); }
 
-  /* Top bar */
+  /* Top bar — frosted */
   .topbar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 24px; background: rgba(8,8,8,0.92); border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(16px);
+    padding: 14px 28px;
+    background: rgba(5,5,5,0.72);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
     position: sticky; top: 0; z-index: 10;
   }
   .topbar-left { display: flex; align-items: center; gap: 16px; }
@@ -64,22 +78,91 @@
   /* .price-block / .price-* styles consolidated below in 'Professional touches' block */
 
   /* Main layout */
-  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px 48px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media (max-width: 900px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
 
-  /* Cards */
-  .card {
-    background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px;
-    padding: 18px; margin-bottom: 16px;
+  /* Section heading — replaces card-title for new structure */
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.6px;
+    color: var(--text-faint); text-transform: uppercase;
+    margin-bottom: 10px;
   }
-  .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--text-faint); margin-bottom: 14px; font-weight: 700; }
-  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); margin-bottom: 6px; font-weight: 600; }
-  .stat-value { font-family: var(--mono); font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
-  .stat-sub { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-top: 3px; }
+  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 4px; }
+  .section-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+
+  /* Cards — softer + more breathing room */
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.002));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--r-md);
+    padding: 22px;
+    margin-bottom: 20px;
+  }
+  .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-faint); margin-bottom: 16px; font-weight: 600; }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-faint); margin-bottom: 6px; font-weight: 600; }
+  .stat-value { font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+  .stat-sub { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Hero NOW section */
+  .hero-now {
+    margin-bottom: 28px;
+    padding: 28px;
+    background:
+      radial-gradient(800px 240px at 100% 0%, rgba(230,57,70,0.08), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.0));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--r-lg);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px;
+    align-items: end;
+  }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.7px; color: var(--text-faint); text-transform: uppercase; margin-bottom: 8px; }
+  .hero-action {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.6px;
+    line-height: 1.15; margin-bottom: 6px;
+  }
+  .hero-detail { font-size: 14px; color: var(--text-dim); font-family: var(--mono); }
+  .hero-stat-num { font-family: var(--mono); font-size: 36px; font-weight: 700; letter-spacing: -0.8px; line-height: 1; }
+  .hero-stat-sub { font-family: var(--mono); font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+  .hero-bar-track {
+    margin-top: 18px; height: 6px;
+    background: rgba(255,255,255,0.05); border-radius: 100px; overflow: hidden;
+  }
+  .hero-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-dim), var(--green));
+    border-radius: 100px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Buy ladder — horizontal tier visualization */
+  .ladder {
+    display: grid; gap: 4px;
+    grid-template-columns: repeat(6, 1fr);
+    margin: 4px 0 8px;
+  }
+  @media (max-width: 800px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+  .ladder-cell {
+    padding: 14px 12px; border-radius: var(--r-sm);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    text-align: left; position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .ladder-cell.hit { border-color: rgba(52,199,89,0.5); background: rgba(52,199,89,0.06); }
+  .ladder-cell.near { border-color: rgba(255,159,10,0.4); background: rgba(255,159,10,0.04); }
+  .ladder-cell.done { border-color: rgba(52,199,89,0.8); background: rgba(52,199,89,0.12); }
+  .ladder-tier { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-faint); text-transform: uppercase; }
+  .ladder-amount { font-family: var(--mono); font-size: 20px; font-weight: 700; margin-top: 6px; letter-spacing: -0.4px; }
+  .ladder-price { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+  .ladder-status { font-size: 10px; color: var(--text-faint); margin-top: 8px; }
+  .ladder-progress { height: 3px; background: rgba(255,255,255,0.05); border-radius: 100px; margin-top: 8px; overflow: hidden; }
+  .ladder-progress-fill { height: 100%; background: var(--green); border-radius: 100px; transition: width 0.4s; }
 
   /* Plan progress */
   .phase-row {
@@ -285,9 +368,12 @@
 
   <!-- Live Coinbase wallet -->
   <div class="card" id="balanceCard" style="display:none;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <div class="card-title" style="margin-bottom:0;">Coinbase Wallet — Live</div>
-      <button class="btn btn-secondary" id="refreshBalanceBtn" style="padding:4px 10px;font-size:12px;">↻ Refresh</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">Coinbase Wallet</div>
+        <div style="font-size:12px;color:var(--text-faint);">Live balance · auto-refresh every 2 min</div>
+      </div>
+      <button class="btn btn-secondary" id="refreshBalanceBtn" style="padding:5px 12px;font-size:11px;">↻ Refresh</button>
     </div>
 
     <!-- Portfolio summary row -->
@@ -317,7 +403,108 @@
     <div id="cbBalanceTable" style="font-family:var(--mono);font-size:13px;"></div>
   </div>
 
-  <!-- Stack stats -->
+  <!-- ════════ HERO NOW — single-glance "what to do today" ════════ -->
+  <div class="hero-now">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow"><span id="heroPhase">Phase 1 — Bear Grind</span></div>
+        <div class="hero-action" id="heroAction">Loading next action…</div>
+        <div class="hero-detail" id="heroDetail">—</div>
+      </div>
+      <div>
+        <div class="hero-eyebrow">Capital Deployed</div>
+        <div class="hero-stat-num"><span id="heroDeployed">$0</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ $127K</span></div>
+        <div class="hero-stat-sub"><span id="heroRemaining">$127,182</span> remaining · <span id="heroDeployedPct">0%</span> deployed</div>
+      </div>
+      <div>
+        <div class="hero-eyebrow">BTC Stack</div>
+        <div class="hero-stat-num"><span id="heroBtc">0.000</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ 2.10</span></div>
+        <div class="hero-stat-sub">target stack at avg ~$60K basis</div>
+      </div>
+    </div>
+    <div class="hero-bar-track"><div class="hero-bar-fill" id="heroBar" style="width:0%;"></div></div>
+  </div>
+
+  <!-- ════════ BUY LADDER — horizontal tier visualization ════════ -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:0;">Buy Ladder</div>
+        <div style="font-size:12px;color:var(--text-faint);margin-top:3px;">5 lump tiers + DCA backbone · trigger prices recalibrate live off the 200W MA</div>
+      </div>
+    </div>
+    <div class="ladder" id="ladder"></div>
+  </div>
+
+  <!-- Live BTC Chart with MA + Buy Levels -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">BTC · 200W MA · Buy Levels</div>
+        <div style="font-size:12px;color:var(--text-faint);">Dashed green lines recalibrate live off the 200W MA</div>
+      </div>
+      <div style="display:flex;gap:6px;" id="chartRangeButtons">
+        <button class="btn btn-secondary chart-range-btn" data-days="90" style="padding:5px 12px;font-size:11px;">3M</button>
+        <button class="btn btn-secondary chart-range-btn active" data-days="365" style="padding:5px 12px;font-size:11px;">1Y</button>
+        <button class="btn btn-secondary chart-range-btn" data-days="730" style="padding:5px 12px;font-size:11px;">2Y</button>
+      </div>
+    </div>
+    <div style="position:relative;height:380px;"><canvas id="btcChart"></canvas></div>
+    <div style="margin-top:10px;font-size:11px;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:14px;">
+      <span><span style="display:inline-block;width:10px;height:2px;background:#ffffff;vertical-align:middle;margin-right:5px;"></span>BTC daily close</span>
+      <span><span style="display:inline-block;width:10px;height:2px;background:#fbbf24;vertical-align:middle;margin-right:5px;"></span>200-week MA (level of destiny)</span>
+      <span><span style="display:inline-block;width:10px;height:2px;background:#22c55e;border-top:1px dashed #22c55e;vertical-align:middle;margin-right:5px;"></span>Buy tier triggers (T1–T5, live)</span>
+      <span><span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;vertical-align:middle;margin-right:5px;"></span>Your executed buys</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Plan progress -->
+    <div class="card">
+      <div class="section-title" style="font-size:18px;margin-bottom:14px;">Cycle Phases</div>
+      <div id="phaseList"></div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:13px;">
+        <span class="dim">Total deployed</span>
+        <span class="num" id="totalDeployed">$0 / $127,182</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px;">
+        <span class="dim">Target stack</span>
+        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.10 BTC</span>
+      </div>
+    </div>
+
+    <!-- Next trigger -->
+    <div class="card">
+      <div class="section-title" style="font-size:18px;margin-bottom:14px;">Upcoming Triggers</div>
+      <div id="triggerList"></div>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div class="card">
+    <div class="section-title" style="font-size:18px;margin-bottom:14px;">Activity Calendar</div>
+    <div class="calendar-header">
+      <div class="cal-nav">
+        <button class="cal-btn" id="calPrev">←</button>
+        <div class="cal-title" id="calTitle">May 2026</div>
+        <button class="cal-btn" id="calNext">→</button>
+        <button class="cal-btn" id="calToday">Today</button>
+      </div>
+      <div class="cal-monthly-pl"><span class="dim">Month P/L: </span><span id="monthPL">$0.00</span></div>
+    </div>
+    <div class="calendar" id="calendar"></div>
+    <div class="btn-row">
+      <button class="btn" id="syncCoinbaseBtn">⟳ Sync Coinbase</button>
+      <button class="btn btn-secondary" id="addTradeBtn">+ Manual Trade</button>
+      <button class="btn btn-secondary" id="importBtn">Import CSV</button>
+      <button class="btn btn-secondary" id="exportBtn">Export JSON</button>
+      <button class="btn btn-secondary" id="seedBtn" style="margin-left:auto;">Reset</button>
+    </div>
+    <div id="syncStatus" style="margin-top:10px;font-size:12px;color:var(--text-faint);"></div>
+  </div>
+
+  <!-- ════════ Stack stats — secondary detail ════════ -->
+  <div class="section-eyebrow" style="margin-top:32px;">Position Detail</div>
   <div class="grid-4">
     <div class="card" style="margin-bottom:0">
       <div class="stat-label">Total BTC</div>
@@ -341,106 +528,15 @@
     </div>
   </div>
 
-  <div style="height:16px"></div>
-
-  <!-- Deployment Progress -->
-  <div class="card" id="deploymentCard">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <div class="card-title" style="margin-bottom:0;">Capital Deployment</div>
-      <div style="font-size:12px;color:var(--text-faint);">Plan total: <span class="num" style="color:var(--text);">$127,182</span></div>
-    </div>
-    <div class="grid-3" style="margin-bottom:18px;">
-      <div>
-        <div class="stat-label">Deployed</div>
-        <div class="stat-value num" id="deployTotal">$0</div>
-        <div class="stat-sub" id="deployTotalPct">0%</div>
-      </div>
-      <div>
-        <div class="stat-label">Remaining</div>
-        <div class="stat-value num" id="deployRemaining">$127,182</div>
-        <div class="stat-sub" id="deployRemainingPct">100%</div>
-      </div>
-      <div>
-        <div class="stat-label">BTC Acquired</div>
-        <div class="stat-value num" id="deployBtc">0.000</div>
-        <div class="stat-sub">target 2.10 BTC</div>
-      </div>
-    </div>
-    <!-- Big horizontal progress bar -->
-    <div style="position:relative;height:14px;background:var(--bg-elev-2);border-radius:8px;overflow:hidden;border:1px solid var(--border);">
-      <div id="deployBar" style="position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,var(--green-dim),var(--green));transition:width 0.4s ease;"></div>
-    </div>
-    <div style="margin-top:14px;font-size:12px;color:var(--text-faint);" id="deployStatus">Awaiting first deployment.</div>
-  </div>
-
-  <!-- Live BTC Chart with MA + Buy Levels -->
-  <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
-      <div class="card-title" style="margin-bottom:0;">BTC Price · 200W MA · Buy Levels</div>
-      <div style="display:flex;gap:6px;" id="chartRangeButtons">
-        <button class="btn btn-secondary chart-range-btn" data-days="90" style="padding:4px 10px;font-size:11px;">3M</button>
-        <button class="btn btn-secondary chart-range-btn active" data-days="365" style="padding:4px 10px;font-size:11px;">1Y</button>
-        <button class="btn btn-secondary chart-range-btn" data-days="730" style="padding:4px 10px;font-size:11px;">2Y</button>
-      </div>
-    </div>
-    <div style="position:relative;height:380px;"><canvas id="btcChart"></canvas></div>
-    <div style="margin-top:10px;font-size:11px;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:14px;">
-      <span><span style="display:inline-block;width:10px;height:2px;background:#ffffff;vertical-align:middle;margin-right:5px;"></span>BTC daily close</span>
-      <span><span style="display:inline-block;width:10px;height:2px;background:#fbbf24;vertical-align:middle;margin-right:5px;"></span>200-week MA (level of destiny)</span>
-      <span><span style="display:inline-block;width:10px;height:2px;background:#22c55e;border-top:1px dashed #22c55e;vertical-align:middle;margin-right:5px;"></span>Buy tier triggers (T1–T5, live)</span>
-      <span><span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;vertical-align:middle;margin-right:5px;"></span>Your executed buys</span>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <!-- Plan progress -->
-    <div class="card">
-      <div class="card-title">Cycle Plan Progress</div>
-      <div id="phaseList"></div>
-      <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 13px;">
-        <span class="dim">Total deployed</span>
-        <span class="num" id="totalDeployed">$0 / $127,182</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 6px;">
-        <span class="dim">Target stack</span>
-        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.10 BTC</span>
-      </div>
-    </div>
-
-    <!-- Next trigger -->
-    <div class="card">
-      <div class="card-title">Upcoming Triggers</div>
-      <div id="triggerList"></div>
-    </div>
-  </div>
-
-  <!-- Calendar -->
-  <div class="card">
-    <div class="calendar-header">
-      <div class="cal-nav">
-        <button class="cal-btn" id="calPrev">←</button>
-        <div class="cal-title" id="calTitle">May 2026</div>
-        <button class="cal-btn" id="calNext">→</button>
-        <button class="cal-btn" id="calToday">Today</button>
-      </div>
-      <div class="cal-monthly-pl"><span class="dim">Month P/L: </span><span id="monthPL">$0.00</span></div>
-    </div>
-    <div class="calendar" id="calendar"></div>
-    <div class="btn-row">
-      <button class="btn" id="syncCoinbaseBtn">⟳ Sync Coinbase</button>
-      <button class="btn btn-secondary" id="addTradeBtn">+ Manual Trade</button>
-      <button class="btn btn-secondary" id="importBtn">Import CSV</button>
-      <button class="btn btn-secondary" id="exportBtn">Export JSON</button>
-      <button class="btn btn-secondary" id="seedBtn" style="margin-left:auto;">Reset</button>
-    </div>
-    <div id="syncStatus" style="margin-top:10px;font-size:12px;color:var(--text-faint);"></div>
-  </div>
-
+  <div class="section-eyebrow" style="margin-top:32px;">Site Performance</div>
   <!-- Site Analytics (GA4 + Clarity) -->
   <div class="card" id="analyticsCard" style="display:none;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-      <div class="card-title" style="margin-bottom:0;">Site Analytics — Last 30 days</div>
-      <button class="btn btn-secondary" id="refreshAnalyticsBtn" style="padding:4px 10px;font-size:12px;">↻ Refresh</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">Site Analytics</div>
+        <div style="font-size:12px;color:var(--text-faint);">GA4 + Clarity · last 30 days</div>
+      </div>
+      <button class="btn btn-secondary" id="refreshAnalyticsBtn" style="padding:5px 12px;font-size:11px;">↻ Refresh</button>
     </div>
 
     <div class="grid-4" id="analyticsKpis" style="margin-bottom:16px;"></div>
@@ -1139,8 +1235,35 @@ async function renderChart(days) {
   }
 }
 
-// --- Deployment progress widget ---
-function renderDeployment() {
+// --- Deployment + ladder rendering ---
+// Find the next-to-fire buy tier (skips already-filled tiers and DCA/sell rows).
+function getNextTier() {
+  const todayIso = new Date().toISOString().slice(0, 10);
+  for (const p of PLAN.phases) {
+    if (p.end < todayIso) continue;
+    for (const t of p.lumpTiers) {
+      if (t.sellPct) continue;
+      if (t.tier.startsWith("DCA")) continue;
+      const tDeployed = (STATE.trades || [])
+        .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
+        .reduce((s, tr) => s + (tr.usd || 0), 0);
+      if (tDeployed < (t.target || 0)) return { phase: p, tier: t, deployed: tDeployed };
+    }
+  }
+  return null;
+}
+
+function tierStatus(tier, deployed) {
+  if (deployed >= tier.target * 0.99) return "done";
+  const px = effectiveTargetPrice(tier);
+  if (LIVE_PRICE && px) {
+    if (LIVE_PRICE <= px) return "hit";
+    if ((LIVE_PRICE - px) / px < 0.05) return "near";
+  }
+  return "open";
+}
+
+function renderHeroNow() {
   const total = PLAN.totalBudget || 127182;
   const buys = (STATE.trades || []).filter((t) => (t.type || "buy") === "buy");
   const deployedUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
@@ -1149,42 +1272,100 @@ function renderDeployment() {
   const pctDeployed = Math.min(100, (deployedUsd / total) * 100);
 
   const fmt = (n) => FMT_USD0.format(n);
-  document.getElementById("deployTotal").textContent = fmt(deployedUsd);
-  document.getElementById("deployTotalPct").textContent = pctDeployed.toFixed(1) + "%";
-  document.getElementById("deployRemaining").textContent = fmt(remaining);
-  document.getElementById("deployRemainingPct").textContent = (100 - pctDeployed).toFixed(1) + "%";
-  document.getElementById("deployBtc").textContent = totalBtc.toFixed(4);
-  document.getElementById("deployBar").style.width = pctDeployed + "%";
+  document.getElementById("heroDeployed").textContent = fmt(deployedUsd);
+  document.getElementById("heroRemaining").textContent = fmt(remaining);
+  document.getElementById("heroDeployedPct").textContent = pctDeployed.toFixed(1) + "%";
+  document.getElementById("heroBtc").textContent = totalBtc.toFixed(3);
+  document.getElementById("heroBar").style.width = pctDeployed + "%";
+  document.getElementById("heroPhase").textContent = getCurrentPhase().name;
 
-  // Status line — find most pressing upcoming action
-  const todayIso = new Date().toISOString().slice(0, 10);
-  let status = "";
-  if (deployedUsd === 0) {
-    status = `Start with the IMMEDIATE $15K market buy today, then set up $500/wk recurring DCA.`;
-  } else if (pctDeployed >= 99) {
-    status = `Fully deployed. Holding for cycle top distribution (Phase 5).`;
-  } else {
-    // Find next unfilled tier
-    let nextTier = null;
-    for (const p of PLAN.phases) {
-      if (p.end < todayIso) continue;
-      for (const t of p.lumpTiers) {
-        if (t.sellPct) continue;
-        if (t.tier.startsWith("DCA")) continue;
-        const tDeployed = (STATE.trades || [])
-          .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
-          .reduce((s, tr) => s + (tr.usd || 0), 0);
-        if (tDeployed < (t.target || 0)) { nextTier = { p, t }; break; }
-      }
-      if (nextTier) break;
+  // Hero action — what should the user do RIGHT NOW
+  const next = getNextTier();
+  const actionEl = document.getElementById("heroAction");
+  const detailEl = document.getElementById("heroDetail");
+
+  if (!next) {
+    if (pctDeployed >= 99) {
+      actionEl.textContent = "Fully deployed.";
+      detailEl.textContent = "Holding through cycle top — Phase 5 distribution begins Jun 2029.";
+    } else {
+      actionEl.textContent = "Plan complete.";
+      detailEl.textContent = "Waiting on next phase.";
     }
-    if (nextTier) {
-      const px = effectiveTargetPrice(nextTier.t);
-      const remainingTier = nextTier.t.target;
-      status = `Next: ${nextTier.t.tier} (${fmt(remainingTier)}) at ${px ? fmt(px) : "—"} — ${nextTier.p.name}`;
+    return;
+  }
+
+  const px = effectiveTargetPrice(next.tier);
+  const remainingTier = next.tier.target - next.deployed;
+  const status = tierStatus(next.tier, next.deployed);
+
+  if (next.tier.tier === "IMMEDIATE") {
+    actionEl.textContent = `Fire ${fmt(remainingTier)} at market today`;
+    detailEl.textContent = `BTC ~${fmt(LIVE_PRICE || px)} · Cowen-wrong hedge`;
+  } else if (status === "hit") {
+    actionEl.innerHTML = `<span style="color:var(--green);">🟢 ${next.tier.tier} PRICE HIT</span> · Fire ${fmt(remainingTier)}`;
+    detailEl.textContent = `Trigger ${fmt(px)} · BTC ${fmt(LIVE_PRICE)}`;
+  } else if (status === "near") {
+    const delta = ((LIVE_PRICE - px) / px) * 100;
+    actionEl.innerHTML = `<span style="color:var(--orange);">🟡 ${next.tier.tier} near</span> · Ready ${fmt(remainingTier)}`;
+    detailEl.textContent = `${delta.toFixed(1)}% above ${fmt(px)} trigger`;
+  } else {
+    actionEl.textContent = `Next: ${next.tier.tier} — ${fmt(remainingTier)} at ${fmt(px)}`;
+    if (LIVE_PRICE && px) {
+      const delta = ((LIVE_PRICE - px) / px) * 100;
+      detailEl.textContent = `BTC needs to drop ${delta.toFixed(1)}% from ${fmt(LIVE_PRICE)}`;
+    } else {
+      detailEl.textContent = next.tier.trigger;
     }
   }
-  document.getElementById("deployStatus").textContent = status;
+}
+
+function renderLadder() {
+  const wrap = document.getElementById("ladder");
+  if (!wrap) return;
+  // Collect all lump tiers in order — IMMEDIATE, T1, T2, T3, T4, T5
+  const tiers = [];
+  for (const p of PLAN.phases) {
+    for (const t of p.lumpTiers || []) {
+      if (t.sellPct) continue;
+      if (t.tier.startsWith("DCA")) continue;
+      const deployed = (STATE.trades || [])
+        .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
+        .reduce((s, tr) => s + (tr.usd || 0), 0);
+      tiers.push({ phase: p, tier: t, deployed });
+    }
+  }
+  wrap.innerHTML = tiers.map(({ tier, deployed }) => {
+    const px = effectiveTargetPrice(tier);
+    const status = tierStatus(tier, deployed);
+    const pct = tier.target > 0 ? Math.min(100, (deployed / tier.target) * 100) : 0;
+    const remaining = Math.max(0, tier.target - deployed);
+    let statusLabel = "";
+    if (status === "done") statusLabel = `<span style="color:var(--green);">✓ filled</span>`;
+    else if (status === "hit") statusLabel = `<span style="color:var(--green);font-weight:600;">🟢 fire now</span>`;
+    else if (status === "near") statusLabel = `<span style="color:var(--orange);">🟡 close</span>`;
+    else {
+      const fbDate = tier.fallbackDate && tier.fallbackDate !== new Date().toISOString().slice(0,10) ? new Date(tier.fallbackDate + "T00:00:00") : null;
+      const days = fbDate ? Math.ceil((fbDate - new Date()) / (24*3600*1000)) : null;
+      statusLabel = days !== null ? `<span class="dim">${days > 0 ? `in ${days}d` : 'overdue'}</span>` : `<span class="dim">pending</span>`;
+    }
+    const priceLabel = tier.tier === "IMMEDIATE" ? "Market" : (px ? FMT_USD0.format(px) : "—");
+    return `
+      <div class="ladder-cell ${status}">
+        <div class="ladder-tier">${tier.tier}</div>
+        <div class="ladder-amount">${FMT_USD0.format(remaining)}</div>
+        <div class="ladder-price">@ ${priceLabel}</div>
+        <div class="ladder-progress"><div class="ladder-progress-fill" style="width:${pct}%"></div></div>
+        <div class="ladder-status">${statusLabel}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+// Backwards-compat shim — renderAll still calls renderDeployment.
+function renderDeployment() {
+  renderHeroNow();
+  renderLadder();
 }
 
 // --- Phase helpers ---
