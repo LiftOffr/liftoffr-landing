@@ -144,10 +144,11 @@ async function sendResend(to, subject, text, html) {
 // Mirror of dashboard PLAN config — keep in sync.
 const BUY_PLAN = {
   totalBudget: 145182,
-  // Consolidated to a single $138/day BTC-USDC buy. The USDC pile is drained
-  // by cron daily; user refills it monthly via $2,000 ACH from bank
-  // (USD wallet → Convert USD → USDC) on/around payday.
-  dcaDailyUsdc: 138,
+  // Two automated daily DCAs via API:
+  //  DCA #1: $71/day BTC-USDC via v3 Advanced Trade (USDC pile)
+  //  DCA #2: $67/day BTC via v2 Simple Buy with bank as payment method
+  dcaDailyUsdc: 71,
+  dcaDailyBank: 67,
   dcaDailyCombined: 138,
   tiers: [
     { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
@@ -230,7 +231,7 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta }, day)
   }
 
   const dcaBlock = isMonday
-    ? `\n\n🔁 **DCA reminder (Monday)** — API cron auto-fires $${BUY_PLAN.dcaDailyCombined}/day BTC-USDC from USDC wallet. Check your monthly $2,000 ACH bank→USD is set up; convert USD→USDC after each deposit to refill the pile.`
+    ? `\n\n🔁 **DCA reminder (Monday)** — API cron auto-fires both DCAs daily:\n• \`$${BUY_PLAN.dcaDailyUsdc}/day BTC-USDC\` from USDC wallet (v3 Advanced Trade)\n• \`$${BUY_PLAN.dcaDailyBank}/day BTC\` from linked bank (v2 Simple Buy)\nNo manual touches needed. Combined ~$${BUY_PLAN.dcaDailyCombined}/day · ~$38K total.`
     : "";
 
   // Fallback warnings (anything within 7 days)
@@ -320,6 +321,78 @@ function tradeJWT(method, path, keyId, secretB64) {
   return `${signingInput}.${signature.toString("base64url")}`;
 }
 
+async function cbApi(method, path, keyId, secret, body) {
+  // Shared helper for Coinbase v2 + v3 requests using CDP/Ed25519 JWT.
+  const jwt = tradeJWT(method, path, keyId, secret);
+  const opts = {
+    method,
+    headers: { Authorization: `Bearer ${jwt}`, Accept: "application/json" },
+  };
+  if (body !== undefined) {
+    opts.headers["Content-Type"] = "application/json";
+    opts.body = JSON.stringify(body);
+  }
+  const r = await fetch(`https://${COINBASE_HOST}${path}`, opts);
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) {
+    const reason = data?.errors?.[0]?.message || data?.error || data?.message || JSON.stringify(data).slice(0, 200);
+    const err = new Error(`Coinbase ${r.status}: ${reason}`);
+    err.status = r.status;
+    err.body = data;
+    throw err;
+  }
+  return data;
+}
+
+// --- v2 Simple Buy path (bank-funded) ---
+async function findBankPaymentMethodId(keyId, secret) {
+  const data = await cbApi("GET", "/v2/payment-methods?limit=100", keyId, secret);
+  const methods = data.data || [];
+  // Prefer a verified ACH bank account.
+  const bank = methods.find((m) =>
+    (m.type === "ach_bank_account" || m.type === "fiat_account") &&
+    m.allow_buy && m.verified
+  ) || methods.find((m) => m.allow_buy && m.verified);
+  if (!bank) throw new Error("No verified bank payment method found");
+  return { id: bank.id, name: bank.name, type: bank.type };
+}
+
+async function findBtcAccountId(keyId, secret) {
+  const data = await cbApi("GET", "/v2/accounts?limit=250", keyId, secret);
+  const account = (data.data || []).find((a) => {
+    const code = typeof a.currency === "string" ? a.currency : a.currency?.code;
+    return code === "BTC";
+  });
+  if (!account) throw new Error("No BTC account found");
+  return account.id;
+}
+
+async function placeV2Buy({ amount, dateIso, keyId, secret, btcAccountId, paymentMethodId }) {
+  const cap = DCA_MAX_QUOTE_SIZE;
+  const n = Number(amount);
+  if (!Number.isFinite(n) || n <= 0 || n > cap) {
+    throw new Error(`v2 buy amount ${n} outside [0, ${cap}]`);
+  }
+  const path = `/v2/accounts/${btcAccountId}/buys`;
+  const body = {
+    amount: n.toFixed(2),
+    currency: "USD",
+    payment_method: paymentMethodId,
+    commit: true,
+    // Idempotency: 'idem' field tied to today's date keeps same-day retries safe.
+    idem: `liftoffr-dca-v2-buy-${dateIso}`,
+  };
+  const data = await cbApi("POST", path, keyId, secret, body);
+  const buy = data?.data || data;
+  return {
+    success: true,
+    productId: "BTC-USD (v2 simple)",
+    quoteSize: n,
+    orderId: buy?.id,
+    raw: data,
+  };
+}
+
 async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) {
   if (!DCA_ALLOWED_PRODUCTS.has(productId)) {
     throw new Error(`product ${productId} not in DCA allowlist`);
@@ -358,31 +431,42 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
 }
 
 async function runDailyDCA() {
-  // Prefer dedicated trade-permissioned key for separation of concerns,
-  // but fall back to the existing sync key if user has Trade enabled on it.
   const keyId = process.env.COINBASE_TRADE_KEY_ID || process.env.COINBASE_API_KEY_ID;
   const secret = process.env.COINBASE_TRADE_SECRET || process.env.COINBASE_API_SECRET;
   if (!keyId || !secret) {
     return { skipped: true, reason: "No Coinbase key configured" };
   }
   const dateIso = new Date().toISOString().slice(0, 10);
-
-  // Consolidated: single $138/day BTC-USDC buy from USDC wallet. User refills
-  // the USDC pile monthly via $2,000 ACH bank → USD → Convert to USDC.
-  const orders = [
-    { productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc },
-  ];
-
   const results = [];
-  for (const o of orders) {
-    try {
-      const r = await placeMarketBuy({ ...o, dateIso, keyId, secret });
-      results.push({ ok: true, productId: o.productId, quoteSize: o.quoteSize, orderId: r.orderId });
-    } catch (err) {
-      // If duplicate client_order_id, Coinbase treats it as already-placed — that's fine.
-      const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
-      results.push({ ok: dup, productId: o.productId, quoteSize: o.quoteSize, error: err.message, dup });
-    }
+
+  // DCA #1 — v3 Advanced Trade BTC-USDC from USDC wallet.
+  try {
+    const r = await placeMarketBuy({
+      productId: "BTC-USDC",
+      quoteSize: BUY_PLAN.dcaDailyUsdc,
+      dateIso, keyId, secret,
+    });
+    results.push({ dca: "USDC", ok: true, productId: r.productId, quoteSize: r.quoteSize, orderId: r.orderId });
+  } catch (err) {
+    const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
+    results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc, error: err.message, dup });
+  }
+
+  // DCA #2 — v2 Simple Buy BTC from linked bank.
+  try {
+    const [btcAccountId, bank] = await Promise.all([
+      findBtcAccountId(keyId, secret),
+      findBankPaymentMethodId(keyId, secret),
+    ]);
+    const r = await placeV2Buy({
+      amount: BUY_PLAN.dcaDailyBank,
+      dateIso, keyId, secret, btcAccountId,
+      paymentMethodId: bank.id,
+    });
+    results.push({ dca: "BANK", ok: true, productId: r.productId, quoteSize: r.quoteSize, orderId: r.orderId, bank: bank.name });
+  } catch (err) {
+    const dup = /idem/i.test(err.message) || /already exists/i.test(err.message);
+    results.push({ dca: "BANK", ok: dup, productId: "BTC (v2 simple)", quoteSize: BUY_PLAN.dcaDailyBank, error: err.message, dup });
   }
 
   return { ts: new Date().toISOString(), results };

@@ -684,10 +684,10 @@ const FMT_PCT = new Intl.NumberFormat("en-US", { style: "percent", minimumFracti
 //   $127,182 existing USDC on Coinbase
 //   + $2,000/mo × 9 months paycheck surplus = $18,000 fresh capital
 //   = ~$145,182 total budget
-// DCA runs as a SINGLE $138/day BTC-USDC buy via Vercel cron + Coinbase v3
-// brokerage API (POST /api/v3/brokerage/orders). USDC pile is drained daily;
-// user refills monthly via $2K ACH bank → USD wallet → Convert to USDC.
-// $138/day × ~278 days ≈ $38K.
+// DCA runs as TWO daily API-automated buys, ~$138/day combined:
+//   #1: $71/day BTC-USDC from USDC wallet (Coinbase v3 Advanced Trade)
+//   #2: $67/day BTC from linked bank (Coinbase v2 Simple Buy, bank-funded)
+// Both fired by Vercel cron at 8am MT daily. Total ~$38K over ~280 days.
 const PLAN = {
   totalBudget: 145182,
   targetBTC: 2.40,
@@ -709,19 +709,19 @@ const PLAN = {
     { id: "p1", name: "Phase 1 — Bear Grind", start: "2026-05-28", end: "2026-08-31", budget: 42500, lumpTiers: [
       { tier: "IMMEDIATE", trigger: "Fire today @ market — Cowen-wrong hedge", target: 15000, targetPrice: 73000, fallbackDate: "2026-05-28" },
       { tier: "T1", trigger: "200W MA × 1.10 — bear-band fail follow-through", target: 15000, targetPrice: 68000, maMultiple: 1.10, fallbackDate: "2026-07-31" },
-      { tier: "DCA-P1", trigger: "Always-on $138/day BTC-USDC (API cron auto-fires) × ~91 days", target: 12500, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P1", trigger: "Always-on $138/day (API cron auto-fires daily) × ~91 days", target: 12500, targetPrice: null, fallbackDate: null },
     ]},
     // DCA = $135/day × ~119 days = $16,500
     { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 61500, lumpTiers: [
       { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (Cowen base case)", target: 20000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
       { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (Cowen secondary)", target: 25000, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
-      { tier: "DCA-P2", trigger: "Always-on $138/day BTC-USDC (API cron auto-fires) × ~119 days", target: 16500, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P2", trigger: "Always-on $138/day (API cron auto-fires daily) × ~119 days", target: 16500, targetPrice: null, fallbackDate: null },
     ]},
     // DCA = $135/day × ~67 days (Jan 1 → Mar 1) = $9,000
     { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 41182, lumpTiers: [
       { tier: "T4", trigger: "200W MA × 0.73 — flash penetration (2020 COVID-style)", target: 20000, targetPrice: 45000, maMultiple: 0.73, fallbackDate: "2027-01-31" },
       { tier: "T5", trigger: "200W MA × 0.62 — deep penetration (statistical bear hedge)", target: 12182, targetPrice: 38000, maMultiple: 0.62, fallbackDate: "2027-03-31" },
-      { tier: "DCA-P3", trigger: "Always-on $138/day BTC-USDC (API cron auto-fires) × ~67 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P3", trigger: "Always-on $138/day (API cron auto-fires daily) × ~67 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
     ]},
     { id: "p4", name: "Phase 4 — Recovery / Bull Hold", start: "2027-04-01", end: "2029-05-31", budget: 0, lumpTiers: [] },
     { id: "p5", name: "Phase 5 — Distribution", start: "2029-06-01", end: "2029-12-31", budget: 0, lumpTiers: [
@@ -1477,8 +1477,9 @@ function renderTriggers() {
       <div><strong>DCA Backbone</strong> — two daily recurring buys</div>
       <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · ~278 days (May 28, 2026 → Mar 1, 2027)</span></div>
       <div class="trigger-meta" style="line-height:1.7;">
-        <div>↳ <strong style="color:var(--text);">$138/day</strong> BTC-USDC from USDC wallet · API cron auto-fires 8am MT daily</div>
-        <div>↳ Refill: <strong style="color:var(--text);">$2,000/mo ACH</strong> bank → Coinbase USD → Convert to USDC</div>
+        <div>↳ <strong style="color:var(--text);">$71/day</strong> BTC-USDC from USDC wallet (v3 Advanced Trade)</div>
+        <div>↳ <strong style="color:var(--text);">$67/day</strong> BTC from linked bank (v2 Simple Buy)</div>
+        <div style="color:var(--text-faint);font-size:11px;margin-top:4px;">Both auto-fire daily at 8am MT via Vercel cron + Coinbase API · zero manual touches</div>
       </div>
     </div>
     <div class="trigger-amount">
