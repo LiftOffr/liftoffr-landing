@@ -413,12 +413,12 @@
       </div>
       <div>
         <div class="hero-eyebrow">Capital Deployed</div>
-        <div class="hero-stat-num"><span id="heroDeployed">$0</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ $127K</span></div>
-        <div class="hero-stat-sub"><span id="heroRemaining">$127,182</span> remaining · <span id="heroDeployedPct">0%</span> deployed</div>
+        <div class="hero-stat-num"><span id="heroDeployed">$0</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ $145K</span></div>
+        <div class="hero-stat-sub"><span id="heroRemaining">$145,182</span> remaining · <span id="heroDeployedPct">0%</span> deployed</div>
       </div>
       <div>
         <div class="hero-eyebrow">BTC Stack</div>
-        <div class="hero-stat-num"><span id="heroBtc">0.000</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ 2.10</span></div>
+        <div class="hero-stat-num"><span id="heroBtc">0.000</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ 2.40</span></div>
         <div class="hero-stat-sub">target stack at avg ~$60K basis</div>
       </div>
     </div>
@@ -465,11 +465,11 @@
       <div id="phaseList"></div>
       <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:13px;">
         <span class="dim">Total deployed</span>
-        <span class="num" id="totalDeployed">$0 / $127,182</span>
+        <span class="num" id="totalDeployed">$0 / $145,182</span>
       </div>
       <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px;">
         <span class="dim">Target stack</span>
-        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.10 BTC</span>
+        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.40 BTC</span>
       </div>
     </div>
 
@@ -678,12 +678,16 @@ const FMT_USD2 = new Intl.NumberFormat("en-US", { style: "currency", currency: "
 const FMT_BTC = new Intl.NumberFormat("en-US", { minimumFractionDigits: 4, maximumFractionDigits: 8 });
 const FMT_PCT = new Intl.NumberFormat("en-US", { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 2 });
 
-// --- Plan config — Cowen-aligned hedged $127K deployment (revised 2026-05-28) ---
-// Every tier has a PRICE trigger (Cowen path) AND a TIME fallback (anti-Cowen path).
-// Sized to exact USDC balance on Coinbase: $127,181.71
+// --- Plan config — Cowen-aligned hedged ~$145K deployment (revised 2026-05-29) ---
+// Every lump tier has a PRICE trigger (Cowen path) AND a TIME fallback (anti-Cowen path).
+// Capital sources:
+//   $127,182 existing USDC on Coinbase
+//   + $2,000/mo × 9 months paycheck surplus = $18,000 fresh capital
+//   = ~$145,182 total budget
+// Monthly surplus flows through expanded daily DCA ($135/day × ~280 days = ~$38K).
 const PLAN = {
-  totalBudget: 127182,
-  targetBTC: 2.10,
+  totalBudget: 145182,
+  targetBTC: 2.40,
   targetExitPrice: 170000,
   // DCA backbone: $500/wk × 40 weeks from May 28 2026 → early Mar 2027 = $20,000 total.
   // Distributed across Phases 1-3 by weeks-in-phase. Each phase budget = lump tiers + DCA share.
@@ -698,20 +702,23 @@ const PLAN = {
   //   0.62x  = deep penetration (2022-style, months below)
   // `targetPrice` is the static fallback if MA hasn't loaded yet.
   phases: [
-    { id: "p1", name: "Phase 1 — Bear Grind", start: "2026-05-28", end: "2026-08-31", budget: 36500, lumpTiers: [
+    // DCA = $135/day × ~91 days = $12,500 (Bear Grind)
+    { id: "p1", name: "Phase 1 — Bear Grind", start: "2026-05-28", end: "2026-08-31", budget: 42500, lumpTiers: [
       { tier: "IMMEDIATE", trigger: "Fire today @ market — Cowen-wrong hedge", target: 15000, targetPrice: 73000, fallbackDate: "2026-05-28" },
       { tier: "T1", trigger: "200W MA × 1.10 — bear-band fail follow-through", target: 15000, targetPrice: 68000, maMultiple: 1.10, fallbackDate: "2026-07-31" },
-      { tier: "DCA-P1", trigger: "Always-on $500/wk × ~13 weeks", target: 6500, targetPrice: null, fallbackDate: null },
+      { tier: "DCA-P1", trigger: "Always-on $135/day × ~91 days", target: 12500, targetPrice: null, fallbackDate: null },
     ]},
-    { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 53500, lumpTiers: [
-      { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (2015-style)", target: 20000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
-      { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (2019-style)", target: 25000, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
-      { tier: "DCA-P2", trigger: "Always-on $500/wk × ~17 weeks", target: 8500, targetPrice: null, fallbackDate: null },
+    // DCA = $135/day × ~119 days = $16,500
+    { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 61500, lumpTiers: [
+      { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (Cowen base case)", target: 20000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
+      { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (Cowen secondary)", target: 25000, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
+      { tier: "DCA-P2", trigger: "Always-on $135/day × ~119 days", target: 16500, targetPrice: null, fallbackDate: null },
     ]},
-    { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 37182, lumpTiers: [
+    // DCA = $135/day × ~67 days (Jan 1 → Mar 1) = $9,000
+    { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 41182, lumpTiers: [
       { tier: "T4", trigger: "200W MA × 0.73 — flash penetration (2020 COVID-style)", target: 20000, targetPrice: 45000, maMultiple: 0.73, fallbackDate: "2027-01-31" },
-      { tier: "T5", trigger: "200W MA × 0.62 — deep penetration (2022-style)", target: 12182, targetPrice: 38000, maMultiple: 0.62, fallbackDate: "2027-03-31" },
-      { tier: "DCA-P3", trigger: "Always-on $500/wk × ~10 weeks (ends early March)", target: 5000, targetPrice: null, fallbackDate: null },
+      { tier: "T5", trigger: "200W MA × 0.62 — deep penetration (statistical bear hedge)", target: 12182, targetPrice: 38000, maMultiple: 0.62, fallbackDate: "2027-03-31" },
+      { tier: "DCA-P3", trigger: "Always-on $135/day × ~67 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
     ]},
     { id: "p4", name: "Phase 4 — Recovery / Bull Hold", start: "2027-04-01", end: "2029-05-31", budget: 0, lumpTiers: [] },
     { id: "p5", name: "Phase 5 — Distribution", start: "2029-06-01", end: "2029-12-31", budget: 0, lumpTiers: [

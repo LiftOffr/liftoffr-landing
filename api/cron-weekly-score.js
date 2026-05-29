@@ -141,8 +141,8 @@ async function sendResend(to, subject, text, html) {
 
 // Mirror of dashboard PLAN config — keep in sync.
 const BUY_PLAN = {
-  totalBudget: 127182,
-  dcaDaily: 71,
+  totalBudget: 145182,
+  dcaDaily: 135,
   tiers: [
     { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
     { tier: "T1",        target: 15000, maMultiple: 1.10, fallbackDate: "2026-07-31", trigger: "Bear-band fail follow-through" },
@@ -224,7 +224,7 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta }, day)
   }
 
   const dcaBlock = isMonday
-    ? `\n\n🔁 **DCA reminder (Monday)** — confirm $${BUY_PLAN.dcaDaily}/day recurring is still active on Coinbase Advanced Trade. ($500/wk for the next 40 weeks → $20K total)`
+    ? `\n\n🔁 **DCA reminder (Monday)** — confirm $${BUY_PLAN.dcaDaily}/day recurring is still active on Coinbase Advanced Trade. ($945/wk · ~$38K total over deployment window. Plus $2K/mo ACH transfer from bank.)`
     : "";
 
   // Fallback warnings (anything within 7 days)
