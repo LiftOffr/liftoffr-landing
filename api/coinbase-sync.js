@@ -83,12 +83,14 @@ async function cb(path, keyId, secret) {
 
 async function fetchFills(keyId, secret) {
   // /api/v3/brokerage/orders/historical/fills — returns all executed fills.
-  // Filters: product_ids=BTC-USD (covers DCA, lump-sum, recurring, market, limit).
+  // Queries BOTH BTC-USD (bank-funded DCA #2 + lump tier buys post-IMMEDIATE)
+  // AND BTC-USDC (USDC-wallet DCA #1 + IMMEDIATE/T1-T5 lump tiers from USDC).
+  // The Coinbase v3 API supports multiple product_ids params on the same call.
   // Pagination via cursor.
   const fills = [];
   let cursor = "";
   for (let i = 0; i < 40; i++) {
-    const qs = `product_ids=BTC-USD&limit=250${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
+    const qs = `product_ids=BTC-USD&product_ids=BTC-USDC&limit=250${cursor ? `&cursor=${encodeURIComponent(cursor)}` : ""}`;
     const path = `/api/v3/brokerage/orders/historical/fills?${qs}`;
     const data = await cb(path, keyId, secret);
     const page = data.fills || [];
