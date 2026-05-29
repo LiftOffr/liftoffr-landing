@@ -16,6 +16,8 @@
 //   RESEND_API_KEY        — Resend sending key (audience + send scope)
 //   RESEND_AUDIENCE_ID    — UUID of the "LiftOffr Free" audience
 
+import crypto from "node:crypto";
+
 export const config = { runtime: "nodejs" };
 
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
@@ -279,6 +281,136 @@ async function runDailyBriefing(baseUrl, day) {
   return sendDiscordBriefing(payload);
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// DAILY DCA EXECUTION — places two market buys per day via Coinbase
+// Advanced Trade API (lower fees than Simple Buy).
+//
+// Requires a SEPARATE CDP key with Trade permission (not the read-only
+// sync key). Env: COINBASE_TRADE_KEY_ID / COINBASE_TRADE_SECRET.
+//
+// Safety:
+//  - Hardcoded product allowlist (BTC-USDC / BTC-USD only, BUY only)
+//  - Per-order cap ($250 — 3x normal size). Anything bigger errors out.
+//  - client_order_id = `liftoffr-dca-{pair}-{YYYY-MM-DD}` so a duplicate
+//    cron fire on the same day gets rejected by Coinbase, not re-placed.
+//  - Discord notification on every fire (success or fail).
+// ═══════════════════════════════════════════════════════════════════
+
+const COINBASE_HOST = "api.coinbase.com";
+const DCA_ALLOWED_PRODUCTS = new Set(["BTC-USDC", "BTC-USD"]);
+const DCA_MAX_QUOTE_SIZE = 250; // per-order USD/USDC cap
+
+function tradeJWT(method, path, keyId, secretB64) {
+  const secretBytes = Buffer.from(secretB64, "base64");
+  if (secretBytes.length < 32) throw new Error("COINBASE_TRADE_SECRET too short");
+  const seed = secretBytes.subarray(0, 32);
+  const pkcs8 = Buffer.concat([
+    Buffer.from("302e020100300506032b657004220420", "hex"),
+    seed,
+  ]);
+  const privateKey = crypto.createPrivateKey({ key: pkcs8, format: "der", type: "pkcs8" });
+  const header = { alg: "EdDSA", kid: keyId, typ: "JWT", nonce: crypto.randomBytes(16).toString("hex") };
+  const now = Math.floor(Date.now() / 1000);
+  const payload = { sub: keyId, iss: "cdp", nbf: now, exp: now + 120, uri: `${method} ${COINBASE_HOST}${path}` };
+  const enc = (o) => Buffer.from(JSON.stringify(o)).toString("base64url");
+  const signingInput = `${enc(header)}.${enc(payload)}`;
+  const signature = crypto.sign(null, Buffer.from(signingInput), privateKey);
+  return `${signingInput}.${signature.toString("base64url")}`;
+}
+
+async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) {
+  if (!DCA_ALLOWED_PRODUCTS.has(productId)) {
+    throw new Error(`product ${productId} not in DCA allowlist`);
+  }
+  const amount = Number(quoteSize);
+  if (!Number.isFinite(amount) || amount <= 0 || amount > DCA_MAX_QUOTE_SIZE) {
+    throw new Error(`quote_size ${amount} outside [0, ${DCA_MAX_QUOTE_SIZE}]`);
+  }
+  const path = "/api/v3/brokerage/orders";
+  const body = {
+    client_order_id: `liftoffr-dca-${productId}-${dateIso}`,
+    product_id: productId,
+    side: "BUY",
+    order_configuration: {
+      market_market_ioc: { quote_size: amount.toFixed(2) },
+    },
+  };
+  const jwt = tradeJWT("POST", path, keyId, secret);
+  const r = await fetch(`https://${COINBASE_HOST}${path}`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok || data?.success === false) {
+    const reason = data?.error_response?.error || data?.error || JSON.stringify(data).slice(0, 200);
+    throw new Error(`Coinbase ${r.status}: ${reason}`);
+  }
+  return {
+    success: true,
+    productId,
+    quoteSize: amount,
+    orderId: data?.success_response?.order_id || data?.order_id,
+    raw: data,
+  };
+}
+
+async function runDailyDCA() {
+  const keyId = process.env.COINBASE_TRADE_KEY_ID;
+  const secret = process.env.COINBASE_TRADE_SECRET;
+  if (!keyId || !secret) {
+    return { skipped: true, reason: "COINBASE_TRADE_KEY_ID/SECRET not set" };
+  }
+  const dateIso = new Date().toISOString().slice(0, 10);
+
+  const orders = [
+    { productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc }, // $71 from USDC wallet
+    { productId: "BTC-USD",  quoteSize: BUY_PLAN.dcaDailyBank }, // $67 from USD wallet (bank-funded)
+  ];
+
+  const results = [];
+  for (const o of orders) {
+    try {
+      const r = await placeMarketBuy({ ...o, dateIso, keyId, secret });
+      results.push({ ok: true, productId: o.productId, quoteSize: o.quoteSize, orderId: r.orderId });
+    } catch (err) {
+      // If duplicate client_order_id, Coinbase treats it as already-placed — that's fine.
+      const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
+      results.push({ ok: dup, productId: o.productId, quoteSize: o.quoteSize, error: err.message, dup });
+    }
+  }
+  return { ts: new Date().toISOString(), results };
+}
+
+async function sendDcaResultToDiscord(dcaResult) {
+  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
+  if (!url) return;
+  if (dcaResult.skipped) return; // don't spam if not configured
+
+  const allOk = dcaResult.results.every((r) => r.ok);
+  const color = allOk ? 0x34c759 : 0xff453a;
+  const lines = dcaResult.results.map((r) => {
+    if (r.ok && !r.dup) return `✅ ${r.productId} — placed $${r.quoteSize} buy (order ${(r.orderId || "").slice(0, 8)})`;
+    if (r.ok && r.dup)  return `⚠ ${r.productId} — already placed today (duplicate idempotency key)`;
+    return `❌ ${r.productId} — FAILED $${r.quoteSize}: ${(r.error || "").slice(0, 140)}`;
+  });
+  const payload = {
+    username: "LiftOffr DCA Bot",
+    embeds: [{
+      title: allOk ? "Daily DCA fired" : "Daily DCA — partial failure",
+      description: lines.join("\n"),
+      color,
+      footer: { text: "Coinbase Advanced Trade · liftoffr.com/dashboard" },
+      timestamp: dcaResult.ts,
+    }],
+  };
+  await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
 export default async function handler(req, res) {
   const now = new Date();
   const day = now.getUTCDay();
@@ -298,7 +430,22 @@ export default async function handler(req, res) {
 
   const out = { ts: now.toISOString(), day, tasks: {} };
 
-  // TASK 1 — Daily buy-plan briefing (Discord). Runs every day.
+  // TASK 1 — Daily DCA execution. Places two market buys via Advanced Trade
+  // API. Idempotency keyed off today's date — duplicate fires are safely
+  // rejected by Coinbase rather than re-placed.
+  const runDCA = !tasksParam || tasksParam.includes("dca");
+  if (runDCA) {
+    try {
+      const dcaResult = await runDailyDCA();
+      out.tasks.dca = dcaResult;
+      await sendDcaResultToDiscord(dcaResult).catch((e) => console.warn("dca discord post", e.message));
+    } catch (err) {
+      console.error("dca error", err);
+      out.tasks.dca = { error: err.message };
+    }
+  }
+
+  // TASK 2 — Daily buy-plan briefing (Discord). Runs every day.
   const runBriefing = !tasksParam || tasksParam.includes("briefing");
   if (runBriefing) {
     try {
@@ -309,7 +456,7 @@ export default async function handler(req, res) {
     }
   }
 
-  // TASK 2 — Weekly LiftOffr Score email. Sundays only.
+  // TASK 3 — Weekly LiftOffr Score email. Sundays only.
   const runScore = (!tasksParam || tasksParam.includes("score")) && (day === 0 || force);
   if (runScore) {
     try {
