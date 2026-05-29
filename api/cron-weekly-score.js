@@ -356,10 +356,12 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
 }
 
 async function runDailyDCA() {
-  const keyId = process.env.COINBASE_TRADE_KEY_ID;
-  const secret = process.env.COINBASE_TRADE_SECRET;
+  // Prefer dedicated trade-permissioned key for separation of concerns,
+  // but fall back to the existing sync key if user has Trade enabled on it.
+  const keyId = process.env.COINBASE_TRADE_KEY_ID || process.env.COINBASE_API_KEY_ID;
+  const secret = process.env.COINBASE_TRADE_SECRET || process.env.COINBASE_API_SECRET;
   if (!keyId || !secret) {
-    return { skipped: true, reason: "COINBASE_TRADE_KEY_ID/SECRET not set" };
+    return { skipped: true, reason: "No Coinbase key configured" };
   }
   const dateIso = new Date().toISOString().slice(0, 10);
 
