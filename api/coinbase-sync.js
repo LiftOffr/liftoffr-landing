@@ -82,11 +82,9 @@ async function cb(path, keyId, secret) {
 }
 
 async function fetchFills(keyId, secret) {
-  // /api/v3/brokerage/orders/historical/fills — returns all executed fills.
-  // Queries BOTH BTC-USD (bank-funded DCA #2 + lump tier buys post-IMMEDIATE)
-  // AND BTC-USDC (USDC-wallet DCA #1 + IMMEDIATE/T1-T5 lump tiers from USDC).
-  // The Coinbase v3 API supports multiple product_ids params on the same call.
-  // Pagination via cursor.
+  // /api/v3/brokerage/orders/historical/fills — Advanced Trade fills.
+  // BTC-USD (bank-funded buys) + BTC-USDC (USDC-funded buys). v3 supports
+  // multiple product_ids on a single call.
   const fills = [];
   let cursor = "";
   for (let i = 0; i < 40; i++) {
@@ -100,6 +98,64 @@ async function fetchFills(keyId, secret) {
     if (!cursor) break;
   }
   return fills;
+}
+
+async function fetchV2BtcTransactions(keyId, secret) {
+  // Coinbase Simple buys/sells don't appear in v3 fills. They live in the
+  // legacy v2 transactions endpoint, scoped to the BTC account.
+  // Step 1: find the BTC account ID.
+  const accountsData = await cb("/v2/accounts?limit=250", keyId, secret);
+  const accounts = accountsData.data || [];
+  const btcAccount = accounts.find((a) => {
+    const code = typeof a.currency === "string" ? a.currency : a.currency?.code;
+    return code === "BTC";
+  });
+  if (!btcAccount) return [];
+
+  // Step 2: page through this account's transactions.
+  const txs = [];
+  let nextUri = `/v2/accounts/${btcAccount.id}/transactions?limit=100`;
+  for (let i = 0; i < 30 && nextUri; i++) {
+    const data = await cb(nextUri, keyId, secret);
+    txs.push(...(data.data || []));
+    nextUri = data.pagination?.next_uri || null;
+  }
+  return txs;
+}
+
+function normalizeV2(tx) {
+  if (tx.status !== "completed") return null;
+  // We only care about cost-basis-affecting trade types.
+  // - "buy"  / "sell"  → Simple buys/sells
+  // - "trade"          → Convert (e.g. USDC → BTC)
+  // - "advanced_trade_fill" → mirror of v3 fills; deduped against v3 below
+  const allowed = new Set(["buy", "sell", "trade", "advanced_trade_fill"]);
+  if (!allowed.has(tx.type)) return null;
+
+  const rawBtc = parseFloat(tx.amount?.amount || "0");
+  const rawUsd = parseFloat(tx.native_amount?.amount || "0");
+  const btc = Math.abs(rawBtc);
+  const usd = Math.abs(rawUsd);
+  if (btc === 0 || usd === 0) return null;
+
+  // For buys, BTC amount is positive (incoming). For sells, negative (outgoing).
+  // tx.type is authoritative when present.
+  let side = "buy";
+  if (tx.type === "sell") side = "sell";
+  else if (tx.type === "buy") side = "buy";
+  else if (rawBtc < 0) side = "sell";
+
+  return {
+    externalId: `coinbase:v2:${tx.id}`,
+    date: (tx.created_at || "").slice(0, 10),
+    source: "coinbase",
+    type: side,
+    usd: Math.round(usd * 100) / 100,
+    btc: Math.round(btc * 1e8) / 1e8,
+    price: Math.round((usd / btc) * 100) / 100,
+    notes: tx.type === "advanced_trade_fill" ? "advanced-trade (v2 mirror)" : `simple-${side}`,
+    _v2type: tx.type,
+  };
 }
 
 function normalizeFill(f) {
@@ -137,18 +193,55 @@ export default async function handler(req, res) {
   }
 
   try {
+    // 1. Fetch v3 Advanced Trade fills.
     const fills = await fetchFills(keyId, secret);
-    const trades = [];
+    const v3Trades = [];
     const seen = new Set();
     for (const f of fills) {
       const t = normalizeFill(f);
       if (!t || !t.date) continue;
       if (seen.has(t.externalId)) continue;
       seen.add(t.externalId);
-      trades.push(t);
+      v3Trades.push(t);
     }
-    trades.sort((a, b) => b.date.localeCompare(a.date));
-    return res.status(200).json({ trades, count: trades.length });
+
+    // 2. Fetch v2 BTC account transactions (Simple buys + Convert).
+    let v2Trades = [];
+    try {
+      const v2Tx = await fetchV2BtcTransactions(keyId, secret);
+      for (const tx of v2Tx) {
+        const t = normalizeV2(tx);
+        if (!t || !t.date) continue;
+        v2Trades.push(t);
+      }
+    } catch (e) {
+      // Don't fail the whole sync if v2 has an issue — v3 fills still useful.
+      console.warn("v2 transactions fetch failed", e.message);
+    }
+
+    // 3. Dedupe v2 against v3 — Coinbase mirrors Advanced Trade fills into v2
+    //    as type="advanced_trade_fill". Match by (date, btc, side); drop dupes.
+    const v3KeySet = new Set(v3Trades.map((t) => `${t.date}|${t.btc.toFixed(8)}|${t.type}`));
+    const v2NetNew = v2Trades.filter((t) => {
+      const k = `${t.date}|${t.btc.toFixed(8)}|${t.type}`;
+      if (v3KeySet.has(k)) return false;
+      // Also skip explicit AT mirrors
+      if (t._v2type === "advanced_trade_fill") return false;
+      return true;
+    });
+
+    // 4. Merge + sort.
+    const allTrades = [...v3Trades, ...v2NetNew].map((t) => {
+      const { _v2type, ...clean } = t;
+      return clean;
+    });
+    allTrades.sort((a, b) => b.date.localeCompare(a.date));
+
+    return res.status(200).json({
+      trades: allTrades,
+      count: allTrades.length,
+      sources: { v3: v3Trades.length, v2_simple: v2NetNew.length },
+    });
   } catch (err) {
     console.error("coinbase-sync error", err.status, err.message, err.body);
     return res.status(err.status || 502).json({
