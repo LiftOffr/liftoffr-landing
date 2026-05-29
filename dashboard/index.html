@@ -1246,25 +1246,52 @@ async function renderChart(days) {
 }
 
 // --- Deployment + ladder rendering ---
-// Find the next-to-fire buy tier (skips already-filled tiers and DCA/sell rows).
+// Waterfall-fill: lump-sized buys (>= $1000) fill lump tiers in declared order
+// (IMMEDIATE → T1 → T2 → ...) regardless of phaseTier tag. This handles the
+// reality that Coinbase syncs don't carry a tier tag — we just match by size
+// + chronology. Returns a Map tier.tier → deployed USD.
+function computeLumpTierFills() {
+  const lumpTiers = [];
+  for (const p of PLAN.phases) {
+    for (const t of p.lumpTiers || []) {
+      if (t.sellPct) continue;
+      if (t.tier.startsWith("DCA")) continue;
+      lumpTiers.push(t);
+    }
+  }
+  const lumpBuys = (STATE.trades || [])
+    .filter((b) => (b.type || "buy") === "buy" && (b.usd || 0) >= 1000)
+    .slice()
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+  const fills = new Map();
+  let remaining = lumpBuys.reduce((s, b) => s + (b.usd || 0), 0);
+  for (const t of lumpTiers) {
+    const allocated = Math.min(t.target || 0, Math.max(0, remaining));
+    fills.set(t.tier, allocated);
+    remaining = Math.max(0, remaining - allocated);
+  }
+  return fills;
+}
+
+// Find the next-to-fire buy tier (waterfall-aware).
 function getNextTier() {
   const todayIso = new Date().toISOString().slice(0, 10);
+  const fills = computeLumpTierFills();
   for (const p of PLAN.phases) {
     if (p.end < todayIso) continue;
     for (const t of p.lumpTiers) {
       if (t.sellPct) continue;
       if (t.tier.startsWith("DCA")) continue;
-      const tDeployed = (STATE.trades || [])
-        .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
-        .reduce((s, tr) => s + (tr.usd || 0), 0);
-      if (tDeployed < (t.target || 0)) return { phase: p, tier: t, deployed: tDeployed };
+      const tDeployed = fills.get(t.tier) || 0;
+      if (tDeployed < (t.target || 0) * 0.97) return { phase: p, tier: t, deployed: tDeployed };
     }
   }
   return null;
 }
 
 function tierStatus(tier, deployed) {
-  if (deployed >= tier.target * 0.99) return "done";
+  if (deployed >= tier.target * 0.97) return "done";
   const px = effectiveTargetPrice(tier);
   if (LIVE_PRICE && px) {
     if (LIVE_PRICE <= px) return "hit";
@@ -1333,15 +1360,14 @@ function renderHeroNow() {
 function renderLadder() {
   const wrap = document.getElementById("ladder");
   if (!wrap) return;
+  const fills = computeLumpTierFills();
   // Collect all lump tiers in order — IMMEDIATE, T1, T2, T3, T4, T5
   const tiers = [];
   for (const p of PLAN.phases) {
     for (const t of p.lumpTiers || []) {
       if (t.sellPct) continue;
       if (t.tier.startsWith("DCA")) continue;
-      const deployed = (STATE.trades || [])
-        .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
-        .reduce((s, tr) => s + (tr.usd || 0), 0);
+      const deployed = fills.get(t.tier) || 0;
       tiers.push({ phase: p, tier: t, deployed });
     }
   }
@@ -1494,14 +1520,12 @@ function renderTriggers() {
   const activeTiers = [];
   for (const p of PLAN.phases) {
     if (p.end < todayIso) continue; // past
+    const fills = computeLumpTierFills();
     for (const t of p.lumpTiers) {
       if (t.sellPct) continue; // sell tiers shown separately
       if (t.tier.startsWith("DCA")) continue; // DCA shown as a single backbone row below
-      // Skip if fully deployed
-      const deployed = STATE.trades
-        .filter((tr) => tr.phaseTier === t.tier && (tr.type || "buy") === "buy")
-        .reduce((s, tr) => s + (tr.usd || 0), 0);
-      if (deployed >= (t.target || 0)) continue;
+      const deployed = fills.get(t.tier) || 0;
+      if (deployed >= (t.target || 0) * 0.97) continue;
       activeTiers.push({ phase: p, tier: t, deployed });
     }
   }
