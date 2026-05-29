@@ -1477,9 +1477,9 @@ function renderTriggers() {
       <div><strong>DCA Backbone</strong> — two daily recurring buys</div>
       <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · ~278 days (May 28, 2026 → Mar 1, 2027)</span></div>
       <div class="trigger-meta" style="line-height:1.7;">
-        <div>↳ <strong style="color:var(--text);">$71/day</strong> BTC-USDC from USDC wallet (v3 Advanced Trade)</div>
-        <div>↳ <strong style="color:var(--text);">$67/day</strong> BTC from linked bank (v2 Simple Buy)</div>
-        <div style="color:var(--text-faint);font-size:11px;margin-top:4px;">Both auto-fire daily at 8am MT via Vercel cron + Coinbase API · zero manual touches</div>
+        <div>↳ <strong style="color:var(--text);">$71/day</strong> BTC-USDC from USDC wallet · Vercel cron + Coinbase v3 API</div>
+        <div>↳ <strong style="color:var(--text);">$67/day</strong> BTC from linked bank · Coinbase recurring buy (UI-scheduled)</div>
+        <div style="color:var(--text-faint);font-size:11px;margin-top:4px;">Both auto-fire daily · sync picks up both via the v3 fills + v2 transactions endpoints</div>
       </div>
     </div>
     <div class="trigger-amount">
