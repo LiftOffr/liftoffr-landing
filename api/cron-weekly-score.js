@@ -133,57 +133,211 @@ async function sendResend(to, subject, text, html) {
   return data.id;
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// BUY-PLAN DAILY BRIEFING — fires every day at 15:00 UTC (8am MT).
+// Hits Discord webhook with BTC + 200W MA + tier-ladder status.
+// On Mondays, appends a DCA reminder.
+// ═══════════════════════════════════════════════════════════════════
+
+// Mirror of dashboard PLAN config — keep in sync.
+const BUY_PLAN = {
+  totalBudget: 127182,
+  dcaDaily: 71,
+  tiers: [
+    { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
+    { tier: "T1",        target: 15000, maMultiple: 1.10, fallbackDate: "2026-07-31", trigger: "Bear-band fail follow-through" },
+    { tier: "T2",        target: 20000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
+    { tier: "T3",        target: 25000, maMultiple: 0.85, fallbackDate: "2026-11-30", trigger: "2019-style penetration (Cowen secondary)" },
+    { tier: "T4",        target: 20000, maMultiple: 0.73, fallbackDate: "2027-01-31", trigger: "2020 COVID-style flash" },
+    { tier: "T5",        target: 12182, maMultiple: 0.62, fallbackDate: "2027-03-31", trigger: "2022-style deep penetration" },
+  ],
+};
+
+async function fetchBtcAnd200wMA(baseUrl) {
+  const r = await fetch(`${baseUrl}/api/btc-price?ma200w=1`);
+  if (!r.ok) throw new Error(`btc-price ${r.status}`);
+  return r.json();
+}
+
+function daysUntil(iso) {
+  const target = new Date(iso + "T00:00:00Z");
+  const now = new Date();
+  return Math.ceil((target - now) / (24 * 3600 * 1000));
+}
+
+function fmtUsd(n) {
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
+}
+
+function tierLine(t, btcPrice, ma200w) {
+  const triggerPx = t.maMultiple && ma200w ? ma200w * t.maMultiple : t.targetPrice;
+  let badge = "⚪"; let action = "";
+  if (t.tier === "IMMEDIATE") {
+    badge = "🔴"; action = "FIRE TODAY @ market";
+  } else if (triggerPx) {
+    const delta = ((btcPrice - triggerPx) / triggerPx) * 100;
+    if (delta <= 0)      { badge = "🟢"; action = "PRICE HIT — fire now"; }
+    else if (delta < 5)  { badge = "🟡"; action = `${delta.toFixed(1)}% above — close`; }
+    else                 { badge = "⚪"; action = `${delta.toFixed(1)}% above ${fmtUsd(triggerPx)}`; }
+  }
+  const fbDays = t.fallbackDate ? daysUntil(t.fallbackDate) : null;
+  const fbStr = fbDays !== null ? (fbDays < 0 ? `⚠ overdue` : `${fbDays}d fallback`) : "";
+  return `${badge} **${t.tier}** · ${fmtUsd(t.target)} · ${action}${fbStr ? ` · ${fbStr}` : ""}`;
+}
+
+function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta }, day) {
+  const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][day];
+  const isMonday = day === 1;
+  const date = new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric", year: "numeric", timeZone: "America/Denver" });
+
+  // Tier breakdown
+  const lines = BUY_PLAN.tiers.map((t) => tierLine(t, btcPrice, ma200w));
+
+  // Anything actionable today?
+  const actionable = BUY_PLAN.tiers.filter((t) => {
+    if (t.tier === "IMMEDIATE") return true;
+    const triggerPx = t.maMultiple && ma200w ? ma200w * t.maMultiple : t.targetPrice;
+    return triggerPx && btcPrice <= triggerPx * 1.05;
+  });
+
+  const change = typeof change24h === "number"
+    ? `${change24h >= 0 ? "+" : ""}${change24h.toFixed(2)}% 24h`
+    : "";
+  const ma200wDeltaStr = typeof ma200wDelta === "number"
+    ? `BTC ${ma200wDelta >= 0 ? "+" : ""}${ma200wDelta.toFixed(1)}% vs MA`
+    : "";
+
+  const heroLines = [
+    `**₿ ${fmtUsd(btcPrice)}** ${change}  ·  **200W MA ${fmtUsd(ma200w)}** ${ma200wDeltaStr}`,
+  ];
+
+  let actionBlock = "";
+  if (actionable.length > 0) {
+    actionBlock = `\n\n🎯 **Action today**\n` + actionable.map((t) => {
+      const triggerPx = t.maMultiple && ma200w ? ma200w * t.maMultiple : t.targetPrice;
+      if (t.tier === "IMMEDIATE")
+        return `• Fire ${fmtUsd(t.target)} at market — Coinbase Advanced Trade BTC-USD`;
+      if (btcPrice <= triggerPx)
+        return `• 🟢 **${t.tier} HIT** — Fire ${fmtUsd(t.target)} at market now (BTC at ${fmtUsd(btcPrice)}, trigger ${fmtUsd(triggerPx)})`;
+      return `• 🟡 ${t.tier} within 5% — Ready ${fmtUsd(t.target)} (trigger ${fmtUsd(triggerPx)})`;
+    }).join("\n");
+  }
+
+  const dcaBlock = isMonday
+    ? `\n\n🔁 **DCA reminder (Monday)** — confirm $${BUY_PLAN.dcaDaily}/day recurring is still active on Coinbase Advanced Trade. ($500/wk for the next 40 weeks → $20K total)`
+    : "";
+
+  // Fallback warnings (anything within 7 days)
+  const fbWarnings = BUY_PLAN.tiers
+    .filter((t) => t.fallbackDate)
+    .map((t) => ({ tier: t.tier, days: daysUntil(t.fallbackDate), date: t.fallbackDate }))
+    .filter((x) => x.days >= 0 && x.days <= 14);
+  const fbBlock = fbWarnings.length > 0
+    ? `\n\n⏰ **Fallback approaching**\n` + fbWarnings.map((w) => `• ${w.tier} force-deploy in ${w.days}d (${w.date})`).join("\n")
+    : "";
+
+  return {
+    username: "LiftOffr Buy Plan",
+    embeds: [{
+      title: `Morning Briefing — ${date}`,
+      description: heroLines.join("\n") + actionBlock + dcaBlock + fbBlock + "\n\n**Tier Ladder**\n" + lines.join("\n"),
+      color: actionable.length > 0 ? 0x34c759 : 0x4a4a4a,
+      footer: { text: `liftoffr.com/dashboard · ${dayName} 8am MT` },
+      timestamp: new Date().toISOString(),
+    }],
+  };
+}
+
+async function sendDiscordBriefing(payload) {
+  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
+  if (!url) {
+    console.warn("No DISCORD_BUY_ALERTS_WEBHOOK or DISCORD_OPS_WEBHOOK — briefing skipped");
+    return { skipped: true, reason: "no webhook configured" };
+  }
+  const r = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!r.ok) {
+    const body = await r.text();
+    throw new Error(`Discord ${r.status}: ${body.slice(0, 200)}`);
+  }
+  return { sent: true, status: r.status };
+}
+
+async function runDailyBriefing(baseUrl, day) {
+  const data = await fetchBtcAnd200wMA(baseUrl);
+  const payload = buildBriefingPayload({
+    btcPrice: data.usd,
+    change24h: data.change24h,
+    ma200w: data.ma200w,
+    ma200wDelta: data.ma200wDelta,
+  }, day);
+  return sendDiscordBriefing(payload);
+}
+
 export default async function handler(req, res) {
-  // Day-of-week guard — only Sunday (0)
   const now = new Date();
   const day = now.getUTCDay();
   const force = (req.query?.force || new URL(req.url, "http://localhost").searchParams.get("force")) === "1";
-  if (day !== 0 && !force) {
-    return res.status(200).json({ skipped: true, reason: `day=${day}, only sends on Sunday (UTC)`, ts: now.toISOString() });
-  }
+  const tasksParam = req.query?.tasks || new URL(req.url, "http://localhost").searchParams.get("tasks");
 
-  // Auth guard
+  // Auth guard for cron — allow ?force=1 for manual testing
   const expected = process.env.CRON_SECRET;
   const got = req.headers["authorization"] || req.headers["Authorization"] || "";
   if (expected && got !== `Bearer ${expected}` && !force) {
     return res.status(401).json({ error: "Unauthorized — missing/wrong cron secret" });
   }
 
-  try {
-    // Build absolute URL for internal cycle-score fetch
-    const host = req.headers["x-forwarded-host"] || req.headers["host"];
-    const proto = req.headers["x-forwarded-proto"] || "https";
-    const baseUrl = `${proto}://${host}`;
+  const host = req.headers["x-forwarded-host"] || req.headers["host"];
+  const proto = req.headers["x-forwarded-proto"] || "https";
+  const baseUrl = `${proto}://${host}`;
 
-    const [score, subs] = await Promise.all([
-      fetchScore(baseUrl),
-      fetchResendAudienceContacts(),
-    ]);
+  const out = { ts: now.toISOString(), day, tasks: {} };
 
-    const subject = `${SUBJECT_BASE}: ${score.score.toFixed(1)} (${score.zone})`;
-    const text = emailText(score);
-    const html = emailHTML(score);
-
-    const results = { sent: 0, failed: 0, total: subs.length, errors: [] };
-    for (const s of subs) {
-      try {
-        await sendResend(s.email, subject, text, html);
-        results.sent++;
-      } catch (e) {
-        results.failed++;
-        results.errors.push({ email: s.email.slice(0, 3) + "...", err: String(e).slice(0, 120) });
-      }
-      await new Promise((r) => setTimeout(r, 600)); // ~1.6/sec — under Resend rate limit
+  // TASK 1 — Daily buy-plan briefing (Discord). Runs every day.
+  const runBriefing = !tasksParam || tasksParam.includes("briefing");
+  if (runBriefing) {
+    try {
+      out.tasks.briefing = await runDailyBriefing(baseUrl, day);
+    } catch (err) {
+      console.error("briefing error", err);
+      out.tasks.briefing = { error: err.message };
     }
-
-    return res.status(200).json({
-      score: score.score,
-      zone: score.zone,
-      ts: now.toISOString(),
-      results,
-    });
-  } catch (err) {
-    console.error("cron-weekly-score error", err);
-    return res.status(500).json({ error: err.message });
   }
+
+  // TASK 2 — Weekly LiftOffr Score email. Sundays only.
+  const runScore = (!tasksParam || tasksParam.includes("score")) && (day === 0 || force);
+  if (runScore) {
+    try {
+      const [score, subs] = await Promise.all([
+        fetchScore(baseUrl),
+        fetchResendAudienceContacts(),
+      ]);
+      const subject = `${SUBJECT_BASE}: ${score.score.toFixed(1)} (${score.zone})`;
+      const text = emailText(score);
+      const html = emailHTML(score);
+
+      const results = { sent: 0, failed: 0, total: subs.length, errors: [] };
+      for (const s of subs) {
+        try {
+          await sendResend(s.email, subject, text, html);
+          results.sent++;
+        } catch (e) {
+          results.failed++;
+          results.errors.push({ email: s.email.slice(0, 3) + "...", err: String(e).slice(0, 120) });
+        }
+        await new Promise((r) => setTimeout(r, 600));
+      }
+      out.tasks.score = { score: score.score, zone: score.zone, results };
+    } catch (err) {
+      console.error("score send error", err);
+      out.tasks.score = { error: err.message };
+    }
+  } else if (!runScore && !tasksParam) {
+    out.tasks.score = { skipped: true, reason: `day=${day} (only Sunday=0)` };
+  }
+
+  return res.status(200).json(out);
 }
