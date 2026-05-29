@@ -159,19 +159,33 @@ function normalizeV2(tx) {
 }
 
 function normalizeFill(f) {
-  const btc = parseFloat(f.size);
+  const size = parseFloat(f.size);
   const price = parseFloat(f.price);
-  if (!isFinite(btc) || btc === 0) return null;
+  if (!isFinite(size) || size === 0) return null;
   if (!isFinite(price) || price === 0) return null;
   const fees = parseFloat(f.commission || "0") || 0;
-  const usd = btc * price;
   const sideRaw = (f.side || "").toUpperCase();
+
+  // The Coinbase v3 fills API uses `size_in_quote` to indicate whether
+  // `size` is measured in the QUOTE currency (e.g., USDC for BTC-USDC) or
+  // the BASE currency (BTC). Market BUY orders placed with quote_size
+  // come back as size_in_quote=true; limit orders typically come back
+  // with size in base currency.
+  let btc, usdGross;
+  if (f.size_in_quote === true || f.size_in_quote === "true") {
+    usdGross = size;
+    btc = size / price;
+  } else {
+    btc = size;
+    usdGross = size * price;
+  }
+
   return {
     externalId: `coinbase:fill:${f.trade_id || f.entry_id || `${f.order_id}-${f.sequence_timestamp}`}`,
     date: (f.trade_time || "").slice(0, 10),
     source: "coinbase",
     type: sideRaw === "SELL" ? "sell" : "buy",
-    usd: Math.round((usd + fees) * 100) / 100,
+    usd: Math.round((usdGross + fees) * 100) / 100,
     btc: Math.round(btc * 1e8) / 1e8,
     price: Math.round(price * 100) / 100,
     notes: f.product_id || "BTC-USD",
