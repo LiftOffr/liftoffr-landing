@@ -440,6 +440,9 @@ async function runDailyDCA() {
   const results = [];
 
   // DCA #1 — v3 Advanced Trade BTC-USDC from USDC wallet.
+  // DCA #2 (bank-funded) runs as a Coinbase UI recurring buy — v2 buys API
+  // returns 404 under CDP/JWT auth (appears deprecated). Sync picks up its
+  // fills automatically via the v2 transactions endpoint.
   try {
     const r = await placeMarketBuy({
       productId: "BTC-USDC",
@@ -450,23 +453,6 @@ async function runDailyDCA() {
   } catch (err) {
     const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
     results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc, error: err.message, dup });
-  }
-
-  // DCA #2 — v2 Simple Buy BTC from linked bank.
-  try {
-    const [btcAccountId, bank] = await Promise.all([
-      findBtcAccountId(keyId, secret),
-      findBankPaymentMethodId(keyId, secret),
-    ]);
-    const r = await placeV2Buy({
-      amount: BUY_PLAN.dcaDailyBank,
-      dateIso, keyId, secret, btcAccountId,
-      paymentMethodId: bank.id,
-    });
-    results.push({ dca: "BANK", ok: true, productId: r.productId, quoteSize: r.quoteSize, orderId: r.orderId, bank: bank.name });
-  } catch (err) {
-    const dup = /idem/i.test(err.message) || /already exists/i.test(err.message);
-    results.push({ dca: "BANK", ok: dup, productId: "BTC (v2 simple)", quoteSize: BUY_PLAN.dcaDailyBank, error: err.message, dup });
   }
 
   return { ts: new Date().toISOString(), results };
