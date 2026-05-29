@@ -144,8 +144,10 @@ async function sendResend(to, subject, text, html) {
 // Mirror of dashboard PLAN config — keep in sync.
 const BUY_PLAN = {
   totalBudget: 145182,
-  dcaDailyUsdc: 71,    // BTC-USDC recurring from USDC wallet
-  dcaDailyBank: 67,    // BTC-USD recurring from linked bank
+  // Consolidated to a single $138/day BTC-USDC buy. The USDC pile is drained
+  // by cron daily; user refills it monthly via $2,000 ACH from bank
+  // (USD wallet → Convert USD → USDC) on/around payday.
+  dcaDailyUsdc: 138,
   dcaDailyCombined: 138,
   tiers: [
     { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
@@ -228,7 +230,7 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta }, day)
   }
 
   const dcaBlock = isMonday
-    ? `\n\n🔁 **DCA reminder (Monday)** — confirm BOTH recurring buys are still active on Coinbase Advanced Trade:\n• \`$${BUY_PLAN.dcaDailyUsdc}/day BTC-USDC\` from USDC wallet (drains the $127K pile)\n• \`$${BUY_PLAN.dcaDailyBank}/day BTC-USD\` from linked bank ($2K/mo paycheck contribution)\nCombined ~$${BUY_PLAN.dcaDailyCombined}/day · ~$38K total over deployment window.`
+    ? `\n\n🔁 **DCA reminder (Monday)** — API cron auto-fires $${BUY_PLAN.dcaDailyCombined}/day BTC-USDC from USDC wallet. Check your monthly $2,000 ACH bank→USD is set up; convert USD→USDC after each deposit to refill the pile.`
     : "";
 
   // Fallback warnings (anything within 7 days)
@@ -365,9 +367,10 @@ async function runDailyDCA() {
   }
   const dateIso = new Date().toISOString().slice(0, 10);
 
+  // Consolidated: single $138/day BTC-USDC buy from USDC wallet. User refills
+  // the USDC pile monthly via $2,000 ACH bank → USD → Convert to USDC.
   const orders = [
-    { productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc }, // $71 from USDC wallet
-    { productId: "BTC-USD",  quoteSize: BUY_PLAN.dcaDailyBank }, // $67 from USD wallet (bank-funded)
+    { productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc },
   ];
 
   const results = [];
@@ -381,6 +384,7 @@ async function runDailyDCA() {
       results.push({ ok: dup, productId: o.productId, quoteSize: o.quoteSize, error: err.message, dup });
     }
   }
+
   return { ts: new Date().toISOString(), results };
 }
 
