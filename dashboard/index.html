@@ -1995,6 +1995,35 @@ document.querySelectorAll(".chart-range-btn").forEach((btn) => {
   });
 });
 
+// --- Self-healing auto-sync on page load ---
+// If there are no Coinbase-source trades in localStorage but the wallet
+// shows a non-trivial BTC balance, auto-trigger a sync. This handles the
+// "I synced once when the API had a bug, now my local state is stuck"
+// scenario without requiring the user to remember to click anything.
+async function maybeAutoSync() {
+  try {
+    const hasCoinbaseTrades = (STATE.trades || []).some((t) => t.source === "coinbase");
+    if (hasCoinbaseTrades) return;
+    // Defer until balance + price are loaded so we know there's something worth syncing
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    if ((STATE.trades || []).some((t) => t.source === "coinbase")) return; // someone else synced
+    if (!CB_BALANCE || !(CB_BALANCE.btc > 0.001)) return; // no balance to reconcile
+    console.log("[auto-sync] No Coinbase trades found but balance shows", CB_BALANCE.btc, "BTC — triggering sync");
+    const r = await fetch("/api/coinbase-sync");
+    const d = await r.json();
+    if (r.ok && Array.isArray(d.trades)) {
+      const manualOrOther = STATE.trades.filter((t) => t.source !== "coinbase");
+      const fresh = d.trades.map((t) => ({ ...t, id: uid() }));
+      STATE.trades = [...manualOrOther, ...fresh];
+      saveState();
+      renderAll();
+      setSyncStatus(`Auto-synced ${fresh.length} trades on page load. Last synced ${new Date().toLocaleString()}.`);
+    }
+  } catch (e) {
+    console.warn("[auto-sync] failed", e);
+  }
+}
+
 // --- Boot ---
 fetchPrice();
 fetchBalance();
@@ -2007,6 +2036,7 @@ setInterval(fetchAnalytics, 600000); // analytics: every 10 min
 setInterval(fetch200WMA, 3600000);   // 200W MA: hourly (moves slowly)
 setInterval(() => renderChart(CHART_DAYS), 3600000); // chart history hourly
 renderAll();
+maybeAutoSync();
 </script>
 
 </body>
