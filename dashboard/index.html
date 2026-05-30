@@ -516,7 +516,7 @@
       <div class="stat-sub" id="totalBtcSats">— sats</div>
     </div>
     <div class="card" style="margin-bottom:0">
-      <div class="stat-label">Total Invested</div>
+      <div class="stat-label">Invested (plan period)</div>
       <div class="stat-value num" id="totalInvested">$0</div>
       <div class="stat-sub" id="totalTrades">0 trades</div>
     </div>
@@ -526,7 +526,7 @@
       <div class="stat-sub" id="avgCost">Avg cost: —</div>
     </div>
     <div class="card" style="margin-bottom:0">
-      <div class="stat-label">Unrealized P/L</div>
+      <div class="stat-label">P/L (plan period)</div>
       <div class="stat-value num" id="unrealizedPL">—</div>
       <div class="stat-sub" id="unrealizedPLPct">—</div>
     </div>
@@ -1306,10 +1306,13 @@ function tierStatus(tier, deployed) {
 
 function renderHeroNow() {
   const total = PLAN.totalBudget || 127182;
-  // Deployed = sum of buys (USD spent within the plan). BTC stack uses live
-  // wallet balance because trade-history math goes negative when the user
-  // sold from a pre-API-window position (e.g. the Jan 31 sells).
-  const buys = (STATE.trades || []).filter((t) => (t.type || "buy") === "buy");
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+  // Deployed = plan-period buys only (USD spent since plan start). BTC stack
+  // uses live wallet balance because trade-history math goes negative when
+  // the user sold from a pre-API-window position (Jan 31 sells).
+  const buys = (STATE.trades || []).filter(
+    (t) => (t.type || "buy") === "buy" && (t.date || "") >= PLAN_START
+  );
   const deployedUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
   const totalBtc = (CB_BALANCE && Number.isFinite(CB_BALANCE.btc))
     ? CB_BALANCE.btc
@@ -1451,6 +1454,11 @@ function phaseDeployed(phaseId) {
 
 // --- Stats ---
 function computeStats() {
+  // P/L accounting starts at the plan's first phase. Pre-plan sells
+  // (e.g., the Jan 31, 2026 cycle-top distribution) drained a pre-existing
+  // BTC position and aren't relevant to the buy plan's tracking.
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+
   // Trade-history accounting (cost basis only — can be incomplete if
   // the user had a position before what Coinbase's API surfaces).
   let totalBuyBtc = 0, totalBuyUsd = 0;
@@ -1459,13 +1467,16 @@ function computeStats() {
   for (const t of STATE.trades) {
     const btc = Number(t.btc || 0);
     const usd = Number(t.usd || 0);
+    const inPlan = (t.date || "") >= PLAN_START;
     if (t.type === "buy") {
       tradeNetBtc += btc;
-      totalBuyBtc += btc; totalBuyUsd += usd;
+      if (inPlan) { totalBuyBtc += btc; totalBuyUsd += usd; }
     } else {
       tradeNetBtc -= btc;
-      const avg = totalBuyBtc > 0 ? totalBuyUsd / totalBuyBtc : 0;
-      realizedPL += usd - btc * avg;
+      if (inPlan) {
+        const avg = totalBuyBtc > 0 ? totalBuyUsd / totalBuyBtc : 0;
+        realizedPL += usd - btc * avg;
+      }
     }
   }
 
@@ -1488,7 +1499,9 @@ function renderStats() {
   document.getElementById("totalBtc").textContent = FMT_BTC.format(s.totalBtc);
   document.getElementById("totalBtcSats").textContent = Math.round(s.totalBtc * 1e8).toLocaleString() + " sats";
   document.getElementById("totalInvested").textContent = FMT_USD0.format(s.totalUsd);
-  document.getElementById("totalTrades").textContent = `${s.totalTrades} trades · realized ${FMT_USD0.format(s.realizedPL)}`;
+  // Plan-period only — pre-plan trades (e.g., Jan 31 sells) excluded
+  const planBuys = STATE.trades.filter((t) => (t.type || "buy") === "buy" && (t.date || "") >= (PLAN.phases[0]?.start || "2026-05-28"));
+  document.getElementById("totalTrades").textContent = `${planBuys.length} plan trades · realized ${FMT_USD0.format(s.realizedPL)}`;
   document.getElementById("currentValue").textContent = LIVE_PRICE ? FMT_USD0.format(s.currentValue) : "—";
   document.getElementById("avgCost").textContent = s.avgCost ? "Avg cost: " + FMT_USD0.format(s.avgCost) : "Avg cost: —";
 
