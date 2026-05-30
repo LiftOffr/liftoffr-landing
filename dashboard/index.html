@@ -1306,9 +1306,14 @@ function tierStatus(tier, deployed) {
 
 function renderHeroNow() {
   const total = PLAN.totalBudget || 127182;
+  // Deployed = sum of buys (USD spent within the plan). BTC stack uses live
+  // wallet balance because trade-history math goes negative when the user
+  // sold from a pre-API-window position (e.g. the Jan 31 sells).
   const buys = (STATE.trades || []).filter((t) => (t.type || "buy") === "buy");
   const deployedUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
-  const totalBtc = buys.reduce((s, t) => s + (t.btc || 0), 0);
+  const totalBtc = (CB_BALANCE && Number.isFinite(CB_BALANCE.btc))
+    ? CB_BALANCE.btc
+    : buys.reduce((s, t) => s + (t.btc || 0), 0);
 
   // Diagnostic — visible inline so we can see exactly what the dashboard's
   // computing without needing DevTools. Toggle on by appending ?debug=1 to URL.
@@ -1446,26 +1451,35 @@ function phaseDeployed(phaseId) {
 
 // --- Stats ---
 function computeStats() {
-  let totalBtc = 0, totalUsd = 0, totalBuyBtc = 0, totalBuyUsd = 0;
+  // Trade-history accounting (cost basis only — can be incomplete if
+  // the user had a position before what Coinbase's API surfaces).
+  let totalBuyBtc = 0, totalBuyUsd = 0;
   let realizedPL = 0;
+  let tradeNetBtc = 0;
   for (const t of STATE.trades) {
     const btc = Number(t.btc || 0);
     const usd = Number(t.usd || 0);
     if (t.type === "buy") {
-      totalBtc += btc; totalUsd += usd;
+      tradeNetBtc += btc;
       totalBuyBtc += btc; totalBuyUsd += usd;
     } else {
-      totalBtc -= btc;
+      tradeNetBtc -= btc;
       const avg = totalBuyBtc > 0 ? totalBuyUsd / totalBuyBtc : 0;
       realizedPL += usd - btc * avg;
     }
   }
+
+  // Live wallet balance is the source of truth for Total BTC. Trade-history
+  // net can go negative when sells came out of a pre-API-window position.
+  const liveBtc = (CB_BALANCE && Number.isFinite(CB_BALANCE.btc)) ? CB_BALANCE.btc : null;
+  const totalBtc = liveBtc !== null ? liveBtc : Math.max(0, tradeNetBtc);
+
   const avgCost = totalBuyBtc > 0 ? totalBuyUsd / totalBuyBtc : 0;
   const currentValue = LIVE_PRICE ? totalBtc * LIVE_PRICE : 0;
   const costBasisRemaining = totalBtc * avgCost;
   const unrealizedPL = currentValue - costBasisRemaining;
   const unrealizedPct = costBasisRemaining > 0 ? unrealizedPL / costBasisRemaining : 0;
-  return { totalBtc, totalUsd, currentValue, unrealizedPL, unrealizedPct, avgCost, realizedPL, totalTrades: STATE.trades.length };
+  return { totalBtc, totalUsd: totalBuyUsd, currentValue, unrealizedPL, unrealizedPct, avgCost, realizedPL, totalTrades: STATE.trades.length };
 }
 
 // --- Renderers ---
