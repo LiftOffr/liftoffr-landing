@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Cycle Dashboard — LiftOffr</title>
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -423,6 +426,7 @@
       </div>
     </div>
     <div class="hero-bar-track"><div class="hero-bar-fill" id="heroBar" style="width:0%;"></div></div>
+    <div id="heroDebug" style="margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--text-faint);line-height:1.5;display:none;"></div>
   </div>
 
   <!-- ════════ BUY LADDER — horizontal tier visualization ════════ -->
@@ -1305,6 +1309,26 @@ function renderHeroNow() {
   const buys = (STATE.trades || []).filter((t) => (t.type || "buy") === "buy");
   const deployedUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
   const totalBtc = buys.reduce((s, t) => s + (t.btc || 0), 0);
+
+  // Diagnostic — visible inline so we can see exactly what the dashboard's
+  // computing without needing DevTools. Toggle on by appending ?debug=1 to URL.
+  const debugEl = document.getElementById("heroDebug");
+  if (debugEl) {
+    const url = new URL(window.location.href);
+    const debugOn = url.searchParams.get("debug") === "1";
+    debugEl.style.display = debugOn ? "block" : "none";
+    if (debugOn) {
+      const tradeCount = (STATE.trades || []).length;
+      const cbCount = (STATE.trades || []).filter((t) => t.source === "coinbase").length;
+      const lumpBuys = (STATE.trades || []).filter((b) => (b.type || "buy") === "buy" && (b.usd || 0) >= 1000);
+      const totalLumpUsd = lumpBuys.reduce((s, b) => s + (b.usd || 0), 0);
+      const fills = computeLumpTierFills();
+      const fillsStr = Array.from(fills.entries()).map(([k, v]) => `${k}=$${v.toFixed(0)}`).join(" · ");
+      debugEl.innerHTML =
+        `<div>DEBUG · trades=${tradeCount} (${cbCount} from coinbase) · lump buys ≥$1K: ${lumpBuys.length} totaling $${totalLumpUsd.toFixed(0)}</div>` +
+        `<div>fills: ${fillsStr}</div>`;
+    }
+  }
   const remaining = Math.max(0, total - deployedUsd);
   const pctDeployed = Math.min(100, (deployedUsd / total) * 100);
 
