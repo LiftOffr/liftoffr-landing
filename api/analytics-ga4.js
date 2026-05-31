@@ -109,9 +109,12 @@ const REPORTS = {
     metrics: [{ name: "eventCount" }, { name: "totalUsers" }],
     dimensionFilter: {
       filter: { fieldName: "eventName", inListFilter: { values: [
-        "page_view", "lead_magnet_submit", "lead_magnet_download",
-        "join_click", "exit_intent_shown", "exit_intent_dismissed",
-        "scroll", "click", "checkout_redirect",
+        // Real funnel as of the 7-day-trial launch (2026-05-31).
+        // land → engage → checkout intent → trial start → paid conversion.
+        "page_view", "scroll", "cta_clicked",
+        "lead_magnet_submit", "lead_captured",
+        "exit_intent_shown", "exit_intent_dismissed",
+        "begin_trial", "trial_converted", "purchase",
       ]}},
     },
   }),

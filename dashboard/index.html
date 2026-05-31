@@ -957,7 +957,7 @@ function renderAnalytics({ traffic, pages, events, funnel, clarity, gscQueries, 
   const frows = ga4Rows(funnel);
   const fEl = document.getElementById("analyticsFunnel");
   fEl.innerHTML = frows.length === 0
-    ? '<div class="dim">No custom funnel events fired yet (lead_magnet_submit, join_click, etc.). Check that track() calls match expected event names.</div>'
+    ? '<div class="dim">No custom funnel events fired yet (cta_clicked, begin_trial, trial_converted, etc.). Check that track() calls match expected event names.</div>'
     : '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;">' +
       frows.map(r => `<div style="background:var(--bg-elev-2);padding:8px 10px;border-radius:6px;"><div class="dim" style="font-size:11px;">${r.eventName}</div><div class="num" style="font-weight:600;">${parseInt(r.eventCount).toLocaleString()}</div></div>`).join("") +
       '</div>';
