@@ -315,6 +315,16 @@ export default async function handler(req, res) {
       content: data.utm_content || data.metadata?.utm_content || data.referral?.utm_content,
     };
 
+    // The $49/mo plan carries a 7-day free trial (initial_price $0).
+    // A trial START arrives as membership.activated with $0 collected — it is
+    // NOT revenue, so it must fire `begin_trial`, never `purchase` (otherwise the
+    // `|| 29` fallback below would log a phantom $29 sale for every free trial).
+    const TRIAL_PLAN_ID = "plan_aYmWvRCWPXqdB";
+    const planId = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
+    const isTrialPlan = planId === TRIAL_PLAN_ID;
+    const collected = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100;
+    const isTrialStart = type === "membership.activated" && isTrialPlan && collected === 0;
+
     const isPaid =
       type === "payment.succeeded" ||
       type === "membership.activated" ||
@@ -327,7 +337,7 @@ export default async function handler(req, res) {
       type === "membership.cancel_at_period_end_changed";
 
     if (isPaid) {
-      const value = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100 || 29;
+      const value = collected || (isTrialPlan ? 49 : 29);
       const currency = (data.currency || "USD").toUpperCase();
 
       // Discord new-member alert to ops channel (private notification for Torin)
@@ -375,6 +385,47 @@ export default async function handler(req, res) {
         res.status(200).json({ ok: true, ga4: "skipped" });
         return;
       }
+
+      // Free-trial START → `begin_trial`, NOT a purchase (no money changed hands).
+      // The welcome/DM above already fired so the new trialist gets onboarded immediately.
+      if (isTrialStart) {
+        // Add the trialist to the Resend "LiftOffr Trial" audience so the
+        // day-1/3/6 trial-nurture cron can email them before the day-7 charge.
+        // No-op unless RESEND_TRIAL_AUDIENCE_ID is set (feature-flagged).
+        const trialAud = process.env.RESEND_TRIAL_AUDIENCE_ID;
+        const resendKey = process.env.RESEND_API_KEY;
+        const trialEmail = data.user?.email || data.email;
+        if (trialAud && resendKey && trialEmail) {
+          try {
+            await fetch(`https://api.resend.com/audiences/${trialAud}/contacts`, {
+              method: "POST",
+              headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: trialEmail,
+                first_name: (data.user?.username || data.user?.name || "").split(" ")[0] || undefined,
+                unsubscribed: false,
+              }),
+            });
+          } catch (e) {
+            console.warn("[whop-webhook] trial audience add failed:", e?.message || e);
+          }
+        }
+        const ga = await sendGa4Event({
+          measurementId, apiSecret,
+          name: "begin_trial",
+          clientId: data.user_id || data.user?.id || undefined,
+          userId: data.user?.id,
+          params: {
+            plan_id: planId, value: 0, currency,
+            source: utm.source || "(direct)", medium: utm.medium || "(none)",
+            campaign: utm.campaign || "(none)", content: utm.content || "(none)",
+          },
+        });
+        console.log(`[whop-webhook] begin_trial forwarded ga4=${ga.status} utm=${JSON.stringify(utm)}`);
+        res.status(200).json({ ok: true, type, event: "begin_trial", ga4_status: ga.status });
+        return;
+      }
+
       const transactionId = data.id || data.payment_id || data.membership_id || `whop-${Date.now()}`;
       const ga = await sendGa4Purchase({
         measurementId,
@@ -387,6 +438,28 @@ export default async function handler(req, res) {
         utm,
         productName: data.plan?.product?.name || data.product?.name || data.plan_name || "LiftOffr",
       });
+
+      // A successful payment on the trial plan = the trial converted to paid.
+      // NOTE: this also fires on monthly renewals (stateless webhook can't tell
+      // first charge from renewal); at current volume that's visually obvious in
+      // GA4. Revisit with membership age if renewals start to muddy the metric.
+      if (type === "payment.succeeded" && isTrialPlan) {
+        try {
+          await sendGa4Event({
+            measurementId, apiSecret,
+            name: "trial_converted",
+            clientId: data.user_id || data.user?.id || undefined,
+            userId: data.user?.id,
+            params: {
+              plan_id: planId, value, currency,
+              source: utm.source || "(direct)", medium: utm.medium || "(none)",
+            },
+          });
+        } catch (e) {
+          console.warn("[whop-webhook] trial_converted forward failed:", e?.message || e);
+        }
+      }
+
       console.log(`[whop-webhook] purchase forwarded type=${type} ga4=${ga.status} value=${value} ${currency} utm=${JSON.stringify(utm)}`);
       res.status(200).json({ ok: true, type, ga4_status: ga.status });
       return;

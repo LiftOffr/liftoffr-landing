@@ -154,6 +154,98 @@ function email3Text() {
   ].join("\n");
 }
 
+// ─────────────────────────────────────────────────────────────────────────
+// TRIAL NURTURE — for members inside the 7-day free trial on the $49/mo plan.
+// Fed by the Whop webhook (begin_trial → adds contact to the trial audience).
+// Goal: get them active fast, then convert before the day-7 auto-charge.
+// Feature-flagged: dormant unless RESEND_TRIAL_AUDIENCE_ID is set.
+// ─────────────────────────────────────────────────────────────────────────
+const TSUBJECT_1 = "You're in — here's exactly where to start";
+const TSUBJECT_2 = "Day 3: are you actually using this?";
+const TSUBJECT_3 = "Your trial ends tomorrow (here's what happens)";
+
+const TRIAL_CHECKOUT = "https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=founder_lock";
+
+function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
+  return `<!DOCTYPE html>
+<html><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5;">
+  <div style="background:#080808;padding:28px;text-align:center;">
+    <div style="display:inline-block;background:#e63946;color:#fff;padding:5px 12px;border-radius:4px;font-family:Helvetica,sans-serif;font-style:italic;font-size:22px;font-weight:900;letter-spacing:-0.5px;">lift<span style="color:#000;">offr</span></div>
+    <div style="margin-top:14px;color:#999;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">${eyebrow}</div>
+  </div>
+  <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.65;">${bodyHTML}</div>
+  ${ctaText ? `<div style="padding:0 28px 32px;"><a href="${ctaHref}" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">${ctaText}</a></div>` : ""}
+  <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
+    Backtested 2017–2026. Past performance does not guarantee future results.<br/>
+    LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
+  </div>
+</div></body></html>`;
+}
+
+function trial1HTML() {
+  return trialShell("Trial · Day 1",
+    `<p style="margin:0 0 16px;">You're in. Card won't be touched for 7 days — so let's make this week count.</p>
+     <p style="margin:0 0 16px;">Here's the honest truth: people who poke around for 20 minutes and leave never convert, and they shouldn't. People who actually <em>use</em> it figure out fast whether it's worth $49/mo. So here's your 10-minute first session:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;">
+       <div>1. Open Discord → <strong>#how-to-use-this-course</strong>, read the 3 pins</div>
+       <div>2. Check the live dashboard — see today's Score and what zone we're in</div>
+       <div>3. Read the 8am daily brief. That's the whole product in 3 minutes a day.</div>
+     </div>
+     <p style="margin:18px 0 16px;">That's it. Do those three things today and you'll know by Wednesday whether this belongs in your routine.</p>
+     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">I read every reply. Hit me with questions.</em></p>`,
+    "Open the dashboard →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=day1");
+}
+function trial1Text() {
+  return ["You're in. Card won't be touched for 7 days — so let's make this week count.","",
+    "People who poke around for 20 min and leave never convert. People who actually USE it figure out fast whether it's worth $49/mo. Your 10-minute first session:","",
+    "1. Discord -> #how-to-use-this-course, read the 3 pins",
+    "2. Check the live dashboard — today's Score and zone",
+    "3. Read the 8am daily brief. That's the whole product in 3 min/day.","",
+    "Do those three today and you'll know by Wednesday.","","— Torin (I read every reply)",
+    "https://liftoffr.com/track-record"].join("\n");
+}
+
+function trial2HTML() {
+  return trialShell("Trial · Day 3",
+    `<p style="margin:0 0 16px;">Halfway through your trial. Quick gut-check.</p>
+     <p style="margin:0 0 16px;">If you've been reading the daily brief, you've already seen the thing most people pay to learn the hard way: <strong>the read changes, and you don't have to guess.</strong></p>
+     <p style="margin:0 0 16px;">If you <em>haven't</em> opened it yet — that's the whole product. One post, 8am MT, every weekday: here's the Score, here's the zone, here's what it means today. Three minutes. No charts to stare at, no Twitter to doom-scroll.</p>
+     <p style="margin:0 0 16px;">The backtest is public if you want the proof: $50/wk run through this framework since 2017 turned $24,450 of contributions into $1.88M — vs $217K just buying and holding. 100% win rate vs DCA across 417 start dates.</p>
+     <p style="margin:24px 0 0;">Four days left. Use them.</p>
+     <p style="margin:18px 0 0;">— Torin</p>`,
+    "See the full backtest →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=day3");
+}
+function trial2Text() {
+  return ["Halfway through your trial. Quick gut-check.","",
+    "If you've read the daily brief, you've seen the thing most people pay to learn the hard way: the read changes, and you don't have to guess.","",
+    "If you haven't opened it — that's the product. One post, 8am MT, weekdays: Score, zone, what it means today. Three minutes.","",
+    "Proof is public: $50/wk through this framework since 2017 = $1.88M vs $217K buy-and-hold. 100% win rate vs DCA across 417 start dates.","",
+    "Four days left. Use them.","— Torin","https://liftoffr.com/track-record"].join("\n");
+}
+
+function trial3HTML() {
+  return trialShell("Trial · Day 6 · ends tomorrow",
+    `<p style="margin:0 0 16px;">Straight with you: <strong>tomorrow your trial ends and your card gets charged $49 for the month.</strong> Here are your three options, no pressure either way.</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
+       <div style="margin-bottom:10px;"><strong>1. Stay.</strong> Do nothing. You're charged $49/mo and keep everything — daily briefs, dashboard, alerts, course, community.</div>
+       <div style="margin-bottom:10px;"><strong>2. Lock it cheaper.</strong> Grab the Founder Rate at <strong>$29/mo — and it never goes up</strong>, ever. If you know you're staying, this is the move. Button below.</div>
+       <div><strong>3. Out.</strong> Not for you? Cancel in Whop before tomorrow and you pay $0. No hard feelings, no clawback — that's the deal I promised.</div>
+     </div>
+     <p style="margin:18px 0 16px;">I'd rather you cancel than resent a charge. But if the daily read has been worth three minutes of your morning this week — lock the $29 and never think about price again.</p>
+     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
+     <p style="margin:18px 0 0;font-size:13px;color:#888;">Manage or cancel anytime in your Whop dashboard.</p>`,
+    "Lock $29/mo for life →", TRIAL_CHECKOUT);
+}
+function trial3Text() {
+  return ["Straight with you: tomorrow your trial ends and your card gets charged $49 for the month. Three options:","",
+    "1. STAY — do nothing, charged $49/mo, keep everything.",
+    "2. LOCK IT CHEAPER — Founder Rate $29/mo, never goes up. If you're staying, this is the move:",
+    "   " + TRIAL_CHECKOUT,
+    "3. OUT — cancel in Whop before tomorrow, pay $0. No hard feelings.","",
+    "I'd rather you cancel than resent a charge. But if the daily read's been worth 3 minutes of your morning — lock the $29.","","— Torin, Founder LiftOffr"].join("\n");
+}
+
 async function fetchContacts() {
   const key = process.env.RESEND_API_KEY;
   const aud = process.env.RESEND_AUDIENCE_ID;
@@ -164,7 +256,16 @@ async function fetchContacts() {
   return (data.data || []).filter((c) => c.email && !c.unsubscribed);
 }
 
-async function sendResend({ to, subject, text, html, idempotencyKey, tag }) {
+async function fetchAudience(aud) {
+  const key = process.env.RESEND_API_KEY;
+  const r = await fetch(`https://api.resend.com/audiences/${aud}/contacts`, {
+    headers: { Authorization: `Bearer ${key}`, Accept: "application/json" },
+  });
+  const data = await r.json();
+  return (data.data || []).filter((c) => c.email && !c.unsubscribed);
+}
+
+async function sendResend({ to, subject, text, html, idempotencyKey, tag, campaign = "welcome" }) {
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -181,7 +282,7 @@ async function sendResend({ to, subject, text, html, idempotencyKey, tag }) {
       text,
       html,
       tags: [
-        { name: "campaign", value: "welcome" },
+        { name: "campaign", value: campaign },
         { name: "step", value: tag },
       ],
     }),
@@ -255,10 +356,46 @@ export default async function handler(req, res) {
       results.skipped++;
     }
 
+    // ── Trial nurture (only if the trial audience is configured) ──
+    const trialAud = process.env.RESEND_TRIAL_AUDIENCE_ID;
+    let trial = null;
+    if (trialAud) {
+      trial = { t1_sent: 0, t2_sent: 0, t3_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
+      const trialContacts = await fetchAudience(trialAud);
+      trial.total = trialContacts.length;
+      const steps = [
+        { lo: 0.0, hi: 1.0, subj: TSUBJECT_1, html: trial1HTML, text: trial1Text, key: "t1", k: "t1_sent" },
+        { lo: 3.0, hi: 4.0, subj: TSUBJECT_2, html: trial2HTML, text: trial2Text, key: "t2", k: "t2_sent" },
+        { lo: 5.5, hi: 6.5, subj: TSUBJECT_3, html: trial3HTML, text: trial3Text, key: "t3", k: "t3_sent" },
+      ];
+      for (const c of trialContacts) {
+        const age = ageDays(c.created_at);
+        const step = steps.find((s) => age >= s.lo && age < s.hi);
+        if (!step) { trial.skipped++; continue; }
+        try {
+          await sendResend({
+            to: c.email,
+            subject: step.subj,
+            text: step.text(),
+            html: step.html(),
+            idempotencyKey: `trial-${step.key}-${c.id}`,
+            tag: step.key,
+            campaign: "trial",
+          });
+          trial[step.k]++;
+        } catch (e) {
+          trial.failed++;
+          trial.errors.push({ id: c.id, step: step.key, err: String(e).slice(0, 200) });
+        }
+        await new Promise((r) => setTimeout(r, 600));
+      }
+    }
+
     return res.status(200).json({
       ts: new Date().toISOString(),
       total_contacts: contacts.length,
       results,
+      trial,
     });
   } catch (err) {
     console.error("cron-welcome-followups error", err);

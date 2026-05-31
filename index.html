@@ -200,14 +200,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     };
   }
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href*="whop.com/"]');
+    var a = e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]');
     if (!a) return;
     var u = new URL(a.href, location.href);
     var utm = getUtms();
+    var sl = u.pathname.replace(/^\//, '');
     track('cta_clicked', {
       cta_text: (a.textContent || '').trim().slice(0, 80),
-      cta_position: u.searchParams.get('utm_content') || 'unknown',
-      destination: 'whop_checkout',
+      cta_position: u.searchParams.get('utm_content') || (sl === 'start' ? 'trial_start' : sl === 'founder' ? 'founder_skip' : 'unknown'),
+      destination: sl === 'start' ? 'trial' : sl === 'founder' ? 'founder_paynow' : 'whop_checkout',
       page: location.pathname,
       utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign
     });
@@ -1036,7 +1037,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog" class="nav-link nav-link-blog">Blog</a>
     <a href="/faq" class="nav-link">FAQ</a>
     <a href="/checklist" class="btn-outline">Free Checklist</a>
-    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=nav" target="_blank" rel="noopener" class="btn-red">Join — $29/mo →</a>
+    <a href="/start" target="_blank" rel="noopener" class="btn-red">Start free →</a>
   </div>
 </nav>
 
@@ -1059,9 +1060,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="hero-cta-row">
-    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=hero" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Start 30-day trial — $29/mo →</a>
+    <a href="/start" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Start 7 days free →</a>
     <div class="trust-row">
-      <span>🛡️ If signals don't earn back the fee, full refund — no questions</span>
+      <span>$49/mo after · cancel anytime in the first 7 days · <a href="#pricing" style="color:inherit;text-decoration:underline;font-weight:800;">or lock $29/mo for life</a></span>
     </div>
   </div>
 
@@ -1251,7 +1252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div style="text-align:center;margin-top:40px;">
-      <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=how" target="_blank" rel="noopener" class="btn-red-xl">Claim Founder Rate — $29/mo →</a>
+      <a href="/start" target="_blank" rel="noopener" class="btn-red-xl">Start 7 days free →</a>
       <div class="trust-row" style="margin-top:14px;">
         <span>🛡️ If signals don't earn back the fee, full refund — no questions</span>
       </div>
@@ -1468,13 +1469,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="ptier-stock">🔒 <span data-founder-text>Locks $29/mo for life — public price $49</span></div>
       </div>
 
-      <!-- MONTHLY -->
+      <!-- FREE TRIAL -->
       <div class="ptier">
-        <span class="ptier-badge">Monthly</span>
-        <div class="ptier-name">Try it, no commitment</div>
-        <div class="ptier-price"><span class="num">$49</span><span class="per">/mo</span></div>
-        <div class="ptier-orig">&nbsp;</div>
-        <div class="ptier-frame">Cancel anytime · <strong>30-day refund</strong></div>
+        <span class="ptier-badge">7-Day Free Trial</span>
+        <div class="ptier-name">Try everything free first</div>
+        <div class="ptier-price"><span class="num">$0</span><span class="per">for 7 days</span></div>
+        <div class="ptier-orig">then $49/mo</div>
+        <div class="ptier-frame">Cancel anytime in the first 7 days · <strong>pay nothing</strong></div>
         <ul class="ptier-features">
           <li>Daily BTC brief (8am MT weekdays)</li>
           <li>Live cycle indicator dashboard</li>
@@ -1482,10 +1483,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li>Macro event watch</li>
           <li>Full 6-module course</li>
           <li>Private Discord community</li>
-          <li>30-day money-back</li>
-          <li>Refund any day, no questions</li>
+          <li>Full access from day one</li>
+          <li>Cancel before day 7, pay $0</li>
         </ul>
-        <a href="https://whop.com/checkout/plan_aYmWvRCWPXqdB?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_monthly" target="_blank" rel="noopener" class="ptier-cta ptier-cta-secondary">Start Monthly — $49 →</a>
+        <a href="/start" target="_blank" rel="noopener" class="ptier-cta ptier-cta-secondary">Start 7 days free →</a>
       </div>
 
     </div>
@@ -1567,7 +1568,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="section-label">Last call</div>
   <h2>Two weeks late is the difference between<br><em>a great cycle and a great regret.</em></h2>
   <p>Get the daily brief, the cycle dashboard, and the 6-module course — risk-free for 30 days.</p>
-  <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=final" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Claim Founder Rate — $29/mo →</a>
+  <a href="/start" target="_blank" rel="noopener" class="btn-red-xl btn-pulse">Start 7 days free →</a>
   <div class="trust-row" style="margin-top:18px;">
     <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Instant Discord access</span><span class="dot">·</span><span>Cancel anytime</span>
   </div>
@@ -1582,8 +1583,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- MOBILE STICKY CTA -->
 <div class="mobile-sticky-cta" id="mobileStickyCta">
-  <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=mobile_sticky" target="_blank" rel="noopener">Claim Founder Rate — $29/mo →</a>
-  <div class="sticky-sub">⚡ Founder rate · locks in forever · 30-day refund</div>
+  <a href="/start" target="_blank" rel="noopener">Start 7 days free →</a>
+  <div class="sticky-sub">$49/mo after · cancel anytime in the first 7 days</div>
 </div>
 
 <!-- FOOTER -->
@@ -1697,7 +1698,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <p style="font-size:13px;color:#555;margin-bottom:20px;line-height:1.55;">The same indicators are running right now. When they align again, you'll want to already be inside.</p>
-    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=exit_intent&utm_campaign=evergreen&utm_content=exit_modal" target="_blank" rel="noopener" onclick="dismissExitModal()" style="display:block;text-align:center;padding:15px;background:var(--red);color:#fff;border-radius:10px;font-weight:800;font-size:15px;margin-bottom:10px;">Join for $29/mo — Lock in Founder Rate →</a>
+    <a href="/start" target="_blank" rel="noopener" onclick="dismissExitModal()" style="display:block;text-align:center;padding:15px;background:var(--red);color:#fff;border-radius:10px;font-weight:800;font-size:15px;margin-bottom:10px;">Start 7 days free — see it for yourself →</a>
     <button onclick="dismissExitModal()" style="width:100%;padding:11px;background:none;border:1px solid #222;border-radius:10px;color:#555;font-size:13px;cursor:pointer;font-family:inherit;">No thanks, I'll figure it out on my own</button>
   </div>
 </div>

@@ -114,6 +114,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .link-join .lj-arrow { color: var(--red); font-size: 20px; font-weight: 800; }
   .link-join .lj-stock { font-size: 10px; color: var(--red); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
   .link-join .lj-stock:empty { display: none; }
+  .link-join-alt { display: block; text-align: center; margin: -6px 0 4px; padding: 8px 12px; font-size: 12px; font-weight: 700; color: #aaa; text-decoration: none; border-radius: 10px; transition: color .15s; }
+  .link-join-alt:hover { color: #fff; }
 
   /* PROOF — track record card */
   .link-proof {
@@ -611,7 +613,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='start'?'trial_start':sl==='founder'?'founder_skip':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='start'?'trial':sl==='founder'?'founder_paynow':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
   window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
 })();
 </script>
@@ -709,16 +711,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </details>
 
-  <!-- Whop Founder Rate -->
-  <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_join" target="_blank" rel="noopener" class="link-join">
+  <!-- Whop — 7-day free trial (primary) -->
+  <a href="/start" target="_blank" rel="noopener" class="link-join">
     <div class="lj-icon">🚀</div>
     <div class="lj-text">
       <div class="lj-stock" data-founder-text></div>
-      <div class="lj-title">Claim Founder Rate — $29/mo</div>
-      <div class="lj-sub">If signals don't earn back the fee, full refund — no questions.</div>
+      <div class="lj-title">Start 7 days free</div>
+      <div class="lj-sub">Full access today. $49/mo after — cancel anytime in the first 7 days and pay nothing.</div>
     </div>
     <div class="lj-arrow">→</div>
   </a>
+  <a href="/founder" target="_blank" rel="noopener" class="link-join-alt" data-cta-skip>Already sure? Skip the trial — lock the $29/mo Founder rate for life →</a>
 
   <!-- AUTO-SCROLL REVIEWS CAROUSEL — 3 Discord member testimonials, advances every 5s -->
   <div class="lh-carousel" id="lh-carousel">
@@ -953,8 +956,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- Sticky mobile CTA — one tap to checkout, always visible -->
 <div class="lh-sticky">
-  <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_sticky" target="_blank" rel="noopener">Lock Founder Rate — $29/mo →</a>
-  <div class="lh-sticky-sub">30-day refund · Cancel anytime</div>
+  <a href="/start" target="_blank" rel="noopener">Start 7 days free →</a>
+  <div class="lh-sticky-sub">$49/mo after · Cancel anytime in the first 7 days</div>
 </div>
 
 </body>

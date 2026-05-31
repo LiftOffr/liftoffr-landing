@@ -1,6 +1,31 @@
-# Whop Setup Checklist — Two Things To Do In Whop Dashboard
+# LiftOffr Trial Launch — Activation Checklist
 
-These can't be done via code — they're dashboard-only configs in Whop. Both ~15 min total.
+The site is now wired for a **7-day free trial → $49/mo** model, with the **$29/mo Founder rate** kept as a "pay now, skip the trial, lock it for life" option.
+
+- **Trial plan:** `plan_aYmWvRCWPXqdB` — $49/mo, `trial_period_days: 7`, `initial_price: $0` (already configured & visible in Whop ✅)
+- **Founder plan:** `plan_CH1L53GLZsaq1` — $29/mo, no trial (pay-now)
+- **Single source of truth for the trial link:** the `/start` redirect in `vercel.json` → the trial checkout. All primary CTAs across `/`, `/links`, `/track-record` point at `/start`. To change the trial plan later, edit that one line.
+
+## 0. What's already done in code (ships on next deploy)
+- All primary CTAs → "Start 7 days free" (`/start`); `$29` demoted to a "skip the trial" secondary link
+- `cta_clicked` tracking widened to fire on `/start`, `/founder`, `/join` (was whop.com-only — internal shortlinks weren't tracked before)
+- Webhook fires `begin_trial` (value $0) on trial start instead of a phantom `$29` purchase; fires real `purchase` + `trial_converted` on payment
+- Trial-nurture email sequence (Day 1 / Day 3 / Day 6 "ends tomorrow") built into `cron-welcome-followups.js`, **dormant until you do step 3 below**
+
+## 1. (DONE) Verify the trial plan in Whop
+Confirm `plan_aYmWvRCWPXqdB` is: free for 7 days, then $49/mo, **card required up front** (so it auto-charges on day 8). Already verified via API — just sanity-check the Whop checkout page renders "7 days free then $49/mo."
+
+## 2. Turn on failed-payment recovery (dunning) — CRITICAL for a trial model
+Whop dashboard → **Settings → Billing / Payments → Failed Payment Recovery (Smart Retries)**
+- Enable automatic retries (Whop retries the day-8 charge over several days)
+- Enable the failed-payment email to the member
+- Day-8 charge failures are the #1 silent leak in any trial model — without this you lose converts who simply had a card decline.
+
+## 3. (Optional now, recommended soon) Activate the trial email sequence
+The nurture emails are built but gated behind one env var so they stay off until you opt in:
+1. Resend dashboard → **Audiences → Create audience** → name it `LiftOffr Trial` → copy its UUID
+2. Vercel → liftoffr-landing → Settings → Environment Variables → add `RESEND_TRIAL_AUDIENCE_ID` = that UUID → redeploy
+3. Done. The webhook auto-adds every trial-starter to that audience, and the hourly cron emails them Day 1 (onboard), Day 3 (proof), Day 6 ("charged tomorrow — stay / lock $29 / cancel free").
 
 ---
 
