@@ -68,10 +68,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="logo"><span>lift<b>offr</b></span></div>
   <div class="check">🎉</div>
 
-  <h1 id="hl">You're in. Your 7-day trial just started.</h1>
+  <h1 id="hl">You're in. Welcome to LiftOffr.</h1>
   <p class="sub" id="sub">Taking you to the Discord welcome channel now… if it doesn't open automatically, tap the button below.</p>
 
-  <div class="reassure" id="reassure">🔒 <b>We won't charge your card for 7 days.</b> Cancel anytime before then in your Whop dashboard and you pay $0 — no questions.</div>
+  <div class="reassure" id="reassure">🔒 <b>On the free trial?</b> Your card isn't charged for 7 days — cancel anytime before then and pay $0. Manage everything in your Whop dashboard.</div>
 
   <a href="https://discord.com/channels/1380245793780531351/1380272240150708326" class="cta" id="primary-cta">Open the Discord welcome channel →</a>
 
@@ -104,28 +104,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <script>
 (function(){
+  // Whop allows a single global post-purchase redirect, so this page can't know
+  // the plan from a param — keep it plan-agnostic. The webhook fires the precise
+  // begin_trial vs purchase server-side; this client-side event just ties the
+  // checkout completion to the visitor's GA4 web session for funnel attribution.
   var p = new URLSearchParams(location.search);
-  var plan = p.get('plan') || 'trial';
-  // Founder (pay-now) path: swap the trial-specific copy.
-  if (plan === 'founder') {
-    var hl = document.getElementById('hl');
-    var sub = document.getElementById('sub');
-    var re = document.getElementById('reassure');
-    if (hl) hl.textContent = "You're in — Founder rate locked for life.";
-    if (re) re.innerHTML = "🔒 <b>Your $29/mo rate is locked forever.</b> 30-day money-back guarantee — full refund, no questions, if it's not for you.";
-  }
-  // Fire a session-tied conversion event (complements the server-side webhook).
   var utm = {
     source: p.get('utm_source') || '(direct)', medium: p.get('utm_medium') || '(none)',
     campaign: p.get('utm_campaign') || '(none)', content: p.get('utm_content') || '(none)'
   };
-  var evt = plan === 'founder' ? 'purchase_confirmed' : 'trial_start_confirmed';
-  if (window.track) window.track(evt, { plan: plan, page: '/welcome',
+  if (window.track) window.track('checkout_confirmed', { page: '/welcome',
     utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign, utm_content: utm.content });
 
-  // Fire the conversion event first, then forward into the Discord welcome
-  // channel. 2.4s gives the GA4/Clarity beacons time to send and lets the
-  // member register they're in before the app/handoff opens.
+  // Forward into the Discord welcome channel after the beacon has time to send.
   var dest = document.getElementById('primary-cta').href;
   setTimeout(function(){ location.href = dest; }, 2400);
 })();

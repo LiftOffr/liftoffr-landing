@@ -114,7 +114,7 @@ const REPORTS = {
         "page_view", "scroll", "cta_clicked",
         "lead_magnet_submit", "lead_captured",
         "exit_intent_shown", "exit_intent_dismissed",
-        "begin_trial", "trial_converted", "purchase",
+        "begin_trial", "checkout_confirmed", "trial_converted", "purchase",
       ]}},
     },
   }),
