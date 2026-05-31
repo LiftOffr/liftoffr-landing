@@ -25,13 +25,18 @@
     },
     {
       "source": "/tiktok",
-      "destination": "/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen&utm_content=tiktok_bio",
-      "permanent": false
+      "destination": "/links/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen&utm_content=tiktok_bio",
+      "permanent": true
     },
     {
       "source": "/x",
       "destination": "/?utm_source=twitter&utm_medium=social&utm_campaign=evergreen&utm_content=x_thread",
       "permanent": true
+    },
+    {
+      "source": "/start",
+      "destination": "https://whop.com/checkout/plan_aYmWvRCWPXqdB?utm_source=liftoffr&utm_medium=cta&utm_campaign=evergreen&utm_content=trial_start",
+      "permanent": false
     },
     {
       "source": "/join",
