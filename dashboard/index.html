@@ -1467,12 +1467,12 @@ function computeBottomScenarios() {
   // Base weights LEANING TOWARD COWEN — his repeated calls are weighted heaviest,
   // the "Cowen wrong" tail is tiny. Adjusts based on live signals.
   const scenarios = [
-    { key: "shallow",  label: "Cowen base",   price: 60000, prob: 0.40, color: "var(--green)" },
-    { key: "midShallow", label: "Cowen 2nd",  price: 58000, prob: 0.25, color: "var(--green)" },
-    { key: "midDeep",  label: "Midterm fair", price: 52000, prob: 0.12, color: "var(--gold)" },
-    { key: "deep",     label: "Stretch",      price: 48000, prob: 0.10, color: "var(--gold)" },
-    { key: "extreme",  label: "Tail",         price: 40000, prob: 0.07, color: "var(--red)" },
-    { key: "bull",     label: "Bottom in",    price: 72000, prob: 0.06, color: "var(--blue)" },
+    { key: "shallow",   label: "Cowen base",   price: 60000, prob: 0.50, color: "var(--green)" },
+    { key: "midShallow",label: "Cowen 2nd",    price: 58000, prob: 0.30, color: "var(--green)" },
+    { key: "midDeep",   label: "Midterm fair", price: 52000, prob: 0.08, color: "var(--gold)" },
+    { key: "deep",      label: "Stretch",      price: 48000, prob: 0.06, color: "var(--gold)" },
+    { key: "extreme",   label: "Tail",         price: 40000, prob: 0.03, color: "var(--red)" },
+    { key: "bull",      label: "Bottom in",    price: 72000, prob: 0.03, color: "var(--blue)" },
   ];
 
   // === Dynamic adjustments ===

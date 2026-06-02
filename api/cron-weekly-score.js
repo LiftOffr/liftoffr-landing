@@ -472,6 +472,91 @@ async function runDailyDCA() {
   return { ts: new Date().toISOString(), results };
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// TIER WATCH — hourly check for any buy tier crossing its trigger.
+// Pings Discord with manual order details so the user knows to fire.
+// Dedup is automatic via Coinbase sync — once the lump tier is filled,
+// the alert stops firing.
+// ═══════════════════════════════════════════════════════════════════
+
+async function runTierWatch(baseUrl) {
+  const data = await fetchBtcAnd200wMA(baseUrl);
+  if (!data || !Number.isFinite(data.usd) || !Number.isFinite(data.ma200w)) {
+    return { skipped: true, reason: "no price/MA" };
+  }
+
+  // Fetch trades to figure out which tiers are already filled.
+  const sync = await fetch(`${baseUrl}/api/coinbase-sync`);
+  const syncData = await sync.json().catch(() => ({}));
+  const trades = syncData.trades || [];
+  const PLAN_START = "2026-05-28";
+  const lumpBuys = trades
+    .filter((t) => (t.type || "buy") === "buy" && (t.usd || 0) >= 1000 && (t.date || "") >= PLAN_START)
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+  // Waterfall fill into the lump tiers (IMMEDIATE → T1 → T2 → T3 → T4 → T5)
+  const TIERS = [
+    { name: "IMMEDIATE", target: 15000, fixedPrice: 73000, label: "Fire at market today" },
+    { name: "T1", target: 15000, maMult: 1.10, label: "Bear-band fail follow-through" },
+    { name: "T2", target: 20000, maMult: 0.97, label: "Cowen base case sweep" },
+    { name: "T3", target: 25000, maMult: 0.85, label: "200W MA test (Cowen secondary)" },
+    { name: "T4", target: 20000, maMult: 0.73, label: "Deep capitulation (COVID-style)" },
+    { name: "T5", target: 12182, maMult: 0.62, label: "Statistical bear extreme" },
+  ];
+
+  let remaining = lumpBuys.reduce((s, t) => s + (t.usd || 0), 0);
+  const tierStates = TIERS.map((t) => {
+    const fillAmount = Math.min(t.target, Math.max(0, remaining));
+    remaining = Math.max(0, remaining - fillAmount);
+    const triggerPx = t.maMult ? data.ma200w * t.maMult : t.fixedPrice;
+    return {
+      ...t,
+      filled: fillAmount,
+      remaining: t.target - fillAmount,
+      triggerPx,
+      hit: data.usd <= triggerPx,
+      done: fillAmount >= t.target * 0.97,
+    };
+  });
+
+  const actionable = tierStates.filter((t) => t.hit && !t.done);
+  if (actionable.length === 0) {
+    return { skipped: true, reason: "no tier actionable", btcPrice: data.usd };
+  }
+
+  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
+  if (!url) return { actionable: actionable.map((t) => t.name), error: "no webhook" };
+
+  const lines = actionable.map((t) => {
+    const expectedBtc = (t.remaining / data.usd).toFixed(4);
+    return `**🟢 ${t.name} HIT** — ${t.label}\n` +
+           `Fire **${fmtUsd(t.remaining)}** BTC-USDC market buy\n` +
+           `Trigger ${fmtUsd(t.triggerPx)} · BTC now ${fmtUsd(data.usd)} · Expected ~${expectedBtc} BTC`;
+  });
+
+  await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: "LiftOffr Tier Watch",
+      content: actionable.length === 1 ? "🚨 **BUY TIER HIT** 🚨" : `🚨 **${actionable.length} BUY TIERS HIT** 🚨`,
+      embeds: [{
+        title: actionable.map((t) => t.name).join(" + "),
+        description: lines.join("\n\n"),
+        color: 0x34c759,
+        footer: { text: "Manual execute · Coinbase Advanced Trade BTC-USDC · liftoffr.com/dashboard" },
+        timestamp: new Date().toISOString(),
+      }],
+    }),
+  });
+
+  return {
+    ts: new Date().toISOString(),
+    btcPrice: data.usd,
+    actionable: actionable.map((t) => ({ name: t.name, remaining: t.remaining, triggerPx: t.triggerPx })),
+  };
+}
+
 async function sendDcaResultToDiscord(dcaResult) {
   const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
   if (!url) return;
@@ -504,6 +589,7 @@ async function sendDcaResultToDiscord(dcaResult) {
 export default async function handler(req, res) {
   const now = new Date();
   const day = now.getUTCDay();
+  const hour = now.getUTCHours();
   const force = (req.query?.force || new URL(req.url, "http://localhost").searchParams.get("force")) === "1";
   const tasksParam = req.query?.tasks || new URL(req.url, "http://localhost").searchParams.get("tasks");
 
@@ -518,12 +604,29 @@ export default async function handler(req, res) {
   const proto = req.headers["x-forwarded-proto"] || "https";
   const baseUrl = `${proto}://${host}`;
 
-  const out = { ts: now.toISOString(), day, tasks: {} };
+  const out = { ts: now.toISOString(), day, hour, tasks: {} };
 
-  // TASK 1 — Daily DCA execution. Places two market buys via Advanced Trade
-  // API. Idempotency keyed off today's date — duplicate fires are safely
-  // rejected by Coinbase rather than re-placed.
-  const runDCA = !tasksParam || tasksParam.includes("dca");
+  // The cron now runs hourly. Some tasks fire every hour, others gate on
+  // the specific UTC hour to behave as if they were daily-only.
+  const isDailySendHour = (hour === 15) || force; // 15:00 UTC = 8am MT
+
+  // TASK 1 — Tier watch. Runs EVERY hour. Pings Discord with manual order
+  // details whenever a buy tier is hit but not yet filled. Auto-dedups via
+  // Coinbase sync (once you fire the lump buy, alert stops).
+  const runWatch = !tasksParam || tasksParam.includes("watch");
+  if (runWatch) {
+    try {
+      out.tasks.tierWatch = await runTierWatch(baseUrl);
+    } catch (err) {
+      console.error("tier watch error", err);
+      out.tasks.tierWatch = { error: err.message };
+    }
+  }
+
+  // TASK 2 — Daily DCA execution. Only fires at 15:00 UTC (8am MT).
+  // Coinbase idempotency would block duplicate same-day fires anyway, but
+  // we gate explicitly so we don't spam logs with rejection noise.
+  const runDCA = (!tasksParam || tasksParam.includes("dca")) && isDailySendHour;
   if (runDCA) {
     try {
       const dcaResult = await runDailyDCA();
@@ -535,8 +638,8 @@ export default async function handler(req, res) {
     }
   }
 
-  // TASK 2 — Daily buy-plan briefing (Discord). Runs every day.
-  const runBriefing = !tasksParam || tasksParam.includes("briefing");
+  // TASK 3 — Daily buy-plan briefing (Discord). Only fires at 15:00 UTC.
+  const runBriefing = (!tasksParam || tasksParam.includes("briefing")) && isDailySendHour;
   if (runBriefing) {
     try {
       out.tasks.briefing = await runDailyBriefing(baseUrl, day);
@@ -546,8 +649,8 @@ export default async function handler(req, res) {
     }
   }
 
-  // TASK 3 — Weekly LiftOffr Score email. Sundays only.
-  const runScore = (!tasksParam || tasksParam.includes("score")) && (day === 0 || force);
+  // TASK 4 — Weekly LiftOffr Score email. Sundays at 15:00 UTC only.
+  const runScore = (!tasksParam || tasksParam.includes("score")) && (day === 0) && isDailySendHour;
   if (runScore) {
     try {
       const [score, subs] = await Promise.all([
