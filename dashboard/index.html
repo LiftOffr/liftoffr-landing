@@ -18,7 +18,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <style>
   :root {
-    /* LiftOffr brand palette */
+    /* LiftOffr brand palette — refined for cycle dashboard */
     --bg: #050505;
     --bg-elev: #0e0e0e;
     --bg-elev-2: #131313;
@@ -30,18 +30,25 @@
     --text-faint: #707070;
     --accent: #e63946;
     --accent-hover: #d62b3b;
+    --gold: #fbbf24;        /* CBBI / cycle indicators */
+    --gold-dim: #d97706;
     --green: #34c759;
     --green-dim: #2da147;
     --red: #ff453a;
     --yellow: #ffd60a;
     --orange: #ff9f0a;
     --blue: #64d2ff;
+    --purple: #bf5af2;
     --mono: 'JetBrains Mono', 'SF Mono', 'Menlo', 'Consolas', monospace;
-    /* Apple-style scale */
+    /* Scale */
     --r-sm: 8px;
     --r-md: 14px;
     --r-lg: 20px;
     --r-xl: 28px;
+    /* Glows for accent states */
+    --glow-green: 0 0 32px rgba(52, 199, 89, 0.25);
+    --glow-gold: 0 0 32px rgba(251, 191, 36, 0.20);
+    --glow-red: 0 0 32px rgba(255, 69, 58, 0.20);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
@@ -99,12 +106,28 @@
 
   /* Cards — softer + more breathing room */
   .card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.002));
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: var(--r-md);
     padding: 22px;
     margin-bottom: 20px;
+    transition: border-color 0.25s, transform 0.25s;
   }
+  .card:hover {
+    border-color: rgba(255,255,255,0.10);
+  }
+  /* Mini sparklines in stat cards */
+  .stat-with-spark {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .sparkline {
+    width: 80px; height: 40px;
+    opacity: 0.8;
+  }
+  .sparkline path { stroke-width: 1.5; fill: none; }
   .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-faint); margin-bottom: 16px; font-weight: 600; }
   .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-faint); margin-bottom: 6px; font-weight: 600; }
   .stat-value { font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
@@ -113,35 +136,70 @@
   /* Hero NOW section */
   .hero-now {
     margin-bottom: 28px;
-    padding: 28px;
+    padding: 32px;
     background:
-      radial-gradient(800px 240px at 100% 0%, rgba(230,57,70,0.08), transparent 60%),
-      linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.0));
+      radial-gradient(900px 280px at 100% 0%, rgba(251,191,36,0.07), transparent 60%),
+      radial-gradient(700px 240px at 0% 100%, rgba(230,57,70,0.05), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.0));
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: var(--r-lg);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
   }
   .hero-grid {
-    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px;
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 100px; gap: 32px;
     align-items: end;
   }
-  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } }
-  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.7px; color: var(--text-faint); text-transform: uppercase; margin-bottom: 8px; }
+  @media (max-width: 1100px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.7px;
+    color: var(--text-faint); text-transform: uppercase; margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
   .hero-action {
-    font-size: 30px; font-weight: 700; letter-spacing: -0.6px;
-    line-height: 1.15; margin-bottom: 6px;
+    font-size: 32px; font-weight: 700; letter-spacing: -0.6px;
+    line-height: 1.15; margin-bottom: 8px;
   }
   .hero-detail { font-size: 14px; color: var(--text-dim); font-family: var(--mono); }
-  .hero-stat-num { font-family: var(--mono); font-size: 36px; font-weight: 700; letter-spacing: -0.8px; line-height: 1; }
+  .hero-stat-num { font-family: var(--mono); font-size: 38px; font-weight: 700; letter-spacing: -0.8px; line-height: 1; }
   .hero-stat-sub { font-family: var(--mono); font-size: 12px; color: var(--text-faint); margin-top: 6px; }
   .hero-bar-track {
-    margin-top: 18px; height: 6px;
-    background: rgba(255,255,255,0.05); border-radius: 100px; overflow: hidden;
+    margin-top: 22px; height: 8px;
+    background: rgba(255,255,255,0.04); border-radius: 100px; overflow: hidden;
+    position: relative;
   }
   .hero-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--green-dim), var(--green));
+    background: linear-gradient(90deg, var(--green-dim), var(--green), #6ee7b7);
     border-radius: 100px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 12px rgba(52,199,89,0.4);
   }
+
+  /* CBBI gauge — radial cycle position indicator */
+  .cbbi-gauge {
+    --val: 0;
+    --color: var(--gold);
+    width: 88px; height: 88px;
+    position: relative;
+    border-radius: 50%;
+    background: conic-gradient(from -90deg, var(--color) 0% calc(var(--val) * 100%), rgba(255,255,255,0.06) calc(var(--val) * 100%) 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 24px rgba(0,0,0,0.5);
+  }
+  .cbbi-gauge::after {
+    content: ""; position: absolute; inset: 6px;
+    border-radius: 50%; background: var(--bg-elev);
+  }
+  .cbbi-gauge-inner {
+    position: relative; z-index: 1; text-align: center;
+  }
+  .cbbi-gauge-val { font-family: var(--mono); font-size: 20px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+  .cbbi-gauge-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); margin-top: 4px; font-weight: 600; }
 
   /* Buy ladder — horizontal tier visualization */
   .ladder {
@@ -427,6 +485,14 @@
         <div class="hero-stat-num"><span id="heroBtc">0.000</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ 2.40</span></div>
         <div class="hero-stat-sub">target stack at avg ~$60K basis</div>
       </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div class="cbbi-gauge" id="cbbiGauge" style="--val: 0; --color: var(--gold);" title="CBBI Confidence — cycle position">
+          <div class="cbbi-gauge-inner">
+            <div class="cbbi-gauge-val" id="cbbiGaugeVal">—</div>
+            <div class="cbbi-gauge-label" id="cbbiGaugeLabel">CBBI</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="hero-bar-track"><div class="hero-bar-fill" id="heroBar" style="width:0%;"></div></div>
     <div id="heroDebug" style="margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--text-faint);line-height:1.5;display:none;"></div>
@@ -514,24 +580,44 @@
   <div class="section-eyebrow" style="margin-top:32px;">Position Detail</div>
   <div class="grid-4">
     <div class="card" style="margin-bottom:0">
-      <div class="stat-label">Total BTC</div>
-      <div class="stat-value num" id="totalBtc">0.0000</div>
-      <div class="stat-sub" id="totalBtcSats">— sats</div>
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">Total BTC</div>
+          <div class="stat-value num" id="totalBtc">0.0000</div>
+          <div class="stat-sub" id="totalBtcSats">— sats</div>
+        </div>
+        <svg class="sparkline" id="sparkBtc" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#34c759"/></svg>
+      </div>
     </div>
     <div class="card" style="margin-bottom:0">
-      <div class="stat-label">Invested (plan period)</div>
-      <div class="stat-value num" id="totalInvested">$0</div>
-      <div class="stat-sub" id="totalTrades">0 trades</div>
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">Invested (plan period)</div>
+          <div class="stat-value num" id="totalInvested">$0</div>
+          <div class="stat-sub" id="totalTrades">0 trades</div>
+        </div>
+        <svg class="sparkline" id="sparkInvested" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#64d2ff"/></svg>
+      </div>
     </div>
     <div class="card" style="margin-bottom:0">
-      <div class="stat-label">Current Value</div>
-      <div class="stat-value num" id="currentValue">$0</div>
-      <div class="stat-sub" id="avgCost">Avg cost: —</div>
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">Current Value</div>
+          <div class="stat-value num" id="currentValue">$0</div>
+          <div class="stat-sub" id="avgCost">Avg cost: —</div>
+        </div>
+        <svg class="sparkline" id="sparkValue" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#fbbf24"/></svg>
+      </div>
     </div>
     <div class="card" style="margin-bottom:0">
-      <div class="stat-label">P/L (plan period)</div>
-      <div class="stat-value num" id="unrealizedPL">—</div>
-      <div class="stat-sub" id="unrealizedPLPct">—</div>
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">P/L (plan period)</div>
+          <div class="stat-value num" id="unrealizedPL">—</div>
+          <div class="stat-sub" id="unrealizedPLPct">—</div>
+        </div>
+        <svg class="sparkline" id="sparkPL" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#34c759"/></svg>
+      </div>
     </div>
   </div>
 
@@ -1090,15 +1176,26 @@ async function fetch200WMA() {
       const v = d.cbbi;
       document.getElementById("cbbiValue").textContent = v.toFixed(2);
       const zoneEl = document.getElementById("cbbiZone");
-      let label, cls;
-      if (v >= 0.85)      { label = "TOP";   cls = "red"; }
-      else if (v >= 0.70) { label = "hot";   cls = "red"; }
-      else if (v >= 0.50) { label = "warm";  cls = "green"; }
-      else if (v >= 0.30) { label = "mid";   cls = "green"; }
-      else if (v >= 0.15) { label = "accum"; cls = "green"; }
-      else                { label = "BOTTOM"; cls = "green"; }
+      let label, cls, gaugeColor;
+      if (v >= 0.85)      { label = "TOP";    cls = "red";   gaugeColor = "var(--red)"; }
+      else if (v >= 0.70) { label = "hot";    cls = "red";   gaugeColor = "var(--orange)"; }
+      else if (v >= 0.50) { label = "warm";   cls = "green"; gaugeColor = "var(--yellow)"; }
+      else if (v >= 0.30) { label = "mid";    cls = "green"; gaugeColor = "var(--gold)"; }
+      else if (v >= 0.15) { label = "accum";  cls = "green"; gaugeColor = "var(--green)"; }
+      else                { label = "BOTTOM"; cls = "green"; gaugeColor = "var(--green)"; }
       zoneEl.textContent = label;
       zoneEl.className = "price-change " + cls;
+      // Populate gauge in Hero NOW
+      const gauge = document.getElementById("cbbiGauge");
+      const gaugeVal = document.getElementById("cbbiGaugeVal");
+      const gaugeLabel = document.getElementById("cbbiGaugeLabel");
+      if (gauge) {
+        gauge.style.setProperty("--val", v.toFixed(3));
+        gauge.style.setProperty("--color", gaugeColor);
+        gauge.title = `CBBI Confidence: ${v.toFixed(3)} — ${label}`;
+      }
+      if (gaugeVal) gaugeVal.textContent = v.toFixed(2);
+      if (gaugeLabel) gaugeLabel.textContent = label;
     }
   } catch (e) {
     console.error("200wma/cbbi fetch failed", e);
@@ -1538,6 +1635,63 @@ function renderStats() {
 
   document.getElementById("totalDeployed").textContent = `${FMT_USD0.format(s.totalUsd)} / ${FMT_USD0.format(PLAN.totalBudget)}`;
   document.getElementById("currentStackTowardsTarget").textContent = s.totalBtc.toFixed(3);
+
+  // Sparklines: build mini cumulative series from plan-period buys
+  renderSparklines(s);
+}
+
+function renderSparklines(stats) {
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+  const buys = (STATE.trades || [])
+    .filter((t) => (t.type || "buy") === "buy" && (t.date || "") >= PLAN_START)
+    .slice()
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+  // Build cumulative series indexed by date
+  const cumBtc = [];
+  const cumUsd = [];
+  let runningBtc = 0, runningUsd = 0;
+  for (const t of buys) {
+    runningBtc += (t.btc || 0);
+    runningUsd += (t.usd || 0);
+    cumBtc.push(runningBtc);
+    cumUsd.push(runningUsd);
+  }
+  // Current value series — runningBtc × LIVE_PRICE at each step. We don't have
+  // historical prices per-trade easily here, so approximate using fill prices.
+  const valSeries = [];
+  let valBtc = 0;
+  for (const t of buys) {
+    valBtc += (t.btc || 0);
+    valSeries.push(valBtc * (LIVE_PRICE || t.price || 0));
+  }
+  // P/L = currentValue - cumUsd at each step
+  const plSeries = valSeries.map((v, i) => v - cumUsd[i]);
+
+  drawSpark("sparkBtc", cumBtc, "#34c759");
+  drawSpark("sparkInvested", cumUsd, "#64d2ff");
+  drawSpark("sparkValue", valSeries, "#fbbf24");
+  drawSpark("sparkPL", plSeries, plSeries.length && plSeries[plSeries.length-1] >= 0 ? "#34c759" : "#ff453a");
+}
+
+function drawSpark(id, data, color) {
+  const svg = document.getElementById(id);
+  if (!svg || !data || data.length === 0) return;
+  const path = svg.querySelector("path");
+  if (!path) return;
+  // Add an extra leading 0 so single-point series still draw a flat line
+  const series = data.length === 1 ? [0, ...data] : data;
+  const min = Math.min(...series);
+  const max = Math.max(...series);
+  const range = max - min || 1;
+  const w = 80, h = 40, pad = 2;
+  const points = series.map((v, i) => {
+    const x = pad + (i / (series.length - 1)) * (w - pad * 2);
+    const y = h - pad - ((v - min) / range) * (h - pad * 2);
+    return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  path.setAttribute("d", points.join(" "));
+  path.setAttribute("stroke", color);
 }
 
 function renderPhases() {
