@@ -1166,14 +1166,29 @@ async function fetchPrice() {
 
 // 200-week MA — Cowen's "level of destiny". Updated separately (slow-moving).
 let MA200W = null;
+// Cowen's aggregated targets from his last 30 days of videos.
+// Shape: { tiers: { T2: { price, mentions, latestDate }, ... }, sourceEntries, sourceMentions, asOf }
+let COWEN_TARGETS = null;
 
-// Compute the live trigger price for a tier. If the tier has an `maMultiple`
-// and the 200W MA is loaded, anchor the trigger to MA × multiplier. Otherwise
-// fall back to the static `targetPrice` baked into the plan.
+// Compute the live trigger price for a tier. Priority order:
+//   1. Cowen's aggregated targets (most frequently mentioned levels from his
+//      last 30 days of videos) for tiers T2-T5
+//   2. 200W MA × multiplier (live-recalibrating to MA)
+//   3. Static targetPrice baked into the plan
+// Cowen targets only override if they're within ±10% of the MA-anchored
+// price — prevents wild swings if he changes his story dramatically.
 function effectiveTargetPrice(tier) {
-  if (tier.maMultiple && MA200W) {
-    return MA200W * tier.maMultiple;
+  const maPrice = (tier.maMultiple && MA200W) ? MA200W * tier.maMultiple : null;
+  if (COWEN_TARGETS && COWEN_TARGETS.tiers && COWEN_TARGETS.tiers[tier.tier]) {
+    const cowenPx = COWEN_TARGETS.tiers[tier.tier].price;
+    if (cowenPx && maPrice) {
+      const diff = Math.abs(cowenPx - maPrice) / maPrice;
+      if (diff <= 0.10) return cowenPx; // within ±10% — use Cowen
+    } else if (cowenPx) {
+      return cowenPx;
+    }
   }
+  if (maPrice) return maPrice;
   return tier.targetPrice;
 }
 async function fetch200WMA() {
@@ -1224,6 +1239,12 @@ async function fetch200WMA() {
       if (gaugeVal) gaugeVal.textContent = v.toFixed(2);
       if (gaugeLabel) gaugeLabel.textContent = label;
       // Recompute projected bottom with fresh CBBI signals
+      renderProjectedBottom();
+    }
+    // Cowen aggregated targets — same response
+    if (d && d.cowen && d.cowen.tiers) {
+      COWEN_TARGETS = d.cowen;
+      renderLadder();
       renderProjectedBottom();
     }
   } catch (e) {
@@ -1746,6 +1767,16 @@ function renderLadder() {
       statusLabel = days !== null ? `<span class="dim">${days > 0 ? `in ${days}d` : 'overdue'}</span>` : `<span class="dim">pending</span>`;
     }
     const priceLabel = tier.tier === "IMMEDIATE" ? "Market" : (px ? FMT_USD0.format(px) : "—");
+    // Cowen badge — show if this tier's price is coming from his aggregated mentions
+    let cowenBadge = "";
+    const cowenT = COWEN_TARGETS?.tiers?.[tier.tier];
+    if (cowenT && tier.maMultiple && MA200W) {
+      const maPrice = MA200W * tier.maMultiple;
+      const usingCowen = Math.abs(cowenT.price - maPrice) / maPrice <= 0.10;
+      if (usingCowen) {
+        cowenBadge = `<div style="font-size:9px;color:var(--gold);margin-top:4px;letter-spacing:0.3px;">🎯 Cowen × ${cowenT.mentions} · ${cowenT.latestDate}</div>`;
+      }
+    }
     return `
       <div class="ladder-cell ${status}">
         <div class="ladder-tier">${tier.tier}</div>
@@ -1753,6 +1784,7 @@ function renderLadder() {
         <div class="ladder-price">@ ${priceLabel}</div>
         <div class="ladder-progress"><div class="ladder-progress-fill" style="width:${pct}%"></div></div>
         <div class="ladder-status">${statusLabel}</div>
+        ${cowenBadge}
       </div>
     `;
   }).join("");

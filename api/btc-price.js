@@ -65,6 +65,87 @@ async function fetch200WeekMA() {
   return { value, weeksUsed: Math.floor(window.length / 7) };
 }
 
+// Parses Cowen's YouTube transcript knowledge base to produce aggregated
+// downside price targets. Mirror updated locally via youtube_intel.py;
+// for now the dashboard reads a snapshot bundled with this function.
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+let _cowenDataCache = null;
+function loadCowenData() {
+  if (_cowenDataCache) return _cowenDataCache;
+  try {
+    const raw = fs.readFileSync(path.join(__dirname, "cowen-data.json"), "utf8");
+    _cowenDataCache = JSON.parse(raw);
+  } catch (e) {
+    console.warn("cowen-data.json missing or bad", e.message);
+    _cowenDataCache = [];
+  }
+  return _cowenDataCache;
+}
+
+function parseCowenTargets(currentPrice = 70000) {
+  const now = Date.now();
+  const cutoff30d = now - 30 * 24 * 3600 * 1000;
+  const cowenData = loadCowenData();
+  const entries = (cowenData || [])
+    .filter((e) => {
+      const t = (e.title || "").toLowerCase();
+      if (!t.includes("bitcoin") && !t.includes("btc")) return false;
+      const pub = e.published ? Date.parse(e.published) : 0;
+      return pub >= cutoff30d;
+    });
+
+  // Extract all key_levels mentions (filter to BELOW current price as downside targets)
+  const mentions = [];
+  for (const e of entries) {
+    const pub = e.published ? Date.parse(e.published) : 0;
+    for (const lvl of (e.key_levels || [])) {
+      const v = Number(lvl);
+      if (!Number.isFinite(v) || v <= 0) continue;
+      if (v >= currentPrice * 1.10) continue; // skip resistance levels
+      mentions.push({ price: v, ts: pub, title: e.title, outlook: e.outlook });
+    }
+  }
+
+  // Cluster into buckets — group within ±$3K of each cluster's centroid
+  mentions.sort((a, b) => a.price - b.price);
+  const buckets = [];
+  for (const m of mentions) {
+    let bucket = buckets.find((b) => Math.abs(b.centroid - m.price) <= 3000);
+    if (!bucket) {
+      bucket = { centroid: m.price, mentions: [], latestTs: 0 };
+      buckets.push(bucket);
+    }
+    bucket.mentions.push(m);
+    bucket.centroid = bucket.mentions.reduce((s, x) => s + x.price, 0) / bucket.mentions.length;
+    bucket.latestTs = Math.max(bucket.latestTs, m.ts);
+  }
+
+  // Sort by mentions DESC, then by latestTs DESC
+  buckets.sort((a, b) => b.mentions.length - a.mentions.length || b.latestTs - a.latestTs);
+
+  // Map top 4 to tier slots T2/T3/T4/T5 in DESCENDING price order
+  const top = buckets.slice(0, 4).sort((a, b) => b.centroid - a.centroid);
+  const tiers = {};
+  const slots = ["T2", "T3", "T4", "T5"];
+  for (let i = 0; i < top.length && i < slots.length; i++) {
+    tiers[slots[i]] = {
+      price: Math.round(top[i].centroid / 100) * 100,
+      mentions: top[i].mentions.length,
+      latestDate: new Date(top[i].latestTs).toISOString().slice(0, 10),
+    };
+  }
+  return {
+    tiers,
+    sourceEntries: entries.length,
+    sourceMentions: mentions.length,
+    windowDays: 30,
+    asOf: new Date().toISOString().slice(0, 10),
+  };
+}
+
 // CBBI = ColinTalksCrypto Bitcoin Bull Run Index. 0-1 composite of 11
 // on-chain + market indicators. >0.85 = top zone, <0.20 = bottom zone.
 // Cached at the source by date so we fetch sparingly.
@@ -184,6 +265,12 @@ export default async function handler(req, res) {
           payload.cbbi = cbbi.confidence;
           payload.cbbiTs = cbbi.ts;
           payload.cbbiComponents = cbbi.components;
+        }
+        // Cowen aggregated targets (parsed from bundled knowledge base)
+        try {
+          payload.cowen = parseCowenTargets(payload.usd || 70000);
+        } catch (e) {
+          console.error("cowen parse failed", e);
         }
       }
 
