@@ -90,18 +90,42 @@ async function fetchCBBI() {
 }
 
 // Daily BTC close history for chart rendering — last N days (N <= 730).
+// Also returns the rolling 200-week (1400-day) MA series for the same window.
+// To compute MA at the OLDEST point of the window we need 1400 days of prior
+// history, so we fetch (N + 1400) days total — clamped to CryptoCompare's
+// per-call limit (2000 days).
 async function fetchBTCHistory(days = 365) {
-  const limit = Math.min(Math.max(days, 30), 730);
+  const display = Math.min(Math.max(days, 30), 730);
+  const total = Math.min(display + 1400, 2000);
   const r = await fetch(
-    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=${limit}&aggregate=1`,
+    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=${total}&aggregate=1`,
     { headers: { Accept: "application/json" } }
   );
   if (!r.ok) throw new Error(`cryptocompare history ${r.status}`);
   const data = await r.json();
   if (data.Response !== "Success") throw new Error(`cryptocompare: ${data.Message || "bad response"}`);
-  return (data.Data?.Data || [])
-    .filter((c) => Number.isFinite(c.close) && c.close > 0)
-    .map((c) => ({ t: c.time * 1000, close: c.close }));
+  const all = (data.Data?.Data || [])
+    .filter((c) => Number.isFinite(c.close) && c.close > 0);
+
+  // Compute rolling 200-week MA at every point. For points with < 1400 prior
+  // days of data we just return null — Chart.js handles gaps.
+  const closes = all.map((c) => c.close);
+  const ma = [];
+  let sum = 0;
+  for (let i = 0; i < closes.length; i++) {
+    sum += closes[i];
+    if (i >= 1400) sum -= closes[i - 1400];
+    ma.push(i >= 1399 ? sum / 1400 : null);
+  }
+
+  // Slice to the display window
+  const startIdx = Math.max(0, all.length - display);
+  const history = all.slice(startIdx).map((c, i) => ({
+    t: c.time * 1000,
+    close: c.close,
+    ma200w: ma[startIdx + i],
+  }));
+  return history;
 }
 
 export default async function handler(req, res) {

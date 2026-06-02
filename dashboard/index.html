@@ -498,7 +498,7 @@
     <div id="heroDebug" style="margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--text-faint);line-height:1.5;display:none;"></div>
   </div>
 
-  <!-- ════════ BUY LADDER — horizontal tier visualization ════════ -->
+  <!-- (Buy Ladder follows below) -->
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
       <div>
@@ -522,12 +522,20 @@
         <button class="btn btn-secondary chart-range-btn" data-days="730" style="padding:5px 12px;font-size:11px;">2Y</button>
       </div>
     </div>
-    <div style="position:relative;height:380px;"><canvas id="btcChart"></canvas></div>
-    <div style="margin-top:10px;font-size:11px;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:14px;">
-      <span><span style="display:inline-block;width:10px;height:2px;background:#ffffff;vertical-align:middle;margin-right:5px;"></span>BTC daily close</span>
-      <span><span style="display:inline-block;width:10px;height:2px;background:#fbbf24;vertical-align:middle;margin-right:5px;"></span>200-week MA (level of destiny)</span>
-      <span><span style="display:inline-block;width:10px;height:2px;background:#22c55e;border-top:1px dashed #22c55e;vertical-align:middle;margin-right:5px;"></span>Buy tier triggers (T1–T5, live)</span>
-      <span><span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;vertical-align:middle;margin-right:5px;"></span>Your executed buys</span>
+    <!-- Period stats above chart -->
+    <div id="chartStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;font-family:var(--mono);">
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Period Open</div><div style="font-size:16px;font-weight:700;margin-top:2px;" id="periodOpen">—</div></div>
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Period High</div><div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--green);" id="periodHigh">—</div></div>
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Period Low</div><div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--red);" id="periodLow">—</div></div>
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Change</div><div style="font-size:16px;font-weight:700;margin-top:2px;" id="periodChange">—</div></div>
+    </div>
+    <div style="position:relative;height:420px;"><canvas id="btcChart"></canvas></div>
+    <div style="margin-top:12px;font-size:11px;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+      <span><span style="display:inline-block;width:14px;height:2px;background:#ffffff;vertical-align:middle;margin-right:5px;"></span>BTC daily close</span>
+      <span><span style="display:inline-block;width:14px;height:2px;background:#fbbf24;vertical-align:middle;margin-right:5px;"></span>200-week MA (rolling)</span>
+      <span><span style="display:inline-block;width:14px;height:0;border-top:1.5px dashed #34c759;vertical-align:middle;margin-right:5px;"></span>Buy tier triggers (T1–T5, live)</span>
+      <span><span style="display:inline-block;width:14px;height:0;border-top:1px dotted #e63946;vertical-align:middle;margin-right:5px;"></span>Avg cost basis</span>
+      <span><span style="display:inline-block;width:8px;height:8px;background:#34c759;border-radius:50%;vertical-align:middle;margin-right:5px;"></span>Your buys</span>
     </div>
   </div>
 
@@ -1221,19 +1229,10 @@ async function fetchHistory(days) {
   return null;
 }
 
-// Build annotation config for tier lines + 200W MA + current price.
+// Build annotation config for tier lines + current price + avg cost basis.
+// (200W MA is now plotted as a real historical series — see renderChart.)
 function chartAnnotations() {
   const a = {};
-  // 200W MA horizontal line
-  if (MA200W) {
-    a.ma200w = {
-      type: "line", yMin: MA200W, yMax: MA200W,
-      borderColor: "#fbbf24", borderWidth: 2, borderDash: [],
-      label: { display: true, content: `200W MA · $${(MA200W/1000).toFixed(1)}K`,
-        position: "start", backgroundColor: "rgba(251,191,36,0.15)", color: "#fbbf24",
-        font: { size: 10, weight: "bold" }, padding: 4 },
-    };
-  }
   // Buy tier triggers (T1-T5) — live MA-anchored
   for (const phase of PLAN.phases) {
     for (const t of (phase.lumpTiers || [])) {
@@ -1242,12 +1241,23 @@ function chartAnnotations() {
       if (!px) continue;
       a[t.tier] = {
         type: "line", yMin: px, yMax: px,
-        borderColor: "rgba(34,197,94,0.55)", borderWidth: 1, borderDash: [6, 4],
+        borderColor: "rgba(52,199,89,0.55)", borderWidth: 1.25, borderDash: [6, 4],
         label: { display: true, content: `${t.tier} · $${(px/1000).toFixed(1)}K`,
-          position: "end", backgroundColor: "rgba(34,197,94,0.10)", color: "#22c55e",
+          position: "end", backgroundColor: "rgba(52,199,89,0.10)", color: "#34c759",
           font: { size: 10, weight: "600" }, padding: 3 },
       };
     }
+  }
+  // Avg cost basis — red dotted horizontal line
+  const basis = planAvgCostBasis();
+  if (basis) {
+    a.basis = {
+      type: "line", yMin: basis, yMax: basis,
+      borderColor: "rgba(230,57,70,0.7)", borderWidth: 1, borderDash: [2, 3],
+      label: { display: true, content: `Avg cost · $${(basis/1000).toFixed(1)}K`,
+        position: "start", backgroundColor: "rgba(230,57,70,0.12)", color: "#e63946",
+        font: { size: 10, weight: "600" }, padding: 3 },
+    };
   }
   // Current price (white dotted)
   if (LIVE_PRICE) {
@@ -1274,6 +1284,39 @@ function chartBuyMarkers() {
     });
 }
 
+// Compute the user's avg cost basis over plan-period buys.
+function planAvgCostBasis() {
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+  const buys = (STATE.trades || []).filter(
+    (t) => (t.type || "buy") === "buy" && (t.date || "") >= PLAN_START
+  );
+  const totalUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
+  const totalBtc = buys.reduce((s, t) => s + (t.btc || 0), 0);
+  return totalBtc > 0 ? totalUsd / totalBtc : null;
+}
+
+function renderChartPeriodStats(series) {
+  if (!series || series.length < 2) return;
+  const closes = series.map((p) => p.y);
+  const open = closes[0];
+  const last = closes[closes.length - 1];
+  const high = Math.max(...closes);
+  const low = Math.min(...closes);
+  const pct = ((last - open) / open) * 100;
+  const oEl = document.getElementById("periodOpen");
+  const hEl = document.getElementById("periodHigh");
+  const lEl = document.getElementById("periodLow");
+  const cEl = document.getElementById("periodChange");
+  if (oEl) oEl.textContent = FMT_USD0.format(open);
+  if (hEl) hEl.textContent = FMT_USD0.format(high);
+  if (lEl) lEl.textContent = FMT_USD0.format(low);
+  if (cEl) {
+    const sign = pct >= 0 ? "+" : "";
+    cEl.textContent = `${sign}${pct.toFixed(2)}%`;
+    cEl.style.color = pct >= 0 ? "var(--green)" : "var(--red)";
+  }
+}
+
 async function renderChart(days) {
   CHART_DAYS = days;
   if (!BTC_HISTORY || BTC_HISTORY.length === 0 || BTC_HISTORY.length < days * 0.9) {
@@ -1282,16 +1325,44 @@ async function renderChart(days) {
   if (!BTC_HISTORY || BTC_HISTORY.length === 0) return;
 
   const cutoff = Date.now() - days * 24 * 3600 * 1000;
-  const series = BTC_HISTORY.filter((p) => p.t >= cutoff).map((p) => ({ x: p.t, y: p.close }));
+  const windowed = BTC_HISTORY.filter((p) => p.t >= cutoff);
+  const series = windowed.map((p) => ({ x: p.t, y: p.close }));
+  const maSeries = windowed
+    .filter((p) => Number.isFinite(p.ma200w))
+    .map((p) => ({ x: p.t, y: p.ma200w }));
   const buys = chartBuyMarkers().filter((b) => b.x >= cutoff);
+
+  // Refresh the period stats line above the chart
+  renderChartPeriodStats(series);
 
   const ctx = document.getElementById("btcChart");
   if (!ctx || !window.Chart) return;
+  const c2d = ctx.getContext ? ctx.getContext("2d") : null;
+
+  // Gradient fill below the price line — bright at top, transparent at bottom
+  let priceGradient = null;
+  if (c2d) {
+    priceGradient = c2d.createLinearGradient(0, 0, 0, 420);
+    priceGradient.addColorStop(0, "rgba(255,255,255,0.15)");
+    priceGradient.addColorStop(0.6, "rgba(255,255,255,0.04)");
+    priceGradient.addColorStop(1, "rgba(255,255,255,0)");
+  }
 
   const cfg = {
     type: "line",
     data: {
       datasets: [
+        {
+          label: "200W MA",
+          data: maSeries,
+          borderColor: "rgba(251,191,36,0.85)",
+          borderWidth: 1.5,
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          tension: 0,
+          fill: false,
+          spanGaps: true,
+        },
         {
           label: "BTC",
           data: series,
@@ -1300,14 +1371,15 @@ async function renderChart(days) {
           pointRadius: 0,
           pointHoverRadius: 4,
           tension: 0,
-          fill: false,
+          fill: "origin",
+          backgroundColor: priceGradient || "rgba(255,255,255,0.06)",
         },
         {
           label: "Your buys",
           data: buys,
           type: "scatter",
-          borderColor: "#22c55e",
-          backgroundColor: "#22c55e",
+          borderColor: "#34c759",
+          backgroundColor: "#34c759",
           pointRadius: 5,
           pointHoverRadius: 8,
           pointStyle: "circle",
@@ -1327,9 +1399,11 @@ async function renderChart(days) {
           callbacks: {
             label: (ctx) => {
               const r = ctx.raw;
-              if (ctx.datasetIndex === 1 && r && r.usd) {
+              const ds = ctx.dataset.label;
+              if (ds === "Your buys" && r && r.usd) {
                 return `Buy: ${FMT_USD0.format(r.usd)} · ${r.btc.toFixed(5)} BTC @ ${FMT_USD0.format(r.y)}`;
               }
+              if (ds === "200W MA") return `200W MA: ${FMT_USD0.format(r.y)}`;
               return `BTC: ${FMT_USD0.format(r.y)}`;
             },
           },
