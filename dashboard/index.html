@@ -509,6 +509,22 @@
     <div class="ladder" id="ladder"></div>
   </div>
 
+  <!-- ════════ PROJECTED BOTTOM — Cowen-leaning weighted scenarios ════════ -->
+  <div class="card">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">Projected Bottom</div>
+        <div style="font-size:12px;color:var(--text-faint);">Cowen-leaning weights · adjusts live as CBBI components evolve</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-0.8px;line-height:1;" id="bottomMid">—</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:6px;">weighted avg · 70% CI <span id="bottomCI">—</span></div>
+      </div>
+    </div>
+    <div id="bottomScenarios" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;"></div>
+    <div id="bottomSignals" style="margin-top:14px;font-size:11px;color:var(--text-faint);font-family:var(--mono);line-height:1.6;"></div>
+  </div>
+
   <!-- Live BTC Chart with MA + Buy Levels -->
   <div class="card">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
@@ -1182,6 +1198,8 @@ async function fetch200WMA() {
     // CBBI widget (same response when ma200w=1)
     if (d && typeof d.cbbi === "number") {
       const v = d.cbbi;
+      CBBI_VALUE = v;
+      CBBI_COMPONENTS = d.cbbiComponents || null;
       document.getElementById("cbbiValue").textContent = v.toFixed(2);
       const zoneEl = document.getElementById("cbbiZone");
       let label, cls, gaugeColor;
@@ -1204,6 +1222,8 @@ async function fetch200WMA() {
       }
       if (gaugeVal) gaugeVal.textContent = v.toFixed(2);
       if (gaugeLabel) gaugeLabel.textContent = label;
+      // Recompute projected bottom with fresh CBBI signals
+      renderProjectedBottom();
     }
   } catch (e) {
     console.error("200wma/cbbi fetch failed", e);
@@ -1435,6 +1455,124 @@ async function renderChart(days) {
     BTC_CHART.update("none");
   } else {
     BTC_CHART = new Chart(ctx, cfg);
+  }
+}
+
+// --- Projected Bottom (Cowen-leaning weighted scenarios) ---
+// Live storage for CBBI components, populated by fetch200WMA.
+let CBBI_COMPONENTS = null;
+let CBBI_VALUE = null;
+
+function computeBottomScenarios() {
+  // Base weights LEANING TOWARD COWEN — his repeated calls are weighted heaviest,
+  // the "Cowen wrong" tail is tiny. Adjusts based on live signals.
+  const scenarios = [
+    { key: "shallow",  label: "Cowen base",   price: 60000, prob: 0.40, color: "var(--green)" },
+    { key: "midShallow", label: "Cowen 2nd",  price: 58000, prob: 0.25, color: "var(--green)" },
+    { key: "midDeep",  label: "Midterm fair", price: 52000, prob: 0.12, color: "var(--gold)" },
+    { key: "deep",     label: "Stretch",      price: 48000, prob: 0.10, color: "var(--gold)" },
+    { key: "extreme",  label: "Tail",         price: 40000, prob: 0.07, color: "var(--red)" },
+    { key: "bull",     label: "Bottom in",    price: 72000, prob: 0.06, color: "var(--blue)" },
+  ];
+
+  // === Dynamic adjustments ===
+  const signals = [];
+
+  // Puell — primary miner-stress signal. Low Puell = bottom is near.
+  const puell = CBBI_COMPONENTS?.Puell;
+  if (Number.isFinite(puell)) {
+    if (puell < 0.20) {
+      // Strong miner capitulation — shift toward deeper bottom
+      scenarios[0].prob -= 0.20; scenarios[1].prob -= 0.05;
+      scenarios[3].prob += 0.10; scenarios[4].prob += 0.15;
+      signals.push(`Puell ${puell.toFixed(2)} < 0.20 → miner capitulation; shifting weight to deeper scenarios`);
+    } else if (puell < 0.40) {
+      scenarios[0].prob -= 0.08; scenarios[2].prob += 0.04; scenarios[3].prob += 0.04;
+      signals.push(`Puell ${puell.toFixed(2)} < 0.40 → miner stress emerging; modest shift to deeper`);
+    } else {
+      signals.push(`Puell ${puell.toFixed(2)} elevated → miners NOT capitulated yet (bottom still likely shallow side)`);
+    }
+  }
+
+  // CBBI overall — deep cycle signal
+  if (Number.isFinite(CBBI_VALUE)) {
+    if (CBBI_VALUE < 0.20) {
+      scenarios[0].prob -= 0.10; scenarios[1].prob -= 0.05;
+      scenarios[3].prob += 0.07; scenarios[4].prob += 0.08;
+      signals.push(`CBBI ${CBBI_VALUE.toFixed(2)} < 0.20 → deep accumulation zone; bottom near`);
+    } else if (CBBI_VALUE < 0.30) {
+      scenarios[0].prob -= 0.05; scenarios[3].prob += 0.03; scenarios[4].prob += 0.02;
+      signals.push(`CBBI ${CBBI_VALUE.toFixed(2)} < 0.30 → approaching deep accumulation`);
+    }
+  }
+
+  // Price already below a scenario → that scenario's probability collapses
+  if (Number.isFinite(LIVE_PRICE)) {
+    for (const s of scenarios) {
+      if (s.key === "bull") continue;
+      if (LIVE_PRICE < s.price) {
+        // Price has already passed this level — collapse its probability
+        const collapsed = s.prob;
+        s.prob = 0.02; // tiny residual (could still spike up briefly)
+        // Distribute the freed weight to LOWER-price scenarios
+        const lower = scenarios.filter((x) => x.price < s.price && x.key !== "bull");
+        if (lower.length > 0) {
+          const share = (collapsed - 0.02) / lower.length;
+          for (const x of lower) x.prob += share;
+          signals.push(`BTC < $${(s.price/1000).toFixed(0)}K already — shifted weight to deeper scenarios`);
+        }
+      }
+    }
+    if (LIVE_PRICE < 70000) {
+      // Bottom-already-in tail collapses if we're already mid-sweep
+      const freed = scenarios.find((s) => s.key === "bull").prob - 0.01;
+      scenarios.find((s) => s.key === "bull").prob = 0.01;
+      scenarios.find((s) => s.key === "shallow").prob += freed * 0.5;
+      scenarios.find((s) => s.key === "midShallow").prob += freed * 0.5;
+    }
+  }
+
+  // Renormalize so probabilities sum to 1
+  const sum = scenarios.reduce((s, x) => s + Math.max(0, x.prob), 0);
+  for (const s of scenarios) s.prob = Math.max(0, s.prob) / sum;
+
+  // Weighted average + 70% confidence interval
+  const weightedAvg = scenarios.reduce((s, x) => s + x.price * x.prob, 0);
+  const sorted = scenarios.slice().sort((a, b) => a.price - b.price);
+  let cum = 0, p15 = null, p85 = null;
+  for (const s of sorted) {
+    if (p15 === null && cum + s.prob >= 0.15) p15 = s.price;
+    cum += s.prob;
+    if (cum >= 0.85 && p85 === null) p85 = s.price;
+  }
+  return { scenarios, weightedAvg, p15, p85, signals };
+}
+
+function renderProjectedBottom() {
+  const wrap = document.getElementById("bottomScenarios");
+  const midEl = document.getElementById("bottomMid");
+  const ciEl = document.getElementById("bottomCI");
+  const sigEl = document.getElementById("bottomSignals");
+  if (!wrap || !midEl) return;
+  const { scenarios, weightedAvg, p15, p85, signals } = computeBottomScenarios();
+  midEl.textContent = FMT_USD0.format(weightedAvg);
+  ciEl.textContent = (p15 && p85) ? `${FMT_USD0.format(p15)} – ${FMT_USD0.format(p85)}` : "—";
+  // Highlight scenarios
+  wrap.innerHTML = scenarios.map((s) => `
+    <div style="padding:12px 10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:8px;">
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-faint);font-weight:600;">${s.label}</div>
+      <div style="font-family:var(--mono);font-size:17px;font-weight:700;margin-top:4px;letter-spacing:-0.3px;color:${s.color};">${FMT_USD0.format(s.price)}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:3px;">${(s.prob * 100).toFixed(1)}%</div>
+      <div style="margin-top:6px;height:3px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;">
+        <div style="height:100%;width:${Math.min(100, s.prob * 100 / 0.5 * 100)}%;background:${s.color};border-radius:2px;opacity:0.8;"></div>
+      </div>
+    </div>
+  `).join("");
+  // Live signal explanations
+  if (sigEl) {
+    sigEl.innerHTML = signals.length
+      ? signals.map((s) => `<div>↳ ${s}</div>`).join("")
+      : `<div style="color:var(--text-faint);">No live signal adjustments yet — base Cowen-leaning weights applied.</div>`;
   }
 }
 
@@ -2035,6 +2173,7 @@ function renderAll() {
   renderCalendar();
   renderTradeList();
   renderDeployment();
+  renderProjectedBottom();
   // Repaint chart buy markers / live price line if chart is initialized
   if (BTC_CHART) renderChart(CHART_DAYS);
 }
