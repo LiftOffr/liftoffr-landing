@@ -153,9 +153,9 @@ const BUY_PLAN = {
   tiers: [
     { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
     { tier: "T1",        target: 15000, maMultiple: 1.10, fallbackDate: "2026-07-31", trigger: "Bear-band fail follow-through" },
-    { tier: "T2",        target: 20000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
-    { tier: "T3",        target: 25000, maMultiple: 0.85, fallbackDate: "2026-11-30", trigger: "2019-style penetration (Cowen secondary)" },
-    { tier: "T4",        target: 20000, maMultiple: 0.73, fallbackDate: "2027-01-31", trigger: "2020 COVID-style flash" },
+    { tier: "T2",        target: 28000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
+    { tier: "T3",        target: 22000, maMultiple: 0.85, fallbackDate: "2026-11-30", trigger: "2019-style penetration (Cowen secondary)" },
+    { tier: "T4",        target: 15000, maMultiple: 0.73, fallbackDate: "2027-01-31", trigger: "2020 COVID-style flash" },
     { tier: "T5",        target: 12182, maMultiple: 0.62, fallbackDate: "2027-03-31", trigger: "2022-style deep penetration" },
   ],
 };

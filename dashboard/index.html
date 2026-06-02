@@ -828,15 +828,16 @@ const PLAN = {
       { tier: "T1", trigger: "200W MA × 1.10 — bear-band fail follow-through", target: 15000, targetPrice: 68000, maMultiple: 1.10, fallbackDate: "2026-07-31" },
       { tier: "DCA-P1", trigger: "Always-on $138/day (API cron auto-fires daily) × ~91 days", target: 12500, targetPrice: null, fallbackDate: null },
     ]},
-    // DCA = $135/day × ~119 days = $16,500
-    { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 61500, lumpTiers: [
-      { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (Cowen base case)", target: 20000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
-      { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (Cowen secondary)", target: 25000, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
+    // T2 bumped to $28K and T3 trimmed to $22K to weight more heavily toward
+    // Cowen's $60K base case (now 50% probability in the bottom projection).
+    { id: "p2", name: "Phase 2 — Sweep & 200W Test", start: "2026-09-01", end: "2026-12-31", budget: 66500, lumpTiers: [
+      { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (Cowen base case)", target: 28000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
+      { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (Cowen secondary)", target: 22000, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
       { tier: "DCA-P2", trigger: "Always-on $138/day (API cron auto-fires daily) × ~119 days", target: 16500, targetPrice: null, fallbackDate: null },
     ]},
-    // DCA = $135/day × ~67 days (Jan 1 → Mar 1) = $9,000
-    { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 41182, lumpTiers: [
-      { tier: "T4", trigger: "200W MA × 0.73 — flash penetration (2020 COVID-style)", target: 20000, targetPrice: 45000, maMultiple: 0.73, fallbackDate: "2027-01-31" },
+    // T4 trimmed to $15K — deeper-bear tail is now lower probability.
+    { id: "p3", name: "Phase 3 — Capitulation", start: "2027-01-01", end: "2027-03-31", budget: 36182, lumpTiers: [
+      { tier: "T4", trigger: "200W MA × 0.73 — flash penetration (2020 COVID-style)", target: 15000, targetPrice: 45000, maMultiple: 0.73, fallbackDate: "2027-01-31" },
       { tier: "T5", trigger: "200W MA × 0.62 — deep penetration (statistical bear hedge)", target: 12182, targetPrice: 38000, maMultiple: 0.62, fallbackDate: "2027-03-31" },
       { tier: "DCA-P3", trigger: "Always-on $138/day (API cron auto-fires daily) × ~67 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
     ]},
