@@ -364,6 +364,9 @@
     <span class="price-label" style="margin-left:18px;" title="200-week MA — Cowen's 'level of destiny'. Touched at every cycle bottom since 2015.">200W MA</span>
     <span class="price-value" id="ma200wValue" style="font-size:14px;">—</span>
     <span class="price-change" id="ma200wDelta">—</span>
+    <span class="price-label" style="margin-left:18px;" title="CBBI Confidence — ColinTalksCrypto Bitcoin Bull Run Index. Composite of 11 indicators. >0.85=top zone, <0.20=bottom zone.">CBBI</span>
+    <span class="price-value" id="cbbiValue" style="font-size:14px;">—</span>
+    <span class="price-change" id="cbbiZone">—</span>
   </div>
 </div>
 
@@ -1082,8 +1085,23 @@ async function fetch200WMA() {
       // Repaint chart annotation lines if chart is up
       if (BTC_CHART) renderChart(CHART_DAYS);
     }
+    // CBBI widget (same response when ma200w=1)
+    if (d && typeof d.cbbi === "number") {
+      const v = d.cbbi;
+      document.getElementById("cbbiValue").textContent = v.toFixed(2);
+      const zoneEl = document.getElementById("cbbiZone");
+      let label, cls;
+      if (v >= 0.85)      { label = "TOP";   cls = "red"; }
+      else if (v >= 0.70) { label = "hot";   cls = "red"; }
+      else if (v >= 0.50) { label = "warm";  cls = "green"; }
+      else if (v >= 0.30) { label = "mid";   cls = "green"; }
+      else if (v >= 0.15) { label = "accum"; cls = "green"; }
+      else                { label = "BOTTOM"; cls = "green"; }
+      zoneEl.textContent = label;
+      zoneEl.className = "price-change " + cls;
+    }
   } catch (e) {
-    console.error("200wma fetch failed", e);
+    console.error("200wma/cbbi fetch failed", e);
   }
 }
 

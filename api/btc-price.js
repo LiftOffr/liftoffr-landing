@@ -65,6 +65,30 @@ async function fetch200WeekMA() {
   return { value, weeksUsed: Math.floor(window.length / 7) };
 }
 
+// CBBI = ColinTalksCrypto Bitcoin Bull Run Index. 0-1 composite of 11
+// on-chain + market indicators. >0.85 = top zone, <0.20 = bottom zone.
+// Cached at the source by date so we fetch sparingly.
+async function fetchCBBI() {
+  const r = await fetch("https://colintalkscrypto.com/cbbi/data/latest.json", {
+    headers: { Accept: "application/json" },
+  });
+  if (!r.ok) throw new Error(`cbbi ${r.status}`);
+  const data = await r.json();
+  const latestOf = (series) => {
+    if (!series || typeof series !== "object") return null;
+    const items = Object.entries(series).sort((a, b) => Number(b[0]) - Number(a[0]));
+    return items.length ? { ts: Number(items[0][0]), value: Number(items[0][1]) } : null;
+  };
+  const conf = latestOf(data.Confidence);
+  if (!conf) throw new Error("no CBBI Confidence series");
+  const components = {};
+  for (const key of ["PiCycle", "RUPL", "RHODL", "Puell", "2YMA", "Trolololo", "MVRV", "ReserveRisk", "Woobull"]) {
+    const v = latestOf(data[key]);
+    if (v) components[key] = v.value;
+  }
+  return { confidence: conf.value, ts: conf.ts, components };
+}
+
 // Daily BTC close history for chart rendering — last N days (N <= 730).
 async function fetchBTCHistory(days = 365) {
   const limit = Math.min(Math.max(days, 30), 730);
@@ -121,16 +145,21 @@ export default async function handler(req, res) {
         ts: new Date().toISOString(),
       };
 
-      // Optional: also compute 200-week MA (Cowen's "level of destiny")
+      // Optional: also fetch 200-week MA + CBBI Confidence in parallel.
       if (want200wma) {
-        const ma = await fetch200WeekMA().catch((e) => {
-          console.error("200wma fetch failed", e);
-          return null;
-        });
+        const [ma, cbbi] = await Promise.all([
+          fetch200WeekMA().catch((e) => { console.error("200wma fetch failed", e); return null; }),
+          fetchCBBI().catch((e) => { console.error("cbbi fetch failed", e); return null; }),
+        ]);
         if (ma) {
           payload.ma200w = ma.value;
           payload.ma200wWeeks = ma.weeksUsed;
           payload.ma200wDelta = ((payload.usd - ma.value) / ma.value) * 100;
+        }
+        if (cbbi) {
+          payload.cbbi = cbbi.confidence;
+          payload.cbbiTs = cbbi.ts;
+          payload.cbbiComponents = cbbi.components;
         }
       }
 

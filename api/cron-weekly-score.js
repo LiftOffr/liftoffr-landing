@@ -192,7 +192,7 @@ function tierLine(t, btcPrice, ma200w) {
   return `${badge} **${t.tier}** · ${fmtUsd(t.target)} · ${action}${fbStr ? ` · ${fbStr}` : ""}`;
 }
 
-function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta }, day) {
+function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }, day) {
   const dayName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][day];
   const isMonday = day === 1;
   const date = new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric", year: "numeric", timeZone: "America/Denver" });
@@ -214,8 +214,21 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta }, day)
     ? `BTC ${ma200wDelta >= 0 ? "+" : ""}${ma200wDelta.toFixed(1)}% vs MA`
     : "";
 
+  // CBBI zone label
+  let cbbiStr = "";
+  if (typeof cbbi === "number") {
+    let zone;
+    if (cbbi >= 0.85)      zone = "🔴 TOP ZONE";
+    else if (cbbi >= 0.70) zone = "🟠 hot";
+    else if (cbbi >= 0.50) zone = "🟡 warm";
+    else if (cbbi >= 0.30) zone = "🟢 mid";
+    else if (cbbi >= 0.15) zone = "🟢 accum";
+    else                   zone = "🟢 BOTTOM";
+    cbbiStr = `  ·  **CBBI ${cbbi.toFixed(2)}** ${zone}`;
+  }
+
   const heroLines = [
-    `**₿ ${fmtUsd(btcPrice)}** ${change}  ·  **200W MA ${fmtUsd(ma200w)}** ${ma200wDeltaStr}`,
+    `**₿ ${fmtUsd(btcPrice)}** ${change}  ·  **200W MA ${fmtUsd(ma200w)}** ${ma200wDeltaStr}${cbbiStr}`,
   ];
 
   let actionBlock = "";
@@ -280,6 +293,7 @@ async function runDailyBriefing(baseUrl, day) {
     change24h: data.change24h,
     ma200w: data.ma200w,
     ma200wDelta: data.ma200wDelta,
+    cbbi: data.cbbi,
   }, day);
   return sendDiscordBriefing(payload);
 }
