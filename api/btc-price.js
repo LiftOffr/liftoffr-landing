@@ -6,14 +6,9 @@
 //   Default (BTC only): { usd: <number>, change24h: <number>, ts: <iso> }
 //   With ?ids=: { prices: { BTC: {usd, change24h}, ETH: {...}, ... }, ts: <iso> }
 
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import cowenData from "./cowen-data.js";
 
 export const config = { runtime: "nodejs" };
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Map Coinbase tickers to CoinGecko IDs. Null = stablecoin, treat as $1.
 const TICKER_TO_GECKO = {
@@ -72,37 +67,12 @@ async function fetch200WeekMA() {
   return { value, weeksUsed: Math.floor(window.length / 7) };
 }
 
-// Parses Cowen's YouTube transcript knowledge base to produce aggregated
-// downside price targets. Mirror updated locally via youtube_intel.py;
-// for now the dashboard reads a snapshot bundled with this function.
-let _cowenDataCache = null;
-function loadCowenData() {
-  if (_cowenDataCache !== null) return _cowenDataCache;
-  // Try a few likely paths — Vercel's function bundler can place adjacent
-  // JSON in different locations depending on the build target.
-  const candidates = [
-    path.join(__dirname, "cowen-data.json"),
-    path.join(process.cwd(), "api", "cowen-data.json"),
-    path.join(process.cwd(), "cowen-data.json"),
-  ];
-  for (const p of candidates) {
-    try {
-      if (fs.existsSync(p)) {
-        const raw = fs.readFileSync(p, "utf8");
-        _cowenDataCache = JSON.parse(raw);
-        return _cowenDataCache;
-      }
-    } catch (_) {}
-  }
-  console.warn("cowen-data.json not found in any candidate path");
-  _cowenDataCache = [];
-  return _cowenDataCache;
-}
+// Cowen knowledge base now imported as a JS module so Vercel bundles it
+// cleanly with the function. Updated by youtube_intel.py via auto-commit.
 
 function parseCowenTargets(currentPrice = 70000) {
   const now = Date.now();
   const cutoff30d = now - 30 * 24 * 3600 * 1000;
-  const cowenData = loadCowenData();
   const entries = (cowenData || [])
     .filter((e) => {
       const t = (e.title || "").toLowerCase();

@@ -1,4 +1,6 @@
-[
+// Auto-generated mirror of knowledge_base.json — bundles cleanly with the function.
+// Updated by youtube_intel.py LaunchAgent on torin's Mac (commits + pushes here).
+export default [
   {
     "video_id": "QMn7cm4nfYU",
     "channel_name": "Benjamin Cowen",
@@ -980,4 +982,4 @@
     ],
     "summary": "Cowen believes Bitcoin is following the 2018 midterm year playbook and expects a lower high to form soon, leading to weakness into June as the next major window of weakness. While acknowledging the 2014 bull case scenario, his base case is a retest of 60K support later this year, likely by October, with the bear market lasting through late 2026 to match the length of the prior bull market."
   }
-]
+];
