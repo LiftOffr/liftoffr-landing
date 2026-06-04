@@ -1,5 +1,52 @@
 [
   {
+    "video_id": "QMn7cm4nfYU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Cliff Dwellers",
+    "published": "2026-06-04T03:00:48+00:00",
+    "processed_at": "2026-06-04T07:35:51.427667+00:00",
+    "url": "https://www.youtube.com/watch?v=QMn7cm4nfYU",
+    "outlook": "bearish",
+    "confidence": "high",
+    "timeframe": "months",
+    "key_levels": [
+      61800,
+      60000,
+      58000,
+      52000,
+      48000,
+      40000,
+      38650
+    ],
+    "indicators_mentioned": [
+      "200-week moving average",
+      "200-day moving average",
+      "50-week moving average",
+      "100-week moving average",
+      "Supply in profit or loss",
+      "MVRV Z-Score",
+      "Onchain risk indicator",
+      "Running one-year ROI",
+      "RSI",
+      "Asymmetric quantile regression",
+      "Realized price",
+      "Balance price",
+      "Bull market support band",
+      "Bare market resistance band",
+      "Bitcoin dominance",
+      "Stablecoin dominance"
+    ],
+    "key_points": [
+      "Bitcoin is testing the 200-week moving average around 61.8K after a counter-trend rally that gave false bullish signals; historical pattern shows bare markets require 19-21 weeks to establish new lows, currently at 17 weeks",
+      "June typically marks capitulation lows in bare market cycles (2018, 2022); a market cycle bottom is most likely in October based on four-year cycle distribution, though earlier lows are possible with sufficient capitalization below 60K",
+      "Onchain metrics including MVRV Z-Score, supply in profit/loss, and running one-year ROI have not yet reached historical confirmation levels for bare market bottoms, indicating further downside potential to test support levels around 52-58K",
+      "Bitcoin's valuation against gold and the S&P 500 shows rejection of bare market resistance bands; price-to-balance-price ratio suggests possible downside to realized price levels (53.8K) or balance price levels (38.65K) before capitulation reversal",
+      "Counter-trend rallies in bare markets are designed to trap bulls and create psychological conviction in false bottoms; accumulation should begin after June low capitulation, likely followed by July-August strength into Q4 when final cycle bottom forms"
+    ],
+    "summary": "Bitcoin faces a structural bare market pattern where the current pullback to the 200-week moving average represents a normal phase of the cycle rather than a reversal signal. Historical four-year cycle analysis and onchain metrics suggest the market cycle bottom is most probable in October, with June potentially marking a capitulation low followed by temporary relief rallies. Accumulation is recommended to begin after confirmed capitulation events, not during counter-trend bounces that have consistently trapped bullish traders throughout this bare market."
+  },
+  {
     "video_id": "uFn3KUE-VTI",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
