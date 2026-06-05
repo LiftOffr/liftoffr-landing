@@ -1,6 +1,42 @@
 // Auto-generated mirror of knowledge_base.json — bundles cleanly with the function.
-// Updated by youtube_intel.py LaunchAgent on torin's Mac (commits + pushes here).
+// Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
+  {
+    "video_id": "ulDJeCNJo3Y",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Falls to the 200W Moving Average",
+    "published": "2026-06-05T05:09:52+00:00",
+    "processed_at": "2026-06-05T06:13:56.365019+00:00",
+    "url": "https://www.youtube.com/watch?v=ulDJeCNJo3Y",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      61800,
+      60000,
+      57000,
+      58000,
+      54000,
+      50000
+    ],
+    "indicators_mentioned": [
+      "200-week moving average",
+      "50-week moving average",
+      "100-week moving average",
+      "300-week moving average",
+      "realized price",
+      "balance price"
+    ],
+    "key_points": [
+      "Bitcoin has tagged the 200-week moving average, a cyclical pattern occurring every four years at the end of mid-cycle years; historically this has been a critical juncture with mixed outcomes for support",
+      "June weakness is expected with probable low formation around mid-June, followed by counter-trend rally into July-August before potential final capitulation in Q4",
+      "Current year-to-date performance (-29-30%) matches historical midterm year averages (-32%), suggesting cyclical weakness rather than structural breakdown, with Q4 lows typically occurring in the 50-54K range",
+      "Risk of breaking below the 200-week MA (61.8K) to test 54K (300-week MA and realized price level) exists given that last cycle fell below both; capitulation-like moves could occur if Bank of Japan raises rates in mid-June",
+      "If 200-week MA holds through end of June, expect rally in July; if breached, sweep of February lows and further downside through Q4 becomes more probable before final cycle bottom in October"
+    ],
+    "summary": "Bitcoin is in a cyclical window of weakness after tagging the 200-week moving average in early June, a pattern that repeats every four years. A June low around 60K is likely, followed by a counter-trend rally in July-August, but the true market cycle bottom may not occur until Q4 as the historical pattern suggests declines to 50-54K. Current drawdown matches typical midterm year performance, though the risk of breaking below key moving average support exists if external catalysts such as Bank of Japan rate hikes trigger broader capitulation."
+  },
   {
     "video_id": "QMn7cm4nfYU",
     "channel_name": "Benjamin Cowen",
