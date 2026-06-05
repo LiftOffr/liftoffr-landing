@@ -6,7 +6,7 @@
 //   Default (BTC only): { usd: <number>, change24h: <number>, ts: <iso> }
 //   With ?ids=: { prices: { BTC: {usd, change24h}, ETH: {...}, ... }, ts: <iso> }
 
-import cowenData from "./cowen-data.js";
+import cowenData from "./_cowen-data.js";
 
 export const config = { runtime: "nodejs" };
 
