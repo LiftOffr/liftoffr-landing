@@ -216,21 +216,44 @@ export default async function handler(req, res) {
     }
   }
 
-  // Backwards-compat: no ids → just BTC, return legacy single-coin shape
+  // Backwards-compat: no ids → just BTC, return legacy single-coin shape.
+  // Try CoinGecko first; if it fails (often rate-limits Vercel IPs), fall back
+  // to CryptoCompare which doesn't have that issue.
   if (!idsParam) {
     try {
-      const r = await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true",
-        { headers: { Accept: "application/json" } }
-      );
-      const data = await r.json().catch(() => null);
-      if (!r.ok || !data || !data.bitcoin) {
-        return res.status(502).json({ error: "Upstream error", usd: null, change24h: null });
+      let usd = null, change24h = null;
+      // Primary: CoinGecko
+      try {
+        const r = await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true",
+          { headers: { Accept: "application/json" } }
+        );
+        const data = await r.json().catch(() => null);
+        if (r.ok && data?.bitcoin?.usd) {
+          usd = data.bitcoin.usd;
+          change24h = data.bitcoin.usd_24h_change ?? null;
+        }
+      } catch (_) {}
+      // Fallback: CryptoCompare
+      if (!usd) {
+        const r2 = await fetch(
+          "https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=USD",
+          { headers: { Accept: "application/json" } }
+        );
+        const d2 = await r2.json().catch(() => null);
+        const raw = d2?.RAW?.BTC?.USD;
+        if (raw) {
+          usd = raw.PRICE;
+          change24h = raw.CHANGEPCT24HOUR ?? null;
+        }
+      }
+      if (!usd) {
+        return res.status(502).json({ error: "Both CoinGecko + CryptoCompare failed", usd: null, change24h: null });
       }
 
       const payload = {
-        usd: data.bitcoin.usd,
-        change24h: data.bitcoin.usd_24h_change ?? null,
+        usd,
+        change24h,
         ts: new Date().toISOString(),
       };
 
