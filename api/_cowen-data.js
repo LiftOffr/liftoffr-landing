@@ -1,6 +1,39 @@
 // Auto-generated mirror of knowledge_base.json — bundles cleanly with the function.
+// Underscore prefix = not a Vercel function (stays under the 12-function Hobby cap).
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
+  {
+    "video_id": "LuiJ6uK_qh0",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Sweeps The February 2026 Low",
+    "published": "2026-06-06T04:58:38+00:00",
+    "processed_at": "2026-06-06T05:34:44.793771+00:00",
+    "url": "https://www.youtube.com/watch?v=LuiJ6uK_qh0",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000,
+      50000,
+      53000,
+      54000
+    ],
+    "indicators_mentioned": [
+      "200-day moving average",
+      "realized price",
+      "year-to-date ROI",
+      "social sentiment"
+    ],
+    "key_points": [
+      "Bitcoin has swept the February 2026 low and structural similarities to 2018 suggest further downside likely before recovery",
+      "Historical midterm year patterns show Bitcoin typically declines 45% from yearly open (~50K) by mid-June, with the cycle low occurring in October rather than June",
+      "Realized price at 53-54K represents a historical support level that bare markets typically break below, though timing remains uncertain",
+      "The apathetic top (unlike euphoric 2017) prevented retail participation and the typical altcoin rotation, making this cycle feel different but align with 2019 structure",
+      "Most probable scenario is a June low followed by a counter-trend rally and a lower October low, unless massive capitulation occurs sooner"
+    ],
+    "summary": "Bitcoin is likely in a midterm bear market that will not bottom until October 2026, with a June low followed by further deterioration. Current levels around 60K represent a critical juncture; support holding suggests an October bottom, while breakdown into the low 50s or below realized price (~53-54K) could accelerate the timeline. The current structure mirrors elements of both 2018 and 2019 cycles, but likely settles between those two scenarios rather than replicating either exactly."
+  },
   {
     "video_id": "ulDJeCNJo3Y",
     "channel_name": "Benjamin Cowen",
