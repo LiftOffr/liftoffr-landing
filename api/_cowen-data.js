@@ -3,6 +3,32 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "gkDqbvMnMHI",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Enters the 3rd Stage of the Bear Market",
+    "published": "2026-06-07T03:32:13+00:00",
+    "processed_at": "2026-06-07T04:31:38.047412+00:00",
+    "url": "https://www.youtube.com/watch?v=gkDqbvMnMHI",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000,
+      57000,
+      58000
+    ],
+    "indicators_mentioned": [],
+    "key_points": [
+      "Bitcoin has completed stage two of the bear market (February to June 2026) and is now in stage three, characterized by majority belief in the downturn",
+      "Stage three is expected to last approximately 4 months (June to October 2026), with a low anticipated in June, potentially between 57,000 and 60,000",
+      "Historical bear market patterns show deeper lows occur when support levels are broken; 2014 saw 15-18% drops between stages while 2018 saw only sweeps of prior lows",
+      "Market psychology indicates the bear market will end once universal belief in the downturn is achieved; current sentiment shows 60-65% bearish, suggesting room for more conviction building",
+      "If June produces a low with continued support holding around 57,000-58,000, a rally setup in July becomes possible; deeper drops now could allow October to be less severe"
+    ],
+    "summary": "Bitcoin is in the third and final stage of a bear market that began in October 2025, with the first two 4-month stages confirmed by lows in November and June. Stage three is expected to run through October 2026, with a potential low around 57,000-60,000 in June; the bear market will likely conclude once universal bearish sentiment is achieved, as historical cycles show the majority is typically correct only when positioned 60-65% in one direction."
+  },
+  {
     "video_id": "LuiJ6uK_qh0",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
