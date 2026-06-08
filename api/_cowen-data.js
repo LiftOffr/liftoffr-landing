@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "SG3tuA8zqs8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Dubious Speculation",
+    "published": "2026-06-08T04:15:35+00:00",
+    "processed_at": "2026-06-08T05:02:49.420555+00:00",
+    "url": "https://www.youtube.com/watch?v=SG3tuA8zqs8",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      59000
+    ],
+    "indicators_mentioned": [
+      "200E moving average",
+      "bare market resistance band"
+    ],
+    "key_points": [
+      "Bitcoin swept the February low and closed the week above the 200E moving average, suggesting bulls have not given up yet, but structural parallels to 2018 suggest further weakness remains",
+      "June low likely forms, but likely to be followed by reduced volatility through summer and counter-trend rallies potentially returning to bare market resistance band in July",
+      "Final capitulation likely occurs in Q4; mid-June structure similar to prior bear market cycles with June lows followed by modest July rallies before autumn declines",
+      "Holding above the 200E moving average for a second consecutive week would significantly increase odds that the June low is already set; failure to hold increases risk of mid-June drop",
+      "DCA strategy post-June low historically more successful than timing exact bottom; exact low formation too early in June to determine with certainty"
+    ],
+    "summary": "Bitcoin likely forms a June low but confirmation requires holding above the 200E moving average for multiple weeks; structure mirrors prior bear market cycles with reduced summer volatility followed by counter-trend rallies toward bare market resistance before probable Q4 decline. Final capitulation expected in Q4, making DCA post-June low a higher-probability strategy than attempting to catch the exact bottom."
+  },
+  {
     "video_id": "gkDqbvMnMHI",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
