@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "IOFwbuyDC78",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Beauty of Mathematics (Part 71) - 1 Million Subscriber Milestone!",
+    "published": "2026-06-09T01:15:14+00:00",
+    "processed_at": "2026-06-09T02:03:50.112726+00:00",
+    "url": "https://www.youtube.com/watch?v=IOFwbuyDC78",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "logarithmic regression trend line",
+      "fair value price"
+    ],
+    "key_points": [
+      "Bitcoin expected to remain below the logarithmic fair value trend line for the remainder of the year due to midterm year weakness in crypto",
+      "June is identified as a candidate month for a local bottom, with uncertainty acknowledged about exact bottom location",
+      "Macro conditions including tight monetary policy and inflation concerns have kept prices below fair value for multiple years",
+      "Model requires full midterm year data for completion and will be refitted at year-end to improve accuracy for 2027-2028 cycle top predictions",
+      "Long-term industry thesis targets $10 trillion market capitalization (plus or minus a few trillion) despite current near-term weakness"
+    ],
+    "summary": "Bitcoin is expected to trade below its logarithmic fair value regression through the end of the year, with June as a potential local low point. Midterm year weakness and persistent tight monetary policy create headwinds for near-term price action. The long-term structural case remains intact with an ultimate market cap target of approximately $10 trillion for the asset class."
+  },
+  {
     "video_id": "SG3tuA8zqs8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
