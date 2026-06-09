@@ -155,9 +155,11 @@ function email3Text() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// TRIAL NURTURE — for members inside the 7-day free trial on the $49/mo plan.
+// TRIAL NURTURE — for members inside the 7-day CARDLESS free trial.
 // Fed by the Whop webhook (begin_trial → adds contact to the trial audience).
-// Goal: get them active fast, then convert before the day-7 auto-charge.
+// The trial takes NO card and charges NOTHING — Whop just auto-revokes access
+// at day 7. So the goal is to get them active fast, then earn an *active*
+// upgrade decision (lock $29/mo) before access lapses.
 // Feature-flagged: dormant unless RESEND_TRIAL_AUDIENCE_ID is set.
 // ─────────────────────────────────────────────────────────────────────────
 const TSUBJECT_1 = "You're in — here's exactly where to start";
@@ -185,8 +187,8 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
 
 function trial1HTML() {
   return trialShell("Trial · Day 1",
-    `<p style="margin:0 0 16px;">You're in. Card won't be touched for 7 days — so let's make this week count.</p>
-     <p style="margin:0 0 16px;">Here's the honest truth: people who poke around for 20 minutes and leave never convert, and they shouldn't. People who actually <em>use</em> it figure out fast whether it's worth $49/mo. So here's your 10-minute first session:</p>
+    `<p style="margin:0 0 16px;">You're in — no card, no catch. Full access for 7 days, so let's make this week count.</p>
+     <p style="margin:0 0 16px;">Here's the honest truth: people who poke around for 20 minutes and leave never convert, and they shouldn't. People who actually <em>use</em> it figure out fast whether it's worth keeping. So here's your 10-minute first session:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;">
        <div>1. Open Discord → <strong>#how-to-use-this-course</strong>, read the 3 pins</div>
        <div>2. Check the live dashboard — see today's Score and what zone we're in</div>
@@ -197,8 +199,8 @@ function trial1HTML() {
     "Open the dashboard →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=day1");
 }
 function trial1Text() {
-  return ["You're in. Card won't be touched for 7 days — so let's make this week count.","",
-    "People who poke around for 20 min and leave never convert. People who actually USE it figure out fast whether it's worth $49/mo. Your 10-minute first session:","",
+  return ["You're in — no card, no catch. Full access for 7 days, so let's make this week count.","",
+    "People who poke around for 20 min and leave never convert. People who actually USE it figure out fast whether it's worth keeping. Your 10-minute first session:","",
     "1. Discord -> #how-to-use-this-course, read the 3 pins",
     "2. Check the live dashboard — today's Score and zone",
     "3. Read the 8am daily brief. That's the whole product in 3 min/day.","",
@@ -226,24 +228,21 @@ function trial2Text() {
 
 function trial3HTML() {
   return trialShell("Trial · Day 6 · ends tomorrow",
-    `<p style="margin:0 0 16px;">Straight with you: <strong>tomorrow your trial ends and your card gets charged $49 for the month.</strong> Here are your three options, no pressure either way.</p>
+    `<p style="margin:0 0 16px;">Straight with you: <strong>tomorrow your free week ends and access just switches off.</strong> No card on file, so nothing gets charged — it simply lapses unless you choose to keep it. Two options:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
-       <div style="margin-bottom:10px;"><strong>1. Stay.</strong> Do nothing. You're charged $49/mo and keep everything — daily briefs, dashboard, alerts, course, community.</div>
-       <div style="margin-bottom:10px;"><strong>2. Lock it cheaper.</strong> Grab the Founder Rate at <strong>$29/mo — and it never goes up</strong>, ever. If you know you're staying, this is the move. Button below.</div>
-       <div><strong>3. Out.</strong> Not for you? Cancel in Whop before tomorrow and you pay $0. No hard feelings, no clawback — that's the deal I promised.</div>
+       <div style="margin-bottom:10px;"><strong>1. Keep it.</strong> Lock the Founder Rate at <strong>$29/mo — and it never goes up</strong>, ever. Keep everything you've had this week: daily briefs, dashboard, alerts, course, community. Button below.</div>
+       <div><strong>2. Let it lapse.</strong> Do nothing and access ends tomorrow. Nothing charged, no clawback, no hard feelings — that's the deal I promised.</div>
      </div>
-     <p style="margin:18px 0 16px;">I'd rather you cancel than resent a charge. But if the daily read has been worth three minutes of your morning this week — lock the $29 and never think about price again.</p>
-     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
-     <p style="margin:18px 0 0;font-size:13px;color:#888;">Manage or cancel anytime in your Whop dashboard.</p>`,
-    "Lock $29/mo for life →", TRIAL_CHECKOUT);
+     <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — lock the $29 before it ends and never think about price again.</p>
+     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>`,
+    "Keep it — lock $29/mo for life →", TRIAL_CHECKOUT);
 }
 function trial3Text() {
-  return ["Straight with you: tomorrow your trial ends and your card gets charged $49 for the month. Three options:","",
-    "1. STAY — do nothing, charged $49/mo, keep everything.",
-    "2. LOCK IT CHEAPER — Founder Rate $29/mo, never goes up. If you're staying, this is the move:",
+  return ["Straight with you: tomorrow your free week ends and access just switches off. No card on file, so nothing gets charged — it simply lapses unless you keep it. Two options:","",
+    "1. KEEP IT — lock the Founder Rate at $29/mo, never goes up. Keep everything from this week:",
     "   " + TRIAL_CHECKOUT,
-    "3. OUT — cancel in Whop before tomorrow, pay $0. No hard feelings.","",
-    "I'd rather you cancel than resent a charge. But if the daily read's been worth 3 minutes of your morning — lock the $29.","","— Torin, Founder LiftOffr"].join("\n");
+    "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
+    "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — lock the $29 before it ends.","","— Torin, Founder LiftOffr"].join("\n");
 }
 
 async function fetchContacts() {

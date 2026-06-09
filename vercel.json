@@ -35,7 +35,12 @@
     },
     {
       "source": "/start",
-      "destination": "https://whop.com/checkout/plan_aYmWvRCWPXqdB?utm_source=liftoffr&utm_medium=cta&utm_campaign=evergreen&utm_content=trial_start",
+      "destination": "https://whop.com/checkout/plan_zNprCbJjAquZ6?utm_source=liftoffr&utm_medium=cta&utm_campaign=evergreen&utm_content=trial_free",
+      "permanent": false
+    },
+    {
+      "source": "/free",
+      "destination": "https://whop.com/checkout/plan_zNprCbJjAquZ6?utm_source=liftoffr&utm_medium=cta&utm_campaign=evergreen&utm_content=trial_free",
       "permanent": false
     },
     {

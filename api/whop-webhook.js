@@ -319,9 +319,15 @@ export default async function handler(req, res) {
     // A trial START arrives as membership.activated with $0 collected — it is
     // NOT revenue, so it must fire `begin_trial`, never `purchase` (otherwise the
     // `|| 29` fallback below would log a phantom $29 sale for every free trial).
-    const TRIAL_PLAN_ID = "plan_aYmWvRCWPXqdB";
+    // Two trial front doors, both $0-at-signup:
+    //   - card trial:     $49/mo plan with 7 trial days, card required, auto-charges day 8
+    //   - cardless trial: $0 one_time plan, no card, Whop auto-expires access at day 7
+    // Both arrive as membership.activated @ $0 → begin_trial (never a purchase).
+    const CARD_TRIAL_PLAN_ID = "plan_aYmWvRCWPXqdB";
+    const CARDLESS_TRIAL_PLAN_ID = "plan_zNprCbJjAquZ6";
+    const TRIAL_PLAN_IDS = [CARD_TRIAL_PLAN_ID, CARDLESS_TRIAL_PLAN_ID];
     const planId = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
-    const isTrialPlan = planId === TRIAL_PLAN_ID;
+    const isTrialPlan = TRIAL_PLAN_IDS.includes(planId);
     const collected = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100;
     const isTrialStart = type === "membership.activated" && isTrialPlan && collected === 0;
 
