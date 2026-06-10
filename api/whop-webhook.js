@@ -127,14 +127,36 @@ const PLAN_TIER = {
 function extractDiscordId(data) {
   const u = data.user || {};
   return (
+    data.discord?.id ||            // Whop membership shape: top-level discord object
+    data.discord?.user_id ||
+    u.discord?.id ||
     u.discord_id ||
     u.discord_user_id ||
-    u.discord?.id ||
     data.discord_id ||
     data.discord_user_id ||
     u.social_accounts?.discord?.id ||
     null
   );
+}
+
+// Fallback: if the webhook payload lacks the Discord id, fetch the membership
+// from Whop's API (which returns discord.id, as verified 2026-06-09).
+async function fetchDiscordIdFromWhop(membershipId) {
+  const key = process.env.WHOP_API_KEY;
+  if (!key || !membershipId) return null;
+  try {
+    const r = await fetch(`https://api.whop.com/api/v2/memberships/${membershipId}`, {
+      headers: { Authorization: `Bearer ${key}` },
+    });
+    if (!r.ok) return null;
+    const m = await r.json();
+    return m?.discord?.id || m?.user?.discord?.id || null;
+  } catch { return null; }
+}
+
+// Resolve the buyer's Discord id from payload, then Whop API as fallback.
+async function resolveDiscordId(data) {
+  return extractDiscordId(data) || (await fetchDiscordIdFromWhop(data.membership_id || data.id));
 }
 
 function extractUsername(data) {
@@ -450,7 +472,7 @@ export default async function handler(req, res) {
       // swaps cleanly on upgrade/downgrade. No-op for legacy/unmapped plans.
       if (botToken) {
         try {
-          const tierRes = await applyTierRole(botToken, extractDiscordId(data), planId);
+          const tierRes = await applyTierRole(botToken, await resolveDiscordId(data), planId);
           console.log(`[whop-webhook] tier role: ${JSON.stringify(tierRes)}`);
         } catch (e) {
           console.warn("[whop-webhook] tier role assignment failed:", e?.message || e);
@@ -547,7 +569,7 @@ export default async function handler(req, res) {
       const churnBot = process.env.DISCORD_BOT_TOKEN;
       if (churnBot) {
         try {
-          const clr = await clearTierRoles(churnBot, extractDiscordId(data));
+          const clr = await clearTierRoles(churnBot, await resolveDiscordId(data));
           console.log(`[whop-webhook] cleared tier roles: ${JSON.stringify(clr)}`);
         } catch (e) {
           console.warn("[whop-webhook] clear tier roles failed:", e?.message || e);
