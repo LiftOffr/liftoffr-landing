@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "vxnpP3EOl-8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: A Beautiful Chart",
+    "published": "2026-06-10T04:39:46+00:00",
+    "processed_at": "2026-06-10T07:12:29.622148+00:00",
+    "url": "https://www.youtube.com/watch?v=vxnpP3EOl-8",
+    "outlook": "neutral",
+    "confidence": "high",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "supply in profit",
+      "supply in loss",
+      "4-year cycle"
+    ],
+    "key_points": [
+      "Supply in profit and supply in loss have crossed, historically preceding market cycle bottoms by 1-4 months",
+      "Market cycle bottom likely occurs between June and October 2024, based on pattern analysis across 2011, 2014, 2018, and 2022 cycles",
+      "Dollar-cost averaging Bitcoin after the crossover signal through the anticipated bottom period has historically led to strong returns during subsequent bull markets",
+      "The 4-year cycle pattern has remained consistent and predictive across multiple market cycles, with bottoms occurring months after the crossover event"
+    ],
+    "summary": "The supply in profit/loss crossover has occurred, signaling that a market cycle bottom will likely form within the next 1-4 months rather than immediately. Historical precedent across multiple cycles suggests the optimal strategy is to begin dollar-cost averaging Bitcoin now through the anticipated bottom window, positioning for the multi-year bull market that typically follows this pattern."
+  },
+  {
     "video_id": "IOFwbuyDC78",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
