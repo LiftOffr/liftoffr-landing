@@ -101,6 +101,27 @@ const DEFAULT_WELCOME_CHANNEL    = "1380272240150708326"; // #announcements
 const DEFAULT_HOW_TO_USE_CHANNEL = "1442207394439626802"; // #how-to-use-this-course
 const DEFAULT_ELITE_QNA_CHANNEL  = "1442207548156416020"; // #elite-qna
 
+// --- Discord tier-role assignment (Core/Pro/Elite) ---
+// We assign roles in code (not via Whop's native Discord role mapping) so each
+// plan grants exactly the right tier, swaps cleanly on upgrade/downgrade, and
+// is stripped on cancel/expiry. Whop's Discord integration still LINKS the
+// account (gives us the discord id); this owns the role itself.
+const DISCORD_GUILD_ID = "1380245793780531351";
+const TIER_ROLES = {
+  core:  "1514064479950737459",
+  pro:   "1514064481720733736",
+  elite: "1514064483276951592",
+};
+// Which tier each NEW plan grants. Legacy plans are intentionally ABSENT →
+// their members' roles are never touched (grandfathered LiftOffr/Founding Circle).
+const PLAN_TIER = {
+  plan_yi7i0rC444Ssk: "core",  plan_kBe5idN105Ipc: "core",   // Core monthly / annual
+  plan_JnWiKWtwzlTVR: "pro",   plan_nFxTZFYUqmMkx: "pro",     // Pro monthly / annual
+  plan_dMb9YIKbWN7ck: "elite", plan_b0whXHoSzqDL1: "elite",   // Elite monthly / annual
+  plan_uIpPdsPTSHdTp: "pro",   // Cycle Playbook (one-time) → full (Pro) access
+  plan_zNprCbJjAquZ6: "pro",   // cardless 7-day trial → Pro taste
+};
+
 // Pull a likely Discord user ID from a Whop membership payload.
 // Whop's payload shape varies: try common locations.
 function extractDiscordId(data) {
@@ -126,6 +147,44 @@ function extractUsername(data) {
     data.email?.split("@")[0] ||
     "new member"
   );
+}
+
+async function setDiscordRole(botToken, discordId, roleId, add) {
+  const url = `https://discord.com/api/v10/guilds/${DISCORD_GUILD_ID}/members/${discordId}/roles/${roleId}`;
+  const r = await fetch(url, {
+    method: add ? "PUT" : "DELETE",
+    headers: { "Authorization": `Bot ${botToken}`, "User-Agent": "DiscordBot (liftoffr.com, 1.0)" },
+  });
+  return r.status; // 204 = ok; 404 = member/role absent (safe to ignore)
+}
+
+// Assign the tier role for a purchased plan + strip the other tier roles so a
+// member holds exactly one tier (clean upgrade/downgrade). No-ops for unmapped
+// (legacy) plans, so grandfathered members are never modified.
+async function applyTierRole(botToken, discordId, planId) {
+  if (!botToken || !discordId) return { skipped: "no bot token or discord id" };
+  const tier = PLAN_TIER[planId];
+  if (!tier) return { skipped: `unmapped plan ${planId}` };
+  const target = TIER_ROLES[tier];
+  const out = { tier };
+  try {
+    out.add = await setDiscordRole(botToken, discordId, target, true);
+    for (const [name, rid] of Object.entries(TIER_ROLES)) {
+      if (rid !== target) out[`rm_${name}`] = await setDiscordRole(botToken, discordId, rid, false);
+    }
+  } catch (e) { out.error = e?.message || String(e); }
+  return out;
+}
+
+// On churn/expiry (incl. cardless-trial day-7 expiry), remove all tier roles.
+async function clearTierRoles(botToken, discordId) {
+  if (!botToken || !discordId) return { skipped: "no bot token or discord id" };
+  const out = {};
+  for (const [name, rid] of Object.entries(TIER_ROLES)) {
+    try { out[name] = await setDiscordRole(botToken, discordId, rid, false); }
+    catch (e) { out[name] = e?.message || String(e); }
+  }
+  return out;
 }
 
 async function postPublicWelcome(botToken, channelId, discordId, username) {
@@ -386,6 +445,18 @@ export default async function handler(req, res) {
         }
       }
 
+      // Assign the correct Discord tier role from the plan purchased.
+      // Runs for trial starts AND purchases; self-heals on renewals;
+      // swaps cleanly on upgrade/downgrade. No-op for legacy/unmapped plans.
+      if (botToken) {
+        try {
+          const tierRes = await applyTierRole(botToken, extractDiscordId(data), planId);
+          console.log(`[whop-webhook] tier role: ${JSON.stringify(tierRes)}`);
+        } catch (e) {
+          console.warn("[whop-webhook] tier role assignment failed:", e?.message || e);
+        }
+      }
+
       if (!measurementId || !apiSecret) {
         console.warn("[whop-webhook] GA4 env not set, skipping GA4 forward");
         res.status(200).json({ ok: true, ga4: "skipped" });
@@ -472,6 +543,17 @@ export default async function handler(req, res) {
     }
 
     if (isChurn) {
+      // Strip tier roles on churn/expiry (cardless-trial day-7 expiry lands here too)
+      const churnBot = process.env.DISCORD_BOT_TOKEN;
+      if (churnBot) {
+        try {
+          const clr = await clearTierRoles(churnBot, extractDiscordId(data));
+          console.log(`[whop-webhook] cleared tier roles: ${JSON.stringify(clr)}`);
+        } catch (e) {
+          console.warn("[whop-webhook] clear tier roles failed:", e?.message || e);
+        }
+      }
+
       // Send GA4 event so we can build retention reports
       if (measurementId && apiSecret) {
         await sendGa4Event({
