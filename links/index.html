@@ -659,7 +659,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lj-arrow">→</div>
   </a>
   <div class="lj-reassure" style="text-align:center;font-size:12px;color:#8a8a8a;margin:-2px 0 4px;">🔒 No card required. Full access free for 7 days — nothing charged, ever, unless you choose to stay.</div>
-  <a href="/founder" rel="noopener" class="link-join-alt" data-cta-skip>Already sure? Skip the trial — lock the $29/mo Founder rate for life →</a>
+  <a href="https://liftoffr.com/#pricing" rel="noopener" class="link-join-alt" data-cta-skip>Already sure? Skip the trial — see Core / Pro / Elite plans →</a>
 
   <!-- Verified backtest proof card -->
   <a href="https://liftoffr.com/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_hero_proof" class="lh-proof">
@@ -735,7 +735,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="lh-test-avatar"><img src="https://api.dicebear.com/9.x/notionists/png?seed=kyle_stacks_v2&size=80&backgroundColor=1a1a1a" alt=""></div>
           <div class="lh-test-content">
             <div class="lh-test-meta"><span class="lh-test-name">kyle_stacks</span><span>March 19, 2025</span></div>
-            <div class="lh-test-text">The daily brief alone is worth $29/mo. Used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening.</div>
+            <div class="lh-test-text">The daily brief alone is worth every penny. Used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening.</div>
           </div>
         </div>
       </div>
@@ -850,7 +850,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.' +
             '<a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_skip_ahead" target="_blank" rel="noopener" class="lp-skip">' +
               '<span class="lp-skip-eyebrow">Skip the email · join now</span>' +
-              'Lock $29/mo Founder Rate forever →' +
+              'See Core / Pro / Elite plans →' +
             '</a>';
           form.parentNode.appendChild(msg);
         }
@@ -882,7 +882,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
         if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
         if (d.remaining <= 0) return;
-        var text = '$29/mo locked for life · public price $49';
+        var text = 'Plans from $49/mo · start 7 days free, no card';
         var els = document.querySelectorAll('[data-founder-text]');
         for (var i = 0; i < els.length; i++) els[i].textContent = text;
       }).catch(function(){});
