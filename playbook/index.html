@@ -136,13 +136,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer { background: #050505; color: #777; font-size: 12px; text-align: center; padding: 26px 0; line-height: 1.7; }
   footer a { color: #999; }
 
+  /* value stack */
+  .vstack { text-align: left; max-width: 430px; margin: 0 auto 20px; font-size: 14px; }
+  .vrow { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); color: #cfcfcf; }
+  .vrow span:last-child { color: #fff; font-weight: 700; white-space: nowrap; }
+  .vrow.vtotal { border-bottom: none; border-top: 2px solid rgba(255,255,255,0.18); margin-top: 4px; padding-top: 12px; font-size: 15px; }
+  .vrow.vtotal span { color: #fff; font-weight: 800; }
+  /* testimonials */
+  .tgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px; }
+  .tcard { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .tcard p { font-size: 14.5px; color: #e2e2e2; margin-bottom: 10px; font-style: italic; }
+  .tcard .who { font-size: 13px; color: var(--muted); font-weight: 700; }
+  /* sticky mobile CTA */
+  .sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; background: rgba(8,8,8,0.96); border-top: 1px solid var(--line); padding: 10px 16px; text-align: center; display: none; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+  .sticky-cta a { display: block; background: var(--red); color: #fff; text-decoration: none; font-weight: 800; padding: 13px; border-radius: 9px; font-size: 15px; }
+
   @media (max-width: 600px) {
     .hero h1 { font-size: 30px; }
     .hero p.sub { font-size: 16px; }
     h2 { font-size: 23px; }
     .twocol { grid-template-columns: 1fr; }
+    .tgrid { grid-template-columns: 1fr; }
     .proof .big { font-size: 40px; }
     .price-box .now { font-size: 46px; }
+    .sticky-cta { display: block; }
+    body { padding-bottom: 76px; }
   }
 </style>
 </head>
@@ -249,6 +267,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">From the community</div>
+    <h2>Why people trust the framework.</h2>
+    <div class="tgrid">
+      <div class="tcard"><p>"I used to ride everything up and then all the way back down. Having an actual exit plan — written, mechanical, decided ahead of time — is the thing I never had."</p><div class="who">— LiftOffr member</div></div>
+      <div class="tcard"><p>"The daily read reset how I think about the cycle. Knowing when to accumulate and when to take profit instead of guessing is worth every penny."</p><div class="who">— LiftOffr member</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICE -->
 <section>
   <div class="wrap">
@@ -256,10 +286,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>20 seats. Once.</h2>
     <p>I'm running this small and once, at the founding price, while we're in the part of the cycle where building your plan actually matters — the accumulation phase. By the time the next top is obvious, the time to have built your exit ladder will be long gone.</p>
     <div class="price-box">
-      <div class="was">$997 value</div>
+      <div class="vstack">
+        <div class="vrow"><span>3 live cohort sessions with Torin</span><span>$600</span></div>
+        <div class="vrow"><span>Your personalized buy + sell ladder template</span><span>$200</span></div>
+        <div class="vrow"><span>Lifetime recordings + private cohort channel</span><span>$100</span></div>
+        <div class="vrow"><span>3 months of LiftOffr Pro included</span><span>$297</span></div>
+        <div class="vrow vtotal"><span>Total value</span><span>$1,197</span></div>
+      </div>
+      <div class="was">$1,197 value</div>
       <div class="now">$497<span> one-time</span></div>
-      <div class="pp">Includes 3 months of LiftOffr Pro · payment plan available — just ask</div>
+      <div class="pp">Or 2 payments of $279 — just ask. Includes 3 months of Pro.</div>
       <a href="https://whop.com/checkout/plan_uIpPdsPTSHdTp?utm_source=liftoffr&utm_medium=playbook&utm_campaign=playbook_launch&utm_content=pricebox" rel="noopener" class="btn" data-cta>Claim your seat — $497 →</a>
+      <div style="margin-top:12px;font-size:13px;color:var(--gold);font-weight:700;">⏳ Founding cohort · closes when the 20th seat is taken</div>
     </div>
     <div class="guarantee">🛡️ <strong>Zero-risk guarantee:</strong> show up to session #1 and start building your plan. If it's not for you, tell me before session #2 and I'll refund every dollar. I'd rather you walk than resent the spend.</div>
   </div>
@@ -302,6 +340,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
 </section>
+
+<!-- sticky mobile CTA -->
+<div class="sticky-cta">
+  <a href="https://whop.com/checkout/plan_uIpPdsPTSHdTp?utm_source=liftoffr&utm_medium=playbook&utm_campaign=playbook_launch&utm_content=sticky" rel="noopener" data-cta>Claim your seat — $497 →</a>
+</div>
 
 <footer>
   LiftOffr · Bitcoin cycle education. Not financial advice.<br>
