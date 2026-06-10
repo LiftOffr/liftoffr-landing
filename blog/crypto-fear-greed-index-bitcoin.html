@@ -261,7 +261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog">Blog</a>
     <a href="/proof">Track Record</a>
     <a href="/indicator-history">Indicators</a>
-    <div style="text-align:center;margin-top:20px;"><a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=fear_greed_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo</a></div>
+    <div style="text-align:center;margin-top:20px;"><a href="/start" target="_blank" rel="noopener" class="site-nav-cta">Start 7 days free</a></div>
   </div>
 </nav>
 
@@ -492,7 +492,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track All 8 Indicators in One Daily Brief</h3>
             <p>Fear &amp; Greed is just one of the eight signals LiftOffr monitors every day. Each morning at 8am MT, members receive a plain-English confluence read that synthesizes sentiment, on-chain data, and cycle timing into one clear verdict.</p>
-            <p><strong>LiftOffr Founder Rate: $29/month — <span data-founder-text>Limited availability</span></strong></p>
+            <p><strong>LiftOffr Founder Rate: $49/month — <span data-founder-text>Limited availability</span></strong></p>
             <p>Membership includes:</p>
             <ul>
                 <li>Daily confluence brief covering all 8 indicators</li>
@@ -501,7 +501,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li>Historical indicator data across Bitcoin cycles</li>
                 <li>Private member community and weekly analysis</li>
             </ul>
-            <div style="text-align:center;margin-top:20px;"><a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=fear_greed_article_cta" target="_blank" rel="noopener">Join LiftOffr — $29/mo Founder Rate</a></div>
+            <div style="text-align:center;margin-top:20px;"><a href="/start" target="_blank" rel="noopener">Start 7 days free — no card</a></div>
         </div>
 
         <div class="faq-section">
@@ -566,7 +566,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
     if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
     if (d.remaining <= 0) return;
-    var text = '$29/mo locked for life · public price $49';
+    var text = 'Plans from $49/mo · start 7 days free, no card';
     var els = document.querySelectorAll('[data-founder-text]');
     for (var i = 0; i < els.length; i++) els[i].textContent = text;
   }).catch(function(){});

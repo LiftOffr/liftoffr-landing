@@ -252,7 +252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog">Blog</a>
     <a href="/proof">Track Record</a>
     <a href="/indicator-history">Indicators</a>
-    <div style="text-align:center;margin-top:20px;"><a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=2yma_nav" target="_blank" rel="noopener" class="site-nav-cta">Join — $29/mo</a></div>
+    <div style="text-align:center;margin-top:20px;"><a href="/start" target="_blank" rel="noopener" class="site-nav-cta">Start 7 days free</a></div>
   </div>
 </nav>
 
@@ -472,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track the 2-Year MA Multiplier Alongside 7 Other Indicators — Every Day</h3>
             <p>LiftOffr's daily brief synthesizes the 2-Year MA Multiplier, MVRV, Puell Multiple, and five more indicators into a single confluence read every morning. No spreadsheets. No tab-switching. One clear signal.</p>
-            <p><strong>Founder Rate: $29/month — <span data-founder-text>limited availability</span></strong></p>
+            <p><strong>Founder Rate: $49/month — <span data-founder-text>limited availability</span></strong></p>
             <ul>
                 <li>Daily confluence brief at 8am MT</li>
                 <li>8-indicator dashboard updated in real time</li>
@@ -480,7 +480,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li>Private community of cycle-focused members</li>
                 <li>Direct access to Torin's analysis and Q&amp;A</li>
             </ul>
-            <div style="text-align:center;margin-top:20px;"><a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=liftoffr&utm_medium=blog&utm_campaign=evergreen&utm_content=2yma_article_cta" target="_blank" rel="noopener">Join LiftOffr — $29/mo Founder Rate</a></div>
+            <div style="text-align:center;margin-top:20px;"><a href="/start" target="_blank" rel="noopener">Start 7 days free — no card</a></div>
         </div>
 
         <div class="faq-section">
@@ -541,7 +541,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
     if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
     if (d.remaining <= 0) return;
-    var text = '$29/mo locked for life · public price $49';
+    var text = 'Plans from $49/mo · start 7 days free, no card';
     var els = document.querySelectorAll('[data-founder-text]');
     for (var i = 0; i < els.length; i++) els[i].textContent = text;
   }).catch(function(){});

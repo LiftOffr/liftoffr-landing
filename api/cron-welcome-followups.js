@@ -101,7 +101,7 @@ function email3HTML() {
     <p style="margin:0 0 16px;">Last email in the welcome sequence.</p>
     <p style="margin:0 0 16px;">From now on you'll get one email from me every Sunday morning — the LiftOffr Score, the zone, and a one-line read on what it means this week. That's the ongoing relationship. No daily spam, no sales sequences, no recycled Twitter takes.</p>
     <p style="margin:0 0 16px;">You can absolutely DIY this. Read the Score each Sunday, run the Checklist yourself, build your own discipline. That alone puts you ahead of 99% of crypto investors.</p>
-    <p style="margin:0 0 16px;">But if you'd rather have it <em>done for you</em> — the daily briefs, live dashboard, real-time signal alerts when triggers fire, 6-module course, and private Discord community — LiftOffr's Founder Rate is <strong>$29/mo, locked in forever</strong>.</p>
+    <p style="margin:0 0 16px;">But if you'd rather have it <em>done for you</em> — the daily briefs, live dashboard, real-time signal alerts when triggers fire, 6-module course, and private Discord community — start a <strong>7-day free trial (no card)</strong>, then keep it from $49/mo.</p>
     <p style="margin:18px 0 12px;font-weight:700;color:#080808;">Risk-free for 30 days. Full refund if it's not for you.</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
       <div>• Daily BTC market brief in Discord (8am MT, weekdays)</div>
@@ -113,10 +113,10 @@ function email3HTML() {
     </div>
     <p style="margin:18px 0;">Either way — see you Sunday.</p>
     <p style="margin:18px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
-    <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. The Founder Rate is capped at 30 spots. Live count at <a href="https://liftoffr.com" style="color:#e63946;">liftoffr.com</a>.</p>
+    <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to try it first? Start a 7-day free trial — no card, nothing charged automatically.</p>
   </div>
   <div style="padding:0 28px 32px;">
-    <a href="https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day7_cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Claim Founder Rate — $29/mo locked forever →</a>
+    <a href="https://liftoffr.com/start" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Start 7 days free — no card →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
@@ -133,7 +133,7 @@ function email3Text() {
     "",
     "You can absolutely DIY this. That alone puts you ahead of 99% of crypto investors.",
     "",
-    "But if you'd rather have it done for you — daily briefs, live dashboard, real-time signal alerts, 6-module course, and private Discord — LiftOffr's Founder Rate is $29/mo, locked forever.",
+    "But if you'd rather have it done for you — daily briefs, live dashboard, real-time signal alerts, 6-module course, and private Discord — start a 7-day free trial (no card), then keep it from $49/mo.",
     "",
     "Risk-free for 30 days. Full refund if it's not for you.",
     "",
@@ -148,9 +148,9 @@ function email3Text() {
     "— Torin",
     "Founder, LiftOffr",
     "",
-    "https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day7_cta",
+    "https://liftoffr.com/start",
     "",
-    "P.S. Founder Rate is capped at 30 spots. Live count at liftoffr.com.",
+    "P.S. Try it free for 7 days — no card. Plans at liftoffr.com/#pricing.",
   ].join("\n");
 }
 
@@ -159,14 +159,14 @@ function email3Text() {
 // Fed by the Whop webhook (begin_trial → adds contact to the trial audience).
 // The trial takes NO card and charges NOTHING — Whop just auto-revokes access
 // at day 7. So the goal is to get them active fast, then earn an *active*
-// upgrade decision (lock $29/mo) before access lapses.
+// upgrade decision (keep it on a paid tier) before access lapses.
 // Feature-flagged: dormant unless RESEND_TRIAL_AUDIENCE_ID is set.
 // ─────────────────────────────────────────────────────────────────────────
 const TSUBJECT_1 = "You're in — here's exactly where to start";
 const TSUBJECT_2 = "Day 3: are you actually using this?";
 const TSUBJECT_3 = "Your trial ends tomorrow (here's what happens)";
 
-const TRIAL_CHECKOUT = "https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=founder_lock";
+const TRIAL_CHECKOUT = "https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=keep_pro";
 
 function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   return `<!DOCTYPE html>
@@ -230,19 +230,19 @@ function trial3HTML() {
   return trialShell("Trial · Day 6 · ends tomorrow",
     `<p style="margin:0 0 16px;">Straight with you: <strong>tomorrow your free week ends and access just switches off.</strong> No card on file, so nothing gets charged — it simply lapses unless you choose to keep it. Two options:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
-       <div style="margin-bottom:10px;"><strong>1. Keep it.</strong> Lock the Founder Rate at <strong>$29/mo — and it never goes up</strong>, ever. Keep everything you've had this week: daily briefs, dashboard, alerts, course, community. Button below.</div>
+       <div style="margin-bottom:10px;"><strong>1. Keep it.</strong> Keep everything you've had this week — daily briefs, dashboard, live alerts, signals, community — with <strong>Pro at $99/mo</strong>. Want lighter? Core is $49/mo. Button below.</div>
        <div><strong>2. Let it lapse.</strong> Do nothing and access ends tomorrow. Nothing charged, no clawback, no hard feelings — that's the deal I promised.</div>
      </div>
-     <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — lock the $29 before it ends and never think about price again.</p>
+     <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — keep it before it ends.</p>
      <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>`,
-    "Keep it — lock $29/mo for life →", TRIAL_CHECKOUT);
+    "Keep my access — go Pro →", TRIAL_CHECKOUT);
 }
 function trial3Text() {
   return ["Straight with you: tomorrow your free week ends and access just switches off. No card on file, so nothing gets charged — it simply lapses unless you keep it. Two options:","",
-    "1. KEEP IT — lock the Founder Rate at $29/mo, never goes up. Keep everything from this week:",
+    "1. KEEP IT — keep everything from this week with Pro ($99/mo; or Core $49 for the lighter set):",
     "   " + TRIAL_CHECKOUT,
     "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
-    "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — lock the $29 before it ends.","","— Torin, Founder LiftOffr"].join("\n");
+    "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr"].join("\n");
 }
 
 async function fetchContacts() {
