@@ -59,13 +59,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   :root {
     --red: #e63946;
     --bg: #080808;
-    --ink: #111;
+    --ink: #e9e9e9;
     --muted: #8a8a8a;
-    --line: #e7e7e7;
+    --line: rgba(255,255,255,0.10);
     --gold: #d9a441;
   }
   html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--ink); background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   .wrap { max-width: 720px; margin: 0 auto; padding: 0 22px; }
   a { color: inherit; }
   .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--red); }
@@ -89,23 +89,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lead { font-size: 18px; }
   strong { font-weight: 800; }
 
-  .deliver { background: #fafafa; border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px; margin: 18px 0; }
+  .deliver { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 14px; padding: 26px 24px; margin: 18px 0; }
   .deliver h3 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
   ul.checks { list-style: none; margin: 8px 0; }
   ul.checks li { position: relative; padding-left: 30px; margin-bottom: 13px; font-size: 16px; }
   ul.checks li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--red); font-weight: 900; }
   .sess { display: flex; gap: 14px; margin-bottom: 16px; align-items: flex-start; }
-  .sess .n { flex: 0 0 34px; height: 34px; border-radius: 8px; background: var(--bg); color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .sess .n { flex: 0 0 34px; height: 34px; border-radius: 8px; background: var(--red); color: #fff; font-weight: 900; display: flex; align-items: center; justify-content: center; font-size: 15px; }
   .sess .t strong { display: block; font-size: 16px; }
   .sess .t span { color: var(--muted); font-size: 14.5px; }
 
   .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .col { border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
   .col h3 { font-size: 15px; font-weight: 800; margin-bottom: 10px; }
-  .col.for h3 { color: #137333; }
+  .col.for h3 { color: #34d399; }
   .col.not h3 { color: #999; }
   .col li { font-size: 14.5px; margin-bottom: 8px; list-style: none; padding-left: 18px; position: relative; }
-  .col.for li::before { content: "→"; position: absolute; left: 0; color: #137333; }
+  .col.for li::before { content: "→"; position: absolute; left: 0; color: #34d399; }
   .col.not li::before { content: "✕"; position: absolute; left: 0; color: #bbb; }
 
   .proof { background: var(--bg); color: #fff; text-align: center; }
@@ -114,16 +114,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .proof p { color: #cfcfcf; }
   .proof a.link { color: #ff6b76; font-weight: 700; text-decoration: underline; }
 
-  .price-box { text-align: center; background: #fff; border: 2px solid var(--bg); border-radius: 16px; padding: 34px 26px; margin: 8px 0 6px; }
+  .price-box { text-align: center; background: rgba(255,255,255,0.04); border: 2px solid var(--red); border-radius: 16px; padding: 34px 26px; margin: 8px 0 6px; }
   .price-box .was { color: var(--muted); text-decoration: line-through; font-size: 18px; }
   .price-box .now { font-size: 56px; font-weight: 900; letter-spacing: -2px; line-height: 1; }
   .price-box .now span { font-size: 20px; color: var(--muted); font-weight: 700; }
   .price-box .pp { color: var(--muted); font-size: 14px; margin: 8px 0 18px; }
-  .guarantee { background: #fafafa; border: 1px dashed #ccc; border-radius: 12px; padding: 18px 20px; font-size: 15px; margin-top: 18px; }
+  .guarantee { background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.22); border-radius: 12px; padding: 18px 20px; font-size: 15px; margin-top: 18px; }
   .guarantee strong { color: var(--ink); }
 
   .faq h3 { font-size: 16px; font-weight: 800; margin: 18px 0 6px; }
-  .faq p { font-size: 15px; color: #444; }
+  .faq p { font-size: 15px; color: #b8b8b8; }
 
   .final { background: var(--bg); color: #fff; text-align: center; border-bottom: none; }
   .final h2 { color: #fff; }
