@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "R9vEpIpyj2s",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Cost Basis of the Network",
+    "published": "2026-06-11T03:48:06+00:00",
+    "processed_at": "2026-06-11T04:13:07.593996+00:00",
+    "url": "https://www.youtube.com/watch?v=R9vEpIpyj2s",
+    "outlook": "neutral",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      53000,
+      54000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "realized price",
+      "realized cap",
+      "balanced price",
+      "Bitcoin supply in profit and loss",
+      "terminal price"
+    ],
+    "key_points": [
+      "Realized price currently around 53-54k; historically Bitcoin falls below this level near bear market bottoms before recoveries",
+      "Ratio of Bitcoin price to realized price approaching critical threshold where overshoots below realized price have preceded cycle lows by 1-4 months",
+      "Mid-term year cycle patterns suggest if a bottom occurs later in the year, it could align with historical precedent of prior mid-term cycles",
+      "Conflicting models create uncertainty: some models argue the 60k low is already in while others (terminal price) suggest further downside possible",
+      "Supply in profit/loss crossing signals lows are near historically, with minimal time typically spent below realized price once breached"
+    ],
+    "summary": "Bitcoin faces competing signals as it approaches historically significant realized price support around 53-54k. Mid-term year cycles and on-chain metrics suggest a potential bottom could occur within months if historical patterns hold, though models disagree on whether the low has already been established or further downside to realized price levels remains possible."
+  },
+  {
     "video_id": "vxnpP3EOl-8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
