@@ -1,13 +1,15 @@
 // GA4 Data API proxy — pulls traffic + funnel reports for the dashboard.
 //
-// Uses OAuth refresh-token flow (user-account based, signed in as the GA4 owner).
-// Refresh token never expires unless explicitly revoked.
+// Auth: service account JWT (no token expiration — the key file IS the credential,
+// and we mint short-lived access tokens on demand). Killed the OAuth refresh flow
+// 2026-06-12 because Testing-mode refresh tokens died ~weekly.
 //
 // Env required (set in Vercel project settings):
-//   GA4_OAUTH_CLIENT_ID     — Google Cloud OAuth client ID
-//   GA4_OAUTH_CLIENT_SECRET — paired client secret
-//   GA4_OAUTH_REFRESH_TOKEN — long-lived refresh token (from OAuth flow)
+//   GA4_SERVICE_ACCOUNT_KEY — full JSON of the service account key (paste as one line)
 //   GA4_PROPERTY_ID         — numeric GA4 property ID (NOT the G-XXX measurement ID)
+//
+// GA4 setup: in GA4 admin → Property Access Management, add the service account's
+// client_email as a Viewer.
 //
 // Query params:
 //   ?report=traffic   — traffic acquisition by source (last 30d default)
@@ -16,6 +18,8 @@
 //   ?report=funnel    — homepage → email → checkout flow
 //   ?report=realtime  — live users right now
 //   ?days=30          — date range (default 30, max 365)
+
+import crypto from "node:crypto";
 
 export const config = { runtime: "nodejs" };
 
@@ -28,18 +32,32 @@ let tokenCache = null;
 async function getAccessToken() {
   if (tokenCache && tokenCache.exp > Date.now() / 1000 + 60) return tokenCache.token;
 
-  const clientId = process.env.GA4_OAUTH_CLIENT_ID;
-  const clientSecret = process.env.GA4_OAUTH_CLIENT_SECRET;
-  const refreshToken = process.env.GA4_OAUTH_REFRESH_TOKEN;
-  if (!clientId || !clientSecret || !refreshToken) {
-    throw new Error("Missing GA4_OAUTH_CLIENT_ID, GA4_OAUTH_CLIENT_SECRET, or GA4_OAUTH_REFRESH_TOKEN");
-  }
+  const keyJson = process.env.GA4_SERVICE_ACCOUNT_KEY;
+  if (!keyJson) throw new Error("Missing GA4_SERVICE_ACCOUNT_KEY");
+
+  let key;
+  try { key = JSON.parse(keyJson); }
+  catch (e) { throw new Error(`GA4_SERVICE_ACCOUNT_KEY is not valid JSON: ${e.message}`); }
+
+  const now = Math.floor(Date.now() / 1000);
+  const header = { alg: "RS256", typ: "JWT", kid: key.private_key_id };
+  const claims = {
+    iss: key.client_email,
+    scope: "https://www.googleapis.com/auth/analytics.readonly",
+    aud: TOKEN_URL,
+    iat: now,
+    exp: now + 3600,
+  };
+  const enc = (obj) => Buffer.from(JSON.stringify(obj)).toString("base64url");
+  const signingInput = `${enc(header)}.${enc(claims)}`;
+  const signature = crypto.createSign("RSA-SHA256")
+    .update(signingInput)
+    .sign(key.private_key, "base64url");
+  const jwt = `${signingInput}.${signature}`;
 
   const body = new URLSearchParams({
-    client_id: clientId,
-    client_secret: clientSecret,
-    refresh_token: refreshToken,
-    grant_type: "refresh_token",
+    grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+    assertion: jwt,
   });
   const r = await fetch(TOKEN_URL, {
     method: "POST",
@@ -48,7 +66,7 @@ async function getAccessToken() {
   });
   const data = await r.json();
   if (!r.ok || !data.access_token) {
-    throw new Error(`Token refresh failed: ${JSON.stringify(data)}`);
+    throw new Error(`JWT exchange failed: ${JSON.stringify(data)}`);
   }
   tokenCache = {
     token: data.access_token,
