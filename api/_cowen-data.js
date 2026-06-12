@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "Di8YR9nX8Q8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Using On-Chain Metrics To Identify Market Cycle Bottoms",
+    "published": "2026-06-12T03:21:52+00:00",
+    "processed_at": "2026-06-12T04:39:07.297534+00:00",
+    "url": "https://www.youtube.com/watch?v=Di8YR9nX8Q8",
+    "outlook": "bullish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Percentage of Supply in Profit and Loss",
+      "MVRV Z-score",
+      "Risk Metric",
+      "Appeal Multiple",
+      "MVRV Score",
+      "Miner Cap to Thermal Cap Ratio",
+      "Transaction Fees",
+      "Market Cap to Thermal Cap Ratio",
+      "Terminal Price",
+      "R Huddle Ratio",
+      "Onchain Risk Metric"
+    ],
+    "key_points": [
+      "Onchain risk metric currently at 0.198, historically low levels occur in midterm years and precede major accumulation opportunities and bull markets",
+      "Bitcoin is entering the third and final stage of the bear market with expected bottom likely in 2024, particularly October, based on percentage of supply in profit/loss crossing patterns",
+      "Current cycle mirrors 2019 dynamics: apathetic top with no altcoin rotation, Bitcoin dominance increase, and top occurring before quantitative tightening ended\u2014suggesting post-top digestion phase underway",
+      "Onchain risk metrics are expected to carve out a low lasting several months before the next bull market begins, providing accumulation windows independent of news and macro events",
+      "If current dynamics match 2019-2020 pattern, subsequent bull market could produce more euphoric highs than recent cycle"
+    ],
+    "summary": "Onchain risk metrics indicate Bitcoin is in the final stage of bear market consolidation with bottom likely occurring by end of year. Current risk levels at 0.198 are historically low and typically precede major bull market initiation. The 2019 cycle parallel suggests an extended accumulation window is forming before the next significant uptrend begins."
+  },
+  {
     "video_id": "R9vEpIpyj2s",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
