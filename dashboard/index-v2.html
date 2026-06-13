@@ -7,6 +7,9 @@
 <title>LiftOffr Terminal — Bitcoin Cycle Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-015PKWM24J');</script>
 <style>
@@ -133,6 +136,38 @@
   .mcard .ml{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
   .mcard .mv{font-family:var(--mono);font-size:22px;font-weight:700;margin-top:8px}
   .mcard .mvs{font-size:11px;color:var(--dim);margin-top:4px}
+  /* CHART */
+  .chart-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
+  .chart-stats{display:flex;gap:18px;font-size:12px;color:var(--muted)}
+  .chart-stats b{font-family:var(--mono);color:var(--ink);font-weight:700;margin-left:5px}
+  .chart-ranges{display:flex;gap:6px}
+  .chart-range-btn{font-family:var(--sans);font-weight:700;font-size:11px;padding:5px 11px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer}
+  .chart-range-btn:hover{color:var(--ink)}.chart-range-btn.active{background:var(--green);color:#04130a;border-color:var(--green)}
+  .chart-box{position:relative;height:420px}
+  /* TRADE LEDGER */
+  .trade-ctrls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .btn-secondary{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+  .sync-status{font-size:11.5px;color:var(--dim);margin-bottom:12px;min-height:14px}
+  .trade-row{display:grid;grid-template-columns:96px 90px 1.3fr .9fr .9fr .9fr 32px;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12.5px;font-family:var(--mono)}
+  .trade-row .dim{color:var(--dim)}
+  .trade-head{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--dim);font-weight:700;font-family:var(--sans)}
+  .trade-source{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.06);color:var(--muted);text-transform:capitalize;font-family:var(--sans)}
+  .trade-source.coinbase{background:rgba(77,141,240,.16);color:#4d8df0}
+  .trade-pl-pos{color:var(--green)}.trade-pl-neg{color:var(--red)}
+  .trade-del{background:none;border:none;color:var(--dim);cursor:pointer;font-size:14px}.trade-del:hover{color:var(--red)}
+  .empty{color:var(--dim);text-align:center;padding:26px;font-size:13px}
+  @media(max-width:760px){.trade-row{grid-template-columns:1fr 1fr;font-size:12px}}
+  /* MODAL */
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.66);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+  .modal-bg.open{display:flex}
+  .modal{background:#0d121c;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:24px;width:min(480px,92vw);box-shadow:0 24px 60px rgba(0,0,0,.6)}
+  .modal h2{font-size:17px;font-weight:800;margin-bottom:16px}
+  .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .form-row{margin-bottom:12px}
+  .form-row label{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:5px;font-weight:700}
+  .modal input,.modal select,.modal textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:9px 11px;color:var(--ink);font-family:var(--sans);font-size:13px}
+  .modal textarea{resize:vertical;min-height:54px}
+  .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
   @media(max-width:1024px){.app{grid-template-columns:1fr}.side{display:none}.verdict,.pillars-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -204,6 +239,20 @@
         <div class="lad-meta"><span id="deployTxt" class="muted">—</span><span id="nextAction" style="font-weight:700;color:var(--ink)"></span></div>
         <div class="ladder" id="ladderV2"><div class="loading">Loading tiers…</div></div>
       </div>
+      <!-- PRICE CHART -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📉 BTC Price &amp; Tiers</span><span class="ssub">— price vs 200W MA · live buy-tier triggers + your fills</span></div></div>
+      <div class="panel">
+        <div class="chart-bar">
+          <div class="chart-stats"><span>Open<b id="periodOpen">—</b></span><span>High<b id="periodHigh">—</b></span><span>Low<b id="periodLow">—</b></span><span>Chg<b id="periodChange">—</b></span></div>
+          <div class="chart-ranges">
+            <button class="chart-range-btn" data-days="90">90D</button>
+            <button class="chart-range-btn" data-days="180">180D</button>
+            <button class="chart-range-btn active" data-days="365">1Y</button>
+            <button class="chart-range-btn" data-days="3000">All</button>
+          </div>
+        </div>
+        <div class="chart-box"><canvas id="btcChart"></canvas></div>
+      </div>
       <!-- PROJECTED BOTTOM -->
       <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— 200W MA penetration bands · Cowen's 'level of destiny'</span></div></div>
       <div class="panel">
@@ -216,6 +265,20 @@
         <div class="pos-grid" id="posGrid"><div class="loading">Loading wallet…</div></div>
         <div id="posBalances"></div>
       </div>
+      <!-- TRADE LEDGER -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▦ Trade Ledger</span><span class="ssub">— log buys/sells · feeds the ladder, position &amp; cost basis</span></div></div>
+      <div class="panel">
+        <div class="trade-ctrls">
+          <button class="btn btn-green" id="addTradeBtn">+ Add Trade</button>
+          <button class="btn" id="importBtn">Import CSV</button>
+          <button class="btn btn-secondary" id="syncCoinbaseBtn">⟳ Sync Coinbase</button>
+          <button class="btn btn-secondary" id="exportBtn">Export JSON</button>
+          <button class="btn btn-secondary" id="seedBtn">Reset</button>
+        </div>
+        <div class="sync-status" id="syncStatus"></div>
+        <div class="trade-row trade-head"><div>Date</div><div>Source</div><div>Trade</div><div>USD</div><div>Price</div><div>P/L</div><div></div></div>
+        <div id="tradeList"></div>
+      </div>
       <!-- MACRO -->
       <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">≈ Macro — Liquidity &amp; Rates</span><span class="ssub">— global liquidity backdrop for the cycle</span></div></div>
       <div class="panel">
@@ -224,6 +287,39 @@
       </div>
     </div>
   </main>
+</div>
+<!-- Add/Edit Trade Modal -->
+<div class="modal-bg" id="addTradeModal">
+  <div class="modal">
+    <h2 id="modalTitle">Add Trade</h2>
+    <form id="tradeForm">
+      <input type="hidden" id="tradeId">
+      <div class="form-grid-2">
+        <div class="form-row"><label>Date</label><input type="date" id="tradeDate" required></div>
+        <div class="form-row"><label>Source</label><select id="tradeSource" required><option value="coinbase">Coinbase</option><option value="strike">Strike</option><option value="river">River</option><option value="kraken">Kraken</option><option value="manual">Other / Manual</option></select></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-row"><label>Type</label><select id="tradeType" required><option value="buy">Buy</option><option value="sell">Sell</option></select></div>
+        <div class="form-row"><label>USD</label><input type="number" id="tradeUsd" step="0.01" min="0" required placeholder="0.00"></div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-row"><label>BTC Amount</label><input type="number" id="tradeBtc" step="0.00000001" min="0" required placeholder="0.00000000"></div>
+        <div class="form-row"><label>Price/BTC (auto)</label><input type="number" id="tradePrice" step="0.01" readonly></div>
+      </div>
+      <div class="form-row"><label>Notes (optional)</label><textarea id="tradeNotes" placeholder="Phase 1 Tier 1, capitulation, etc."></textarea></div>
+      <div class="modal-actions"><button type="button" class="btn btn-secondary" id="cancelTradeBtn">Cancel</button><button type="submit" class="btn btn-green">Save Trade</button></div>
+    </form>
+  </div>
+</div>
+<!-- Import Modal -->
+<div class="modal-bg" id="importModal">
+  <div class="modal">
+    <h2>Import Trades</h2>
+    <p style="color:var(--muted);font-size:13px;margin-bottom:12px">Paste CSV from Coinbase, Strike, or River — or JSON exported earlier.</p>
+    <div class="form-row"><label>CSV / JSON</label><textarea id="importText" rows="9" style="font-family:var(--mono);font-size:12px" placeholder="Timestamp,Transaction Type,Asset,Quantity Transacted,Subtotal,Total..."></textarea></div>
+    <div class="form-row"><label>Default Source (if not detected)</label><select id="importSource"><option value="coinbase">Coinbase</option><option value="strike">Strike</option><option value="river">River</option><option value="kraken">Kraken</option></select></div>
+    <div class="modal-actions"><button type="button" class="btn btn-secondary" id="cancelImportBtn">Cancel</button><button type="button" class="btn btn-green" id="runImportBtn">Import</button></div>
+  </div>
 </div>
 <script>
 const fmtUsd=n=>'$'+Math.round(n).toLocaleString();
@@ -369,7 +465,7 @@ async function load(){
   try{hist=await(await fetch('https://colintalkscrypto.com/cbbi/data/latest.json')).json()}catch(e){}
   try{const f=await(await fetch('https://api.alternative.me/fng/?limit=60')).json();fngArr=f.data.map(x=>+x.value).reverse()}catch(e){}
   try{CB=await(await fetch('/api/coinbase-balance')).json()}catch(e){}
-  try{TRADES=(JSON.parse(localStorage.getItem('liftoffr-cycle-dash-v1')||'{}').trades)||[]}catch(e){TRADES=[]}
+  try{STATE=loadState();TRADES=STATE.trades||[]}catch(e){STATE={trades:[],settings:{}};TRADES=[]}
   LIVE_PRICE=bp.usd||null; MA200W=(typeof bp.ma200w==='number')?bp.ma200w:null; COWEN=bp.cowen||null;
 
   if(bp.usd){document.getElementById('tbPrice').textContent=fmtUsd(bp.usd);const c=bp.change24h||0,e=document.getElementById('tb24h');e.textContent=(c>=0?'+':'')+c.toFixed(1)+'%';e.className='val '+(c>=0?'up':'down')}
@@ -422,11 +518,100 @@ async function load(){
 
   // ===== Plan panels =====
   renderLadderV2(); renderProjected(); renderPosition(); renderMacro(fngArr.length?fngArr[fngArr.length-1]:null);
+  renderTradeList(); renderChart(CHART_DAYS);
 }
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
 document.getElementById('csvBtn').onclick=()=>{let r=[['indicator','value','1d','7d']];document.querySelectorAll('.ind').forEach(c=>{const n=c.querySelector('.iname').textContent.replace('✓','').trim();const v=c.querySelector('.ival').textContent;r.push([n,v])});const csv=r.map(x=>x.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-cycle-indicators.csv';a.click()};
 document.querySelectorAll('.sec-h').forEach(h=>h.onclick=()=>{const n=h.parentElement.nextElementSibling;if(!n)return;const hide=n.style.display==='none';let el=h.parentElement.nextElementSibling;h.querySelector('.chev').style.transform=hide?'':'rotate(-90deg)';while(el&&!el.classList.contains('sec')){el.style.display=hide?'':'none';el=el.nextElementSibling}});
-load();
+// ===== Ledger + Price Chart (full parity port from original /dashboard) =====
+const STORAGE_KEY='liftoffr-cycle-dash-v1';
+const FMT_USD0=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+const FMT_BTC=new Intl.NumberFormat('en-US',{minimumFractionDigits:4,maximumFractionDigits:8});
+function loadState(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return JSON.parse(r)}catch(_){}return{trades:[],settings:{}}}
+function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(STATE))}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+let STATE=loadState();
+function refreshPlan(){TRADES=STATE.trades||[];renderLadderV2();renderProjected();renderPosition();renderTradeList();if(BTC_CHART)renderChart(CHART_DAYS)}
+
+let BTC_CHART=null,BTC_HISTORY=null,CHART_DAYS=365;
+async function fetchHistory(days){try{const d=await(await fetch(`/api/btc-price?chart=${days}`)).json();if(Array.isArray(d.history)){BTC_HISTORY=d.history;return d.history}}catch(e){}return null}
+function planAvgCostBasis(){const PS=PLAN.phases[0].start,buys=(STATE.trades||[]).filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS),u=buys.reduce((s,t)=>s+(t.usd||0),0),b=buys.reduce((s,t)=>s+(t.btc||0),0);return b>0?u/b:null}
+function chartBuyMarkers(){return(STATE.trades||[]).filter(t=>(t.type||'buy')==='buy'&&t.btc>0&&t.usd>0).map(t=>{const d=new Date(t.date+(t.date.length===10?'T12:00:00Z':''));return{x:d.getTime(),y:t.usd/t.btc,usd:t.usd,btc:t.btc}})}
+function chartAnnotations(){const a={};for(const p of PLAN.phases)for(const t of(p.lumpTiers||[])){if(!t.maMultiple)continue;const px=effPrice(t);if(!px)continue;
+  a[t.tier]={type:'line',yMin:px,yMax:px,borderColor:'rgba(38,208,124,0.5)',borderWidth:1.25,borderDash:[6,4],label:{display:true,content:`${t.tier} · $${(px/1000).toFixed(1)}K`,position:'end',backgroundColor:'rgba(38,208,124,0.12)',color:'#26d07c',font:{size:10,weight:'600'},padding:3}}}
+  const basis=planAvgCostBasis();if(basis)a.basis={type:'line',yMin:basis,yMax:basis,borderColor:'rgba(240,85,107,0.7)',borderWidth:1,borderDash:[2,3],label:{display:true,content:`Avg cost · $${(basis/1000).toFixed(1)}K`,position:'start',backgroundColor:'rgba(240,85,107,0.14)',color:'#f0556b',font:{size:10,weight:'600'},padding:3}};
+  if(LIVE_PRICE)a.live={type:'line',yMin:LIVE_PRICE,yMax:LIVE_PRICE,borderColor:'rgba(255,255,255,0.4)',borderWidth:1,borderDash:[2,4],label:{display:true,content:`Now · $${(LIVE_PRICE/1000).toFixed(1)}K`,position:'center',backgroundColor:'rgba(255,255,255,0.1)',color:'#fff',font:{size:10},padding:3}};
+  return a}
+function renderChartPeriodStats(series){if(!series||series.length<2)return;const c=series.map(p=>p.y),open=c[0],last=c[c.length-1],hi=Math.max(...c),lo=Math.min(...c),pct=(last-open)/open*100;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('periodOpen',FMT_USD0.format(open));set('periodHigh',FMT_USD0.format(hi));set('periodLow',FMT_USD0.format(lo));
+  const ce=document.getElementById('periodChange');if(ce){ce.textContent=(pct>=0?'+':'')+pct.toFixed(2)+'%';ce.style.color=pct>=0?'var(--green)':'var(--red)'}}
+async function renderChart(days){CHART_DAYS=days;if(!BTC_HISTORY||BTC_HISTORY.length<days*0.9)await fetchHistory(days);if(!BTC_HISTORY||!BTC_HISTORY.length)return;
+  const cutoff=Date.now()-days*864e5,win=BTC_HISTORY.filter(p=>p.t>=cutoff),series=win.map(p=>({x:p.t,y:p.close})),maSeries=win.filter(p=>Number.isFinite(p.ma200w)).map(p=>({x:p.t,y:p.ma200w})),buys=chartBuyMarkers().filter(b=>b.x>=cutoff);
+  renderChartPeriodStats(series);const ctx=document.getElementById('btcChart');if(!ctx||!window.Chart)return;const c2d=ctx.getContext?ctx.getContext('2d'):null;
+  let grad=null;if(c2d){grad=c2d.createLinearGradient(0,0,0,420);grad.addColorStop(0,'rgba(77,141,240,0.28)');grad.addColorStop(0.6,'rgba(77,141,240,0.06)');grad.addColorStop(1,'rgba(77,141,240,0)')}
+  const cfg={type:'line',data:{datasets:[
+    {label:'200W MA',data:maSeries,borderColor:'rgba(232,179,57,0.9)',borderWidth:1.5,pointRadius:0,pointHoverRadius:0,tension:0,fill:false,spanGaps:true},
+    {label:'BTC',data:series,borderColor:'#4d8df0',borderWidth:1.6,pointRadius:0,pointHoverRadius:4,tension:0,fill:'origin',backgroundColor:grad||'rgba(77,141,240,0.08)'},
+    {label:'Your buys',data:buys,type:'scatter',borderColor:'#26d07c',backgroundColor:'#26d07c',pointRadius:5,pointHoverRadius:8,pointStyle:'circle',showLine:false}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',axis:'x',intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,14,22,0.96)',borderColor:'#223049',borderWidth:1,titleColor:'#fff',bodyColor:'#bbb',
+        callbacks:{label:c=>{const r=c.raw,ds=c.dataset.label;if(ds==='Your buys'&&r&&r.usd)return `Buy: ${FMT_USD0.format(r.usd)} · ${r.btc.toFixed(5)} BTC @ ${FMT_USD0.format(r.y)}`;if(ds==='200W MA')return `200W MA: ${FMT_USD0.format(r.y)}`;return `BTC: ${FMT_USD0.format(r.y)}`}}},
+        annotation:{annotations:chartAnnotations()}},
+      scales:{x:{type:'time',time:{unit:days<=120?'week':'month'},grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10}}},
+        y:{position:'right',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10},callback:v=>'$'+(v/1000).toFixed(0)+'K'}}}}};
+  if(BTC_CHART){BTC_CHART.data=cfg.data;BTC_CHART.options=cfg.options;BTC_CHART.update('none')}else BTC_CHART=new Chart(ctx,cfg)}
+
+function renderTradeList(){const wrap=document.getElementById('tradeList');if(!wrap)return;
+  if(!STATE.trades||!STATE.trades.length){wrap.innerHTML='<div class="empty">No trades yet. Add one or sync Coinbase to populate the ladder &amp; position.</div>';return}
+  const sorted=[...STATE.trades].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  wrap.innerHTML=sorted.map(t=>{const btc=+(t.btc||0),usd=+(t.usd||0),price=+(t.price||(btc>0?usd/btc:0)),cv=LIVE_PRICE?btc*LIVE_PRICE:0,pl=cv-usd,isSell=t.type==='sell';
+    return `<div class="trade-row"><div>${t.date}</div><div><span class="trade-source ${t.source||'manual'}">${t.source||'manual'}</span></div>
+      <div style="color:${isSell?'var(--red)':'var(--ink)'}">${isSell?'SELL':'BUY'} ${FMT_BTC.format(btc)}</div><div>${FMT_USD0.format(usd)}</div>
+      <div class="dim">@ ${FMT_USD0.format(price)}</div><div class="${pl>=0?'trade-pl-pos':'trade-pl-neg'}">${isSell?'—':(LIVE_PRICE?(pl>=0?'+':'')+FMT_USD0.format(pl):'—')}</div>
+      <div><button class="trade-del" data-id="${t.id}" title="Delete">✕</button></div></div>`}).join('');
+  wrap.querySelectorAll('.trade-del').forEach(b=>b.onclick=e=>{const id=e.currentTarget.dataset.id;if(!confirm('Delete this trade?'))return;STATE.trades=STATE.trades.filter(t=>t.id!==id);saveState();refreshPlan()})}
+
+function openTradeModal(pre){pre=pre||{};document.getElementById('modalTitle').textContent=pre.id?'Edit Trade':'Add Trade';document.getElementById('tradeId').value=pre.id||'';
+  document.getElementById('tradeDate').value=pre.date||new Date().toISOString().slice(0,10);document.getElementById('tradeSource').value=pre.source||'coinbase';document.getElementById('tradeType').value=pre.type||'buy';
+  document.getElementById('tradeUsd').value=pre.usd||'';document.getElementById('tradeBtc').value=pre.btc||'';document.getElementById('tradePrice').value=pre.price||'';document.getElementById('tradeNotes').value=pre.notes||'';
+  document.getElementById('addTradeModal').classList.add('open');document.getElementById('tradeUsd').focus()}
+function closeTradeModal(){document.getElementById('addTradeModal').classList.remove('open')}
+document.getElementById('addTradeBtn').onclick=()=>openTradeModal();
+document.getElementById('cancelTradeBtn').onclick=closeTradeModal;
+document.getElementById('addTradeModal').onclick=e=>{if(e.target.id==='addTradeModal')closeTradeModal()};
+['tradeUsd','tradeBtc'].forEach(id=>document.getElementById(id).addEventListener('input',()=>{const u=parseFloat(document.getElementById('tradeUsd').value)||0,b=parseFloat(document.getElementById('tradeBtc').value)||0;if(b>0)document.getElementById('tradePrice').value=(u/b).toFixed(2)}));
+document.getElementById('tradeForm').addEventListener('submit',e=>{e.preventDefault();const id=document.getElementById('tradeId').value||uid(),usd=parseFloat(document.getElementById('tradeUsd').value),btc=parseFloat(document.getElementById('tradeBtc').value);
+  const tr={id,date:document.getElementById('tradeDate').value,source:document.getElementById('tradeSource').value,type:document.getElementById('tradeType').value,usd,btc,price:btc>0?usd/btc:0,notes:document.getElementById('tradeNotes').value};
+  STATE.trades=(STATE.trades||[]).filter(t=>t.id!==id);STATE.trades.push(tr);saveState();closeTradeModal();refreshPlan()});
+
+function setSync(m,err){const e=document.getElementById('syncStatus');e.textContent=m;e.style.color=err?'var(--red)':'var(--dim)'}
+document.getElementById('syncCoinbaseBtn').onclick=async()=>{const btn=document.getElementById('syncCoinbaseBtn'),prev=btn.textContent;btn.disabled=true;btn.textContent='Syncing…';setSync('Fetching trades from Coinbase…');
+  try{const r=await fetch('/api/coinbase-sync'),d=await r.json();if(!r.ok)throw new Error(d.error||'Sync failed');const manual=STATE.trades.filter(t=>t.source!=='coinbase'),fresh=(d.trades||[]).map(t=>({...t,id:uid()})),before=STATE.trades.filter(t=>t.source==='coinbase').length;
+    STATE.trades=[...manual,...fresh];saveState();refreshPlan();setSync(`Synced — ${fresh.length} Coinbase trades (was ${before}). Manual preserved. ${new Date().toLocaleString()}`)}catch(e){setSync('Sync failed: '+e.message,true)}finally{btn.disabled=false;btn.textContent=prev}};
+
+document.getElementById('exportBtn').onclick=()=>{const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify(STATE,null,2));a.download=`liftoffr-cycle-dash-${new Date().toISOString().slice(0,10)}.json`;a.click()};
+document.getElementById('seedBtn').onclick=()=>{if(!confirm('Clear all trades? (Export first to back up)'))return;STATE={trades:[],settings:{}};saveState();refreshPlan()};
+document.getElementById('importBtn').onclick=()=>{document.getElementById('importText').value='';document.getElementById('importModal').classList.add('open')};
+document.getElementById('cancelImportBtn').onclick=()=>document.getElementById('importModal').classList.remove('open');
+document.getElementById('runImportBtn').onclick=()=>{const text=document.getElementById('importText').value.trim(),ds=document.getElementById('importSource').value;if(!text)return;let n=0;
+  try{const j=JSON.parse(text);if(j.trades&&Array.isArray(j.trades)){j.trades.forEach(t=>{if(!STATE.trades.find(x=>x.id===t.id)){STATE.trades.push({...t,id:t.id||uid()});n++}});saveState();document.getElementById('importModal').classList.remove('open');refreshPlan();alert(`Imported ${n} trades from JSON.`);return}}catch(_){}
+  const lines=text.split(/\r?\n/).filter(l=>l.trim());if(lines.length<2){alert('No data rows.');return}const header=lines[0].toLowerCase();
+  const isCB=(header.includes('timestamp')&&header.includes('transaction type'))||header.includes('quantity transacted'),isStrike=header.includes('date created')||(header.includes('transaction')&&header.includes('amount 1')),src=isCB?'coinbase':isStrike?'strike':ds;
+  for(let i=1;i<lines.length;i++){const cols=splitCsv(lines[i]);if(cols.length<3)continue;try{const t=parseRow(cols,header,src);if(t&&t.usd>0&&t.btc>0){STATE.trades.push({...t,id:uid()});n++}}catch(e){}}
+  saveState();document.getElementById('importModal').classList.remove('open');refreshPlan();alert(`Imported ${n} trades.`)};
+function splitCsv(line){const out=[];let cur='',q=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){q=!q;continue}if(c===','&&!q){out.push(cur);cur='';continue}cur+=c}out.push(cur);return out.map(s=>s.trim())}
+function parseRow(cols,header,source){const cells=header.split(',').map(s=>s.trim().replace(/"/g,'')),get=k=>{const i=cells.findIndex(c=>c.toLowerCase().includes(k.toLowerCase()));return i>=0?cols[i]:''};
+  const dateStr=get('timestamp')||get('date')||get('created');if(!dateStr)return null;const date=new Date(dateStr).toISOString().slice(0,10),tr=(get('type')||get('transaction')||'').toLowerCase();
+  let type='buy';if(tr.includes('sell'))type='sell';else if(tr.includes('buy')||tr.includes('purchase')||tr.includes('dca'))type='buy';else return null;
+  let btc=Math.abs(parseFloat(get('quantity transacted')||get('amount 2')||get('amount')||'0')||0),usd=Math.abs(parseFloat(get('subtotal')||get('total')||get('amount 1')||get('usd amount')||'0')||0);
+  if(!btc||!usd)return null;return{date,source,type,usd,btc,price:usd/btc,notes:'imported'}}
+
+document.querySelectorAll('.chart-range-btn').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.chart-range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');BTC_HISTORY=null;renderChart(parseInt(btn.dataset.days,10))});
+
+async function maybeAutoSync(){try{if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;await new Promise(r=>setTimeout(r,1500));if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;if(!CB||!(CB.btc>0.001))return;
+  const d=await(await fetch('/api/coinbase-sync')).json();if(Array.isArray(d.trades)){const manual=STATE.trades.filter(t=>t.source!=='coinbase');STATE.trades=[...manual,...d.trades.map(t=>({...t,id:uid()}))];saveState();refreshPlan();setSync(`Auto-synced ${d.trades.length} trades. ${new Date().toLocaleString()}`)}}catch(e){}}
+
+load().then(()=>maybeAutoSync());
 </script>
 </body>
 </html>
