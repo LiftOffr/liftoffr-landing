@@ -94,6 +94,45 @@
   .ind .spark{margin-top:12px}
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px}
   .muted{color:var(--muted)}
+  /* LADDER */
+  .lad-meta{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;gap:8px}
+  .deploy-bar{height:8px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;margin-bottom:10px}
+  .deploy-fill{height:100%;background:linear-gradient(90deg,var(--green-d),var(--green));border-radius:6px;transition:width .8s}
+  .ladder{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  @media(max-width:900px){.ladder{grid-template-columns:repeat(2,1fr)}}
+  .lcell{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:14px 13px;border-top:2px solid var(--dim)}
+  .lcell.hit{border-top-color:var(--green);background:rgba(38,208,124,.08)}
+  .lcell.near{border-top-color:var(--amber);background:rgba(232,179,57,.06)}
+  .lcell.done{border-top-color:var(--green-d);background:rgba(38,208,124,.13)}
+  .lcell .lt{font-size:11px;font-weight:800;letter-spacing:.6px;color:var(--muted)}
+  .lcell .la{font-family:var(--mono);font-size:21px;font-weight:700;margin-top:6px;letter-spacing:-.5px}
+  .lcell .lp{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:3px}
+  .lcell .lprog{height:3px;background:rgba(255,255,255,.07);border-radius:100px;margin-top:9px;overflow:hidden}
+  .lcell .lprogf{height:100%;background:var(--green);border-radius:100px}
+  .lcell .ls{font-size:11px;margin-top:8px;font-weight:600}
+  .lcell .lcowen{font-size:9.5px;color:var(--amber);margin-top:5px;letter-spacing:.3px}
+  /* PROJECTED */
+  .proj-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:900px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
+  .pband{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px;text-align:center}
+  .pband .pbl{font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .pband .pbv{font-family:var(--mono);font-size:25px;font-weight:700;margin:8px 0 4px;letter-spacing:-1px}
+  .pband .pbm{font-size:11px;color:var(--dim)}
+  /* POSITION */
+  .pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+  @media(max-width:900px){.pos-grid{grid-template-columns:repeat(2,1fr)}}
+  .pstat .psl{font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .pstat .psv{font-family:var(--mono);font-size:25px;font-weight:700;margin-top:6px;letter-spacing:-1px}
+  .pstat .pss{font-size:11px;color:var(--dim);margin-top:3px}
+  .balrow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px}
+  .balrow:last-child{border:none}.balrow .bc{font-weight:700}.balrow .bv{font-family:var(--mono);color:var(--muted)}
+  /* MACRO */
+  .macro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:900px){.macro-grid{grid-template-columns:1fr}}
+  .mcard{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px}
+  .mcard .ml{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);font-weight:700}
+  .mcard .mv{font-family:var(--mono);font-size:22px;font-weight:700;margin-top:8px}
+  .mcard .mvs{font-size:11px;color:var(--dim);margin-top:4px}
   @media(max-width:1024px){.app{grid-template-columns:1fr}.side{display:none}.verdict,.pillars-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -157,9 +196,32 @@
       <!-- INDICATORS -->
       <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📈 Cycle Indicators</span><span class="ssub">— On-chain signal stack, cycle-normalized 0–100</span></div></div>
       <div class="ind-grid" id="indGrid"><div class="loading">Loading indicators + history…</div></div>
-      <!-- PORTING NEXT -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▤ Buy Ladder · ◇ Projected Bottom · 𝟱 Position · ≈ Macro</span></div></div>
-      <div class="panel muted" style="font-size:13px">Porting from your current dashboard into this design next — Buy Ladder, live Coinbase Position, Projected Bottom, plus the new Macro (Liquidity &amp; Rates) section. Your <a href="/dashboard" style="color:var(--green)">current dashboard</a> still has them live.</div>
+      <!-- BUY LADDER -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▤ Buy Ladder</span><span class="ssub">— Cowen-driven accumulation tiers · triggers recalibrate live off the 200W MA</span></div></div>
+      <div class="panel">
+        <div class="lad-meta"><span>Total budget <b style="color:var(--ink)">$145,182</b> · target <b style="color:var(--ink)">2.40 BTC</b> @ ~$60K avg basis</span><span>Phase: <b style="color:var(--green)" id="curPhase">—</b></span></div>
+        <div class="deploy-bar"><div class="deploy-fill" id="deployFill" style="width:0%"></div></div>
+        <div class="lad-meta"><span id="deployTxt" class="muted">—</span><span id="nextAction" style="font-weight:700;color:var(--ink)"></span></div>
+        <div class="ladder" id="ladderV2"><div class="loading">Loading tiers…</div></div>
+      </div>
+      <!-- PROJECTED BOTTOM -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— 200W MA penetration bands · Cowen's 'level of destiny'</span></div></div>
+      <div class="panel">
+        <div class="proj-grid" id="projGrid"><div class="loading">Computing bands…</div></div>
+        <div class="muted" id="projNote" style="font-size:12.5px;margin-top:16px;line-height:1.6"></div>
+      </div>
+      <!-- POSITION -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">𝟱 Live Position</span><span class="ssub">— Coinbase wallet, real-time</span></div></div>
+      <div class="panel">
+        <div class="pos-grid" id="posGrid"><div class="loading">Loading wallet…</div></div>
+        <div id="posBalances"></div>
+      </div>
+      <!-- MACRO -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">≈ Macro — Liquidity &amp; Rates</span><span class="ssub">— global liquidity backdrop for the cycle</span></div></div>
+      <div class="panel">
+        <div class="macro-grid" id="macroGrid"></div>
+        <div class="muted" style="font-size:12px;margin-top:14px">Live macro feeds (net liquidity, DXY, real yields, stablecoin supply) come online next pass — wiring a server-side proxy to stay under the function cap.</div>
+      </div>
     </div>
   </main>
 </div>
@@ -215,12 +277,78 @@ function drawRadar(P){const svg=document.getElementById('radar'),cx=165,cy=145,R
   svg.innerHTML=h;}
 const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 
+// ===== PLAN (Cowen buy-ladder) — ported from /dashboard =====
+const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
+  {id:'p1',name:'Phase 1 — Bear Grind',start:'2026-05-28',end:'2026-08-31',lumpTiers:[
+    {tier:'IMMEDIATE',target:15000,targetPrice:73000,fallbackDate:'2026-05-28'},
+    {tier:'T1',target:15000,targetPrice:68000,maMultiple:1.10,fallbackDate:'2026-07-31'}]},
+  {id:'p2',name:'Phase 2 — Capitulation',start:'2026-09-01',end:'2026-12-31',lumpTiers:[
+    {tier:'T2',target:28000,targetPrice:60000,maMultiple:0.97,fallbackDate:'2026-09-30'},
+    {tier:'T3',target:26200,targetPrice:52000,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
+  {id:'p3',name:'Phase 3 — Post-Bottom Recovery',start:'2027-01-01',end:'2027-03-31',lumpTiers:[
+    {tier:'T4',target:15000,targetPrice:45000,maMultiple:0.73,fallbackDate:'2027-01-31'},
+    {tier:'T5',target:8000,targetPrice:40000,maMultiple:0.65,fallbackDate:'2027-03-31'}]}]};
+let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[];
+const FUSD=n=>'$'+Math.round(n).toLocaleString();
+const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA'))a.push(t)}));return a};
+function effPrice(t){const ma=(t.maMultiple&&MA200W)?MA200W*t.maMultiple:null;const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier]?COWEN.tiers[t.tier].price:null;
+  if(cow&&ma){if(Math.abs(cow-ma)/ma<=0.10)return cow}else if(cow)return cow;return ma||t.targetPrice}
+function lumpFills(){const buys=TRADES.filter(b=>(b.type||'buy')==='buy'&&(b.usd||0)>=1000).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  let rem=buys.reduce((s,b)=>s+(b.usd||0),0);const f={};buyTiers().forEach(t=>{const a=Math.min(t.target||0,Math.max(0,rem));f[t.tier]=a;rem=Math.max(0,rem-a)});return f}
+function tStatus(t,dep){if(dep>=t.target*0.97)return'done';const px=effPrice(t);if(LIVE_PRICE&&px){if(LIVE_PRICE<=px)return'hit';if((LIVE_PRICE-px)/px<0.05)return'near'}return'open'}
+function curPhase(){const iso=new Date().toISOString().slice(0,10);return PLAN.phases.find(p=>iso>=p.start&&iso<=p.end)||PLAN.phases[0]}
+
+function renderLadderV2(){const fills=lumpFills(),el=document.getElementById('ladderV2');
+  el.innerHTML=buyTiers().map(t=>{const dep=fills[t.tier]||0,px=effPrice(t),st=tStatus(t,dep),pct=t.target>0?Math.min(100,dep/t.target*100):0,rem=Math.max(0,t.target-dep);
+    let sl;if(st==='done')sl='<span style="color:#26d07c">✓ filled</span>';else if(st==='hit')sl='<span style="color:#26d07c;font-weight:700">🟢 fire now</span>';
+    else if(st==='near'){const d=(LIVE_PRICE-px)/px*100;sl=`<span style="color:#e8b339">🟡 ${d.toFixed(1)}% away</span>`}
+    else{const d=(LIVE_PRICE&&px)?(LIVE_PRICE-px)/px*100:null;sl=d!=null?`<span class="muted">▼ ${d.toFixed(0)}% to trigger</span>`:'<span class="muted">pending</span>'}
+    const pl=t.tier==='IMMEDIATE'?'Market':(px?FUSD(px):'—');
+    let cb='';const ct=COWEN&&COWEN.tiers?COWEN.tiers[t.tier]:null;if(ct&&t.maMultiple&&MA200W&&Math.abs(ct.price-MA200W*t.maMultiple)/(MA200W*t.maMultiple)<=0.10)cb=`<div class="lcowen">🎯 Cowen ×${ct.mentions}</div>`;
+    return `<div class="lcell ${st}"><div class="lt">${t.tier}</div><div class="la">${FUSD(rem)}</div><div class="lp">@ ${pl}</div><div class="lprog"><div class="lprogf" style="width:${pct}%"></div></div><div class="ls">${sl}</div>${cb}</div>`}).join('');
+  const total=PLAN.totalBudget,PS=PLAN.phases[0].start,buys=TRADES.filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS),dep=buys.reduce((s,t)=>s+(t.usd||0),0),pctd=Math.min(100,dep/total*100);
+  document.getElementById('deployFill').style.width=pctd+'%';
+  document.getElementById('deployTxt').textContent=`${FUSD(dep)} deployed · ${FUSD(total-dep)} remaining · ${pctd.toFixed(1)}%`;
+  document.getElementById('curPhase').textContent=curPhase().name.split('—')[0].trim();
+  const nt=buyTiers().find(t=>(fills[t.tier]||0)<(t.target||0)*0.97);
+  if(nt){const px=effPrice(nt),st=tStatus(nt,fills[nt.tier]||0),rem=nt.target-(fills[nt.tier]||0);
+    document.getElementById('nextAction').innerHTML=nt.tier==='IMMEDIATE'?`▶ Fire ${FUSD(rem)} at market`:st==='hit'?`<span style="color:#26d07c">🟢 ${nt.tier} HIT — fire ${FUSD(rem)}</span>`:`Next: ${nt.tier} — ${FUSD(rem)} @ ${FUSD(px)}`}
+  else document.getElementById('nextAction').textContent='Fully deployed';}
+
+function renderProjected(){const g=document.getElementById('projGrid');if(!MA200W){g.innerHTML='<div class="muted">200W MA loading…</div>';return}
+  const bands=[{l:'Touch / Reclaim',m:0.97,d:'Cowen base case'},{l:'Moderate',m:0.85,d:'weeks below MA'},{l:'Deep Stretch',m:0.73,d:'COVID-style flush'},{l:'Extreme Floor',m:0.65,d:"Cowen's ~$40K"}];
+  g.innerHTML=bands.map((b,i)=>{const px=MA200W*b.m,c=i===0?'#4d8df0':i===3?'#26d07c':'#7e8ba2';return `<div class="pband"><div class="pbl">${b.l}</div><div class="pbv" style="color:${c}">${FUSD(px)}</div><div class="pbm">MA × ${b.m} · ${b.d}</div></div>`}).join('');
+  const base=MA200W*0.97,ext=MA200W*0.65,dist=LIVE_PRICE?(LIVE_PRICE-base)/base*100:null;
+  document.getElementById('projNote').innerHTML=`200W MA <b style="color:var(--ink)">${FUSD(MA200W)}</b> — touched at every cycle bottom since 2015. Projected bottom band <b style="color:var(--ink)">${FUSD(ext)} – ${FUSD(base)}</b>.`+(dist!=null?` BTC is <b style="color:var(--ink)">${dist>=0?'+':''}${dist.toFixed(1)}%</b> vs the base-case touch.`:'');}
+
+function renderPosition(){const g=document.getElementById('posGrid'),STABLE=new Set(['USD','USDC','USDT','PYUSD','DAI']);
+  if(!CB){g.innerHTML='<div class="muted">Wallet unavailable — Coinbase API not reachable.</div>';return}
+  const bals=(CB.allBalances||[]).map(b=>({...b,total:(b.available||0)+(b.hold||0)})).filter(b=>b.total>0.0001||b.currency==='BTC');
+  const cash=bals.filter(b=>STABLE.has(b.currency)).reduce((s,b)=>s+b.total,0);
+  const btc=CB.btc!=null?CB.btc:((bals.find(b=>b.currency==='BTC')||{}).total||0),btcVal=LIVE_PRICE?btc*LIVE_PRICE:0;
+  const PS=PLAN.phases[0].start;let bb=0,bu=0;TRADES.forEach(t=>{if((t.type||'buy')==='buy'&&(t.date||'')>=PS){bb+=+(t.btc||0);bu+=+(t.usd||0)}});
+  const avg=bb>0?bu/bb:0,cost=btc*avg,upl=btcVal-cost,uplp=cost>0?upl/cost*100:0,plc=upl>=0?'#26d07c':'#f0556b';
+  g.innerHTML=`<div class="pstat"><div class="psl">BTC Held</div><div class="psv">${btc.toFixed(4)}</div><div class="pss">${Math.round(btc*1e8).toLocaleString()} sats</div></div>
+    <div class="pstat"><div class="psl">BTC Value</div><div class="psv">${FUSD(btcVal)}</div><div class="pss">@ ${LIVE_PRICE?FUSD(LIVE_PRICE):'—'}</div></div>
+    <div class="pstat"><div class="psl">Avg Cost</div><div class="psv">${avg?FUSD(avg):'—'}</div><div class="pss">${bb>0?bb.toFixed(4)+' BTC tracked':'no trades logged'}</div></div>
+    <div class="pstat"><div class="psl">Unrealized P/L</div><div class="psv" style="color:${avg?plc:'var(--dim)'}">${avg?(upl>=0?'+':'')+FUSD(upl):'—'}</div><div class="pss" style="color:${avg?plc:'var(--dim)'}">${avg?(uplp>=0?'+':'')+uplp.toFixed(1)+'%':'—'}</div></div>`;
+  const port=cash+btcVal;
+  document.getElementById('posBalances').innerHTML=`<div style="font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;margin:6px 0 8px">Portfolio · ${FUSD(port)}</div>
+    <div class="balrow"><span class="bc">Cash (stables)</span><span class="bv">${FUSD(cash)}</span></div>
+    <div class="balrow"><span class="bc">Bitcoin</span><span class="bv">${btc.toFixed(4)} · ${FUSD(btcVal)}</span></div>`;}
+
+function renderMacro(){const g=document.getElementById('macroGrid');const c=[['Global Net Liquidity','—','Fed + ECB + PBoC + BoJ'],['US Dollar (DXY)','—','inverse BTC correlation'],['10Y Real Yield','—','cost of capital'],['Stablecoin Supply','—','dry powder on-chain'],['Fed Funds Rate','—','policy stance'],['BTC vs Global M2','—','~12-week lead overlay']];
+  g.innerHTML=c.map(x=>`<div class="mcard"><div class="ml">${x[0]}</div><div class="mv muted">${x[1]}</div><div class="mvs">${x[2]}</div></div>`).join('')}
+
 async function load(){
   let bp={},cs={},hist={},fngArr=[];
   try{bp=await(await fetch('/api/btc-price?ma200w=1')).json()}catch(e){}
   try{cs=await(await fetch('/api/cycle-score')).json()}catch(e){}
   try{hist=await(await fetch('https://colintalkscrypto.com/cbbi/data/latest.json')).json()}catch(e){}
   try{const f=await(await fetch('https://api.alternative.me/fng/?limit=60')).json();fngArr=f.data.map(x=>+x.value).reverse()}catch(e){}
+  try{CB=await(await fetch('/api/coinbase-balance')).json()}catch(e){}
+  try{TRADES=(JSON.parse(localStorage.getItem('liftoffr-cycle-dash-v1')||'{}').trades)||[]}catch(e){TRADES=[]}
+  LIVE_PRICE=bp.usd||null; MA200W=(typeof bp.ma200w==='number')?bp.ma200w:null; COWEN=bp.cowen||null;
 
   if(bp.usd){document.getElementById('tbPrice').textContent=fmtUsd(bp.usd);const c=bp.change24h||0,e=document.getElementById('tb24h');e.textContent=(c>=0?'+':'')+c.toFixed(1)+'%';e.className='val '+(c>=0?'up':'down')}
   if(bp.cbbi!=null)document.getElementById('tbCbbi').textContent=(bp.cbbi*100).toFixed(0);
@@ -269,6 +397,9 @@ async function load(){
     document.getElementById('consFill').style.width=con+'%';document.getElementById('consN').textContent=con+' / 100';document.getElementById('consDiv').textContent='Divergence (σ) '+sd.toFixed(1);
     const aligned=sd<12;const b=document.getElementById('consBadge');b.textContent=aligned?'● Strong Consensus':'○ Mixed Signal';b.style.background=aligned?'#26d07c26':'#e8b33926';b.style.color=aligned?'#26d07c':'#e8b339';
     document.getElementById('consNote').textContent=aligned?'All pillars aligned — high signal confidence.':'Pillars diverging — weight the heaviest (Cycle, Valuation).';}
+
+  // ===== Plan panels =====
+  renderLadderV2(); renderProjected(); renderPosition(); renderMacro();
 }
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
 document.getElementById('csvBtn').onclick=()=>{let r=[['indicator','value','1d','7d']];document.querySelectorAll('.ind').forEach(c=>{const n=c.querySelector('.iname').textContent.replace('✓','').trim();const v=c.querySelector('.ival').textContent;r.push([n,v])});const csv=r.map(x=>x.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-cycle-indicators.csv';a.click()};
