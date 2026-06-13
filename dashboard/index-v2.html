@@ -45,7 +45,7 @@
   .status-pill{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.status-pill .d{width:8px;height:8px;border-radius:50%;background:var(--green)}
   .wrap{padding:22px 26px 70px;max-width:1480px}
   /* collapsible section header */
-  .sec{margin:26px 0 14px}
+  .sec{margin:26px 0 14px;scroll-margin-top:88px}
   .sec-h{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none}
   .sec-h .chev{color:var(--dim);font-size:12px;transition:transform .2s}
   .sec-h .stitle{font-size:14px;font-weight:800;letter-spacing:-.2px}
@@ -176,16 +176,17 @@
   <aside class="side">
     <div class="brand"><span class="dot"></span>LiftOffr</div>
     <div class="nav-grp">Cycle</div>
-    <div class="nav-item active"><span class="ic">◎</span> Cycle Verdict</div>
-    <div class="nav-item"><span class="ic">◔</span> Four Pillars</div>
-    <div class="nav-item"><span class="ic">▦</span> Indicators</div>
+    <div class="nav-item active" data-target="sec-verdict"><span class="ic">◎</span> Cycle Verdict</div>
+    <div class="nav-item" data-target="sec-pillars"><span class="ic">◔</span> Four Pillars</div>
+    <div class="nav-item" data-target="sec-indicators"><span class="ic">▦</span> Indicators</div>
     <div class="nav-grp">Plan</div>
-    <div class="nav-item"><span class="ic">▤</span> Buy Ladder</div>
-    <div class="nav-item"><span class="ic">◇</span> Projected Bottom</div>
-    <div class="nav-item"><span class="ic">𝟱</span> Position</div>
+    <div class="nav-item" data-target="sec-ladder"><span class="ic">▤</span> Buy Ladder</div>
+    <div class="nav-item" data-target="sec-chart"><span class="ic">▥</span> Price Chart</div>
+    <div class="nav-item" data-target="sec-projected"><span class="ic">◇</span> Projected Bottom</div>
+    <div class="nav-item" data-target="sec-position"><span class="ic">𝟱</span> Position</div>
+    <div class="nav-item" data-target="sec-ledger"><span class="ic">≡</span> Trade Ledger</div>
     <div class="nav-grp">Macro</div>
-    <div class="nav-item"><span class="ic">≈</span> Liquidity &amp; Rates</div>
-    <div class="nav-item"><span class="ic">☷</span> Market Sentiment</div>
+    <div class="nav-item" data-target="sec-macro"><span class="ic">≈</span> Liquidity &amp; Rates</div>
     <div class="side-foot">
       <div class="sf-row"><span class="sf-dot"></span><b id="freshN">—</b>&nbsp;indicators live</div>
       <div style="margin-top:8px;color:var(--dim)">v2.2 — Terminal Edition</div>
@@ -204,7 +205,7 @@
     </div>
     <div class="wrap">
       <!-- VERDICT -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📊 Cycle Verdict</span><span class="ssub">— A Systematic Scoring Framework for Bitcoin Cycle Position</span></div></div>
+      <div class="sec" id="sec-verdict"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📊 Cycle Verdict</span><span class="ssub">— A Systematic Scoring Framework for Bitcoin Cycle Position</span></div></div>
       <div class="panel verdict">
         <div class="gauge-wrap">
           <svg id="gauge" width="340" height="208" viewBox="0 0 340 208"></svg>
@@ -218,7 +219,7 @@
         </div>
       </div>
       <!-- PILLARS -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">🧱 The Four Pillars</span><span class="ssub">— Cycle · Valuation · Technical · Sentiment (weighted)</span></div></div>
+      <div class="sec" id="sec-pillars"><div class="sec-h"><span class="chev">▼</span><span class="stitle">🧱 The Four Pillars</span><span class="ssub">— Cycle · Valuation · Technical · Sentiment (weighted)</span></div></div>
       <div class="pillars-grid">
         <div class="pillar-cards" id="pillarCards"></div>
         <div class="panel radar-wrap"><svg id="radar" width="330" height="300" viewBox="0 0 330 300"></svg></div>
@@ -229,10 +230,10 @@
         <div style="display:flex;justify-content:space-between;margin-top:9px"><span class="muted" style="font-size:12px" id="consNote"></span><span class="muted" style="font-size:12px" id="consDiv"></span></div>
       </div>
       <!-- INDICATORS -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📈 Cycle Indicators</span><span class="ssub">— On-chain signal stack, cycle-normalized 0–100</span></div></div>
+      <div class="sec" id="sec-indicators"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📈 Cycle Indicators</span><span class="ssub">— On-chain signal stack, cycle-normalized 0–100</span></div></div>
       <div class="ind-grid" id="indGrid"><div class="loading">Loading indicators + history…</div></div>
       <!-- BUY LADDER -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▤ Buy Ladder</span><span class="ssub">— Cowen-driven accumulation tiers · triggers recalibrate live off the 200W MA</span></div></div>
+      <div class="sec" id="sec-ladder"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▤ Buy Ladder</span><span class="ssub">— Cowen-driven accumulation tiers · triggers recalibrate live off the 200W MA</span></div></div>
       <div class="panel">
         <div class="lad-meta"><span>Total budget <b style="color:var(--ink)">$145,182</b> · target <b style="color:var(--ink)">2.40 BTC</b> @ ~$60K avg basis</span><span>Phase: <b style="color:var(--green)" id="curPhase">—</b></span></div>
         <div class="deploy-bar"><div class="deploy-fill" id="deployFill" style="width:0%"></div></div>
@@ -240,7 +241,7 @@
         <div class="ladder" id="ladderV2"><div class="loading">Loading tiers…</div></div>
       </div>
       <!-- PRICE CHART -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📉 BTC Price &amp; Tiers</span><span class="ssub">— price vs 200W MA · live buy-tier triggers + your fills</span></div></div>
+      <div class="sec" id="sec-chart"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📉 BTC Price &amp; Tiers</span><span class="ssub">— price vs 200W MA · live buy-tier triggers + your fills</span></div></div>
       <div class="panel">
         <div class="chart-bar">
           <div class="chart-stats"><span>Open<b id="periodOpen">—</b></span><span>High<b id="periodHigh">—</b></span><span>Low<b id="periodLow">—</b></span><span>Chg<b id="periodChange">—</b></span></div>
@@ -254,19 +255,19 @@
         <div class="chart-box"><canvas id="btcChart"></canvas></div>
       </div>
       <!-- PROJECTED BOTTOM -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— 200W MA penetration bands · Cowen's 'level of destiny'</span></div></div>
+      <div class="sec" id="sec-projected"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— 200W MA penetration bands · Cowen's 'level of destiny'</span></div></div>
       <div class="panel">
         <div class="proj-grid" id="projGrid"><div class="loading">Computing bands…</div></div>
         <div class="muted" id="projNote" style="font-size:12.5px;margin-top:16px;line-height:1.6"></div>
       </div>
       <!-- POSITION -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">𝟱 Live Position</span><span class="ssub">— Coinbase wallet, real-time</span></div></div>
+      <div class="sec" id="sec-position"><div class="sec-h"><span class="chev">▼</span><span class="stitle">𝟱 Live Position</span><span class="ssub">— Coinbase wallet, real-time</span></div></div>
       <div class="panel">
         <div class="pos-grid" id="posGrid"><div class="loading">Loading wallet…</div></div>
         <div id="posBalances"></div>
       </div>
       <!-- TRADE LEDGER -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▦ Trade Ledger</span><span class="ssub">— log buys/sells · feeds the ladder, position &amp; cost basis</span></div></div>
+      <div class="sec" id="sec-ledger"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▦ Trade Ledger</span><span class="ssub">— log buys/sells · feeds the ladder, position &amp; cost basis</span></div></div>
       <div class="panel">
         <div class="trade-ctrls">
           <button class="btn btn-green" id="addTradeBtn">+ Add Trade</button>
@@ -280,7 +281,7 @@
         <div id="tradeList"></div>
       </div>
       <!-- MACRO -->
-      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">≈ Macro — Liquidity &amp; Rates</span><span class="ssub">— global liquidity backdrop for the cycle</span></div></div>
+      <div class="sec" id="sec-macro"><div class="sec-h"><span class="chev">▼</span><span class="stitle">≈ Macro — Liquidity &amp; Rates</span><span class="ssub">— global liquidity backdrop for the cycle</span></div></div>
       <div class="panel">
         <div class="macro-grid" id="macroGrid"><div class="loading">Loading macro feeds…</div></div>
         <div class="muted" style="font-size:11.5px;margin-top:14px">Live: DXY (ICE basket, ECB rates) · crypto cap &amp; dominance (CoinGecko) · stablecoin supply (DefiLlama) · ETH/BTC · Fear &amp; Greed. TradFi rates (Fed funds, 10Y, M2) need a keyed server feed — say the word to wire them.</div>
@@ -523,6 +524,13 @@ async function load(){
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
 document.getElementById('csvBtn').onclick=()=>{let r=[['indicator','value','1d','7d']];document.querySelectorAll('.ind').forEach(c=>{const n=c.querySelector('.iname').textContent.replace('✓','').trim();const v=c.querySelector('.ival').textContent;r.push([n,v])});const csv=r.map(x=>x.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-cycle-indicators.csv';a.click()};
 document.querySelectorAll('.sec-h').forEach(h=>h.onclick=()=>{const n=h.parentElement.nextElementSibling;if(!n)return;const hide=n.style.display==='none';let el=h.parentElement.nextElementSibling;h.querySelector('.chev').style.transform=hide?'':'rotate(-90deg)';while(el&&!el.classList.contains('sec')){el.style.display=hide?'':'none';el=el.nextElementSibling}});
+
+// Sidebar nav: click-to-scroll + scroll-spy
+const navItems=[...document.querySelectorAll('.nav-item[data-target]')];
+navItems.forEach(n=>n.onclick=()=>{const el=document.getElementById(n.dataset.target);if(!el)return;navItems.forEach(x=>x.classList.remove('active'));n.classList.add('active');el.scrollIntoView({behavior:'smooth',block:'start'})});
+const navByTarget=Object.fromEntries(navItems.map(n=>[n.dataset.target,n]));
+const spy=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){navItems.forEach(x=>x.classList.remove('active'));const n=navByTarget[e.target.id];if(n)n.classList.add('active')}})},{rootMargin:'-35% 0px -60% 0px'});
+document.querySelectorAll('.sec[id]').forEach(s=>spy.observe(s));
 // ===== Ledger + Price Chart (full parity port from original /dashboard) =====
 const STORAGE_KEY='liftoffr-cycle-dash-v1';
 const FMT_USD0=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
