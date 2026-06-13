@@ -17,7 +17,7 @@
     --green:#26d07c;--green-d:#16a45f;--amber:#e8b339;--red:#f0556b;--blue:#4d8df0;--purple:#a855f7;
     --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter',system-ui,sans-serif;
   }
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(1100px 560px at 22% -160px,rgba(38,208,124,.07),transparent 60%),radial-gradient(900px 500px at 95% 0,rgba(77,141,240,.06),transparent 55%),var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
   .app{display:grid;grid-template-columns:218px 1fr;min-height:100vh}
   /* SIDEBAR */
   .side{background:var(--bg2);border-right:1px solid var(--line);padding:16px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
@@ -48,7 +48,7 @@
   .sec-h .stitle{font-size:14px;font-weight:800;letter-spacing:-.2px}
   .sec-h .ssub{font-size:12px;color:var(--dim);font-weight:500}
   .sec:first-child{margin-top:4px}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .panel{background:linear-gradient(158deg,rgba(255,255,255,.055),rgba(255,255,255,.014));border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:22px;backdrop-filter:blur(16px) saturate(125%);-webkit-backdrop-filter:blur(16px) saturate(125%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 40px rgba(0,0,0,.4)}
   /* VERDICT */
   .verdict{display:grid;grid-template-columns:.95fr 1fr;gap:26px;align-items:center}
   .gauge-wrap{text-align:center;position:relative}
@@ -62,7 +62,7 @@
   /* PILLARS */
   .pillars-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
   .pillar-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .pillar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;border-left:3px solid var(--muted)}
+  .pillar{background:linear-gradient(158deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.08);border-radius:13px;padding:15px 17px;border-left:3px solid var(--muted);backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 24px rgba(0,0,0,.3)}
   .pillar .ph{display:flex;justify-content:space-between;align-items:flex-start}
   .pillar .pname{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px}
   .pillar .pwt{font-size:11px;color:var(--dim);font-family:var(--mono)}
@@ -79,7 +79,8 @@
   .cons-fill{height:100%;background:linear-gradient(90deg,var(--green-d),var(--green));border-radius:6px;transition:width .8s}
   /* INDICATOR CARDS */
   .ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
-  .ind{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px 19px}
+  .ind{background:linear-gradient(158deg,rgba(255,255,255,.05),rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:17px 19px;backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 26px rgba(0,0,0,.32);transition:border-color .2s,transform .2s}
+  .ind:hover{border-color:rgba(255,255,255,.17);transform:translateY(-2px)}
   .ind .ih{display:flex;justify-content:space-between;align-items:center}
   .ind .iname{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
   .ind .ick{width:14px;height:14px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#04130a;font-weight:900}
@@ -132,9 +133,7 @@
       <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📊 Cycle Verdict</span><span class="ssub">— A Systematic Scoring Framework for Bitcoin Cycle Position</span></div></div>
       <div class="panel verdict">
         <div class="gauge-wrap">
-          <div class="gauge-cap" id="gCap">—</div>
-          <svg id="gauge" width="320" height="186" viewBox="0 0 320 186"></svg>
-          <div class="gauge-val" id="gVal">—</div>
+          <svg id="gauge" width="340" height="208" viewBox="0 0 340 208"></svg>
           <div class="gauge-scale"><span>0 · Top/Sell</span><span>50 · Neutral</span><span>100 · Bottom/Buy</span></div>
           <div class="gauge-delta" id="gDelta"></div>
         </div>
@@ -169,12 +168,12 @@ const fmtUsd=n=>'$'+Math.round(n).toLocaleString();
 const niceName={PiCycle:'Pi Cycle Top',RUPL:'NUPL (RUPL)',RHODL:'RHODL Ratio',Puell:'Puell Multiple','2YMA':'2Y MA Multiplier',Trolololo:'Trolololo Trend',MVRV:'MVRV-Z Score',ReserveRisk:'Reserve Risk',Woobull:'Woobull Top Cap',Confidence:'CBBI Confidence','F&G':'Fear & Greed'};
 const desc={PiCycle:'111DMA vs 350DMA×2 — historic top timing',RUPL:'Net unrealized profit/loss across supply',RHODL:'1w vs 1–2y HODL wave ratio',Puell:'Miner revenue vs 365d average',"2YMA":'Price vs 2-year moving average bands',Trolololo:'Logarithmic regression trend channel',MVRV:'Market value vs realized value (z-score)',ReserveRisk:'Conviction vs price — long-term risk/reward',Woobull:'Top cap vs average cap model',Confidence:'Composite of all cycle indicators',"F&G":'Crowd sentiment 0=fear, 100=greed'};
 // cycle scale: HIGH = top/sell (red), LOW = bottom/buy (green)
-function zColor(v){if(v>=80)return'var(--red)';if(v>=60)return'var(--amber)';if(v>=40)return'var(--blue)';return'var(--green)'}
+function zColor(v){if(v>=80)return'#f0556b';if(v>=60)return'#e8b339';if(v>=40)return'#4d8df0';return'#26d07c'}
 function zLabel(v){if(v>=85)return'TOP ZONE';if(v>=60)return'LATE CYCLE';if(v>=40)return'NEUTRAL';if(v>=20)return'ACCUMULATION';return'DEEP VALUE'}
 function dpill(d,inv){ // inv: for cycle indicators a rising value = more toppy = "bad" colour
   if(d==null||isNaN(d))return '';
   const rising=d>=0; const good = inv? !rising : rising;
-  const c= d===0?'var(--muted)':(good?'var(--green)':'var(--red)');
+  const c= d===0?'#7e8ba2':(good?'#26d07c':'#f0556b');
   const arr= d>0?'▲':(d<0?'▼':'■');
   return `<span class="delta-pill" style="background:${c}1f;color:${c}">${arr} ${Math.abs(d).toFixed(1)}</span>`;
 }
@@ -185,26 +184,34 @@ function sparkline(series,color,refY){ // series: array of 0-100 vals
   let d='M '+X(0)+' '+Y(series[0]); // stepped line
   for(let i=1;i<n;i++){d+=` L ${X(i)} ${Y(series[i-1])} L ${X(i)} ${Y(series[i])}`}
   let ref='';
-  if(refY!=null){const ry=Y(refY);ref=`<line x1="0" y1="${ry}" x2="${w}" y2="${ry}" stroke="var(--red)" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>`}
+  if(refY!=null){const ry=Y(refY);ref=`<line x1="0" y1="${ry}" x2="${w}" y2="${ry}" stroke="#f0556b" stroke-width="1" stroke-dasharray="3 3" opacity=".45"/>`}
+  const gid='g'+color.replace('#','');
   return `<svg class="spark" width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
-    <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
-    ${ref}<path d="${d} L ${w} ${h} L 0 ${h} Z" fill="url(#fill)" stroke="none"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2"/></svg>`;
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".24"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    ${ref}<path d="${d} L ${w} ${h} L 0 ${h} Z" fill="url(#${gid})" stroke="none"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2"/></svg>`;
 }
-function drawGauge(score){const svg=document.getElementById('gauge'),cx=160,cy=170,r=130;
-  // smooth gradient arc using many small segments green(left,buy@100)->red(right,sell@0)
-  let h='';const N=60;
-  for(let i=0;i<N;i++){const t0=i/N,t1=(i+1)/N;const a0=Math.PI*(1-t0),a1=Math.PI*(1-t1);
-    const pct=(t0)*100; const c= pct<25?'var(--red)':pct<45?'var(--amber)':pct<65?'var(--blue)':'var(--green)';
-    h+=`<path d="M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}" stroke="${c}" stroke-width="18" fill="none"/>`}
-  const na=Math.PI*(1-score/100),nx=cx+(r-12)*Math.cos(na),ny=cy-(r-12)*Math.sin(na);
-  h+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="7" fill="#fff"/>`;
+function drawGauge(score,cap,color){const svg=document.getElementById('gauge'),cx=170,cy=190,r=140;
+  let h='<defs><filter id="gg" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+  // track
+  h+=`<path d="M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${cx+r} ${cy}" stroke="rgba(255,255,255,.06)" stroke-width="22" fill="none" stroke-linecap="round"/>`;
+  // gradient arc: left=100 buy (green) -> right=0 sell (red)
+  const N=72;
+  for(let i=0;i<N;i++){const t0=i/N,t1=(i+1)/N;const a0=Math.PI*(1-t0),a1=Math.PI*(1-t1);const pct=t0*100;
+    const c=pct<25?'#f0556b':pct<45?'#e8b339':pct<65?'#4d8df0':'#26d07c';
+    h+=`<path d="M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}" stroke="${c}" stroke-width="20" fill="none" filter="url(#gg)"/>`}
+  // needle
+  const na=Math.PI*(1-score/100),nx=cx+(r-16)*Math.cos(na),ny=cy-(r-16)*Math.sin(na);
+  h+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="8" fill="#0d121c" stroke="#fff" stroke-width="2.5"/>`;
+  // value + zone inside arc
+  h+=`<text x="${cx}" y="${cy-36}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="56" font-weight="700" fill="${color}" letter-spacing="-2">${score.toFixed(1)}</text>`;
+  h+=`<text x="${cx}" y="${cy-10}" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="800" letter-spacing="1.6" fill="${color}">${cap}</text>`;
   svg.innerHTML=h;}
 function drawRadar(P){const svg=document.getElementById('radar'),cx=165,cy=145,R=105,n=P.length;let h='';
-  [.33,.66,1].forEach(f=>{let p='';for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `}h+=`<polygon points="${p}" fill="none" stroke="var(--line2)" stroke-width="1"/>`});
-  for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;h+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(a)}" y2="${cy+R*Math.sin(a)}" stroke="var(--line)" stroke-width="1"/>`}
+  [.33,.66,1].forEach(f=>{let p='';for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `}h+=`<polygon points="${p}" fill="none" stroke="#223049" stroke-width="1"/>`});
+  for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;h+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(a)}" y2="${cy+R*Math.sin(a)}" stroke="#1a2334" stroke-width="1"/>`}
   let p='';P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,f=q.val/100;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `});
-  h+=`<polygon points="${p}" fill="rgba(38,208,124,.18)" stroke="var(--green)" stroke-width="2"/>`;
-  P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,lx=cx+(R+24)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="var(--muted)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${q.name}</text>`});
+  h+=`<polygon points="${p}" fill="rgba(38,208,124,.18)" stroke="#26d07c" stroke-width="2"/>`;
+  P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,lx=cx+(R+24)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="#7e8ba2" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${q.name}</text>`});
   svg.innerHTML=h;}
 const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 
@@ -220,9 +227,8 @@ async function load(){
   const score=cs.score!=null?cs.score:(bp.cbbi!=null?bp.cbbi*100:50);
   document.getElementById('tbScore').textContent=score.toFixed(1);
 
-  drawGauge(score);
-  const cap=document.getElementById('gCap');cap.textContent=score>=60?'SELL ZONE':score>=40?'NEUTRAL':'BUY ZONE';cap.style.color=zColor(score);
-  document.getElementById('gVal').textContent=score.toFixed(1);
+  const capText=score>=60?'SELL ZONE':score>=40?'NEUTRAL ZONE':'BUY ZONE';
+  drawGauge(score,capText,zColor(score));
   document.getElementById('gDelta').innerHTML=cs.trendDelta7d!=null?`${cs.trendDelta7d>=0?'▲':'▼'} ${Math.abs(cs.trendDelta7d).toFixed(1)} (7d) &nbsp;·&nbsp; trend: ${cs.trend||'—'}`:'';
   document.getElementById('vTitle').textContent=score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
   document.getElementById('vCopy').textContent=cs.commentary||'';document.getElementById('vCopy').classList.remove('loading');
@@ -261,7 +267,7 @@ async function load(){
   drawRadar(radar);
   if(radar.length){const m=radar.reduce((a,b)=>a+b.val,0)/radar.length,sd=Math.sqrt(radar.reduce((a,b)=>a+(b.val-m)**2,0)/radar.length),con=Math.max(0,Math.min(100,Math.round(100-sd*2.2)));
     document.getElementById('consFill').style.width=con+'%';document.getElementById('consN').textContent=con+' / 100';document.getElementById('consDiv').textContent='Divergence (σ) '+sd.toFixed(1);
-    const aligned=sd<12;const b=document.getElementById('consBadge');b.textContent=aligned?'● Strong Consensus':'○ Mixed Signal';b.style.background=aligned?'var(--green)26':'var(--amber)26';b.style.color=aligned?'var(--green)':'var(--amber)';
+    const aligned=sd<12;const b=document.getElementById('consBadge');b.textContent=aligned?'● Strong Consensus':'○ Mixed Signal';b.style.background=aligned?'#26d07c26':'#e8b33926';b.style.color=aligned?'#26d07c':'#e8b339';
     document.getElementById('consNote').textContent=aligned?'All pillars aligned — high signal confidence.':'Pillars diverging — weight the heaviest (Cycle, Valuation).';}
 }
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
