@@ -6,104 +6,104 @@
 <meta name="robots" content="noindex, nofollow">
 <title>LiftOffr Terminal — Bitcoin Cycle Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<!-- GA4 (keep dashboard tracked) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-015PKWM24J');</script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg:#070a0f; --bg2:#0b0f16; --panel:#0e131c; --panel2:#121823; --line:#1c2533;
-    --ink:#e8edf5; --muted:#7d8aa0; --dim:#566177;
-    --green:#22c55e; --green-d:#15803d; --amber:#e0a82e; --red:#ef4444; --blue:#3b82f6; --purple:#a855f7;
-    --mono:'JetBrains Mono',ui-monospace,monospace; --sans:'Inter',system-ui,sans-serif;
+    --bg:#060910;--bg2:#0a0e16;--panel:#0d121c;--panel2:#101724;--card:#0f1622;--line:#1a2334;--line2:#223049;
+    --ink:#e9eef7;--muted:#7e8ba2;--dim:#54607a;
+    --green:#26d07c;--green-d:#16a45f;--amber:#e8b339;--red:#f0556b;--blue:#4d8df0;--purple:#a855f7;
+    --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter',system-ui,sans-serif;
   }
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
-  a{color:inherit;text-decoration:none}
-  .app{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
-
+  .app{display:grid;grid-template-columns:218px 1fr;min-height:100vh}
   /* SIDEBAR */
-  .side{background:var(--bg2);border-right:1px solid var(--line);padding:18px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
-  .brand{padding:0 18px 18px;display:flex;align-items:center;gap:8px;font-weight:900;font-size:18px;letter-spacing:-.5px}
-  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
-  .nav-grp{padding:14px 18px 6px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);font-weight:700}
-  .nav-item{display:flex;align-items:center;gap:10px;padding:8px 18px;color:var(--muted);font-size:13.5px;font-weight:500;cursor:pointer;border-left:2px solid transparent}
+  .side{background:var(--bg2);border-right:1px solid var(--line);padding:16px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
+  .brand{padding:0 18px 16px;display:flex;align-items:center;gap:8px;font-weight:900;font-size:17px;letter-spacing:-.4px}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+  .nav-grp{padding:14px 18px 5px;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);font-weight:700}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:7px 18px;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;border-left:2px solid transparent}
   .nav-item:hover{color:var(--ink);background:rgba(255,255,255,.02)}
-  .nav-item.active{color:var(--ink);border-left-color:var(--green);background:rgba(34,197,94,.06)}
-  .nav-item .ic{width:16px;text-align:center;opacity:.8}
-  .side-foot{padding:16px 18px;font-size:11px;color:var(--dim);border-top:1px solid var(--line);margin-top:10px}
-
+  .nav-item.active{color:var(--ink);border-left-color:var(--green);background:rgba(38,208,124,.07)}
+  .nav-item .ic{width:15px;text-align:center;opacity:.85;font-size:12px}
+  .side-foot{padding:14px 18px;font-size:11px;color:var(--dim);border-top:1px solid var(--line);margin-top:8px}
+  .side-foot .sf-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+  .sf-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
   /* MAIN */
-  .main{padding:0 0 60px}
-  .topbar{display:flex;align-items:center;gap:26px;padding:16px 28px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg2),var(--bg));position:sticky;top:0;z-index:20}
-  .tb-stat .lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700}
-  .tb-stat .val{font-family:var(--mono);font-size:19px;font-weight:700;margin-top:2px}
-  .tb-stat .val small{font-size:12px;font-weight:500}
-  .up{color:var(--green)} .down{color:var(--red)} .neu{color:var(--amber)}
+  .topbar{display:flex;align-items:center;gap:24px;padding:14px 26px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg2),var(--bg));position:sticky;top:0;z-index:20}
+  .tb-stat .lbl{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700}
+  .tb-stat .val{font-family:var(--mono);font-size:18px;font-weight:700;margin-top:2px}
+  .up{color:var(--green)}.down{color:var(--red)}.neu{color:var(--amber)}
   .tb-spacer{flex:1}
-  .btn{font-family:var(--sans);font-weight:700;font-size:12.5px;padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);cursor:pointer}
-  .btn:hover{border-color:var(--green)}
-  .btn-green{background:var(--green);color:#05140a;border-color:var(--green)}
-  .status-pill{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
-  .status-pill .d{width:8px;height:8px;border-radius:50%;background:var(--green)}
-
-  .wrap{padding:26px 28px;max-width:1500px}
-  .sec-title{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:34px 0 14px;display:flex;align-items:center;gap:8px}
-  .sec-title:first-child{margin-top:6px}
-
+  .btn{font-family:var(--sans);font-weight:700;font-size:12px;padding:8px 14px;border-radius:8px;border:1px solid var(--line2);background:var(--panel2);color:var(--ink);cursor:pointer}
+  .btn:hover{border-color:var(--green)}.btn-green{background:var(--green);color:#04130a;border-color:var(--green)}
+  .status-pill{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.status-pill .d{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .wrap{padding:22px 26px 70px;max-width:1480px}
+  /* collapsible section header */
+  .sec{margin:26px 0 14px}
+  .sec-h{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none}
+  .sec-h .chev{color:var(--dim);font-size:12px;transition:transform .2s}
+  .sec-h .stitle{font-size:14px;font-weight:800;letter-spacing:-.2px}
+  .sec-h .ssub{font-size:12px;color:var(--dim);font-weight:500}
+  .sec:first-child{margin-top:4px}
   .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
-
   /* VERDICT */
-  .verdict{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;align-items:center}
+  .verdict{display:grid;grid-template-columns:.95fr 1fr;gap:26px;align-items:center}
   .gauge-wrap{text-align:center;position:relative}
-  .gauge-val{font-family:var(--mono);font-size:64px;font-weight:700;line-height:1;letter-spacing:-2px}
-  .gauge-zone{font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-top:6px}
-  .gauge-delta{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:8px}
-  .verdict-copy h2{font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px}
-  .verdict-copy p{color:var(--muted);font-size:14px;line-height:1.6}
-  .verdict-copy .tag{display:inline-block;margin-top:12px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.5px}
-
+  .gauge-cap{font-size:15px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:-6px}
+  .gauge-val{font-family:var(--mono);font-size:58px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:-78px}
+  .gauge-scale{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin:6px 30px 0;font-weight:600}
+  .gauge-delta{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:10px}
+  .verdict-copy h2{font-size:22px;font-weight:900;letter-spacing:-.4px;margin-bottom:8px}
+  .verdict-copy p{color:var(--muted);font-size:13.5px;line-height:1.6}
+  .verdict-copy .tag{display:inline-block;margin-top:14px;padding:5px 13px;border-radius:999px;font-size:11.5px;font-weight:800;letter-spacing:.5px}
   /* PILLARS */
-  .pillars-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+  .pillars-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:22px}
   .pillar-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .pillar{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-left:3px solid var(--muted)}
-  .pillar .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .pillar{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px;border-left:3px solid var(--muted)}
+  .pillar .ph{display:flex;justify-content:space-between;align-items:flex-start}
   .pillar .pname{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px}
   .pillar .pwt{font-size:11px;color:var(--dim);font-family:var(--mono)}
-  .pillar .pval{font-family:var(--mono);font-size:34px;font-weight:700;line-height:1}
-  .pillar .plabel{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-top:4px}
+  .pillar .pval{font-family:var(--mono);font-size:32px;font-weight:700;line-height:1;margin-top:8px}
+  .pbot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px}
+  .pillar .pdelta{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .pillar .pbadge{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:5px}
+  .pillar .pdesc{font-size:11px;font-weight:700;text-align:right}
   .radar-wrap{display:flex;align-items:center;justify-content:center}
-
-  .consensus{margin-top:22px}
-  .cons-bar{height:10px;border-radius:6px;background:var(--panel2);overflow:hidden;margin-top:8px}
+  .consensus{margin-top:20px}
+  .cons-head{display:flex;justify-content:space-between;align-items:center}
+  .cons-badge{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.4px}
+  .cons-bar{height:9px;border-radius:6px;background:var(--card);overflow:hidden;margin-top:10px}
   .cons-fill{height:100%;background:linear-gradient(90deg,var(--green-d),var(--green));border-radius:6px;transition:width .8s}
-  .cons-head{display:flex;justify-content:space-between;align-items:baseline}
-
   /* INDICATOR CARDS */
-  .ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-  .ind{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+  .ind{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px 19px}
   .ind .ih{display:flex;justify-content:space-between;align-items:center}
-  .ind .iname{font-size:12.5px;font-weight:700;color:var(--ink)}
-  .ind .izone{font-size:10px;font-weight:800;letter-spacing:.5px;padding:2px 7px;border-radius:5px;text-transform:uppercase}
-  .ind .ival{font-family:var(--mono);font-size:30px;font-weight:700;margin:8px 0 2px}
-  .ind .isub{font-size:11px;color:var(--dim);font-family:var(--mono)}
-  .ind .ibar{height:6px;border-radius:4px;background:var(--panel2);margin-top:12px;overflow:hidden}
-  .ind .ibar > div{height:100%;border-radius:4px}
-
+  .ind .iname{font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .ind .ick{width:14px;height:14px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#04130a;font-weight:900}
+  .ind .iq{color:var(--dim);font-size:12px;cursor:help}
+  .ind .iv-row{display:flex;align-items:baseline;gap:10px;margin:11px 0 2px}
+  .ind .ival{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:-1px}
+  .ind .iunit{font-size:12px;color:var(--dim);font-family:var(--mono)}
+  .delta-pill{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px}
+  .ind .imeta{font-size:10.5px;color:var(--dim);margin-top:9px;line-height:1.7}
+  .ind .idesc{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.45}
+  .ind .spark{margin-top:12px}
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px}
   .muted{color:var(--muted)}
-  @media(max-width:1024px){.app{grid-template-columns:1fr}.side{display:none}.verdict,.pillars-grid{grid-template-columns:1fr}.radar-wrap{margin-top:18px}}
+  @media(max-width:1024px){.app{grid-template-columns:1fr}.side{display:none}.verdict,.pillars-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="app">
-  <!-- SIDEBAR -->
   <aside class="side">
     <div class="brand"><span class="dot"></span>LiftOffr</div>
     <div class="nav-grp">Cycle</div>
-    <div class="nav-item active"><span class="ic">◎</span> Verdict</div>
-    <div class="nav-item"><span class="ic">▦</span> Indicators</div>
+    <div class="nav-item active"><span class="ic">◎</span> Cycle Verdict</div>
     <div class="nav-item"><span class="ic">◔</span> Four Pillars</div>
+    <div class="nav-item"><span class="ic">▦</span> Indicators</div>
     <div class="nav-grp">Plan</div>
     <div class="nav-item"><span class="ic">▤</span> Buy Ladder</div>
     <div class="nav-item"><span class="ic">◇</span> Projected Bottom</div>
@@ -112,13 +112,11 @@
     <div class="nav-item"><span class="ic">≈</span> Liquidity &amp; Rates</div>
     <div class="nav-item"><span class="ic">☷</span> Market Sentiment</div>
     <div class="side-foot">
-      <div id="updStatus">● <span id="freshN">—</span> fresh</div>
-      <div style="margin-top:6px">v2.0 — Terminal Edition</div>
+      <div class="sf-row"><span class="sf-dot"></span><b id="freshN">—</b>&nbsp;indicators live</div>
+      <div style="margin-top:8px;color:var(--dim)">v2.2 — Terminal Edition</div>
     </div>
   </aside>
-
-  <!-- MAIN -->
-  <main class="main">
+  <main>
     <div class="topbar">
       <div class="tb-stat"><div class="lbl">BTC / USD</div><div class="val" id="tbPrice">—</div></div>
       <div class="tb-stat"><div class="lbl">24h</div><div class="val" id="tb24h">—</div></div>
@@ -126,18 +124,18 @@
       <div class="tb-stat"><div class="lbl">Cycle Score</div><div class="val" id="tbScore">—</div></div>
       <div class="tb-spacer"></div>
       <div class="status-pill"><span class="d"></span><span id="tbUpdated">live</span></div>
-      <button class="btn" id="csvBtn">⬇ CSV</button>
+      <button class="btn" id="csvBtn">⬇ Download CSV</button>
       <button class="btn btn-green" id="refreshBtn">↻ Force Update</button>
     </div>
-
     <div class="wrap">
       <!-- VERDICT -->
-      <div class="sec-title">◎ Cycle Verdict — Systematic Buy/Sell Score</div>
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📊 Cycle Verdict</span><span class="ssub">— A Systematic Scoring Framework for Bitcoin Cycle Position</span></div></div>
       <div class="panel verdict">
         <div class="gauge-wrap">
-          <svg id="gauge" width="340" height="200" viewBox="0 0 340 200"></svg>
-          <div class="gauge-val" id="gVal" style="margin-top:-70px">—</div>
-          <div class="gauge-zone" id="gZone">—</div>
+          <div class="gauge-cap" id="gCap">—</div>
+          <svg id="gauge" width="320" height="186" viewBox="0 0 320 186"></svg>
+          <div class="gauge-val" id="gVal">—</div>
+          <div class="gauge-scale"><span>0 · Top/Sell</span><span>50 · Neutral</span><span>100 · Bottom/Buy</span></div>
           <div class="gauge-delta" id="gDelta"></div>
         </div>
         <div class="verdict-copy">
@@ -146,147 +144,129 @@
           <span class="tag" id="vTag"></span>
         </div>
       </div>
-
-      <!-- FOUR PILLARS -->
-      <div class="sec-title">◔ Four Pillars — Weighted Signal Stack</div>
+      <!-- PILLARS -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">🧱 The Four Pillars</span><span class="ssub">— Cycle · Valuation · Technical · Sentiment (weighted)</span></div></div>
       <div class="pillars-grid">
         <div class="pillar-cards" id="pillarCards"></div>
-        <div class="panel radar-wrap"><svg id="radar" width="320" height="300" viewBox="0 0 320 300"></svg></div>
+        <div class="panel radar-wrap"><svg id="radar" width="330" height="300" viewBox="0 0 330 300"></svg></div>
       </div>
       <div class="panel consensus">
-        <div class="cons-head"><div style="font-weight:700">Signal Consensus <span class="muted" id="consN"></span></div><div class="muted" id="consDiv"></div></div>
+        <div class="cons-head"><div style="font-weight:700">Signal Consensus <span class="muted" id="consN"></span></div><span class="cons-badge" id="consBadge"></span></div>
         <div class="cons-bar"><div class="cons-fill" id="consFill" style="width:0%"></div></div>
-        <div class="muted" style="font-size:12px;margin-top:8px" id="consNote"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:9px"><span class="muted" style="font-size:12px" id="consNote"></span><span class="muted" style="font-size:12px" id="consDiv"></span></div>
       </div>
-
       <!-- INDICATORS -->
-      <div class="sec-title">▦ Cycle Indicators — On-Chain Signal Cards</div>
-      <div class="ind-grid" id="indGrid"><div class="loading">Loading indicators…</div></div>
-
-      <div class="sec-title">▤ Buy Ladder · ◇ Projected Bottom · 𝟱 Position · ≈ Macro</div>
-      <div class="panel muted" style="font-size:13px">These panels are being ported from your current dashboard into the new terminal design — coming in the next build pass. Your live <a href="/dashboard" style="color:var(--green)">current dashboard</a> still has them fully working.</div>
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📈 Cycle Indicators</span><span class="ssub">— On-chain signal stack, cycle-normalized 0–100</span></div></div>
+      <div class="ind-grid" id="indGrid"><div class="loading">Loading indicators + history…</div></div>
+      <!-- PORTING NEXT -->
+      <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▤ Buy Ladder · ◇ Projected Bottom · 𝟱 Position · ≈ Macro</span></div></div>
+      <div class="panel muted" style="font-size:13px">Porting from your current dashboard into this design next — Buy Ladder, live Coinbase Position, Projected Bottom, plus the new Macro (Liquidity &amp; Rates) section. Your <a href="/dashboard" style="color:var(--green)">current dashboard</a> still has them live.</div>
     </div>
   </main>
 </div>
-
 <script>
-const fmtUsd = n => '$' + Math.round(n).toLocaleString();
-const PILLAR_MAP = {
-  Cycle:     {keys:['PiCycle','RHODL','Confidence'], wt:0.30, icon:'◴'},
-  Valuation: {keys:['RUPL','Puell','ReserveRisk','MVRV'], wt:0.30, icon:'⊙'},
-  Technical: {keys:['2YMA','Trolololo','Woobull'], wt:0.25, icon:'∿'},
-  Sentiment: {keys:['__FNG__'], wt:0.15, icon:'☷'},
-};
-// In cycle terms: LOW = accumulation/buy (green), HIGH = top/sell (red)
-function zoneColor(v){ // v 0-100
-  if(v>=80) return 'var(--red)'; if(v>=60) return 'var(--amber)';
-  if(v>=40) return 'var(--blue)'; if(v>=20) return 'var(--green)'; return 'var(--green)';
+const fmtUsd=n=>'$'+Math.round(n).toLocaleString();
+const niceName={PiCycle:'Pi Cycle Top',RUPL:'NUPL (RUPL)',RHODL:'RHODL Ratio',Puell:'Puell Multiple','2YMA':'2Y MA Multiplier',Trolololo:'Trolololo Trend',MVRV:'MVRV-Z Score',ReserveRisk:'Reserve Risk',Woobull:'Woobull Top Cap',Confidence:'CBBI Confidence','F&G':'Fear & Greed'};
+const desc={PiCycle:'111DMA vs 350DMA×2 — historic top timing',RUPL:'Net unrealized profit/loss across supply',RHODL:'1w vs 1–2y HODL wave ratio',Puell:'Miner revenue vs 365d average',"2YMA":'Price vs 2-year moving average bands',Trolololo:'Logarithmic regression trend channel',MVRV:'Market value vs realized value (z-score)',ReserveRisk:'Conviction vs price — long-term risk/reward',Woobull:'Top cap vs average cap model',Confidence:'Composite of all cycle indicators',"F&G":'Crowd sentiment 0=fear, 100=greed'};
+// cycle scale: HIGH = top/sell (red), LOW = bottom/buy (green)
+function zColor(v){if(v>=80)return'var(--red)';if(v>=60)return'var(--amber)';if(v>=40)return'var(--blue)';return'var(--green)'}
+function zLabel(v){if(v>=85)return'TOP ZONE';if(v>=60)return'LATE CYCLE';if(v>=40)return'NEUTRAL';if(v>=20)return'ACCUMULATION';return'DEEP VALUE'}
+function dpill(d,inv){ // inv: for cycle indicators a rising value = more toppy = "bad" colour
+  if(d==null||isNaN(d))return '';
+  const rising=d>=0; const good = inv? !rising : rising;
+  const c= d===0?'var(--muted)':(good?'var(--green)':'var(--red)');
+  const arr= d>0?'▲':(d<0?'▼':'■');
+  return `<span class="delta-pill" style="background:${c}1f;color:${c}">${arr} ${Math.abs(d).toFixed(1)}</span>`;
 }
-function zoneLabel(v){
-  if(v>=85) return 'TOP ZONE'; if(v>=60) return 'LATE CYCLE'; if(v>=40) return 'NEUTRAL';
-  if(v>=20) return 'ACCUMULATION'; return 'DEEP VALUE';
+function sparkline(series,color,refY){ // series: array of 0-100 vals
+  const w=292,h=46,n=series.length; if(n<2)return'';
+  const max=Math.max(...series,60),min=Math.min(...series,0),rng=(max-min)||1;
+  const X=i=>i/(n-1)*w, Y=v=>h-((v-min)/rng)*(h-4)-2;
+  let d='M '+X(0)+' '+Y(series[0]); // stepped line
+  for(let i=1;i<n;i++){d+=` L ${X(i)} ${Y(series[i-1])} L ${X(i)} ${Y(series[i])}`}
+  let ref='';
+  if(refY!=null){const ry=Y(refY);ref=`<line x1="0" y1="${ry}" x2="${w}" y2="${ry}" stroke="var(--red)" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>`}
+  return `<svg class="spark" width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>
+    ${ref}<path d="${d} L ${w} ${h} L 0 ${h} Z" fill="url(#fill)" stroke="none"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2"/></svg>`;
 }
-
-function drawGauge(score){
-  const svg=document.getElementById('gauge'); const cx=170,cy=180,r=140;
-  let h='';
-  // colored arc segments (semicircle 180°→0°), green(buy) left → red(sell) right
-  const segs=[['var(--green)',0,25],['var(--blue)',25,45],['var(--amber)',45,65],['var(--red)',65,100]];
-  segs.forEach(([c,a,b])=>{
-    const a0=Math.PI*(1-a/100), a1=Math.PI*(1-b/100);
-    const x0=cx+r*Math.cos(a0),y0=cy-r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy-r*Math.sin(a1);
-    h+=`<path d="M ${x0} ${y0} A ${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${c}" stroke-width="20" fill="none" stroke-linecap="butt" opacity=".85"/>`;
-  });
-  // needle
-  const na=Math.PI*(1-score/100); const nx=cx+(r-14)*Math.cos(na),ny=cy-(r-14)*Math.sin(na);
-  h+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#fff" stroke-width="3"/><circle cx="${cx}" cy="${cy}" r="6" fill="#fff"/>`;
-  svg.innerHTML=h;
-}
-
-function drawRadar(pillars){ // pillars: [{name,val}]
-  const svg=document.getElementById('radar'); const cx=160,cy=150,R=110; const n=pillars.length;
-  let h='';
-  [0.33,0.66,1].forEach(f=>{let pts='';for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;pts+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `}h+=`<polygon points="${pts}" fill="none" stroke="var(--line)" stroke-width="1"/>`});
-  let pts='';pillars.forEach((p,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;const f=p.val/100;pts+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `});
-  h+=`<polygon points="${pts}" fill="rgba(34,197,94,.18)" stroke="var(--green)" stroke-width="2"/>`;
-  pillars.forEach((p,i)=>{const a=-Math.PI/2+i*2*Math.PI/n;const lx=cx+(R+22)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="var(--muted)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${p.name}</text>`});
-  svg.innerHTML=h;
-}
+function drawGauge(score){const svg=document.getElementById('gauge'),cx=160,cy=170,r=130;
+  // smooth gradient arc using many small segments green(left,buy@100)->red(right,sell@0)
+  let h='';const N=60;
+  for(let i=0;i<N;i++){const t0=i/N,t1=(i+1)/N;const a0=Math.PI*(1-t0),a1=Math.PI*(1-t1);
+    const pct=(t0)*100; const c= pct<25?'var(--red)':pct<45?'var(--amber)':pct<65?'var(--blue)':'var(--green)';
+    h+=`<path d="M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}" stroke="${c}" stroke-width="18" fill="none"/>`}
+  const na=Math.PI*(1-score/100),nx=cx+(r-12)*Math.cos(na),ny=cy-(r-12)*Math.sin(na);
+  h+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="7" fill="#fff"/>`;
+  svg.innerHTML=h;}
+function drawRadar(P){const svg=document.getElementById('radar'),cx=165,cy=145,R=105,n=P.length;let h='';
+  [.33,.66,1].forEach(f=>{let p='';for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `}h+=`<polygon points="${p}" fill="none" stroke="var(--line2)" stroke-width="1"/>`});
+  for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;h+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(a)}" y2="${cy+R*Math.sin(a)}" stroke="var(--line)" stroke-width="1"/>`}
+  let p='';P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,f=q.val/100;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `});
+  h+=`<polygon points="${p}" fill="rgba(38,208,124,.18)" stroke="var(--green)" stroke-width="2"/>`;
+  P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,lx=cx+(R+24)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="var(--muted)" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${q.name}</text>`});
+  svg.innerHTML=h;}
+const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 
 async function load(){
-  let bp={}, cs={}, fng=50;
-  try{ bp=await (await fetch('/api/btc-price?ma200w=1')).json(); }catch(e){}
-  try{ cs=await (await fetch('/api/cycle-score')).json(); }catch(e){}
-  try{ const f=await (await fetch('https://api.alternative.me/fng/?limit=1')).json(); fng=+f.data[0].value; }catch(e){}
+  let bp={},cs={},hist={},fngArr=[];
+  try{bp=await(await fetch('/api/btc-price?ma200w=1')).json()}catch(e){}
+  try{cs=await(await fetch('/api/cycle-score')).json()}catch(e){}
+  try{hist=await(await fetch('https://colintalkscrypto.com/cbbi/data/latest.json')).json()}catch(e){}
+  try{const f=await(await fetch('https://api.alternative.me/fng/?limit=60')).json();fngArr=f.data.map(x=>+x.value).reverse()}catch(e){}
 
-  // topbar
-  if(bp.usd){document.getElementById('tbPrice').innerHTML=fmtUsd(bp.usd);
-    const c=bp.change24h||0; const e=document.getElementById('tb24h'); e.innerHTML=(c>=0?'+':'')+c.toFixed(1)+'%'; e.className='val '+(c>=0?'up':'down');}
-  if(bp.cbbi!=null)document.getElementById('tbCbbi').innerHTML=(bp.cbbi*100).toFixed(0);
-  const score = cs.score!=null?cs.score:(bp.cbbi!=null?bp.cbbi*100:50);
-  document.getElementById('tbScore').innerHTML=score.toFixed(1);
+  if(bp.usd){document.getElementById('tbPrice').textContent=fmtUsd(bp.usd);const c=bp.change24h||0,e=document.getElementById('tb24h');e.textContent=(c>=0?'+':'')+c.toFixed(1)+'%';e.className='val '+(c>=0?'up':'down')}
+  if(bp.cbbi!=null)document.getElementById('tbCbbi').textContent=(bp.cbbi*100).toFixed(0);
+  const score=cs.score!=null?cs.score:(bp.cbbi!=null?bp.cbbi*100:50);
+  document.getElementById('tbScore').textContent=score.toFixed(1);
 
-  // verdict gauge
   drawGauge(score);
+  const cap=document.getElementById('gCap');cap.textContent=score>=60?'SELL ZONE':score>=40?'NEUTRAL':'BUY ZONE';cap.style.color=zColor(score);
   document.getElementById('gVal').textContent=score.toFixed(1);
-  const gz=document.getElementById('gZone'); gz.textContent=(cs.zone||zoneLabel(score)).toUpperCase(); gz.style.color=zoneColor(score);
-  if(cs.trendDelta7d!=null)document.getElementById('gDelta').innerHTML=`▼ ${cs.trendDelta7d} (7d) · trend ${cs.trend||''}`;
-  document.getElementById('vTitle').textContent = score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
-  document.getElementById('vCopy').textContent=cs.commentary||'';
-  document.getElementById('vCopy').classList.remove('loading');
-  const vt=document.getElementById('vTag'); vt.textContent=(cs.zone||zoneLabel(score)).toUpperCase(); vt.style.background='rgba(34,197,94,.15)'; vt.style.color=zoneColor(score);
+  document.getElementById('gDelta').innerHTML=cs.trendDelta7d!=null?`${cs.trendDelta7d>=0?'▲':'▼'} ${Math.abs(cs.trendDelta7d).toFixed(1)} (7d) &nbsp;·&nbsp; trend: ${cs.trend||'—'}`:'';
+  document.getElementById('vTitle').textContent=score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
+  document.getElementById('vCopy').textContent=cs.commentary||'';document.getElementById('vCopy').classList.remove('loading');
+  const vt=document.getElementById('vTag');vt.textContent=(cs.zone||zLabel(score)).toUpperCase();vt.style.background=zColor(score)+'26';vt.style.color=zColor(score);
 
-  // components → indicators + pillars
-  const comp = (cs.components)||{};
-  const cbbiC = bp.cbbiComponents||{};
-  // unified indicator map (0-100)
-  const inds={};
-  Object.entries(cbbiC).forEach(([k,v])=>inds[k]=(typeof v==='number'?v*100:null));
-  Object.entries(comp).forEach(([k,o])=>{ if(o&&o.value!=null) inds[k]=o.value; });
-  inds['F&G']=fng;
+  // build indicator series from history (last 60 pts, x100)
+  const keys=['Confidence','PiCycle','RUPL','RHODL','Puell','2YMA','Trolololo','MVRV','ReserveRisk','Woobull'];
+  const series={},cur={},d1={},d7={};
+  // same-origin fallback: current values from btc-price's cbbiComponents (always available even if the cross-origin history fetch is CORS-blocked)
+  const cc=bp.cbbiComponents||{}; Object.keys(cc).forEach(k=>{ if(typeof cc[k]==='number') cur[k]=cc[k]*100; });
+  if(cur['Confidence']==null && bp.cbbi!=null) cur['Confidence']=bp.cbbi*100;
+  keys.forEach(k=>{const o=hist[k];if(!o)return;const ts=Object.keys(o).sort();const vals=ts.map(t=>o[t]*100);const last60=vals.slice(-60);series[k]=last60;cur[k]=vals[vals.length-1];d1[k]=cur[k]-vals[vals.length-2];d7[k]=cur[k]-(vals[vals.length-8]||vals[vals.length-2])});
+  if(fngArr.length){series['F&G']=fngArr;cur['F&G']=fngArr[fngArr.length-1];d1['F&G']=fngArr[fngArr.length-1]-fngArr[fngArr.length-2];d7['F&G']=fngArr[fngArr.length-1]-(fngArr[fngArr.length-8]||fngArr[fngArr.length-2])}
 
   // indicator cards
-  const ig=document.getElementById('indGrid'); ig.innerHTML='';
-  const niceName={PiCycle:'Pi Cycle Top',RUPL:'NUPL / RUPL',RHODL:'RHODL Ratio',Puell:'Puell Multiple','2YMA':'2Y MA Multiplier',Trolololo:'Trolololo',MVRV:'MVRV-Z',ReserveRisk:'Reserve Risk',Woobull:'Woobull Top',Confidence:'CBBI Confidence','F&G':'Fear & Greed'};
-  Object.entries(inds).filter(([k,v])=>v!=null).forEach(([k,v])=>{
-    const z=zoneLabel(v), c=zoneColor(v);
-    ig.innerHTML+=`<div class="ind"><div class="ih"><div class="iname">${niceName[k]||k}</div><div class="izone" style="background:${c}22;color:${c}">${z}</div></div>
-      <div class="ival" style="color:${c}">${v.toFixed(0)}</div><div class="isub">/ 100 cycle-normalized</div>
-      <div class="ibar"><div style="width:${v}%;background:${c}"></div></div></div>`;
-  });
+  const ig=document.getElementById('indGrid');ig.innerHTML='';
+  const order=['Confidence','PiCycle','RHODL','MVRV','RUPL','Puell','ReserveRisk','2YMA','Trolololo','Woobull','F&G'];
+  const upd=bp.cbbiTs?new Date(bp.cbbiTs*1000).toISOString().slice(0,10):'—';
+  order.filter(k=>cur[k]!=null).forEach(k=>{const v=cur[k],c=zColor(v);
+    ig.innerHTML+=`<div class="ind"><div class="ih"><div class="iname"><span class="ick" style="background:${c}">✓</span>${niceName[k]||k}</div><span class="iq" title="${desc[k]||''}">ⓘ</span></div>
+      <div class="iv-row"><span class="ival" style="color:${c}">${v.toFixed(1)}</span><span class="iunit">/100</span>${dpill(d1[k],true)}<span style="font-size:10px;color:var(--dim)">1d</span>${dpill(d7[k],true)}<span style="font-size:10px;color:var(--dim)">7d</span></div>
+      <div class="idesc">${desc[k]||''}</div>
+      <div class="imeta">📅 Cycle-normalized · 📡 Updated ${k==='F&G'?'today':upd}</div>
+      ${sparkline(series[k]||[v],c,k==='F&G'?50:80)}</div>`;});
+  document.getElementById('freshN').textContent=order.filter(k=>cur[k]!=null).length;
+  document.getElementById('tbUpdated').textContent='updated '+(bp.ts?new Date(bp.ts).toLocaleTimeString():'now');
 
   // pillars
-  const pillarCards=document.getElementById('pillarCards'); pillarCards.innerHTML='';
-  const radarData=[];
-  Object.entries(PILLAR_MAP).forEach(([name,cfg])=>{
-    const vals=cfg.keys.map(k=>k==='__FNG__'?fng:inds[k]).filter(v=>v!=null);
-    const pv=vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;
-    if(pv==null)return;
-    const c=zoneColor(pv);
-    radarData.push({name,val:pv});
-    pillarCards.innerHTML+=`<div class="pillar" style="border-left-color:${c}"><div class="ph"><div class="pname">${cfg.icon} ${name}</div><div class="pwt">${(cfg.wt*100)|0}%</div></div>
-      <div class="pval" style="color:${c}">${pv.toFixed(0)}</div><div class="plabel" style="color:${c}">${zoneLabel(pv)}</div></div>`;
-  });
-  drawRadar(radarData);
-
-  // consensus = inverse of spread across pillars (how aligned)
-  if(radarData.length){
-    const mean=radarData.reduce((a,b)=>a+b.val,0)/radarData.length;
-    const sd=Math.sqrt(radarData.reduce((a,b)=>a+(b.val-mean)**2,0)/radarData.length);
-    const consensus=Math.max(0,Math.min(100,Math.round(100-sd*2.2)));
-    document.getElementById('consFill').style.width=consensus+'%';
-    document.getElementById('consN').textContent=consensus+' / 100';
-    document.getElementById('consDiv').textContent='Divergence (σ) '+sd.toFixed(1);
-    document.getElementById('consNote').textContent=sd<10?'Pillars aligned — high signal confidence.':'Pillars diverging — mixed signal, weight the heaviest pillars.';
-  }
-  document.getElementById('freshN').textContent=Object.keys(inds).filter(k=>inds[k]!=null).length;
-  document.getElementById('tbUpdated').textContent='updated '+(bp.ts?new Date(bp.ts).toLocaleTimeString():'now');
+  const pc=document.getElementById('pillarCards');pc.innerHTML='';const radar=[];
+  Object.entries(PILLARS).forEach(([name,cfg])=>{const vs=cfg.keys.map(k=>cur[k]).filter(v=>v!=null);if(!vs.length)return;
+    const pv=vs.reduce((a,b)=>a+b,0)/vs.length;const dd1=cfg.keys.map(k=>d1[k]).filter(v=>v!=null);const pd1=dd1.length?dd1.reduce((a,b)=>a+b,0)/dd1.length:0;const dd7=cfg.keys.map(k=>d7[k]).filter(v=>v!=null);const pd7=dd7.length?dd7.reduce((a,b)=>a+b,0)/dd7.length:0;
+    const c=zColor(pv);radar.push({name,val:pv});
+    pc.innerHTML+=`<div class="pillar" style="border-left-color:${c}"><div class="ph"><div class="pname">${cfg.icon} ${name}</div><div class="pwt">${cfg.wt}%</div></div>
+      <div class="pval" style="color:${c}">${pv.toFixed(0)}</div>
+      <div class="pbot"><span class="pdelta">${pd1>=0?'▲':'▼'}${Math.abs(pd1).toFixed(1)} 1d · ${pd7>=0?'▲':'▼'}${Math.abs(pd7).toFixed(1)} 7d</span><span class="pbadge" style="background:${c}26;color:${c}">${zLabel(pv)}</span></div></div>`;});
+  drawRadar(radar);
+  if(radar.length){const m=radar.reduce((a,b)=>a+b.val,0)/radar.length,sd=Math.sqrt(radar.reduce((a,b)=>a+(b.val-m)**2,0)/radar.length),con=Math.max(0,Math.min(100,Math.round(100-sd*2.2)));
+    document.getElementById('consFill').style.width=con+'%';document.getElementById('consN').textContent=con+' / 100';document.getElementById('consDiv').textContent='Divergence (σ) '+sd.toFixed(1);
+    const aligned=sd<12;const b=document.getElementById('consBadge');b.textContent=aligned?'● Strong Consensus':'○ Mixed Signal';b.style.background=aligned?'var(--green)26':'var(--amber)26';b.style.color=aligned?'var(--green)':'var(--amber)';
+    document.getElementById('consNote').textContent=aligned?'All pillars aligned — high signal confidence.':'Pillars diverging — weight the heaviest (Cycle, Valuation).';}
 }
-document.getElementById('refreshBtn').onclick=()=>{document.getElementById('refreshBtn').textContent='↻ …';load().then(()=>document.getElementById('refreshBtn').textContent='↻ Force Update');};
-document.getElementById('csvBtn').onclick=()=>{
-  let rows=[['indicator','value']];document.querySelectorAll('.ind').forEach(c=>rows.push([c.querySelector('.iname').textContent,c.querySelector('.ival').textContent]));
-  const csv=rows.map(r=>r.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-indicators.csv';a.click();
-};
+document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
+document.getElementById('csvBtn').onclick=()=>{let r=[['indicator','value','1d','7d']];document.querySelectorAll('.ind').forEach(c=>{const n=c.querySelector('.iname').textContent.replace('✓','').trim();const v=c.querySelector('.ival').textContent;r.push([n,v])});const csv=r.map(x=>x.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-cycle-indicators.csv';a.click()};
+document.querySelectorAll('.sec-h').forEach(h=>h.onclick=()=>{const n=h.parentElement.nextElementSibling;if(!n)return;const hide=n.style.display==='none';let el=h.parentElement.nextElementSibling;h.querySelector('.chev').style.transform=hide?'':'rotate(-90deg)';while(el&&!el.classList.contains('sec')){el.style.display=hide?'':'none';el=el.nextElementSibling}});
 load();
 </script>
 </body>
