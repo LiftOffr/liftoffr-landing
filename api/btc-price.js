@@ -50,17 +50,31 @@ const TICKER_TO_GECKO = {
 // 200-week MA = average of last 1400 daily closes.
 // Source: CryptoCompare histoday (free, no auth, 1400-day limit works).
 // CoinGecko free is capped at 365d; Binance is geo-blocked from Vercel US.
+// Daily BTC closes from Binance.US (keyless). min-api.cryptocompare.com was
+// retired behind an API key by CoinDesk in 2026, which silently broke the
+// 200W MA + chart. Binance.US paginates 1000/call and has BTCUSDT back to
+// Dec 2020 (~2000 days). Returns ascending [{t(ms), close}].
+async function fetchBinanceDaily(needed) {
+  let candles = [];
+  let endTime = null;
+  while (candles.length < needed) {
+    const url = `https://api.binance.us/api/v3/klines?symbol=BTCUSDT&interval=1d&limit=1000` + (endTime ? `&endTime=${endTime}` : "");
+    const r = await fetch(url, { headers: { Accept: "application/json" } });
+    if (!r.ok) throw new Error(`binance.us klines ${r.status}`);
+    const batch = await r.json();
+    if (!Array.isArray(batch) || batch.length === 0) break;
+    candles = batch.concat(candles);
+    endTime = batch[0][0] - 1;
+    if (batch.length < 1000) break;
+  }
+  return candles
+    .map((c) => ({ t: c[0], close: parseFloat(c[4]) }))
+    .filter((c) => Number.isFinite(c.close) && c.close > 0);
+}
+
 async function fetch200WeekMA() {
-  const r = await fetch(
-    "https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=1400&aggregate=1",
-    { headers: { Accept: "application/json" } }
-  );
-  if (!r.ok) throw new Error(`cryptocompare ma200w ${r.status}`);
-  const data = await r.json();
-  if (data.Response !== "Success") throw new Error(`cryptocompare: ${data.Message || "bad response"}`);
-  const closes = (data.Data?.Data || [])
-    .map((c) => c.close)
-    .filter((v) => Number.isFinite(v) && v > 0);
+  const daily = await fetchBinanceDaily(1400);
+  const closes = daily.map((c) => c.close);
   if (closes.length < 1000) throw new Error(`only ${closes.length} daily closes`);
   const window = closes.slice(-1400);
   const value = window.reduce((s, v) => s + v, 0) / window.length;
@@ -161,16 +175,8 @@ async function fetchCBBI() {
 // per-call limit (2000 days).
 async function fetchBTCHistory(days = 365) {
   const display = Math.min(Math.max(days, 30), 730);
-  const total = Math.min(display + 1400, 2000);
-  const r = await fetch(
-    `https://min-api.cryptocompare.com/data/v2/histoday?fsym=BTC&tsym=USD&limit=${total}&aggregate=1`,
-    { headers: { Accept: "application/json" } }
-  );
-  if (!r.ok) throw new Error(`cryptocompare history ${r.status}`);
-  const data = await r.json();
-  if (data.Response !== "Success") throw new Error(`cryptocompare: ${data.Message || "bad response"}`);
-  const all = (data.Data?.Data || [])
-    .filter((c) => Number.isFinite(c.close) && c.close > 0);
+  const needed = Math.min(display + 1400, 2000);
+  const all = await fetchBinanceDaily(needed); // ascending [{t(ms), close}]
 
   // Compute rolling 200-week MA at every point. For points with < 1400 prior
   // days of data we just return null — Chart.js handles gaps.
@@ -186,7 +192,7 @@ async function fetchBTCHistory(days = 365) {
   // Slice to the display window
   const startIdx = Math.max(0, all.length - display);
   const history = all.slice(startIdx).map((c, i) => ({
-    t: c.time * 1000,
+    t: c.t,
     close: c.close,
     ma200w: ma[startIdx + i],
   }));
