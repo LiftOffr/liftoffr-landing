@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Cycle Dashboard — LiftOffr</title>
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+<style>
+  :root {
+    /* LiftOffr brand palette — refined for cycle dashboard */
+    --bg: #050505;
+    --bg-elev: #0e0e0e;
+    --bg-elev-2: #131313;
+    --bg-elev-3: #1a1a1a;
+    --border: #1e1e1e;
+    --border-strong: #2a2a2a;
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+    --text-faint: #707070;
+    --accent: #e63946;
+    --accent-hover: #d62b3b;
+    --gold: #fbbf24;        /* CBBI / cycle indicators */
+    --gold-dim: #d97706;
+    --green: #34c759;
+    --green-dim: #2da147;
+    --red: #ff453a;
+    --yellow: #ffd60a;
+    --orange: #ff9f0a;
+    --blue: #64d2ff;
+    --purple: #bf5af2;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Menlo', 'Consolas', monospace;
+    /* Scale */
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 20px;
+    --r-xl: 28px;
+    /* Glows for accent states */
+    --glow-green: 0 0 32px rgba(52, 199, 89, 0.25);
+    --glow-gold: 0 0 32px rgba(251, 191, 36, 0.20);
+    --glow-red: 0 0 32px rgba(255, 69, 58, 0.20);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-size: 14px; line-height: 1.5; min-height: 100vh;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.005em;
+  }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .green { color: var(--green); }
+  .red { color: var(--red); }
+  .dim { color: var(--text-dim); }
+  .faint { color: var(--text-faint); }
+
+  /* Top bar — frosted */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+    background: rgba(5,5,5,0.72);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-weight: 800; letter-spacing: 0.5px; color: var(--text); font-size: 16px; text-transform: uppercase; }
+  .logo .accent { color: var(--accent); }
+  .logo-dot { color: var(--accent); }
+  .phase-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 4px; background: var(--bg-elev-2);
+    border: 1px solid var(--border-strong); font-size: 12px; color: var(--text-dim);
+  }
+  .phase-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  /* .price-block / .price-* styles consolidated below in 'Professional touches' block */
+
+  /* Main layout */
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px 48px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+  /* Section heading — replaces card-title for new structure */
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.6px;
+    color: var(--text-faint); text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 4px; }
+  .section-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 20px; }
+
+  /* Cards — softer + more breathing room */
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--r-md);
+    padding: 22px;
+    margin-bottom: 20px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .card:hover {
+    border-color: rgba(255,255,255,0.10);
+  }
+  /* Mini sparklines in stat cards */
+  .stat-with-spark {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .sparkline {
+    width: 80px; height: 40px;
+    opacity: 0.8;
+  }
+  .sparkline path { stroke-width: 1.5; fill: none; }
+  .card-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.9px; color: var(--text-faint); margin-bottom: 16px; font-weight: 600; }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--text-faint); margin-bottom: 6px; font-weight: 600; }
+  .stat-value { font-family: var(--mono); font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+  .stat-sub { font-family: var(--mono); font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Hero NOW section */
+  .hero-now {
+    margin-bottom: 28px;
+    padding: 32px;
+    background:
+      radial-gradient(900px 280px at 100% 0%, rgba(251,191,36,0.07), transparent 60%),
+      radial-gradient(700px 240px at 0% 100%, rgba(230,57,70,0.05), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.0));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--r-lg);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 100px; gap: 32px;
+    align-items: end;
+  }
+  @media (max-width: 1100px) { .hero-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .hero-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.7px;
+    color: var(--text-faint); text-transform: uppercase; margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+  .hero-action {
+    font-size: 32px; font-weight: 700; letter-spacing: -0.6px;
+    line-height: 1.15; margin-bottom: 8px;
+  }
+  .hero-detail { font-size: 14px; color: var(--text-dim); font-family: var(--mono); }
+  .hero-stat-num { font-family: var(--mono); font-size: 38px; font-weight: 700; letter-spacing: -0.8px; line-height: 1; }
+  .hero-stat-sub { font-family: var(--mono); font-size: 12px; color: var(--text-faint); margin-top: 6px; }
+  .hero-bar-track {
+    margin-top: 22px; height: 8px;
+    background: rgba(255,255,255,0.04); border-radius: 100px; overflow: hidden;
+    position: relative;
+  }
+  .hero-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-dim), var(--green), #6ee7b7);
+    border-radius: 100px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 0 12px rgba(52,199,89,0.4);
+  }
+
+  /* CBBI gauge — radial cycle position indicator */
+  .cbbi-gauge {
+    --val: 0;
+    --color: var(--gold);
+    width: 88px; height: 88px;
+    position: relative;
+    border-radius: 50%;
+    background: conic-gradient(from -90deg, var(--color) 0% calc(var(--val) * 100%), rgba(255,255,255,0.06) calc(var(--val) * 100%) 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 24px rgba(0,0,0,0.5);
+  }
+  .cbbi-gauge::after {
+    content: ""; position: absolute; inset: 6px;
+    border-radius: 50%; background: var(--bg-elev);
+  }
+  .cbbi-gauge-inner {
+    position: relative; z-index: 1; text-align: center;
+  }
+  .cbbi-gauge-val { font-family: var(--mono); font-size: 20px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+  .cbbi-gauge-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); margin-top: 4px; font-weight: 600; }
+
+  /* Buy ladder — horizontal tier visualization */
+  .ladder {
+    display: grid; gap: 4px;
+    grid-template-columns: repeat(6, 1fr);
+    margin: 4px 0 8px;
+  }
+  @media (max-width: 800px) { .ladder { grid-template-columns: repeat(3, 1fr); } }
+  .ladder-cell {
+    padding: 14px 12px; border-radius: var(--r-sm);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    text-align: left; position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .ladder-cell.hit { border-color: rgba(52,199,89,0.5); background: rgba(52,199,89,0.06); }
+  .ladder-cell.near { border-color: rgba(255,159,10,0.4); background: rgba(255,159,10,0.04); }
+  .ladder-cell.done { border-color: rgba(52,199,89,0.8); background: rgba(52,199,89,0.12); }
+  .ladder-tier { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; color: var(--text-faint); text-transform: uppercase; }
+  .ladder-amount { font-family: var(--mono); font-size: 20px; font-weight: 700; margin-top: 6px; letter-spacing: -0.4px; }
+  .ladder-price { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+  .ladder-status { font-size: 10px; color: var(--text-faint); margin-top: 8px; }
+  .ladder-progress { height: 3px; background: rgba(255,255,255,0.05); border-radius: 100px; margin-top: 8px; overflow: hidden; }
+  .ladder-progress-fill { height: 100%; background: var(--green); border-radius: 100px; transition: width 0.4s; }
+
+  /* Plan progress */
+  .phase-row {
+    display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+  }
+  .phase-row:last-child { border-bottom: none; }
+  .phase-name { font-size: 13px; font-weight: 500; }
+  .phase-name .small { font-size: 11px; color: var(--text-faint); display: block; }
+  .progress-track { height: 6px; background: var(--bg-elev-2); border-radius: 3px; overflow: hidden; position: relative; }
+  .progress-fill { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.4s; }
+  .progress-fill.partial { background: var(--yellow); }
+  .progress-fill.empty { background: var(--border-strong); }
+  .phase-amount { font-family: var(--mono); font-size: 12px; color: var(--text-dim); text-align: right; min-width: 100px; }
+
+  /* Calendar */
+  .calendar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cal-nav { display: flex; align-items: center; gap: 8px; }
+  .cal-btn {
+    background: var(--bg-elev-3); border: 1px solid var(--border-strong); color: var(--text);
+    padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; font-family: inherit;
+  }
+  .cal-btn:hover { background: var(--border-strong); border-color: var(--accent); }
+  .cal-title { font-size: 16px; font-weight: 700; min-width: 180px; text-align: center; }
+  .cal-monthly-pl { font-family: var(--mono); font-size: 13px; }
+
+  .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-dayname { padding: 6px; font-size: 11px; text-transform: uppercase; color: var(--text-faint); text-align: center; letter-spacing: 0.8px; font-weight: 600; }
+  .cal-cell {
+    aspect-ratio: 1.1 / 1;
+    background: var(--bg-elev-3); border: 1px solid var(--border); border-radius: 6px;
+    padding: 6px; display: flex; flex-direction: column; justify-content: space-between;
+    cursor: pointer; transition: border-color 0.15s, transform 0.1s;
+    position: relative; overflow: hidden;
+  }
+  .cal-cell:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+  .cal-cell.empty { opacity: 0.3; cursor: default; }
+  .cal-cell.has-trade { border-color: var(--green-dim); background: linear-gradient(180deg, rgba(34,197,94,0.08) 0%, var(--bg-elev-3) 100%); }
+  .cal-cell.has-trade.loss { border-color: var(--red); background: linear-gradient(180deg, rgba(239,68,68,0.08) 0%, var(--bg-elev-3) 100%); }
+  .cal-cell.today { box-shadow: inset 0 0 0 2px var(--accent); }
+  .cal-cell.future { opacity: 0.5; cursor: default; }
+  .cal-date { font-size: 11px; color: var(--text-faint); font-weight: 600; }
+  .cal-cell.today .cal-date { color: var(--accent); }
+  .cal-usd { font-family: var(--mono); font-size: 13px; font-weight: 600; }
+  .cal-pl { font-family: var(--mono); font-size: 11px; }
+  .cal-count { position: absolute; top: 4px; right: 4px; font-size: 9px; background: var(--accent); color: white; border-radius: 8px; padding: 1px 5px; line-height: 1.2; font-weight: 700; }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .btn {
+    background: var(--accent); color: white; border: none; padding: 10px 18px;
+    border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;
+    font-family: inherit; transition: background 0.15s, transform 0.1s;
+    text-transform: none; letter-spacing: 0.2px;
+  }
+  .btn:hover { background: var(--accent-hover); transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+  .btn-secondary { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); font-weight: 600; }
+  .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: var(--accent); }
+  .chart-range-btn { font-family: var(--mono); font-weight: 600; opacity: 0.6; }
+  .chart-range-btn.active { background: rgba(230,57,70,0.15); border-color: var(--accent); color: var(--text); opacity: 1; }
+
+  /* Professional touches */
+  .card { box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.02); }
+  .card:hover { border-color: var(--border-strong); transition: border-color 0.2s; }
+  .stat-value { font-feature-settings: "tnum"; }
+  .trigger-row {
+    display: block;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .trigger-row:last-child { border-bottom: none; }
+  .trigger-row strong { color: var(--text); font-weight: 700; letter-spacing: 0.2px; }
+  .trigger-cond { font-family: var(--mono); font-size: 12px; margin-top: 4px; }
+  .trigger-meta { font-size: 11px; color: var(--text-faint); margin-top: 4px; font-weight: 500; }
+  .trigger-row-grid {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    gap: 14px;
+    align-items: start;
+  }
+  .trigger-row-main { min-width: 0; }
+  .trigger-amount { text-align: right; }
+  .trigger-amount-big {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -0.3px;
+  }
+  .trigger-amount-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .tier-progress-track {
+    height: 4px;
+    background: var(--bg-elev-2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid var(--border);
+  }
+  .tier-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-dim), var(--green));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  @media (max-width: 480px) {
+    .trigger-row-grid { grid-template-columns: 1fr; }
+    .trigger-amount { text-align: left; }
+  }
+  .price-block { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .price-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); font-weight: 700; }
+  .price-value { font-family: var(--mono); font-size: 16px; font-weight: 700; }
+  .price-change { font-family: var(--mono); font-size: 12px; font-weight: 600; padding: 2px 6px; border-radius: 4px; }
+  .price-change.green { background: rgba(34,197,94,0.12); color: var(--green); }
+  .price-change.red { background: rgba(239,68,68,0.12); color: var(--red); }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 100;
+    display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: var(--bg-elev); border: 1px solid var(--border-strong); border-radius: 12px;
+    padding: 24px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto;
+  }
+  .modal h2 { font-size: 16px; margin-bottom: 16px; font-weight: 700; }
+  .form-row { margin-bottom: 12px; }
+  .form-row label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-faint); margin-bottom: 5px; font-weight: 600; }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border-strong);
+    border-radius: 6px; padding: 9px 11px; font-size: 14px; font-family: var(--mono);
+    transition: border-color 0.15s;
+  }
+  .form-row textarea { font-family: 'Inter', inherit; resize: vertical; min-height: 60px; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--accent); }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; }
+
+  /* Trade list */
+  .trade-list { max-height: 400px; overflow-y: auto; }
+  .trade-row {
+    display: grid; grid-template-columns: 90px 70px 1fr 90px 80px 80px auto;
+    gap: 8px; align-items: center; padding: 10px 8px; border-bottom: 1px solid var(--border);
+    font-size: 13px; font-family: var(--mono);
+  }
+  .trade-row:hover { background: var(--bg-elev-2); }
+  .trade-source { font-size: 11px; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; text-align: center; font-family: inherit; }
+  .trade-source.coinbase { background: rgba(230,57,70,0.15); color: var(--accent); }
+  .trade-source.strike { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .trade-source.river { background: rgba(34,197,94,0.15); color: var(--green); }
+  .trade-source.kraken { background: rgba(251,191,36,0.15); color: var(--yellow); }
+  .trade-source.manual { background: rgba(255,255,255,0.06); color: var(--text-dim); }
+  .trade-pl-pos { color: var(--green); }
+  .trade-pl-neg { color: var(--red); }
+  .trade-del { background: none; border: none; color: var(--text-faint); cursor: pointer; padding: 2px 6px; }
+  .trade-del:hover { color: var(--red); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .tab {
+    padding: 8px 14px; cursor: pointer; font-size: 13px; color: var(--text-dim);
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+  }
+  .tab.active { color: var(--text); border-bottom-color: var(--accent); }
+  .tab:hover { color: var(--text); }
+
+  /* Triggers list — styles consolidated below in 'Professional touches' block */
+
+  /* Empty state */
+  .empty { padding: 24px; text-align: center; color: var(--text-faint); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="https://liftoffr.com/" aria-label="LiftOffr home" style="text-decoration:none;display:inline-flex;align-items:center;gap:10px;">
+      <span class="lo-logo lo-md"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span>
+      <span style="color:var(--text-dim);font-weight:500;font-size:13px;">Cycle Dashboard</span>
+    </a>
+    <div class="phase-badge"><span class="dot"></span> <span id="currentPhase">Loading...</span></div>
+  </div>
+  <div class="price-block">
+    <span class="price-label">BTC</span>
+    <span class="price-value" id="btcPrice">—</span>
+    <span class="price-change" id="btcChange">—</span>
+    <span class="price-label" style="margin-left:18px;" title="200-week MA — Cowen's 'level of destiny'. Touched at every cycle bottom since 2015.">200W MA</span>
+    <span class="price-value" id="ma200wValue" style="font-size:14px;">—</span>
+    <span class="price-change" id="ma200wDelta">—</span>
+    <span class="price-label" style="margin-left:18px;" title="CBBI Confidence — ColinTalksCrypto Bitcoin Bull Run Index. Composite of 11 indicators. >0.85=top zone, <0.20=bottom zone.">CBBI</span>
+    <span class="price-value" id="cbbiValue" style="font-size:14px;">—</span>
+    <span class="price-change" id="cbbiZone">—</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Live Coinbase wallet -->
+  <div class="card" id="balanceCard" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">Coinbase Wallet</div>
+        <div style="font-size:12px;color:var(--text-faint);">Live balance · auto-refresh every 2 min</div>
+      </div>
+      <button class="btn btn-secondary" id="refreshBalanceBtn" style="padding:5px 12px;font-size:11px;">↻ Refresh</button>
+    </div>
+
+    <!-- Portfolio summary row -->
+    <div class="grid-3" style="margin-bottom:16px;">
+      <div>
+        <div class="stat-label">Total Portfolio</div>
+        <div class="stat-value num" id="cbTotalPortfolio">—</div>
+        <div class="stat-sub" id="cbTotalBreakdown">—</div>
+      </div>
+      <div>
+        <div class="stat-label">Deployment Cash</div>
+        <div class="stat-value num green" id="cbCash">—</div>
+        <div class="stat-sub" id="cbCashRemaining">—</div>
+      </div>
+      <div>
+        <div class="stat-label">BTC Holdings</div>
+        <div class="stat-value num" id="cbBtcStack">—</div>
+        <div class="stat-sub" id="cbBtcValue">—</div>
+      </div>
+    </div>
+
+    <!-- Reconciliation -->
+    <div id="reconcileBlock" style="padding:10px 12px;background:var(--bg-elev-2);border-radius:6px;font-size:13px;margin-bottom:12px;"></div>
+
+    <!-- Full balance table -->
+    <div class="stat-label" style="margin-top:14px;margin-bottom:8px;">All balances</div>
+    <div id="cbBalanceTable" style="font-family:var(--mono);font-size:13px;"></div>
+  </div>
+
+  <!-- ════════ HERO NOW — single-glance "what to do today" ════════ -->
+  <div class="hero-now">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow"><span id="heroPhase">Phase 1 — Bear Grind</span></div>
+        <div class="hero-action" id="heroAction">Loading next action…</div>
+        <div class="hero-detail" id="heroDetail">—</div>
+      </div>
+      <div>
+        <div class="hero-eyebrow">Capital Deployed</div>
+        <div class="hero-stat-num"><span id="heroDeployed">$0</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ $145K</span></div>
+        <div class="hero-stat-sub"><span id="heroRemaining">$145,182</span> remaining · <span id="heroDeployedPct">0%</span> deployed</div>
+      </div>
+      <div>
+        <div class="hero-eyebrow">BTC Stack</div>
+        <div class="hero-stat-num"><span id="heroBtc">0.000</span> <span style="color:var(--text-faint);font-size:18px;font-weight:500;">/ 2.40</span></div>
+        <div class="hero-stat-sub">target stack at avg ~$60K basis</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+        <div class="cbbi-gauge" id="cbbiGauge" style="--val: 0; --color: var(--gold);" title="CBBI Confidence — cycle position">
+          <div class="cbbi-gauge-inner">
+            <div class="cbbi-gauge-val" id="cbbiGaugeVal">—</div>
+            <div class="cbbi-gauge-label" id="cbbiGaugeLabel">CBBI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-bar-track"><div class="hero-bar-fill" id="heroBar" style="width:0%;"></div></div>
+    <div id="heroDebug" style="margin-top:12px;font-family:var(--mono);font-size:10px;color:var(--text-faint);line-height:1.5;display:none;"></div>
+  </div>
+
+  <!-- (Buy Ladder follows below) -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:0;">Buy Ladder</div>
+        <div style="font-size:12px;color:var(--text-faint);margin-top:3px;">5 lump tiers + DCA backbone · trigger prices recalibrate live off the 200W MA</div>
+      </div>
+    </div>
+    <div class="ladder" id="ladder"></div>
+  </div>
+
+  <!-- ════════ PROJECTED BOTTOM — Cowen-leaning weighted scenarios ════════ -->
+  <div class="card">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">Projected Bottom</div>
+        <div style="font-size:12px;color:var(--text-faint);">Cowen-leaning weights · adjusts live as CBBI components evolve</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:var(--mono);font-size:36px;font-weight:700;letter-spacing:-0.8px;line-height:1;" id="bottomMid">—</div>
+        <div style="font-family:var(--mono);font-size:11px;color:var(--text-faint);margin-top:6px;">weighted avg · 70% CI <span id="bottomCI">—</span></div>
+      </div>
+    </div>
+    <div id="bottomScenarios" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;"></div>
+    <div id="bottomSignals" style="margin-top:14px;font-size:11px;color:var(--text-faint);font-family:var(--mono);line-height:1.6;"></div>
+  </div>
+
+  <!-- Live BTC Chart with MA + Buy Levels -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">BTC · 200W MA · Buy Levels</div>
+        <div style="font-size:12px;color:var(--text-faint);">Dashed green lines recalibrate live off the 200W MA</div>
+      </div>
+      <div style="display:flex;gap:6px;" id="chartRangeButtons">
+        <button class="btn btn-secondary chart-range-btn" data-days="90" style="padding:5px 12px;font-size:11px;">3M</button>
+        <button class="btn btn-secondary chart-range-btn active" data-days="365" style="padding:5px 12px;font-size:11px;">1Y</button>
+        <button class="btn btn-secondary chart-range-btn" data-days="730" style="padding:5px 12px;font-size:11px;">2Y</button>
+      </div>
+    </div>
+    <!-- Period stats above chart -->
+    <div id="chartStats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;font-family:var(--mono);">
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Period Open</div><div style="font-size:16px;font-weight:700;margin-top:2px;" id="periodOpen">—</div></div>
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Period High</div><div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--green);" id="periodHigh">—</div></div>
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Period Low</div><div style="font-size:16px;font-weight:700;margin-top:2px;color:var(--red);" id="periodLow">—</div></div>
+      <div><div style="font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;font-weight:600;">Change</div><div style="font-size:16px;font-weight:700;margin-top:2px;" id="periodChange">—</div></div>
+    </div>
+    <div style="position:relative;height:420px;"><canvas id="btcChart"></canvas></div>
+    <div style="margin-top:12px;font-size:11px;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+      <span><span style="display:inline-block;width:14px;height:2px;background:#ffffff;vertical-align:middle;margin-right:5px;"></span>BTC daily close</span>
+      <span><span style="display:inline-block;width:14px;height:2px;background:#fbbf24;vertical-align:middle;margin-right:5px;"></span>200-week MA (rolling)</span>
+      <span><span style="display:inline-block;width:14px;height:0;border-top:1.5px dashed #34c759;vertical-align:middle;margin-right:5px;"></span>Buy tier triggers (T1–T5, live)</span>
+      <span><span style="display:inline-block;width:14px;height:0;border-top:1px dotted #e63946;vertical-align:middle;margin-right:5px;"></span>Avg cost basis</span>
+      <span><span style="display:inline-block;width:8px;height:8px;background:#34c759;border-radius:50%;vertical-align:middle;margin-right:5px;"></span>Your buys</span>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Plan progress -->
+    <div class="card">
+      <div class="section-title" style="font-size:18px;margin-bottom:14px;">Cycle Phases</div>
+      <div id="phaseList"></div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;font-size:13px;">
+        <span class="dim">Total deployed</span>
+        <span class="num" id="totalDeployed">$0 / $145,182</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-top:6px;">
+        <span class="dim">Target stack</span>
+        <span class="num"><span id="currentStackTowardsTarget">0.000</span> / 2.40 BTC</span>
+      </div>
+    </div>
+
+    <!-- Next trigger -->
+    <div class="card">
+      <div class="section-title" style="font-size:18px;margin-bottom:14px;">Upcoming Triggers</div>
+      <div id="triggerList"></div>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div class="card">
+    <div class="section-title" style="font-size:18px;margin-bottom:14px;">Activity Calendar</div>
+    <div class="calendar-header">
+      <div class="cal-nav">
+        <button class="cal-btn" id="calPrev">←</button>
+        <div class="cal-title" id="calTitle">May 2026</div>
+        <button class="cal-btn" id="calNext">→</button>
+        <button class="cal-btn" id="calToday">Today</button>
+      </div>
+      <div class="cal-monthly-pl"><span class="dim">Month P/L: </span><span id="monthPL">$0.00</span></div>
+    </div>
+    <div class="calendar" id="calendar"></div>
+    <div class="btn-row">
+      <button class="btn" id="syncCoinbaseBtn">⟳ Sync Coinbase</button>
+      <button class="btn btn-secondary" id="addTradeBtn">+ Manual Trade</button>
+      <button class="btn btn-secondary" id="importBtn">Import CSV</button>
+      <button class="btn btn-secondary" id="exportBtn">Export JSON</button>
+      <button class="btn btn-secondary" id="seedBtn" style="margin-left:auto;">Reset</button>
+    </div>
+    <div id="syncStatus" style="margin-top:10px;font-size:12px;color:var(--text-faint);"></div>
+  </div>
+
+  <!-- ════════ Stack stats — secondary detail ════════ -->
+  <div class="section-eyebrow" style="margin-top:32px;">Position Detail</div>
+  <div class="grid-4">
+    <div class="card" style="margin-bottom:0">
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">Total BTC</div>
+          <div class="stat-value num" id="totalBtc">0.0000</div>
+          <div class="stat-sub" id="totalBtcSats">— sats</div>
+        </div>
+        <svg class="sparkline" id="sparkBtc" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#34c759"/></svg>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">Invested (plan period)</div>
+          <div class="stat-value num" id="totalInvested">$0</div>
+          <div class="stat-sub" id="totalTrades">0 trades</div>
+        </div>
+        <svg class="sparkline" id="sparkInvested" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#64d2ff"/></svg>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">Current Value</div>
+          <div class="stat-value num" id="currentValue">$0</div>
+          <div class="stat-sub" id="avgCost">Avg cost: —</div>
+        </div>
+        <svg class="sparkline" id="sparkValue" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#fbbf24"/></svg>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="stat-with-spark">
+        <div>
+          <div class="stat-label">P/L (plan period)</div>
+          <div class="stat-value num" id="unrealizedPL">—</div>
+          <div class="stat-sub" id="unrealizedPLPct">—</div>
+        </div>
+        <svg class="sparkline" id="sparkPL" viewBox="0 0 80 40" preserveAspectRatio="none"><path stroke="#34c759"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow" style="margin-top:32px;">Site Performance</div>
+  <!-- Site Analytics (GA4 + Clarity) -->
+  <div class="card" id="analyticsCard" style="display:none;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div class="section-title" style="font-size:18px;margin-bottom:2px;">Site Analytics</div>
+        <div style="font-size:12px;color:var(--text-faint);">GA4 + Clarity · last 30 days</div>
+      </div>
+      <button class="btn btn-secondary" id="refreshAnalyticsBtn" style="padding:5px 12px;font-size:11px;">↻ Refresh</button>
+    </div>
+
+    <div class="grid-4" id="analyticsKpis" style="margin-bottom:16px;"></div>
+
+    <div class="grid-2" style="gap:16px;">
+      <div>
+        <div class="stat-label">Top traffic sources</div>
+        <div id="analyticsTraffic" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+      </div>
+      <div>
+        <div class="stat-label">Top pages</div>
+        <div id="analyticsPages" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+      </div>
+    </div>
+
+    <div class="stat-label" style="margin-top:16px;">Funnel events</div>
+    <div id="analyticsFunnel" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+
+    <div class="stat-label" style="margin-top:16px;">Clarity (last 3 days)</div>
+    <div id="analyticsClarity" style="margin-top:8px;font-family:var(--mono);font-size:12px;"></div>
+
+    <div class="stat-label" style="margin-top:16px;">Google Search Console — last 90 days</div>
+    <div class="grid-2" style="margin-top:8px;font-family:var(--mono);font-size:12px;">
+      <div>
+        <div style="font-size:11px;color:var(--text-faint);margin-bottom:4px;">Top queries</div>
+        <div id="gscQueries"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-faint);margin-bottom:4px;">Top pages</div>
+        <div id="gscPages"></div>
+      </div>
+    </div>
+    <div id="gscSitemap" style="margin-top:10px;font-size:11px;color:var(--text-faint);"></div>
+
+    <div id="analyticsErr" style="margin-top:12px;font-size:12px;color:var(--text-faint);"></div>
+  </div>
+
+  <!-- Trade list -->
+  <div class="card">
+    <div class="card-title">All Trades</div>
+    <div class="trade-list" id="tradeList"></div>
+  </div>
+
+</div>
+
+<!-- Add Trade Modal -->
+<div class="modal-bg" id="addTradeModal">
+  <div class="modal">
+    <h2 id="modalTitle">Add Trade</h2>
+    <form id="tradeForm">
+      <input type="hidden" id="tradeId">
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label>Date</label>
+          <input type="date" id="tradeDate" required>
+        </div>
+        <div class="form-row">
+          <label>Source</label>
+          <select id="tradeSource" required>
+            <option value="coinbase">Coinbase</option>
+            <option value="strike">Strike</option>
+            <option value="river">River</option>
+            <option value="kraken">Kraken</option>
+            <option value="manual">Other / Manual</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label>Type</label>
+          <select id="tradeType" required>
+            <option value="buy">Buy</option>
+            <option value="sell">Sell</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>USD</label>
+          <input type="number" id="tradeUsd" step="0.01" min="0" required placeholder="0.00">
+        </div>
+      </div>
+      <div class="form-grid-2">
+        <div class="form-row">
+          <label>BTC Amount</label>
+          <input type="number" id="tradeBtc" step="0.00000001" min="0" required placeholder="0.00000000">
+        </div>
+        <div class="form-row">
+          <label>Price/BTC (auto)</label>
+          <input type="number" id="tradePrice" step="0.01" readonly>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Notes (optional)</label>
+        <textarea id="tradeNotes" placeholder="Phase 1 Tier 1, capitulation amp, etc."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="cancelTradeBtn">Cancel</button>
+        <button type="submit" class="btn">Save Trade</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div class="modal-bg" id="importModal">
+  <div class="modal">
+    <h2>Import Trades</h2>
+    <p style="color:var(--text-dim); font-size:13px; margin-bottom:12px;">
+      Paste CSV from Coinbase, Strike, or River. Or paste JSON exported earlier.
+    </p>
+    <div class="form-row">
+      <label>CSV / JSON</label>
+      <textarea id="importText" rows="10" style="font-family:var(--mono);font-size:12px;" placeholder="Timestamp,Type,Asset,Quantity Transacted,Subtotal,Total..."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Default Source (used if not detected)</label>
+      <select id="importSource">
+        <option value="coinbase">Coinbase</option>
+        <option value="strike">Strike</option>
+        <option value="river">River</option>
+        <option value="kraken">Kraken</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" id="cancelImportBtn">Cancel</button>
+      <button type="button" class="btn" id="runImportBtn">Import</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// =============================================================================
+// LiftOffr Cycle Dashboard
+// All data lives in localStorage. Export JSON regularly as backup.
+// =============================================================================
+
+const STORAGE_KEY = "liftoffr-cycle-dash-v1";
+const FMT_USD0 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const FMT_USD2 = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
+const FMT_BTC = new Intl.NumberFormat("en-US", { minimumFractionDigits: 4, maximumFractionDigits: 8 });
+const FMT_PCT = new Intl.NumberFormat("en-US", { style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 2 });
+
+// --- Plan config — Cowen-aligned hedged ~$145K deployment (revised 2026-05-29) ---
+// Every lump tier has a PRICE trigger (Cowen path) AND a TIME fallback (anti-Cowen path).
+// Capital sources:
+//   $127,182 existing USDC on Coinbase
+//   + $2,000/mo × 9 months paycheck surplus = $18,000 fresh capital
+//   = ~$145,182 total budget
+// DCA runs as TWO daily API-automated buys, ~$138/day combined:
+//   #1: $71/day BTC-USDC from USDC wallet (Coinbase v3 Advanced Trade)
+//   #2: $67/day BTC from linked bank (Coinbase v2 Simple Buy, bank-funded)
+// Both fired by Vercel cron at 8am MT daily. Total ~$38K over ~280 days.
+const PLAN = {
+  totalBudget: 145182,
+  targetBTC: 2.40,
+  targetExitPrice: 170000,
+  // DCA backbone: $500/wk × 40 weeks from May 28 2026 → early Mar 2027 = $20,000 total.
+  // Distributed across Phases 1-3 by weeks-in-phase. Each phase budget = lump tiers + DCA share.
+  //
+  // LIVE-ADJUSTING TIER PRICES: tiers with `maMultiple` recompute their trigger off the
+  // current 200-week MA at render time. As the MA rises, triggers rise with it — locked
+  // to historical penetration patterns rather than absolute dollar levels.
+  //   1.10x  = modest premium to MA (bear-rally fail confirmation)
+  //   0.97x  = light wick (2015-style touch + reclaim)
+  //   0.85x  = moderate penetration (2019-style, weeks below)
+  //   0.73x  = flash penetration (2020 COVID-style, days below)
+  //   0.62x  = deep penetration (2022-style, months below)
+  // `targetPrice` is the static fallback if MA hasn't loaded yet.
+  phases: [
+    // DCA = $135/day × ~91 days = $12,500 (Bear Grind)
+    { id: "p1", name: "Phase 1 — Bear Grind (Cowen window of weakness)", start: "2026-05-28", end: "2026-08-31", budget: 42500, lumpTiers: [
+      { tier: "IMMEDIATE", trigger: "Fire today @ market — Cowen-wrong hedge", target: 15000, targetPrice: 73000, fallbackDate: "2026-05-28" },
+      { tier: "T1", trigger: "200W MA × 1.10 — bear-band fail follow-through", target: 15000, targetPrice: 68000, maMultiple: 1.10, fallbackDate: "2026-07-31" },
+      { tier: "DCA-P1", trigger: "Always-on $138/day (API cron auto-fires daily) × ~96 days", target: 12500, targetPrice: null, fallbackDate: null },
+    ]},
+    // Phase 2 = Cowen's stated capitulation window. He's repeatedly called
+    // "final drop September-October" — this phase covers Sept→Dec with T2
+    // (his $60K base case) and T3 ($52K secondary) firing during the heart
+    // of his expected bottom window.
+    { id: "p2", name: "Phase 2 — Capitulation (Cowen Sept-Oct)", start: "2026-09-01", end: "2026-12-31", budget: 70700, lumpTiers: [
+      { tier: "T2", trigger: "200W MA × 0.97 — touch + reclaim (Cowen base case)", target: 28000, targetPrice: 60000, maMultiple: 0.97, fallbackDate: "2026-09-30" },
+      { tier: "T3", trigger: "200W MA × 0.85 — moderate penetration (Cowen secondary)", target: 26200, targetPrice: 52000, maMultiple: 0.85, fallbackDate: "2026-11-30" },
+      { tier: "DCA-P2", trigger: "Always-on $138/day (API cron auto-fires daily) × ~122 days", target: 16500, targetPrice: null, fallbackDate: null },
+    ]},
+    // Phase 3 = post-bottom early recovery. Cowen's bottom (Sept-Oct 2026)
+    // is behind us by now; T4/T5 fire only if we got a delayed capitulation
+    // or deeper-than-expected flush. DCA ends ~Mar 1, 2027.
+    { id: "p3", name: "Phase 3 — Post-Bottom Recovery", start: "2027-01-01", end: "2027-03-31", budget: 32000, lumpTiers: [
+      { tier: "T4", trigger: "200W MA × 0.73 — deep stretch (Cowen's $48K)", target: 15000, targetPrice: 45000, maMultiple: 0.73, fallbackDate: "2027-01-31" },
+      { tier: "T5", trigger: "200W MA × 0.65 — Cowen's stated extreme (~$40K · May 17 video)", target: 8000, targetPrice: 40000, maMultiple: 0.65, fallbackDate: "2027-03-31" },
+      { tier: "DCA-P3", trigger: "Always-on $138/day (API cron auto-fires daily) × ~60 days (ends early March)", target: 9000, targetPrice: null, fallbackDate: null },
+    ]},
+    { id: "p4", name: "Phase 4 — Bull Hold (post-halving 2028)", start: "2027-04-01", end: "2029-05-31", budget: 0, lumpTiers: [] },
+    { id: "p5", name: "Phase 5 — Distribution", start: "2029-06-01", end: "2029-12-31", budget: 0, lumpTiers: [
+      { tier: "S1", trigger: "Sell 40% — CBBI 85 OR first V7 TOP", target: 0, sellPct: 40, targetPrice: 155000 },
+      { tier: "S2", trigger: "Sell 30% — two V7 TOPs fire", target: 0, sellPct: 30, targetPrice: 170000 },
+      { tier: "S3", trigger: "Sell 20% — all V7 TOPs + CBBI ≥ 90", target: 0, sellPct: 20, targetPrice: 185000 },
+      { tier: "S4", trigger: "Sell 10% — trailing stop / blow-off", target: 0, sellPct: 10, targetPrice: 200000 },
+    ]},
+  ],
+};
+
+// --- State ---
+let STATE = loadState();
+let LIVE_PRICE = null;
+let CAL_DATE = new Date();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (_) {}
+  return { trades: [], settings: {} };
+}
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE));
+}
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+
+// --- Coinbase live balance ---
+let CB_BALANCE = null;
+async function fetchBalance() {
+  try {
+    const r = await fetch("/api/coinbase-balance");
+    if (!r.ok) return;
+    const d = await r.json();
+    CB_BALANCE = d;
+    renderBalance();
+    // Now that we know which alts are in the balance, refresh prices to include them
+    fetchPrice();
+  } catch (e) { console.error("balance fetch failed", e); }
+}
+
+// Stablecoins counted as cash for deployment
+const STABLE_TICKERS = new Set(["USD", "USDC", "USDT", "PYUSD", "DAI"]);
+
+function renderBalance() {
+  if (!CB_BALANCE) return;
+  document.getElementById("balanceCard").style.display = "block";
+
+  const balances = (CB_BALANCE.allBalances || []).map((b) => ({
+    ...b,
+    total: (b.available || 0) + (b.hold || 0),
+  })).filter((b) => b.total > 0.0001 || b.currency === "BTC");
+
+  // Cash bucket
+  const cash = balances
+    .filter((b) => STABLE_TICKERS.has(b.currency))
+    .reduce((s, b) => s + b.total, 0);
+
+  // BTC bucket
+  const btcRow = balances.find((b) => b.currency === "BTC");
+  const btcAmt = btcRow ? btcRow.total : 0;
+  const btcValue = LIVE_PRICE ? btcAmt * LIVE_PRICE : 0;
+
+  // Other crypto bucket — use live alt prices from /api/btc-price?ids=
+  const others = balances.filter(
+    (b) => !STABLE_TICKERS.has(b.currency) && b.currency !== "BTC"
+  );
+  const altsValue = others.reduce((s, b) => {
+    const p = PRICES[b.currency];
+    return s + (p && typeof p.usd === "number" ? b.total * p.usd : 0);
+  }, 0);
+
+  const portfolioTotal = cash + btcValue + altsValue;
+  document.getElementById("cbTotalPortfolio").textContent = FMT_USD0.format(portfolioTotal);
+  document.getElementById("cbTotalBreakdown").textContent =
+    `${FMT_USD0.format(cash)} cash · ${FMT_USD0.format(btcValue)} BTC` +
+    (altsValue > 0.5 ? ` · ${FMT_USD0.format(altsValue)} alts` : "");
+
+  document.getElementById("cbCash").textContent = FMT_USD0.format(cash);
+  // Show cash status vs $120k deployment budget
+  const deployed = STATE.trades
+    .filter((t) => t.source === "coinbase" && t.type === "buy")
+    .reduce((s, t) => s + Number(t.usd || 0), 0);
+  const budget = PLAN.totalBudget;
+  const pctDeployed = budget > 0 ? Math.min(100, (deployed / budget) * 100) : 0;
+  document.getElementById("cbCashRemaining").innerHTML =
+    `<span class="dim">Deployed ${FMT_USD0.format(deployed)} / ${FMT_USD0.format(budget)} (${pctDeployed.toFixed(0)}%)</span>`;
+
+  document.getElementById("cbBtcStack").textContent = btcAmt.toFixed(8) + " BTC";
+  document.getElementById("cbBtcValue").textContent = LIVE_PRICE
+    ? "= " + FMT_USD0.format(btcValue)
+    : "";
+
+  // Reconciliation
+  const tradedBtc = STATE.trades
+    .filter((t) => t.source === "coinbase")
+    .reduce((s, t) => s + (t.type === "buy" ? Number(t.btc || 0) : -Number(t.btc || 0)), 0);
+  const diff = btcAmt - tradedBtc;
+  const rec = document.getElementById("reconcileBlock");
+  if (Math.abs(diff) < 1e-7) {
+    rec.innerHTML = `<span class="green">✓ Reconciled</span> · <span class="dim">Trade history matches Coinbase balance perfectly</span>`;
+  } else if (diff > 0) {
+    rec.innerHTML = `<span style="color:var(--yellow)">⚠ ${diff.toFixed(8)} BTC on Coinbase not in trade history</span> · <span class="dim">Likely a Simple Buy, transfer-in, or learn reward not synced through Advanced Trade</span>`;
+  } else {
+    rec.innerHTML = `<span style="color:var(--yellow)">⚠ Trades show ${(-diff).toFixed(8)} BTC more than Coinbase balance</span> · <span class="dim">Possible withdrawal not captured</span>`;
+  }
+
+  // Full balance table
+  const table = document.getElementById("cbBalanceTable");
+  if (balances.length === 0) {
+    table.innerHTML = `<div class="dim">No balances detected.</div>`;
+  } else {
+    const usdValueOf = (b) => {
+      if (STABLE_TICKERS.has(b.currency)) return b.total;
+      if (b.currency === "BTC") return btcValue;
+      const p = PRICES[b.currency];
+      return p && typeof p.usd === "number" ? b.total * p.usd : 0;
+    };
+    const sorted = [...balances].sort((a, b) => usdValueOf(b) - usdValueOf(a));
+    table.innerHTML = sorted.map((b) => {
+      const usdVal = usdValueOf(b);
+      const hasPrice = STABLE_TICKERS.has(b.currency) || b.currency === "BTC" || (PRICES[b.currency] && typeof PRICES[b.currency].usd === "number");
+      const usdEq = hasPrice && usdVal > 0
+        ? FMT_USD2.format(usdVal)
+        : `<span class="dim">no price</span>`;
+      const altPrice = (!STABLE_TICKERS.has(b.currency) && PRICES[b.currency]) ? PRICES[b.currency].usd : null;
+      const priceHint = altPrice ? `<span class="dim" style="font-size:11px;"> @ ${FMT_USD2.format(altPrice)}</span>` : "";
+      const qty = b.currency === "BTC"
+        ? b.total.toFixed(8)
+        : b.total.toLocaleString(undefined, { maximumFractionDigits: 4 });
+      const tag = STABLE_TICKERS.has(b.currency)
+        ? `<span class="trade-source" style="background:rgba(0,230,118,0.15);color:var(--green);">CASH</span>`
+        : b.currency === "BTC"
+          ? `<span class="trade-source" style="background:rgba(247,147,26,0.2);color:#f7931a;">BTC</span>`
+          : `<span class="trade-source" style="background:rgba(255,255,255,0.06);color:var(--text-dim);">ALT</span>`;
+      return `<div style="display:grid;grid-template-columns:80px 1fr 160px 160px;gap:10px;padding:6px 0;border-bottom:1px solid var(--border);align-items:center;">
+        <div>${tag}</div>
+        <div>${b.currency}<span class="dim" style="margin-left:8px;font-size:11px;">${b.name || ""}</span>${priceHint}</div>
+        <div style="text-align:right;">${qty}</div>
+        <div style="text-align:right;font-weight:600;">${usdEq}</div>
+      </div>`;
+    }).join("");
+  }
+}
+
+document.getElementById("refreshBalanceBtn").addEventListener("click", () => {
+  document.getElementById("refreshBalanceBtn").textContent = "↻ Refreshing...";
+  fetchBalance().finally(() => {
+    document.getElementById("refreshBalanceBtn").textContent = "↻ Refresh";
+  });
+});
+
+// --- Site Analytics ---
+async function fetchAnalytics() {
+  const card = document.getElementById("analyticsCard");
+  const errEl = document.getElementById("analyticsErr");
+  errEl.textContent = "";
+  try {
+    const [traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps] = await Promise.all([
+      fetch("/api/analytics-ga4?report=traffic").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=pages").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=events").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=funnel").then(r => r.json()),
+      fetch("/api/analytics-clarity?days=3").then(r => r.json()).catch(() => ({ error: "Clarity unavailable" })),
+      fetch("/api/analytics-gsc?report=queries&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-gsc?report=pages&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-gsc?report=sitemaps").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+    ]);
+    card.style.display = "block";
+    renderAnalytics({ traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps });
+  } catch (e) {
+    card.style.display = "block";
+    errEl.textContent = "Analytics fetch failed: " + e.message;
+  }
+}
+
+function ga4Rows(d) {
+  if (!d || !d.rows) return [];
+  const dims = (d.dimensionHeaders || []).map(h => h.name);
+  const mets = (d.metricHeaders || []).map(h => h.name);
+  return d.rows.map(r => {
+    const out = {};
+    (r.dimensionValues || []).forEach((v, i) => out[dims[i] || `d${i}`] = v.value);
+    (r.metricValues || []).forEach((v, i) => out[mets[i] || `m${i}`] = v.value);
+    return out;
+  });
+}
+
+function renderAnalytics({ traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps }) {
+  // KPIs from traffic report
+  const trows = ga4Rows(traffic);
+  const totals = trows.reduce((acc, r) => {
+    acc.sessions += parseInt(r.sessions || "0", 10);
+    acc.users += parseInt(r.totalUsers || "0", 10);
+    acc.engaged += parseFloat(r.engagementRate || "0") * parseInt(r.sessions || "0", 10);
+    return acc;
+  }, { sessions: 0, users: 0, engaged: 0 });
+  const engRate = totals.sessions > 0 ? (totals.engaged / totals.sessions) : 0;
+
+  const erows = ga4Rows(events);
+  const eventTotal = erows.reduce((s, r) => s + parseInt(r.eventCount || "0", 10), 0);
+
+  const kpis = document.getElementById("analyticsKpis");
+  kpis.innerHTML = `
+    <div><div class="stat-label">Sessions</div><div class="stat-value num">${totals.sessions.toLocaleString()}</div></div>
+    <div><div class="stat-label">Unique users</div><div class="stat-value num">${totals.users.toLocaleString()}</div></div>
+    <div><div class="stat-label">Engagement rate</div><div class="stat-value num">${(engRate * 100).toFixed(1)}%</div></div>
+    <div><div class="stat-label">Events fired</div><div class="stat-value num">${eventTotal.toLocaleString()}</div></div>
+  `;
+
+  // Traffic sources
+  const tEl = document.getElementById("analyticsTraffic");
+  tEl.innerHTML = trows.length === 0
+    ? '<div class="dim">No data.</div>'
+    : trows.slice(0, 10).map(r => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span>${r.sessionSourceMedium}</span><span class="num">${parseInt(r.sessions).toLocaleString()}</span></div>`).join("");
+
+  // Top pages
+  const prows = ga4Rows(pages);
+  const pEl = document.getElementById("analyticsPages");
+  pEl.innerHTML = prows.length === 0
+    ? '<div class="dim">No data.</div>'
+    : prows.slice(0, 10).map(r => `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%">${r.pagePath}</span><span class="num">${parseInt(r.screenPageViews).toLocaleString()}</span></div>`).join("");
+
+  // Funnel events
+  const frows = ga4Rows(funnel);
+  const fEl = document.getElementById("analyticsFunnel");
+  fEl.innerHTML = frows.length === 0
+    ? '<div class="dim">No custom funnel events fired yet (cta_clicked, begin_trial, trial_converted, etc.). Check that track() calls match expected event names.</div>'
+    : '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;">' +
+      frows.map(r => `<div style="background:var(--bg-elev-2);padding:8px 10px;border-radius:6px;"><div class="dim" style="font-size:11px;">${r.eventName}</div><div class="num" style="font-weight:600;">${parseInt(r.eventCount).toLocaleString()}</div></div>`).join("") +
+      '</div>';
+
+  // GSC — queries
+  const qEl = document.getElementById("gscQueries");
+  if (gscQueries && gscQueries.error) {
+    qEl.innerHTML = `<div class="dim">${gscQueries.error}</div>`;
+  } else if (gscQueries && Array.isArray(gscQueries.rows) && gscQueries.rows.length > 0) {
+    qEl.innerHTML = gscQueries.rows.slice(0, 10).map(r =>
+      `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%">${r.keys[0]}</span><span class="num">${r.clicks}c · ${r.impressions}i</span></div>`
+    ).join("");
+  } else {
+    qEl.innerHTML = '<div class="dim">No search queries yet — site hasn\'t earned organic rankings.</div>';
+  }
+  // GSC — pages
+  const gpEl = document.getElementById("gscPages");
+  if (gscPages && gscPages.error) {
+    gpEl.innerHTML = `<div class="dim">${gscPages.error}</div>`;
+  } else if (gscPages && Array.isArray(gscPages.rows) && gscPages.rows.length > 0) {
+    gpEl.innerHTML = gscPages.rows.slice(0, 10).map(r => {
+      const p = r.keys[0].replace(/^https?:\/\/(www\.)?liftoffr\.com/, "") || "/";
+      return `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border);"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%">${p}</span><span class="num">${r.clicks}c · ${r.impressions}i</span></div>`;
+    }).join("");
+  } else {
+    gpEl.innerHTML = '<div class="dim">No indexed pages getting search impressions.</div>';
+  }
+  // Sitemap status
+  const smEl = document.getElementById("gscSitemap");
+  if (gscSitemaps && Array.isArray(gscSitemaps.sitemap) && gscSitemaps.sitemap.length > 0) {
+    smEl.innerHTML = gscSitemaps.sitemap.map(sm => {
+      const counts = (sm.contents || []).map(c => `${c.submitted}/${c.indexed} indexed`).join(", ");
+      return `Sitemap: <span class="num">${sm.path}</span> · ${counts || "—"} · errors ${sm.errors}, warnings ${sm.warnings}`;
+    }).join(" · ");
+  }
+
+  // Clarity
+  const cEl = document.getElementById("analyticsClarity");
+  if (clarity && clarity.error) {
+    cEl.innerHTML = `<div class="dim">${clarity.error}</div>`;
+  } else if (clarity && clarity.data) {
+    const arr = Array.isArray(clarity.data) ? clarity.data : (clarity.data.information || []);
+    if (arr.length === 0) {
+      cEl.innerHTML = '<div class="dim">Clarity returned no rows.</div>';
+    } else {
+      cEl.innerHTML = '<pre style="background:var(--bg-elev-2);padding:10px;border-radius:6px;font-size:11px;overflow-x:auto;max-height:200px;">' + JSON.stringify(arr.slice(0, 5), null, 2) + '</pre>';
+    }
+  } else {
+    cEl.innerHTML = '<div class="dim">No Clarity data.</div>';
+  }
+}
+
+document.getElementById("refreshAnalyticsBtn").addEventListener("click", () => {
+  const btn = document.getElementById("refreshAnalyticsBtn");
+  btn.textContent = "↻ Refreshing...";
+  fetchAnalytics().finally(() => { btn.textContent = "↻ Refresh"; });
+});
+
+// --- Price fetch (BTC + any alts in balance) ---
+let PRICES = {}; // { BTC: { usd, change24h }, ETH: {...}, ... }
+
+async function fetchPrice() {
+  try {
+    // Build ticker list: BTC always, plus any non-stable alt in balance
+    const tickers = new Set(["BTC"]);
+    if (CB_BALANCE && Array.isArray(CB_BALANCE.allBalances)) {
+      for (const b of CB_BALANCE.allBalances) {
+        if (b.currency && b.total > 0) tickers.add(b.currency.toUpperCase());
+      }
+    }
+    const ids = [...tickers].join(",");
+    const r = await fetch(`/api/btc-price?ids=${encodeURIComponent(ids)}`);
+    const d = await r.json();
+    if (d && d.prices) {
+      PRICES = d.prices;
+      if (PRICES.BTC) {
+        LIVE_PRICE = PRICES.BTC.usd;
+        document.getElementById("btcPrice").textContent = FMT_USD0.format(PRICES.BTC.usd);
+        const chEl = document.getElementById("btcChange");
+        if (typeof PRICES.BTC.change24h === "number") {
+          const pos = PRICES.BTC.change24h >= 0;
+          chEl.textContent = (pos ? "+" : "") + PRICES.BTC.change24h.toFixed(2) + "%";
+          chEl.className = "price-change " + (pos ? "green" : "red");
+        }
+      }
+    }
+  } catch (e) {
+    console.error("price fetch failed", e);
+  }
+  renderAll();
+}
+
+// 200-week MA — Cowen's "level of destiny". Updated separately (slow-moving).
+let MA200W = null;
+// Cowen's aggregated targets from his last 30 days of videos.
+// Shape: { tiers: { T2: { price, mentions, latestDate }, ... }, sourceEntries, sourceMentions, asOf }
+let COWEN_TARGETS = null;
+
+// Compute the live trigger price for a tier. Priority order:
+//   1. Cowen's aggregated targets (most frequently mentioned levels from his
+//      last 30 days of videos) for tiers T2-T5
+//   2. 200W MA × multiplier (live-recalibrating to MA)
+//   3. Static targetPrice baked into the plan
+// Cowen targets only override if they're within ±10% of the MA-anchored
+// price — prevents wild swings if he changes his story dramatically.
+function effectiveTargetPrice(tier) {
+  const maPrice = (tier.maMultiple && MA200W) ? MA200W * tier.maMultiple : null;
+  if (COWEN_TARGETS && COWEN_TARGETS.tiers && COWEN_TARGETS.tiers[tier.tier]) {
+    const cowenPx = COWEN_TARGETS.tiers[tier.tier].price;
+    if (cowenPx && maPrice) {
+      const diff = Math.abs(cowenPx - maPrice) / maPrice;
+      if (diff <= 0.10) return cowenPx; // within ±10% — use Cowen
+    } else if (cowenPx) {
+      return cowenPx;
+    }
+  }
+  if (maPrice) return maPrice;
+  return tier.targetPrice;
+}
+async function fetch200WMA() {
+  try {
+    const r = await fetch("/api/btc-price?ma200w=1");
+    const d = await r.json();
+    if (d && typeof d.ma200w === "number") {
+      MA200W = d.ma200w;
+      document.getElementById("ma200wValue").textContent = FMT_USD0.format(d.ma200w);
+      if (typeof d.ma200wDelta === "number") {
+        const above = d.ma200wDelta >= 0;
+        const el = document.getElementById("ma200wDelta");
+        el.textContent = (above ? "+" : "") + d.ma200wDelta.toFixed(1) + "%";
+        // Highlight when within 5% — capitulation zone
+        if (Math.abs(d.ma200wDelta) <= 5) el.className = "price-change red";
+        else el.className = "price-change " + (above ? "green" : "red");
+      }
+      // Re-render triggers now that MA is loaded — tier trigger prices recalibrate
+      renderTriggers();
+      // Repaint chart annotation lines if chart is up
+      if (BTC_CHART) renderChart(CHART_DAYS);
+    }
+    // CBBI widget (same response when ma200w=1)
+    if (d && typeof d.cbbi === "number") {
+      const v = d.cbbi;
+      CBBI_VALUE = v;
+      CBBI_COMPONENTS = d.cbbiComponents || null;
+      document.getElementById("cbbiValue").textContent = v.toFixed(2);
+      const zoneEl = document.getElementById("cbbiZone");
+      let label, cls, gaugeColor;
+      if (v >= 0.85)      { label = "TOP";    cls = "red";   gaugeColor = "var(--red)"; }
+      else if (v >= 0.70) { label = "hot";    cls = "red";   gaugeColor = "var(--orange)"; }
+      else if (v >= 0.50) { label = "warm";   cls = "green"; gaugeColor = "var(--yellow)"; }
+      else if (v >= 0.30) { label = "mid";    cls = "green"; gaugeColor = "var(--gold)"; }
+      else if (v >= 0.15) { label = "accum";  cls = "green"; gaugeColor = "var(--green)"; }
+      else                { label = "BOTTOM"; cls = "green"; gaugeColor = "var(--green)"; }
+      zoneEl.textContent = label;
+      zoneEl.className = "price-change " + cls;
+      // Populate gauge in Hero NOW
+      const gauge = document.getElementById("cbbiGauge");
+      const gaugeVal = document.getElementById("cbbiGaugeVal");
+      const gaugeLabel = document.getElementById("cbbiGaugeLabel");
+      if (gauge) {
+        gauge.style.setProperty("--val", v.toFixed(3));
+        gauge.style.setProperty("--color", gaugeColor);
+        gauge.title = `CBBI Confidence: ${v.toFixed(3)} — ${label}`;
+      }
+      if (gaugeVal) gaugeVal.textContent = v.toFixed(2);
+      if (gaugeLabel) gaugeLabel.textContent = label;
+      // Recompute projected bottom with fresh CBBI signals
+      renderProjectedBottom();
+    }
+    // Cowen aggregated targets — same response
+    if (d && d.cowen && d.cowen.tiers) {
+      COWEN_TARGETS = d.cowen;
+      renderLadder();
+      renderProjectedBottom();
+    }
+  } catch (e) {
+    console.error("200wma/cbbi fetch failed", e);
+  }
+}
+
+// --- BTC chart ---
+let BTC_CHART = null;
+let BTC_HISTORY = null;        // [{t, close}]
+let CHART_DAYS = 365;
+
+async function fetchHistory(days) {
+  try {
+    const r = await fetch(`/api/btc-price?chart=${days}`);
+    const d = await r.json();
+    if (Array.isArray(d.history)) {
+      BTC_HISTORY = d.history;
+      return d.history;
+    }
+  } catch (e) {
+    console.error("history fetch failed", e);
+  }
+  return null;
+}
+
+// Build annotation config for tier lines + current price + avg cost basis.
+// (200W MA is now plotted as a real historical series — see renderChart.)
+function chartAnnotations() {
+  const a = {};
+  // Buy tier triggers (T1-T5) — live MA-anchored
+  for (const phase of PLAN.phases) {
+    for (const t of (phase.lumpTiers || [])) {
+      if (!t.maMultiple) continue;
+      const px = effectiveTargetPrice(t);
+      if (!px) continue;
+      a[t.tier] = {
+        type: "line", yMin: px, yMax: px,
+        borderColor: "rgba(52,199,89,0.55)", borderWidth: 1.25, borderDash: [6, 4],
+        label: { display: true, content: `${t.tier} · $${(px/1000).toFixed(1)}K`,
+          position: "end", backgroundColor: "rgba(52,199,89,0.10)", color: "#34c759",
+          font: { size: 10, weight: "600" }, padding: 3 },
+      };
+    }
+  }
+  // Avg cost basis — red dotted horizontal line
+  const basis = planAvgCostBasis();
+  if (basis) {
+    a.basis = {
+      type: "line", yMin: basis, yMax: basis,
+      borderColor: "rgba(230,57,70,0.7)", borderWidth: 1, borderDash: [2, 3],
+      label: { display: true, content: `Avg cost · $${(basis/1000).toFixed(1)}K`,
+        position: "start", backgroundColor: "rgba(230,57,70,0.12)", color: "#e63946",
+        font: { size: 10, weight: "600" }, padding: 3 },
+    };
+  }
+  // Current price (white dotted)
+  if (LIVE_PRICE) {
+    a.live = {
+      type: "line", yMin: LIVE_PRICE, yMax: LIVE_PRICE,
+      borderColor: "rgba(255,255,255,0.4)", borderWidth: 1, borderDash: [2, 4],
+      label: { display: true, content: `Now · $${(LIVE_PRICE/1000).toFixed(1)}K`,
+        position: "center", backgroundColor: "rgba(255,255,255,0.08)", color: "#fff",
+        font: { size: 10 }, padding: 3 },
+    };
+  }
+  return a;
+}
+
+// Build executed-buy markers from STATE.trades.
+function chartBuyMarkers() {
+  if (!STATE || !STATE.trades) return [];
+  return STATE.trades
+    .filter((t) => (t.type || "buy") === "buy" && t.btc > 0 && t.usd > 0)
+    .map((t) => {
+      const date = new Date(t.date + (t.date.length === 10 ? "T12:00:00Z" : ""));
+      const price = t.usd / t.btc;
+      return { x: date.getTime(), y: price, usd: t.usd, btc: t.btc };
+    });
+}
+
+// Compute the user's avg cost basis over plan-period buys.
+function planAvgCostBasis() {
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+  const buys = (STATE.trades || []).filter(
+    (t) => (t.type || "buy") === "buy" && (t.date || "") >= PLAN_START
+  );
+  const totalUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
+  const totalBtc = buys.reduce((s, t) => s + (t.btc || 0), 0);
+  return totalBtc > 0 ? totalUsd / totalBtc : null;
+}
+
+function renderChartPeriodStats(series) {
+  if (!series || series.length < 2) return;
+  const closes = series.map((p) => p.y);
+  const open = closes[0];
+  const last = closes[closes.length - 1];
+  const high = Math.max(...closes);
+  const low = Math.min(...closes);
+  const pct = ((last - open) / open) * 100;
+  const oEl = document.getElementById("periodOpen");
+  const hEl = document.getElementById("periodHigh");
+  const lEl = document.getElementById("periodLow");
+  const cEl = document.getElementById("periodChange");
+  if (oEl) oEl.textContent = FMT_USD0.format(open);
+  if (hEl) hEl.textContent = FMT_USD0.format(high);
+  if (lEl) lEl.textContent = FMT_USD0.format(low);
+  if (cEl) {
+    const sign = pct >= 0 ? "+" : "";
+    cEl.textContent = `${sign}${pct.toFixed(2)}%`;
+    cEl.style.color = pct >= 0 ? "var(--green)" : "var(--red)";
+  }
+}
+
+async function renderChart(days) {
+  CHART_DAYS = days;
+  if (!BTC_HISTORY || BTC_HISTORY.length === 0 || BTC_HISTORY.length < days * 0.9) {
+    await fetchHistory(days);
+  }
+  if (!BTC_HISTORY || BTC_HISTORY.length === 0) return;
+
+  const cutoff = Date.now() - days * 24 * 3600 * 1000;
+  const windowed = BTC_HISTORY.filter((p) => p.t >= cutoff);
+  const series = windowed.map((p) => ({ x: p.t, y: p.close }));
+  const maSeries = windowed
+    .filter((p) => Number.isFinite(p.ma200w))
+    .map((p) => ({ x: p.t, y: p.ma200w }));
+  const buys = chartBuyMarkers().filter((b) => b.x >= cutoff);
+
+  // Refresh the period stats line above the chart
+  renderChartPeriodStats(series);
+
+  const ctx = document.getElementById("btcChart");
+  if (!ctx || !window.Chart) return;
+  const c2d = ctx.getContext ? ctx.getContext("2d") : null;
+
+  // Gradient fill below the price line — bright at top, transparent at bottom
+  let priceGradient = null;
+  if (c2d) {
+    priceGradient = c2d.createLinearGradient(0, 0, 0, 420);
+    priceGradient.addColorStop(0, "rgba(255,255,255,0.15)");
+    priceGradient.addColorStop(0.6, "rgba(255,255,255,0.04)");
+    priceGradient.addColorStop(1, "rgba(255,255,255,0)");
+  }
+
+  const cfg = {
+    type: "line",
+    data: {
+      datasets: [
+        {
+          label: "200W MA",
+          data: maSeries,
+          borderColor: "rgba(251,191,36,0.85)",
+          borderWidth: 1.5,
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          tension: 0,
+          fill: false,
+          spanGaps: true,
+        },
+        {
+          label: "BTC",
+          data: series,
+          borderColor: "#ffffff",
+          borderWidth: 1.5,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0,
+          fill: "origin",
+          backgroundColor: priceGradient || "rgba(255,255,255,0.06)",
+        },
+        {
+          label: "Your buys",
+          data: buys,
+          type: "scatter",
+          borderColor: "#34c759",
+          backgroundColor: "#34c759",
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointStyle: "circle",
+          showLine: false,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "nearest", axis: "x", intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "rgba(15,15,15,0.95)", borderColor: "#2a2a2a", borderWidth: 1,
+          titleColor: "#fff", bodyColor: "#bbb", titleFont: { size: 12, weight: "600" },
+          callbacks: {
+            label: (ctx) => {
+              const r = ctx.raw;
+              const ds = ctx.dataset.label;
+              if (ds === "Your buys" && r && r.usd) {
+                return `Buy: ${FMT_USD0.format(r.usd)} · ${r.btc.toFixed(5)} BTC @ ${FMT_USD0.format(r.y)}`;
+              }
+              if (ds === "200W MA") return `200W MA: ${FMT_USD0.format(r.y)}`;
+              return `BTC: ${FMT_USD0.format(r.y)}`;
+            },
+          },
+        },
+        annotation: { annotations: chartAnnotations() },
+      },
+      scales: {
+        x: {
+          type: "time",
+          time: { unit: days <= 120 ? "week" : days <= 400 ? "month" : "month" },
+          grid: { color: "rgba(255,255,255,0.04)" },
+          ticks: { color: "#777", font: { size: 10 } },
+        },
+        y: {
+          position: "right",
+          grid: { color: "rgba(255,255,255,0.04)" },
+          ticks: {
+            color: "#777", font: { size: 10 },
+            callback: (v) => "$" + (v / 1000).toFixed(0) + "K",
+          },
+        },
+      },
+    },
+  };
+
+  if (BTC_CHART) {
+    BTC_CHART.data = cfg.data;
+    BTC_CHART.options = cfg.options;
+    BTC_CHART.update("none");
+  } else {
+    BTC_CHART = new Chart(ctx, cfg);
+  }
+}
+
+// --- Projected Bottom (Cowen-leaning weighted scenarios) ---
+// Live storage for CBBI components, populated by fetch200WMA.
+let CBBI_COMPONENTS = null;
+let CBBI_VALUE = null;
+
+function computeBottomScenarios() {
+  // Base weights LEANING TOWARD COWEN — his repeated calls are weighted heaviest,
+  // the "Cowen wrong" tail is tiny. Adjusts based on live signals.
+  const scenarios = [
+    { key: "shallow",   label: "Cowen base",   price: 60000, prob: 0.50, color: "var(--green)" },
+    { key: "midShallow",label: "Cowen 2nd",    price: 58000, prob: 0.30, color: "var(--green)" },
+    { key: "midDeep",   label: "Midterm fair", price: 52000, prob: 0.08, color: "var(--gold)" },
+    { key: "deep",      label: "Stretch",      price: 48000, prob: 0.06, color: "var(--gold)" },
+    { key: "extreme",   label: "Tail",         price: 40000, prob: 0.03, color: "var(--red)" },
+    { key: "bull",      label: "Bottom in",    price: 72000, prob: 0.03, color: "var(--blue)" },
+  ];
+
+  // === Dynamic adjustments ===
+  const signals = [];
+
+  // Puell — primary miner-stress signal. Low Puell = bottom is near.
+  const puell = CBBI_COMPONENTS?.Puell;
+  if (Number.isFinite(puell)) {
+    if (puell < 0.20) {
+      // Strong miner capitulation — shift toward deeper bottom
+      scenarios[0].prob -= 0.20; scenarios[1].prob -= 0.05;
+      scenarios[3].prob += 0.10; scenarios[4].prob += 0.15;
+      signals.push(`Puell ${puell.toFixed(2)} < 0.20 → miner capitulation; shifting weight to deeper scenarios`);
+    } else if (puell < 0.40) {
+      scenarios[0].prob -= 0.08; scenarios[2].prob += 0.04; scenarios[3].prob += 0.04;
+      signals.push(`Puell ${puell.toFixed(2)} < 0.40 → miner stress emerging; modest shift to deeper`);
+    } else {
+      signals.push(`Puell ${puell.toFixed(2)} elevated → miners NOT capitulated yet (bottom still likely shallow side)`);
+    }
+  }
+
+  // CBBI overall — deep cycle signal
+  if (Number.isFinite(CBBI_VALUE)) {
+    if (CBBI_VALUE < 0.20) {
+      scenarios[0].prob -= 0.10; scenarios[1].prob -= 0.05;
+      scenarios[3].prob += 0.07; scenarios[4].prob += 0.08;
+      signals.push(`CBBI ${CBBI_VALUE.toFixed(2)} < 0.20 → deep accumulation zone; bottom near`);
+    } else if (CBBI_VALUE < 0.30) {
+      scenarios[0].prob -= 0.05; scenarios[3].prob += 0.03; scenarios[4].prob += 0.02;
+      signals.push(`CBBI ${CBBI_VALUE.toFixed(2)} < 0.30 → approaching deep accumulation`);
+    }
+  }
+
+  // Price already below a scenario → that scenario's probability collapses
+  if (Number.isFinite(LIVE_PRICE)) {
+    for (const s of scenarios) {
+      if (s.key === "bull") continue;
+      if (LIVE_PRICE < s.price) {
+        // Price has already passed this level — collapse its probability
+        const collapsed = s.prob;
+        s.prob = 0.02; // tiny residual (could still spike up briefly)
+        // Distribute the freed weight to LOWER-price scenarios
+        const lower = scenarios.filter((x) => x.price < s.price && x.key !== "bull");
+        if (lower.length > 0) {
+          const share = (collapsed - 0.02) / lower.length;
+          for (const x of lower) x.prob += share;
+          signals.push(`BTC < $${(s.price/1000).toFixed(0)}K already — shifted weight to deeper scenarios`);
+        }
+      }
+    }
+    if (LIVE_PRICE < 70000) {
+      // Bottom-already-in tail collapses if we're already mid-sweep
+      const freed = scenarios.find((s) => s.key === "bull").prob - 0.01;
+      scenarios.find((s) => s.key === "bull").prob = 0.01;
+      scenarios.find((s) => s.key === "shallow").prob += freed * 0.5;
+      scenarios.find((s) => s.key === "midShallow").prob += freed * 0.5;
+    }
+  }
+
+  // Renormalize so probabilities sum to 1
+  const sum = scenarios.reduce((s, x) => s + Math.max(0, x.prob), 0);
+  for (const s of scenarios) s.prob = Math.max(0, s.prob) / sum;
+
+  // Weighted average + 70% confidence interval
+  const weightedAvg = scenarios.reduce((s, x) => s + x.price * x.prob, 0);
+  const sorted = scenarios.slice().sort((a, b) => a.price - b.price);
+  let cum = 0, p15 = null, p85 = null;
+  for (const s of sorted) {
+    if (p15 === null && cum + s.prob >= 0.15) p15 = s.price;
+    cum += s.prob;
+    if (cum >= 0.85 && p85 === null) p85 = s.price;
+  }
+  return { scenarios, weightedAvg, p15, p85, signals };
+}
+
+function renderProjectedBottom() {
+  const wrap = document.getElementById("bottomScenarios");
+  const midEl = document.getElementById("bottomMid");
+  const ciEl = document.getElementById("bottomCI");
+  const sigEl = document.getElementById("bottomSignals");
+  if (!wrap || !midEl) return;
+  const { scenarios, weightedAvg, p15, p85, signals } = computeBottomScenarios();
+  midEl.textContent = FMT_USD0.format(weightedAvg);
+  ciEl.textContent = (p15 && p85) ? `${FMT_USD0.format(p15)} – ${FMT_USD0.format(p85)}` : "—";
+  // Highlight scenarios
+  wrap.innerHTML = scenarios.map((s) => `
+    <div style="padding:12px 10px;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:8px;">
+      <div style="font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-faint);font-weight:600;">${s.label}</div>
+      <div style="font-family:var(--mono);font-size:17px;font-weight:700;margin-top:4px;letter-spacing:-0.3px;color:${s.color};">${FMT_USD0.format(s.price)}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--text-dim);margin-top:3px;">${(s.prob * 100).toFixed(1)}%</div>
+      <div style="margin-top:6px;height:3px;background:rgba(255,255,255,0.05);border-radius:2px;overflow:hidden;">
+        <div style="height:100%;width:${Math.min(100, s.prob * 100 / 0.5 * 100)}%;background:${s.color};border-radius:2px;opacity:0.8;"></div>
+      </div>
+    </div>
+  `).join("");
+  // Live signal explanations
+  if (sigEl) {
+    sigEl.innerHTML = signals.length
+      ? signals.map((s) => `<div>↳ ${s}</div>`).join("")
+      : `<div style="color:var(--text-faint);">No live signal adjustments yet — base Cowen-leaning weights applied.</div>`;
+  }
+}
+
+// --- Deployment + ladder rendering ---
+// Waterfall-fill: lump-sized buys (>= $1000) fill lump tiers in declared order
+// (IMMEDIATE → T1 → T2 → ...) regardless of phaseTier tag. This handles the
+// reality that Coinbase syncs don't carry a tier tag — we just match by size
+// + chronology. Returns a Map tier.tier → deployed USD.
+function computeLumpTierFills() {
+  const lumpTiers = [];
+  for (const p of PLAN.phases) {
+    for (const t of p.lumpTiers || []) {
+      if (t.sellPct) continue;
+      if (t.tier.startsWith("DCA")) continue;
+      lumpTiers.push(t);
+    }
+  }
+  const lumpBuys = (STATE.trades || [])
+    .filter((b) => (b.type || "buy") === "buy" && (b.usd || 0) >= 1000)
+    .slice()
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+  const fills = new Map();
+  let remaining = lumpBuys.reduce((s, b) => s + (b.usd || 0), 0);
+  for (const t of lumpTiers) {
+    const allocated = Math.min(t.target || 0, Math.max(0, remaining));
+    fills.set(t.tier, allocated);
+    remaining = Math.max(0, remaining - allocated);
+  }
+  return fills;
+}
+
+// Find the next-to-fire buy tier (waterfall-aware).
+function getNextTier() {
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const fills = computeLumpTierFills();
+  for (const p of PLAN.phases) {
+    if (p.end < todayIso) continue;
+    for (const t of p.lumpTiers) {
+      if (t.sellPct) continue;
+      if (t.tier.startsWith("DCA")) continue;
+      const tDeployed = fills.get(t.tier) || 0;
+      if (tDeployed < (t.target || 0) * 0.97) return { phase: p, tier: t, deployed: tDeployed };
+    }
+  }
+  return null;
+}
+
+function tierStatus(tier, deployed) {
+  if (deployed >= tier.target * 0.97) return "done";
+  const px = effectiveTargetPrice(tier);
+  if (LIVE_PRICE && px) {
+    if (LIVE_PRICE <= px) return "hit";
+    if ((LIVE_PRICE - px) / px < 0.05) return "near";
+  }
+  return "open";
+}
+
+function renderHeroNow() {
+  const total = PLAN.totalBudget || 127182;
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+  // Deployed = plan-period buys only (USD spent since plan start). BTC stack
+  // uses live wallet balance because trade-history math goes negative when
+  // the user sold from a pre-API-window position (Jan 31 sells).
+  const buys = (STATE.trades || []).filter(
+    (t) => (t.type || "buy") === "buy" && (t.date || "") >= PLAN_START
+  );
+  const deployedUsd = buys.reduce((s, t) => s + (t.usd || 0), 0);
+  const totalBtc = (CB_BALANCE && Number.isFinite(CB_BALANCE.btc))
+    ? CB_BALANCE.btc
+    : buys.reduce((s, t) => s + (t.btc || 0), 0);
+
+  // Diagnostic — visible inline so we can see exactly what the dashboard's
+  // computing without needing DevTools. Toggle on by appending ?debug=1 to URL.
+  const debugEl = document.getElementById("heroDebug");
+  if (debugEl) {
+    const url = new URL(window.location.href);
+    const debugOn = url.searchParams.get("debug") === "1";
+    debugEl.style.display = debugOn ? "block" : "none";
+    if (debugOn) {
+      const tradeCount = (STATE.trades || []).length;
+      const cbCount = (STATE.trades || []).filter((t) => t.source === "coinbase").length;
+      const lumpBuys = (STATE.trades || []).filter((b) => (b.type || "buy") === "buy" && (b.usd || 0) >= 1000);
+      const totalLumpUsd = lumpBuys.reduce((s, b) => s + (b.usd || 0), 0);
+      const fills = computeLumpTierFills();
+      const fillsStr = Array.from(fills.entries()).map(([k, v]) => `${k}=$${v.toFixed(0)}`).join(" · ");
+      debugEl.innerHTML =
+        `<div>DEBUG · trades=${tradeCount} (${cbCount} from coinbase) · lump buys ≥$1K: ${lumpBuys.length} totaling $${totalLumpUsd.toFixed(0)}</div>` +
+        `<div>fills: ${fillsStr}</div>`;
+    }
+  }
+  const remaining = Math.max(0, total - deployedUsd);
+  const pctDeployed = Math.min(100, (deployedUsd / total) * 100);
+
+  const fmt = (n) => FMT_USD0.format(n);
+  document.getElementById("heroDeployed").textContent = fmt(deployedUsd);
+  document.getElementById("heroRemaining").textContent = fmt(remaining);
+  document.getElementById("heroDeployedPct").textContent = pctDeployed.toFixed(1) + "%";
+  document.getElementById("heroBtc").textContent = totalBtc.toFixed(3);
+  document.getElementById("heroBar").style.width = pctDeployed + "%";
+  document.getElementById("heroPhase").textContent = getCurrentPhase().name;
+
+  // Hero action — what should the user do RIGHT NOW
+  const next = getNextTier();
+  const actionEl = document.getElementById("heroAction");
+  const detailEl = document.getElementById("heroDetail");
+
+  if (!next) {
+    if (pctDeployed >= 99) {
+      actionEl.textContent = "Fully deployed.";
+      detailEl.textContent = "Holding through cycle top — Phase 5 distribution begins Jun 2029.";
+    } else {
+      actionEl.textContent = "Plan complete.";
+      detailEl.textContent = "Waiting on next phase.";
+    }
+    return;
+  }
+
+  const px = effectiveTargetPrice(next.tier);
+  const remainingTier = next.tier.target - next.deployed;
+  const status = tierStatus(next.tier, next.deployed);
+
+  if (next.tier.tier === "IMMEDIATE") {
+    actionEl.textContent = `Fire ${fmt(remainingTier)} at market today`;
+    detailEl.textContent = `BTC ~${fmt(LIVE_PRICE || px)} · Cowen-wrong hedge`;
+  } else if (status === "hit") {
+    actionEl.innerHTML = `<span style="color:var(--green);">🟢 ${next.tier.tier} PRICE HIT</span> · Fire ${fmt(remainingTier)}`;
+    detailEl.textContent = `Trigger ${fmt(px)} · BTC ${fmt(LIVE_PRICE)}`;
+  } else if (status === "near") {
+    const delta = ((LIVE_PRICE - px) / px) * 100;
+    actionEl.innerHTML = `<span style="color:var(--orange);">🟡 ${next.tier.tier} near</span> · Ready ${fmt(remainingTier)}`;
+    detailEl.textContent = `${delta.toFixed(1)}% above ${fmt(px)} trigger`;
+  } else {
+    actionEl.textContent = `Next: ${next.tier.tier} — ${fmt(remainingTier)} at ${fmt(px)}`;
+    if (LIVE_PRICE && px) {
+      const delta = ((LIVE_PRICE - px) / px) * 100;
+      detailEl.textContent = `BTC needs to drop ${delta.toFixed(1)}% from ${fmt(LIVE_PRICE)}`;
+    } else {
+      detailEl.textContent = next.tier.trigger;
+    }
+  }
+}
+
+function renderLadder() {
+  const wrap = document.getElementById("ladder");
+  if (!wrap) return;
+  const fills = computeLumpTierFills();
+  // Collect all lump tiers in order — IMMEDIATE, T1, T2, T3, T4, T5
+  const tiers = [];
+  for (const p of PLAN.phases) {
+    for (const t of p.lumpTiers || []) {
+      if (t.sellPct) continue;
+      if (t.tier.startsWith("DCA")) continue;
+      const deployed = fills.get(t.tier) || 0;
+      tiers.push({ phase: p, tier: t, deployed });
+    }
+  }
+  wrap.innerHTML = tiers.map(({ tier, deployed }) => {
+    const px = effectiveTargetPrice(tier);
+    const status = tierStatus(tier, deployed);
+    const pct = tier.target > 0 ? Math.min(100, (deployed / tier.target) * 100) : 0;
+    const remaining = Math.max(0, tier.target - deployed);
+    let statusLabel = "";
+    if (status === "done") statusLabel = `<span style="color:var(--green);">✓ filled</span>`;
+    else if (status === "hit") statusLabel = `<span style="color:var(--green);font-weight:600;">🟢 fire now</span>`;
+    else if (status === "near") statusLabel = `<span style="color:var(--orange);">🟡 close</span>`;
+    else {
+      const fbDate = tier.fallbackDate && tier.fallbackDate !== new Date().toISOString().slice(0,10) ? new Date(tier.fallbackDate + "T00:00:00") : null;
+      const days = fbDate ? Math.ceil((fbDate - new Date()) / (24*3600*1000)) : null;
+      statusLabel = days !== null ? `<span class="dim">${days > 0 ? `in ${days}d` : 'overdue'}</span>` : `<span class="dim">pending</span>`;
+    }
+    const priceLabel = tier.tier === "IMMEDIATE" ? "Market" : (px ? FMT_USD0.format(px) : "—");
+    // Cowen badge — show if this tier's price is coming from his aggregated mentions
+    let cowenBadge = "";
+    const cowenT = COWEN_TARGETS?.tiers?.[tier.tier];
+    if (cowenT && tier.maMultiple && MA200W) {
+      const maPrice = MA200W * tier.maMultiple;
+      const usingCowen = Math.abs(cowenT.price - maPrice) / maPrice <= 0.10;
+      if (usingCowen) {
+        cowenBadge = `<div style="font-size:9px;color:var(--gold);margin-top:4px;letter-spacing:0.3px;">🎯 Cowen × ${cowenT.mentions} · ${cowenT.latestDate}</div>`;
+      }
+    }
+    return `
+      <div class="ladder-cell ${status}">
+        <div class="ladder-tier">${tier.tier}</div>
+        <div class="ladder-amount">${FMT_USD0.format(remaining)}</div>
+        <div class="ladder-price">@ ${priceLabel}</div>
+        <div class="ladder-progress"><div class="ladder-progress-fill" style="width:${pct}%"></div></div>
+        <div class="ladder-status">${statusLabel}</div>
+        ${cowenBadge}
+      </div>
+    `;
+  }).join("");
+}
+
+// Backwards-compat shim — renderAll still calls renderDeployment.
+function renderDeployment() {
+  renderHeroNow();
+  renderLadder();
+}
+
+// --- Phase helpers ---
+function getCurrentPhase(date = new Date()) {
+  const iso = date.toISOString().slice(0, 10);
+  return PLAN.phases.find((p) => iso >= p.start && iso <= p.end) || PLAN.phases[0];
+}
+
+function phaseDeployed(phaseId) {
+  return STATE.trades
+    .filter((t) => t.type === "buy")
+    .filter((t) => {
+      const p = PLAN.phases.find((x) => x.id === phaseId);
+      return t.date >= p.start && t.date <= p.end;
+    })
+    .reduce((sum, t) => sum + Number(t.usd || 0), 0);
+}
+
+// --- Stats ---
+function computeStats() {
+  // P/L accounting starts at the plan's first phase. Pre-plan sells
+  // (e.g., the Jan 31, 2026 cycle-top distribution) drained a pre-existing
+  // BTC position and aren't relevant to the buy plan's tracking.
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+
+  // Trade-history accounting (cost basis only — can be incomplete if
+  // the user had a position before what Coinbase's API surfaces).
+  let totalBuyBtc = 0, totalBuyUsd = 0;
+  let realizedPL = 0;
+  let tradeNetBtc = 0;
+  for (const t of STATE.trades) {
+    const btc = Number(t.btc || 0);
+    const usd = Number(t.usd || 0);
+    const inPlan = (t.date || "") >= PLAN_START;
+    if (t.type === "buy") {
+      tradeNetBtc += btc;
+      if (inPlan) { totalBuyBtc += btc; totalBuyUsd += usd; }
+    } else {
+      tradeNetBtc -= btc;
+      if (inPlan) {
+        const avg = totalBuyBtc > 0 ? totalBuyUsd / totalBuyBtc : 0;
+        realizedPL += usd - btc * avg;
+      }
+    }
+  }
+
+  // Live wallet balance is the source of truth for Total BTC. Trade-history
+  // net can go negative when sells came out of a pre-API-window position.
+  const liveBtc = (CB_BALANCE && Number.isFinite(CB_BALANCE.btc)) ? CB_BALANCE.btc : null;
+  const totalBtc = liveBtc !== null ? liveBtc : Math.max(0, tradeNetBtc);
+
+  const avgCost = totalBuyBtc > 0 ? totalBuyUsd / totalBuyBtc : 0;
+  const currentValue = LIVE_PRICE ? totalBtc * LIVE_PRICE : 0;
+  const costBasisRemaining = totalBtc * avgCost;
+  const unrealizedPL = currentValue - costBasisRemaining;
+  const unrealizedPct = costBasisRemaining > 0 ? unrealizedPL / costBasisRemaining : 0;
+  return { totalBtc, totalUsd: totalBuyUsd, currentValue, unrealizedPL, unrealizedPct, avgCost, realizedPL, totalTrades: STATE.trades.length };
+}
+
+// --- Renderers ---
+function renderStats() {
+  const s = computeStats();
+  document.getElementById("totalBtc").textContent = FMT_BTC.format(s.totalBtc);
+  document.getElementById("totalBtcSats").textContent = Math.round(s.totalBtc * 1e8).toLocaleString() + " sats";
+  document.getElementById("totalInvested").textContent = FMT_USD0.format(s.totalUsd);
+  // Plan-period only — pre-plan trades (e.g., Jan 31 sells) excluded
+  const planBuys = STATE.trades.filter((t) => (t.type || "buy") === "buy" && (t.date || "") >= (PLAN.phases[0]?.start || "2026-05-28"));
+  document.getElementById("totalTrades").textContent = `${planBuys.length} plan trades · realized ${FMT_USD0.format(s.realizedPL)}`;
+  document.getElementById("currentValue").textContent = LIVE_PRICE ? FMT_USD0.format(s.currentValue) : "—";
+  document.getElementById("avgCost").textContent = s.avgCost ? "Avg cost: " + FMT_USD0.format(s.avgCost) : "Avg cost: —";
+
+  const plEl = document.getElementById("unrealizedPL");
+  const plPctEl = document.getElementById("unrealizedPLPct");
+  if (LIVE_PRICE && s.totalBtc > 0) {
+    const pos = s.unrealizedPL >= 0;
+    plEl.textContent = (pos ? "+" : "") + FMT_USD0.format(s.unrealizedPL);
+    plEl.className = "stat-value num " + (pos ? "green" : "red");
+    plPctEl.textContent = (pos ? "+" : "") + (s.unrealizedPct * 100).toFixed(2) + "%";
+    plPctEl.className = "stat-sub " + (pos ? "green" : "red");
+  } else {
+    plEl.textContent = "—"; plEl.className = "stat-value num";
+    plPctEl.textContent = "—"; plPctEl.className = "stat-sub";
+  }
+
+  document.getElementById("totalDeployed").textContent = `${FMT_USD0.format(s.totalUsd)} / ${FMT_USD0.format(PLAN.totalBudget)}`;
+  document.getElementById("currentStackTowardsTarget").textContent = s.totalBtc.toFixed(3);
+
+  // Sparklines: build mini cumulative series from plan-period buys
+  renderSparklines(s);
+}
+
+function renderSparklines(stats) {
+  const PLAN_START = (PLAN.phases[0] && PLAN.phases[0].start) || "2026-05-28";
+  const buys = (STATE.trades || [])
+    .filter((t) => (t.type || "buy") === "buy" && (t.date || "") >= PLAN_START)
+    .slice()
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+  // Build cumulative series indexed by date
+  const cumBtc = [];
+  const cumUsd = [];
+  let runningBtc = 0, runningUsd = 0;
+  for (const t of buys) {
+    runningBtc += (t.btc || 0);
+    runningUsd += (t.usd || 0);
+    cumBtc.push(runningBtc);
+    cumUsd.push(runningUsd);
+  }
+  // Current value series — runningBtc × LIVE_PRICE at each step. We don't have
+  // historical prices per-trade easily here, so approximate using fill prices.
+  const valSeries = [];
+  let valBtc = 0;
+  for (const t of buys) {
+    valBtc += (t.btc || 0);
+    valSeries.push(valBtc * (LIVE_PRICE || t.price || 0));
+  }
+  // P/L = currentValue - cumUsd at each step
+  const plSeries = valSeries.map((v, i) => v - cumUsd[i]);
+
+  drawSpark("sparkBtc", cumBtc, "#34c759");
+  drawSpark("sparkInvested", cumUsd, "#64d2ff");
+  drawSpark("sparkValue", valSeries, "#fbbf24");
+  drawSpark("sparkPL", plSeries, plSeries.length && plSeries[plSeries.length-1] >= 0 ? "#34c759" : "#ff453a");
+}
+
+function drawSpark(id, data, color) {
+  const svg = document.getElementById(id);
+  if (!svg || !data || data.length === 0) return;
+  const path = svg.querySelector("path");
+  if (!path) return;
+  // Add an extra leading 0 so single-point series still draw a flat line
+  const series = data.length === 1 ? [0, ...data] : data;
+  const min = Math.min(...series);
+  const max = Math.max(...series);
+  const range = max - min || 1;
+  const w = 80, h = 40, pad = 2;
+  const points = series.map((v, i) => {
+    const x = pad + (i / (series.length - 1)) * (w - pad * 2);
+    const y = h - pad - ((v - min) / range) * (h - pad * 2);
+    return `${i === 0 ? "M" : "L"}${x.toFixed(1)},${y.toFixed(1)}`;
+  });
+  path.setAttribute("d", points.join(" "));
+  path.setAttribute("stroke", color);
+}
+
+function renderPhases() {
+  const cur = getCurrentPhase();
+  document.getElementById("currentPhase").textContent = cur.name;
+  const wrap = document.getElementById("phaseList");
+  wrap.innerHTML = "";
+  for (const p of PLAN.phases) {
+    const deployed = phaseDeployed(p.id);
+    const pct = p.budget > 0 ? Math.min(100, (deployed / p.budget) * 100) : 0;
+    const fillClass = pct >= 99 ? "" : pct > 0 ? "partial" : "empty";
+    const row = document.createElement("div");
+    row.className = "phase-row";
+    row.innerHTML = `
+      <div class="phase-name">${p.name}<span class="small">${formatRange(p.start, p.end)}</span></div>
+      <div class="progress-track"><div class="progress-fill ${fillClass}" style="width:${pct}%"></div></div>
+      <div class="phase-amount">${FMT_USD0.format(deployed)} / ${FMT_USD0.format(p.budget)}</div>
+    `;
+    wrap.appendChild(row);
+  }
+}
+
+function renderTriggers() {
+  const wrap = document.getElementById("triggerList");
+  wrap.innerHTML = "";
+
+  // Always-on DCA backbone summary at top — TWO separate daily recurring buys
+  const dcaRow = document.createElement("div");
+  dcaRow.className = "trigger-row trigger-row-grid";
+  dcaRow.innerHTML = `
+    <div class="trigger-row-main">
+      <div><strong>DCA Backbone</strong> — two daily recurring buys</div>
+      <div class="trigger-cond"><span style="color:var(--green);">🟢 Always-on · ~278 days (May 28, 2026 → Mar 1, 2027)</span></div>
+      <div class="trigger-meta" style="line-height:1.7;">
+        <div>↳ <strong style="color:var(--text);">$71/day</strong> BTC-USDC from USDC wallet · Vercel cron + Coinbase v3 API</div>
+        <div>↳ <strong style="color:var(--text);">$67/day</strong> BTC from linked bank · Coinbase recurring buy (UI-scheduled)</div>
+        <div style="color:var(--text-faint);font-size:11px;margin-top:4px;">Both auto-fire daily · sync picks up both via the v3 fills + v2 transactions endpoints</div>
+      </div>
+    </div>
+    <div class="trigger-amount">
+      <div class="trigger-amount-big">$138<span style="font-size:12px;color:var(--text-faint);font-weight:500;">/day</span></div>
+      <div class="trigger-amount-sub">~$38K total over 9 months</div>
+    </div>
+  `;
+  wrap.appendChild(dcaRow);
+
+  // Flatten all unfilled buy tiers across active + future phases
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const activeTiers = [];
+  for (const p of PLAN.phases) {
+    if (p.end < todayIso) continue; // past
+    const fills = computeLumpTierFills();
+    for (const t of p.lumpTiers) {
+      if (t.sellPct) continue; // sell tiers shown separately
+      if (t.tier.startsWith("DCA")) continue; // DCA shown as a single backbone row below
+      const deployed = fills.get(t.tier) || 0;
+      if (deployed >= (t.target || 0) * 0.97) continue;
+      activeTiers.push({ phase: p, tier: t, deployed });
+    }
+  }
+
+  let shown = 0;
+  for (const { phase, tier, deployed } of activeTiers.slice(0, 6)) {
+    // Compute how close the price trigger is, and how close the fallback date is
+    const triggerPx = effectiveTargetPrice(tier);
+    const isLive = !!(tier.maMultiple && MA200W);
+    const remaining = Math.max(0, tier.target - deployed);
+    const tierPct = tier.target > 0 ? Math.min(100, (deployed / tier.target) * 100) : 0;
+
+    let priceLine = "";
+    if (LIVE_PRICE && triggerPx) {
+      const delta = ((LIVE_PRICE - triggerPx) / triggerPx) * 100;
+      const liveBadge = isLive ? `<span style="color:var(--text-faint);font-size:10px;margin-left:6px;">↻ live · MA × ${tier.maMultiple.toFixed(2)}</span>` : "";
+      if (delta <= 0) {
+        priceLine = `<span style="color:var(--green);font-weight:600;">🟢 PRICE HIT — fire now (${FMT_USD0.format(triggerPx)})</span>${liveBadge}`;
+      } else if (delta < 5) {
+        priceLine = `<span style="color:#f5a623;font-weight:600;">🟡 ${delta.toFixed(1)}% above ${FMT_USD0.format(triggerPx)} — close</span>${liveBadge}`;
+      } else {
+        priceLine = `<span class="dim">${delta.toFixed(1)}% above ${FMT_USD0.format(triggerPx)} trigger</span>${liveBadge}`;
+      }
+    } else if (triggerPx) {
+      const liveBadge = isLive ? ` <span class="dim">(MA-anchored)</span>` : "";
+      priceLine = `<span class="dim">Trigger ${FMT_USD0.format(triggerPx)}${liveBadge}</span>`;
+    } else {
+      priceLine = `<span class="dim">Always-on DCA</span>`;
+    }
+
+    let fallbackLine = "";
+    if (tier.fallbackDate && tier.fallbackDate !== todayIso) {
+      const fbDate = new Date(tier.fallbackDate + "T00:00:00");
+      const days = Math.ceil((fbDate - new Date()) / (24 * 3600 * 1000));
+      const fbStr = fbDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      if (days < 0) {
+        fallbackLine = `<span style="color:var(--red);font-weight:600;">⚠ Fallback overdue (${fbStr}) — force-deploy now</span>`;
+      } else if (days <= 30) {
+        fallbackLine = `<span style="color:#f5a623;">⏱ Fallback in ${days}d (${fbStr})</span>`;
+      } else {
+        fallbackLine = `<span class="dim">Fallback: ${fbStr} (${days}d)</span>`;
+      }
+    }
+
+    // Big buy-amount block on the right with mini progress bar below
+    const amountBlock = `
+      <div class="trigger-amount">
+        <div class="trigger-amount-big">${FMT_USD0.format(remaining)}</div>
+        <div class="trigger-amount-sub">of ${FMT_USD0.format(tier.target)} ${deployed > 0 ? `· ${FMT_USD0.format(deployed)} in` : ""}</div>
+        <div class="tier-progress-track"><div class="tier-progress-fill" style="width:${tierPct}%"></div></div>
+      </div>
+    `;
+
+    const row = document.createElement("div");
+    row.className = "trigger-row trigger-row-grid";
+    row.innerHTML = `
+      <div class="trigger-row-main">
+        <div><strong>${tier.tier}</strong> — ${tier.trigger}</div>
+        <div class="trigger-cond">${priceLine}</div>
+        ${fallbackLine ? `<div class="trigger-cond">${fallbackLine}</div>` : ""}
+        <div class="trigger-meta">${phase.name}</div>
+      </div>
+      ${amountBlock}
+    `;
+    wrap.appendChild(row);
+    shown++;
+  }
+  if (shown === 0) {
+    const noneRow = document.createElement("div");
+    noneRow.className = "trigger-row";
+    noneRow.innerHTML = '<div class="empty">All lump tiers filled. DCA continuing in background.</div>';
+    wrap.appendChild(noneRow);
+  }
+}
+
+function formatRange(start, end) {
+  const f = (s) => new Date(s + "T00:00:00").toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  return `${f(start)} → ${f(end)}`;
+}
+
+function renderCalendar() {
+  const y = CAL_DATE.getFullYear();
+  const m = CAL_DATE.getMonth();
+  const monthName = CAL_DATE.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  document.getElementById("calTitle").textContent = monthName;
+
+  const wrap = document.getElementById("calendar");
+  wrap.innerHTML = "";
+  const dayNames = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  for (const d of dayNames) {
+    const el = document.createElement("div");
+    el.className = "cal-dayname";
+    el.textContent = d;
+    wrap.appendChild(el);
+  }
+
+  const first = new Date(y, m, 1);
+  const dayOfWeek = (first.getDay() + 6) % 7; // Mon=0
+  const lastDay = new Date(y, m + 1, 0).getDate();
+  const todayIso = new Date().toISOString().slice(0, 10);
+
+  // pad start
+  for (let i = 0; i < dayOfWeek; i++) {
+    const el = document.createElement("div");
+    el.className = "cal-cell empty";
+    wrap.appendChild(el);
+  }
+
+  let monthPL = 0;
+  let monthSpend = 0;
+  for (let d = 1; d <= lastDay; d++) {
+    const iso = `${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const dayTrades = STATE.trades.filter((t) => t.date === iso);
+    const cell = document.createElement("div");
+    cell.className = "cal-cell";
+    if (iso > todayIso) cell.classList.add("future");
+    if (iso === todayIso) cell.classList.add("today");
+
+    let cellUsd = 0, cellBtc = 0;
+    for (const t of dayTrades) {
+      if (t.type === "buy") { cellUsd += Number(t.usd || 0); cellBtc += Number(t.btc || 0); }
+      else { cellUsd -= Number(t.usd || 0); cellBtc -= Number(t.btc || 0); }
+    }
+    const cellValue = LIVE_PRICE ? cellBtc * LIVE_PRICE : 0;
+    const cellPL = cellValue - cellUsd;
+
+    if (dayTrades.length > 0) {
+      cell.classList.add("has-trade");
+      if (cellPL < 0) cell.classList.add("loss");
+      monthPL += cellPL;
+      monthSpend += cellUsd;
+    }
+
+    let inner = `<div class="cal-date">${d}</div>`;
+    if (dayTrades.length > 0) {
+      const plStr = LIVE_PRICE ? (cellPL >= 0 ? "+" : "") + FMT_USD0.format(cellPL) : "—";
+      const plClass = cellPL >= 0 ? "green" : "red";
+      inner += `<div><div class="cal-usd ${cellUsd >= 0 ? "green" : "red"}">${cellUsd >= 0 ? "" : "-"}${FMT_USD0.format(Math.abs(cellUsd))}</div>`;
+      inner += `<div class="cal-pl ${plClass}">${plStr}</div></div>`;
+      if (dayTrades.length > 1) {
+        inner += `<div class="cal-count">${dayTrades.length}</div>`;
+      }
+    } else {
+      inner += `<div></div>`;
+    }
+    cell.innerHTML = inner;
+
+    cell.addEventListener("click", () => {
+      if (iso > todayIso) return;
+      openTradeModal({ date: iso });
+    });
+
+    wrap.appendChild(cell);
+  }
+
+  const mpEl = document.getElementById("monthPL");
+  if (LIVE_PRICE) {
+    const pos = monthPL >= 0;
+    mpEl.textContent = (pos ? "+" : "") + FMT_USD2.format(monthPL);
+    mpEl.className = pos ? "green" : "red";
+  } else {
+    mpEl.textContent = "—";
+  }
+}
+
+function renderTradeList() {
+  const wrap = document.getElementById("tradeList");
+  if (STATE.trades.length === 0) {
+    wrap.innerHTML = '<div class="empty">No trades yet. Click "+ Add Trade" or "Import CSV" to start.</div>';
+    return;
+  }
+  const sorted = [...STATE.trades].sort((a, b) => b.date.localeCompare(a.date));
+  wrap.innerHTML = "";
+  for (const t of sorted) {
+    const btc = Number(t.btc || 0);
+    const usd = Number(t.usd || 0);
+    const price = Number(t.price || (btc > 0 ? usd / btc : 0));
+    const currentValue = LIVE_PRICE ? btc * LIVE_PRICE : 0;
+    const pl = currentValue - usd;
+    const plPct = usd > 0 ? (pl / usd) * 100 : 0;
+    const row = document.createElement("div");
+    row.className = "trade-row";
+    const isSell = t.type === "sell";
+    row.innerHTML = `
+      <div>${t.date}</div>
+      <div><span class="trade-source ${t.source || "manual"}">${t.source || "manual"}</span></div>
+      <div style="color:${isSell?"var(--red)":"var(--text)"}">${isSell ? "SELL" : "BUY"} ${FMT_BTC.format(btc)} BTC</div>
+      <div>${FMT_USD0.format(usd)}</div>
+      <div class="dim">@ ${FMT_USD0.format(price)}</div>
+      <div class="${pl >= 0 ? "trade-pl-pos" : "trade-pl-neg"}">${isSell ? "—" : (LIVE_PRICE ? (pl>=0?"+":"")+FMT_USD0.format(pl) : "—")}</div>
+      <div><button class="trade-del" data-id="${t.id}" title="Delete">✕</button></div>
+    `;
+    wrap.appendChild(row);
+  }
+  wrap.querySelectorAll(".trade-del").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.currentTarget.dataset.id;
+      if (!confirm("Delete this trade?")) return;
+      STATE.trades = STATE.trades.filter((t) => t.id !== id);
+      saveState();
+      renderAll();
+    });
+  });
+}
+
+function renderAll() {
+  renderStats();
+  renderPhases();
+  renderTriggers();
+  renderCalendar();
+  renderTradeList();
+  renderDeployment();
+  renderProjectedBottom();
+  // Repaint chart buy markers / live price line if chart is initialized
+  if (BTC_CHART) renderChart(CHART_DAYS);
+}
+
+// --- Add/Edit Trade Modal ---
+function openTradeModal(prefill = {}) {
+  document.getElementById("modalTitle").textContent = prefill.id ? "Edit Trade" : "Add Trade";
+  document.getElementById("tradeId").value = prefill.id || "";
+  document.getElementById("tradeDate").value = prefill.date || new Date().toISOString().slice(0, 10);
+  document.getElementById("tradeSource").value = prefill.source || "coinbase";
+  document.getElementById("tradeType").value = prefill.type || "buy";
+  document.getElementById("tradeUsd").value = prefill.usd || "";
+  document.getElementById("tradeBtc").value = prefill.btc || "";
+  document.getElementById("tradePrice").value = prefill.price || "";
+  document.getElementById("tradeNotes").value = prefill.notes || "";
+  document.getElementById("addTradeModal").classList.add("open");
+  document.getElementById("tradeUsd").focus();
+}
+function closeTradeModal() {
+  document.getElementById("addTradeModal").classList.remove("open");
+}
+
+document.getElementById("addTradeBtn").addEventListener("click", () => openTradeModal());
+document.getElementById("cancelTradeBtn").addEventListener("click", closeTradeModal);
+document.getElementById("addTradeModal").addEventListener("click", (e) => {
+  if (e.target.id === "addTradeModal") closeTradeModal();
+});
+
+["tradeUsd", "tradeBtc"].forEach((id) => {
+  document.getElementById(id).addEventListener("input", () => {
+    const usd = parseFloat(document.getElementById("tradeUsd").value) || 0;
+    const btc = parseFloat(document.getElementById("tradeBtc").value) || 0;
+    if (btc > 0) document.getElementById("tradePrice").value = (usd / btc).toFixed(2);
+  });
+});
+
+document.getElementById("tradeForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const id = document.getElementById("tradeId").value || uid();
+  const usd = parseFloat(document.getElementById("tradeUsd").value);
+  const btc = parseFloat(document.getElementById("tradeBtc").value);
+  const trade = {
+    id,
+    date: document.getElementById("tradeDate").value,
+    source: document.getElementById("tradeSource").value,
+    type: document.getElementById("tradeType").value,
+    usd, btc,
+    price: btc > 0 ? usd / btc : 0,
+    notes: document.getElementById("tradeNotes").value,
+  };
+  STATE.trades = STATE.trades.filter((t) => t.id !== id);
+  STATE.trades.push(trade);
+  saveState();
+  closeTradeModal();
+  renderAll();
+});
+
+// --- Coinbase Sync ---
+function setSyncStatus(msg, isError = false) {
+  const el = document.getElementById("syncStatus");
+  el.textContent = msg;
+  el.style.color = isError ? "var(--red)" : "var(--text-faint)";
+}
+
+document.getElementById("syncCoinbaseBtn").addEventListener("click", async () => {
+  const btn = document.getElementById("syncCoinbaseBtn");
+  btn.disabled = true;
+  const prev = btn.textContent;
+  btn.textContent = "Syncing...";
+  setSyncStatus("Fetching trades from Coinbase…");
+  try {
+    const r = await fetch("/api/coinbase-sync");
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || "Sync failed");
+
+    // Rebuild Coinbase-source trades from the API truth on every sync.
+    // This way, if a normalization fix changes how a fill is represented,
+    // the corrected values overwrite the stale ones instead of being
+    // skipped by externalId-dedupe. Manual trades (no externalId or
+    // source !== "coinbase") are preserved.
+    const manualOrOther = STATE.trades.filter((t) => t.source !== "coinbase");
+    const fresh = (d.trades || []).map((t) => ({ ...t, id: uid() }));
+    const before = STATE.trades.filter((t) => t.source === "coinbase").length;
+    STATE.trades = [...manualOrOther, ...fresh];
+    saveState();
+    renderAll();
+    setSyncStatus(`Coinbase sync done — ${fresh.length} trades now imported (was ${before}). Manual trades preserved. Last synced ${new Date().toLocaleString()}.`);
+    fetchBalance();
+  } catch (e) {
+    setSyncStatus("Coinbase sync failed: " + e.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = prev;
+  }
+});
+
+
+// --- Calendar nav ---
+document.getElementById("calPrev").addEventListener("click", () => {
+  CAL_DATE = new Date(CAL_DATE.getFullYear(), CAL_DATE.getMonth() - 1, 1);
+  renderCalendar();
+});
+document.getElementById("calNext").addEventListener("click", () => {
+  CAL_DATE = new Date(CAL_DATE.getFullYear(), CAL_DATE.getMonth() + 1, 1);
+  renderCalendar();
+});
+document.getElementById("calToday").addEventListener("click", () => {
+  CAL_DATE = new Date();
+  renderCalendar();
+});
+
+// --- Export ---
+document.getElementById("exportBtn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(STATE, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `liftoffr-cycle-dash-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// --- Import ---
+document.getElementById("importBtn").addEventListener("click", () => {
+  document.getElementById("importText").value = "";
+  document.getElementById("importModal").classList.add("open");
+});
+document.getElementById("cancelImportBtn").addEventListener("click", () => {
+  document.getElementById("importModal").classList.remove("open");
+});
+document.getElementById("runImportBtn").addEventListener("click", () => {
+  const text = document.getElementById("importText").value.trim();
+  const defaultSource = document.getElementById("importSource").value;
+  if (!text) return;
+  let imported = 0;
+  // Try JSON first
+  try {
+    const j = JSON.parse(text);
+    if (j.trades && Array.isArray(j.trades)) {
+      for (const t of j.trades) {
+        if (!STATE.trades.find((x) => x.id === t.id)) {
+          STATE.trades.push({ ...t, id: t.id || uid() });
+          imported++;
+        }
+      }
+      saveState();
+      document.getElementById("importModal").classList.remove("open");
+      renderAll();
+      alert(`Imported ${imported} trades from JSON.`);
+      return;
+    }
+  } catch (_) { /* not JSON, try CSV */ }
+
+  // CSV parsing — detect format
+  const lines = text.split(/\r?\n/).filter((l) => l.trim());
+  if (lines.length < 2) { alert("No data rows found."); return; }
+  const header = lines[0].toLowerCase();
+  const isCoinbase = header.includes("timestamp") && header.includes("transaction type") || header.includes("quantity transacted");
+  const isStrike = header.includes("date created") || (header.includes("transaction") && header.includes("amount 1"));
+  const source = isCoinbase ? "coinbase" : isStrike ? "strike" : defaultSource;
+
+  for (let i = 1; i < lines.length; i++) {
+    const cols = splitCsv(lines[i]);
+    if (cols.length < 3) continue;
+    try {
+      const t = parseRow(cols, header, source);
+      if (t && t.usd > 0 && t.btc > 0) {
+        STATE.trades.push({ ...t, id: uid() });
+        imported++;
+      }
+    } catch (e) { /* skip bad rows */ }
+  }
+  saveState();
+  document.getElementById("importModal").classList.remove("open");
+  renderAll();
+  alert(`Imported ${imported} trades.`);
+});
+
+function splitCsv(line) {
+  // Basic CSV split — handles simple quoted fields
+  const out = []; let cur = ""; let q = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { q = !q; continue; }
+    if (c === "," && !q) { out.push(cur); cur = ""; continue; }
+    cur += c;
+  }
+  out.push(cur);
+  return out.map((s) => s.trim());
+}
+
+function parseRow(cols, header, source) {
+  const cells = header.split(",").map((s) => s.trim().replace(/"/g,""));
+  const get = (key) => {
+    const idx = cells.findIndex((c) => c.toLowerCase().includes(key.toLowerCase()));
+    return idx >= 0 ? cols[idx] : "";
+  };
+  const dateStr = get("timestamp") || get("date") || get("created");
+  if (!dateStr) return null;
+  const date = new Date(dateStr).toISOString().slice(0, 10);
+  const typeRaw = (get("type") || get("transaction") || "").toLowerCase();
+  let type = "buy";
+  if (typeRaw.includes("sell")) type = "sell";
+  else if (typeRaw.includes("buy") || typeRaw.includes("purchase") || typeRaw.includes("dca")) type = "buy";
+  else return null; // skip non-trade rows (sends, receives, rewards)
+
+  let btc = parseFloat(get("quantity transacted") || get("amount 2") || get("amount") || "0") || 0;
+  let usd = parseFloat(get("subtotal") || get("total") || get("amount 1") || get("usd amount") || "0") || 0;
+  usd = Math.abs(usd);
+  btc = Math.abs(btc);
+  if (btc === 0 || usd === 0) return null;
+  return { date, source, type, usd, btc, price: usd / btc, notes: "imported" };
+}
+
+// --- Reset/seed ---
+document.getElementById("seedBtn").addEventListener("click", () => {
+  if (!confirm("Clear all trades and start fresh? (Export first if you want a backup)")) return;
+  STATE = { trades: [], settings: {} };
+  saveState();
+  renderAll();
+});
+
+// --- Chart range buttons ---
+document.querySelectorAll(".chart-range-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".chart-range-btn").forEach((b) => b.classList.remove("active"));
+    btn.classList.add("active");
+    const days = parseInt(btn.dataset.days, 10);
+    BTC_HISTORY = null; // force refetch
+    renderChart(days);
+  });
+});
+
+// --- Self-healing auto-sync on page load ---
+// If there are no Coinbase-source trades in localStorage but the wallet
+// shows a non-trivial BTC balance, auto-trigger a sync. This handles the
+// "I synced once when the API had a bug, now my local state is stuck"
+// scenario without requiring the user to remember to click anything.
+async function maybeAutoSync() {
+  try {
+    const hasCoinbaseTrades = (STATE.trades || []).some((t) => t.source === "coinbase");
+    if (hasCoinbaseTrades) return;
+    // Defer until balance + price are loaded so we know there's something worth syncing
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    if ((STATE.trades || []).some((t) => t.source === "coinbase")) return; // someone else synced
+    if (!CB_BALANCE || !(CB_BALANCE.btc > 0.001)) return; // no balance to reconcile
+    console.log("[auto-sync] No Coinbase trades found but balance shows", CB_BALANCE.btc, "BTC — triggering sync");
+    const r = await fetch("/api/coinbase-sync");
+    const d = await r.json();
+    if (r.ok && Array.isArray(d.trades)) {
+      const manualOrOther = STATE.trades.filter((t) => t.source !== "coinbase");
+      const fresh = d.trades.map((t) => ({ ...t, id: uid() }));
+      STATE.trades = [...manualOrOther, ...fresh];
+      saveState();
+      renderAll();
+      setSyncStatus(`Auto-synced ${fresh.length} trades on page load. Last synced ${new Date().toLocaleString()}.`);
+    }
+  } catch (e) {
+    console.warn("[auto-sync] failed", e);
+  }
+}
+
+// --- Boot ---
+fetchPrice();
+fetchBalance();
+fetchAnalytics();
+fetch200WMA();
+renderChart(365);
+setInterval(fetchPrice, 90000);
+setInterval(fetchBalance, 120000);
+setInterval(fetchAnalytics, 600000); // analytics: every 10 min
+setInterval(fetch200WMA, 3600000);   // 200W MA: hourly (moves slowly)
+setInterval(() => renderChart(CHART_DAYS), 3600000); // chart history hourly
+renderAll();
+maybeAutoSync();
+</script>
+
+</body>
+</html>
