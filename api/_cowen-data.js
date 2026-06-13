@@ -3,6 +3,22 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "DoteyQFNfnE",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold Outlook for the Rest of 2026",
+    "published": "2026-06-13T04:50:12+00:00",
+    "processed_at": "2026-06-13T05:16:01.769407+00:00",
+    "url": "https://www.youtube.com/watch?v=DoteyQFNfnE",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "This transcript is about gold, not Bitcoin. No valid Bitcoin analysis is present.",
+    "key_levels": [],
+    "indicators_mentioned": [],
+    "key_points": [],
+    "summary": "This transcript contains no Bitcoin market analysis. The content focuses exclusively on gold price dynamics, seasonality patterns, and historical corrections within gold bull markets."
+  },
+  {
     "video_id": "Di8YR9nX8Q8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
