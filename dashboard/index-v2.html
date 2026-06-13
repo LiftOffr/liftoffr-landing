@@ -219,8 +219,8 @@
       <!-- MACRO -->
       <div class="sec"><div class="sec-h"><span class="chev">▼</span><span class="stitle">≈ Macro — Liquidity &amp; Rates</span><span class="ssub">— global liquidity backdrop for the cycle</span></div></div>
       <div class="panel">
-        <div class="macro-grid" id="macroGrid"></div>
-        <div class="muted" style="font-size:12px;margin-top:14px">Live macro feeds (net liquidity, DXY, real yields, stablecoin supply) come online next pass — wiring a server-side proxy to stay under the function cap.</div>
+        <div class="macro-grid" id="macroGrid"><div class="loading">Loading macro feeds…</div></div>
+        <div class="muted" style="font-size:11.5px;margin-top:14px">Live: DXY (ICE basket, ECB rates) · crypto cap &amp; dominance (CoinGecko) · stablecoin supply (DefiLlama) · ETH/BTC · Fear &amp; Greed. TradFi rates (Fed funds, 10Y, M2) need a keyed server feed — say the word to wire them.</div>
       </div>
     </div>
   </main>
@@ -337,8 +337,30 @@ function renderPosition(){const g=document.getElementById('posGrid'),STABLE=new 
     <div class="balrow"><span class="bc">Cash (stables)</span><span class="bv">${FUSD(cash)}</span></div>
     <div class="balrow"><span class="bc">Bitcoin</span><span class="bv">${btc.toFixed(4)} · ${FUSD(btcVal)}</span></div>`;}
 
-function renderMacro(){const g=document.getElementById('macroGrid');const c=[['Global Net Liquidity','—','Fed + ECB + PBoC + BoJ'],['US Dollar (DXY)','—','inverse BTC correlation'],['10Y Real Yield','—','cost of capital'],['Stablecoin Supply','—','dry powder on-chain'],['Fed Funds Rate','—','policy stance'],['BTC vs Global M2','—','~12-week lead overlay']];
-  g.innerHTML=c.map(x=>`<div class="mcard"><div class="ml">${x[0]}</div><div class="mv muted">${x[1]}</div><div class="mvs">${x[2]}</div></div>`).join('')}
+async function renderMacro(fngNow){const g=document.getElementById('macroGrid');
+  let cg=null,sb=null,fx=null,ethbtc=null;
+  try{cg=(await(await fetch('https://api.coingecko.com/api/v3/global')).json()).data}catch(e){}
+  try{sb=(await(await fetch('https://stablecoins.llama.fi/stablecoins?includePrices=false')).json()).peggedAssets}catch(e){}
+  try{fx=(await(await fetch('https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,JPY,GBP,CAD,SEK,CHF')).json()).rates}catch(e){}
+  try{ethbtc=(await(await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=btc')).json()).ethereum.btc}catch(e){}
+  const cards=[];
+  // DXY — ICE basket formula computed from ECB (Frankfurter) USD rates
+  if(fx){const dxy=50.14348112*Math.pow(1/fx.EUR,-0.576)*Math.pow(fx.JPY,0.136)*Math.pow(1/fx.GBP,-0.119)*Math.pow(fx.CAD,0.091)*Math.pow(fx.SEK,0.042)*Math.pow(fx.CHF,0.036);
+    cards.push(['US Dollar Index (DXY)',dxy.toFixed(2),'inverse BTC correlation · lower = tailwind',dxy>105?'#f0556b':dxy<100?'#26d07c':'#e8b339']);}
+  else cards.push(['US Dollar Index (DXY)','—','source unavailable','#7e8ba2']);
+  // Total crypto cap + 24h
+  if(cg){const tc=cg.total_market_cap.usd,ch=cg.market_cap_change_percentage_24h_usd;
+    cards.push(['Total Crypto Cap','$'+(tc/1e12).toFixed(2)+'T',`24h ${ch>=0?'+':''}${ch.toFixed(2)}%`,ch>=0?'#26d07c':'#f0556b']);
+    const alt=100-cg.market_cap_percentage.btc-cg.market_cap_percentage.eth;
+    cards.push(['BTC Dominance',cg.market_cap_percentage.btc.toFixed(1)+'%',`ETH ${cg.market_cap_percentage.eth.toFixed(1)}% · alts ${alt.toFixed(1)}%`,'#e8b339']);}
+  // Stablecoin supply + 7d (dry powder)
+  if(sb){const tot=sb.reduce((s,a)=>s+((a.circulating&&a.circulating.peggedUSD)||0),0),wk=sb.reduce((s,a)=>s+((a.circulatingPrevWeek&&a.circulatingPrevWeek.peggedUSD)||0),0),d=wk>0?(tot-wk)/wk*100:0;
+    cards.push(['Stablecoin Supply','$'+(tot/1e9).toFixed(1)+'B',`7d ${d>=0?'+':''}${d.toFixed(2)}% · dry powder on-chain`,d>=0?'#26d07c':'#f0556b']);}
+  // ETH/BTC risk appetite
+  if(ethbtc)cards.push(['ETH / BTC Ratio',ethbtc.toFixed(5),'risk-appetite proxy · rising = alts bid','#4d8df0']);
+  // Fear & Greed
+  if(fngNow!=null)cards.push(['Crypto Fear & Greed',String(Math.round(fngNow)),fngNow>=75?'extreme greed':fngNow>=55?'greed':fngNow>=45?'neutral':fngNow>=25?'fear':'extreme fear',fngNow>=55?'#26d07c':fngNow>=45?'#e8b339':'#f0556b']);
+  g.innerHTML=cards.map(c=>`<div class="mcard"><div class="ml">${c[0]}</div><div class="mv" style="color:${c[3]}">${c[1]}</div><div class="mvs">${c[2]}</div></div>`).join('');}
 
 async function load(){
   let bp={},cs={},hist={},fngArr=[];
@@ -399,7 +421,7 @@ async function load(){
     document.getElementById('consNote').textContent=aligned?'All pillars aligned — high signal confidence.':'Pillars diverging — weight the heaviest (Cycle, Valuation).';}
 
   // ===== Plan panels =====
-  renderLadderV2(); renderProjected(); renderPosition(); renderMacro();
+  renderLadderV2(); renderProjected(); renderPosition(); renderMacro(fngArr.length?fngArr[fngArr.length-1]:null);
 }
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
 document.getElementById('csvBtn').onclick=()=>{let r=[['indicator','value','1d','7d']];document.querySelectorAll('.ind').forEach(c=>{const n=c.querySelector('.iname').textContent.replace('✓','').trim();const v=c.querySelector('.ival').textContent;r.push([n,v])});const csv=r.map(x=>x.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-cycle-indicators.csv';a.click()};
