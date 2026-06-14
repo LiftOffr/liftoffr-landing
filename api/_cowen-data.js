@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "psz9FwqWGns",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Time-Based Capitulation",
+    "published": "2026-06-14T22:21:02+00:00",
+    "processed_at": "2026-06-14T23:05:21.423074+00:00",
+    "url": "https://www.youtube.com/watch?v=psz9FwqWGns",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000,
+      54000
+    ],
+    "indicators_mentioned": [
+      "realized price",
+      "terminal price",
+      "Bitcoin supply in profit or loss",
+      "MVRV score",
+      "risk metric",
+      "volume"
+    ],
+    "key_points": [
+      "Time-based capitulation is more important than price-based capitulation in this cycle; historical bear markets last 50-60 weeks, with the current market at week 35, suggesting a potential low around October-November",
+      "The market structure mirrors 2019 with an apathetic top followed by post-top digestion phase, not euphoric rally conditions; Bitcoin topped before QE ended and the Fed cut rates three times, matching 2019 patterns",
+      "A final capitulation event in Q4 on surging volume is likely based on historical precedent; every prior bear market bottom coincided with a significant volume spike, which has not yet occurred at a comparable magnitude",
+      "Price support at 60K may hold similarly to 2018, creating a sweep of the February low in June followed by another decline; accumulation should begin after the June low through year-end despite ongoing price weakness",
+      "Price-based capitulation (onchain indicators fully resetting, potential move to 54K or below) would justify exiting the bearish stance early; without such capitulation, the market should be expected to extend through Q4"
+    ],
+    "summary": "Bitcoin is in a time-based bear market structure expected to last until Q4 2025, with a probable low in October-November based on historical 50-60 week bear market cycles. The current setup mirrors 2019 with an apathetic top rather than euphoric conditions; timebased capitulation with a volume-driven final drop is the base case unless price-based capitulation resets onchain indicators earlier. Accumulation should begin after the June low, with positioning adjusted if major downside or unexpected strength develops."
+  },
+  {
     "video_id": "hx_neha7BVQ",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
