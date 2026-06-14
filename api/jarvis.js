@@ -40,14 +40,15 @@ GROUNDING (critical)
 JUDGMENT
 - Interpret, don't just restate. Connect CBBI / cycle zone, the 200W MA, Cowen's targets, and his tier ladder into one coherent read.
 - Give a recommendation when one is warranted, framed against HIS plan ("the plan calls for…", "hold dry powder until…"). Distinguish what the plan dictates from your own read.
-- If signals conflict, say so and say which you weight more and why.`;
+- If signals conflict, say so and say which you weight more and why.
+- When a NET WORTH & LIABILITIES section is present, factor it in: BTC's share of net worth, and his remaining dry powder against his total debt and monthly debt service. He carries a Macan auto loan and a personal loan — be mindful that deploying dry powder competes with debt obligations. Don't moralize about the debt; treat it as a constraint on how aggressively to deploy.`;
 
 const MODE_SPEC = {
   briefing: {
     effort: "medium",
     max_tokens: 1100,
     instruction:
-      "Deliver Torin's daily briefing. Cover, in order: where his position stands (size, cost basis, unrealized P/L), what the cycle/CBBI zone and 200W MA say about regime, the status of his next buy tier and what would trigger it, and one clear bottom-line posture for the day. Open with a single re-grounding sentence summarizing the situation.",
+      "Deliver Torin's daily briefing. Cover, in order: where his position stands (size, cost basis, unrealized P/L), what the cycle/CBBI zone and 200W MA say about regime, the status of his next buy tier and what would trigger it, and one clear bottom-line posture for the day. If net-worth data is present, add one line putting it in context — BTC's share of net worth and dry powder vs. total debt. Open with a single re-grounding sentence summarizing the situation.",
   },
   ask: {
     effort: "medium",
@@ -59,7 +60,7 @@ const MODE_SPEC = {
     effort: "high",
     max_tokens: 1100,
     instruction:
-      "Give a risk read on Torin's remaining dry powder. Translate the CBBI zone, cycle score and trend, price vs the 200W MA, and Cowen's cited targets into a conviction/risk posture: how aggressively should the remaining un-deployed budget be held vs deployed, and at what levels. Be explicit about the regime and what would change your read.",
+      "Give a risk read on Torin's remaining dry powder. Translate the CBBI zone, cycle score and trend, price vs the 200W MA, and Cowen's cited targets into a conviction/risk posture: how aggressively should the remaining un-deployed budget be held vs deployed, and at what levels. If net-worth data is present, weigh the deploy decision against his total debt and monthly debt service — flag if liquidity for debt obligations should temper deployment. Be explicit about the regime and what would change your read.",
   },
   tier: {
     effort: "medium",
@@ -113,6 +114,17 @@ function buildSituationReport(s) {
       const cowen = t.cowenMentions ? ` · Cowen ×${t.cowenMentions}` : "";
       L.push(`- ${t.tier}: $${n(t.target)} @ ${px} — ${status}${cowen}`);
     }
+  }
+  if (s.finances) {
+    const f = s.finances;
+    const btcShare = f.totalAssets ? Math.round((f.btcValue / f.totalAssets) * 100) : 0;
+    L.push("");
+    L.push("NET WORTH & LIABILITIES");
+    L.push(`- Net worth: $${n(f.netWorth)}  (assets $${n(f.totalAssets)} − debts $${n(f.totalDebts)})`);
+    L.push(`- BTC ($${n(f.btcValue)}) is ${btcShare}% of total assets${f.cash ? `; cash $${n(f.cash)}` : ""}`);
+    L.push(`- Total debt $${n(f.totalDebts)}: Macan loan $${n(f.macanLoan)} (next ${f.macanNext}), personal loan $${n(f.personalLoan)} (next ${f.personalNext})`);
+    L.push(`- Monthly debt service: $${n(f.monthlyDebtService)}`);
+    L.push(`- Vehicle (2022 Macan S) est. value: $${n(f.carValue)}`);
   }
   return L.join("\n");
 }

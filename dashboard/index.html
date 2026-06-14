@@ -865,6 +865,26 @@ if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
     const ch=parseFloat((jq('tb24h').textContent||'').replace('%','').replace('+',''));
     const cbbi=parseFloat(jq('tbCbbi').textContent);
     const cyc=parseFloat(jq('tbScore').textContent);
+    // net worth + liabilities (mirrors renderFinances)
+    computeLiab();
+    const F=(STATE.finances||{assets:[],debts:[],income:[]});
+    const manualA=(F.assets||[]).reduce((s,x)=>s+(+x.value||0),0);
+    const manualD=(F.debts||[]).reduce((s,x)=>s+(+x.balance||0),0);
+    const bankA=((BANK&&BANK.assets)||[]).reduce((s,x)=>s+(+x.value||0),0);
+    const bankD=((BANK&&BANK.debts)||[]).reduce((s,x)=>s+(+x.balance||0),0);
+    const btcValue=(btc!=null&&LIVE_PRICE!=null)?btc*LIVE_PRICE:0;
+    const cash=(LIVE_PF&&LIVE_PF.cash)||0;
+    const totalAssets=btcValue+cash+bankA+manualA+LIAB.car;
+    const totalDebts=manualD+bankD+LIAB.macan+LIAB.personal;
+    const now2=new Date();
+    const finances={
+      netWorth:Math.round(totalAssets-totalDebts),
+      totalAssets:Math.round(totalAssets), totalDebts:Math.round(totalDebts),
+      btcValue:Math.round(btcValue), cash:Math.round(cash),
+      carValue:Math.round(LIAB.car), macanLoan:Math.round(LIAB.macan), personalLoan:Math.round(LIAB.personal),
+      monthlyDebtService:Math.round((915.03+620.30)*100)/100,
+      macanNext:fmtDate(nextPayment(LOAN_AUTO,now2)), personalNext:fmtDate(nextPayment(LOAN_PERSONAL,now2))
+    };
     return {
       asOf:new Date().toISOString(),
       price:LIVE_PRICE, change24h:isFinite(ch)?ch:null,
@@ -874,7 +894,7 @@ if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
       cycleZone:(jq('vTag').textContent||'').toLowerCase().trim()||null,
       cycleCommentary:(jq('vCopy').textContent||'').trim()||null,
       btc, avgCost:avg, deployedUsd:Math.round(depUsd), totalBudget:PLAN.totalBudget,
-      tiers
+      tiers, finances
     };
   }
   let busy=false;
