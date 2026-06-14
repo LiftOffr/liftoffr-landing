@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "hx_neha7BVQ",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Dynamic DCA: How I Navigate Crypto",
+    "published": "2026-06-14T01:25:19+00:00",
+    "processed_at": "2026-06-14T02:04:45.893658+00:00",
+    "url": "https://www.youtube.com/watch?v=hx_neha7BVQ",
+    "outlook": "neutral",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      50000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "Bitcoin Risk Metric",
+      "MVRV",
+      "Market Value to Realized Value",
+      "Supply and Profit/Loss crossing",
+      "Realized Price",
+      "Fear and Greed Index",
+      "Price Risk",
+      "Onchain Risk",
+      "Social Risk",
+      "Summary Risk Metric",
+      "7-day Simple Moving Average"
+    ],
+    "key_points": [
+      "Current risk metric at 0.296 suggests accumulation phase is beginning in second half of midterm year; market cycle bottom historically occurs within 1-4 months at low risk levels",
+      "Dynamic DCA strategy weighted toward lower prices outperforms equal-weight DCA by 3x over long periods; position cash reserves during peaks to deploy aggressively when risk drops below 0.3",
+      "Timing exact bottoms is irrelevant\u2014focus is on action during low-risk periods; even buying at 0.3 risk proves profitable within months as demonstrated across 2018, 2020, and 2022 cycles",
+      "Bitcoin topped on apathy in 2025 similar to 2019, not euphoria; post-apathetic digestion phase aligns with midterm year cycle dynamics; no guarantee of euphoric rallies",
+      "Bitcoin has spent only 14.73% of historical time in current 0.2-0.3 risk band and 2.34% below 0.1 risk; these extreme lows are rare but present opportunities for disciplined capital deployment"
+    ],
+    "summary": "The current 0.296 risk level suggests Bitcoin is entering an accumulation phase in the second half of the midterm year, with market cycle bottom likely occurring within 1-4 months. Dynamic dollar-cost averaging weighted toward lower risk bands substantially outperforms equal-weight DCA by deploying more capital during extreme lows while restraining buys at elevated prices. Exact bottom timing is impossible and irrelevant; the strategy is to execute predetermined buying plans when risk metrics trigger, allowing patience and discipline to generate superior long-term returns across multiple market cycles."
+  },
+  {
     "video_id": "DoteyQFNfnE",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
