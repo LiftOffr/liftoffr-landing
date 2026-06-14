@@ -98,6 +98,8 @@
   .delta-pill{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px}
   .ind .imeta{font-size:10.5px;color:var(--dim);margin-top:9px;line-height:1.7}
   .ind .idesc{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.45}
+  .ind .ibluf{margin-top:9px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.025);border-left:2px solid var(--accent);font-size:11.5px;line-height:1.5;color:var(--ink)}
+  .ind .ibluf b{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:1px 5px;border-radius:4px;margin-right:5px;vertical-align:1px}
   .ind .spark{margin-top:12px}
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px}
   .muted{color:var(--muted)}
@@ -439,6 +441,32 @@ const desc={PiCycle:'111DMA vs 350DMA×2 — historic top timing',RUPL:'Net unre
 // cycle scale: HIGH = top/sell (red), LOW = bottom/buy (green)
 function zColor(v){if(v>=80)return'#f0556b';if(v>=60)return'#e8b339';if(v>=40)return'#4d8df0';return'#26d07c'}
 function zLabel(v){if(v>=85)return'TOP ZONE';if(v>=60)return'LATE CYCLE';if(v>=40)return'NEUTRAL';if(v>=20)return'ACCUMULATION';return'DEEP VALUE'}
+// Per-indicator plain-English read. All metrics are cycle-normalized 0-100:
+// HIGH = toppy/overvalued (sell-side), LOW = cheap/undervalued (buy-side).
+const IND_READ={
+  Confidence:{hi:'broad cycle confidence is high — late-stage of the cycle',lo:'cycle confidence is low — early / bottoming'},
+  PiCycle:{hi:'111DMA closing on the 350DMA×2 — classic top-timing trigger',lo:'far below the top-timing cross — lots of cycle runway left'},
+  RHODL:{hi:'short-term holders dominate — euphoria / distribution',lo:'long-term HODL waves dominate — quiet accumulation'},
+  Puell:{hi:'miner revenue stretched above its yearly trend — top-side',lo:'miner revenue compressed — capitulation / deep value'},
+  '2YMA':{hi:'price extended well above the 2-year MA — overheated',lo:'price near or below the 2-year MA — historically cheap'},
+  Trolololo:{hi:'price riding the high end of the log-regression band — frothy',lo:'price near the low end of the regression band — undervalued'},
+  MVRV:{hi:'market value far above realized cost basis — heavy paper profit',lo:'market value near realized cost basis — low downside risk'},
+  RUPL:{hi:'net unrealized profit elevated — euphoria risk',lo:'net unrealized profit low or negative — capitulation'},
+  ReserveRisk:{hi:'conviction is cheap relative to price — poor long-term risk/reward',lo:'conviction is high relative to price — strong risk/reward'},
+  Woobull:{hi:'price pressing the top-cap model — distribution zone',lo:'price far under the top-cap model — accumulation zone'},
+  'F&G':{hi:'the crowd is greedy — contrarian caution',lo:'the crowd is fearful — contrarian opportunity'},
+};
+function indBLUF(k,v,d7){
+  const r=IND_READ[k]||{hi:'reading is elevated',lo:'reading is depressed'};
+  const band=v>=70?'hi':v<=35?'lo':'mid';
+  const phrase=band==='hi'?r.hi:band==='lo'?r.lo:'mid-cycle — no strong signal from this one';
+  const tr=d7>0.5?'rising':d7<-0.5?'falling':'flat',arrow=tr==='rising'?'▲':tr==='falling'?'▼':'→';
+  let lean,col;
+  if(band==='hi'){lean=tr==='falling'?'elevated but cooling — watch for a turn':'sell-side — caution, not a buy';col='var(--red)';}
+  else if(band==='lo'){lean=tr==='rising'?'cheap & turning up — accumulation-friendly':'deep value — favors deploying tiers';col='var(--green)';}
+  else{lean='neutral — stick to the plan / keep DCAing';col='var(--amber)';}
+  return `<div class="ibluf"><b style="background:rgba(255,255,255,.07);color:${col}">BLUF</b>${phrase}; <span style="color:${col}">${tr} ${arrow}</span> on the week. <b style="background:none;padding:0;margin:0;font-family:var(--sans);font-size:11.5px;letter-spacing:0;color:${col}">${lean}.</b></div>`;
+}
 function dpill(d,inv){ // inv: for cycle indicators a rising value = more toppy = "bad" colour
   if(d==null||isNaN(d))return '';
   const rising=d>=0; const good = inv? !rising : rising;
@@ -619,6 +647,7 @@ async function load(){
     ig.innerHTML+=`<div class="ind"><div class="ih"><div class="iname"><span class="ick" style="background:${c}">✓</span>${niceName[k]||k}</div><span class="iq" title="${desc[k]||''}">ⓘ</span></div>
       <div class="iv-row"><span class="ival" style="color:${c}">${v.toFixed(1)}</span><span class="iunit">/100</span>${dpill(d1[k],true)}<span style="font-size:10px;color:var(--dim)">1d</span>${dpill(d7[k],true)}<span style="font-size:10px;color:var(--dim)">7d</span></div>
       <div class="idesc">${desc[k]||''}</div>
+      ${indBLUF(k,v,d7[k]||0)}
       <div class="imeta">📅 Cycle-normalized · 📡 Updated ${k==='F&G'?'today':upd}</div>
       ${sparkline(series[k]||[v],c,k==='F&G'?50:80)}</div>`;});
   document.getElementById('freshN').textContent=order.filter(k=>cur[k]!=null).length;
