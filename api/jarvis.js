@@ -11,20 +11,17 @@
 // Env required: ANTHROPIC_API_KEY  (add it on Vercel — see jarvis/SETUP.md)
 // Gated behind DASHBOARD_PASSWORD via middleware.js, same as /dashboard.
 //
-// Model notes (Claude Fable 5):
-//   - Thinking is always on — we omit the `thinking` param entirely.
-//   - Depth is controlled by output_config.effort (not a token budget).
-//   - Safety classifiers can return stop_reason:"refusal" (false positives on
-//     benign finance/security-adjacent prompts happen), so we opt into a
-//     server-side fallback to claude-opus-4-8 — a decline is transparently
-//     re-served by Opus inside the same call.
-//   - Fable 5 requires 30-day data retention (not available under ZDR).
+// Model: defaults to Claude Opus 4.8 (best generally-available model). Claude
+// Fable 5 / Mythos 5 require special access (Project Glasswing); set the
+// JARVIS_MODEL env var to "claude-fable-5" once the org is granted access.
+//   - We omit the `thinking` param; depth is controlled via output_config.effort
+//     (on Opus 4.8 this runs without extended thinking, keeping the HUD snappy).
+//   - stop_reason "refusal" is handled gracefully (rare on this workload).
 
 export const config = { runtime: "nodejs" };
 
 const API_URL = "https://api.anthropic.com/v1/messages";
-const MODEL = "claude-fable-5";
-const FALLBACK_MODEL = "claude-opus-4-8";
+const MODEL = process.env.JARVIS_MODEL || "claude-opus-4-8";
 
 // Stable persona — kept byte-identical across requests so it stays prompt-cached.
 const PERSONA = `You are JARVIS, the private intelligence layer for Torin's personal Bitcoin command center. Torin is a crypto educator (LiftOffr) running a pre-planned, Benjamin-Cowen-driven accumulation strategy: a fixed lump-tier ladder fired against the 200-week moving average and Cowen's cited downside targets, plus a daily DCA.
@@ -127,14 +124,12 @@ async function callFable(systemText, userText, effort, maxTokens, apiKey) {
       "Content-Type": "application/json",
       "x-api-key": apiKey,
       "anthropic-version": "2023-06-01",
-      "anthropic-beta": "server-side-fallback-2026-06-01",
     },
     body: JSON.stringify({
       model: MODEL,
       max_tokens: maxTokens,
-      // No `thinking` param — always-on for Fable 5; an explicit value 400s.
+      // Omit `thinking` — depth is controlled via output_config.effort.
       output_config: { effort },
-      fallbacks: [{ model: FALLBACK_MODEL }],
       system: [{ type: "text", text: systemText, cache_control: { type: "ephemeral" } }],
       messages: [{ role: "user", content: userText }],
     }),
@@ -183,7 +178,7 @@ export default async function handler(req, res) {
     const data = await callFable(PERSONA, userText, spec.effort, spec.max_tokens, apiKey);
 
     if (data.stop_reason === "refusal") {
-      // Whole chain (Fable 5 + Opus fallback) declined — rare, but handle it.
+      // Model declined — rare on this workload, but handle it gracefully.
       return res.status(200).json({
         text: "I'm unable to process that request right now, sir. Try rephrasing, or ask about a specific part of the position.",
         refused: true,

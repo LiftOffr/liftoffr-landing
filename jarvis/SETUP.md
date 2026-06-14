@@ -1,7 +1,7 @@
 # JARVIS — Personal BTC Command Center
 
 An Apple/Iron-Man-style command center for your personal Bitcoin accumulation,
-with **Claude Fable 5** as the intelligence layer. Lives at **`/jarvis`** on
+with **Claude (Opus 4.8)** as the intelligence layer. Lives at **`/jarvis`** on
 liftoffr.com, behind the same Basic-Auth password as `/dashboard`.
 
 ## What it does
@@ -26,9 +26,9 @@ the model never sees credentials and can't invent numbers.
    ```
    (or Vercel dashboard → Settings → Environment Variables). Redeploy after.
 
-2. **Data retention:** Fable 5 requires **30-day data retention** (it is not
-   available under zero-data-retention). If your Anthropic org is set to ZDR,
-   every request 400s — switch retention in the Anthropic Console first.
+2. **Model:** defaults to **Claude Opus 4.8** (no special access needed).
+   Claude Fable 5 / Mythos 5 require Project Glasswing access — if your org gets
+   it, set a `JARVIS_MODEL=claude-fable-5` env var and redeploy; no code change.
 
 3. `DASHBOARD_PASSWORD` is already set (shared with `/dashboard`) — nothing to do.
 
@@ -50,10 +50,9 @@ hand is the tier ladder itself (`PLAN`) if you ever re-plan the strategy.
 
 ## Cost
 
-Fable 5 is $10/$50 per 1M tokens. Each briefing/ask is ~1–2K input + <1K output,
-so well under a cent per call. The persona prompt is cached. A refusal is
-transparently re-served by Claude Opus 4.8 (server-side fallback) so the
-dashboard never breaks on a false-positive safety classifier.
+Opus 4.8 is $5/$25 per 1M tokens. Each briefing/ask is ~1–2K input + <1K output,
+so a fraction of a cent per call. The persona prompt is prompt-cached. A rare
+safety refusal is surfaced gracefully rather than breaking the HUD.
 
 ## Deploy
 
