@@ -331,6 +331,30 @@
           <div class="nw-col"><div class="nw-h">Monthly Income <button class="nw-add" data-cat="income">+ Add</button></div><div id="nwIncome"></div></div>
         </div>
       </div>
+      <!-- VEHICLE -->
+      <style>
+        .veh-wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:stretch}
+        .veh-photo{position:relative;width:320px;max-width:100%;border-radius:14px;overflow:hidden;background:var(--bg2);border:1px solid var(--line2);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center}
+        .veh-photo img{width:100%;height:100%;object-fit:cover;display:block}
+        .veh-ph{color:var(--dim);font-size:13px}
+        .veh-edit{position:absolute;bottom:8px;right:8px;font-size:11px;padding:6px 11px;border-radius:8px;background:rgba(0,0,0,.55);color:#fff;border:1px solid rgba(255,255,255,.25);cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+        .veh-edit:hover{background:rgba(0,0,0,.75)}
+        .veh-info{flex:1;min-width:250px;display:flex;flex-direction:column;justify-content:center}
+        .veh-title{font-size:18px;font-weight:800;letter-spacing:-.2px}
+        .veh-sub{color:var(--muted);font-size:12.5px;margin:3px 0 16px}
+        .veh-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .veh-stats>div{background:var(--bg2);border:1px solid var(--line2);border-radius:12px;padding:13px}
+        .veh-stats span{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+        .veh-stats b{display:block;font-family:var(--mono);font-size:21px;margin-top:5px}
+        .veh-stats i{display:block;font-style:normal;font-size:10.5px;color:var(--dim);margin-top:4px}
+        #vehVal{cursor:pointer;border-bottom:1px dashed var(--line2)}
+        @media(max-width:560px){.veh-stats{grid-template-columns:1fr}}
+      </style>
+      <div class="sec" id="sec-vehicle"><div class="sec-h"><span class="chev">▼</span><span class="stitle">🚗 Vehicle</span><span class="ssub">— 2022 Porsche Macan S · live value, loan payoff &amp; equity</span></div></div>
+      <div class="panel">
+        <div class="veh-wrap" id="vehCard"><div class="loading">Loading vehicle…</div></div>
+        <input type="file" id="vehPhotoInput" accept="image/*" style="display:none">
+      </div>
       <!-- TRADE LEDGER -->
       <div class="sec" id="sec-ledger"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▦ Trade Ledger</span><span class="ssub">— log buys/sells · feeds the ladder, position &amp; cost basis</span></div></div>
       <div class="panel">
@@ -697,31 +721,91 @@ document.querySelectorAll('.chart-range-btn').forEach(btn=>btn.onclick=()=>{docu
 async function maybeAutoSync(){try{if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;await new Promise(r=>setTimeout(r,1500));if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;if(!CB||!(CB.btc>0.001))return;
   const d=await(await fetch('/api/coinbase-sync')).json();if(Array.isArray(d.trades)){const manual=STATE.trades.filter(t=>t.source!=='coinbase');STATE.trades=[...manual,...d.trades.map(t=>({...t,id:uid()}))];saveState();refreshPlan();setSync(`Auto-synced ${d.trades.length} trades. ${new Date().toLocaleString()}`)}}catch(e){}}
 
+// ===== Personal liabilities + vehicle (amortized / depreciated, live) =====
+// Car loan: exact terms from the OCCU retail installment contract.
+const LOAN_AUTO={ name:'🚗 Macan loan (OCCU)', principal:47514, apr:5.74, payment:915.03, first:'2026-05-10', term:60, payDay:1 };
+// Personal loan: balance as provided, amortized forward from that date.
+const LOAN_PERSONAL={ name:'💵 Personal loan', balanceAsOf:23301.33, asOf:'2026-06-14', apr:0.5, payment:620.30, payDay:15 };
+const VEHICLE={ label:'2022 Porsche Macan S', sub:'Black / black trim · Sport Chrono · ~43k mi',
+  vin:'WP1AG2A57NLB21022', baseValue:47477, baseDate:'2026-03-26', annualDepr:0.12 };
+
+function addMonths(iso,m){const d=new Date(iso+'T00:00:00');return new Date(d.getFullYear(),d.getMonth()+m,d.getDate());}
+function curBalance(loan,now){
+  const r=(loan.apr||0)/100/12;
+  if(loan.first){ // standard amortizing auto loan
+    let bal=loan.principal,made=0;
+    for(let k=1;k<=loan.term;k++){ if(addMonths(loan.first,k-1)<=now){bal=bal*(1+r)-loan.payment;made++;}else break; }
+    return {balance:Math.max(0,bal),made,remaining:loan.term-made};
+  }
+  // balance-as-of style: step a payment for each payDay strictly after asOf, up to now
+  let bal=loan.balanceAsOf,made=0;const start=new Date(loan.asOf+'T00:00:00');
+  let y=start.getFullYear(),mo=start.getMonth();
+  for(let i=0;i<1200;i++){ const d=new Date(y,mo,loan.payDay); if(d>start&&d<=now){bal=bal*(1+r)-loan.payment;made++;} if(d>now)break; if(++mo>11){mo=0;y++;} }
+  return {balance:Math.max(0,bal),made};
+}
+function nextPayment(loan,now){let d=new Date(now.getFullYear(),now.getMonth(),loan.payDay);if(d<now)d=new Date(now.getFullYear(),now.getMonth()+1,loan.payDay);return d;}
+function fmtDate(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function vehicleValue(now){
+  const v=(STATE.vehicle&&STATE.vehicle.manualValue)?{val:+STATE.vehicle.manualValue,d:STATE.vehicle.manualAsOf||VEHICLE.baseDate}:{val:VEHICLE.baseValue,d:VEHICLE.baseDate};
+  const yrs=Math.max(0,(now-new Date(v.d+'T00:00:00'))/(365.25*864e5));
+  return v.val*Math.pow(1-VEHICLE.annualDepr,yrs);
+}
+let LIAB={car:0,macan:0,personal:0,macanInfo:null,personalInfo:null};
+function computeLiab(){const now=new Date();
+  LIAB.macanInfo=curBalance(LOAN_AUTO,now);LIAB.macan=LIAB.macanInfo.balance;
+  LIAB.personalInfo=curBalance(LOAN_PERSONAL,now);LIAB.personal=LIAB.personalInfo.balance;
+  LIAB.car=vehicleValue(now);}
+
+function renderVehicle(){const now=new Date();const val=vehicleValue(now);const m=curBalance(LOAN_AUTO,now);const eq=val-m.balance;
+  const photo=STATE.vehicle&&STATE.vehicle.photo;
+  document.getElementById('vehCard').innerHTML=`
+    <div class="veh-photo">${photo?`<img src="${photo}" alt="${VEHICLE.label}">`:`<div class="veh-ph">No photo yet</div>`}<button class="veh-edit" id="vehPhotoBtn">${photo?'Change photo':'＋ Upload photo'}</button></div>
+    <div class="veh-info">
+      <div class="veh-title">${VEHICLE.label}</div>
+      <div class="veh-sub">${VEHICLE.sub} · VIN …${VEHICLE.vin.slice(-6)}</div>
+      <div class="veh-stats">
+        <div><span>Est. value</span><b id="vehVal" title="Click to set actual value">${FMT_USD0.format(val)}</b><i>tap to set actual</i></div>
+        <div><span>Loan payoff</span><b style="color:#f0556b">${FMT_USD0.format(m.balance)}</b><i>${m.remaining} pmts left · $915.03/mo</i></div>
+        <div><span>Equity</span><b style="color:${eq>=0?'#26d07c':'#f0556b'}">${FMT_USD0.format(eq)}</b><i>value − payoff</i></div>
+      </div>
+    </div>`;
+  document.getElementById('vehPhotoBtn').onclick=()=>document.getElementById('vehPhotoInput').click();
+  document.getElementById('vehVal').onclick=()=>{const cur=Math.round(vehicleValue(new Date()));const v=prompt('Current market value of the Macan (USD)? Leave blank to revert to the auto estimate.',cur);if(v===null)return;if(!STATE.vehicle)STATE.vehicle={};if(v.trim()===''){delete STATE.vehicle.manualValue;delete STATE.vehicle.manualAsOf;}else{const n=parseFloat(v.replace(/[^0-9.]/g,''));if(!isFinite(n)){return}STATE.vehicle.manualValue=n;STATE.vehicle.manualAsOf=new Date().toISOString().slice(0,10);}saveState();renderVehicle();renderFinances();};
+}
+// photo upload — downscale to keep localStorage small, store as data URL
+(function(){const inp=document.getElementById('vehPhotoInput');if(!inp)return;inp.onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const img=new Image();img.onload=()=>{const max=1000,sc=Math.min(1,max/img.width),w=Math.round(img.width*sc),h=Math.round(img.height*sc);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);const data=c.toDataURL('image/jpeg',0.82);if(!STATE.vehicle)STATE.vehicle={};STATE.vehicle.photo=data;try{saveState()}catch(err){alert('That image is too large to store locally — try a smaller one.');return}renderVehicle()};img.src=rd.result};rd.readAsDataURL(f)};})();
+
 // ===== Net Worth & Cash Flow =====
 const FKEY={assets:'value',debts:'balance',income:'monthly'};
 function fin(){if(!STATE.finances)STATE.finances={assets:[],debts:[],income:[]};['assets','debts','income'].forEach(k=>{if(!Array.isArray(STATE.finances[k]))STATE.finances[k]=[]});return STATE.finances}
-function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').replace(/</g,'&lt;');let html='';
+function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').replace(/</g,'&lt;'),now=new Date(),sub='color:var(--dim);font-size:11px;font-weight:500';let html='';
   if(cat==='assets'){if(LIVE_PF.btcVal>0)html+=`<div class="nw-row"><span class="nl auto">₿ Bitcoin (live)</span><span class="nv">${FMT_USD0.format(LIVE_PF.btcVal)}</span></div>`;
     if(LIVE_PF.cash>1)html+=`<div class="nw-row"><span class="nl auto">Coinbase cash</span><span class="nv">${FMT_USD0.format(LIVE_PF.cash)}</span></div>`;
+    html+=`<div class="nw-row"><span class="nl auto">🚗 ${VEHICLE.label} <span style="${sub}">est.</span></span><span class="nv">${FMT_USD0.format(LIAB.car)}</span></div>`;
     BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
-  if(cat==='debts')BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);
+  if(cat==='debts'){
+    html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
+    html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
+    BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);}
   if(!list.length&&!html)html+='<div class="nw-empty">None yet — click + Add.</div>';
   html+=list.map(x=>`<div class="nw-row"><span class="nl" data-edit="${cat}:${x.id}">${(x.label||'').replace(/</g,'&lt;')}</span><span><span class="nv">${FMT_USD0.format(+x[key]||0)}</span> <button class="nx" data-del="${cat}:${x.id}">✕</button></span></div>`).join('');
   return html}
-function renderFinances(){const F=fin();
+function renderFinances(){const F=fin();computeLiab();
   const manualA=F.assets.reduce((s,x)=>s+(+x.value||0),0),manualD=F.debts.reduce((s,x)=>s+(+x.balance||0),0),income=F.income.reduce((s,x)=>s+(+x.monthly||0),0);
   const bankA=BANK.assets.reduce((s,x)=>s+(+x.value||0),0),bankD=BANK.debts.reduce((s,x)=>s+(+x.balance||0),0);
-  const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA,totalDebts=manualD+bankD,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
+  const autoDebts=LIAB.macan+LIAB.personal;
+  const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA+LIAB.car,totalDebts=manualD+bankD+autoDebts,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
   document.getElementById('nwSummary').innerHTML=`
     <div class="pstat"><div class="psl">Net Worth</div><div class="psv" style="color:${nwc}">${FMT_USD0.format(nw)}</div><div class="pss">assets − debts</div></div>
-    <div class="pstat"><div class="psl">Total Assets</div><div class="psv">${FMT_USD0.format(totalAssets)}</div><div class="pss">${FMT_USD0.format(live+bankA)} live/bank + ${FMT_USD0.format(manualA)} manual</div></div>
-    <div class="pstat"><div class="psl">Total Debts</div><div class="psv" style="color:${totalDebts>0?'#f0556b':'var(--ink)'}">${FMT_USD0.format(totalDebts)}</div><div class="pss">bank + ${F.debts.length} manual</div></div>
+    <div class="pstat"><div class="psl">Total Assets</div><div class="psv">${FMT_USD0.format(totalAssets)}</div><div class="pss">${FMT_USD0.format(live+bankA+LIAB.car)} live/auto + ${FMT_USD0.format(manualA)} manual</div></div>
+    <div class="pstat"><div class="psl">Total Debts</div><div class="psv" style="color:${totalDebts>0?'#f0556b':'var(--ink)'}">${FMT_USD0.format(totalDebts)}</div><div class="pss">${FMT_USD0.format(autoDebts)} loans + ${F.debts.length} manual</div></div>
     <div class="pstat"><div class="psl">Monthly Income</div><div class="psv">${FMT_USD0.format(income)}</div><div class="pss">${income>0?FMT_USD0.format(income*12)+' / yr':'add sources'}</div></div>`;
   document.getElementById('nwAssets').innerHTML=finRows('assets');
   document.getElementById('nwDebts').innerHTML=finRows('debts');
   document.getElementById('nwIncome').innerHTML=finRows('income');
   document.querySelectorAll('#sec-networth [data-del]').forEach(b=>b.onclick=()=>{const a=b.dataset.del.split(':'),c=a[0],id=a[1];F[c]=F[c].filter(x=>x.id!==id);saveState();renderFinances()});
-  document.querySelectorAll('#sec-networth [data-edit]').forEach(el=>el.onclick=()=>{const a=el.dataset.edit.split(':'),c=a[0],id=a[1];openFin(c,F[c].find(x=>x.id===id))});}
+  document.querySelectorAll('#sec-networth [data-edit]').forEach(el=>el.onclick=()=>{const a=el.dataset.edit.split(':'),c=a[0],id=a[1];openFin(c,F[c].find(x=>x.id===id))});
+  renderVehicle();}
 function openFin(cat,item){document.getElementById('finCat').value=cat;document.getElementById('finId').value=(item&&item.id)||'';
   const T={assets:'Asset',debts:'Debt',income:'Income'};document.getElementById('finTitle').textContent=(item?'Edit ':'Add ')+T[cat];
   document.getElementById('finAmtLbl').textContent=cat==='income'?'Monthly (USD)':cat==='debts'?'Balance (USD)':'Value (USD)';
