@@ -221,6 +221,36 @@
       <button class="btn btn-green" id="refreshBtn">↻ Force Update</button>
     </div>
     <div class="wrap">
+      <!-- JARVIS -->
+      <style>
+        #jvFeed{font-family:var(--sans);font-size:14px;line-height:1.62;color:var(--ink);white-space:pre-wrap;min-height:110px}
+        #jvFeed .jvmeta{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.5px;display:block;margin-bottom:9px}
+        #jvFeed .jvcur{display:inline-block;width:7px;height:15px;background:var(--blue);vertical-align:-2px;margin-left:2px;animation:jvblink 1s steps(1) infinite}
+        @keyframes jvblink{50%{opacity:0}}
+        .jv-modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+        .jv-modes button{font-family:var(--sans);font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:8px 14px;border-radius:9px;cursor:pointer;color:var(--ink);background:rgba(77,141,240,.08);border:1px solid rgba(77,141,240,.28);transition:.15s}
+        .jv-modes button:hover{background:rgba(77,141,240,.18);border-color:var(--blue)}
+        .jv-modes button:disabled{opacity:.45;cursor:wait}
+        .jv-ask{display:flex;gap:8px;margin-top:10px}
+        .jv-ask input{flex:1;font-family:var(--sans);font-size:13px;color:var(--ink);padding:10px 13px;border-radius:9px;background:var(--bg2);border:1px solid var(--line2);outline:none}
+        .jv-ask input:focus{border-color:var(--blue)}
+        .jv-ask input::placeholder{color:var(--dim)}
+        .jv-ask button{padding:0 15px;border-radius:9px;border:1px solid rgba(38,208,124,.32);background:rgba(38,208,124,.1);color:var(--green);cursor:pointer;font-size:14px}
+        .jv-ask button:hover{background:rgba(38,208,124,.2)}
+      </style>
+      <div class="sec" id="sec-jarvis"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◆ JARVIS</span><span class="ssub">— AI analyst · reads your live position, cycle &amp; ladder (Claude Opus 4.8)</span></div></div>
+      <div class="panel">
+        <div id="jvFeed"><span class="jvmeta">// Ask for a briefing, a risk read, tier status — or anything about your position.</span><span class="jvcur"></span></div>
+        <div class="jv-modes">
+          <button data-jv="briefing">▸ Daily Briefing</button>
+          <button data-jv="risk">▸ Risk Read</button>
+          <button data-jv="tier">▸ Tier Status</button>
+        </div>
+        <div class="jv-ask">
+          <input id="jvAsk" type="text" placeholder="Ask JARVIS about your position…" autocomplete="off">
+          <button id="jvSend" title="Send">➤</button>
+        </div>
+      </div>
       <!-- VERDICT -->
       <div class="sec" id="sec-verdict"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📊 Cycle Verdict</span><span class="ssub">— A Systematic Scoring Framework for Bitcoin Cycle Position</span></div></div>
       <div class="panel verdict">
@@ -729,6 +759,67 @@ document.getElementById('bankConnect').onclick=bankConnect;
 document.getElementById('bankRefresh').onclick=bankRefresh;
 document.getElementById('bankDisconnect').onclick=()=>{if(!confirm('Disconnect bank? (removes the stored link from this browser)'))return;localStorage.removeItem(PLAID_TOK);BANK={assets:[],debts:[]};bankLinkedUI(false);bankStatus('not connected');renderFinances()};
 if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
+
+/* ===== JARVIS — AI analyst panel. Builds a snapshot from the dashboard's
+   already-loaded live state and narrates it via /api/jarvis. ===== */
+(function(){
+  const jq=id=>document.getElementById(id);
+  const PS=PLAN.phases[0].start;
+  function snapshot(){
+    const buys=(TRADES||[]).filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS);
+    const depUsd=buys.reduce((s,t)=>s+(+t.usd||0),0);
+    const fills=(typeof lumpFills==='function')?lumpFills():{};
+    const btc=(CB&&typeof CB.btc==='number')?CB.btc:buys.reduce((s,t)=>s+(+t.btc||0),0);
+    const avg=(typeof planAvgCostBasis==='function')?planAvgCostBasis():null;
+    const tiers=(typeof buyTiers==='function'?buyTiers():[]).map(t=>{
+      const px=effPrice(t), dep=fills[t.tier]||0;
+      const fired=dep>=(t.target||0)*0.97;
+      const hit=!fired&&LIVE_PRICE!=null&&px!=null&&LIVE_PRICE<=px;
+      const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier];
+      return {tier:t.tier,target:t.target,targetPrice:t.targetPrice,effPrice:px,fired,hit,cowenMentions:cow?cow.mentions:0};
+    });
+    const ch=parseFloat((jq('tb24h').textContent||'').replace('%','').replace('+',''));
+    const cbbi=parseFloat(jq('tbCbbi').textContent);
+    const cyc=parseFloat(jq('tbScore').textContent);
+    return {
+      asOf:new Date().toISOString(),
+      price:LIVE_PRICE, change24h:isFinite(ch)?ch:null,
+      ma200w:MA200W, ma200wDelta:(LIVE_PRICE&&MA200W)?((LIVE_PRICE-MA200W)/MA200W*100):null,
+      cbbi:isFinite(cbbi)?cbbi:null,
+      cycleScore:isFinite(cyc)?cyc:null,
+      cycleZone:(jq('vTag').textContent||'').toLowerCase().trim()||null,
+      cycleCommentary:(jq('vCopy').textContent||'').trim()||null,
+      btc, avgCost:avg, deployedUsd:Math.round(depUsd), totalBudget:PLAN.totalBudget,
+      tiers
+    };
+  }
+  let busy=false;
+  async function type(text,model){
+    const feed=jq('jvFeed');
+    feed.innerHTML=model?`<span class="jvmeta">// ${model}</span>`:'';
+    const body=document.createElement('span'),cur=document.createElement('span');cur.className='jvcur';
+    feed.appendChild(body);feed.appendChild(cur);
+    for(let i=0;i<text.length;i++){body.textContent+=text[i];if(i%3===0)await new Promise(r=>setTimeout(r,7));}
+    cur.remove();
+  }
+  async function run(mode,question){
+    if(busy)return;
+    if(LIVE_PRICE==null){jq('jvFeed').innerHTML='<span class="jvmeta">// live data still loading — try again in a moment.</span>';return;}
+    busy=true;document.querySelectorAll('.jv-modes button').forEach(b=>b.disabled=true);
+    jq('jvFeed').innerHTML='<span class="jvmeta">// JARVIS is analyzing your live position…</span><span class="jvcur"></span>';
+    try{
+      const r=await fetch('/api/jarvis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode,question,snapshot:snapshot()})});
+      const d=await r.json();
+      if(!r.ok)throw new Error(d.error||('HTTP '+r.status));
+      await type(d.text||'(no response)',d.model);
+    }catch(e){jq('jvFeed').innerHTML='<span class="jvmeta" style="color:var(--red)">// link error</span>'+e.message;}
+    finally{busy=false;document.querySelectorAll('.jv-modes button').forEach(b=>b.disabled=false);}
+  }
+  document.querySelectorAll('.jv-modes button').forEach(b=>b.addEventListener('click',()=>run(b.dataset.jv)));
+  function ask(){const v=jq('jvAsk').value.trim();if(!v||busy)return;jq('jvAsk').value='';run('ask',v);}
+  jq('jvSend').addEventListener('click',ask);
+  jq('jvAsk').addEventListener('keydown',e=>{if(e.key==='Enter')ask();});
+})();
 
 load().then(()=>maybeAutoSync());
 </script>
