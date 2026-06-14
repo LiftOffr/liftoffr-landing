@@ -1007,14 +1007,14 @@ async function fetchAnalytics() {
   errEl.textContent = "";
   try {
     const [traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps] = await Promise.all([
-      fetch("/api/analytics?src=ga4&report=traffic").then(r => r.json()),
-      fetch("/api/analytics?src=ga4&report=pages").then(r => r.json()),
-      fetch("/api/analytics?src=ga4&report=events").then(r => r.json()),
-      fetch("/api/analytics?src=ga4&report=funnel").then(r => r.json()),
-      fetch("/api/analytics?src=clarity&days=3").then(r => r.json()).catch(() => ({ error: "Clarity unavailable" })),
-      fetch("/api/analytics?src=gsc&report=queries&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
-      fetch("/api/analytics?src=gsc&report=pages&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
-      fetch("/api/analytics?src=gsc&report=sitemaps").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-ga4?report=traffic").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=pages").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=events").then(r => r.json()),
+      fetch("/api/analytics-ga4?report=funnel").then(r => r.json()),
+      fetch("/api/analytics-clarity?days=3").then(r => r.json()).catch(() => ({ error: "Clarity unavailable" })),
+      fetch("/api/analytics-gsc?report=queries&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-gsc?report=pages&days=90").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
+      fetch("/api/analytics-gsc?report=sitemaps").then(r => r.json()).catch(() => ({ error: "GSC unavailable" })),
     ]);
     card.style.display = "block";
     renderAnalytics({ traffic, pages, events, funnel, clarity, gscQueries, gscPages, gscSitemaps });
