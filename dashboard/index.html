@@ -100,6 +100,11 @@
   .ind .idesc{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.45}
   .ind .ibluf{margin-top:9px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.025);border-left:2px solid var(--accent);font-size:11.5px;line-height:1.5;color:var(--ink)}
   .ind .ibluf b{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:1px 5px;border-radius:4px;margin-right:5px;vertical-align:1px}
+  .pbluf{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);font-size:11px;line-height:1.45}
+  .mcard .mbluf{margin-top:9px;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.3px}
+  .today-call{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(230,57,70,.09),rgba(255,255,255,.02));border:1px solid var(--line2)}
+  .tc-tag{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:1.2px;padding:4px 9px;border-radius:6px;border:1px solid;white-space:nowrap}
+  .tc-body{color:var(--muted);font-size:13.5px;line-height:1.5}.tc-body b{font-weight:800}
   .ind .spark{margin-top:12px}
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px}
   .muted{color:var(--muted)}
@@ -227,6 +232,7 @@
       <button class="btn btn-green" id="refreshBtn">↻ Force Update</button>
     </div>
     <div class="wrap">
+      <div class="today-call" id="todayCall" style="display:none"></div>
       <!-- JARVIS -->
       <style>
         #jvFeed{font-family:var(--sans);font-size:14px;line-height:1.62;color:var(--ink);white-space:pre-wrap;min-height:110px}
@@ -512,6 +518,44 @@ function drawRadar(P){const svg=document.getElementById('radar'),cx=165,cy=145,R
   h+=`<polygon points="${p}" fill="rgba(38,208,124,.18)" stroke="#26d07c" stroke-width="2"/>`;
   P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,lx=cx+(R+24)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="#7e8ba2" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${q.name}</text>`});
   svg.innerHTML=h;}
+const PILLAR_READ={
+  Cycle:{hi:'cycle timing is late — top-side of the cycle',lo:'early in the cycle — runway left'},
+  Valuation:{hi:'BTC looks expensive vs its on-chain cost basis',lo:'BTC looks cheap vs realized / on-chain value'},
+  Technical:{hi:'price stretched above its long-term trend',lo:'price near long-term trend support'},
+  Sentiment:{hi:'crowd is greedy — contrarian caution',lo:'crowd is fearful — contrarian opportunity'},
+};
+function pillarBLUF(name,pv,pd7){
+  const r=PILLAR_READ[name]||{hi:'elevated',lo:'depressed'};
+  const band=pv>=70?'hi':pv<=35?'lo':'mid';
+  const phrase=band==='hi'?r.hi:band==='lo'?r.lo:'mid-range — no strong tilt';
+  const tr=pd7>0.5?'rising':pd7<-0.5?'falling':'flat',arrow=tr==='rising'?'▲':tr==='falling'?'▼':'→';
+  let lean,col;
+  if(band==='hi'){lean=tr==='falling'?'high but cooling':'sell-side — caution';col='var(--red)';}
+  else if(band==='lo'){lean=tr==='rising'?'cheap & turning up — accumulate':'deep value — accumulate';col='var(--green)';}
+  else{lean='neutral — stay the course';col='var(--amber)';}
+  return `<div class="pbluf"><span style="color:${col}">${phrase}; ${tr} ${arrow} — ${lean}.</span></div>`;
+}
+function macroVerdict(label,color){
+  const tail=color==='#26d07c'?'tailwind for BTC':color==='#f0556b'?'headwind for BTC':'neutral for BTC';
+  return `<div class="mbluf" style="color:${color}">→ ${tail}</div>`;
+}
+function renderTodayCall(){
+  const el=document.getElementById('todayCall');if(!el)return;
+  const se=document.getElementById('tbScore'),score=se?parseFloat(se.textContent):NaN;
+  if(!isFinite(score)){el.style.display='none';return;}el.style.display='';
+  const c=zColor(score),zone=(document.getElementById('vTag').textContent||'').trim();
+  let posture;if(score>=85)posture='Top zone — scale out per the exit plan';
+  else if(score>=60)posture='Late cycle — tighten exits, hold dry powder';
+  else if(score>=40)posture='Mid-cycle — stay the course, keep DCAing';
+  else if(score>=20)posture='Accumulation — buy weakness, deploy tiers on dips';
+  else posture='Deep value — best risk/reward to accumulate';
+  let maStr='';if(LIVE_PRICE&&MA200W){const d=(LIVE_PRICE-MA200W)/MA200W*100;maStr=` · BTC ${FUSD(LIVE_PRICE)}, ${d>=0?'+':''}${d.toFixed(0)}% vs 200W MA`;}
+  let nextStr='';try{const fills=lumpFills(),nt=buyTiers().find(t=>(fills[t.tier]||0)<(t.target||0)*0.97);
+    if(nt){const px=effPrice(nt),hit=LIVE_PRICE!=null&&px!=null&&LIVE_PRICE<=px;
+      nextStr=nt.tier==='IMMEDIATE'?` · Plan: fire ${nt.tier} now`:hit?` · Plan: ${nt.tier} HIT at ${FUSD(px)} — deploy`:` · Plan: next ${nt.tier} at ${FUSD(px)}`;}
+    else nextStr=' · Plan: fully deployed';}catch(e){}
+  el.innerHTML=`<span class="tc-tag" style="background:${c}1f;color:${c};border-color:${c}">TODAY'S CALL</span><span class="tc-body"><b style="color:${c}">${zone||zLabel(score)}</b> · cycle ${score.toFixed(0)}/100${maStr}${nextStr}. <span style="color:${c}">${posture}.</span></span>`;
+}
 const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 
 // ===== PLAN (Cowen buy-ladder) — ported from /dashboard =====
@@ -606,7 +650,7 @@ async function renderMacro(fngNow){const g=document.getElementById('macroGrid');
   if(ethbtc)cards.push(['ETH / BTC Ratio',ethbtc.toFixed(5),'risk-appetite proxy · rising = alts bid','#4d8df0']);
   // Fear & Greed
   if(fngNow!=null)cards.push(['Crypto Fear & Greed',String(Math.round(fngNow)),fngNow>=75?'extreme greed':fngNow>=55?'greed':fngNow>=45?'neutral':fngNow>=25?'fear':'extreme fear',fngNow>=55?'#26d07c':fngNow>=45?'#e8b339':'#f0556b']);
-  g.innerHTML=cards.map(c=>`<div class="mcard"><div class="ml">${c[0]}</div><div class="mv" style="color:${c[3]}">${c[1]}</div><div class="mvs">${c[2]}</div></div>`).join('');}
+  g.innerHTML=cards.map(c=>`<div class="mcard"><div class="ml">${c[0]}</div><div class="mv" style="color:${c[3]}">${c[1]}</div><div class="mvs">${c[2]}</div>${macroVerdict(c[0],c[3])}</div>`).join('');}
 
 async function load(){
   let bp={},cs={},hist={},fngArr=[];
@@ -629,6 +673,7 @@ async function load(){
   document.getElementById('vTitle').textContent=score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
   document.getElementById('vCopy').textContent=cs.commentary||'';document.getElementById('vCopy').classList.remove('loading');
   const vt=document.getElementById('vTag');vt.textContent=(cs.zone||zLabel(score)).toUpperCase();vt.style.background=zColor(score)+'26';vt.style.color=zColor(score);
+  renderTodayCall();
 
   // build indicator series from history (last 60 pts, x100)
   const keys=['Confidence','PiCycle','RUPL','RHODL','Puell','2YMA','Trolololo','MVRV','ReserveRisk','Woobull'];
@@ -660,7 +705,7 @@ async function load(){
     const c=zColor(pv);radar.push({name,val:pv});
     pc.innerHTML+=`<div class="pillar" style="border-left-color:${c}"><div class="ph"><div class="pname">${cfg.icon} ${name}</div><div class="pwt">${cfg.wt}%</div></div>
       <div class="pval" style="color:${c}">${pv.toFixed(0)}</div>
-      <div class="pbot"><span class="pdelta">${pd1>=0?'▲':'▼'}${Math.abs(pd1).toFixed(1)} 1d · ${pd7>=0?'▲':'▼'}${Math.abs(pd7).toFixed(1)} 7d</span><span class="pbadge" style="background:${c}26;color:${c}">${zLabel(pv)}</span></div></div>`;});
+      <div class="pbot"><span class="pdelta">${pd1>=0?'▲':'▼'}${Math.abs(pd1).toFixed(1)} 1d · ${pd7>=0?'▲':'▼'}${Math.abs(pd7).toFixed(1)} 7d</span><span class="pbadge" style="background:${c}26;color:${c}">${zLabel(pv)}</span></div>${pillarBLUF(name,pv,pd7)}</div>`;});
   drawRadar(radar);
   if(radar.length){const m=radar.reduce((a,b)=>a+b.val,0)/radar.length,sd=Math.sqrt(radar.reduce((a,b)=>a+(b.val-m)**2,0)/radar.length),con=Math.max(0,Math.min(100,Math.round(100-sd*2.2)));
     document.getElementById('consFill').style.width=con+'%';document.getElementById('consN').textContent=con+' / 100';document.getElementById('consDiv').textContent='Divergence (σ) '+sd.toFixed(1);
@@ -689,7 +734,7 @@ function loadState(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return J
 function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(STATE))}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 let STATE=loadState();
-function refreshPlan(){TRADES=STATE.trades||[];renderLadderV2();renderProjected();renderPosition();renderTradeList();renderFinances();if(BTC_CHART)renderChart(CHART_DAYS)}
+function refreshPlan(){TRADES=STATE.trades||[];renderLadderV2();renderProjected();renderPosition();renderTradeList();renderFinances();renderTodayCall();if(BTC_CHART)renderChart(CHART_DAYS)}
 
 let BTC_CHART=null,BTC_HISTORY=null,CHART_DAYS=365;
 async function fetchHistory(days){try{const d=await(await fetch(`/api/btc-price?chart=${days}`)).json();if(Array.isArray(d.history)){BTC_HISTORY=d.history;return d.history}}catch(e){}return null}
