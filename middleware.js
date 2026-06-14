@@ -1,11 +1,13 @@
 // Vercel Edge Middleware.
 //  1. Redirects www.liftoffr.com → liftoffr.com  (except /sitemap.xml + /robots.txt
 //     so Search Console / search bots can fetch them directly on the www property).
-//  2. Gates /dashboard and analytics APIs behind HTTP Basic Auth (DASHBOARD_PASSWORD).
+//  2. Gates /dashboard, /jarvis, and analytics APIs behind HTTP Basic Auth (DASHBOARD_PASSWORD).
 
 export const config = {
   matcher: [
     "/dashboard/:path*",
+    "/jarvis/:path*",
+    "/api/jarvis",
     "/api/coinbase-sync",
     "/api/coinbase-balance",
     "/api/analytics-ga4",
@@ -32,6 +34,8 @@ export default function middleware(request) {
   // === Part 2: auth gate for dashboard + analytics APIs ===
   const needsAuth = (
     url.pathname.startsWith("/dashboard") ||
+    url.pathname.startsWith("/jarvis") ||
+    url.pathname === "/api/jarvis" ||
     url.pathname === "/api/coinbase-sync" ||
     url.pathname === "/api/coinbase-balance" ||
     url.pathname === "/api/analytics-ga4" ||

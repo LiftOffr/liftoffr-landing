@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#04070d">
+<title>JARVIS · Command Center</title>
+<style>
+  :root{
+    --bg:#04070d; --bg2:#070c16;
+    --glass:rgba(18,28,44,.55); --glass-line:rgba(120,180,230,.14);
+    --ink:#e8f2ff; --muted:#7f93ad; --dim:#56678a;
+    --cyan:#5fd3f3; --teal:#43e3c0; --amber:#ffb454; --red:#ff5c6c; --green:#37e08a;
+    --glow:0 0 24px rgba(95,211,243,.35);
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,"JetBrains Mono",Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--bg);
+    background-image:
+      radial-gradient(1200px 700px at 78% -8%, rgba(67,227,192,.10), transparent 60%),
+      radial-gradient(1000px 800px at 12% 110%, rgba(95,211,243,.10), transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2));
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased; letter-spacing:.2px;
+    min-height:100vh; overflow-x:hidden;
+  }
+  /* faint grid overlay */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.4;
+    background-image:linear-gradient(rgba(120,180,230,.04) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(120,180,230,.04) 1px,transparent 1px);
+    background-size:46px 46px; mask-image:radial-gradient(circle at 50% 30%,#000,transparent 85%);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:22px 20px 60px; position:relative; z-index:1}
+
+  /* ---- top bar ---- */
+  header{display:flex; align-items:center; gap:16px; margin-bottom:22px; flex-wrap:wrap}
+  .mark{display:flex; align-items:center; gap:12px}
+  .core{width:38px;height:38px;position:relative;flex:0 0 auto}
+  .core i{position:absolute;inset:0;border-radius:50%;border:1.5px solid transparent}
+  .core i:nth-child(1){border-top-color:var(--cyan);border-right-color:rgba(95,211,243,.3);animation:spin 3.2s linear infinite}
+  .core i:nth-child(2){inset:6px;border-bottom-color:var(--teal);border-left-color:rgba(67,227,192,.3);animation:spin 2.1s linear infinite reverse}
+  .core i:nth-child(3){inset:13px;border-radius:50%;background:radial-gradient(circle,var(--cyan),transparent 70%);box-shadow:var(--glow);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes pulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.08)}}
+  .title{font-size:20px;font-weight:600;letter-spacing:3px}
+  .title b{color:var(--cyan);font-weight:600}
+  .title small{display:block;font-size:9.5px;letter-spacing:3.5px;color:var(--dim);font-weight:500;margin-top:1px}
+  .spacer{flex:1}
+  .ticker{font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;line-height:1.5}
+  .ticker .px{color:var(--ink);font-size:17px;font-weight:600}
+  .ticker .up{color:var(--green)} .ticker .dn{color:var(--red)}
+  .status{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:1px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+  .dot.warn{background:var(--amber);box-shadow:0 0 10px var(--amber)}
+  .dot.err{background:var(--red);box-shadow:0 0 10px var(--red)}
+
+  /* ---- layout ---- */
+  .grid{display:grid;grid-template-columns:1fr 1.35fr;gap:16px}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--glass); border:1px solid var(--glass-line); border-radius:18px;
+    padding:18px 18px 16px; backdrop-filter:blur(14px) saturate(120%);
+    -webkit-backdrop-filter:blur(14px) saturate(120%);
+    box-shadow:0 10px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .clabel{font-size:10.5px;letter-spacing:2.5px;color:var(--dim);text-transform:uppercase;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .clabel::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--glass-line),transparent)}
+
+  /* position HUD */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .stat{padding:12px 13px;border-radius:13px;background:rgba(8,14,24,.5);border:1px solid rgba(120,180,230,.08)}
+  .stat .k{font-size:10px;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase}
+  .stat .v{font-family:var(--mono);font-size:21px;font-weight:600;margin-top:5px;color:var(--ink)}
+  .stat .s{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:2px}
+  .stat.wide{grid-column:1/-1}
+  .v.pos{color:var(--green)} .v.neg{color:var(--red)}
+
+  /* deploy bar */
+  .bar{height:8px;border-radius:6px;background:rgba(8,14,24,.7);overflow:hidden;margin-top:9px;border:1px solid rgba(120,180,230,.1)}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--cyan));box-shadow:0 0 12px rgba(95,211,243,.5)}
+
+  /* vitals */
+  .vitals{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px}
+  .vital{text-align:center;padding:12px 6px;border-radius:13px;background:rgba(8,14,24,.5);border:1px solid rgba(120,180,230,.08)}
+  .vital .k{font-size:9.5px;letter-spacing:1.5px;color:var(--dim);text-transform:uppercase}
+  .vital .v{font-family:var(--mono);font-size:24px;font-weight:600;margin-top:4px}
+  .vital .z{font-size:10px;letter-spacing:1px;margin-top:3px;color:var(--muted);text-transform:uppercase}
+  .zone-pill{display:inline-block;padding:1px 7px;border-radius:20px;font-size:9px;letter-spacing:1px}
+
+  /* tier ladder */
+  .ladder{margin-top:4px}
+  .tier{display:flex;align-items:center;gap:10px;padding:9px 4px;border-bottom:1px solid rgba(120,180,230,.07);font-family:var(--mono);font-size:12.5px}
+  .tier:last-child{border-bottom:0}
+  .tier .tg{width:78px;color:var(--muted)}
+  .tier .tp{flex:1;color:var(--ink)}
+  .tier .ts{font-size:10px;letter-spacing:1px;padding:2px 8px;border-radius:20px}
+  .ts.fired{background:rgba(55,224,138,.14);color:var(--green)}
+  .ts.hit{background:rgba(255,180,84,.16);color:var(--amber)}
+  .ts.pending{background:rgba(86,103,138,.16);color:var(--dim)}
+
+  /* JARVIS console */
+  .console{min-height:300px;display:flex;flex-direction:column}
+  .feed{flex:1;font-size:14.5px;line-height:1.62;color:var(--ink);white-space:pre-wrap;
+        font-weight:350;min-height:230px;letter-spacing:.1px}
+  .feed .cursor{display:inline-block;width:8px;height:17px;background:var(--cyan);
+        box-shadow:var(--glow);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .feed .meta{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:1px;margin-bottom:12px;display:block}
+  .modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+  .modes button{
+    font-family:var(--sans);font-size:12.5px;font-weight:500;letter-spacing:.4px;
+    padding:9px 15px;border-radius:11px;cursor:pointer;color:var(--ink);
+    background:rgba(95,211,243,.07);border:1px solid rgba(95,211,243,.22);transition:.16s;
+  }
+  .modes button:hover{background:rgba(95,211,243,.16);border-color:var(--cyan);box-shadow:var(--glow)}
+  .modes button:disabled{opacity:.4;cursor:wait}
+  .ask{display:flex;gap:8px;margin-top:11px}
+  .ask input{
+    flex:1;font-family:var(--sans);font-size:13.5px;color:var(--ink);
+    padding:11px 14px;border-radius:11px;background:rgba(8,14,24,.6);
+    border:1px solid rgba(120,180,230,.16);outline:none;transition:.16s;
+  }
+  .ask input:focus{border-color:var(--cyan);box-shadow:var(--glow)}
+  .ask input::placeholder{color:var(--dim)}
+  .ask button{padding:0 16px;border-radius:11px;border:1px solid rgba(67,227,192,.3);
+    background:rgba(67,227,192,.1);color:var(--teal);cursor:pointer;font-size:15px;transition:.16s}
+  .ask button:hover{background:rgba(67,227,192,.2);box-shadow:0 0 18px rgba(67,227,192,.35)}
+  .foot{margin-top:18px;font-family:var(--mono);font-size:10px;color:var(--dim);letter-spacing:.5px;text-align:center}
+  .foot b{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">
+      <div class="core"><i></i><i></i><i></i></div>
+      <div class="title"><b>JARVIS</b> <small>LIFTOFFR · BTC COMMAND</small></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="ticker">
+      <div class="px" id="tkPx">$—</div>
+      <div id="tkCh">24h —</div>
+    </div>
+    <div class="status"><span class="dot" id="statDot"></span><span id="statTxt">BOOTING</span></div>
+  </header>
+
+  <div class="grid">
+    <!-- LEFT COLUMN -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <div class="clabel">Position</div>
+        <div class="stats">
+          <div class="stat"><div class="k">Holdings</div><div class="v" id="pHold">—</div><div class="s" id="pHoldSrc">BTC</div></div>
+          <div class="stat"><div class="k">Market Value</div><div class="v" id="pMv">—</div><div class="s" id="pMvSub">&nbsp;</div></div>
+          <div class="stat"><div class="k">Avg Cost</div><div class="v" id="pAvg">—</div><div class="s">basis</div></div>
+          <div class="stat"><div class="k">Unrealized P/L</div><div class="v" id="pPl">—</div><div class="s" id="pPlPct">&nbsp;</div></div>
+          <div class="stat wide">
+            <div class="k">Capital Deployed</div>
+            <div class="v" id="pDep" style="font-size:16px">—</div>
+            <div class="bar"><i id="pBar" style="width:0%"></i></div>
+            <div class="s" id="pDepSub">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="clabel">Market Vitals</div>
+        <div class="vitals">
+          <div class="vital"><div class="k">CBBI</div><div class="v" id="vCbbi">—</div><div class="z">confidence</div></div>
+          <div class="vital"><div class="k">Cycle</div><div class="v" id="vCyc">—</div><div class="z"><span class="zone-pill" id="vZone">—</span></div></div>
+          <div class="vital"><div class="k">vs 200W</div><div class="v" id="vMa">—</div><div class="z">moving avg</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="clabel">Buy-Tier Ladder</div>
+        <div class="ladder" id="ladder"><div style="color:var(--dim);font-family:var(--mono);font-size:12px">loading…</div></div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: JARVIS console -->
+    <div class="card console">
+      <div class="clabel">JARVIS · Intelligence</div>
+      <div class="feed" id="feed"><span class="cursor"></span></div>
+      <div class="modes">
+        <button data-mode="briefing">▸ Daily Briefing</button>
+        <button data-mode="risk">▸ Risk Read</button>
+        <button data-mode="tier">▸ Tier Status</button>
+      </div>
+      <div class="ask">
+        <input id="askIn" type="text" placeholder="Ask JARVIS about your position…" autocomplete="off">
+        <button id="askBtn" title="Send">➤</button>
+      </div>
+      <div class="foot">Powered by <b>Claude Fable&nbsp;5</b> · grounded in live position data · private to Torin</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG — the plan. Update FIRED + PORTFOLIO as tiers fire.
+   (Holdings come live from Coinbase; this is the fallback +
+   the cost-basis / deployed source of truth, mirroring /dashboard.)
+   ============================================================ */
+const PLAN = { totalBudget:145182, phases:[
+  { lumpTiers:[
+    {tier:'IMMEDIATE', target:15000, targetPrice:73000, fillPrice:73425},
+    {tier:'T1',        target:15000, targetPrice:68000, maMultiple:1.10, fillPrice:68025} ]},
+  { lumpTiers:[
+    {tier:'T2',        target:28000, targetPrice:60000, maMultiple:0.97, fillPrice:60553},
+    {tier:'T3',        target:26200, targetPrice:52000, maMultiple:0.85} ]},
+  { lumpTiers:[
+    {tier:'T4',        target:15000, targetPrice:45000, maMultiple:0.73},
+    {tier:'T5',        target:8000,  targetPrice:40000, maMultiple:0.65} ]},
+]};
+// Fallbacks only — used if the Coinbase sync is unavailable. When the sync
+// succeeds, FIRED tiers, avgCost and deployed are all derived from real fills.
+const FIRED = new Set(['IMMEDIATE','T1','T2']);
+const PORTFOLIO = { btc:0.9006, avgCost:65757, deployedUsd:59024 };
+const PLAN_START = '2026-05-28';   // plan phase 1 start — scopes which buys count
+
+/* ---- helpers ---- */
+const $ = id => document.getElementById(id);
+const FUSD = (n,d=0) => n==null||!isFinite(n) ? '—' : '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+const tiers = () => PLAN.phases.flatMap(p => p.lumpTiers);
+
+let MARKET = {};   // live state from APIs
+let SNAP = null;   // assembled snapshot sent to JARVIS
+
+// Derive cost basis, deployed capital, and which tiers have filled — straight
+// from real Coinbase fills. Mirrors /dashboard's planAvgCostBasis + lumpFills.
+function deriveFromTrades(trades){
+  const buys = (trades||[]).filter(t => (t.type||'buy')==='buy' && (t.date||'') >= PLAN_START);
+  if (!buys.length) return null;
+  const usd = buys.reduce((s,t)=>s+(+t.usd||0),0);
+  const btc = buys.reduce((s,t)=>s+(+t.btc||0),0);
+  // allocate lump buys (>= $1k) to tiers in date order; a tier is "fired" once filled to 97%
+  const lumps = buys.filter(t=>(+t.usd||0)>=1000).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  let rem = lumps.reduce((s,t)=>s+(+t.usd||0),0);
+  const fired = new Set();
+  for (const t of tiers()){
+    const a = Math.min(t.target||0, Math.max(0, rem));
+    if (a >= (t.target||0)*0.97) fired.add(t.tier);
+    rem = Math.max(0, rem - a);
+  }
+  return { deployedUsd: Math.round(usd), avgCost: btc>0 ? usd/btc : null, btcTracked: btc, fired };
+}
+
+function effPrice(t){
+  const ma = (t.maMultiple && MARKET.ma200w) ? MARKET.ma200w * t.maMultiple : null;
+  const cow = MARKET.cowen && MARKET.cowen[t.tier] ? MARKET.cowen[t.tier].price : null;
+  if (cow && ma){ if (Math.abs(cow-ma)/ma <= 0.10) return cow; return ma; }
+  if (cow) return cow;
+  return ma || t.targetPrice;
+}
+
+async function loadMarket(){
+  // price + MA + CBBI + cowen targets
+  try{
+    const r = await fetch('/api/btc-price?ma200w=1'); const d = await r.json();
+    MARKET.price = d.usd; MARKET.change24h = d.change24h;
+    MARKET.ma200w = d.ma200w ?? null; MARKET.ma200wDelta = d.ma200wDelta ?? null;
+    MARKET.cbbi = d.cbbi ?? null;
+    MARKET.cowen = (d.cowen && d.cowen.tiers) ? d.cowen.tiers : {};
+  }catch(e){ console.warn('btc-price', e); }
+  // cycle score
+  try{
+    const r = await fetch('/api/cycle-score'); const d = await r.json();
+    MARKET.cycleScore = d.score; MARKET.cycleZone = d.zone; MARKET.cycleTrend = d.trend;
+    MARKET.cycleTrendDelta7d = d.trendDelta7d; MARKET.cycleCommentary = d.commentary;
+  }catch(e){ console.warn('cycle-score', e); }
+  // live holdings (authed; falls back to config on failure)
+  MARKET.btc = PORTFOLIO.btc; MARKET.btcLive = false;
+  try{
+    const r = await fetch('/api/coinbase-balance');
+    if (r.ok){ const d = await r.json(); if (typeof d.btc === 'number'){ MARKET.btc = d.btc; MARKET.btcLive = true; } }
+  }catch(e){ console.warn('coinbase-balance', e); }
+  // cost basis, deployed, fired tiers — derived live from Coinbase fills
+  MARKET.avgCost = PORTFOLIO.avgCost; MARKET.deployedUsd = PORTFOLIO.deployedUsd;
+  MARKET.fired = FIRED; MARKET.tradesLive = false;
+  try{
+    const r = await fetch('/api/coinbase-sync');
+    if (r.ok){
+      const d = await r.json();
+      const derived = deriveFromTrades(d.trades);
+      if (derived){
+        if (derived.avgCost != null) MARKET.avgCost = derived.avgCost;
+        MARKET.deployedUsd = derived.deployedUsd;
+        MARKET.fired = derived.fired;
+        MARKET.tradesLive = true;
+        if (!MARKET.btcLive && derived.btcTracked > 0) MARKET.btc = derived.btcTracked;
+      }
+    }
+  }catch(e){ console.warn('coinbase-sync', e); }
+}
+
+function buildSnapshot(){
+  const firedSet = MARKET.fired || FIRED;
+  const ts = tiers().map(t => {
+    const fired = firedSet.has(t.tier);
+    const px = effPrice(t);
+    const hit = !fired && MARKET.price != null && px != null && MARKET.price <= px;
+    const cow = MARKET.cowen && MARKET.cowen[t.tier];
+    return { tier:t.tier, target:t.target, targetPrice:t.targetPrice, effPrice:px,
+             fired, hit, cowenMentions: cow ? cow.mentions : 0 };
+  });
+  SNAP = {
+    asOf: new Date().toISOString(),
+    price: MARKET.price, change24h: MARKET.change24h,
+    ma200w: MARKET.ma200w, ma200wDelta: MARKET.ma200wDelta, cbbi: MARKET.cbbi,
+    cycleScore: MARKET.cycleScore, cycleZone: MARKET.cycleZone, cycleTrend: MARKET.cycleTrend,
+    cycleTrendDelta7d: MARKET.cycleTrendDelta7d, cycleCommentary: MARKET.cycleCommentary,
+    btc: MARKET.btc, avgCost: MARKET.avgCost,
+    deployedUsd: MARKET.deployedUsd, totalBudget: PLAN.totalBudget,
+    tiers: ts,
+  };
+  return SNAP;
+}
+
+/* ---- render HUD ---- */
+const ZONE_COLOR = { 'exit':'#ff5c6c','warning':'#ffb454','neutral':'#5fd3f3',
+  'accumulation':'#43e3c0','deep-accumulation':'#37e08a' };
+
+function renderHUD(){
+  // ticker
+  $('tkPx').textContent = FUSD(MARKET.price);
+  const ch = MARKET.change24h;
+  $('tkCh').innerHTML = ch==null ? '24h —' : `<span class="${ch>=0?'up':'dn'}">24h ${ch>=0?'+':''}${ch.toFixed(2)}%</span>`;
+
+  // position
+  $('pHold').textContent = MARKET.btc!=null ? MARKET.btc.toFixed(4) : '—';
+  $('pHoldSrc').textContent = MARKET.btcLive ? 'BTC · live' : 'BTC · plan';
+  const mv = (MARKET.btc!=null && MARKET.price!=null) ? MARKET.btc*MARKET.price : null;
+  $('pMv').textContent = FUSD(mv);
+  $('pAvg').textContent = FUSD(MARKET.avgCost);
+  if (mv!=null && MARKET.avgCost!=null){
+    const cost = MARKET.btc*MARKET.avgCost, pl = mv-cost, pct = cost ? pl/cost*100 : 0;
+    const el = $('pPl'); el.textContent = (pl>=0?'+':'-')+FUSD(Math.abs(pl)).slice(1);
+    el.className = 'v '+(pl>=0?'pos':'neg');
+    $('pPlPct').textContent = (pl>=0?'+':'')+pct.toFixed(1)+'%';
+  }
+  const dep = MARKET.deployedUsd, tot = PLAN.totalBudget, pctd = dep/tot*100;
+  $('pDep').textContent = FUSD(dep)+' / '+FUSD(tot);
+  $('pBar').style.width = pctd.toFixed(1)+'%';
+  $('pDepSub').textContent = FUSD(tot-dep)+' dry powder · '+pctd.toFixed(1)+'% deployed'+(MARKET.tradesLive?' · live':'');
+
+  // vitals
+  $('vCbbi').textContent = MARKET.cbbi!=null ? Math.round(MARKET.cbbi) : '—';
+  $('vCyc').textContent = MARKET.cycleScore!=null ? MARKET.cycleScore : '—';
+  const zp = $('vZone'); zp.textContent = (MARKET.cycleZone||'—').replace('-',' ');
+  const zc = ZONE_COLOR[MARKET.cycleZone] || '#7f93ad';
+  zp.style.background = zc+'28'; zp.style.color = zc; zp.style.border = '1px solid '+zc;
+  if (MARKET.ma200wDelta!=null){
+    const el = $('vMa'); el.textContent = (MARKET.ma200wDelta>=0?'+':'')+Math.round(MARKET.ma200wDelta)+'%';
+    el.style.color = MARKET.ma200wDelta>=0 ? 'var(--green)' : 'var(--amber)';
+  }
+
+  // ladder
+  $('ladder').innerHTML = SNAP.tiers.map(t=>{
+    const st = t.fired?'fired':t.hit?'hit':'pending';
+    const lab = t.fired?'FIRED':t.hit?'HIT':'PENDING';
+    const px = t.effPrice!=null ? FUSD(t.effPrice) : FUSD(t.targetPrice);
+    const cow = t.cowenMentions ? ` <span style="color:var(--cyan)">🎯${t.cowenMentions}</span>` : '';
+    return `<div class="tier"><span class="tg">${t.tier}</span>
+      <span class="tp">${FUSD(t.target)} @ ${px}${cow}</span>
+      <span class="ts ${st}">${lab}</span></div>`;
+  }).join('');
+}
+
+/* ---- JARVIS console (typewriter) ---- */
+const feed = $('feed');
+let typing = false;
+function setStatus(txt, cls){ $('statTxt').textContent = txt; $('statDot').className = 'dot'+(cls?' '+cls:''); }
+
+async function typeOut(text, model){
+  typing = true;
+  feed.innerHTML = model ? `<span class="meta">// served by ${model}</span>` : '';
+  const cur = document.createElement('span'); cur.className='cursor';
+  const body = document.createElement('span'); feed.appendChild(body); feed.appendChild(cur);
+  for (let i=0;i<text.length;i++){
+    body.textContent += text[i];
+    if (i%3===0) await new Promise(r=>setTimeout(r, 8));
+  }
+  cur.remove(); typing = false;
+}
+
+let busy = false;
+async function run(mode, question){
+  if (busy) return; busy = true;
+  document.querySelectorAll('.modes button').forEach(b=>b.disabled=true);
+  setStatus('THINKING','warn');
+  feed.innerHTML = '<span class="meta">// JARVIS is analyzing the live position…</span><span class="cursor"></span>';
+  try{
+    buildSnapshot();
+    const r = await fetch('/api/jarvis',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ mode, question, snapshot: SNAP })
+    });
+    const d = await r.json();
+    if (!r.ok){ throw new Error(d.error || ('HTTP '+r.status)); }
+    await typeOut(d.text || '(no response)', d.model);
+    setStatus('ONLINE');
+  }catch(e){
+    feed.innerHTML = `<span class="meta" style="color:var(--red)">// link error</span>${e.message}`;
+    setStatus('ERROR','err');
+  }finally{
+    busy = false; document.querySelectorAll('.modes button').forEach(b=>b.disabled=false);
+  }
+}
+
+/* ---- wire up ---- */
+document.querySelectorAll('.modes button').forEach(b=>{
+  b.addEventListener('click',()=>run(b.dataset.mode));
+});
+function ask(){
+  const v = $('askIn').value.trim(); if(!v||busy) return;
+  $('askIn').value=''; run('ask', v);
+}
+$('askBtn').addEventListener('click', ask);
+$('askIn').addEventListener('keydown', e=>{ if(e.key==='Enter') ask(); });
+
+/* ---- boot ---- */
+(async function boot(){
+  await typeOut('Initializing command center…  Pulling live market feeds, your position, and the tier ladder.', null);
+  await loadMarket();
+  buildSnapshot();
+  renderHUD();
+  setStatus('ONLINE');
+  // auto-run the daily briefing
+  run('briefing');
+  // refresh market data every 90s (HUD only; narration on demand)
+  setInterval(async()=>{ await loadMarket(); buildSnapshot(); renderHUD(); }, 90000);
+})();
+</script>
+</body>
+</html>
