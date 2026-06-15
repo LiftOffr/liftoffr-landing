@@ -194,7 +194,7 @@ function proofHTML() {
      </div>
      <p style="margin:0 0 16px;">It isn't magic. It's scaling <em>out</em> by the Score instead of guessing the top — and scaling <em>in</em> when everyone's scared.</p>
      <p style="margin:0 0 16px;">Receipts are timestamped. Dec 15, 2018: buy signal at $3.2K. BTC ran 21× to $69K. <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof" style="color:#e63946;font-weight:700;">Full backtest here →</a></p>
-     <p style="margin:0 0 16px;">Want to see what these 9 indicators are flashing <em>right now</em> — live? That's what a membership is: the daily read, the dashboard, and alerts when it matters. Try it free for 7 days, no card.</p>
+     <p style="margin:0 0 16px;">Want to see what the indicators are flashing <em>right now</em> — live? That's what a membership is: the daily read, the dashboard, and alerts when it matters. Try it free for 7 days, no card.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "Start 7 days free — no card →", "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_trial");
 }
@@ -208,7 +208,7 @@ function proofText() {
     "It isn't magic. It's scaling out by the Score instead of guessing the top — and scaling in when everyone's scared.","",
     "Receipts are timestamped. Dec 15, 2018: buy at $3.2K. BTC ran 21x to $69K.","",
     "Full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","",
-    "Want to see what these 9 indicators are flashing right now — live? Try a membership free for 7 days, no card:",
+    "Want to see what the indicators are flashing right now — live? Try a membership free for 7 days, no card:",
     "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_trial","","— Torin"].join("\n");
 }
 
