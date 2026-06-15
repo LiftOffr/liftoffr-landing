@@ -58,11 +58,11 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
   <div style="padding:0 28px 32px;font-size:14px;color:#444;line-height:1.6;">
     <p style="margin:0 0 12px;color:#666;font-size:13px;">The Score is a V7-weighted composite of 9 on-chain + market indicators. Above 85 = historic top zones. Below 20 = accumulation windows.</p>
-    <p style="margin:18px 0 0;">Want the daily brief, the live dashboard, and signal alerts when the Score crosses 70? Join LiftOffr at the Founder Rate.</p>
+    <p style="margin:18px 0 0;">Want the daily brief, the live dashboard, and signal alerts when the Score crosses 70? Try LiftOffr free for 7 days — no card.</p>
   </div>
 
   <div style="padding:0 28px 32px;">
-    <a href="https://liftoffr.com/?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Join LiftOffr — $29/mo locked forever →</a>
+    <a href="https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Start 7 days free — no card →</a>
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;">
@@ -85,8 +85,8 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     "The Score is a V7-weighted composite of 9 on-chain + market indicators. Above 85 = historic top zones. Below 20 = accumulation windows.",
     "",
-    "Want the daily brief + live dashboard + signal alerts? Join LiftOffr:",
-    "https://liftoffr.com/?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
+    "Want the daily brief + live dashboard + signal alerts? Try it free for 7 days — no card:",
+    "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
     "",
     "— Torin",
     "",
