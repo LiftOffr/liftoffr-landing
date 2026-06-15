@@ -27,7 +27,7 @@ const SUBJECT_BASE = "The LiftOffr Score this week";
 function unsubUrl(email) {
   const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
     .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
-  return `https://liftoffr.com/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+  return `https://liftoffr.com/api/subscribe?u=1&e=${encodeURIComponent(email)}&t=${t}`;
 }
 
 function zoneLabel(zone) {
