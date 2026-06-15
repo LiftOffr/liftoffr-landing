@@ -15,23 +15,28 @@
   "redirects": [
     {
       "source": "/ig",
-      "destination": "/links/?utm_source=instagram&utm_medium=bio&utm_campaign=evergreen&utm_content=ig_bio",
-      "permanent": true
+      "destination": "/checklist?utm_source=instagram&utm_medium=bio&utm_campaign=checklist&utm_content=ig_bio",
+      "permanent": false
     },
     {
       "source": "/yt",
-      "destination": "/?utm_source=youtube&utm_medium=channel&utm_campaign=evergreen&utm_content=yt_channel",
-      "permanent": true
+      "destination": "/checklist?utm_source=youtube&utm_medium=bio&utm_campaign=checklist&utm_content=yt_bio",
+      "permanent": false
     },
     {
       "source": "/tiktok",
-      "destination": "/links/?utm_source=tiktok&utm_medium=bio&utm_campaign=evergreen&utm_content=tiktok_bio",
-      "permanent": true
+      "destination": "/checklist?utm_source=tiktok&utm_medium=bio&utm_campaign=checklist&utm_content=tiktok_bio",
+      "permanent": false
+    },
+    {
+      "source": "/tt",
+      "destination": "/checklist?utm_source=tiktok&utm_medium=bio&utm_campaign=checklist&utm_content=tiktok_bio",
+      "permanent": false
     },
     {
       "source": "/x",
-      "destination": "/?utm_source=twitter&utm_medium=social&utm_campaign=evergreen&utm_content=x_thread",
-      "permanent": true
+      "destination": "/checklist?utm_source=x&utm_medium=bio&utm_campaign=checklist&utm_content=x_bio",
+      "permanent": false
     },
     {
       "source": "/start",
