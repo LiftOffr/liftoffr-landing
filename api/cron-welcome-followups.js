@@ -193,9 +193,10 @@ function proofHTML() {
        <div>100% win rate across 417 different start dates</div>
      </div>
      <p style="margin:0 0 16px;">It isn't magic. It's scaling <em>out</em> by the Score instead of guessing the top — and scaling <em>in</em> when everyone's scared.</p>
-     <p style="margin:0 0 16px;">Receipts are timestamped. Dec 15, 2018: buy signal at $3.2K. BTC ran 21× to $69K.</p>
+     <p style="margin:0 0 16px;">Receipts are timestamped. Dec 15, 2018: buy signal at $3.2K. BTC ran 21× to $69K. <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof" style="color:#e63946;font-weight:700;">Full backtest here →</a></p>
+     <p style="margin:0 0 16px;">Want to see what these 9 indicators are flashing <em>right now</em> — live? That's what a membership is: the daily read, the dashboard, and alerts when it matters. Try it free for 7 days, no card.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "See the full backtest →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof");
+    "Start 7 days free — no card →", "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_trial");
 }
 function proofText() {
   return ["Most people don't believe this the first time — so here's the math, public and checkable.","",
@@ -206,7 +207,9 @@ function proofText() {
     "  • 100% win rate across 417 start dates","",
     "It isn't magic. It's scaling out by the Score instead of guessing the top — and scaling in when everyone's scared.","",
     "Receipts are timestamped. Dec 15, 2018: buy at $3.2K. BTC ran 21x to $69K.","",
-    "See the full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","","— Torin"].join("\n");
+    "Full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","",
+    "Want to see what these 9 indicators are flashing right now — live? Try a membership free for 7 days, no card:",
+    "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_trial","","— Torin"].join("\n");
 }
 
 // ── Day 18: Re-engagement (timely buy-zone angle → trial) ──
@@ -270,7 +273,7 @@ function trial1HTML() {
      </div>
      <p style="margin:18px 0 16px;">That's it. Do those three things today and you'll know by Wednesday whether this belongs in your routine.</p>
      <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">I read every reply. Hit me with questions.</em></p>`,
-    "Open the dashboard →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=day1");
+    "Join the Discord →", "https://liftoffr.com/discord");
 }
 function trial1Text() {
   return ["You're in — no card, no catch. Full access for 7 days, so let's make this week count.","",
@@ -279,7 +282,7 @@ function trial1Text() {
     "2. Check the live dashboard — today's Score and zone",
     "3. Read the 8am daily brief. That's the whole product in 3 min/day.","",
     "Do those three today and you'll know by Wednesday.","","— Torin (I read every reply)",
-    "https://liftoffr.com/track-record"].join("\n");
+    "Join the Discord: https://liftoffr.com/discord"].join("\n");
 }
 
 function trial2HTML() {
@@ -288,35 +291,48 @@ function trial2HTML() {
      <p style="margin:0 0 16px;">If you've been reading the daily brief, you've already seen the thing most people pay to learn the hard way: <strong>the read changes, and you don't have to guess.</strong></p>
      <p style="margin:0 0 16px;">If you <em>haven't</em> opened it yet — that's the whole product. One post, 8am MT, every weekday: here's the Score, here's the zone, here's what it means today. Three minutes. No charts to stare at, no Twitter to doom-scroll.</p>
      <p style="margin:0 0 16px;">The backtest is public if you want the proof: $50/wk run through this framework since 2017 turned $24,450 of contributions into $1.88M — vs $217K just buying and holding. 100% win rate vs DCA across 417 start dates.</p>
-     <p style="margin:24px 0 0;">Four days left. Use them.</p>
+     <p style="margin:24px 0 0;">Four days left. And if you already know it's a keeper, don't wait for the day-6 reminder — lock in your founder rate now. It holds whether you do it today or Friday.</p>
      <p style="margin:18px 0 0;">— Torin</p>`,
-    "See the full backtest →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=day3");
+    "Lock in my membership →", TRIAL_CHECKOUT);
 }
 function trial2Text() {
   return ["Halfway through your trial. Quick gut-check.","",
     "If you've read the daily brief, you've seen the thing most people pay to learn the hard way: the read changes, and you don't have to guess.","",
     "If you haven't opened it — that's the product. One post, 8am MT, weekdays: Score, zone, what it means today. Three minutes.","",
     "Proof is public: $50/wk through this framework since 2017 = $1.88M vs $217K buy-and-hold. 100% win rate vs DCA across 417 start dates.","",
-    "Four days left. Use them.","— Torin","https://liftoffr.com/track-record"].join("\n");
+    "Four days left. If you already know it's a keeper, lock in your founder rate now — it holds whether you do it today or Friday:",
+    TRIAL_CHECKOUT,"","— Torin"].join("\n");
 }
 
 function trial3HTML() {
   return trialShell("Trial · Day 6 · ends tomorrow",
-    `<p style="margin:0 0 16px;">Straight with you: <strong>tomorrow your free week ends and access just switches off.</strong> No card on file, so nothing gets charged — it simply lapses unless you choose to keep it. Two options:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
-       <div style="margin-bottom:10px;"><strong>1. Keep it.</strong> Keep everything you've had this week — daily briefs, dashboard, live alerts, signals, community — with <strong>Pro at $99/mo</strong>. Want lighter? Core is $49/mo. Button below.</div>
+    `<p style="margin:0 0 14px;">Straight with you: <strong>tomorrow your free week ends and access just switches off.</strong> No card on file, so nothing gets charged — it simply lapses unless you choose to keep it.</p>
+     <p style="margin:0 0 8px;">Tomorrow you lose access to:</p>
+     <div style="background:#fff5f5;border:1px solid #f3c0c5;border-radius:10px;padding:16px 20px;margin:0 0 16px;font-size:14px;line-height:1.8;color:#333;">
+       <div>✕ The daily 8am market brief</div>
+       <div>✕ The live cycle dashboard + Score</div>
+       <div>✕ Real-time signal alerts</div>
+       <div>✕ The 6-module course</div>
+       <div>✕ The private Discord community</div>
+     </div>
+     <p style="margin:0 0 8px;">Two options:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 16px;font-size:14px;line-height:1.7;color:#333;">
+       <div style="margin-bottom:10px;"><strong>1. Keep it.</strong> Keep all of the above — <strong>Pro at $99/mo</strong>, or Core at $49/mo if you mostly want the daily read. Button below.</div>
        <div><strong>2. Let it lapse.</strong> Do nothing and access ends tomorrow. Nothing charged, no clawback, no hard feelings — that's the deal I promised.</div>
      </div>
      <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — keep it before it ends.</p>
-     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>`,
+     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
+     <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to go deeper than the membership? The <a href="https://liftoffr.com/playbook" style="color:#e63946;">Cycle Playbook</a> is the live cohort where we build your full buy + sell plan together.</p>`,
     "Keep my access — go Pro →", TRIAL_CHECKOUT);
 }
 function trial3Text() {
-  return ["Straight with you: tomorrow your free week ends and access just switches off. No card on file, so nothing gets charged — it simply lapses unless you keep it. Two options:","",
-    "1. KEEP IT — keep everything from this week with Pro ($99/mo; or Core $49 for the lighter set):",
+  return ["Straight with you: tomorrow your free week ends and access just switches off. No card on file, so nothing gets charged — it simply lapses unless you keep it.","",
+    "Tomorrow you lose: the daily 8am brief, the live dashboard + Score, real-time signal alerts, the 6-module course, and the private Discord.","",
+    "1. KEEP IT — keep all of it with Pro ($99/mo; or Core $49 if you mostly want the daily read):",
     "   " + TRIAL_CHECKOUT,
     "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
-    "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr"].join("\n");
+    "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr","",
+    "P.S. Want to go deeper? The Cycle Playbook live cohort: https://liftoffr.com/playbook"].join("\n");
 }
 
 const TSUBJECT_4 = "Your LiftOffr access just lapsed";
