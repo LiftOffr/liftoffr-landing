@@ -21,8 +21,11 @@ export const config = { runtime: "nodejs" };
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
 
+const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
 const SUBJECT_E2 = "How to actually use the Score (and what 60+ members do daily)";
+const SUBJECT_PROOF = "$50/week became $1.88M — the backtest";
 const SUBJECT_E3 = "Last welcome email — what happens next";
+const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 
 function email2HTML() {
   return `<!DOCTYPE html>
@@ -154,6 +157,68 @@ function email3Text() {
   ].join("\n");
 }
 
+// ── Day 1: Quick win (activation → live dashboard) ──
+function quickWinHTML() {
+  return shell("Welcome · Day 1",
+    `<p style="margin:0 0 16px;">Yesterday you grabbed the Checklist — the 9 indicators that flag a cycle top.</p>
+     <p style="margin:0 0 16px;">Reading all 9 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 9 into <strong>one number, 0–100</strong>, updated daily.</p>
+     <p style="margin:0 0 16px;">Open it and you'll see exactly where the cycle stands today — color-coded buy zone, neutral, or top zone. Ten seconds, no charts to decode.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "See today's Score →", "https://liftoffr.com/dashboard?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
+}
+function quickWinText() {
+  return ["Yesterday you grabbed the Checklist — the 9 indicators that flag a cycle top.","",
+    "Reading all 9 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 9 into one number, 0–100, updated daily.","",
+    "Open it and you'll see exactly where the cycle stands today — buy zone, neutral, or top zone. Ten seconds.","",
+    "See today's Score: https://liftoffr.com/dashboard?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
+}
+
+// ── Day 5: Proof (the backtest + timestamped calls) ──
+function proofHTML() {
+  return shell("Welcome · Day 5",
+    `<p style="margin:0 0 16px;">Most people don't believe this the first time — so here's the math, public and checkable.</p>
+     <p style="margin:0 0 16px;">Run <strong>$50/week</strong> through this framework from 2017 to today:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;">
+       <div>$24,450 contributed → <strong>$1.88M</strong></div>
+       <div>Same $50/wk just buying &amp; holding → $217K</div>
+       <div><strong>+7,602%</strong> over plain DCA</div>
+       <div>100% win rate across 417 different start dates</div>
+     </div>
+     <p style="margin:0 0 16px;">It isn't magic. It's scaling <em>out</em> by the Score instead of guessing the top — and scaling <em>in</em> when everyone's scared.</p>
+     <p style="margin:0 0 16px;">Receipts are timestamped. Dec 15, 2018: buy signal at $3.2K. BTC ran 21× to $69K.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "See the full backtest →", "https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof");
+}
+function proofText() {
+  return ["Most people don't believe this the first time — so here's the math, public and checkable.","",
+    "Run $50/week through this framework from 2017 to today:",
+    "  • $24,450 contributed -> $1.88M",
+    "  • Same $50/wk buy-and-hold -> $217K",
+    "  • +7,602% over plain DCA",
+    "  • 100% win rate across 417 start dates","",
+    "It isn't magic. It's scaling out by the Score instead of guessing the top — and scaling in when everyone's scared.","",
+    "Receipts are timestamped. Dec 15, 2018: buy at $3.2K. BTC ran 21x to $69K.","",
+    "See the full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","","— Torin"].join("\n");
+}
+
+// ── Day 18: Re-engagement (timely buy-zone angle → trial) ──
+function reengageHTML() {
+  return shell("LiftOffr · checking in",
+    `<p style="margin:0 0 16px;">I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.</p>
+     <p style="margin:0 0 16px;">Right now the cycle's in the <strong>accumulation zone</strong> — the boring, scary part that quietly decides how the next bull plays out. It's the easy part to ignore and the expensive part to get wrong.</p>
+     <p style="margin:0 0 16px;">If you'd rather not freelance it, the done-for-you version is still open free for 7 days — daily brief, live signal alerts, and the exact buy-ladder I'm running. No card, nothing charged.</p>
+     <p style="margin:0 0 16px;">If now's not the time, no worries — you'll still get the Score every Sunday.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "Start 7 days free — no card →", "https://liftoffr.com/start");
+}
+function reengageText() {
+  return ["I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.","",
+    "Right now the cycle's in the accumulation zone — the boring, scary part that decides how the next bull plays out. Easy to ignore, expensive to get wrong.","",
+    "If you'd rather not freelance it, the done-for-you version is open free for 7 days — daily brief, live signal alerts, the exact buy-ladder I'm running. No card, nothing charged.","",
+    "If now's not the time, no worries — you'll still get the Score every Sunday.","",
+    "Start 7 days free: https://liftoffr.com/start","","— Torin"].join("\n");
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // TRIAL NURTURE — for members inside the 7-day CARDLESS free trial.
 // Fed by the Whop webhook (begin_trial → adds contact to the trial audience).
@@ -185,6 +250,7 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
 </div></body></html>`;
 }
 
+const shell = trialShell; // shared branded template, also used by the new free-list emails above
 function trial1HTML() {
   return trialShell("Trial · Day 1",
     `<p style="margin:0 0 16px;">You're in — no card, no catch. Full access for 7 days, so let's make this week count.</p>
@@ -243,6 +309,28 @@ function trial3Text() {
     "   " + TRIAL_CHECKOUT,
     "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
     "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr"].join("\n");
+}
+
+const TSUBJECT_4 = "Your LiftOffr access just lapsed";
+function trial4HTML() {
+  return shell("Trial · ended",
+    `<p style="margin:0 0 16px;">Your free week's up, so access switched off — exactly as promised. No card, nothing charged.</p>
+     <p style="margin:0 0 16px;">If you got busy and meant to keep it, the door's still open. Pick up right where you left off:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
+       <div><strong>Pro — $99/mo:</strong> daily brief, live dashboard, signal alerts, full course, community.</div>
+       <div style="margin-top:8px;"><strong>Core — $49/mo:</strong> the lighter set if you just want the read.</div>
+     </div>
+     <p style="margin:0 0 16px;">Cancel anytime, 30-day refund. One honest heads-up: founder pricing holds for now, but it goes up as we add tiers — reactivating today locks your rate.</p>
+     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>`,
+    "Reactivate my access →", TRIAL_CHECKOUT);
+}
+function trial4Text() {
+  return ["Your free week's up, so access switched off — exactly as promised. No card, nothing charged.","",
+    "If you got busy and meant to keep it, the door's still open:",
+    "  • Pro $99/mo — daily brief, dashboard, signal alerts, course, community",
+    "  • Core $49/mo — the lighter set if you just want the read","",
+    "Cancel anytime, 30-day refund. Heads-up: founder pricing goes up as we add tiers — reactivating today locks your rate.","",
+    "Reactivate: " + TRIAL_CHECKOUT,"","— Torin, Founder LiftOffr"].join("\n");
 }
 
 async function fetchContacts() {
@@ -307,51 +395,32 @@ export default async function handler(req, res) {
 
   try {
     const contacts = await fetchContacts();
-    const results = { e2_sent: 0, e3_sent: 0, e2_failed: 0, e3_failed: 0, skipped: 0, errors: [] };
+    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, reengage_failed: 0, skipped: 0, errors: [] };
+
+    // Fire one email for a contact, dedupe via idempotency key, then pace 600ms.
+    const fire = async (c, subject, text, html, key, tag, okCounter, badCounter) => {
+      try {
+        await sendResend({ to: c.email, subject, text, html, idempotencyKey: `${key}-${c.id}`, tag });
+        results[okCounter]++;
+      } catch (e) {
+        results[badCounter]++;
+        results.errors.push({ id: c.id, step: tag, err: String(e).slice(0, 200) });
+      }
+      await new Promise((r) => setTimeout(r, 600));
+    };
 
     for (const c of contacts) {
       const age = ageDays(c.created_at);
-
-      // Email 2 window: 3.0 – 4.0 days
-      if (age >= 3.0 && age < 4.0) {
-        try {
-          await sendResend({
-            to: c.email,
-            subject: SUBJECT_E2,
-            text: email2Text(),
-            html: email2HTML(),
-            idempotencyKey: `welcome-e2-${c.id}`,
-            tag: "day3",
-          });
-          results.e2_sent++;
-        } catch (e) {
-          results.e2_failed++;
-          results.errors.push({ id: c.id, step: "e2", err: String(e).slice(0, 200) });
-        }
-        await new Promise((r) => setTimeout(r, 600));
-        continue;
-      }
-
-      // Email 3 window: 7.0 – 8.0 days
-      if (age >= 7.0 && age < 8.0) {
-        try {
-          await sendResend({
-            to: c.email,
-            subject: SUBJECT_E3,
-            text: email3Text(),
-            html: email3HTML(),
-            idempotencyKey: `welcome-e3-${c.id}`,
-            tag: "day7",
-          });
-          results.e3_sent++;
-        } catch (e) {
-          results.e3_failed++;
-          results.errors.push({ id: c.id, step: "e3", err: String(e).slice(0, 200) });
-        }
-        await new Promise((r) => setTimeout(r, 600));
-        continue;
-      }
-
+      // Day 1 — quick win (1.0–2.0)
+      if (age >= 1.0 && age < 2.0) { await fire(c, SUBJECT_QW, quickWinText(), quickWinHTML(), "welcome-qw", "day1", "qw_sent", "qw_failed"); continue; }
+      // Day 3 — how to use the Score (3.0–4.0)
+      if (age >= 3.0 && age < 4.0) { await fire(c, SUBJECT_E2, email2Text(), email2HTML(), "welcome-e2", "day3", "e2_sent", "e2_failed"); continue; }
+      // Day 5 — proof / backtest (5.0–6.0)
+      if (age >= 5.0 && age < 6.0) { await fire(c, SUBJECT_PROOF, proofText(), proofHTML(), "welcome-proof", "day5", "proof_sent", "proof_failed"); continue; }
+      // Day 7 — conversion / founder pitch (7.0–8.0)
+      if (age >= 7.0 && age < 8.0) { await fire(c, SUBJECT_E3, email3Text(), email3HTML(), "welcome-e3", "day7", "e3_sent", "e3_failed"); continue; }
+      // Day 18 — re-engagement (18.0–19.0)
+      if (age >= 18.0 && age < 19.0) { await fire(c, SUBJECT_REENGAGE, reengageText(), reengageHTML(), "welcome-reengage", "day18", "reengage_sent", "reengage_failed"); continue; }
       results.skipped++;
     }
 
@@ -359,13 +428,14 @@ export default async function handler(req, res) {
     const trialAud = process.env.RESEND_TRIAL_AUDIENCE_ID;
     let trial = null;
     if (trialAud) {
-      trial = { t1_sent: 0, t2_sent: 0, t3_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
+      trial = { t1_sent: 0, t2_sent: 0, t3_sent: 0, t4_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
       const trialContacts = await fetchAudience(trialAud);
       trial.total = trialContacts.length;
       const steps = [
         { lo: 0.0, hi: 1.0, subj: TSUBJECT_1, html: trial1HTML, text: trial1Text, key: "t1", k: "t1_sent" },
         { lo: 3.0, hi: 4.0, subj: TSUBJECT_2, html: trial2HTML, text: trial2Text, key: "t2", k: "t2_sent" },
         { lo: 5.5, hi: 6.5, subj: TSUBJECT_3, html: trial3HTML, text: trial3Text, key: "t3", k: "t3_sent" },
+        { lo: 8.0, hi: 9.5, subj: TSUBJECT_4, html: trial4HTML, text: trial4Text, key: "t4", k: "t4_sent" },
       ];
       for (const c of trialContacts) {
         const age = ageDays(c.created_at);
