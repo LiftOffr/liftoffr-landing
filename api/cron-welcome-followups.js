@@ -385,6 +385,20 @@ function ageDays(createdAt) {
 }
 
 export default async function handler(req, res) {
+  // Preview mode — render any email as HTML (no auth, no send). For QA/review.
+  const _url = new URL(req.url, "http://localhost");
+  const preview = _url.searchParams.get("preview");
+  if (preview) {
+    const map = {
+      qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML, reengage: reengageHTML,
+      t1: trial1HTML, t2: trial2HTML, t3: trial3HTML, t4: trial4HTML,
+    };
+    const fn = map[preview];
+    if (!fn) return res.status(400).json({ error: "unknown preview", options: Object.keys(map) });
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    return res.status(200).send(fn());
+  }
+
   // Auth guard
   const expected = process.env.CRON_SECRET;
   const got = req.headers["authorization"] || "";
