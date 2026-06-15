@@ -9,9 +9,7 @@ export const config = {
     "/api/jarvis",
     "/api/coinbase-sync",
     "/api/coinbase-balance",
-    "/api/analytics-ga4",
-    "/api/analytics-clarity",
-    "/api/analytics-gsc",
+    "/api/analytics",
     // Also catch ALL paths on the www host for the redirect — but we'll bail early
     // for non-www requests inside the function so we don't burn matcher slots.
     "/((?!_next|_vercel).*)",
@@ -36,9 +34,7 @@ export default function middleware(request) {
     url.pathname === "/api/jarvis" ||
     url.pathname === "/api/coinbase-sync" ||
     url.pathname === "/api/coinbase-balance" ||
-    url.pathname === "/api/analytics-ga4" ||
-    url.pathname === "/api/analytics-clarity" ||
-    url.pathname === "/api/analytics-gsc"
+    url.pathname === "/api/analytics"
   );
   if (!needsAuth) return;
 

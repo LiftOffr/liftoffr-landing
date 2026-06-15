@@ -89,7 +89,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
   </div>
 
   <div style="padding:0 28px 28px;">
-    <a href="https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See the live Score dashboard →</a>
+    <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See the live Score dashboard →</a>
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
@@ -134,7 +134,7 @@ function welcomeText({ score, zone, trendDelta7d, commentary }) {
     "— Torin",
     "Founder, LiftOffr",
     "",
-    "Live Score dashboard: https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta",
+    "Live Score dashboard: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta",
     "",
     "Backtested 2017-2026. Past performance does not guarantee future results.",
   ].join("\n");

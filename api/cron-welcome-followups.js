@@ -172,13 +172,13 @@ function quickWinHTML() {
      <p style="margin:0 0 16px;">Reading all 9 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 9 into <strong>one number, 0–100</strong>, updated daily.</p>
      <p style="margin:0 0 16px;">Open it and you'll see exactly where the cycle stands today — color-coded buy zone, neutral, or top zone. Ten seconds, no charts to decode.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "See today's Score →", "https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
+    "See today's Score →", "https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
 }
 function quickWinText() {
   return ["Yesterday you grabbed the Checklist — the 9 indicators that flag a cycle top.","",
     "Reading all 9 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 9 into one number, 0–100, updated daily.","",
     "Open it and you'll see exactly where the cycle stands today — buy zone, neutral, or top zone. Ten seconds.","",
-    "See today's Score: https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
+    "See today's Score: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
 }
 
 // ── Day 5: Proof (the backtest + timestamped calls) ──
