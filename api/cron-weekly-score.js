@@ -24,6 +24,12 @@ const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
 const SUBJECT_BASE = "The LiftOffr Score this week";
 
+function unsubUrl(email) {
+  const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
+    .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
+  return `https://liftoffr.com/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+}
+
 function zoneLabel(zone) {
   return {
     exit:                "🟥 EXIT ZONE",
@@ -67,7 +73,8 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
-    LiftOffr · Sent because you subscribed to the free Cycle Score email.
+    LiftOffr · Sent because you subscribed to the free Cycle Score email.<br/>
+    <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 
 </div>
@@ -111,12 +118,17 @@ async function fetchScore(baseUrl) {
 }
 
 async function sendResend(to, subject, text, html) {
+  const uu = unsubUrl(to);
+  html = (html || "").replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu);
+  text = (text || "") + `\n\nUnsubscribe: ${uu}`;
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       "Content-Type": "application/json",
       "User-Agent": "liftoffr-weekly-score/1.0",
+      "List-Unsubscribe": `<${uu}>`,
+      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
     body: JSON.stringify({
       from: FROM_ADDRESS,

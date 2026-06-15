@@ -11,11 +11,19 @@
 //
 // Vercel auto-routes this file to /api/subscribe (Node serverless).
 
+import crypto from "node:crypto";
+
 export const config = { runtime: "nodejs" };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
+
+function unsubUrl(email) {
+  const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
+    .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
+  return `https://liftoffr.com/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+}
 
 async function readJsonBody(req) {
   if (req.body && typeof req.body === "object") return req.body;
@@ -81,7 +89,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
   </div>
 
   <div style="padding:0 28px 28px;">
-    <a href="https://liftoffr.com/dashboard?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See the live Score dashboard →</a>
+    <a href="https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See the live Score dashboard →</a>
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
@@ -126,7 +134,7 @@ function welcomeText({ score, zone, trendDelta7d, commentary }) {
     "— Torin",
     "Founder, LiftOffr",
     "",
-    "Live Score dashboard: https://liftoffr.com/dashboard?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta",
+    "Live Score dashboard: https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta",
     "",
     "Backtested 2017-2026. Past performance does not guarantee future results.",
   ].join("\n");
@@ -191,20 +199,23 @@ export default async function handler(req, res) {
 
     // Step 3 — send Welcome email immediately
     const subject = "Your Cycle Top Checklist + the Score you'll get every Sunday";
+    const uu = unsubUrl(email);
     const sendRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
         "User-Agent": "liftoffr-subscribe/1.0",
+        "List-Unsubscribe": `<${uu}>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
       },
       body: JSON.stringify({
         from: FROM_ADDRESS,
         to: [email],
         reply_to: REPLY_TO,
         subject,
-        text: welcomeText(score),
-        html: welcomeHTML(score),
+        text: (welcomeText(score) || "") + `\n\nUnsubscribe: ${uu}`,
+        html: welcomeHTML(score).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
         tags: [
           { name: "campaign", value: "welcome" },
           { name: "utm_source", value: utm_source },

@@ -16,10 +16,18 @@
 //   RESEND_API_KEY        — Resend sending key
 //   RESEND_AUDIENCE_ID    — LiftOffr Free audience UUID
 
+import crypto from "node:crypto";
+
 export const config = { runtime: "nodejs" };
 
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
+
+function unsubUrl(email) {
+  const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
+    .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
+  return `https://liftoffr.com/api/unsubscribe?e=${encodeURIComponent(email)}&t=${t}`;
+}
 
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
 const SUBJECT_E2 = "How to actually use the Score (and what 60+ members do daily)";
@@ -164,13 +172,13 @@ function quickWinHTML() {
      <p style="margin:0 0 16px;">Reading all 9 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 9 into <strong>one number, 0–100</strong>, updated daily.</p>
      <p style="margin:0 0 16px;">Open it and you'll see exactly where the cycle stands today — color-coded buy zone, neutral, or top zone. Ten seconds, no charts to decode.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "See today's Score →", "https://liftoffr.com/dashboard?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
+    "See today's Score →", "https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
 }
 function quickWinText() {
   return ["Yesterday you grabbed the Checklist — the 9 indicators that flag a cycle top.","",
     "Reading all 9 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 9 into one number, 0–100, updated daily.","",
     "Open it and you'll see exactly where the cycle stands today — buy zone, neutral, or top zone. Ten seconds.","",
-    "See today's Score: https://liftoffr.com/dashboard?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
+    "See today's Score: https://liftoffr.com/links?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
 }
 
 // ── Day 5: Proof (the backtest + timestamped calls) ──
@@ -353,6 +361,12 @@ async function fetchAudience(aud) {
 }
 
 async function sendResend({ to, subject, text, html, idempotencyKey, tag, campaign = "welcome" }) {
+  // Real one-click unsubscribe: replace the literal {{{RESEND_UNSUBSCRIBE_URL}}}
+  // token (Resend only substitutes it for Broadcasts, not transactional sends)
+  // and set List-Unsubscribe headers (RFC 8058).
+  const uu = unsubUrl(to);
+  html = (html || "").replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu);
+  text = (text || "") + `\n\nUnsubscribe: ${uu}`;
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -360,6 +374,8 @@ async function sendResend({ to, subject, text, html, idempotencyKey, tag, campai
       "Content-Type": "application/json",
       "Idempotency-Key": idempotencyKey,
       "User-Agent": "liftoffr-welcome-followup/1.0",
+      "List-Unsubscribe": `<${uu}>`,
+      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
     body: JSON.stringify({
       from: FROM_ADDRESS,
