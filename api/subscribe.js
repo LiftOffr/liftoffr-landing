@@ -36,7 +36,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
   const trendArrow = trendDelta7d > 0 ? "▲" : trendDelta7d < 0 ? "▼" : "◆";
   const trendStr = `${trendArrow} ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} over last 7 days`;
   return `<!DOCTYPE html>
-<html><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
+<html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"><style>:root{color-scheme:light only;supported-color-schemes:light only}</style></head><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
 <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5;">
 
   <div style="background:#080808;padding:32px 28px;text-align:center;">
