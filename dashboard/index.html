@@ -573,10 +573,10 @@ const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
   // Sell tiers calibrated to diminishing-returns 2029 peak (~$425K median).
   // Old exits blended $170K — way too conservative. New blend = $415K.
   {id:'p5',name:'Phase 5 — Distribution',start:'2029-06-01',end:'2029-12-31',lumpTiers:[
-    {tier:'S1',sellPct:40,targetPrice:275000,trigger:'CBBI ≥ 85 OR first V7 TOP signal'},
-    {tier:'S2',sellPct:30,targetPrice:400000,trigger:'Two V7 TOP signals fire (~median peak)'},
-    {tier:'S3',sellPct:20,targetPrice:550000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
-    {tier:'S4',sellPct:10,targetPrice:750000,trigger:'Trailing stop / blow-off top wick'}]}]};
+    {tier:'S1',sellPct:40,targetPrice:150000,trigger:'CBBI ≥ 85 OR first V7 TOP signal'},
+    {tier:'S2',sellPct:30,targetPrice:200000,trigger:'Two V7 TOP signals (~median peak)'},
+    {tier:'S3',sellPct:20,targetPrice:275000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
+    {tier:'S4',sellPct:10,targetPrice:400000,trigger:'Trailing stop / blow-off top wick'}]}]};
 let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
 const FUSD=n=>'$'+Math.round(n).toLocaleString();
 const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA')&&!t.sellPct)a.push(t)}));return a};
