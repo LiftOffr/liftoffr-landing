@@ -3,6 +3,26 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "gFiKyyPXMFo",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The SpaceX IPO",
+    "published": "2026-06-16T16:47:46+00:00",
+    "processed_at": "2026-06-16T18:06:08.125107+00:00",
+    "url": "https://www.youtube.com/watch?v=gFiKyyPXMFo",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "N/A",
+    "key_levels": [],
+    "indicators_mentioned": [],
+    "key_points": [
+      "This transcript discusses SpaceX IPO dynamics, not Bitcoin market analysis",
+      "Content focuses on equity markets, IPO patterns, and midterm year seasonality",
+      "No cryptocurrency price levels, technical indicators, or Bitcoin analysis present"
+    ],
+    "summary": "This transcript contains no Bitcoin market analysis. It discusses SpaceX IPO performance, historical equity IPO patterns, and midterm year market seasonality."
+  },
+  {
     "video_id": "psz9FwqWGns",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
