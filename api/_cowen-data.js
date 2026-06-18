@@ -3,6 +3,35 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "zKPohkQdq_Q",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Kevin Warsh's First FOMC as Fed Chair",
+    "published": "2026-06-18T04:29:37+00:00",
+    "processed_at": "2026-06-18T04:44:36.110598+00:00",
+    "url": "https://www.youtube.com/watch?v=zKPohkQdq_Q",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "2-year yield",
+      "10-year yield",
+      "30-year yield",
+      "Fed funds rate",
+      "CME FedWatch Tool",
+      "XLE (Energy Select Sector ETF)"
+    ],
+    "key_points": [
+      "Fed rate hike probability elevated with 15% market pricing for no hike by December; 2-year yield moving higher historically precedes Fed rate increases",
+      "Tightening monetary policy and rate hike expectations remain a structural headwind for Bitcoin and risk assets; crypto underperformance linked to pricing in future rate hikes",
+      "Long-end yields (10-year, 30-year) likely continue moving higher given inflation concerns and unwillingness to allow lower asset prices; bond vigilantes will emerge if rates are cut or held",
+      "Dollar forming massive base with likely breakout imminent, creating additional headwind for risk assets including Bitcoin",
+      "Energy sector historically tops after stock market peaks; current elevated energy prices may persist until market correction occurs over 6-12 month period"
+    ],
+    "summary": "Elevated rate hike expectations and rising 2-year yields present significant headwinds for Bitcoin and risk assets over coming months. The Fed's shift away from forward guidance under new leadership creates uncertainty, but inflation persistence and potential dollar strength breakout suggest monetary conditions will remain challenging for crypto. Long-duration yields are likely to continue higher absent a meaningful economic downturn."
+  },
+  {
     "video_id": "gFiKyyPXMFo",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
