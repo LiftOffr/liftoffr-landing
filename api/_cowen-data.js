@@ -3,6 +3,37 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "gAf6tPzkcgg",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Social Risk",
+    "published": "2026-06-19T05:18:39+00:00",
+    "processed_at": "2026-06-19T06:22:31.338136+00:00",
+    "url": "https://www.youtube.com/watch?v=gAf6tPzkcgg",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Social Risk metric",
+      "Bitcoin dominance",
+      "Google Trends",
+      "Coinbase app rankings",
+      "YouTube subscribers",
+      "YouTube views",
+      "Twitter followers",
+      "Wikipedia page views"
+    ],
+    "key_points": [
+      "Social interest remains structurally depressed since 2021 peak, mirroring post-2019 dynamics with prolonged retail absence indicating weakness ahead",
+      "Current monetary policy environment (higher rates, quantitative tightening) mirrors 2019 conditions, positioning crypto as frothy risk-curve assets vulnerable to continued capital outflows",
+      "Altcoin market in post-euphoric digestion phase with YouTube channels losing subscribers on average and views declining from 3-4M daily to significantly lower levels, signaling structural demand destruction",
+      "Bitcoin strength dependent on Fed pivot to looser monetary policy, which requires stock market weakness in late Q3/early Q4 to trigger; AI trade continuation prevents rate cuts currently",
+      "Industry maturation crisis with focus on memecoin speculation rather than technology development has eroded retail credibility; recovery requires genuine utility focus, not new financial products"
+    ],
+    "summary": "Bitcoin and crypto remain trapped in a prolonged bear market cycle structurally identical to 2019, driven by extended higher interest rates and quantitative tightening with no imminent Fed pivot visible. Social interest continues bleeding out with retail departing across all engagement metrics, preventing the euphoric rallies typical of cycle tops and positioning crypto as a vulnerable risk asset until monetary policy loosens materially. Recovery hinges on stock market weakness forcing Fed action, likely in late 2025, but extended weakness is probable given the AI trade's continued dominance."
+  },
+  {
     "video_id": "zKPohkQdq_Q",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
