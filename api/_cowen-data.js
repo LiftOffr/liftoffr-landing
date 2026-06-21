@@ -3,6 +3,30 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "hXlR5xu0HK4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: MVRV Z-Score",
+    "published": "2026-06-21T04:42:30+00:00",
+    "processed_at": "2026-06-21T05:23:28.142163+00:00",
+    "url": "https://www.youtube.com/watch?v=hXlR5xu0HK4",
+    "outlook": "bullish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "MVRV Zcore"
+    ],
+    "key_points": [
+      "MVRV Zcore currently at 3.5, approaching the zero reset level that historically signals attractive accumulation zones",
+      "Below-zero MVRV Zcore levels have historically preceded multi-month accumulation periods (6 months in 2022, 5 months in 2018, 12 months in 2014-2015) followed by new bull markets",
+      "MVRV Zcore resets approximately every four years and aligns with Bitcoin's cycle structure",
+      "Extended time below zero (not single-day dips) creates the best accumulation opportunities as market sentiment is ignored",
+      "Current trajectory suggests potential reset incoming, which historically marks the beginning of new bull market phases"
+    ],
+    "summary": "The MVRV Zcore is currently at 3.5 and approaching the zero level where it historically resets approximately every four years. Previous resets below zero have consistently preceded 5-12 month accumulation zones that then launched new bull markets, suggesting the current positioning presents an emerging opportunity as the indicator approaches reset levels."
+  },
+  {
     "video_id": "gAf6tPzkcgg",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
