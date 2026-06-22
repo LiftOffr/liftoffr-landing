@@ -3,6 +3,35 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "d71wYhwKpFY",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Bear Market Resistance Band",
+    "published": "2026-06-22T05:04:33+00:00",
+    "processed_at": "2026-06-22T07:11:03.846463+00:00",
+    "url": "https://www.youtube.com/watch?v=d71wYhwKpFY",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      70000,
+      74000
+    ],
+    "indicators_mentioned": [
+      "bear market resistance band",
+      "200-week moving average",
+      "realized price",
+      "social risk"
+    ],
+    "key_points": [
+      "Bitcoin is trapped between the downward-trending bear market resistance band (70-74k) and the upward-trending 200-week moving average, with historical four-year cycle patterns suggesting eventual breakdown likely in second half of the year",
+      "Realized price has not yet traded below its typical bear market level, indicating further downside is probable before year-end based on cyclical precedent from 2014, 2018, and 2022",
+      "Historical pattern suggests a market low forms in early summer (June) followed by countertrend rallies in late July/August, but timing is difficult to predict and multiple rejection cycles from the resistance band are typical in bear markets",
+      "Social interest and retail participation metrics are declining sharply, potentially limiting altcoin demand while Bitcoin remains relatively stable, though this could mask underlying weakness"
+    ],
+    "summary": "Bitcoin is positioned between declining resistance and rising support with elevated risk of lower prices in the second half of the year, consistent with midterm bear market cycles. While countertrend rallies are likely before any breakdown, the realized price has not yet tested historical bear market lows, suggesting downside remains probable. The path and timing of this move remain uncertain, but ignoring price action through mid-year and reassessing in H2 appears prudent."
+  },
+  {
     "video_id": "hXlR5xu0HK4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
