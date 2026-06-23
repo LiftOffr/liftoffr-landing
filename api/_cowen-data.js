@@ -3,6 +3,28 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "xK6bqL-QNE4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "SpaceX Retraces IPO Gains - What Next?",
+    "published": "2026-06-23T22:42:26+00:00",
+    "processed_at": "2026-06-23T23:11:57.470341+00:00",
+    "url": "https://www.youtube.com/watch?v=xK6bqL-QNE4",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [],
+    "key_points": [
+      "IPO typically rallies 50-60% initially, then retraces back toward or below IPO opening price within days to weeks",
+      "SpaceX has already retraced 34% from highs over 4-6 days, following similar pattern to Tesla IPO in 2010",
+      "S&P 500 midterm year weakness pattern suggests second half correction likely; unclear if major pullback has occurred yet",
+      "Historical precedent shows successful IPOs like Tesla and Apple form accumulation zones for extended periods after initial pullback before sustained uptrend",
+      "Long-term accumulation opportunity may emerge in second half of year if S&P takes out March lows or experiences 20%+ correction"
+    ],
+    "summary": "SpaceX IPO has followed historical patterns of initial 50% rally followed by 34% retracement toward IPO lows. Whether this establishes a durable low depends on broader S&P 500 weakness; midterm year corrections typically occur in second half, creating potential accumulation zones. The trajectory remains uncertain near-term but historical precedent with similar company launches suggests extended sideways consolidation before sustained appreciation."
+  },
+  {
     "video_id": "d71wYhwKpFY",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
