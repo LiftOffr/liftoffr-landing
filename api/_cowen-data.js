@@ -3,6 +3,47 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "g4FiHz14W14",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Bottom Indicators to Watch",
+    "published": "2026-06-25T20:10:10+00:00",
+    "processed_at": "2026-06-25T21:13:01.492957+00:00",
+    "url": "https://www.youtube.com/watch?v=g4FiHz14W14",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      53000,
+      38000,
+      58000
+    ],
+    "indicators_mentioned": [
+      "ROI from the low",
+      "MVRV Z-score",
+      "Running one-year ROI",
+      "Realized price",
+      "Balance price",
+      "On-chain risk",
+      "Peel multiple",
+      "MVRV score",
+      "Transaction fees",
+      "Terminal price",
+      "Miner cap to thermocap",
+      "Market cap to thermocap",
+      "R huddle ratio",
+      "Supply in profit and loss"
+    ],
+    "key_points": [
+      "Time-based capitulation suggests market cycle bottom occurs in late Q3 to early Q4 (approximately 100-110 days out), based on 4-year cycle pattern matching of prior lows at days 1432 and 1424",
+      "Price-based capitulation would be confirmed by Bitcoin dropping below realized price (~53K) and especially below balance price (~38K), which historically occurs only briefly during market bottoms",
+      "A counter-trend rally should occur before final bottom, likely starting mid to late July into August, with potential for relief bounces before the final capitulation drop into Q4",
+      "Volume spike capitulation indicator remains important\u2014historically, bottoms are marked by prolonged low volume followed by massive volume spike, similar to 2018 and 2022 patterns",
+      "Current on-chain risk metrics (0.195) suggest room for further decline toward historical bottom levels (~0.1), indicating bear market likely not yet complete"
+    ],
+    "summary": "Bitcoin is expected to form a market cycle bottom in late Q3 to early Q4 based on 4-year cycle time analysis, with a counter-trend relief rally anticipated in mid to late July. Price targets include the realized price around 53K and potentially the balance price near 38K, which would signal full price-based capitulation. Multiple on-chain indicators including MVRV Z-score, volume patterns, and on-chain risk metrics remain in ranges consistent with mid-cycle bear markets rather than final capitulation, suggesting the bear market has several more months to play out."
+  },
+  {
     "video_id": "xK6bqL-QNE4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1421,43 +1462,5 @@ export default [
       "Business cycle remains at 20,000 feet elevation with no clear runway in sight; soft landing unlikely and recession probable within current administration within couple of years"
     ],
     "summary": "Cowen believes the transition from Powell to a new Fed chair marks a dangerous turning point similar to Gensler's departure, likely to result in policy errors that trigger recession within 1-2 years. While he hopes he's wrong, the systematic degradation of Bitcoin against gold, erosion of social interest, and geopolitical energy pressures suggest markets will eventually reveal Powell was the better steward despite initial market celebration of his replacement."
-  },
-  {
-    "video_id": "6RBevGGz1Pw",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Dubious Speculation",
-    "published": "2026-05-02T11:49:49+00:00",
-    "processed_at": "2026-05-04T23:47:40.217327+00:00",
-    "url": "https://www.youtube.com/watch?v=6RBevGGz1Pw",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      78000,
-      75000,
-      60000,
-      65000,
-      62000,
-      6000,
-      6400,
-      6500
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "bull market support band",
-      "bear market resistance band",
-      "50-week moving average",
-      "20-week SMA",
-      "fibonacci retracement"
-    ],
-    "key_points": [
-      "Bitcoin is following the 2018 midterm year pattern with weakness expected in early February and early April, with the next major weakness windows likely in June or October",
-      "The April low was a higher low matching 2018 structure, not a lower low, which is consistent with the four-year cycle still being intact despite criticism",
-      "A five-week countertrend rally from the April low mirrors 2018 dynamics, suggesting a lower high will form soon followed by a drop into June",
-      "The current rally pattern on shorter timeframes shows broken uptrend support, with Bitcoin potentially retesting the 60K level if buyers give up on durability above current levels",
-      "Bitcoin would need to cross and hold above the 50-week moving average with multiple weekly closes to signal the bear market is over; staying this bullish late into the midterm year is historically anomalous"
-    ],
-    "summary": "Cowen believes Bitcoin is following the 2018 midterm year playbook and expects a lower high to form soon, leading to weakness into June as the next major window of weakness. While acknowledging the 2014 bull case scenario, his base case is a retest of 60K support later this year, likely by October, with the bear market lasting through late 2026 to match the length of the prior bull market."
   }
 ];
