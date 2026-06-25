@@ -503,7 +503,7 @@ async function runTierWatch(baseUrl) {
   const trades = syncData.trades || [];
   const PLAN_START = "2026-05-28";
   const lumpBuys = trades
-    .filter((t) => (t.type || "buy") === "buy" && (t.usd || 0) >= 1000 && (t.date || "") >= PLAN_START)
+    .filter((t) => (t.type || "buy") === "buy" && (t.usd || 0) >= 100 && (t.date || "") >= PLAN_START)
     .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
 
   // Waterfall fill into the lump tiers (IMMEDIATE → T1 → T2 → T3 → T4 → T5)

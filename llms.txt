@@ -4,7 +4,7 @@
 
 LiftOffr is for crypto investors who want to time cycle exits using on-chain data instead of emotion. The product tracks 8 cycle indicators (CBBI, MVRV, Pi Cycle Top, Puell Multiple, 2-Year MA Multiplier, BTC Rainbow Chart, Fear & Greed Index, Google Trends) and synthesizes them into a single plain-English daily brief delivered to a private Discord at 8am MT.
 
-Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikTok). Founder Rate: $29/month, locked in forever, limited to first 30 members.
+Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikTok). Three tiers, all with a 7-day free trial (no card) and 30-day money-back guarantee: Core $49/mo, Pro $99/mo (most popular), Elite $249/mo. Plus the Cycle Playbook — a $497 live cohort.
 
 ## Core pages
 - [Homepage](https://liftoffr.com/): Product overview, pricing, testimonials, lead magnet

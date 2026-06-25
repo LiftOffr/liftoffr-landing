@@ -1,31 +1,36 @@
 # Pricing — LiftOffr
 
-LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module course. Same content across all plans — only the price differs.
+LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module course. Plans are tiered by access level. Every plan includes a **7-day free trial (no card required)** and a **30-day money-back guarantee**. Start a trial at https://liftoffr.com/start
 
-## Founder Rate
-- **Price:** $29/month (billed monthly) — locked in forever
-- **Availability:** Limited to first 30 members. Live count: https://liftoffr.com/api/founder-count
-- **Plan ID:** plan_CH1L53GLZsaq1
-- **Checkout:** https://liftoffr.com/join
-
-## Monthly
-- **Price:** $49/month (billed monthly)
-- **Commitment:** None — cancel anytime
-- **Plan ID:** plan_aYmWvRCWPXqdB
-
-## Annual
-- **Price:** $249/year ($20.75/month effective, ~28% off monthly)
-- **Commitment:** Annual billing
-- **Plan ID:** plan_FJ3YmVpeeF4kH
-- **Checkout:** https://whop.com/checkout/plan_FJ3YmVpeeF4kH
-
-## What's Included (all plans)
-- Daily Discord brief at 8am MT — 8-indicator confluence read in plain English
+## Core — $49/month (or $399/year, save $189)
+Learn the system + the daily read.
+- Full 6-module course
 - Live cycle indicator dashboard
-- 6-module course (BTC fundamentals → multi-cycle wealth)
+- Daily BTC brief (8am MT, weekdays)
+- Weekly LiftOffr Score
+- Monthly Plan ID: `plan_yi7i0rC444Ssk`
+- Annual Plan ID: `plan_kBe5idN105Ipc`
+
+## Pro — $99/month (or $799/year, save $389) — most popular
+The live edge: everything in Core, plus signals + community.
+- Live 4hr trade-setup alerts
+- Urgent market alerts + gem-radar
+- Full market-intelligence signals
 - Private Discord community
-- BTC Cycle Top Checklist (PDF)
-- 30-day money-back guarantee
+- Monthly Plan ID: `plan_JnWiKWtwzlTVR`
+- Annual Plan ID: `plan_nFxTZFYUqmMkx`
+
+## Elite — $249/month (or $1,990/year, save $998)
+Done-with-you: everything in Pro, plus proximity.
+- Private #elite-lounge
+- Monthly live Q&A call with Torin
+- Portfolio & buy-plan review
+- Priority replies
+- Monthly Plan ID: `plan_dMb9YIKbWN7ck`
+- Annual Plan ID: `plan_b0whXHoSzqDL1`
+
+## The Cycle Playbook — $497 (one-time, live cohort)
+A live, small-group cohort to build your exact buy + sell plan for this cycle. Includes 3 months of LiftOffr Pro. Details: https://liftoffr.com/playbook
 
 ## Refund Policy
 30-day money-back guarantee, no questions asked. Email support@liftoffr.com.
@@ -33,5 +38,8 @@ LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module
 ## Currency / Region
 USD only. Available worldwide where Whop checkout is supported.
 
+## Retired
+The $29 "Founder Rate" (plan_CH1L53GLZsaq1) is retired from the funnel. Anyone who locked it in keeps it; it is no longer offered to new members.
+
 ## Last Updated
-2026-05-20
+2026-06-14

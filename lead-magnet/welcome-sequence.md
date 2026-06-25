@@ -101,26 +101,26 @@ From now on you'll get one email from me every Sunday morning — the LiftOffr S
 
 You can absolutely DIY this. Read the Score each Sunday, run the Checklist yourself, build your own discipline. That alone puts you ahead of 99% of crypto investors.
 
-But if you'd rather have it *done for you* — the daily briefs, the live dashboard, real-time signal alerts when triggers fire, the 6-module course, and the private Discord community — LiftOffr's Founder Rate is **$29/mo, locked in forever**.
+But if you'd rather have it *done for you* — the daily briefs, the live dashboard, real-time signal alerts when triggers fire, the 6-module course, and the private Discord community — that's LiftOffr Pro. Plans start at **$49/mo**, and you can **try everything free for 7 days. No card required.**
 
-**Risk-free for 30 days.** If it's not for you, full refund. No friction.
+**Plus a 30-day money-back guarantee** if you do stay. Zero risk to find out if it's for you.
 
 What you get:
 - Daily BTC market brief in Discord (8am MT, weekdays)
 - Live dashboard with the current Score updated daily
-- Real-time signal alerts when V7 triggers fire
+- Real-time signal alerts when triggers fire
 - 6 modules: foundations → exit framework → multi-cycle wealth strategy
 - Custom AI Q&A bot trained on the LiftOffr curriculum
-- Founder badge + access to the private community
+- Access to the private community
 
-[Claim Founder Rate — $29/mo locked forever →](https://whop.com/checkout/plan_CH1L53GLZsaq1?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_3)
+[Start your free 7-day trial →](https://liftoffr.com/start?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_3)
 
 Either way — see you Sunday.
 
 — Torin
 *Founder, LiftOffr*
 
-P.S. The Founder Rate is capped at 30 spots. Live count at [liftoffr.com](https://liftoffr.com).
+P.S. No card to start the trial — use it for a week and decide. Plans and details at [liftoffr.com](https://liftoffr.com).
 
 ---
 

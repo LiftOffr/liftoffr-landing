@@ -14,11 +14,15 @@
 
 export const config = { runtime: "nodejs" };
 
-// Both the monthly "Founder Rate" and the new "Founder Annual" count toward
-// the 30-spot scarcity limit. Either commitment makes someone a "founder."
+// VESTIGIAL (decision 2026-06-14): the 30-spot "founder" scarcity concept is
+// RETIRED. The frontend no longer renders any spot count — the [data-founder-text]
+// JS now shows honest benefit copy ("Plans from $49/mo · start 7 days free, no card")
+// regardless of this endpoint, and the blog/links CTAs were swept of "Founder Rate"/
+// "Limited availability" language. This API is kept only so legacy callers don't 404;
+// its numbers are not displayed anywhere. Safe to delete once nothing fetches it.
 const FOUNDER_PLAN_IDS = [
-  "plan_CH1L53GLZsaq1",  // Founder Rate — $29/mo lifetime locked
-  "plan_FJ3YmVpeeF4kH",  // Founder Annual — $249/yr
+  "plan_CH1L53GLZsaq1",  // RETIRED — $29/mo founder rate
+  "plan_FJ3YmVpeeF4kH",  // RETIRED — $249/yr founder annual
 ];
 const FOUNDER_CAP = 30;
 
