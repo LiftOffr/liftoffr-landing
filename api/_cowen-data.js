@@ -3,6 +3,30 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "OYcGIifaO4Q",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Returns Under Various US Presidents",
+    "published": "2026-06-28T03:48:35+00:00",
+    "processed_at": "2026-06-28T04:13:55.917608+00:00",
+    "url": "https://www.youtube.com/watch?v=OYcGIifaO4Q",
+    "outlook": "neutral",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      105000,
+      106000
+    ],
+    "indicators_mentioned": [],
+    "key_points": [
+      "Bitcoin's performance under Biden and Trump's second term has been remarkably similar to each other and markedly weaker than previous bull cycles, with returns near -41% to -44% after 524 days",
+      "Dollar strength (DXY) is acting as a macro headwind for crypto assets, with historical patterns suggesting dollar may rally toward 105-106 area later in the year",
+      "Bitcoin performance correlates more strongly with macro conditions (inflation concerns, unemployment trends) than political leadership; current macro environment differs significantly from Obama and Trump's first term when inflation was less of a concern",
+      "Historical cycle patterns suggest Bitcoin likely bottoms later in the year before initiating the next bull market into 2027, mirroring the structure of prior cycles"
+    ],
+    "summary": "Bitcoin's current performance reflects macro headwinds rather than political factors, with dollar strength likely to remain a headwind through late 2026. If current cycle mirrors historical patterns, a bottom is expected later this year followed by initiation of the next bull market into 2027."
+  },
+  {
     "video_id": "g4FiHz14W14",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1432,35 +1456,5 @@ export default [
       "Altcoins at lowest valuations relative to Bitcoin and gold in 5 years; no killer use case has emerged, suggesting prolonged market consolidation period ahead"
     ],
     "summary": "This is a general discussion panel on monetary policy, crypto industry sentiment, and business lessons rather than a focused Bitcoin price analysis. Ben Cowen emphasizes concerns about Fed independence being undermined by political pressure, while noting that current extreme negative sentiment in crypto may be necessary before a genuine recovery. No specific price targets or near-term directional calls are made."
-  },
-  {
-    "video_id": "bUm30jMoOJU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Jerome Powell: \"I Won't See You Next Time\"",
-    "published": "2026-05-01T04:24:40+00:00",
-    "processed_at": "2026-05-04T23:47:47.687428+00:00",
-    "url": "https://www.youtube.com/watch?v=bUm30jMoOJU",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      76000,
-      109000,
-      126000
-    ],
-    "indicators_mentioned": [
-      "business cycle chart",
-      "Bitcoin divided by gold chart",
-      "social interest"
-    ],
-    "key_points": [
-      "New Fed chair replacing Powell introduces uncertainty and risks premature rate cuts that could reignite inflation, similar to how Gensler's departure opened floodgates to fraud in crypto",
-      "Bitcoin has bled 59% against gold since Gensler's resignation and is at same valuation against gold as in 2017-2018, suggesting fundamental loss of confidence in crypto industry",
-      "Energy price spikes from geopolitical conflict constrain Fed's ability to cut rates, risking delayed cuts that arrive too late in recession rather than preemptively softening landing",
-      "Higher risk assets (altcoins, stocks) have been systematically bleeding to lower risk assets (Bitcoin, gold) for years, historically corresponding to recession signals",
-      "Business cycle remains at 20,000 feet elevation with no clear runway in sight; soft landing unlikely and recession probable within current administration within couple of years"
-    ],
-    "summary": "Cowen believes the transition from Powell to a new Fed chair marks a dangerous turning point similar to Gensler's departure, likely to result in policy errors that trigger recession within 1-2 years. While he hopes he's wrong, the systematic degradation of Bitcoin against gold, erosion of social interest, and geopolitical energy pressures suggest markets will eventually reveal Powell was the better steward despite initial market celebration of his replacement."
   }
 ];
