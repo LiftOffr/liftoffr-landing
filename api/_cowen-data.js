@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "1LI9wfqxOmc",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Falls Below the 200 Week Moving Average",
+    "published": "2026-06-29T01:52:03+00:00",
+    "processed_at": "2026-06-29T02:14:27.983148+00:00",
+    "url": "https://www.youtube.com/watch?v=1LI9wfqxOmc",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000
+    ],
+    "indicators_mentioned": [
+      "200E moving average",
+      "onchain metrics",
+      "volume"
+    ],
+    "key_points": [
+      "Bitcoin has fallen below the 200E moving average for the first time this cycle, consistent with historical midterm year bear market patterns seen in 2018 and 2022",
+      "Without a price-based capitulation event (sudden massive volume spike resetting onchain metrics), a time-based capitulation scenario is most likely with lows forming early summer, counter-trend rally mid-to-late summer, and final drop in Q3/early Q4",
+      "A drop below $60,000 level would significantly increase likelihood of the market cycle bottom forming, drawing parallel to the $6,000 levels that preceded bottoms in 2018 and 2019",
+      "Price-based capitulation would require a major catalyst (financial crisis event) to end the bear market prematurely; without it, the cycle continues as historically typical",
+      "DCA strategy in second half of midterm years has historically worked well despite interim volatility, as the longer time horizon absorbs lower lows that may occur"
+    ],
+    "summary": "Bitcoin's break below the 200E moving average signals entry into typical midterm year bear market dynamics. The most probable scenario involves early summer lows followed by a counter-trend rally and final capitulation in Q3/early Q4 2026, unless a major price-based capitulation event with exceptional volume occurs to reset onchain metrics earlier."
+  },
+  {
     "video_id": "OYcGIifaO4Q",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1435,26 +1463,5 @@ export default [
       "Rate cuts from current levels would be disastrous for the economy and markets"
     ],
     "summary": "Bitcoin's recent strength against the dollar masks weakness in the broader cryptoverse, as risk assets rotate into Bitcoin rather than genuine demand. Bitcoin is currently testing critical bear market resistance bands against both gold and USD that have rejected price action twice before in 2022."
-  },
-  {
-    "video_id": "meYMRhE5G58",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "NFA Live! Bitcoin in 2026",
-    "published": "2026-04-30T13:48:51+00:00",
-    "processed_at": "2026-05-04T23:47:54.156091+00:00",
-    "url": "https://www.youtube.com/watch?v=meYMRhE5G58",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "cycle",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Powell's Fed maintained rates without cuts despite underlying labor market weakness, constrained by geopolitical oil price pressures and inflation concerns",
-      "Political pressure on Federal Reserve independence poses systemic risk; loss of Fed autonomy could lead to politicized monetary policy and inflation spiral",
-      "Crypto industry sentiment at all-time low (most muted topic on X, booed at Super Bowl ads), indicating excessive pessimism and possible capitulation phase necessary for recovery",
-      "Altcoins at lowest valuations relative to Bitcoin and gold in 5 years; no killer use case has emerged, suggesting prolonged market consolidation period ahead"
-    ],
-    "summary": "This is a general discussion panel on monetary policy, crypto industry sentiment, and business lessons rather than a focused Bitcoin price analysis. Ben Cowen emphasizes concerns about Fed independence being undermined by political pressure, while noting that current extreme negative sentiment in crypto may be necessary before a genuine recovery. No specific price targets or near-term directional calls are made."
   }
 ];
