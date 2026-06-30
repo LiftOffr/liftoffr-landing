@@ -3,6 +3,30 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "Wef7vP6ffBM",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "S&P 500: Outlook for the Rest of 2026 [Update]",
+    "published": "2026-06-30T14:23:04+00:00",
+    "processed_at": "2026-06-30T15:07:53.154600+00:00",
+    "url": "https://www.youtube.com/watch?v=Wef7vP6ffBM",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "21-week EMA"
+    ],
+    "key_points": [
+      "Shallow June correction of 5-8% aligns with historical midterm year patterns observed in 2014, 2018, and 2022",
+      "Summer drift higher expected on low volume as market consolidates before larger correction",
+      "Larger 10-20% correction anticipated in August-September timeframe consistent with prior midterm year cycles",
+      "Dollar strength persisting as headwind despite policy intentions, contributing to late-year weakness pattern",
+      "Late September to early October represents historical low point for S&P 500 in midterm years, likely resetting metrics for next cycle"
+    ],
+    "summary": "Midterm year patterns suggest the June correction was shallow as expected, setting up a summer drift higher on reduced volume followed by a more significant 10-20% correction in the August-September timeframe. Historical precedent from 2014, 2018, and 2022 shows similar patterns with the larger correction typically bottoming in late September or early October, which would facilitate a reset in market euphoria metrics."
+  },
+  {
     "video_id": "1LI9wfqxOmc",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1442,26 +1466,5 @@ export default [
       "Business cycle will likely end within the next couple of years as geopolitical conflict, tariffs, and tight monetary policy create unsustainable conditions"
     ],
     "summary": "Cowen argues that Powell's final FOMC meeting signals he will resist rate cuts due to inflation from Middle East geopolitical conflict, causing higher-risk assets like altcoins to bleed to Bitcoin and safer assets. The Fed will eventually cut rates but only after being too late, likely triggering the recession they were trying to avoid, with energy prices remaining elevated until that downturn arrives."
-  },
-  {
-    "video_id": "zi7oYjp3vPU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Those Higher Risk Assets Are Still Bleeding To Bitcoin. Charts:(TOTAL2-USDT)/BTC & (BTCUSD)/GOLD",
-    "published": "2026-04-30T01:41:20+00:00",
-    "processed_at": "2026-05-04T23:47:57.823124+00:00",
-    "url": "https://www.youtube.com/watch?v=zi7oYjp3vPU",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "weeks",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Bitcoin strength against USD is misleading\u2014higher risk assets are flowing into Bitcoin, not genuine strength",
-      "Bitcoin is testing bear market resistance bands against both gold and the US dollar simultaneously",
-      "Historical precedent shows Bitcoin rejected at these resistance levels in March/April 2022 and November 2022",
-      "Rate cuts from current levels would be disastrous for the economy and markets"
-    ],
-    "summary": "Bitcoin's recent strength against the dollar masks weakness in the broader cryptoverse, as risk assets rotate into Bitcoin rather than genuine demand. Bitcoin is currently testing critical bear market resistance bands against both gold and USD that have rejected price action twice before in 2022."
   }
 ];
