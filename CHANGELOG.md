@@ -22,6 +22,8 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 17 | checklist/index.html | Product-titled H1 ("The BTC Cycle Top Checklist") → promise-matched "Know when to sell — before everyone else." |
 | 18 | checklist/index.html | 7-link footer → Privacy/Terms only (1:1 attention ratio per bio-page research) |
 | 19 | (decision) | Homepage + site visual redesign REJECTED — research verdict: aesthetic already matches winners; structure was the gap (COMPETITOR_INTEL.md §C) |
+| 20 | 17 pages sitewide | `target="_blank"` on internal/checkout CTAs (blanks IG in-app webview handoff) → removed on all 9 blog posts, /links, /about, /faq, /proof, /indicator-history, /lead-magnet; true externals untouched |
+| 21 | sitewide | CTA copy variants ("Try it free for 7 days", "Start free →") → one verbatim "Start 7 days free →" everywhere (Milk Road repetition pattern) |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.
