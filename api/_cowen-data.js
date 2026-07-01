@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "8TmOvGK235I",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Simulation Confirmed",
+    "published": "2026-07-01T19:19:32+00:00",
+    "processed_at": "2026-07-01T20:08:32.376222+00:00",
+    "url": "https://www.youtube.com/watch?v=8TmOvGK235I",
+    "outlook": "neutral",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      57000,
+      60000,
+      65000,
+      55000
+    ],
+    "indicators_mentioned": [
+      "200-day moving average",
+      "bear market resistance band"
+    ],
+    "key_points": [
+      "Bitcoin's current price action at 57,000 mirrors 2018 bear market lows at 5,700, suggesting cyclical pattern confirmation with a 10x scaling",
+      "A counter-trend rally into late July or late August is plausible, likely rejected near the 200-day moving average, followed by renewed weakness in Q4 driven by equity market correction",
+      "Time-based capitulation likely concludes in Q3, with the actual market cycle bottom expected in Q4 as part of the typical bear market trajectory for midterm years",
+      "Attempting to precisely time the exact bottom between 30K-60K is futile; dollar-cost averaging through the second half of midterm years has historically proven more effective than tactical trading",
+      "Macro variables and narrative complexity are secondary to cyclical seasonal patterns; the 4-year cycle has repeated despite varying economic conditions"
+    ],
+    "summary": "Bitcoin appears to be tracking historical midterm year bear market patterns with a low at 57,000 on July 1st mirroring 2018's low at 5,700. A counter-trend rally into late summer is probable but would likely be rejected near the 200-day moving average before renewed capitulation occurs in Q4. Dollar-cost averaging throughout the second half of the midterm year is the recommended strategy rather than timing exact bottoms."
+  },
+  {
     "video_id": "Wef7vP6ffBM",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1438,33 +1468,5 @@ export default [
       "Resolution of current price action expected within 1-2 weeks, with clearer direction emerging into June"
     ],
     "summary": "Bitcoin is at a critical resistance point similar to pre-FOMC conditions in 2018, likely to see a resolution within 1-2 weeks followed by clarity into June. While a post-FOMC rally is possible based on historical patterns, the broader trajectory suggests caution rather than strong directional conviction."
-  },
-  {
-    "video_id": "1-1nqttp8EE",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "FOMC: The End of an Era",
-    "published": "2026-04-29T04:03:09+00:00",
-    "processed_at": "2026-05-04T23:48:04.670205+00:00",
-    "url": "https://www.youtube.com/watch?v=1-1nqttp8EE",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "XLE Energy Select Sector ETF",
-      "S&P 500",
-      "Initial Claims",
-      "Unemployment Rate",
-      "2-year yield"
-    ],
-    "key_points": [
-      "Powell will likely push back against near-term rate cuts due to rising inflation from geopolitical conflict, contrary to market expectations for cuts in late 2027",
-      "Bitcoin and altcoins are bleeding to lower-risk assets as higher oil prices prevent the Fed from cutting rates, similar to patterns seen in 2022",
-      "The Fed will eventually cut rates but too late and for the wrong reasons\u2014after already missing the opportunity to cut when labor market weakness warranted it",
-      "Energy stocks historically top out during recessions rather than before them, suggesting prolonged elevated oil prices until an actual recession occurs",
-      "Business cycle will likely end within the next couple of years as geopolitical conflict, tariffs, and tight monetary policy create unsustainable conditions"
-    ],
-    "summary": "Cowen argues that Powell's final FOMC meeting signals he will resist rate cuts due to inflation from Middle East geopolitical conflict, causing higher-risk assets like altcoins to bleed to Bitcoin and safer assets. The Fed will eventually cut rates but only after being too late, likely triggering the recession they were trying to avoid, with energy prices remaining elevated until that downturn arrives."
   }
 ];
