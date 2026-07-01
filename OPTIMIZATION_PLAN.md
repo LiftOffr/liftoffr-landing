@@ -1,5 +1,5 @@
 # OPTIMIZATION_PLAN.md — LiftOffr CRO Sweep
-STATUS: Phase 3 COMPLETE (2026-07-01). AWAITING FOUNDER APPROVAL. Approve/strike items below, then Phase 4 executes Tier 1. Nothing ships until approval. Payment logic + pricing values untouched without per-item confirmation.
+STATUS: APPROVED 2026-07-01 (all except D1-athlete/Army-officer — struck permanently, see memory). Tier 1 EXECUTED same day — see CHANGELOG.md. Deploy commit d726cdf awaiting Torin's `git push origin main`. Remaining: Tier 2 founder actions (CHANGELOG.md bottom) + Tier 3 decisions at 4-week review (MEASUREMENT.md).
 
 Baseline (30d): 55 users → 6 CTA clickers → 2 leads → 0 trials → 0 purchases. MRR ≈ $29. Ranked by impact × ease.
 

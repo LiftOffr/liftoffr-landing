@@ -18,6 +18,10 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 13 | ~/Library/LaunchAgents/com.liftoffr.daily-brief.plist | Hour 15 EDT (1pm MT — contradicted "8am MT" sitewide) → Hour 10 EDT (8am MT); RELOAD PENDING (Torin one-liner) |
 | 14 | .vercelignore | NEW — internal .md docs (audit/plan/changelog/brand/setup docs) no longer deploy publicly (SEO_ACTION_PLAN.md was live at 200) |
 | 15 | BRAND_VOICE.md | NEW — 15-line voice standard + banned/use lists + 3 before/afters |
+| 16 | checklist/index.html (redesign pass, same day) | Nav with 2 exit links → identity header (Torin photo + "Bitcoin cycle signals · 4M+ views"), zero links |
+| 17 | checklist/index.html | Product-titled H1 ("The BTC Cycle Top Checklist") → promise-matched "Know when to sell — before everyone else." |
+| 18 | checklist/index.html | 7-link footer → Privacy/Terms only (1:1 attention ratio per bio-page research) |
+| 19 | (decision) | Homepage + site visual redesign REJECTED — research verdict: aesthetic already matches winners; structure was the gap (COMPETITOR_INTEL.md §C) |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.
