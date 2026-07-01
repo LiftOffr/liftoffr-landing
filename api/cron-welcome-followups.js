@@ -254,6 +254,12 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   </div>
   <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.65;">${bodyHTML}</div>
   ${ctaText ? `<div style="padding:0 28px 32px;"><a href="${ctaHref}" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">${ctaText}</a></div>` : ""}
+  <div style="padding:20px 28px 4px;border-top:1px solid #eee;font-size:13px;color:#666;line-height:1.7;">
+    <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 3 ways I can help:</p>
+    <p style="margin:0 0 2px;">1. <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_cycle" style="color:#e63946;">Check the live cycle dashboard</a> — free, always current</p>
+    <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_trial" style="color:#e63946;">Try the full system free for 7 days</a> — no card</p>
+    <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
+  </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
     LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
