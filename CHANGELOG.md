@@ -31,5 +31,5 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
    - https://discord.com/channels/1380245793780531351/1383092845400952852/1477997147784741056 (#wins-progress)
    - https://discord.com/channels/1380245793780531351/1383102141647945768/1475888463583907966 (#ideas-opportunities, archived)
    - consider banning `thren0115` + an AutoMod rule for DM-solicitation patterns
-2. Elite 1:1 cadence sanity-check (monthly 20-min is live on the pricing page — say the word if you want quarterly)
+2. ~~Elite 1:1 cadence~~ — CONFIRMED monthly by founder 2026-07-01; live copy already matches.
 3. Tier 2 list in OPTIMIZATION_PLAN.md: testimonials ask, Whop cancel-flow config, onboarding-DM LaunchAgent, which PDF reads AI
