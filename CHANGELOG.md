@@ -24,8 +24,12 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 - Playbook "live small-group cohort" claim left as-is — it's a live-group commitment; founder must confirm intent before repositioning.
 - No pricing values or payment logic touched. Nothing deleted in Discord.
 
-## Founder actions pending (fastest first)
-1. Reload brief timer: `launchctl unload ~/Library/LaunchAgents/com.liftoffr.daily-brief.plist && launchctl load ~/Library/LaunchAgents/com.liftoffr.daily-brief.plist`
-2. Paste + pin the #start-here post (DISCORD_STAGED_POSTS.md) · delete thren0115 spam (2 msgs) · consider ban + AutoMod rule
-3. Elite 1:1 cadence sanity-check (monthly 20-min OK? say the word if quarterly)
-4. Tier 2 list in OPTIMIZATION_PLAN.md: testimonials ask, Whop cancel-flow config, onboarding-DM LaunchAgent, which PDF reads AI
+## LAUNCHED 2026-07-01 (explicit founder go): deploy pushed+verified live, brief plist reloaded (8am MT), #start-here posted + pinned by bot.
+
+## Founder actions still pending
+1. Delete thren0115 spam manually (bot-deletion of member messages stays blocked per no-delete guardrail):
+   - https://discord.com/channels/1380245793780531351/1383092845400952852/1477997147784741056 (#wins-progress)
+   - https://discord.com/channels/1380245793780531351/1383102141647945768/1475888463583907966 (#ideas-opportunities, archived)
+   - consider banning `thren0115` + an AutoMod rule for DM-solicitation patterns
+2. Elite 1:1 cadence sanity-check (monthly 20-min is live on the pricing page — say the word if you want quarterly)
+3. Tier 2 list in OPTIMIZATION_PLAN.md: testimonials ask, Whop cancel-flow config, onboarding-DM LaunchAgent, which PDF reads AI
