@@ -33,6 +33,9 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 28 | checklist + buyzone success states | Bare "check your inbox" → + "While it sends — Start 7 days free →" trial CTA (research: trial ask belongs on the post-capture thank-you moment) |
 | 29 | instagram_comment_reply.py | + PLAN keyword → liftoffr.com/buyzone DM/reply; PLAYBOOK copy cohort→1:1; STACK now links /buyzone |
 | 30 | daily_signal.py + com.liftoffr.daily-signal.plist (STAGED, not loaded) | Daily one-word signal card (ACCUMULATE/HOLD/CAUTION/SELL ZONE + live score, brand-styled 1080×1920) → Discord #daily-market-brief + IG story auto-publish. Render verified; classifier requires Torin's one-liner to enable the daily auto-publish |
+| 31 | api/jarvis.js | Fixed Opus 4.8 → model ladder: JARVIS_MODEL env → claude-fable-5 → claude-opus-4-8, auto-fallback on model-unavailable errors, winner cached per lambda |
+| 32 | dashboard/index.html (+v2 sync) | JARVIS daily auto-briefing: first open of the day runs it, cached in localStorage, later opens replay instantly with timestamp+model |
+| 33 | dashboard/index.html (+v2 sync) | NEW action bar above JARVIS (research: NN/g top-left rule + fintech next-action pattern): STANCE word, score with Δ-vs-yesterday (localStorage day snapshot), BTC vs 200W MA, next tier with %-away or HIT flag, dry powder. Refreshes every 2 min |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.
