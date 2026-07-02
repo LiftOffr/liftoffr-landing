@@ -399,6 +399,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="form-success" id="formSuccess">
           <strong>✓ Check your inbox.</strong>
           <p>The Cycle Top Checklist PDF + this week's LiftOffr Score are on their way (from torin@liftoffr.com). Whitelist that address so they don't end up in Promotions.</p>
+          <a href="/start" rel="noopener" style="display:block;margin-top:14px;background:var(--red);color:#fff;text-decoration:none;text-align:center;padding:13px;border-radius:9px;font-weight:800;font-size:14.5px;">While it sends — Start 7 days free →</a>
+          <p style="margin-top:8px;font-size:12px;color:#777;text-align:center;">The membership runs the checklist for you: daily brief, alerts, live dashboard. No card required.</p>
         </div>
         <p class="form-fine">No spam. Unsubscribe in one click.</p>
       </div>
@@ -578,7 +580,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         if (successBox) successBox.style.display = 'block';
       } else {
         // mid-page form — replace inline
-        form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox — the checklist is on its way.</div>';
+        form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox — the checklist is on its way.</div><a href="/start" rel="noopener" style="display:block;width:100%;margin-top:10px;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:12px;border-radius:9px;font-weight:800;font-size:14px;">While it sends — Start 7 days free →</a>';
       }
       if (typeof window.track === 'function') {
         window.track('lead_captured', { source: medium, page: location.pathname });

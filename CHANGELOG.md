@@ -29,6 +29,10 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 24 | sitemap.xml | + /buyzone entry |
 | 25 | AFFILIATE_LAUNCH.md (staged, not deployed) | Whop native affiliate program: 30% recurring config path + Discord announce + DM template + email broadcast copy — Torin enables in dashboard (~10 min) |
 | 26 | supply_gap_alert.py + com.liftoffr.supply-gap.plist | NEW daily 9:30am check: no reel published in >48h → alert to #churn-alerts. Dry-run verified (20.6h gap, correctly silent). LaunchAgent loaded |
+| 27 | playbook/index.html + homepage card | "Live 3-session cohort · 20 seats" (group calls founder won't run) → 1:1 edition: 90-min private session + plan doc + recording + 2wk DM access + 3mo Pro, same $497/plan ID, honest monthly-slot scarcity, 30-min refund guarantee |
+| 28 | checklist + buyzone success states | Bare "check your inbox" → + "While it sends — Start 7 days free →" trial CTA (research: trial ask belongs on the post-capture thank-you moment) |
+| 29 | instagram_comment_reply.py | + PLAN keyword → liftoffr.com/buyzone DM/reply; PLAYBOOK copy cohort→1:1; STACK now links /buyzone |
+| 30 | daily_signal.py + com.liftoffr.daily-signal.plist (STAGED, not loaded) | Daily one-word signal card (ACCUMULATE/HOLD/CAUTION/SELL ZONE + live score, brand-styled 1080×1920) → Discord #daily-market-brief + IG story auto-publish. Render verified; classifier requires Torin's one-liner to enable the daily auto-publish |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.
