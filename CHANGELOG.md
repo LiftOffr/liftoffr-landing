@@ -37,6 +37,7 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 32 | dashboard/index.html (+v2 sync) | JARVIS daily auto-briefing: first open of the day runs it, cached in localStorage, later opens replay instantly with timestamp+model |
 | 33 | dashboard/index.html (+v2 sync) | NEW action bar above JARVIS (research: NN/g top-left rule + fintech next-action pattern): STANCE word, score with Δ-vs-yesterday (localStorage day snapshot), BTC vs 200W MA, next tier with %-away or HIT flag, dry powder. Refreshes every 2 min |
 | 34 | dashboard (+v2 sync) | V3 design layer — Apple×JARVIS×Bloomberg: native SF Pro type + tabular numerals, deeper cool palette, finer glass materials, action bar → sticky HUD command strip w/ ice-blue hairlines + scan sweep, JARVIS panel scanline HUD treatment. Cascade-override layer; zero logic touched. Backup: dashboard/index.html.backup-v3design-20260702 |
+| 35 | daily_reel.py + com.liftoffr.daily-reel.plist (STAGED, not loaded) | NEW auto-generated daily reel: 15s 1080×1920 h264 from live score (hook → score count-up + stance reveal → stats → "comment PLAN" CTA), stance-matched caption, publishes as standard IG REEL (not trial — doesn't burn editor's cap) via Discord-CDN URL + posts to #daily-market-brief. Renders in ~3s. Guaranteed 1-post/day floor independent of editor supply |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.
