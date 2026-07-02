@@ -24,6 +24,11 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 19 | (decision) | Homepage + site visual redesign REJECTED — research verdict: aesthetic already matches winners; structure was the gap (COMPETITOR_INTEL.md §C) |
 | 20 | 17 pages sitewide | `target="_blank"` on internal/checkout CTAs (blanks IG in-app webview handoff) → removed on all 9 blog posts, /links, /about, /faq, /proof, /indicator-history, /lead-magnet; true externals untouched |
 | 21 | sitewide | CTA copy variants ("Try it free for 7 days", "Start free →") → one verbatim "Start 7 days free →" everywhere (Milk Road repetition pattern) |
+| 22 | NEW /buyzone + lead-magnet/bear-market-buy-zone.pdf | Market-phase-matched lead magnet: 4-band buy plan anchored to 200W MA (0.97/0.85/0.73/0.65×), 50% DCA + tranche split, confirmation signals, window-close triggers. Landing page = proven /checklist structure, green accumulation accent |
+| 23 | api/subscribe.js | Single-magnet welcome → magnet-aware (MAGNETS map, `magnet:'buyzone'` param from the new page; checklist default unchanged; magnet tag added to sends) |
+| 24 | sitemap.xml | + /buyzone entry |
+| 25 | AFFILIATE_LAUNCH.md (staged, not deployed) | Whop native affiliate program: 30% recurring config path + Discord announce + DM template + email broadcast copy — Torin enables in dashboard (~10 min) |
+| 26 | supply_gap_alert.py + com.liftoffr.supply-gap.plist | NEW daily 9:30am check: no reel published in >48h → alert to #churn-alerts. Dry-run verified (20.6h gap, correctly silent). LaunchAgent loaded |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.

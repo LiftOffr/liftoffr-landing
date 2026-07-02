@@ -19,6 +19,28 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
 
+// Lead magnets — keyed by the `magnet` field the landing pages POST.
+const MAGNETS = {
+  checklist: {
+    eyebrow: "Welcome · Checklist + Weekly Score",
+    subject: "Your Cycle Top Checklist + the Score you'll get every Sunday",
+    itemTitle: "1. The BTC Cycle Top Checklist:",
+    itemTitleText: "1. THE BTC CYCLE TOP CHECKLIST",
+    pdfUrl: "https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=checklist_link",
+    howTo: "Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.",
+    footerLine: "You subscribed to the free Cycle Top Checklist + Weekly Score email.",
+  },
+  buyzone: {
+    eyebrow: "Welcome · Buy Zone Plan + Weekly Score",
+    subject: "Your Bear Market Buy Zone Plan + the Score you'll get every Sunday",
+    itemTitle: "1. The Bear Market Buy Zone Plan:",
+    itemTitleText: "1. THE BEAR MARKET BUY ZONE PLAN",
+    pdfUrl: "https://liftoffr.com/lead-magnet/bear-market-buy-zone.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=buyzone_link",
+    howTo: "Read the 4 bands, pick your capital split, and pre-place the orders while the zone is open. The Score below tells you whether it still is — and you'll get a fresh read every Sunday.",
+    footerLine: "You subscribed to the free Buy Zone Plan + Weekly Score email.",
+  },
+};
+
 function unsubUrl(email) {
   const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
     .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
@@ -40,7 +62,7 @@ async function readJsonBody(req) {
   });
 }
 
-function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
+function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.checklist) {
   const trendArrow = trendDelta7d > 0 ? "▲" : trendDelta7d < 0 ? "▼" : "◆";
   const trendStr = `${trendArrow} ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} over last 7 days`;
   return `<!DOCTYPE html>
@@ -49,16 +71,16 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
 
   <div style="background:#080808;padding:32px 28px;text-align:center;">
     <div style="display:inline-block;background:#e63946;color:#fff;padding:5px 12px;border-radius:4px;font-family:Helvetica,sans-serif;font-style:italic;font-size:22px;font-weight:900;letter-spacing:-0.5px;">lift<span style="color:#000;">offr</span></div>
-    <div style="margin-top:18px;color:#999;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">Welcome · Checklist + Weekly Score</div>
+    <div style="margin-top:18px;color:#999;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">${m.eyebrow}</div>
   </div>
 
   <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.6;">
     <p style="margin:0 0 18px;">Hey,</p>
-    <p style="margin:0 0 18px;">Two things in this email — the checklist you asked for, and a quick heads-up about what'll show up in your inbox every Sunday from now on.</p>
+    <p style="margin:0 0 18px;">Two things in this email — the download you asked for, and a quick heads-up about what'll show up in your inbox every Sunday from now on.</p>
 
-    <p style="margin:24px 0 8px;font-weight:700;color:#080808;">1. The BTC Cycle Top Checklist:</p>
-    <p style="margin:0 0 18px;"><a href="https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=checklist_link" style="background:#e63946;color:#fff;text-decoration:none;padding:12px 18px;border-radius:8px;display:inline-block;font-weight:800;">👉 Download the PDF</a></p>
-    <p style="margin:0 0 18px;color:#555;">Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.</p>
+    <p style="margin:24px 0 8px;font-weight:700;color:#080808;">${m.itemTitle}</p>
+    <p style="margin:0 0 18px;"><a href="${m.pdfUrl}" style="background:#e63946;color:#fff;text-decoration:none;padding:12px 18px;border-radius:8px;display:inline-block;font-weight:800;">👉 Download the PDF</a></p>
+    <p style="margin:0 0 18px;color:#555;">${m.howTo}</p>
 
     <p style="margin:32px 0 8px;font-weight:700;color:#080808;">2. The LiftOffr Score — every Sunday morning:</p>
     <p style="margin:0 0 14px;">Reading the checklist yourself takes ~15 min a week. The LiftOffr Score does it for you — a single 0–100 number that weights all 9 cycle indicators into one read.</p>
@@ -94,7 +116,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
-    LiftOffr · You subscribed to the free Cycle Top Checklist + Weekly Score email.<br/>
+    LiftOffr · ${m.footerLine}<br/>
     <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 
@@ -102,16 +124,16 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }) {
 </body></html>`;
 }
 
-function welcomeText({ score, zone, trendDelta7d, commentary }) {
+function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.checklist) {
   return [
     "Hey,",
     "",
-    "Two things in this email — the checklist you asked for, and a quick heads-up about what'll show up in your inbox every Sunday from now on.",
+    "Two things in this email — the download you asked for, and a quick heads-up about what'll show up in your inbox every Sunday from now on.",
     "",
-    "1. THE BTC CYCLE TOP CHECKLIST",
-    "https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=checklist_link",
+    m.itemTitleText,
+    m.pdfUrl,
     "",
-    "Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal.",
+    m.howTo,
     "",
     "2. THE LIFTOFFR SCORE — EVERY SUNDAY MORNING",
     "",
@@ -228,8 +250,10 @@ export default async function handler(req, res) {
     const baseUrl = `${proto}://${host}`;
     const score = await fetchScore(baseUrl);
 
-    // Step 3 — send Welcome email immediately
-    const subject = "Your Cycle Top Checklist + the Score you'll get every Sunday";
+    // Step 3 — send Welcome email immediately (magnet-aware)
+    const magnetKey = body.magnet === "buyzone" ? "buyzone" : "checklist";
+    const magnet = MAGNETS[magnetKey];
+    const subject = magnet.subject;
     const uu = unsubUrl(email);
     const sendRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -245,10 +269,11 @@ export default async function handler(req, res) {
         to: [email],
         reply_to: REPLY_TO,
         subject,
-        text: (welcomeText(score) || "") + `\n\nUnsubscribe: ${uu}`,
-        html: welcomeHTML(score).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
+        text: (welcomeText(score, magnet) || "") + `\n\nUnsubscribe: ${uu}`,
+        html: welcomeHTML(score, magnet).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
         tags: [
           { name: "campaign", value: "welcome" },
+          { name: "magnet", value: magnetKey },
           { name: "utm_source", value: utm_source },
           { name: "utm_medium", value: utm_medium },
           { name: "utm_campaign", value: utm_campaign },
