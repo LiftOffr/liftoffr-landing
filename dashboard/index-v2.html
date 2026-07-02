@@ -16,27 +16,30 @@
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{
-    --bg:#060910;--bg2:#0a0e16;--panel:#0d121c;--panel2:#101724;--card:#0f1622;--line:#1a2334;--line2:#223049;
-    --ink:#e9eef7;--muted:#7e8ba2;--dim:#54607a;
+    --bg:#070707;--bg2:#0c0c0c;--panel:#0f0f0f;--panel2:#141414;--card:#121212;--line:#1e1e1e;--line2:#2a2a2a;
+    --ink:#f1f1f3;--muted:#8b9099;--dim:#585c66;
     --green:#26d07c;--green-d:#16a45f;--amber:#e8b339;--red:#f0556b;--blue:#4d8df0;--purple:#a855f7;
+    --accent:#e63946;--accent-d:#b8222f;
     --mono:'JetBrains Mono',ui-monospace,monospace;--sans:'Inter',system-ui,sans-serif;
   }
-  body{background:radial-gradient(1100px 560px at 22% -160px,rgba(38,208,124,.07),transparent 60%),radial-gradient(900px 500px at 95% 0,rgba(77,141,240,.06),transparent 55%),var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(1100px 560px at 18% -180px,rgba(230,57,70,.10),transparent 60%),radial-gradient(900px 520px at 98% 0,rgba(230,57,70,.05),transparent 55%),var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
   .app{display:grid;grid-template-columns:218px 1fr;min-height:100vh}
   /* SIDEBAR */
   .side{background:var(--bg2);border-right:1px solid var(--line);padding:16px 0;position:sticky;top:0;height:100vh;overflow-y:auto}
-  .brand{padding:0 18px 16px;display:flex;align-items:center;gap:8px;font-weight:900;font-size:17px;letter-spacing:-.4px}
-  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+  .brand{padding:2px 18px 4px;display:flex;align-items:center;gap:8px}
+  .lo-box{background:var(--accent);border-radius:4px;padding:3px 9px;font-style:italic;font-weight:900;font-size:19px;letter-spacing:-.6px;line-height:1;box-shadow:0 0 18px rgba(230,57,70,.45)}
+  .lo-box i{color:#fff;font-style:italic}.lo-box b{color:#0a0a0a;font-style:italic}
+  .brand-sub{padding:0 18px 16px;font-family:var(--mono);font-size:9px;letter-spacing:2.5px;color:var(--accent);font-weight:700}
   .nav-grp{padding:14px 18px 5px;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);font-weight:700}
   .nav-item{display:flex;align-items:center;gap:10px;padding:7px 18px;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;border-left:2px solid transparent}
   .nav-item:hover{color:var(--ink);background:rgba(255,255,255,.02)}
-  .nav-item.active{color:var(--ink);border-left-color:var(--green);background:rgba(38,208,124,.07)}
+  .nav-item.active{color:var(--ink);border-left-color:var(--accent);background:rgba(230,57,70,.10)}
   .nav-item .ic{width:15px;text-align:center;opacity:.85;font-size:12px}
   .side-foot{padding:14px 18px;font-size:11px;color:var(--dim);border-top:1px solid var(--line);margin-top:8px}
   .side-foot .sf-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
   .sf-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
   /* MAIN */
-  .topbar{display:flex;align-items:center;gap:24px;padding:14px 26px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--bg2),var(--bg));position:sticky;top:0;z-index:20}
+  .topbar{display:flex;align-items:center;gap:24px;padding:14px 26px;border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(230,57,70,.28);background:linear-gradient(180deg,var(--bg2),var(--bg));position:sticky;top:0;z-index:20}
   .tb-stat .lbl{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700}
   .tb-stat .val{font-family:var(--mono);font-size:18px;font-weight:700;margin-top:2px}
   .up{color:var(--green)}.down{color:var(--red)}.neu{color:var(--amber)}
@@ -95,6 +98,13 @@
   .delta-pill{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px}
   .ind .imeta{font-size:10.5px;color:var(--dim);margin-top:9px;line-height:1.7}
   .ind .idesc{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.45}
+  .ind .ibluf{margin-top:9px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.025);border-left:2px solid var(--accent);font-size:11.5px;line-height:1.5;color:var(--ink)}
+  .ind .ibluf b{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:1px 5px;border-radius:4px;margin-right:5px;vertical-align:1px}
+  .pbluf{margin-top:11px;padding-top:9px;border-top:1px solid var(--line);font-size:11px;line-height:1.45}
+  .mcard .mbluf{margin-top:9px;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.3px}
+  .today-call{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,rgba(230,57,70,.09),rgba(255,255,255,.02));border:1px solid var(--line2)}
+  .tc-tag{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:1.2px;padding:4px 9px;border-radius:6px;border:1px solid;white-space:nowrap}
+  .tc-body{color:var(--muted);font-size:13.5px;line-height:1.5}.tc-body b{font-weight:800}
   .ind .spark{margin-top:12px}
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px}
   .muted{color:var(--muted)}
@@ -156,8 +166,8 @@
   .chart-stats{display:flex;gap:18px;font-size:12px;color:var(--muted)}
   .chart-stats b{font-family:var(--mono);color:var(--ink);font-weight:700;margin-left:5px}
   .chart-ranges{display:flex;gap:6px}
-  .chart-range-btn{font-family:var(--sans);font-weight:700;font-size:11px;padding:5px 11px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer}
-  .chart-range-btn:hover{color:var(--ink)}.chart-range-btn.active{background:var(--green);color:#04130a;border-color:var(--green)}
+  .chart-range-btn,.cbbi-range-btn{font-family:var(--sans);font-weight:700;font-size:11px;padding:5px 11px;border-radius:7px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--muted);cursor:pointer}
+  .chart-range-btn:hover,.cbbi-range-btn:hover{color:var(--ink)}.chart-range-btn.active,.cbbi-range-btn.active{background:var(--green);color:#04130a;border-color:var(--green)}
   .chart-box{position:relative;height:420px}
   /* TRADE LEDGER */
   .trade-ctrls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
@@ -189,7 +199,8 @@
 <body>
 <div class="app">
   <aside class="side">
-    <div class="brand"><span class="dot"></span>LiftOffr</div>
+    <div class="brand"><span class="lo-box"><i>lift</i><b>offr</b></span></div>
+    <div class="brand-sub">◆ JARVIS · BTC COMMAND</div>
     <div class="nav-grp">Cycle</div>
     <div class="nav-item active" data-target="sec-verdict"><span class="ic">◎</span> Cycle Verdict</div>
     <div class="nav-item" data-target="sec-pillars"><span class="ic">◔</span> Four Pillars</div>
@@ -197,6 +208,7 @@
     <div class="nav-grp">Plan</div>
     <div class="nav-item" data-target="sec-ladder"><span class="ic">▤</span> Buy Ladder</div>
     <div class="nav-item" data-target="sec-chart"><span class="ic">▥</span> Price Chart</div>
+    <div class="nav-item" data-target="sec-cbbi"><span class="ic">◍</span> CBBI vs Buys</div>
     <div class="nav-item" data-target="sec-projected"><span class="ic">◇</span> Projected Bottom</div>
     <div class="nav-item" data-target="sec-position"><span class="ic">𝟱</span> Position</div>
     <div class="nav-item" data-target="sec-ledger"><span class="ic">≡</span> Trade Ledger</div>
@@ -221,6 +233,53 @@
       <button class="btn btn-green" id="refreshBtn">↻ Force Update</button>
     </div>
     <div class="wrap">
+      <div class="today-call" id="todayCall" style="display:none"></div>
+      <!-- JARVIS -->
+      <style>
+        #jvFeed{font-family:var(--sans);font-size:14px;line-height:1.62;color:var(--ink);white-space:pre-wrap;min-height:110px}
+        #jvFeed .jvmeta{font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.5px;display:block;margin-bottom:9px}
+        #jvFeed .jvcur{display:inline-block;width:7px;height:15px;background:var(--accent);box-shadow:0 0 10px var(--accent);vertical-align:-2px;margin-left:2px;animation:jvblink 1s steps(1) infinite}
+        @keyframes jvblink{50%{opacity:0}}
+        .jv-modes{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+        .jv-modes button{font-family:var(--sans);font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:8px 14px;border-radius:9px;cursor:pointer;color:var(--ink);background:rgba(230,57,70,.09);border:1px solid rgba(230,57,70,.30);transition:.15s}
+        .jv-modes button:hover{background:rgba(230,57,70,.20);border-color:var(--accent);box-shadow:0 0 16px rgba(230,57,70,.3)}
+        .jv-modes button:disabled{opacity:.45;cursor:wait}
+        .jv-ask{display:flex;gap:8px;margin-top:10px}
+        .jv-ask input{flex:1;font-family:var(--sans);font-size:13px;color:var(--ink);padding:10px 13px;border-radius:9px;background:var(--bg2);border:1px solid var(--line2);outline:none}
+        .jv-ask input:focus{border-color:var(--accent)}
+        .jv-ask input::placeholder{color:var(--dim)}
+        .jv-ask button{padding:0 15px;border-radius:9px;border:1px solid rgba(230,57,70,.40);background:rgba(230,57,70,.12);color:var(--accent);cursor:pointer;font-size:14px}
+        .jv-ask button:hover{background:rgba(230,57,70,.24)}
+        /* reactor core — JARVIS coded */
+        #sec-jarvis .stitle{color:var(--accent)}
+        .jv-core{display:inline-block;width:16px;height:16px;position:relative;vertical-align:-3px;margin-right:2px}
+        .jv-core i{position:absolute;inset:0;border-radius:50%;border:1.5px solid transparent;border-top-color:var(--accent);border-right-color:rgba(230,57,70,.35);animation:jvspin 2.4s linear infinite}
+        .jv-core i:last-child{inset:5px;border:0;border-radius:50%;background:radial-gradient(circle,var(--accent),transparent 70%);box-shadow:0 0 8px var(--accent);animation:jvpulse 2s ease-in-out infinite}
+        @keyframes jvspin{to{transform:rotate(360deg)}}
+        @keyframes jvpulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
+      </style>
+      <!-- ACTION BAR — the one-glance answer: stance, what changed, what's next (NN/g top-left rule) -->
+      <div id="actionBar" style="display:none;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px;">
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Stance</div><div id="abStance" style="font-size:22px;font-weight:900;letter-spacing:-.5px;">—</div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Score · vs yesterday</div><div style="font-size:22px;font-weight:900;font-family:var(--mono);"><span id="abScore">—</span> <span id="abScoreD" style="font-size:13px;font-weight:700;"></span></div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">BTC · vs 200W MA</div><div style="font-size:22px;font-weight:900;font-family:var(--mono);"><span id="abBtc">—</span> <span id="abMaD" style="font-size:13px;font-weight:700;"></span></div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Next tier</div><div id="abTier" style="font-size:16px;font-weight:800;line-height:1.3;padding-top:3px;">—</div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Dry powder</div><div id="abDry" style="font-size:22px;font-weight:900;font-family:var(--mono);">—</div></div>
+      </div>
+
+      <div class="sec" id="sec-jarvis"><div class="sec-h"><span class="chev">▼</span><span class="stitle"><span class="jv-core"><i></i><i></i></span>JARVIS</span><span class="ssub">— AI analyst · reads your live position, cycle &amp; ladder (Claude Fable 5, Opus fallback)</span></div></div>
+      <div class="panel">
+        <div id="jvFeed"><span class="jvmeta">// Ask for a briefing, a risk read, tier status — or anything about your position.</span><span class="jvcur"></span></div>
+        <div class="jv-modes">
+          <button data-jv="briefing">▸ Daily Briefing</button>
+          <button data-jv="risk">▸ Risk Read</button>
+          <button data-jv="tier">▸ Tier Status</button>
+        </div>
+        <div class="jv-ask">
+          <input id="jvAsk" type="text" placeholder="Ask JARVIS about your position…" autocomplete="off">
+          <button id="jvSend" title="Send">➤</button>
+        </div>
+      </div>
       <!-- VERDICT -->
       <div class="sec" id="sec-verdict"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📊 Cycle Verdict</span><span class="ssub">— A Systematic Scoring Framework for Bitcoin Cycle Position</span></div></div>
       <div class="panel verdict">
@@ -266,10 +325,23 @@
             <button class="chart-range-btn" data-days="90">90D</button>
             <button class="chart-range-btn" data-days="180">180D</button>
             <button class="chart-range-btn active" data-days="365">1Y</button>
+            <button class="chart-range-btn" data-days="1300">Cycle</button>
             <button class="chart-range-btn" data-days="3000">All</button>
           </div>
         </div>
         <div class="chart-box"><canvas id="btcChart"></canvas></div>
+      </div>
+      <!-- CBBI vs BUYS -->
+      <div class="sec" id="sec-cbbi"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◍ Price × CBBI — Your Buys</span><span class="ssub">— BTC price (log) overlaid with the CBBI cycle score + your fills · like the CBBI site chart</span></div></div>
+      <div class="panel">
+        <div class="chart-ranges" style="display:flex;gap:7px;justify-content:flex-end;margin-bottom:10px">
+          <button class="cbbi-range-btn" data-cut="1y">1Y</button>
+          <button class="cbbi-range-btn" data-cut="cycle">Cycle</button>
+          <button class="cbbi-range-btn" data-cut="2020">Since 2020</button>
+          <button class="cbbi-range-btn active" data-cut="all">All</button>
+        </div>
+        <div class="chart-box"><canvas id="cbbiChart"></canvas></div>
+        <div class="muted" id="cbbiNote" style="font-size:12.5px;margin-top:14px;line-height:1.6"></div>
       </div>
       <!-- PROJECTED BOTTOM -->
       <div class="sec" id="sec-projected"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— 200W MA penetration bands · Cowen's 'level of destiny'</span></div></div>
@@ -300,6 +372,30 @@
           <div class="nw-col"><div class="nw-h">Debts <button class="nw-add" data-cat="debts">+ Add</button></div><div id="nwDebts"></div></div>
           <div class="nw-col"><div class="nw-h">Monthly Income <button class="nw-add" data-cat="income">+ Add</button></div><div id="nwIncome"></div></div>
         </div>
+      </div>
+      <!-- VEHICLE -->
+      <style>
+        .veh-wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:stretch}
+        .veh-photo{position:relative;width:320px;max-width:100%;border-radius:14px;overflow:hidden;background:var(--bg2);border:1px solid var(--line2);aspect-ratio:16/10;display:flex;align-items:center;justify-content:center}
+        .veh-photo img{width:100%;height:100%;object-fit:cover;display:block}
+        .veh-ph{color:var(--dim);font-size:13px}
+        .veh-edit{position:absolute;bottom:8px;right:8px;font-size:11px;padding:6px 11px;border-radius:8px;background:rgba(0,0,0,.55);color:#fff;border:1px solid rgba(255,255,255,.25);cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+        .veh-edit:hover{background:rgba(0,0,0,.75)}
+        .veh-info{flex:1;min-width:250px;display:flex;flex-direction:column;justify-content:center}
+        .veh-title{font-size:18px;font-weight:800;letter-spacing:-.2px}
+        .veh-sub{color:var(--muted);font-size:12.5px;margin:3px 0 16px}
+        .veh-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+        .veh-stats>div{background:var(--bg2);border:1px solid var(--line2);border-radius:12px;padding:13px}
+        .veh-stats span{display:block;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+        .veh-stats b{display:block;font-family:var(--mono);font-size:21px;margin-top:5px}
+        .veh-stats i{display:block;font-style:normal;font-size:10.5px;color:var(--dim);margin-top:4px}
+        #vehVal{cursor:pointer;border-bottom:1px dashed var(--line2)}
+        @media(max-width:560px){.veh-stats{grid-template-columns:1fr}}
+      </style>
+      <div class="sec" id="sec-vehicle"><div class="sec-h"><span class="chev">▼</span><span class="stitle">🚗 Vehicle</span><span class="ssub">— 2022 Porsche Macan S · live value, loan payoff &amp; equity</span></div></div>
+      <div class="panel">
+        <div class="veh-wrap" id="vehCard"><div class="loading">Loading vehicle…</div></div>
+        <input type="file" id="vehPhotoInput" accept="image/*" style="display:none">
       </div>
       <!-- TRADE LEDGER -->
       <div class="sec" id="sec-ledger"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▦ Trade Ledger</span><span class="ssub">— log buys/sells · feeds the ladder, position &amp; cost basis</span></div></div>
@@ -374,6 +470,32 @@ const desc={PiCycle:'111DMA vs 350DMA×2 — historic top timing',RUPL:'Net unre
 // cycle scale: HIGH = top/sell (red), LOW = bottom/buy (green)
 function zColor(v){if(v>=80)return'#f0556b';if(v>=60)return'#e8b339';if(v>=40)return'#4d8df0';return'#26d07c'}
 function zLabel(v){if(v>=85)return'TOP ZONE';if(v>=60)return'LATE CYCLE';if(v>=40)return'NEUTRAL';if(v>=20)return'ACCUMULATION';return'DEEP VALUE'}
+// Per-indicator plain-English read. All metrics are cycle-normalized 0-100:
+// HIGH = toppy/overvalued (sell-side), LOW = cheap/undervalued (buy-side).
+const IND_READ={
+  Confidence:{hi:'broad cycle confidence is high — late-stage of the cycle',lo:'cycle confidence is low — early / bottoming'},
+  PiCycle:{hi:'111DMA closing on the 350DMA×2 — classic top-timing trigger',lo:'far below the top-timing cross — lots of cycle runway left'},
+  RHODL:{hi:'short-term holders dominate — euphoria / distribution',lo:'long-term HODL waves dominate — quiet accumulation'},
+  Puell:{hi:'miner revenue stretched above its yearly trend — top-side',lo:'miner revenue compressed — capitulation / deep value'},
+  '2YMA':{hi:'price extended well above the 2-year MA — overheated',lo:'price near or below the 2-year MA — historically cheap'},
+  Trolololo:{hi:'price riding the high end of the log-regression band — frothy',lo:'price near the low end of the regression band — undervalued'},
+  MVRV:{hi:'market value far above realized cost basis — heavy paper profit',lo:'market value near realized cost basis — low downside risk'},
+  RUPL:{hi:'net unrealized profit elevated — euphoria risk',lo:'net unrealized profit low or negative — capitulation'},
+  ReserveRisk:{hi:'conviction is cheap relative to price — poor long-term risk/reward',lo:'conviction is high relative to price — strong risk/reward'},
+  Woobull:{hi:'price pressing the top-cap model — distribution zone',lo:'price far under the top-cap model — accumulation zone'},
+  'F&G':{hi:'the crowd is greedy — contrarian caution',lo:'the crowd is fearful — contrarian opportunity'},
+};
+function indBLUF(k,v,d7){
+  const r=IND_READ[k]||{hi:'reading is elevated',lo:'reading is depressed'};
+  const band=v>=70?'hi':v<=35?'lo':'mid';
+  const phrase=band==='hi'?r.hi:band==='lo'?r.lo:'mid-cycle — no strong signal from this one';
+  const tr=d7>0.5?'rising':d7<-0.5?'falling':'flat',arrow=tr==='rising'?'▲':tr==='falling'?'▼':'→';
+  let lean,col;
+  if(band==='hi'){lean=tr==='falling'?'elevated but cooling — watch for a turn':'sell-side — caution, not a buy';col='var(--red)';}
+  else if(band==='lo'){lean=tr==='rising'?'cheap & turning up — accumulation-friendly':'deep value — favors deploying tiers';col='var(--green)';}
+  else{lean='neutral — stick to the plan / keep DCAing';col='var(--amber)';}
+  return `<div class="ibluf"><b style="background:rgba(255,255,255,.07);color:${col}">BLUF</b>${phrase}; <span style="color:${col}">${tr} ${arrow}</span> on the week. <b style="background:none;padding:0;margin:0;font-family:var(--sans);font-size:11.5px;letter-spacing:0;color:${col}">${lean}.</b></div>`;
+}
 function dpill(d,inv){ // inv: for cycle indicators a rising value = more toppy = "bad" colour
   if(d==null||isNaN(d))return '';
   const rising=d>=0; const good = inv? !rising : rising;
@@ -419,6 +541,44 @@ function drawRadar(P){const svg=document.getElementById('radar'),cx=165,cy=145,R
   h+=`<polygon points="${p}" fill="rgba(38,208,124,.18)" stroke="#26d07c" stroke-width="2"/>`;
   P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,lx=cx+(R+24)*Math.cos(a),ly=cy+(R+22)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="#7e8ba2" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${q.name}</text>`});
   svg.innerHTML=h;}
+const PILLAR_READ={
+  Cycle:{hi:'cycle timing is late — top-side of the cycle',lo:'early in the cycle — runway left'},
+  Valuation:{hi:'BTC looks expensive vs its on-chain cost basis',lo:'BTC looks cheap vs realized / on-chain value'},
+  Technical:{hi:'price stretched above its long-term trend',lo:'price near long-term trend support'},
+  Sentiment:{hi:'crowd is greedy — contrarian caution',lo:'crowd is fearful — contrarian opportunity'},
+};
+function pillarBLUF(name,pv,pd7){
+  const r=PILLAR_READ[name]||{hi:'elevated',lo:'depressed'};
+  const band=pv>=70?'hi':pv<=35?'lo':'mid';
+  const phrase=band==='hi'?r.hi:band==='lo'?r.lo:'mid-range — no strong tilt';
+  const tr=pd7>0.5?'rising':pd7<-0.5?'falling':'flat',arrow=tr==='rising'?'▲':tr==='falling'?'▼':'→';
+  let lean,col;
+  if(band==='hi'){lean=tr==='falling'?'high but cooling':'sell-side — caution';col='var(--red)';}
+  else if(band==='lo'){lean=tr==='rising'?'cheap & turning up — accumulate':'deep value — accumulate';col='var(--green)';}
+  else{lean='neutral — stay the course';col='var(--amber)';}
+  return `<div class="pbluf"><span style="color:${col}">${phrase}; ${tr} ${arrow} — ${lean}.</span></div>`;
+}
+function macroVerdict(label,color){
+  const tail=color==='#26d07c'?'tailwind for BTC':color==='#f0556b'?'headwind for BTC':'neutral for BTC';
+  return `<div class="mbluf" style="color:${color}">→ ${tail}</div>`;
+}
+function renderTodayCall(){
+  const el=document.getElementById('todayCall');if(!el)return;
+  const se=document.getElementById('tbScore'),score=se?parseFloat(se.textContent):NaN;
+  if(!isFinite(score)){el.style.display='none';return;}el.style.display='';
+  const c=zColor(score),zone=(document.getElementById('vTag').textContent||'').trim();
+  let posture;if(score>=85)posture='Top zone — scale out per the exit plan';
+  else if(score>=60)posture='Late cycle — tighten exits, hold dry powder';
+  else if(score>=40)posture='Mid-cycle — stay the course, keep DCAing';
+  else if(score>=20)posture='Accumulation — buy weakness, deploy tiers on dips';
+  else posture='Deep value — best risk/reward to accumulate';
+  let maStr='';if(LIVE_PRICE&&MA200W){const d=(LIVE_PRICE-MA200W)/MA200W*100;maStr=` · BTC ${FUSD(LIVE_PRICE)}, ${d>=0?'+':''}${d.toFixed(0)}% vs 200W MA`;}
+  let nextStr='';try{const fills=lumpFills(),nt=buyTiers().find(t=>(fills[t.tier]||0)<(t.target||0)*0.97);
+    if(nt){const px=effPrice(nt),hit=LIVE_PRICE!=null&&px!=null&&LIVE_PRICE<=px;
+      nextStr=nt.tier==='IMMEDIATE'?` · Plan: fire ${nt.tier} now`:hit?` · Plan: ${nt.tier} HIT at ${FUSD(px)} — deploy`:` · Plan: next ${nt.tier} at ${FUSD(px)}`;}
+    else nextStr=' · Plan: fully deployed';}catch(e){}
+  el.innerHTML=`<span class="tc-tag" style="background:${c}1f;color:${c};border-color:${c}">TODAY'S CALL</span><span class="tc-body"><b style="color:${c}">${zone||zLabel(score)}</b> · cycle ${score.toFixed(0)}/100${maStr}${nextStr}. <span style="color:${c}">${posture}.</span></span>`;
+}
 const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 
 // ===== PLAN (Cowen buy-ladder) — ported from /dashboard =====
@@ -431,13 +591,22 @@ const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
     {tier:'T3',target:26200,targetPrice:52000,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
   {id:'p3',name:'Phase 3 — Post-Bottom Recovery',start:'2027-01-01',end:'2027-03-31',lumpTiers:[
     {tier:'T4',target:15000,targetPrice:45000,maMultiple:0.73,fallbackDate:'2027-01-31'},
-    {tier:'T5',target:8000,targetPrice:40000,maMultiple:0.65,fallbackDate:'2027-03-31'}]}]};
+    {tier:'T5',target:8000,targetPrice:40000,maMultiple:0.65,fallbackDate:'2027-03-31'}]},
+  {id:'p4',name:'Phase 4 — Bull Hold',start:'2027-04-01',end:'2029-05-31',lumpTiers:[]},
+  // Sell tiers calibrated to diminishing-returns 2029 peak (~$425K median).
+  // Old exits blended $170K — way too conservative. New blend = $415K.
+  {id:'p5',name:'Phase 5 — Distribution',start:'2029-06-01',end:'2029-12-31',lumpTiers:[
+    {tier:'S1',sellPct:40,targetPrice:150000,trigger:'CBBI ≥ 85 OR first V7 TOP signal'},
+    {tier:'S2',sellPct:30,targetPrice:200000,trigger:'Two V7 TOP signals (~median peak)'},
+    {tier:'S3',sellPct:20,targetPrice:275000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
+    {tier:'S4',sellPct:10,targetPrice:400000,trigger:'Trailing stop / blow-off top wick'}]}]};
 let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
+let CBBI_HIST=null,CBBI_CHART=null,CBBI_CUT='all';
 const FUSD=n=>'$'+Math.round(n).toLocaleString();
-const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA'))a.push(t)}));return a};
+const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA')&&!t.sellPct)a.push(t)}));return a};
 function effPrice(t){const ma=(t.maMultiple&&MA200W)?MA200W*t.maMultiple:null;const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier]?COWEN.tiers[t.tier].price:null;
   if(cow&&ma){if(Math.abs(cow-ma)/ma<=0.10)return cow}else if(cow)return cow;return ma||t.targetPrice}
-function lumpFills(){const buys=TRADES.filter(b=>(b.type||'buy')==='buy'&&(b.usd||0)>=1000).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+function lumpFills(){const buys=TRADES.filter(b=>(b.type||'buy')==='buy'&&(b.usd||0)>=100).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
   let rem=buys.reduce((s,b)=>s+(b.usd||0),0);const f={};buyTiers().forEach(t=>{const a=Math.min(t.target||0,Math.max(0,rem));f[t.tier]=a;rem=Math.max(0,rem-a)});return f}
 function tStatus(t,dep){if(dep>=t.target*0.97)return'done';const px=effPrice(t);if(LIVE_PRICE&&px){if(LIVE_PRICE<=px)return'hit';if((LIVE_PRICE-px)/px<0.05)return'near'}return'open'}
 function curPhase(){const iso=new Date().toISOString().slice(0,10);return PLAN.phases.find(p=>iso>=p.start&&iso<=p.end)||PLAN.phases[0]}
@@ -505,13 +674,14 @@ async function renderMacro(fngNow){const g=document.getElementById('macroGrid');
   if(ethbtc)cards.push(['ETH / BTC Ratio',ethbtc.toFixed(5),'risk-appetite proxy · rising = alts bid','#4d8df0']);
   // Fear & Greed
   if(fngNow!=null)cards.push(['Crypto Fear & Greed',String(Math.round(fngNow)),fngNow>=75?'extreme greed':fngNow>=55?'greed':fngNow>=45?'neutral':fngNow>=25?'fear':'extreme fear',fngNow>=55?'#26d07c':fngNow>=45?'#e8b339':'#f0556b']);
-  g.innerHTML=cards.map(c=>`<div class="mcard"><div class="ml">${c[0]}</div><div class="mv" style="color:${c[3]}">${c[1]}</div><div class="mvs">${c[2]}</div></div>`).join('');}
+  g.innerHTML=cards.map(c=>`<div class="mcard"><div class="ml">${c[0]}</div><div class="mv" style="color:${c[3]}">${c[1]}</div><div class="mvs">${c[2]}</div>${macroVerdict(c[0],c[3])}</div>`).join('');}
 
 async function load(){
   let bp={},cs={},hist={},fngArr=[];
   try{bp=await(await fetch('/api/btc-price?ma200w=1')).json()}catch(e){}
   try{cs=await(await fetch('/api/cycle-score')).json()}catch(e){}
   try{hist=await(await fetch('https://colintalkscrypto.com/cbbi/data/latest.json')).json()}catch(e){}
+  CBBI_HIST=hist;
   try{const f=await(await fetch('https://api.alternative.me/fng/?limit=60')).json();fngArr=f.data.map(x=>+x.value).reverse()}catch(e){}
   try{CB=await(await fetch('/api/coinbase-balance')).json()}catch(e){}
   try{STATE=loadState();TRADES=STATE.trades||[]}catch(e){STATE={trades:[],settings:{}};TRADES=[]}
@@ -528,6 +698,7 @@ async function load(){
   document.getElementById('vTitle').textContent=score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
   document.getElementById('vCopy').textContent=cs.commentary||'';document.getElementById('vCopy').classList.remove('loading');
   const vt=document.getElementById('vTag');vt.textContent=(cs.zone||zLabel(score)).toUpperCase();vt.style.background=zColor(score)+'26';vt.style.color=zColor(score);
+  renderTodayCall();
 
   // build indicator series from history (last 60 pts, x100)
   const keys=['Confidence','PiCycle','RUPL','RHODL','Puell','2YMA','Trolololo','MVRV','ReserveRisk','Woobull'];
@@ -546,6 +717,7 @@ async function load(){
     ig.innerHTML+=`<div class="ind"><div class="ih"><div class="iname"><span class="ick" style="background:${c}">✓</span>${niceName[k]||k}</div><span class="iq" title="${desc[k]||''}">ⓘ</span></div>
       <div class="iv-row"><span class="ival" style="color:${c}">${v.toFixed(1)}</span><span class="iunit">/100</span>${dpill(d1[k],true)}<span style="font-size:10px;color:var(--dim)">1d</span>${dpill(d7[k],true)}<span style="font-size:10px;color:var(--dim)">7d</span></div>
       <div class="idesc">${desc[k]||''}</div>
+      ${indBLUF(k,v,d7[k]||0)}
       <div class="imeta">📅 Cycle-normalized · 📡 Updated ${k==='F&G'?'today':upd}</div>
       ${sparkline(series[k]||[v],c,k==='F&G'?50:80)}</div>`;});
   document.getElementById('freshN').textContent=order.filter(k=>cur[k]!=null).length;
@@ -558,7 +730,7 @@ async function load(){
     const c=zColor(pv);radar.push({name,val:pv});
     pc.innerHTML+=`<div class="pillar" style="border-left-color:${c}"><div class="ph"><div class="pname">${cfg.icon} ${name}</div><div class="pwt">${cfg.wt}%</div></div>
       <div class="pval" style="color:${c}">${pv.toFixed(0)}</div>
-      <div class="pbot"><span class="pdelta">${pd1>=0?'▲':'▼'}${Math.abs(pd1).toFixed(1)} 1d · ${pd7>=0?'▲':'▼'}${Math.abs(pd7).toFixed(1)} 7d</span><span class="pbadge" style="background:${c}26;color:${c}">${zLabel(pv)}</span></div></div>`;});
+      <div class="pbot"><span class="pdelta">${pd1>=0?'▲':'▼'}${Math.abs(pd1).toFixed(1)} 1d · ${pd7>=0?'▲':'▼'}${Math.abs(pd7).toFixed(1)} 7d</span><span class="pbadge" style="background:${c}26;color:${c}">${zLabel(pv)}</span></div>${pillarBLUF(name,pv,pd7)}</div>`;});
   drawRadar(radar);
   if(radar.length){const m=radar.reduce((a,b)=>a+b.val,0)/radar.length,sd=Math.sqrt(radar.reduce((a,b)=>a+(b.val-m)**2,0)/radar.length),con=Math.max(0,Math.min(100,Math.round(100-sd*2.2)));
     document.getElementById('consFill').style.width=con+'%';document.getElementById('consN').textContent=con+' / 100';document.getElementById('consDiv').textContent='Divergence (σ) '+sd.toFixed(1);
@@ -567,7 +739,7 @@ async function load(){
 
   // ===== Plan panels =====
   renderLadderV2(); renderProjected(); renderPosition(); renderMacro(fngArr.length?fngArr[fngArr.length-1]:null);
-  renderTradeList(); renderFinances(); renderChart(CHART_DAYS);
+  renderTradeList(); renderFinances(); renderChart(CHART_DAYS); renderCbbiChart();
 }
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};
 document.getElementById('csvBtn').onclick=()=>{let r=[['indicator','value','1d','7d']];document.querySelectorAll('.ind').forEach(c=>{const n=c.querySelector('.iname').textContent.replace('✓','').trim();const v=c.querySelector('.ival').textContent;r.push([n,v])});const csv=r.map(x=>x.join(',')).join('\n');const a=document.createElement('a');a.href='data:text/csv,'+encodeURIComponent(csv);a.download='liftoffr-cycle-indicators.csv';a.click()};
@@ -587,7 +759,7 @@ function loadState(){try{const r=localStorage.getItem(STORAGE_KEY);if(r)return J
 function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(STATE))}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 let STATE=loadState();
-function refreshPlan(){TRADES=STATE.trades||[];renderLadderV2();renderProjected();renderPosition();renderTradeList();renderFinances();if(BTC_CHART)renderChart(CHART_DAYS)}
+function refreshPlan(){TRADES=STATE.trades||[];renderLadderV2();renderProjected();renderPosition();renderTradeList();renderFinances();renderTodayCall();if(BTC_CHART)renderChart(CHART_DAYS);renderCbbiChart()}
 
 let BTC_CHART=null,BTC_HISTORY=null,CHART_DAYS=365;
 async function fetchHistory(days){try{const d=await(await fetch(`/api/btc-price?chart=${days}`)).json();if(Array.isArray(d.history)){BTC_HISTORY=d.history;return d.history}}catch(e){}return null}
@@ -616,6 +788,42 @@ async function renderChart(days){CHART_DAYS=days;if(!BTC_HISTORY||BTC_HISTORY.le
       scales:{x:{type:'time',time:{unit:days<=120?'week':'month'},grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10}}},
         y:{position:'right',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10},callback:v=>'$'+(v/1000).toFixed(0)+'K'}}}}};
   if(BTC_CHART){BTC_CHART.data=cfg.data;BTC_CHART.options=cfg.options;BTC_CHART.update('none')}else BTC_CHART=new Chart(ctx,cfg)}
+
+// ---- CBBI vs Buys chart ----
+function cbbiSeriesFull(){ // -> [{x:ms,y:0-100}] sorted ascending
+  const o=CBBI_HIST&&CBBI_HIST.Confidence;if(!o)return[];
+  return Object.keys(o).map(t=>({x:(+t)*1000,y:+o[t]*100})).filter(p=>isFinite(p.x)&&isFinite(p.y)).sort((a,b)=>a.x-b.x);}
+function priceSeriesFull(){ // -> [{x:ms,y:usd}] full BTC history from the CBBI feed (2011→now)
+  const o=CBBI_HIST&&CBBI_HIST.Price;if(!o)return[];
+  return Object.keys(o).map(t=>({x:(+t)*1000,y:+o[t]})).filter(p=>isFinite(p.x)&&p.y>0).sort((a,b)=>a.x-b.x);}
+function cbbiAt(ms,series){ // nearest CBBI value at/before ms
+  if(!series.length)return null;let v=series[0].y;for(const p of series){if(p.x<=ms)v=p.y;else break;}return v;}
+function cbbiBuyMarkers(series){
+  return chartBuyMarkers().map(b=>{const y=cbbiAt(b.x,series);return y==null?null:{x:b.x,y:y,usd:b.usd,btc:b.btc,price:b.y};}).filter(Boolean);}
+function renderCbbiChart(){
+  const ctx=document.getElementById('cbbiChart');if(!ctx||!window.Chart)return;
+  const full=cbbiSeriesFull();const note=document.getElementById('cbbiNote');
+  if(!full.length){if(note)note.textContent='CBBI history unavailable right now (source blocked) — the current reading still shows up top.';if(CBBI_CHART){CBBI_CHART.destroy();CBBI_CHART=null;}return;}
+  const price=priceSeriesFull();
+  if(!price.length){if(note)note.textContent='Price history unavailable right now (CBBI source blocked).';if(CBBI_CHART){CBBI_CHART.destroy();CBBI_CHART=null;}return;}
+  const nowV=full[full.length-1].y;
+  const cut=CBBI_CUT==='all'?0:CBBI_CUT==='2020'?Date.parse('2020-01-01'):CBBI_CUT==='cycle'?Date.parse('2022-11-21'):Date.now()-365*864e5;
+  const pser=cut?price.filter(p=>p.x>=cut):price, cser=cut?full.filter(p=>p.x>=cut):full;
+  const buys=chartBuyMarkers().map(b=>({x:b.x,y:b.y,usd:b.usd,btc:b.btc,cbbi:cbbiAt(b.x,full)})).filter(b=>!cut||b.x>=cut);
+  let avgBuy=null,inGreen=0;
+  if(buys.length){const wu=buys.reduce((s,b)=>s+b.usd,0);avgBuy=wu?buys.reduce((s,b)=>s+(b.cbbi||0)*b.usd,0)/wu:null;inGreen=buys.filter(b=>b.cbbi!=null&&b.cbbi<30).length;}
+  const cfg={type:'line',data:{datasets:[
+    {label:'BTC price',data:pser,yAxisID:'y',borderColor:'rgba(205,214,228,0.92)',borderWidth:1.3,pointRadius:0,pointHoverRadius:0,tension:0,fill:false,spanGaps:true,order:3},
+    {label:'CBBI',data:cser,yAxisID:'y1',borderColor:'#e8b339',borderWidth:1.9,pointRadius:0,pointHoverRadius:3,tension:0,fill:false,spanGaps:true,order:2,segment:{borderColor:ctx=>{const v=ctx.p1.parsed.y;return typeof v==='number'?zColor(v):'#e8b339';}}},
+    {label:'Your buys',data:buys,type:'scatter',yAxisID:'y',borderColor:'#26d07c',backgroundColor:'#26d07c',pointRadius:5,pointHoverRadius:8,pointStyle:'circle',showLine:false,order:1}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',axis:'x',intersect:false},
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,14,22,0.96)',borderColor:'#223049',borderWidth:1,titleColor:'#fff',bodyColor:'#bbb',
+        callbacks:{label:c=>{const r=c.raw,ds=c.dataset.label;if(ds==='Your buys')return `Buy ${FMT_USD0.format(r.usd)} · ${r.btc.toFixed(5)} BTC @ ${FMT_USD0.format(r.y)}`+(r.cbbi!=null?` · CBBI ${r.cbbi.toFixed(0)}`:'');if(ds==='CBBI')return `CBBI: ${(+r.y).toFixed(1)}`;return `BTC: ${FMT_USD0.format(r.y)}`}}}},
+      scales:{x:{type:'time',time:{unit:CBBI_CUT==='1y'?'month':'year'},grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10}}},
+        y:{type:'logarithmic',position:'left',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10},callback:v=>{const e=Math.log10(v);return Math.abs(e-Math.round(e))<1e-9?'$'+(v>=1000?(v/1000)+'K':v):''}}},
+        y1:{type:'linear',position:'right',min:0,max:100,grid:{drawOnChartArea:false},ticks:{color:'#caa15a',font:{size:10},stepSize:20}}}}};
+  if(CBBI_CHART){CBBI_CHART.data=cfg.data;CBBI_CHART.options=cfg.options;CBBI_CHART.update('none')}else CBBI_CHART=new Chart(ctx,cfg);
+  if(note){if(buys.length){note.innerHTML=`<b style="color:var(--ink)">${buys.length}</b> buys plotted on the price line · weighted-avg CBBI at purchase <b style="color:#26d07c">${avgBuy!=null?avgBuy.toFixed(0):'—'}</b> vs current <b style="color:var(--ink)">${nowV.toFixed(0)}</b> · <b style="color:#26d07c">${inGreen}</b> in the accumulation zone (CBBI&lt;30). Left axis = price (log), right (gold) = CBBI 0–100.`;}else{note.innerHTML=`BTC price (log) overlaid with the CBBI cycle score, 2011→today — like the CBBI site. Log buys or sync Coinbase to plot your fills. Current CBBI <b style="color:var(--ink)">${nowV.toFixed(0)}</b>.`;}}}
 
 function renderTradeList(){const wrap=document.getElementById('tradeList');if(!wrap)return;
   if(!STATE.trades||!STATE.trades.length){wrap.innerHTML='<div class="empty">No trades yet. Add one or sync Coinbase to populate the ladder &amp; position.</div>';return}
@@ -663,35 +871,96 @@ function parseRow(cols,header,source){const cells=header.split(',').map(s=>s.tri
   if(!btc||!usd)return null;return{date,source,type,usd,btc,price:usd/btc,notes:'imported'}}
 
 document.querySelectorAll('.chart-range-btn').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.chart-range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');BTC_HISTORY=null;renderChart(parseInt(btn.dataset.days,10))});
+document.querySelectorAll('.cbbi-range-btn').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.cbbi-range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');CBBI_CUT=btn.dataset.cut;renderCbbiChart()});
 
 async function maybeAutoSync(){try{if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;await new Promise(r=>setTimeout(r,1500));if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;if(!CB||!(CB.btc>0.001))return;
   const d=await(await fetch('/api/coinbase-sync')).json();if(Array.isArray(d.trades)){const manual=STATE.trades.filter(t=>t.source!=='coinbase');STATE.trades=[...manual,...d.trades.map(t=>({...t,id:uid()}))];saveState();refreshPlan();setSync(`Auto-synced ${d.trades.length} trades. ${new Date().toLocaleString()}`)}}catch(e){}}
 
+// ===== Personal liabilities + vehicle (amortized / depreciated, live) =====
+// Car loan: exact terms from the OCCU retail installment contract.
+const LOAN_AUTO={ name:'🚗 Macan loan (OCCU)', principal:47514, apr:5.74, payment:915.03, first:'2026-05-10', term:60, payDay:1 };
+// Personal loan: balance as provided, amortized forward from that date.
+const LOAN_PERSONAL={ name:'💵 Personal loan', balanceAsOf:23301.33, asOf:'2026-06-14', apr:0.5, payment:620.30, payDay:15 };
+const VEHICLE={ label:'2022 Porsche Macan S', sub:'Black / black trim · Sport Chrono · ~43k mi',
+  vin:'WP1AG2A57NLB21022', baseValue:47477, baseDate:'2026-03-26', annualDepr:0.12 };
+
+function addMonths(iso,m){const d=new Date(iso+'T00:00:00');return new Date(d.getFullYear(),d.getMonth()+m,d.getDate());}
+function curBalance(loan,now){
+  const r=(loan.apr||0)/100/12;
+  if(loan.first){ // standard amortizing auto loan
+    let bal=loan.principal,made=0;
+    for(let k=1;k<=loan.term;k++){ if(addMonths(loan.first,k-1)<=now){bal=bal*(1+r)-loan.payment;made++;}else break; }
+    return {balance:Math.max(0,bal),made,remaining:loan.term-made};
+  }
+  // balance-as-of style: step a payment for each payDay strictly after asOf, up to now
+  let bal=loan.balanceAsOf,made=0;const start=new Date(loan.asOf+'T00:00:00');
+  let y=start.getFullYear(),mo=start.getMonth();
+  for(let i=0;i<1200;i++){ const d=new Date(y,mo,loan.payDay); if(d>start&&d<=now){bal=bal*(1+r)-loan.payment;made++;} if(d>now)break; if(++mo>11){mo=0;y++;} }
+  return {balance:Math.max(0,bal),made};
+}
+function nextPayment(loan,now){let d=new Date(now.getFullYear(),now.getMonth(),loan.payDay);if(d<now)d=new Date(now.getFullYear(),now.getMonth()+1,loan.payDay);return d;}
+function fmtDate(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function vehicleValue(now){
+  const v=(STATE.vehicle&&STATE.vehicle.manualValue)?{val:+STATE.vehicle.manualValue,d:STATE.vehicle.manualAsOf||VEHICLE.baseDate}:{val:VEHICLE.baseValue,d:VEHICLE.baseDate};
+  const yrs=Math.max(0,(now-new Date(v.d+'T00:00:00'))/(365.25*864e5));
+  return v.val*Math.pow(1-VEHICLE.annualDepr,yrs);
+}
+let LIAB={car:0,macan:0,personal:0,macanInfo:null,personalInfo:null};
+function computeLiab(){const now=new Date();
+  LIAB.macanInfo=curBalance(LOAN_AUTO,now);LIAB.macan=LIAB.macanInfo.balance;
+  LIAB.personalInfo=curBalance(LOAN_PERSONAL,now);LIAB.personal=LIAB.personalInfo.balance;
+  LIAB.car=vehicleValue(now);}
+
+function renderVehicle(){const now=new Date();const val=vehicleValue(now);const m=curBalance(LOAN_AUTO,now);const eq=val-m.balance;
+  const photo=STATE.vehicle&&STATE.vehicle.photo;
+  document.getElementById('vehCard').innerHTML=`
+    <div class="veh-photo">${photo?`<img src="${photo}" alt="${VEHICLE.label}">`:`<div class="veh-ph">No photo yet</div>`}<button class="veh-edit" id="vehPhotoBtn">${photo?'Change photo':'＋ Upload photo'}</button></div>
+    <div class="veh-info">
+      <div class="veh-title">${VEHICLE.label}</div>
+      <div class="veh-sub">${VEHICLE.sub} · VIN …${VEHICLE.vin.slice(-6)}</div>
+      <div class="veh-stats">
+        <div><span>Est. value</span><b id="vehVal" title="Click to set actual value">${FMT_USD0.format(val)}</b><i>tap to set actual</i></div>
+        <div><span>Loan payoff</span><b style="color:#f0556b">${FMT_USD0.format(m.balance)}</b><i>${m.remaining} pmts left · $915.03/mo</i></div>
+        <div><span>Equity</span><b style="color:${eq>=0?'#26d07c':'#f0556b'}">${FMT_USD0.format(eq)}</b><i>value − payoff</i></div>
+      </div>
+    </div>`;
+  document.getElementById('vehPhotoBtn').onclick=()=>document.getElementById('vehPhotoInput').click();
+  document.getElementById('vehVal').onclick=()=>{const cur=Math.round(vehicleValue(new Date()));const v=prompt('Current market value of the Macan (USD)? Leave blank to revert to the auto estimate.',cur);if(v===null)return;if(!STATE.vehicle)STATE.vehicle={};if(v.trim()===''){delete STATE.vehicle.manualValue;delete STATE.vehicle.manualAsOf;}else{const n=parseFloat(v.replace(/[^0-9.]/g,''));if(!isFinite(n)){return}STATE.vehicle.manualValue=n;STATE.vehicle.manualAsOf=new Date().toISOString().slice(0,10);}saveState();renderVehicle();renderFinances();};
+}
+// photo upload — downscale to keep localStorage small, store as data URL
+(function(){const inp=document.getElementById('vehPhotoInput');if(!inp)return;inp.onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const img=new Image();img.onload=()=>{const max=1000,sc=Math.min(1,max/img.width),w=Math.round(img.width*sc),h=Math.round(img.height*sc);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);const data=c.toDataURL('image/jpeg',0.82);if(!STATE.vehicle)STATE.vehicle={};STATE.vehicle.photo=data;try{saveState()}catch(err){alert('That image is too large to store locally — try a smaller one.');return}renderVehicle()};img.src=rd.result};rd.readAsDataURL(f)};})();
+
 // ===== Net Worth & Cash Flow =====
 const FKEY={assets:'value',debts:'balance',income:'monthly'};
 function fin(){if(!STATE.finances)STATE.finances={assets:[],debts:[],income:[]};['assets','debts','income'].forEach(k=>{if(!Array.isArray(STATE.finances[k]))STATE.finances[k]=[]});return STATE.finances}
-function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').replace(/</g,'&lt;');let html='';
+function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').replace(/</g,'&lt;'),now=new Date(),sub='color:var(--dim);font-size:11px;font-weight:500';let html='';
   if(cat==='assets'){if(LIVE_PF.btcVal>0)html+=`<div class="nw-row"><span class="nl auto">₿ Bitcoin (live)</span><span class="nv">${FMT_USD0.format(LIVE_PF.btcVal)}</span></div>`;
     if(LIVE_PF.cash>1)html+=`<div class="nw-row"><span class="nl auto">Coinbase cash</span><span class="nv">${FMT_USD0.format(LIVE_PF.cash)}</span></div>`;
+    html+=`<div class="nw-row"><span class="nl auto">🚗 ${VEHICLE.label} <span style="${sub}">est.</span></span><span class="nv">${FMT_USD0.format(LIAB.car)}</span></div>`;
     BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
-  if(cat==='debts')BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);
+  if(cat==='debts'){
+    html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
+    html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
+    BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);}
   if(!list.length&&!html)html+='<div class="nw-empty">None yet — click + Add.</div>';
   html+=list.map(x=>`<div class="nw-row"><span class="nl" data-edit="${cat}:${x.id}">${(x.label||'').replace(/</g,'&lt;')}</span><span><span class="nv">${FMT_USD0.format(+x[key]||0)}</span> <button class="nx" data-del="${cat}:${x.id}">✕</button></span></div>`).join('');
   return html}
-function renderFinances(){const F=fin();
+function renderFinances(){const F=fin();computeLiab();
   const manualA=F.assets.reduce((s,x)=>s+(+x.value||0),0),manualD=F.debts.reduce((s,x)=>s+(+x.balance||0),0),income=F.income.reduce((s,x)=>s+(+x.monthly||0),0);
   const bankA=BANK.assets.reduce((s,x)=>s+(+x.value||0),0),bankD=BANK.debts.reduce((s,x)=>s+(+x.balance||0),0);
-  const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA,totalDebts=manualD+bankD,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
+  const autoDebts=LIAB.macan+LIAB.personal;
+  const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA+LIAB.car,totalDebts=manualD+bankD+autoDebts,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
   document.getElementById('nwSummary').innerHTML=`
     <div class="pstat"><div class="psl">Net Worth</div><div class="psv" style="color:${nwc}">${FMT_USD0.format(nw)}</div><div class="pss">assets − debts</div></div>
-    <div class="pstat"><div class="psl">Total Assets</div><div class="psv">${FMT_USD0.format(totalAssets)}</div><div class="pss">${FMT_USD0.format(live+bankA)} live/bank + ${FMT_USD0.format(manualA)} manual</div></div>
-    <div class="pstat"><div class="psl">Total Debts</div><div class="psv" style="color:${totalDebts>0?'#f0556b':'var(--ink)'}">${FMT_USD0.format(totalDebts)}</div><div class="pss">bank + ${F.debts.length} manual</div></div>
+    <div class="pstat"><div class="psl">Total Assets</div><div class="psv">${FMT_USD0.format(totalAssets)}</div><div class="pss">${FMT_USD0.format(live+bankA+LIAB.car)} live/auto + ${FMT_USD0.format(manualA)} manual</div></div>
+    <div class="pstat"><div class="psl">Total Debts</div><div class="psv" style="color:${totalDebts>0?'#f0556b':'var(--ink)'}">${FMT_USD0.format(totalDebts)}</div><div class="pss">${FMT_USD0.format(autoDebts)} loans + ${F.debts.length} manual</div></div>
     <div class="pstat"><div class="psl">Monthly Income</div><div class="psv">${FMT_USD0.format(income)}</div><div class="pss">${income>0?FMT_USD0.format(income*12)+' / yr':'add sources'}</div></div>`;
   document.getElementById('nwAssets').innerHTML=finRows('assets');
   document.getElementById('nwDebts').innerHTML=finRows('debts');
   document.getElementById('nwIncome').innerHTML=finRows('income');
   document.querySelectorAll('#sec-networth [data-del]').forEach(b=>b.onclick=()=>{const a=b.dataset.del.split(':'),c=a[0],id=a[1];F[c]=F[c].filter(x=>x.id!==id);saveState();renderFinances()});
-  document.querySelectorAll('#sec-networth [data-edit]').forEach(el=>el.onclick=()=>{const a=el.dataset.edit.split(':'),c=a[0],id=a[1];openFin(c,F[c].find(x=>x.id===id))});}
+  document.querySelectorAll('#sec-networth [data-edit]').forEach(el=>el.onclick=()=>{const a=el.dataset.edit.split(':'),c=a[0],id=a[1];openFin(c,F[c].find(x=>x.id===id))});
+  renderVehicle();}
 function openFin(cat,item){document.getElementById('finCat').value=cat;document.getElementById('finId').value=(item&&item.id)||'';
   const T={assets:'Asset',debts:'Debt',income:'Income'};document.getElementById('finTitle').textContent=(item?'Edit ':'Add ')+T[cat];
   document.getElementById('finAmtLbl').textContent=cat==='income'?'Monthly (USD)':cat==='debts'?'Balance (USD)':'Value (USD)';
@@ -729,6 +998,141 @@ document.getElementById('bankConnect').onclick=bankConnect;
 document.getElementById('bankRefresh').onclick=bankRefresh;
 document.getElementById('bankDisconnect').onclick=()=>{if(!confirm('Disconnect bank? (removes the stored link from this browser)'))return;localStorage.removeItem(PLAID_TOK);BANK={assets:[],debts:[]};bankLinkedUI(false);bankStatus('not connected');renderFinances()};
 if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
+
+/* ===== JARVIS — AI analyst panel. Builds a snapshot from the dashboard's
+   already-loaded live state and narrates it via /api/jarvis. ===== */
+(function(){
+  const jq=id=>document.getElementById(id);
+  const PS=PLAN.phases[0].start;
+  function snapshot(){
+    const buys=(TRADES||[]).filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS);
+    const depUsd=buys.reduce((s,t)=>s+(+t.usd||0),0);
+    const fills=(typeof lumpFills==='function')?lumpFills():{};
+    const btc=(CB&&typeof CB.btc==='number')?CB.btc:buys.reduce((s,t)=>s+(+t.btc||0),0);
+    const avg=(typeof planAvgCostBasis==='function')?planAvgCostBasis():null;
+    const tiers=(typeof buyTiers==='function'?buyTiers():[]).map(t=>{
+      const px=effPrice(t), dep=fills[t.tier]||0;
+      const fired=dep>=(t.target||0)*0.97;
+      const hit=!fired&&LIVE_PRICE!=null&&px!=null&&LIVE_PRICE<=px;
+      const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier];
+      return {tier:t.tier,target:t.target,targetPrice:t.targetPrice,effPrice:px,fired,hit,cowenMentions:cow?cow.mentions:0};
+    });
+    const ch=parseFloat((jq('tb24h').textContent||'').replace('%','').replace('+',''));
+    const cbbi=parseFloat(jq('tbCbbi').textContent);
+    const cyc=parseFloat(jq('tbScore').textContent);
+    // net worth + liabilities (mirrors renderFinances)
+    computeLiab();
+    const F=(STATE.finances||{assets:[],debts:[],income:[]});
+    const manualA=(F.assets||[]).reduce((s,x)=>s+(+x.value||0),0);
+    const manualD=(F.debts||[]).reduce((s,x)=>s+(+x.balance||0),0);
+    const bankA=((BANK&&BANK.assets)||[]).reduce((s,x)=>s+(+x.value||0),0);
+    const bankD=((BANK&&BANK.debts)||[]).reduce((s,x)=>s+(+x.balance||0),0);
+    const btcValue=(btc!=null&&LIVE_PRICE!=null)?btc*LIVE_PRICE:0;
+    const cash=(LIVE_PF&&LIVE_PF.cash)||0;
+    const totalAssets=btcValue+cash+bankA+manualA+LIAB.car;
+    const totalDebts=manualD+bankD+LIAB.macan+LIAB.personal;
+    const now2=new Date();
+    const finances={
+      netWorth:Math.round(totalAssets-totalDebts),
+      totalAssets:Math.round(totalAssets), totalDebts:Math.round(totalDebts),
+      btcValue:Math.round(btcValue), cash:Math.round(cash),
+      carValue:Math.round(LIAB.car), macanLoan:Math.round(LIAB.macan), personalLoan:Math.round(LIAB.personal),
+      monthlyDebtService:Math.round((915.03+620.30)*100)/100,
+      macanNext:fmtDate(nextPayment(LOAN_AUTO,now2)), personalNext:fmtDate(nextPayment(LOAN_PERSONAL,now2))
+    };
+    return {
+      asOf:new Date().toISOString(),
+      price:LIVE_PRICE, change24h:isFinite(ch)?ch:null,
+      ma200w:MA200W, ma200wDelta:(LIVE_PRICE&&MA200W)?((LIVE_PRICE-MA200W)/MA200W*100):null,
+      cbbi:isFinite(cbbi)?cbbi:null,
+      cycleScore:isFinite(cyc)?cyc:null,
+      cycleZone:(jq('vTag').textContent||'').toLowerCase().trim()||null,
+      cycleCommentary:(jq('vCopy').textContent||'').trim()||null,
+      btc, avgCost:avg, deployedUsd:Math.round(depUsd), totalBudget:PLAN.totalBudget,
+      tiers, finances
+    };
+  }
+  let busy=false;
+  async function type(text,model){
+    const feed=jq('jvFeed');
+    feed.innerHTML=model?`<span class="jvmeta">// ${model}</span>`:'';
+    const body=document.createElement('span'),cur=document.createElement('span');cur.className='jvcur';
+    feed.appendChild(body);feed.appendChild(cur);
+    for(let i=0;i<text.length;i++){body.textContent+=text[i];if(i%3===0)await new Promise(r=>setTimeout(r,7));}
+    cur.remove();
+  }
+  async function run(mode,question){
+    if(busy)return;
+    if(LIVE_PRICE==null){jq('jvFeed').innerHTML='<span class="jvmeta">// live data still loading — try again in a moment.</span>';return;}
+    busy=true;document.querySelectorAll('.jv-modes button').forEach(b=>b.disabled=true);
+    jq('jvFeed').innerHTML='<span class="jvmeta">// JARVIS is analyzing your live position…</span><span class="jvcur"></span>';
+    try{
+      const r=await fetch('/api/jarvis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode,question,snapshot:snapshot()})});
+      const d=await r.json();
+      if(!r.ok)throw new Error(d.error||('HTTP '+r.status));
+      if(mode==='briefing'){
+        try{localStorage.setItem(jvKey,JSON.stringify({text:d.text,model:d.model,at:new Date().toTimeString().slice(0,5)}));}catch(_){}
+      }
+      await type(d.text||'(no response)',d.model);
+    }catch(e){jq('jvFeed').innerHTML='<span class="jvmeta" style="color:var(--red)">// link error</span>'+e.message;}
+    finally{busy=false;document.querySelectorAll('.jv-modes button').forEach(b=>b.disabled=false);}
+  }
+  document.querySelectorAll('.jv-modes button').forEach(b=>b.addEventListener('click',()=>run(b.dataset.jv)));
+
+  // ACTION BAR — stance / score Δ-vs-yesterday / BTC vs MA / next tier / dry powder
+  function renderActionBar(){
+    try{
+      const s=snapshot();
+      if(s.price==null||s.cycleScore==null)return;
+      const bar=jq('actionBar');bar.style.display='grid';
+      const sc=s.cycleScore;
+      const stance=sc>=85?['SELL ZONE','var(--red)']:sc>=60?['CAUTION','var(--amber)']:sc>=40?['HOLD','var(--blue)']:['ACCUMULATE','var(--green)'];
+      const st=jq('abStance');st.textContent=stance[0];st.style.color=stance[1];
+      // Δ vs yesterday via localStorage day snapshot
+      const today=new Date().toISOString().slice(0,10);
+      let snap={};try{snap=JSON.parse(localStorage.getItem('dash_snap')||'{}');}catch(_){}
+      if(snap.date!==today){snap={date:today,prevScore:(snap.date?snap.score:null),prevPrice:(snap.date?snap.price:null),score:sc,price:s.price};}
+      else{snap.score=sc;snap.price=s.price;}
+      try{localStorage.setItem('dash_snap',JSON.stringify(snap));}catch(_){}
+      jq('abScore').textContent=sc.toFixed(1);
+      const sd=jq('abScoreD');
+      if(snap.prevScore!=null){const d=sc-snap.prevScore;sd.textContent=(d>=0?'+':'')+d.toFixed(1);sd.style.color=d>=0?'var(--green)':'var(--red)';}
+      else sd.textContent='';
+      jq('abBtc').textContent='$'+Math.round(s.price).toLocaleString();
+      const md=jq('abMaD');
+      if(s.ma200wDelta!=null){md.textContent=(s.ma200wDelta>=0?'+':'')+s.ma200wDelta.toFixed(1)+'%';md.style.color=s.ma200wDelta<=0?'var(--green)':'var(--muted)';}
+      // next tier: first hit-awaiting-fill, else nearest pending below price
+      const pend=(s.tiers||[]).filter(t=>!t.fired);
+      const hit=pend.find(t=>t.hit);
+      const nxt=hit||pend.filter(t=>t.effPrice!=null).sort((a,b)=>b.effPrice-a.effPrice)[0];
+      const tEl=jq('abTier');
+      if(hit){tEl.innerHTML=`<span style="color:var(--green)">${hit.tier} HIT</span> — fill $${(hit.target||0).toLocaleString()}`;}
+      else if(nxt&&nxt.effPrice!=null){const away=((s.price-nxt.effPrice)/s.price*100);tEl.innerHTML=`${nxt.tier} @ $${Math.round(nxt.effPrice).toLocaleString()} <span style="color:var(--muted)">· ${away.toFixed(1)}% below</span>`;}
+      else{tEl.textContent='ladder complete';}
+      const dry=Math.max(0,(s.totalBudget||0)-(s.deployedUsd||0));
+      jq('abDry').textContent='$'+Math.round(dry).toLocaleString();
+    }catch(e){console.warn('actionBar',e);}
+  }
+  (function(){const t=setInterval(()=>{if(LIVE_PRICE!=null){clearInterval(t);renderActionBar();}},1200);setTimeout(()=>clearInterval(t),45000);})();
+  setInterval(()=>{if(LIVE_PRICE!=null)renderActionBar();},120000);
+
+  // Daily auto-briefing: first open of the day runs it, later opens replay the cache instantly.
+  const jvKey='jv_brief_'+new Date().toISOString().slice(0,10);
+  try{Object.keys(localStorage).forEach(k=>{if(k.startsWith('jv_brief_')&&k!==jvKey)localStorage.removeItem(k);});}catch(_){}
+  const jvCached=(()=>{try{return JSON.parse(localStorage.getItem(jvKey)||'null');}catch(_){return null;}})();
+  if(jvCached&&jvCached.text){
+    const feed=jq('jvFeed');feed.innerHTML='';
+    const m=document.createElement('span');m.className='jvmeta';m.textContent=`// today's briefing · ${jvCached.at||''} · ${jvCached.model||''}`;
+    const b=document.createElement('span');b.textContent=jvCached.text;
+    feed.appendChild(m);feed.appendChild(b);
+  }else{
+    const t=setInterval(()=>{if(LIVE_PRICE!=null&&!busy){clearInterval(t);run('briefing');}},1500);
+    setTimeout(()=>clearInterval(t),45000);
+  }
+  function ask(){const v=jq('jvAsk').value.trim();if(!v||busy)return;jq('jvAsk').value='';run('ask',v);}
+  jq('jvSend').addEventListener('click',ask);
+  jq('jvAsk').addEventListener('keydown',e=>{if(e.key==='Enter')ask();});
+})();
 
 load().then(()=>maybeAutoSync());
 </script>

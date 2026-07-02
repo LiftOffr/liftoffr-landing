@@ -21,7 +21,13 @@
 export const config = { runtime: "nodejs" };
 
 const API_URL = "https://api.anthropic.com/v1/messages";
-const MODEL = process.env.JARVIS_MODEL || "claude-opus-4-8";
+// Model ladder: env override → Fable 5 → Opus 4.8. If a model isn't available
+// to this API key (Fable 5 is gated), we fall through and remember the winner
+// for the life of the lambda so later calls skip the probe.
+const MODEL_LADDER = [process.env.JARVIS_MODEL, "claude-fable-5", "claude-opus-4-8"]
+  .filter(Boolean)
+  .filter((m, i, a) => a.indexOf(m) === i);
+let resolvedModel = null;
 
 // Stable persona — kept byte-identical across requests so it stays prompt-cached.
 const PERSONA = `You are JARVIS, the private intelligence layer for Torin's personal Bitcoin command center. Torin is a crypto educator (LiftOffr) running a pre-planned, Benjamin-Cowen-driven accumulation strategy: a fixed lump-tier ladder fired against the 200-week moving average and Cowen's cited downside targets, plus a daily DCA.
@@ -129,7 +135,7 @@ function buildSituationReport(s) {
   return L.join("\n");
 }
 
-async function callFable(systemText, userText, effort, maxTokens, apiKey) {
+async function callModel(model, systemText, userText, effort, maxTokens, apiKey) {
   const r = await fetch(API_URL, {
     method: "POST",
     headers: {
@@ -138,7 +144,7 @@ async function callFable(systemText, userText, effort, maxTokens, apiKey) {
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: MODEL,
+      model,
       max_tokens: maxTokens,
       // Omit `thinking` — depth is controlled via output_config.effort.
       output_config: { effort },
@@ -151,9 +157,37 @@ async function callFable(systemText, userText, effort, maxTokens, apiKey) {
   if (!r.ok) {
     const err = new Error(`Anthropic ${r.status}: ${JSON.stringify(data.error || data)}`);
     err.status = r.status;
+    err.type = data?.error?.type || "";
+    err.raw = JSON.stringify(data.error || {});
     throw err;
   }
   return data;
+}
+
+function isModelUnavailable(err) {
+  // Unknown model → 404 not_found_error; ungated model → 403/400 mentioning the model.
+  if (err.status === 404) return true;
+  return (err.status === 400 || err.status === 403) && /model/i.test(err.raw || "");
+}
+
+async function callFable(systemText, userText, effort, maxTokens, apiKey) {
+  const ladder = resolvedModel ? [resolvedModel] : MODEL_LADDER;
+  let lastErr = null;
+  for (const model of ladder) {
+    try {
+      const data = await callModel(model, systemText, userText, effort, maxTokens, apiKey);
+      resolvedModel = model;
+      return data;
+    } catch (err) {
+      lastErr = err;
+      if (isModelUnavailable(err) && model !== ladder[ladder.length - 1]) {
+        console.warn(`jarvis: ${model} unavailable (${err.status}), falling back`);
+        continue;
+      }
+      throw err;
+    }
+  }
+  throw lastErr;
 }
 
 export default async function handler(req, res) {
@@ -207,7 +241,7 @@ export default async function handler(req, res) {
     res.setHeader("Cache-Control", "no-store");
     return res.status(200).json({
       text: text || "(no response)",
-      model: data.model || MODEL,
+      model: data.model || resolvedModel,
       mode,
     });
   } catch (err) {

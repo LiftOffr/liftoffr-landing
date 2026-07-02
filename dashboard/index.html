@@ -258,7 +258,16 @@
         @keyframes jvspin{to{transform:rotate(360deg)}}
         @keyframes jvpulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
       </style>
-      <div class="sec" id="sec-jarvis"><div class="sec-h"><span class="chev">▼</span><span class="stitle"><span class="jv-core"><i></i><i></i></span>JARVIS</span><span class="ssub">— AI analyst · reads your live position, cycle &amp; ladder (Claude Opus 4.8)</span></div></div>
+      <!-- ACTION BAR — the one-glance answer: stance, what changed, what's next (NN/g top-left rule) -->
+      <div id="actionBar" style="display:none;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px;">
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Stance</div><div id="abStance" style="font-size:22px;font-weight:900;letter-spacing:-.5px;">—</div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Score · vs yesterday</div><div style="font-size:22px;font-weight:900;font-family:var(--mono);"><span id="abScore">—</span> <span id="abScoreD" style="font-size:13px;font-weight:700;"></span></div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">BTC · vs 200W MA</div><div style="font-size:22px;font-weight:900;font-family:var(--mono);"><span id="abBtc">—</span> <span id="abMaD" style="font-size:13px;font-weight:700;"></span></div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Next tier</div><div id="abTier" style="font-size:16px;font-weight:800;line-height:1.3;padding-top:3px;">—</div></div>
+        <div><div style="font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim);font-weight:700;">Dry powder</div><div id="abDry" style="font-size:22px;font-weight:900;font-family:var(--mono);">—</div></div>
+      </div>
+
+      <div class="sec" id="sec-jarvis"><div class="sec-h"><span class="chev">▼</span><span class="stitle"><span class="jv-core"><i></i><i></i></span>JARVIS</span><span class="ssub">— AI analyst · reads your live position, cycle &amp; ladder (Claude Fable 5, Opus fallback)</span></div></div>
       <div class="panel">
         <div id="jvFeed"><span class="jvmeta">// Ask for a briefing, a risk read, tier status — or anything about your position.</span><span class="jvcur"></span></div>
         <div class="jv-modes">
@@ -1061,11 +1070,65 @@ if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
       const r=await fetch('/api/jarvis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({mode,question,snapshot:snapshot()})});
       const d=await r.json();
       if(!r.ok)throw new Error(d.error||('HTTP '+r.status));
+      if(mode==='briefing'){
+        try{localStorage.setItem(jvKey,JSON.stringify({text:d.text,model:d.model,at:new Date().toTimeString().slice(0,5)}));}catch(_){}
+      }
       await type(d.text||'(no response)',d.model);
     }catch(e){jq('jvFeed').innerHTML='<span class="jvmeta" style="color:var(--red)">// link error</span>'+e.message;}
     finally{busy=false;document.querySelectorAll('.jv-modes button').forEach(b=>b.disabled=false);}
   }
   document.querySelectorAll('.jv-modes button').forEach(b=>b.addEventListener('click',()=>run(b.dataset.jv)));
+
+  // ACTION BAR — stance / score Δ-vs-yesterday / BTC vs MA / next tier / dry powder
+  function renderActionBar(){
+    try{
+      const s=snapshot();
+      if(s.price==null||s.cycleScore==null)return;
+      const bar=jq('actionBar');bar.style.display='grid';
+      const sc=s.cycleScore;
+      const stance=sc>=85?['SELL ZONE','var(--red)']:sc>=60?['CAUTION','var(--amber)']:sc>=40?['HOLD','var(--blue)']:['ACCUMULATE','var(--green)'];
+      const st=jq('abStance');st.textContent=stance[0];st.style.color=stance[1];
+      // Δ vs yesterday via localStorage day snapshot
+      const today=new Date().toISOString().slice(0,10);
+      let snap={};try{snap=JSON.parse(localStorage.getItem('dash_snap')||'{}');}catch(_){}
+      if(snap.date!==today){snap={date:today,prevScore:(snap.date?snap.score:null),prevPrice:(snap.date?snap.price:null),score:sc,price:s.price};}
+      else{snap.score=sc;snap.price=s.price;}
+      try{localStorage.setItem('dash_snap',JSON.stringify(snap));}catch(_){}
+      jq('abScore').textContent=sc.toFixed(1);
+      const sd=jq('abScoreD');
+      if(snap.prevScore!=null){const d=sc-snap.prevScore;sd.textContent=(d>=0?'+':'')+d.toFixed(1);sd.style.color=d>=0?'var(--green)':'var(--red)';}
+      else sd.textContent='';
+      jq('abBtc').textContent='$'+Math.round(s.price).toLocaleString();
+      const md=jq('abMaD');
+      if(s.ma200wDelta!=null){md.textContent=(s.ma200wDelta>=0?'+':'')+s.ma200wDelta.toFixed(1)+'%';md.style.color=s.ma200wDelta<=0?'var(--green)':'var(--muted)';}
+      // next tier: first hit-awaiting-fill, else nearest pending below price
+      const pend=(s.tiers||[]).filter(t=>!t.fired);
+      const hit=pend.find(t=>t.hit);
+      const nxt=hit||pend.filter(t=>t.effPrice!=null).sort((a,b)=>b.effPrice-a.effPrice)[0];
+      const tEl=jq('abTier');
+      if(hit){tEl.innerHTML=`<span style="color:var(--green)">${hit.tier} HIT</span> — fill $${(hit.target||0).toLocaleString()}`;}
+      else if(nxt&&nxt.effPrice!=null){const away=((s.price-nxt.effPrice)/s.price*100);tEl.innerHTML=`${nxt.tier} @ $${Math.round(nxt.effPrice).toLocaleString()} <span style="color:var(--muted)">· ${away.toFixed(1)}% below</span>`;}
+      else{tEl.textContent='ladder complete';}
+      const dry=Math.max(0,(s.totalBudget||0)-(s.deployedUsd||0));
+      jq('abDry').textContent='$'+Math.round(dry).toLocaleString();
+    }catch(e){console.warn('actionBar',e);}
+  }
+  (function(){const t=setInterval(()=>{if(LIVE_PRICE!=null){clearInterval(t);renderActionBar();}},1200);setTimeout(()=>clearInterval(t),45000);})();
+  setInterval(()=>{if(LIVE_PRICE!=null)renderActionBar();},120000);
+
+  // Daily auto-briefing: first open of the day runs it, later opens replay the cache instantly.
+  const jvKey='jv_brief_'+new Date().toISOString().slice(0,10);
+  try{Object.keys(localStorage).forEach(k=>{if(k.startsWith('jv_brief_')&&k!==jvKey)localStorage.removeItem(k);});}catch(_){}
+  const jvCached=(()=>{try{return JSON.parse(localStorage.getItem(jvKey)||'null');}catch(_){return null;}})();
+  if(jvCached&&jvCached.text){
+    const feed=jq('jvFeed');feed.innerHTML='';
+    const m=document.createElement('span');m.className='jvmeta';m.textContent=`// today's briefing · ${jvCached.at||''} · ${jvCached.model||''}`;
+    const b=document.createElement('span');b.textContent=jvCached.text;
+    feed.appendChild(m);feed.appendChild(b);
+  }else{
+    const t=setInterval(()=>{if(LIVE_PRICE!=null&&!busy){clearInterval(t);run('briefing');}},1500);
+    setTimeout(()=>clearInterval(t),45000);
+  }
   function ask(){const v=jq('jvAsk').value.trim();if(!v||busy)return;jq('jvAsk').value='';run('ask',v);}
   jq('jvSend').addEventListener('click',ask);
   jq('jvAsk').addEventListener('keydown',e=>{if(e.key==='Enter')ask();});
