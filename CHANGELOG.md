@@ -36,6 +36,7 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
 | 31 | api/jarvis.js | Fixed Opus 4.8 → model ladder: JARVIS_MODEL env → claude-fable-5 → claude-opus-4-8, auto-fallback on model-unavailable errors, winner cached per lambda |
 | 32 | dashboard/index.html (+v2 sync) | JARVIS daily auto-briefing: first open of the day runs it, cached in localStorage, later opens replay instantly with timestamp+model |
 | 33 | dashboard/index.html (+v2 sync) | NEW action bar above JARVIS (research: NN/g top-left rule + fintech next-action pattern): STANCE word, score with Δ-vs-yesterday (localStorage day snapshot), BTC vs 200W MA, next tier with %-away or HIT flag, dry powder. Refreshes every 2 min |
+| 34 | dashboard (+v2 sync) | V3 design layer — Apple×JARVIS×Bloomberg: native SF Pro type + tabular numerals, deeper cool palette, finer glass materials, action bar → sticky HUD command strip w/ ice-blue hairlines + scan sweep, JARVIS panel scanline HUD treatment. Cascade-override layer; zero logic touched. Backup: dashboard/index.html.backup-v3design-20260702 |
 
 ## Deliberately NOT done (guardrails)
 - Homepage testimonials NOT moved/amplified — DiceBear-avatar quotes are unverifiable; replace with real named ones (Tier 2), then place under pricing.
@@ -51,4 +52,3 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
    - consider banning `thren0115` + an AutoMod rule for DM-solicitation patterns
 2. ~~Elite 1:1 cadence~~ — CONFIRMED monthly by founder 2026-07-01; live copy already matches.
 3. Tier 2 list in OPTIMIZATION_PLAN.md: testimonials ask, Whop cancel-flow config, onboarding-DM LaunchAgent, which PDF reads AI
-| 34 | dashboard (+v2 sync) | V3 design layer — Apple×JARVIS×Bloomberg: native SF Pro type + tabular numerals, deeper cool palette, finer glass materials, action bar → sticky HUD command strip w/ ice-blue hairlines + scan sweep, JARVIS panel scanline HUD treatment. Cascade-override layer; zero logic touched. Backup: dashboard/index.html.backup-v3design-20260702 |
