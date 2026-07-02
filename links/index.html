@@ -310,6 +310,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .lh-social:hover { border-color: var(--red); color: #fff; }
   .lh-social-icon { font-size: 13px; }
 
+  /* TOOLS — affiliate cards. Same card language as the rest of the page. */
+  .lh-tools { margin: 8px 0 12px; }
+  .lh-tool {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px; margin-bottom: 8px;
+    background: var(--card);
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .lh-tool:hover { border-color: var(--red); }
+  .lh-tool-icon { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+  .lh-tool-name { font-size: 14px; font-weight: 800; color: #fff; }
+  .lh-tool-sub { font-size: 12px; color: #8a8a8a; margin-top: 1px; }
+  .lh-tool-arrow { margin-left: auto; color: #555; font-weight: 700; }
+  .lh-tools-disclosure { font-size: 10px; color: #444; text-align: center; margin-top: 6px; }
+
   /* SITE LINK — kept but compact, single row */
   .lh-site {
     display: flex; align-items: center; justify-content: space-between;
@@ -808,6 +826,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="lj-arrow">→</div>
   </a>
+
+  <!-- TOOLS I ACTUALLY USE — affiliate section.
+       AFFILIATE IDS: the hrefs below are plain (non-affiliate) links until Torin
+       signs up for each program. Swap each href for the referral URL when ready:
+       - Coinbase:    coinbase.com referral link (app → Settings → Invite friends)
+       - Ledger:      Ledger affiliate program (affiliate.ledger.com)
+       - TradingView: tradingview.com/pricing/?share_your_love=<username>
+       Every buy receipt posted on IG is a Coinbase screenshot; custody discipline
+       is a brand pillar — these three are the only brand-safe affiliate slots. -->
+  <div class="section-label">Tools I actually use</div>
+  <div class="lh-tools">
+    <a href="https://www.coinbase.com" target="_blank" rel="noopener sponsored" class="lh-tool" data-tool="coinbase">
+      <span class="lh-tool-icon">🪙</span>
+      <span>
+        <span class="lh-tool-name">Coinbase</span>
+        <div class="lh-tool-sub">Where every buy you've seen me post gets executed</div>
+      </span>
+      <span class="lh-tool-arrow">→</span>
+    </a>
+    <a href="https://www.ledger.com" target="_blank" rel="noopener sponsored" class="lh-tool" data-tool="ledger">
+      <span class="lh-tool-icon">🔒</span>
+      <span>
+        <span class="lh-tool-name">Ledger</span>
+        <div class="lh-tool-sub">Hardware wallet — not your keys, not your coins</div>
+      </span>
+      <span class="lh-tool-arrow">→</span>
+    </a>
+    <a href="https://www.tradingview.com" target="_blank" rel="noopener sponsored" class="lh-tool" data-tool="tradingview">
+      <span class="lh-tool-icon">📈</span>
+      <span>
+        <span class="lh-tool-name">TradingView</span>
+        <div class="lh-tool-sub">Every chart + indicator I post comes from here</div>
+      </span>
+      <span class="lh-tool-arrow">→</span>
+    </a>
+    <div class="lh-tools-disclosure">Some links may earn LiftOffr a commission at no cost to you.</div>
+  </div>
+  <script>
+    document.addEventListener('click', function(e){
+      var a = e.target.closest('a.lh-tool'); if (!a) return;
+      if (typeof window.track === 'function') {
+        window.track('affiliate_clicked', { tool: a.getAttribute('data-tool') || 'unknown', page: location.pathname });
+      }
+    }, true);
+  </script>
 
   <!-- DEMOTED SOCIAL CHANNELS — single compressed row instead of 5 prominent cards -->
   <div class="lh-socials">
