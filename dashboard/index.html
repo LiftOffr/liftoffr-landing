@@ -194,6 +194,54 @@
   .modal textarea{resize:vertical;min-height:54px}
   .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
   @media(max-width:1024px){.app{grid-template-columns:1fr}.side{display:none}.verdict,.pillars-grid{grid-template-columns:1fr}}
+
+  /* ═══════ V3 DESIGN LAYER — Apple restraint × JARVIS HUD × Bloomberg density ═══════
+     Cascade-override layer: tokens + materials + the command strip. Component logic untouched. */
+  :root{
+    --bg:#04060a;--bg2:#070a11;--panel:#0a0e16;--panel2:#0d1220;--card:#0b1018;
+    --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.13);
+    --ink:#f4f6fa;--muted:#94a1b5;--dim:#5b6678;
+    --hud:#8fd8ff;
+    --sans:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Inter,system-ui,sans-serif;
+  }
+  body{
+    background:
+      radial-gradient(1200px 600px at 16% -200px,rgba(230,57,70,.07),transparent 60%),
+      radial-gradient(1000px 560px at 100% -60px,rgba(143,216,255,.045),transparent 55%),
+      var(--bg);
+    letter-spacing:-.008em;
+  }
+  /* type: calm hierarchy, tabular data everywhere */
+  .gauge-val,.pillar .pval,.ind .ival,.pband .pbv,.pstat .psv,.mcard .mv,.lcell .la,.tb-stat .val,#abScore,#abBtc,#abDry{font-variant-numeric:tabular-nums}
+  .sec{margin:36px 0 14px}
+  .sec-h .stitle{font-size:14.5px;letter-spacing:-.25px}
+  .wrap{padding:24px 30px 84px;max-width:1440px}
+  /* materials: finer glass, deeper shadow, hairlines */
+  .panel{border-radius:18px;border-color:var(--line);background:linear-gradient(165deg,rgba(255,255,255,.042),rgba(255,255,255,.008));box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 20px 54px rgba(0,0,0,.5);backdrop-filter:blur(24px) saturate(135%);-webkit-backdrop-filter:blur(24px) saturate(135%)}
+  .ind,.pillar{border-color:var(--line);border-radius:14px}
+  .ind:hover{transform:translateY(-1px);border-color:rgba(143,216,255,.22)}
+  .mcard,.lcell,.pband{border-color:var(--line)}
+  .lo-box{box-shadow:0 0 12px rgba(230,57,70,.3)}
+  .side{background:rgba(6,9,15,.85);backdrop-filter:blur(26px) saturate(130%);-webkit-backdrop-filter:blur(26px) saturate(130%)}
+  .nav-item{font-size:12.5px;padding:7.5px 18px}
+  .nav-item.active{background:rgba(230,57,70,.07)}
+  .topbar{background:rgba(4,6,10,.78);backdrop-filter:blur(28px) saturate(140%);-webkit-backdrop-filter:blur(28px) saturate(140%);border-bottom:1px solid var(--line);box-shadow:none}
+  .tb-stat .lbl{font-size:8.5px;letter-spacing:1.7px}
+  .tb-stat .val{font-size:17px;letter-spacing:-.3px}
+  /* ACTION BAR → sticky Bloomberg command strip w/ HUD hairlines */
+  #actionBar{position:sticky;top:66px;z-index:19;background:rgba(5,8,13,.84);backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 38px rgba(0,0,0,.5);padding:13px 4px!important;gap:0!important}
+  #actionBar>div{padding:0 20px;border-right:1px solid rgba(255,255,255,.055)}
+  #actionBar>div:last-child{border-right:none}
+  #actionBar>div>div:first-child{color:rgba(143,216,255,.62)!important;font-size:8.5px!important;letter-spacing:1.9px!important}
+  #abStance{position:relative;overflow:hidden}
+  #abStance::after{content:'';position:absolute;top:0;bottom:0;width:46px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.06),transparent);animation:hudsweep 5.5s ease-in-out infinite}
+  @keyframes hudsweep{0%,70%{left:-60px}100%{left:130%}}
+  /* JARVIS: the HUD panel */
+  #sec-jarvis+.panel{position:relative;overflow:hidden;border-color:rgba(143,216,255,.15)}
+  #sec-jarvis+.panel::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(143,216,255,.016) 0 1px,transparent 1px 3px);pointer-events:none}
+  #jvFeed .jvmeta{color:rgba(143,216,255,.6)}
+  .jv-modes button{border-radius:9px}
+  .jv-modes button:hover{border-color:rgba(143,216,255,.4);color:var(--ink)}
 </style>
 </head>
 <body>

@@ -51,3 +51,4 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
    - consider banning `thren0115` + an AutoMod rule for DM-solicitation patterns
 2. ~~Elite 1:1 cadence~~ — CONFIRMED monthly by founder 2026-07-01; live copy already matches.
 3. Tier 2 list in OPTIMIZATION_PLAN.md: testimonials ask, Whop cancel-flow config, onboarding-DM LaunchAgent, which PDF reads AI
+| 34 | dashboard (+v2 sync) | V3 design layer — Apple×JARVIS×Bloomberg: native SF Pro type + tabular numerals, deeper cool palette, finer glass materials, action bar → sticky HUD command strip w/ ice-blue hairlines + scan sweep, JARVIS panel scanline HUD treatment. Cascade-override layer; zero logic touched. Backup: dashboard/index.html.backup-v3design-20260702 |
