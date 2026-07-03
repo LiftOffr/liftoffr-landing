@@ -52,3 +52,13 @@
 .lo-logo.lo-md { font-size: 22px; }
 .lo-logo.lo-lg { font-size: 36px; padding: 8px 16px 10px; }
 .lo-logo.lo-xl { font-size: 56px; padding: 12px 22px 14px; }
+
+/* ═══ V3 PREMIUM TYPE LAYER (2026-07-02) — native SF Pro across all pages ═══ */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+               'Helvetica Neue', Inter, system-ui, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.008em;
+}
+::selection { background: rgba(230, 57, 70, 0.85); color: #fff; }

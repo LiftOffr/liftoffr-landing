@@ -15,27 +15,27 @@
   "redirects": [
     {
       "source": "/ig",
-      "destination": "/checklist?utm_source=instagram&utm_medium=bio&utm_campaign=checklist&utm_content=ig_bio",
+      "destination": "/links?utm_source=instagram&utm_medium=bio&utm_campaign=links&utm_content=ig_bio",
       "permanent": false
     },
     {
       "source": "/yt",
-      "destination": "/checklist?utm_source=youtube&utm_medium=bio&utm_campaign=checklist&utm_content=yt_bio",
+      "destination": "/links?utm_source=youtube&utm_medium=bio&utm_campaign=links&utm_content=yt_bio",
       "permanent": false
     },
     {
       "source": "/tiktok",
-      "destination": "/checklist?utm_source=tiktok&utm_medium=bio&utm_campaign=checklist&utm_content=tiktok_bio",
+      "destination": "/links?utm_source=tiktok&utm_medium=bio&utm_campaign=links&utm_content=tiktok_bio",
       "permanent": false
     },
     {
       "source": "/tt",
-      "destination": "/checklist?utm_source=tiktok&utm_medium=bio&utm_campaign=checklist&utm_content=tiktok_bio",
+      "destination": "/links?utm_source=tiktok&utm_medium=bio&utm_campaign=links&utm_content=tt_bio",
       "permanent": false
     },
     {
       "source": "/x",
-      "destination": "/checklist?utm_source=x&utm_medium=bio&utm_campaign=checklist&utm_content=x_bio",
+      "destination": "/links?utm_source=x&utm_medium=bio&utm_campaign=links&utm_content=x_bio",
       "permanent": false
     },
     {

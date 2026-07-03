@@ -725,10 +725,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Lead magnet email form — fallback for visitors not ready to start a trial -->
   <div class="link-primary">
-    <div class="lp-eyebrow">Not ready to start?</div>
-    <div class="lp-title">Get the Cycle Top Checklist + this Sunday's Score</div>
-    <div class="lp-sub">Free PDF instantly · Sunday Score email · No spam</div>
-    <form data-lead-form data-medium="links_primary" onsubmit="return submitLeadForm(this);" class="lp-form">
+    <div class="lp-eyebrow">Not ready to start? The buy zone is open —</div>
+    <div class="lp-title">Get the Bear Market Buy-Zone Plan</div>
+    <div class="lp-sub">The 4 price bands I'm buying at + this Sunday's Score · free PDF, instant</div>
+    <form data-lead-form data-medium="links_primary" data-magnet="buyzone" onsubmit="return submitLeadForm(this);" class="lp-form">
       <input type="email" name="email" required placeholder="your@email.com" autocomplete="email">
       <button type="submit">Get both — free →</button>
       <div data-form-body style="display:none"></div>
@@ -910,6 +910,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var pageUtms = getLeadUtms();
       var payload = {
         email: email,
+        magnet: form.getAttribute('data-magnet') || 'checklist',
         utm_source: pageUtms.utm_source || 'liftoffr',
         utm_medium: medium,
         utm_campaign: pageUtms.utm_campaign || 'checklist',

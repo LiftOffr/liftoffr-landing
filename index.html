@@ -1029,6 +1029,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .ptier-featured { order: -1; }
     .founder-byline { padding: 24px 16px 0; }
   }
+
+  /* ═══════ V3 PREMIUM LAYER — token override (same pattern as dashboard v3) ═══════ */
+  :root{
+    --bg:#05070c;
+    --card:rgba(255,255,255,.035);
+    --border:rgba(255,255,255,.09);
+    --muted:#8b93a2;
+  }
+  body{
+    background:
+      radial-gradient(1200px 620px at 16% -220px, rgba(230,57,70,.075), transparent 60%),
+      radial-gradient(1000px 560px at 100% -80px, rgba(77,141,240,.05), transparent 55%),
+      var(--bg);
+  }
+  h1{letter-spacing:-2.2px}
+  .ptier,.mcard,.ind-card,.faq-item{box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 14px 40px rgba(0,0,0,.35)}
 </style>
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">

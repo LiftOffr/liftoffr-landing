@@ -30,9 +30,9 @@ function unsubUrl(email) {
 }
 
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
-const SUBJECT_E2 = "How to actually use the Score (and what 60+ members do daily)";
+const SUBJECT_E2 = "How to actually use the Score (3-minute habit, every Sunday)";
 const SUBJECT_PROOF = "$50/week became $1.88M — the backtest";
-const SUBJECT_E3 = "Last welcome email — what happens next";
+const SUBJECT_E3 = "7 days of the full system — free, no card (last welcome email)";
 const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 
 function email2HTML() {
