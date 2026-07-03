@@ -124,6 +124,31 @@ async function fetchScore(baseUrl) {
   return r.json();
 }
 
+// Fresh Claude-written weekly read (same premium treatment as the daily brief).
+// Falls back to the API's formulaic commentary on any failure.
+async function aiWeeklyRead(score) {
+  const key = process.env.ANTHROPIC_API_KEY;
+  if (!key) return score.commentary;
+  try {
+    const facts = `LiftOffr Score ${score.score.toFixed(1)}/100, zone "${score.zone}", trend ${score.trend} (${score.trendDelta7d >= 0 ? "+" : ""}${score.trendDelta7d} over 7d). Components: ${Object.entries(score.components || {}).map(([k, v]) => `${k}=${v.value}`).join(", ")}. Score semantics: below 20 deep accumulation, 20-40 accumulation, 40-60 neutral, 60-85 late-cycle caution, 85+ historic top zone.`;
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-5", max_tokens: 260,
+        system: "You write the one-paragraph weekly read for LiftOffr's Sunday Score email (Bitcoin cycle education). Voice: calm analyst, direct, zero hype. Use ONLY the provided numbers. 3-4 sentences: what the Score says about cycle position, what changed this week, and one disciplined-posture sentence. Frame history as 'historically'. Never predict prices. No emoji, no headers.",
+        messages: [{ role: "user", content: facts }],
+      }),
+    });
+    if (!r.ok) return score.commentary;
+    const d = await r.json();
+    const text = (d.content || []).filter((b) => b.type === "text").map((b) => b.text).join(" ").trim();
+    return text.length > 80 ? text : score.commentary;
+  } catch {
+    return score.commentary;
+  }
+}
+
 async function sendResend(to, subject, text, html) {
   const uu = unsubUrl(to);
   html = (html || "").replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu);
@@ -677,6 +702,7 @@ export default async function handler(req, res) {
         fetchResendAudienceContacts(),
       ]);
       const subject = `${SUBJECT_BASE}: ${score.score.toFixed(1)} (${score.zone})`;
+      score.commentary = await aiWeeklyRead(score);
       const text = emailText(score);
       const html = emailHTML(score);
 

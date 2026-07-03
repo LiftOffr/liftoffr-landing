@@ -333,7 +333,7 @@
       <div class="panel verdict">
         <div class="gauge-wrap">
           <svg id="gauge" width="340" height="208" viewBox="0 0 340 208"></svg>
-          <div class="gauge-scale"><span>0 · Top/Sell</span><span>50 · Neutral</span><span>100 · Bottom/Buy</span></div>
+          <div class="gauge-scale"><span>0 · Bottom/Buy</span><span>50 · Neutral</span><span>100 · Top/Sell</span></div>
           <div class="gauge-delta" id="gDelta"></div>
         </div>
         <div class="verdict-copy">
@@ -571,7 +571,7 @@ function drawGauge(score,cap,color){const svg=document.getElementById('gauge'),c
   // gradient arc: left=100 buy (green) -> right=0 sell (red)
   const N=72;
   for(let i=0;i<N;i++){const t0=i/N,t1=(i+1)/N;const a0=Math.PI*(1-t0),a1=Math.PI*(1-t1);const pct=t0*100;
-    const c=pct<25?'#f0556b':pct<45?'#e8b339':pct<65?'#4d8df0':'#26d07c';
+    const c=pct<25?'#26d07c':pct<45?'#4d8df0':pct<65?'#e8b339':'#f0556b';
     h+=`<path d="M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}" stroke="${c}" stroke-width="20" fill="none" filter="url(#gg)"/>`}
   // needle
   const na=Math.PI*(1-score/100),ux=Math.cos(na),uy=-Math.sin(na),px=-uy,py=ux,w=7;
