@@ -258,6 +258,7 @@
     <div class="nav-item" data-target="sec-chart"><span class="ic">▥</span> Price Chart</div>
     <div class="nav-item" data-target="sec-cbbi"><span class="ic">◍</span> CBBI vs Buys</div>
     <div class="nav-item" data-target="sec-projected"><span class="ic">◇</span> Projected Bottom</div>
+    <div class="nav-item" data-target="sec-checklist"><span class="ic">☑</span> Bottom Checklist</div>
     <div class="nav-item" data-target="sec-position"><span class="ic">𝟱</span> Position</div>
     <div class="nav-item" data-target="sec-ledger"><span class="ic">≡</span> Trade Ledger</div>
     <div class="nav-grp">Wealth</div>
@@ -396,6 +397,12 @@
       <div class="panel">
         <div class="proj-grid" id="projGrid"><div class="loading">Computing bands…</div></div>
         <div class="muted" id="projNote" style="font-size:12.5px;margin-top:16px;line-height:1.6"></div>
+      </div>
+      <!-- BOTTOM CHECKLIST -->
+      <div class="sec" id="sec-checklist"><div class="sec-h"><span class="chev">▼</span><span class="stitle">☑ Bottom Checklist</span><span class="ssub">— the signals that lit at every prior cycle bottom (2015 · 2018 · 2022)</span></div></div>
+      <div class="panel">
+        <div class="proj-grid" id="checkGrid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="loading">Loading signals…</div></div>
+        <div class="muted" id="checkNote" style="font-size:12.5px;margin-top:16px;line-height:1.6"></div>
       </div>
       <!-- POSITION -->
       <div class="sec" id="sec-position"><div class="sec-h"><span class="chev">▼</span><span class="stitle">𝟱 Live Position</span><span class="ssub">— Coinbase wallet, real-time</span></div></div>
@@ -649,6 +656,8 @@ const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
     {tier:'S3',sellPct:20,targetPrice:275000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
     {tier:'S4',sellPct:10,targetPrice:400000,trigger:'Trailing stop / blow-off top wick'}]}]};
 let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
+let ONCHAIN=null,CBBI_VAL=null,FNG_NOW=null; // live on-chain bottom signals (btc-price ?ma200w=1)
+const BEAR_START='2025-10-06'; // canonical cycle top ($124,824) — bear-clock anchor
 let CBBI_HIST=null,CBBI_CHART=null,CBBI_CUT='all';
 const FUSD=n=>'$'+Math.round(n).toLocaleString();
 const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA')&&!t.sellPct)a.push(t)}));return a};
@@ -676,26 +685,86 @@ function renderLadderV2(){const fills=lumpFills(),el=document.getElementById('la
     document.getElementById('nextAction').innerHTML=nt.tier==='IMMEDIATE'?`▶ Fire ${FUSD(rem)} at market`:st==='hit'?`<span style="color:#26d07c">🟢 ${nt.tier} HIT — fire ${FUSD(rem)}</span>`:`Next: ${nt.tier} — ${FUSD(rem)} @ ${FUSD(px)}`}
   else document.getElementById('nextAction').textContent='Fully deployed';}
 
+function bearClock(){const start=Date.parse(BEAR_START),now=Date.now();
+  const wk=(now-start)/(7*864e5);
+  const open=new Date(start+50*7*864e5),close=new Date(start+60*7*864e5);
+  return {wk,open,close,inWindow:wk>=50&&wk<=60,pct:Math.min(100,wk/60*100)};}
+
 function renderProjected(){const g=document.getElementById('projGrid');if(!MA200W){g.innerHTML='<div class="muted">200W MA loading…</div>';return}
   // Jul 2026 recalibration from Cowen transcripts (Jun 14 – Jul 1 videos):
-  //  realized price ~$53K = price-capitulation trigger · balance price ~$38K = full-capitulation wick
-  //  time-based low: Oct–Nov 2026 (50-60wk bear, day-count → Oct 3-13)
+  //  realized price = price-capitulation trigger (live from bitcoin-data.com when available)
+  //  balance price = full-capitulation wick · time-based low: Oct–Nov 2026 (50-60wk bear)
+  const rp=ONCHAIN&&ONCHAIN.realizedPrice?Math.round(ONCHAIN.realizedPrice/100)*100:54000;
   const scen=[
     {l:'Already In',   p:57000, w:0.10, d:'Jul 1 low holds',        c:'#4d8df0'},
-    {l:'Realized Test',p:54000, w:0.40, d:'~$53K realized · Cowen base', c:'#26d07c'},
+    {l:'Realized Test',p:rp,    w:0.40, d:(ONCHAIN&&ONCHAIN.realizedPrice?'live realized price':'~$53K realized')+' · Cowen base', c:'#26d07c'},
     {l:'Wick Below',   p:50000, w:0.25, d:'brief break of realized',c:'#7e8ba2'},
     {l:'Deep Stretch', p:45000, w:0.10, d:'macro-driven overshoot', c:'#7e8ba2'},
     {l:'Balance Flush',p:39000, w:0.12, d:'~$38K balance price',    c:'#f0556b'},
     {l:'V-Reversal',   p:60000, w:0.03, d:'never below $57K again', c:'#4d8df0'}];
+  const sig=[];
+  // Dynamic on-chain nudges (old-card semantics: capitulation-in-progress → weight deeper)
+  const mz=ONCHAIN?ONCHAIN.mvrvZ:null, pu=ONCHAIN?ONCHAIN.puell:null;
+  if(Number.isFinite(mz)){if(mz<0){scen[0].w+=0.08;scen[1].w+=0.07;scen[2].w-=0.05;scen[3].w-=0.05;scen[4].w-=0.05;
+      sig.push(`MVRV-Z ${mz.toFixed(2)} &lt; 0 → accumulation-zone reset — bottom likely forming near current price`)}
+    else sig.push(`MVRV-Z ${mz.toFixed(2)} — approaching but not yet below 0 (Cowen's reset marker)`)}
+  if(Number.isFinite(pu)){if(pu<0.4){scen[1].w-=0.06;scen[3].w+=0.03;scen[4].w+=0.03;
+      sig.push(`Puell ${pu.toFixed(2)} &lt; 0.40 → miner capitulation underway; final flush risk up`)}
+    else if(pu<0.6){scen[3].w+=0.02;scen[4].w+=0.02;scen[1].w-=0.04;
+      sig.push(`Puell ${pu.toFixed(2)} — miner stress emerging`)}
+    else sig.push(`Puell ${pu.toFixed(2)} elevated — miners NOT capitulated yet`)}
+  if(Number.isFinite(CBBI_VAL)){if(CBBI_VAL<0.20){scen[0].w+=0.05;scen[1].w+=0.05;scen[2].w-=0.03;scen[4].w-=0.03;
+      sig.push(`CBBI ${(CBBI_VAL*100).toFixed(0)} &lt; 20 → deep accumulation zone`)}
+    else if(CBBI_VAL<0.35)sig.push(`CBBI ${(CBBI_VAL*100).toFixed(0)} — approaching deep accumulation (&lt;20 = bottom zone)`)}
   // Self-healing: scenarios already breached by live price collapse, weight shifts deeper
   if(LIVE_PRICE){for(const s of scen){if(s.l==='V-Reversal')continue;
     if(LIVE_PRICE<s.p){const freed=s.w-0.02;s.w=0.02;const lower=scen.filter(x=>x.p<s.p&&x.l!=='V-Reversal');
-      if(lower.length&&freed>0){const sh=freed/lower.length;lower.forEach(x=>x.w+=sh)}}}}
+      if(lower.length&&freed>0){const sh=freed/lower.length;lower.forEach(x=>x.w+=sh);
+        sig.push(`BTC already below ${FUSD(s.p)} — weight shifted to deeper scenarios`)}}}}
+  scen.forEach(x=>x.w=Math.max(0.01,x.w));
   const sum=scen.reduce((s,x)=>s+x.w,0);scen.forEach(x=>x.w/=sum);
   const wavg=scen.reduce((s,x)=>s+x.p*x.w,0);
+  // Bear clock — time-based capitulation window (Cowen: 50-60wk bears)
+  const bc=bearClock();
+  const clockHtml=`<div style="margin:0 0 16px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:6px">
+      <span>⏱ BEAR CLOCK — week ${bc.wk.toFixed(0)} of 50–60</span>
+      <span style="color:${bc.inWindow?'#26d07c':'var(--dim)'}">${bc.inWindow?'🎯 INSIDE bottom window':'bottom window '+bc.open.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' – '+bc.close.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span></div>
+    <div style="position:relative;height:8px;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden">
+      <div style="position:absolute;left:${50/60*100}%;width:${10/60*100}%;height:100%;background:rgba(38,208,124,.25)"></div>
+      <div style="height:100%;width:${bc.pct}%;background:linear-gradient(90deg,#4d8df0,${bc.inWindow?'#26d07c':'#e8b339'});border-radius:6px"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:4px"><span>top · Oct 6 2025</span><span>green zone = historical 50–60wk bottom window</span><span>wk 60 · ${bc.close.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</span></div></div>`;
   g.style.gridTemplateColumns='repeat(auto-fit,minmax(140px,1fr))';
   g.innerHTML=scen.map(s=>`<div class="pband"><div class="pbl">${s.l}</div><div class="pbv" style="color:${s.c}">${FUSD(s.p)}</div><div class="pbm">${(s.w*100).toFixed(0)}% · ${s.d}</div><div style="margin-top:8px;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden"><div style="height:100%;width:${Math.min(100,s.w/0.5*100)}%;background:${s.c};border-radius:2px;opacity:.85"></div></div></div>`).join('');
-  document.getElementById('projNote').innerHTML=`Probability-weighted bottom <b style="color:var(--ink)">${FUSD(wavg)}</b> · median scenario <b style="color:var(--ink)">$53–55K</b> · timing <b style="color:var(--ink)">Oct–Nov 2026</b> (Cowen time-based capitulation). 200W MA ${FUSD(MA200W)} — weights recalibrated Jul 2026 from his transcript pipeline; breached scenarios auto-collapse.`;}
+  const prev=document.getElementById('bearClockBar');if(prev)prev.remove();
+  g.insertAdjacentHTML('beforebegin',`<div id="bearClockBar">${clockHtml}</div>`);
+  const bpLive=ONCHAIN&&ONCHAIN.balancedPrice?` · live balanced price <b style="color:var(--ink)">${FUSD(ONCHAIN.balancedPrice)}</b> (Cowen cites ~$38K — different formulas, both shown)`:'';
+  document.getElementById('projNote').innerHTML=`Probability-weighted bottom <b style="color:var(--ink)">${FUSD(wavg)}</b> · timing <b style="color:var(--ink)">Oct–Nov 2026</b>${bpLive}. 200W MA ${FUSD(MA200W)}.`+(sig.length?`<div style="margin-top:8px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--dim)">${sig.map(s=>`↳ ${s}`).join('<br>')}</div>`:'');}
+
+function renderChecklist(){const g=document.getElementById('checkGrid');if(!g)return;
+  const oc=ONCHAIN||{},bc=bearClock();
+  const F0=v=>Number.isFinite(v)?v.toFixed(2):'—';
+  // Each: [label, lit(bool|null=no data), current-value text, threshold text]
+  const items=[
+    ['Price < Realized', (LIVE_PRICE&&oc.realizedPrice)?LIVE_PRICE<oc.realizedPrice:null,
+      LIVE_PRICE&&oc.realizedPrice?`${FUSD(LIVE_PRICE)} vs ${FUSD(oc.realizedPrice)}`:'—','spot under aggregate cost basis'],
+    ['MVRV-Z < 0', Number.isFinite(oc.mvrvZ)?oc.mvrvZ<0:null, `Z = ${F0(oc.mvrvZ)}`,'Cowen’s 4yr reset marker'],
+    ['Puell < 0.5', Number.isFinite(oc.puell)?oc.puell<0.5:null, `now ${F0(oc.puell)}`,'miner capitulation'],
+    ['CBBI ≤ 20', Number.isFinite(CBBI_VAL)?CBBI_VAL<=0.20:null, `now ${Number.isFinite(CBBI_VAL)?(CBBI_VAL*100).toFixed(0):'—'}`,'composite bottom zone'],
+    ['Bear week ≥ 50', bc.wk>=50, `week ${bc.wk.toFixed(0)}`,'time-based capitulation window'],
+    ['Volume spike ≥ 3.5×', Number.isFinite(oc.volRatio)?(oc.volRatio>=3.5&&oc.volRed!==false):null, `now ${F0(oc.volRatio)}×`,'red-candle capitulation volume'],
+    ['Weekly RSI < 30', Number.isFinite(oc.weeklyRsi)?oc.weeklyRsi<30:null, `now ${F0(oc.weeklyRsi)}`,'weekly momentum washout'],
+    ['Fear & Greed ≤ 15', Number.isFinite(FNG_NOW)?FNG_NOW<=15:null, `now ${Number.isFinite(FNG_NOW)?Math.round(FNG_NOW):'—'}`,'max-fear sentiment'],
+  ];
+  const lit=items.filter(i=>i[1]===true).length,avail=items.filter(i=>i[1]!==null).length;
+  g.innerHTML=items.map(([l,on,val,det])=>{
+    const c=on===true?'#26d07c':on===false?'#7e8ba2':'var(--dim)';
+    const mark=on===true?'✓':on===false?'✗':'…';
+    return `<div class="pband" style="border-color:${on===true?'rgba(38,208,124,.35)':'rgba(255,255,255,.08)'}">
+      <div class="pbl">${l}</div>
+      <div class="pbv" style="color:${c};font-size:21px">${mark} <span style="font-size:13px;font-weight:600">${val}</span></div>
+      <div class="pbm">${det}</div></div>`}).join('');
+  document.getElementById('checkNote').innerHTML=`<b style="color:${lit>=6?'#26d07c':lit>=4?'#e8b339':'var(--ink)'}">${lit} of ${avail} lit</b> — prior cycle bottoms lit nearly all of these simultaneously. ${lit>=6?'🚨 High-confluence bottom zone — this is what the whole plan waits for.':lit>=4?'Warming up — bottom process underway, final flush likely ahead.':'Not yet — patience; the tiers + DCA do the work until confluence builds.'}`;}
 
 function renderPosition(){const g=document.getElementById('posGrid'),STABLE=new Set(['USD','USDC','USDT','PYUSD','DAI']);
   if(!CB){g.innerHTML='<div class="muted">Wallet unavailable — Coinbase API not reachable.</div>';return}
@@ -749,6 +818,7 @@ async function load(){
   try{CB=await(await fetch('/api/coinbase-balance')).json()}catch(e){}
   try{STATE=loadState();TRADES=STATE.trades||[]}catch(e){STATE={trades:[],settings:{}};TRADES=[]}
   LIVE_PRICE=bp.usd||null; MA200W=(typeof bp.ma200w==='number')?bp.ma200w:null; COWEN=bp.cowen||null;
+  ONCHAIN=bp.onchain||null; CBBI_VAL=(typeof bp.cbbi==='number')?bp.cbbi:null;
 
   if(bp.usd){document.getElementById('tbPrice').textContent=fmtUsd(bp.usd);const c=bp.change24h||0,e=document.getElementById('tb24h');e.textContent=(c>=0?'+':'')+c.toFixed(1)+'%';e.className='val '+(c>=0?'up':'down')}
   if(bp.cbbi!=null)document.getElementById('tbCbbi').textContent=(bp.cbbi*100).toFixed(0);
@@ -801,7 +871,8 @@ async function load(){
     document.getElementById('consNote').textContent=aligned?'All pillars aligned — high signal confidence.':'Pillars diverging — weight the heaviest (Cycle, Valuation).';}
 
   // ===== Plan panels =====
-  renderLadderV2(); renderProjected(); renderPosition(); renderMacro(fngArr.length?fngArr[fngArr.length-1]:null);
+  FNG_NOW=fngArr.length?fngArr[fngArr.length-1]:null;
+  renderLadderV2(); renderProjected(); renderChecklist(); renderPosition(); renderMacro(FNG_NOW);
   renderTradeList(); renderFinances(); renderChart(CHART_DAYS); renderCbbiChart();
 }
 document.getElementById('refreshBtn').onclick=()=>{const b=document.getElementById('refreshBtn');b.textContent='↻ …';load().then(()=>b.textContent='↻ Force Update')};

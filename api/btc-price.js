@@ -144,6 +144,62 @@ function parseCowenTargets(currentPrice = 70000) {
   };
 }
 
+// On-chain bottom signals — bitcoin-data.com (free, keyless) + volume/RSI
+// computed from Binance.US klines. Every sub-fetch fails soft (null field)
+// so one dead upstream never breaks the payload.
+async function fetchOnChain() {
+  const bd = async (path, field) => {
+    try {
+      const r = await fetch(`https://bitcoin-data.com/v1/${path}/last`, { headers: { Accept: "application/json" } });
+      if (!r.ok) return null;
+      const v = Number((await r.json())?.[field]);
+      return Number.isFinite(v) ? v : null;
+    } catch { return null; }
+  };
+  const klines = async (interval, limit) => {
+    const r = await fetch(`https://api.binance.us/api/v3/klines?symbol=BTCUSDT&interval=${interval}&limit=${limit}`, { headers: { Accept: "application/json" } });
+    if (!r.ok) throw new Error(`klines ${r.status}`);
+    return r.json();
+  };
+
+  const [realizedPrice, balancedPrice, mvrvZ, puell, daily, weekly] = await Promise.all([
+    bd("realized-price", "realizedPrice"),
+    bd("balanced-price", "balancedPrice"),
+    bd("mvrv-zscore", "mvrvZscore"),
+    bd("puell-multiple", "puellMultiple"),
+    klines("1d", 33).catch(() => null),
+    klines("1w", 16).catch(() => null),
+  ]);
+
+  const out = { realizedPrice, balancedPrice, mvrvZ, puell };
+
+  // Volume capitulation: today's (or yesterday's completed) volume vs the
+  // 30-day average before them. Today's candle is partial, so take the max
+  // of the last two — a developing spike still registers.
+  if (Array.isArray(daily) && daily.length >= 12) {
+    const vols = daily.map((c) => parseFloat(c[5]));
+    const base = vols.slice(0, -2);
+    const avg = base.reduce((s, v) => s + v, 0) / base.length;
+    const recent = Math.max(vols[vols.length - 1], vols[vols.length - 2]);
+    out.volRatio = avg > 0 ? recent / avg : null;
+    const spikeCandle = vols[vols.length - 1] >= vols[vols.length - 2] ? daily[daily.length - 1] : daily[daily.length - 2];
+    out.volRed = parseFloat(spikeCandle[4]) < parseFloat(spikeCandle[1]);
+  }
+
+  // Weekly RSI-14 (Wilder smoothing)
+  if (Array.isArray(weekly) && weekly.length >= 15) {
+    const closes = weekly.map((c) => parseFloat(c[4]));
+    let gain = 0, loss = 0;
+    for (let i = 1; i < closes.length; i++) {
+      const d = closes[i] - closes[i - 1];
+      if (i <= 14) { if (d > 0) gain += d; else loss -= d; if (i === 14) { gain /= 14; loss /= 14; } }
+      else { gain = (gain * 13 + Math.max(d, 0)) / 14; loss = (loss * 13 + Math.max(-d, 0)) / 14; }
+    }
+    out.weeklyRsi = loss === 0 ? 100 : 100 - 100 / (1 + gain / loss);
+  }
+  return out;
+}
+
 // CBBI = ColinTalksCrypto Bitcoin Bull Run Index. 0-1 composite of 11
 // on-chain + market indicators. >0.85 = top zone, <0.20 = bottom zone.
 // Cached at the source by date so we fetch sparingly.
@@ -265,10 +321,12 @@ export default async function handler(req, res) {
 
       // Optional: also fetch 200-week MA + CBBI Confidence in parallel.
       if (want200wma) {
-        const [ma, cbbi] = await Promise.all([
+        const [ma, cbbi, onchain] = await Promise.all([
           fetch200WeekMA().catch((e) => { console.error("200wma fetch failed", e); return null; }),
           fetchCBBI().catch((e) => { console.error("cbbi fetch failed", e); return null; }),
+          fetchOnChain().catch((e) => { console.error("onchain fetch failed", e); return null; }),
         ]);
+        if (onchain) payload.onchain = onchain;
         if (ma) {
           payload.ma200w = ma.value;
           payload.ma200wWeeks = ma.weeksUsed;

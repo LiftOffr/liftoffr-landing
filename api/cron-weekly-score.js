@@ -538,38 +538,55 @@ async function runTierWatch(baseUrl) {
     .filter((t) => (t.type || "buy") === "buy" && (t.usd || 0) >= 100 && (t.date || "") >= PLAN_START)
     .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
 
-  // Waterfall fill into the lump tiers (IMMEDIATE → T1 → T2 → T3 → T4 → T5)
-  const TIERS = [
-    { name: "IMMEDIATE", target: 15000, fixedPrice: 73000, label: "Fire at market today" },
-    { name: "T1", target: 15000, maMult: 1.10, label: "Bear-band fail follow-through" },
-    { name: "T2", target: 20000, maMult: 0.97, label: "Cowen base case sweep" },
-    { name: "T3", target: 25000, maMult: 0.85, label: "200W MA test (Cowen secondary)" },
-    { name: "T4", target: 20000, maMult: 0.73, label: "Deep capitulation (COVID-style)" },
-    { name: "T5", target: 8000, maMult: 0.65, label: "Cowen's stated extreme (~$40K)" },
-  ];
+  // Waterfall fill into the lump tiers — single source of truth is BUY_PLAN.tiers.
+  // Trigger = same rule as the dashboard's effPrice(): Cowen transcript aggregate
+  // overrides the MA-derived trigger when the two agree within ±10%.
+  const cowenTiers = (data.cowen && data.cowen.tiers) || {};
+  const TIERS = BUY_PLAN.tiers.map((t) => {
+    const maPx = t.maMultiple && data.ma200w ? data.ma200w * t.maMultiple : null;
+    const cow = cowenTiers[t.tier] ? cowenTiers[t.tier].price : null;
+    let triggerPx = maPx || t.targetPrice;
+    if (cow && maPx && Math.abs(cow - maPx) / maPx <= 0.10) triggerPx = cow;
+    else if (cow && !maPx) triggerPx = cow;
+    return { name: t.tier, target: t.target, label: t.trigger, triggerPx };
+  });
 
   let remaining = lumpBuys.reduce((s, t) => s + (t.usd || 0), 0);
   const tierStates = TIERS.map((t) => {
     const fillAmount = Math.min(t.target, Math.max(0, remaining));
     remaining = Math.max(0, remaining - fillAmount);
-    const triggerPx = t.maMult ? data.ma200w * t.maMult : t.fixedPrice;
     return {
       ...t,
       filled: fillAmount,
       remaining: t.target - fillAmount,
-      triggerPx,
-      hit: data.usd <= triggerPx,
+      hit: data.usd <= t.triggerPx,
       done: fillAmount >= t.target * 0.97,
     };
   });
 
   const actionable = tierStates.filter((t) => t.hit && !t.done);
-  if (actionable.length === 0) {
-    return { skipped: true, reason: "no tier actionable", btcPrice: data.usd };
+
+  // On-chain bottom confluence (from btc-price ?ma200w=1 onchain block)
+  const oc = data.onchain || {};
+  const volCap = Number.isFinite(oc.volRatio) && oc.volRatio >= 3.5 && oc.volRed !== false;
+  const bearWk = (Date.now() - Date.parse("2025-10-06")) / (7 * 864e5);
+  const lit = [
+    Number.isFinite(oc.realizedPrice) && data.usd < oc.realizedPrice,
+    Number.isFinite(oc.mvrvZ) && oc.mvrvZ < 0,
+    Number.isFinite(oc.puell) && oc.puell < 0.5,
+    Number.isFinite(data.cbbi) && data.cbbi <= 0.20,
+    bearWk >= 50,
+    volCap,
+    Number.isFinite(oc.weeklyRsi) && oc.weeklyRsi < 30,
+  ].filter(Boolean).length;
+  const ocLine = `📡 realized ${Number.isFinite(oc.realizedPrice) ? fmtUsd(oc.realizedPrice) : "—"} · MVRV-Z ${Number.isFinite(oc.mvrvZ) ? oc.mvrvZ.toFixed(2) : "—"} · Puell ${Number.isFinite(oc.puell) ? oc.puell.toFixed(2) : "—"} · vol ${Number.isFinite(oc.volRatio) ? oc.volRatio.toFixed(1) + "×" : "—"} · wk ${bearWk.toFixed(0)}/50–60 · **${lit}/7 bottom signals lit**`;
+
+  if (actionable.length === 0 && !volCap) {
+    return { skipped: true, reason: "no tier actionable", btcPrice: data.usd, bottomSignalsLit: lit };
   }
 
   const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
-  if (!url) return { actionable: actionable.map((t) => t.name), error: "no webhook" };
+  if (!url) return { actionable: actionable.map((t) => t.name), volCap, error: "no webhook" };
 
   const lines = actionable.map((t) => {
     const expectedBtc = (t.remaining / data.usd).toFixed(4);
@@ -577,17 +594,29 @@ async function runTierWatch(baseUrl) {
            `Fire **${fmtUsd(t.remaining)}** BTC-USDC market buy\n` +
            `Trigger ${fmtUsd(t.triggerPx)} · BTC now ${fmtUsd(data.usd)} · Expected ~${expectedBtc} BTC`;
   });
+  if (volCap) {
+    lines.unshift(
+      `**🔻 VOLUME CAPITULATION** — 24h volume ${oc.volRatio.toFixed(1)}× its 30-day average on a red candle.\n` +
+      `Every prior cycle bottom (2018 · 2020 · 2022) printed this signature. ` +
+      (bearWk >= 50 ? `**Inside the 50–60wk time window too — this is the confluence the plan waits for.**` : `Time window (wk 50–60) opens later — could be a mid-bear flush.`) +
+      `\n(repeats hourly while the spike persists)`
+    );
+  }
+
+  const header = volCap && actionable.length === 0
+    ? "🔻 **VOLUME CAPITULATION DETECTED** 🔻"
+    : actionable.length === 1 ? "🚨 **BUY TIER HIT** 🚨" : `🚨 **${actionable.length} BUY TIERS HIT** 🚨`;
 
   await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       username: "LiftOffr Tier Watch",
-      content: actionable.length === 1 ? "🚨 **BUY TIER HIT** 🚨" : `🚨 **${actionable.length} BUY TIERS HIT** 🚨`,
+      content: header,
       embeds: [{
-        title: actionable.map((t) => t.name).join(" + "),
-        description: lines.join("\n\n"),
-        color: 0x34c759,
+        title: (volCap ? ["VOL-CAP"] : []).concat(actionable.map((t) => t.name)).join(" + "),
+        description: lines.join("\n\n") + "\n\n" + ocLine,
+        color: volCap ? 0xff453a : 0x34c759,
         footer: { text: "Manual execute · Coinbase Advanced Trade BTC-USDC · liftoffr.com/dashboard" },
         timestamp: new Date().toISOString(),
       }],
@@ -597,6 +626,8 @@ async function runTierWatch(baseUrl) {
   return {
     ts: new Date().toISOString(),
     btcPrice: data.usd,
+    volCap,
+    bottomSignalsLit: lit,
     actionable: actionable.map((t) => ({ name: t.name, remaining: t.remaining, triggerPx: t.triggerPx })),
   };
 }
