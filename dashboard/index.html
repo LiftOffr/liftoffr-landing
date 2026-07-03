@@ -392,7 +392,7 @@
         <div class="muted" id="cbbiNote" style="font-size:12.5px;margin-top:14px;line-height:1.6"></div>
       </div>
       <!-- PROJECTED BOTTOM -->
-      <div class="sec" id="sec-projected"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— 200W MA penetration bands · Cowen's 'level of destiny'</span></div></div>
+      <div class="sec" id="sec-projected"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◇ Projected Cycle Bottom</span><span class="ssub">— Cowen-weighted scenarios (recal Jul 2026) · low expected Oct–Nov</span></div></div>
       <div class="panel">
         <div class="proj-grid" id="projGrid"><div class="loading">Computing bands…</div></div>
         <div class="muted" id="projNote" style="font-size:12.5px;margin-top:16px;line-height:1.6"></div>
@@ -636,10 +636,10 @@ const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
     {tier:'T1',target:15000,targetPrice:68000,maMultiple:1.10,fallbackDate:'2026-07-31'}]},
   {id:'p2',name:'Phase 2 — Capitulation',start:'2026-09-01',end:'2026-12-31',lumpTiers:[
     {tier:'T2',target:28000,targetPrice:60000,maMultiple:0.97,fallbackDate:'2026-09-30'},
-    {tier:'T3',target:26200,targetPrice:52000,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
+    {tier:'T3',target:26200,targetPrice:53700,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
   {id:'p3',name:'Phase 3 — Post-Bottom Recovery',start:'2027-01-01',end:'2027-03-31',lumpTiers:[
-    {tier:'T4',target:15000,targetPrice:45000,maMultiple:0.73,fallbackDate:'2027-01-31'},
-    {tier:'T5',target:8000,targetPrice:40000,maMultiple:0.65,fallbackDate:'2027-03-31'}]},
+    {tier:'T4',target:15000,targetPrice:49900,maMultiple:0.73,fallbackDate:'2027-01-31'},
+    {tier:'T5',target:8000,targetPrice:38500,maMultiple:0.65,fallbackDate:'2027-03-31'}]},
   {id:'p4',name:'Phase 4 — Bull Hold',start:'2027-04-01',end:'2029-05-31',lumpTiers:[]},
   // Sell tiers calibrated to diminishing-returns 2029 peak (~$425K median).
   // Old exits blended $170K — way too conservative. New blend = $415K.
@@ -677,10 +677,25 @@ function renderLadderV2(){const fills=lumpFills(),el=document.getElementById('la
   else document.getElementById('nextAction').textContent='Fully deployed';}
 
 function renderProjected(){const g=document.getElementById('projGrid');if(!MA200W){g.innerHTML='<div class="muted">200W MA loading…</div>';return}
-  const bands=[{l:'Touch / Reclaim',m:0.97,d:'Cowen base case'},{l:'Moderate',m:0.85,d:'weeks below MA'},{l:'Deep Stretch',m:0.73,d:'COVID-style flush'},{l:'Extreme Floor',m:0.65,d:"Cowen's ~$40K"}];
-  g.innerHTML=bands.map((b,i)=>{const px=MA200W*b.m,c=i===0?'#4d8df0':i===3?'#26d07c':'#7e8ba2';return `<div class="pband"><div class="pbl">${b.l}</div><div class="pbv" style="color:${c}">${FUSD(px)}</div><div class="pbm">MA × ${b.m} · ${b.d}</div></div>`}).join('');
-  const base=MA200W*0.97,ext=MA200W*0.65,dist=LIVE_PRICE?(LIVE_PRICE-base)/base*100:null;
-  document.getElementById('projNote').innerHTML=`200W MA <b style="color:var(--ink)">${FUSD(MA200W)}</b> — touched at every cycle bottom since 2015. Projected bottom band <b style="color:var(--ink)">${FUSD(ext)} – ${FUSD(base)}</b>.`+(dist!=null?` BTC is <b style="color:var(--ink)">${dist>=0?'+':''}${dist.toFixed(1)}%</b> vs the base-case touch.`:'');}
+  // Jul 2026 recalibration from Cowen transcripts (Jun 14 – Jul 1 videos):
+  //  realized price ~$53K = price-capitulation trigger · balance price ~$38K = full-capitulation wick
+  //  time-based low: Oct–Nov 2026 (50-60wk bear, day-count → Oct 3-13)
+  const scen=[
+    {l:'Already In',   p:57000, w:0.10, d:'Jul 1 low holds',        c:'#4d8df0'},
+    {l:'Realized Test',p:54000, w:0.40, d:'~$53K realized · Cowen base', c:'#26d07c'},
+    {l:'Wick Below',   p:50000, w:0.25, d:'brief break of realized',c:'#7e8ba2'},
+    {l:'Deep Stretch', p:45000, w:0.10, d:'macro-driven overshoot', c:'#7e8ba2'},
+    {l:'Balance Flush',p:39000, w:0.12, d:'~$38K balance price',    c:'#f0556b'},
+    {l:'V-Reversal',   p:60000, w:0.03, d:'never below $57K again', c:'#4d8df0'}];
+  // Self-healing: scenarios already breached by live price collapse, weight shifts deeper
+  if(LIVE_PRICE){for(const s of scen){if(s.l==='V-Reversal')continue;
+    if(LIVE_PRICE<s.p){const freed=s.w-0.02;s.w=0.02;const lower=scen.filter(x=>x.p<s.p&&x.l!=='V-Reversal');
+      if(lower.length&&freed>0){const sh=freed/lower.length;lower.forEach(x=>x.w+=sh)}}}}
+  const sum=scen.reduce((s,x)=>s+x.w,0);scen.forEach(x=>x.w/=sum);
+  const wavg=scen.reduce((s,x)=>s+x.p*x.w,0);
+  g.style.gridTemplateColumns='repeat(auto-fit,minmax(140px,1fr))';
+  g.innerHTML=scen.map(s=>`<div class="pband"><div class="pbl">${s.l}</div><div class="pbv" style="color:${s.c}">${FUSD(s.p)}</div><div class="pbm">${(s.w*100).toFixed(0)}% · ${s.d}</div><div style="margin-top:8px;height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden"><div style="height:100%;width:${Math.min(100,s.w/0.5*100)}%;background:${s.c};border-radius:2px;opacity:.85"></div></div></div>`).join('');
+  document.getElementById('projNote').innerHTML=`Probability-weighted bottom <b style="color:var(--ink)">${FUSD(wavg)}</b> · median scenario <b style="color:var(--ink)">$53–55K</b> · timing <b style="color:var(--ink)">Oct–Nov 2026</b> (Cowen time-based capitulation). 200W MA ${FUSD(MA200W)} — weights recalibrated Jul 2026 from his transcript pipeline; breached scenarios auto-collapse.`;}
 
 function renderPosition(){const g=document.getElementById('posGrid'),STABLE=new Set(['USD','USDC','USDT','PYUSD','DAI']);
   if(!CB){g.innerHTML='<div class="muted">Wallet unavailable — Coinbase API not reachable.</div>';return}
