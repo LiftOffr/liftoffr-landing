@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "sy6AxBbgico",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Four Year Cycle Strikes Again",
+    "published": "2026-07-06T04:11:15+00:00",
+    "processed_at": "2026-07-06T05:10:07.563368+00:00",
+    "url": "https://www.youtube.com/watch?v=sy6AxBbgico",
+    "outlook": "mixed",
+    "confidence": "high",
+    "timeframe": "months",
+    "key_levels": [
+      63000,
+      64000,
+      57000,
+      60000,
+      126000
+    ],
+    "indicators_mentioned": [
+      "200 day moving average",
+      "4-year cycle",
+      "year-to-date ROI"
+    ],
+    "key_points": [
+      "Bitcoin is replicating 2018 bear market structure with remarkable precision: February low, higher low in late March/early April, lower high in May at 200-day MA, and June low sweep at 57,000 (matching 5,700 in 2018 adjusted for 10x growth)",
+      "A window of strength likely forms in July before capitulation resumes in August-September, with a final bottom expected in October or November rather than December as in 2018",
+      "The current bear market feels more severe than 2018 because it lacked the euphoric top that would have driven a final altcoin rotation; topping on apathy rather than euphoria created different psychology",
+      "DCA strategy optimal for second half of midterm years; picking up Bitcoin near current levels avoids missing the low while preserving dry powder for potential drops through Q4",
+      "The 4-year cycle pattern has held consistently across multiple cycles and macro relationships (ISM, money supply) have proven unreliable as predictors compared to cyclical timing"
+    ],
+    "summary": "Bitcoin's 2026 price action mirrors 2018 bear market structure with near-identical timing of lows and highs, suggesting the 4-year cycle continues to govern market bottoms. A brief strength window in July precedes further weakness into October-November for the final low, with the pattern suggesting a retest of the 200-day moving average before eventual capitulation rather than immediate recovery to previous highs."
+  },
+  {
     "video_id": "8TmOvGK235I",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1447,26 +1479,5 @@ export default [
       "Historical rallies are recontextualized over time and current market sentiment comparisons lack proper perspective"
     ],
     "summary": "Cowen argues that the current rally narrative of being 'most hated ever' lacks historical grounding and that the previous cycle's rally was actually more hated due to marginal gains above prior highs and failure to lift altcoins. He emphasizes that Bitcoin's isolated strength without broader market participation created genuine disappointment for altcoin-focused investors."
-  },
-  {
-    "video_id": "ydQ0Cp6cdhM",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin in 2018 vs. Today",
-    "published": "2026-04-29T01:01:48+00:00",
-    "processed_at": "2026-05-04T23:48:08.867422+00:00",
-    "url": "https://www.youtube.com/watch?v=ydQ0Cp6cdhM",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "weeks",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Bitcoin is currently at bare market resistance and facing a critical test similar to 2018 pre-FOMC conditions",
-      "Historical precedent suggests a potential rally post-FOMC followed by a lower high, then decline into June",
-      "The 2018 pattern is more likely than 2014 because this year's rally started in April like 2018, not May like 2014",
-      "Resolution of current price action expected within 1-2 weeks, with clearer direction emerging into June"
-    ],
-    "summary": "Bitcoin is at a critical resistance point similar to pre-FOMC conditions in 2018, likely to see a resolution within 1-2 weeks followed by clarity into June. While a post-FOMC rally is possible based on historical patterns, the broader trajectory suggests caution rather than strong directional conviction."
   }
 ];
