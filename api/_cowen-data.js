@@ -3,6 +3,37 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "n9yTkx3r904",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Brief Window of Strength",
+    "published": "2026-07-08T12:21:50+00:00",
+    "processed_at": "2026-07-08T12:37:12.361653+00:00",
+    "url": "https://www.youtube.com/watch?v=n9yTkx3r904",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      74000,
+      70000,
+      57000
+    ],
+    "indicators_mentioned": [
+      "200-day moving average",
+      "200-week moving average",
+      "21-week EMA",
+      "20-week SMA"
+    ],
+    "key_points": [
+      "July historically shows brief counter-trend rallies in midterm years before larger declines resume in August-September, as demonstrated in 2018 and 2022",
+      "Current price action mirrors 2018 pattern: low near 57K, counter-rally into late July, then pullback to form higher/lower low structure before larger weakness",
+      "200-day moving average declining from 74K toward 70K by mid-August provides resistance; Bitcoin trapped between 200-week MA support and bear market resistance band, forcing decision later in cycle",
+      "Midterm year weakness windows contain pockets of strength that trap retail traders into FOMO buying rallies only to sell local tops as larger downtrends resume",
+      "Four-year cycle framework suggests market cycle bottom occurs in Q4 of midterm years; current pattern continuation indicates further downside after July-early August counter-move"
+    ],
+    "summary": "Bitcoin is expected to stage a brief counter-trend rally into late July or mid-August before reversing, consistent with historical midterm year patterns from 2018 and 2022. August-September should see renewed weakness as gains from the counter-rally are given back, ultimately leading to the market cycle bottom in Q4 later this year. The 200-day moving average declining toward 70K serves as resistance on any bounces within the broader midterm year downtrend."
+  },
+  {
     "video_id": "sy6AxBbgico",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1458,26 +1489,5 @@ export default [
       "Strong long wicks to the downside on Heikin-Ashi candles indicate persistent bear market momentum; weakness expected unless trend extends durably into June"
     ],
     "summary": "Benjamin Cowen argues the current Bitcoin rally is a typical countertrend bounce within an ongoing midterm year bear market, not the start of a new bull cycle. Using Heikin-Ashi monthly candles, he demonstrates this pattern mirrors 2018 and 2022, and seasonality suggests a local top within weeks followed by June weakness. While acknowledging uncertainty, he expects Bitcoin to face resistance and ultimately continue lower unless the rally unexpectedly persists through June."
-  },
-  {
-    "video_id": "hocsxWcfYBk",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "This Idea Is Somewhat Absurd..",
-    "published": "2026-04-27T17:33:03+00:00",
-    "processed_at": "2026-05-04T23:48:13.330966+00:00",
-    "url": "https://www.youtube.com/watch?v=hocsxWcfYBk",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "cycle",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "The narrative of 'most hated rally ever' is not supported by historical comparison to 2022 and 2018 rallies",
-      "The previous cycle's rally was actually the most hated because it barely exceeded prior highs and failed to lift altcoins",
-      "Bitcoin rallied in isolation without dragging the broader market, causing underperformance for altcoin investors",
-      "Historical rallies are recontextualized over time and current market sentiment comparisons lack proper perspective"
-    ],
-    "summary": "Cowen argues that the current rally narrative of being 'most hated ever' lacks historical grounding and that the previous cycle's rally was actually more hated due to marginal gains above prior highs and failure to lift altcoins. He emphasizes that Bitcoin's isolated strength without broader market participation created genuine disappointment for altcoin-focused investors."
   }
 ];
