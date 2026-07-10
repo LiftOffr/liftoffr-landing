@@ -3,6 +3,48 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "sigSZCnSa6M",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Dubious Speculation",
+    "published": "2026-07-10T15:21:55+00:00",
+    "processed_at": "2026-07-10T16:09:04.150254+00:00",
+    "url": "https://www.youtube.com/watch?v=sigSZCnSa6M",
+    "outlook": "bearish",
+    "confidence": "high",
+    "timeframe": "months",
+    "key_levels": [
+      53000,
+      38000,
+      70000,
+      80000,
+      90000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "200-day moving average",
+      "200-week moving average",
+      "MVRV Z-score",
+      "realized price",
+      "balance price",
+      "bull market support band",
+      "bare market resistance band",
+      "ROI from the low",
+      "advanced decline index",
+      "Bitcoin dominance",
+      "terminal price",
+      "volume spike"
+    ],
+    "key_points": [
+      "Bitcoin is squeezed between the 200-week moving average and bare market resistance band with resolution likely in Q4, historically resulting in capitulation similar to 2014, 2018, and 2022",
+      "On-chain indicators including MVRV Z-score and realized price have not fully reset and historically go below current levels during midterm year bear markets",
+      "Four-year cycle analysis shows February lows, summer sweeps of prior cycle lows, and late September/early October bottoming window consistent with 2014, 2018, and 2022 patterns",
+      "Bitcoin underperformed against gold, S&P 500, energy, and major equities by 13-44% in the first half of the midterm year, validating the weakness pattern",
+      "Social interest and retail engagement remain at multi-year lows with no volume spike capitulation signal yet, indicating time-based capitulation into late 2024 is most likely outcome"
+    ],
+    "summary": "Bitcoin is in a midterm year bear market with structural weakness that should persist through Q4, with a likely bottoming window in late September through early October. The realized price near 53k and balance price near 38k represent potential support levels if the cycle follows historical precedent from 2014, 2018, and 2022. DCA accumulation in the second half of midterm years has historically led to strong bull markets beginning in late 2024 or early 2025."
+  },
+  {
     "video_id": "n9yTkx3r904",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1458,36 +1500,5 @@ export default [
       "The valuation metrics make these patterns difficult to ignore once recognized"
     ],
     "summary": "Benjamin Cowen argues that altcoins have underperformed relative to gold on a valuation basis throughout the current cycle, trading lower than in 2023 and below historical bear market lows. He contends that gold represents a much safer long-term investment than altcoins based on these comparative valuations."
-  },
-  {
-    "video_id": "hMStACy4ou4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Heikin-Ashi Candles",
-    "published": "2026-04-26T04:29:20+00:00",
-    "processed_at": "2026-05-04T23:48:20.541906+00:00",
-    "url": "https://www.youtube.com/watch?v=hMStACy4ou4",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      200
-    ],
-    "indicators_mentioned": [
-      "Heikin-Ashi candles",
-      "200-day moving average",
-      "stablecoin dominance",
-      "USDT dominance",
-      "USDC dominance",
-      "Bitcoin dominance"
-    ],
-    "key_points": [
-      "Current rally is a countertrend rally within a bear market, not a bull market reversal, consistent with historical midterm year patterns in 2018 and 2022",
-      "Monthly Heikin-Ashi candles remain red despite upside price action, masking the underlying weakness of the trend and filtering out countertrend rally noise",
-      "Seasonality and historical precedent suggest a local top within 1-2 weeks followed by weakness into June, mirroring 2018 structure around FOMC meetings",
-      "Stablecoin dominance and Bitcoin dominance patterns suggest higher lows rather than a durable breakout, likely testing support bands before declining further",
-      "Strong long wicks to the downside on Heikin-Ashi candles indicate persistent bear market momentum; weakness expected unless trend extends durably into June"
-    ],
-    "summary": "Benjamin Cowen argues the current Bitcoin rally is a typical countertrend bounce within an ongoing midterm year bear market, not the start of a new bull cycle. Using Heikin-Ashi monthly candles, he demonstrates this pattern mirrors 2018 and 2022, and seasonality suggests a local top within weeks followed by June weakness. While acknowledging uncertainty, he expects Bitcoin to face resistance and ultimately continue lower unless the rally unexpectedly persists through June."
   }
 ];
