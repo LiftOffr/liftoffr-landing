@@ -372,6 +372,7 @@
         <div class="pos-grid" id="fundingGrid"><div class="loading">Loading…</div></div>
         <div class="deploy-bar"><div class="deploy-fill" id="fundingFill" style="width:0%"></div></div>
         <div class="lad-meta"><span id="fundingTxt" class="muted">—</span></div>
+        <div class="lad-meta"><span id="fundingNext" style="font-weight:700"></span></div>
       </div>
       <!-- PRICE CHART -->
       <div class="sec" id="sec-chart"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📉 BTC Price &amp; Tiers</span><span class="ssub">— price vs 200W MA · live buy-tier triggers + your fills</span></div></div>
@@ -1122,7 +1123,12 @@ function renderFunding(){const g=document.getElementById('fundingGrid');if(!g)re
     <div class="pstat"><div class="psl">Bank DCA Reserve</div><div class="psv">${FUSD(bankCash)}</div><div class="pss">already set aside, not yet moved</div></div>
     <div class="pstat"><div class="psl">Still to Pull From Bank</div><div class="psv" style="color:${gap>0?'#e8b339':'#26d07c'}">${FUSD(gap)}</div><div class="pss">${gap>0?'from future paychecks/savings':'plan fully funded'}</div></div>`;
   document.getElementById('fundingFill').style.width=coveredPct+'%';
-  document.getElementById('fundingTxt').textContent=remaining>0?`${FUSD(buyingPower)} USDC on Coinbase + ${FUSD(bankCash)} in the bank = ${FUSD(readySources)} of ${FUSD(remaining)} already funded (${coveredPct.toFixed(1)}%) · ${FUSD(gap)} still needs to come from future income`:'Buy plan fully deployed — no further bank pulls needed.';}
+  document.getElementById('fundingTxt').textContent=remaining>0?`${FUSD(buyingPower)} USDC on Coinbase + ${FUSD(bankCash)} in the bank = ${FUSD(readySources)} of ${FUSD(remaining)} already funded (${coveredPct.toFixed(1)}%) · ${FUSD(gap)} still needs to come from future income`:'Buy plan fully deployed — no further bank pulls needed.';
+  const fills=lumpFills(),nextTier=buyTiers().find(t=>(fills[t.tier]||0)<(t.target||0)*0.97),nEl=document.getElementById('fundingNext');
+  if(!nextTier){nEl.textContent='';}
+  else{const need=Math.max(0,(nextTier.target||0)-(fills[nextTier.tier]||0)),short=Math.max(0,need-readySources);
+    nEl.innerHTML=short>0?`<span style="color:#e8b339">⚠ ${nextTier.tier}</span> needs ${FUSD(need)} to fire — you're ${FUSD(short)} short even counting the bank + Coinbase cash you have now.`
+      :`<span style="color:#26d07c">✓ ${nextTier.tier}</span> needs ${FUSD(need)} to fire — fully covered by the ${FUSD(readySources)} you already have ready.`;}}
 function openFin(cat,item){document.getElementById('finCat').value=cat;document.getElementById('finId').value=(item&&item.id)||'';
   const T={assets:'Asset',debts:'Debt',income:'Income'};document.getElementById('finTitle').textContent=(item?'Edit ':'Add ')+T[cat];
   document.getElementById('finAmtLbl').textContent=cat==='income'?'Monthly (USD)':cat==='debts'?'Balance (USD)':'Value (USD)';
