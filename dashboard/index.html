@@ -1090,8 +1090,8 @@ function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').rep
     BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)} ${x.type==='depository'?`<span style="${sub}">DCA reserve</span>`:''}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
   if(cat==='debts'){
     const macanDup=bankLooksLike(LOAN_AUTO.name,BANK.debts),personalDup=bankLooksLike(LOAN_PERSONAL.name,BANK.debts);
-    html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span> ${macanDup?DUP_WARN:''}</span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
-    html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span> ${personalDup?DUP_WARN:''}</span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
+    if(!macanDup)html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
+    if(!personalDup)html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
     BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);}
   if(!list.length&&!html)html+='<div class="nw-empty">None yet — click + Add.</div>';
   const bankList=cat==='assets'?BANK.assets:cat==='debts'?BANK.debts:[];
