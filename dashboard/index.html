@@ -255,6 +255,7 @@
     <div class="nav-item" data-target="sec-indicators"><span class="ic">▦</span> Indicators</div>
     <div class="nav-grp">Plan</div>
     <div class="nav-item" data-target="sec-ladder"><span class="ic">▤</span> Buy Ladder</div>
+    <div class="nav-item" data-target="sec-funding"><span class="ic">🏦</span> DCA Funding</div>
     <div class="nav-item" data-target="sec-chart"><span class="ic">▥</span> Price Chart</div>
     <div class="nav-item" data-target="sec-cbbi"><span class="ic">◍</span> CBBI vs Buys</div>
     <div class="nav-item" data-target="sec-projected"><span class="ic">◇</span> Projected Bottom</div>
@@ -364,6 +365,13 @@
         <div class="deploy-bar"><div class="deploy-fill" id="deployFill" style="width:0%"></div></div>
         <div class="lad-meta"><span id="deployTxt" class="muted">—</span><span id="nextAction" style="font-weight:700;color:var(--ink)"></span></div>
         <div class="ladder" id="ladderV2"><div class="loading">Loading tiers…</div></div>
+      </div>
+      <!-- DCA FUNDING -->
+      <div class="sec" id="sec-funding"><div class="sec-h"><span class="chev">▼</span><span class="stitle">🏦 DCA Funding</span><span class="ssub">— how much of the remaining buy plan is already sitting in the bank vs. still needs to be pulled from future income</span></div></div>
+      <div class="panel">
+        <div class="pos-grid" id="fundingGrid"><div class="loading">Loading…</div></div>
+        <div class="deploy-bar"><div class="deploy-fill" id="fundingFill" style="width:0%"></div></div>
+        <div class="lad-meta"><span id="fundingTxt" class="muted">—</span></div>
       </div>
       <!-- PRICE CHART -->
       <div class="sec" id="sec-chart"><div class="sec-h"><span class="chev">▼</span><span class="stitle">📉 BTC Price &amp; Tiers</span><span class="ssub">— price vs 200W MA · live buy-tier triggers + your fills</span></div></div>
@@ -1069,9 +1077,9 @@ const FKEY={assets:'value',debts:'balance',income:'monthly'};
 function fin(){if(!STATE.finances)STATE.finances={assets:[],debts:[],income:[]};['assets','debts','income'].forEach(k=>{if(!Array.isArray(STATE.finances[k]))STATE.finances[k]=[]});return STATE.finances}
 function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').replace(/</g,'&lt;'),now=new Date(),sub='color:var(--dim);font-size:11px;font-weight:500';let html='';
   if(cat==='assets'){if(LIVE_PF.btcVal>0)html+=`<div class="nw-row"><span class="nl auto">₿ Bitcoin (live)</span><span class="nv">${FMT_USD0.format(LIVE_PF.btcVal)}</span></div>`;
-    if(LIVE_PF.cash>1)html+=`<div class="nw-row"><span class="nl auto">Coinbase cash</span><span class="nv">${FMT_USD0.format(LIVE_PF.cash)}</span></div>`;
+    if(LIVE_PF.cash>1)html+=`<div class="nw-row"><span class="nl auto">💰 USDC (Coinbase) <span style="${sub}">buying power</span></span><span class="nv">${FMT_USD0.format(LIVE_PF.cash)}</span></div>`;
     html+=`<div class="nw-row"><span class="nl auto">🚗 ${VEHICLE.label} <span style="${sub}">est.</span></span><span class="nv">${FMT_USD0.format(LIAB.car)}</span></div>`;
-    BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
+    BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)} ${x.type==='depository'?`<span style="${sub}">DCA reserve</span>`:''}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
   if(cat==='debts'){
     html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
     html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
@@ -1082,19 +1090,34 @@ function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').rep
 function renderFinances(){const F=fin();computeLiab();
   const manualA=F.assets.reduce((s,x)=>s+(+x.value||0),0),manualD=F.debts.reduce((s,x)=>s+(+x.balance||0),0),income=F.income.reduce((s,x)=>s+(+x.monthly||0),0);
   const bankA=BANK.assets.reduce((s,x)=>s+(+x.value||0),0),bankD=BANK.debts.reduce((s,x)=>s+(+x.balance||0),0);
+  const bankCash=BANK.assets.filter(x=>x.type==='depository').reduce((s,x)=>s+(+x.value||0),0);
+  const buyingPower=LIVE_PF.cash||0;
   const autoDebts=LIAB.macan+LIAB.personal;
   const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA+LIAB.car,totalDebts=manualD+bankD+autoDebts,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
   document.getElementById('nwSummary').innerHTML=`
     <div class="pstat"><div class="psl">Net Worth</div><div class="psv" style="color:${nwc}">${FMT_USD0.format(nw)}</div><div class="pss">assets − debts</div></div>
     <div class="pstat"><div class="psl">Total Assets</div><div class="psv">${FMT_USD0.format(totalAssets)}</div><div class="pss">${FMT_USD0.format(live+bankA+LIAB.car)} live/auto + ${FMT_USD0.format(manualA)} manual</div></div>
     <div class="pstat"><div class="psl">Total Debts</div><div class="psv" style="color:${totalDebts>0?'#f0556b':'var(--ink)'}">${FMT_USD0.format(totalDebts)}</div><div class="pss">${FMT_USD0.format(autoDebts)} loans + ${F.debts.length} manual</div></div>
-    <div class="pstat"><div class="psl">Monthly Income</div><div class="psv">${FMT_USD0.format(income)}</div><div class="pss">${income>0?FMT_USD0.format(income*12)+' / yr':'add sources'}</div></div>`;
+    <div class="pstat"><div class="psl">Monthly Income</div><div class="psv">${FMT_USD0.format(income)}</div><div class="pss">${income>0?FMT_USD0.format(income*12)+' / yr':'add sources'}</div></div>
+    <div class="pstat"><div class="psl">Buying Power</div><div class="psv" style="color:#26d07c">${FMT_USD0.format(buyingPower)}</div><div class="pss">USDC on Coinbase — ready now</div></div>
+    <div class="pstat"><div class="psl">DCA Reserve</div><div class="psv">${FMT_USD0.format(bankCash)}</div><div class="pss">bank cash — still needs moving</div></div>`;
   document.getElementById('nwAssets').innerHTML=finRows('assets');
   document.getElementById('nwDebts').innerHTML=finRows('debts');
   document.getElementById('nwIncome').innerHTML=finRows('income');
   document.querySelectorAll('#sec-networth [data-del]').forEach(b=>b.onclick=()=>{const a=b.dataset.del.split(':'),c=a[0],id=a[1];F[c]=F[c].filter(x=>x.id!==id);saveState();renderFinances()});
   document.querySelectorAll('#sec-networth [data-edit]').forEach(el=>el.onclick=()=>{const a=el.dataset.edit.split(':'),c=a[0],id=a[1];openFin(c,F[c].find(x=>x.id===id))});
-  renderVehicle();}
+  renderVehicle();renderFunding();}
+function renderFunding(){const g=document.getElementById('fundingGrid');if(!g)return;
+  const total=PLAN.totalBudget,PS=PLAN.phases[0].start;
+  const buys=TRADES.filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS),dep=buys.reduce((s,t)=>s+(t.usd||0),0);
+  const remaining=Math.max(0,total-dep);
+  const bankCash=BANK.assets.filter(x=>x.type==='depository').reduce((s,x)=>s+(+x.value||0),0);
+  const gap=Math.max(0,remaining-bankCash),coveredPct=remaining>0?Math.min(100,bankCash/remaining*100):100;
+  g.innerHTML=`<div class="pstat"><div class="psl">Remaining Plan Budget</div><div class="psv">${FUSD(remaining)}</div><div class="pss">still to deploy across open tiers</div></div>
+    <div class="pstat"><div class="psl">Bank DCA Reserve</div><div class="psv">${FUSD(bankCash)}</div><div class="pss">already set aside, not yet moved</div></div>
+    <div class="pstat"><div class="psl">Still to Pull From Bank</div><div class="psv" style="color:${gap>0?'#e8b339':'#26d07c'}">${FUSD(gap)}</div><div class="pss">${gap>0?'from future paychecks/savings':'plan fully funded'}</div></div>`;
+  document.getElementById('fundingFill').style.width=coveredPct+'%';
+  document.getElementById('fundingTxt').textContent=remaining>0?`${FUSD(bankCash)} of ${FUSD(remaining)} remaining buys already in the bank (${coveredPct.toFixed(1)}%) · ${FUSD(gap)} still needs to come from future income`:'Buy plan fully deployed — no further bank pulls needed.';}
 function openFin(cat,item){document.getElementById('finCat').value=cat;document.getElementById('finId').value=(item&&item.id)||'';
   const T={assets:'Asset',debts:'Debt',income:'Income'};document.getElementById('finTitle').textContent=(item?'Edit ':'Add ')+T[cat];
   document.getElementById('finAmtLbl').textContent=cat==='income'?'Monthly (USD)':cat==='debts'?'Balance (USD)':'Value (USD)';
@@ -1161,6 +1184,7 @@ if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
     const manualD=(F.debts||[]).reduce((s,x)=>s+(+x.balance||0),0);
     const bankA=((BANK&&BANK.assets)||[]).reduce((s,x)=>s+(+x.value||0),0);
     const bankD=((BANK&&BANK.debts)||[]).reduce((s,x)=>s+(+x.balance||0),0);
+    const bankCash=((BANK&&BANK.assets)||[]).filter(x=>x.type==='depository').reduce((s,x)=>s+(+x.value||0),0);
     const btcValue=(btc!=null&&LIVE_PRICE!=null)?btc*LIVE_PRICE:0;
     const cash=(LIVE_PF&&LIVE_PF.cash)||0;
     const totalAssets=btcValue+cash+bankA+manualA+LIAB.car;
@@ -1169,7 +1193,7 @@ if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
     const finances={
       netWorth:Math.round(totalAssets-totalDebts),
       totalAssets:Math.round(totalAssets), totalDebts:Math.round(totalDebts),
-      btcValue:Math.round(btcValue), cash:Math.round(cash),
+      btcValue:Math.round(btcValue), buyingPower:Math.round(cash), dcaReserve:Math.round(bankCash),
       carValue:Math.round(LIAB.car), macanLoan:Math.round(LIAB.macan), personalLoan:Math.round(LIAB.personal),
       monthlyDebtService:Math.round((915.03+620.30)*100)/100,
       macanNext:fmtDate(nextPayment(LOAN_AUTO,now2)), personalNext:fmtDate(nextPayment(LOAN_PERSONAL,now2))

@@ -127,7 +127,10 @@ function buildSituationReport(s) {
     L.push("");
     L.push("NET WORTH & LIABILITIES");
     L.push(`- Net worth: $${n(f.netWorth)}  (assets $${n(f.totalAssets)} − debts $${n(f.totalDebts)})`);
-    L.push(`- BTC ($${n(f.btcValue)}) is ${btcShare}% of total assets${f.cash ? `; cash $${n(f.cash)}` : ""}`);
+    const cashBits = [];
+    if (f.buyingPower) cashBits.push(`buying power (USDC/Coinbase) $${n(f.buyingPower)}`);
+    if (f.dcaReserve) cashBits.push(`DCA reserve (bank) $${n(f.dcaReserve)}`);
+    L.push(`- BTC ($${n(f.btcValue)}) is ${btcShare}% of total assets${cashBits.length ? `; ${cashBits.join(", ")}` : ""}`);
     L.push(`- Total debt $${n(f.totalDebts)}: Macan loan $${n(f.macanLoan)} (next ${f.macanNext}), personal loan $${n(f.personalLoan)} (next ${f.personalNext})`);
     L.push(`- Monthly debt service: $${n(f.monthlyDebtService)}`);
     L.push(`- Vehicle (2022 Macan S) est. value: $${n(f.carValue)}`);

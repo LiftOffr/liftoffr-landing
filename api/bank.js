@@ -41,10 +41,10 @@ function normalize(accounts = []) {
     const name = a.official_name || a.name || a.subtype || a.type;
     if (a.type === "credit" || a.type === "loan") {
       const owed = b.current != null ? Math.abs(b.current) : 0;
-      debts.push({ name, balance: owed, subtype: a.subtype });
+      debts.push({ name, balance: owed, subtype: a.subtype, type: a.type });
     } else {
       const val = b.current != null ? b.current : (b.available != null ? b.available : 0);
-      assets.push({ name, value: Math.abs(val), subtype: a.subtype });
+      assets.push({ name, value: Math.abs(val), subtype: a.subtype, type: a.type });
     }
   }
   return { assets, debts };
