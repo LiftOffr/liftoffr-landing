@@ -1153,19 +1153,31 @@ async function bankRefresh(){const at=localStorage.getItem(PLAID_TOK);if(!at)ret
     bankStatus(`connected · ${BANK.assets.length} assets, ${BANK.debts.length} debts · ${new Date(d.asOf).toLocaleString()}`);
     renderFinances();
   }catch(e){bankStatus('refresh failed')}}
+function plaidExchange(public_token){bankStatus('linking…');
+  return fetch('/api/bank?action=exchange',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({public_token})}).then(r=>r.json()).then(ex=>{
+    if(ex.access_token){localStorage.setItem(PLAID_TOK,ex.access_token);bankRefresh()}else{bankStatus('exchange failed');console.error('exchange',ex)}
+  });}
 async function bankConnect(){if(!window.Plaid){alert('Plaid Link failed to load — check connection.');return}
   bankStatus('opening…');
   try{const d=await(await fetch('/api/bank?action=link_token')).json();
     if(!d.link_token){bankStatus('link error: '+(d.error||'see console'));console.error('link_token',d);return}
-    Plaid.create({token:d.link_token,onSuccess:async(public_token)=>{bankStatus('linking…');
-      const ex=await(await fetch('/api/bank?action=exchange',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({public_token})})).json();
-      if(ex.access_token){localStorage.setItem(PLAID_TOK,ex.access_token);bankRefresh()}else{bankStatus('exchange failed');console.error('exchange',ex)}
-    },onExit:(err)=>{if(err)bankStatus('cancelled / '+(err.error_message||''));else bankStatus('cancelled')}}).open();
+    sessionStorage.setItem('plaid_link_token',d.link_token); // needed to resume after a USAA OAuth redirect back to this page
+    Plaid.create({token:d.link_token,onSuccess:(public_token)=>plaidExchange(public_token),
+      onExit:(err)=>{if(err)bankStatus('cancelled / '+(err.error_message||''));else bankStatus('cancelled')}}).open();
   }catch(e){bankStatus('error: '+e.message)}}
 document.getElementById('bankConnect').onclick=bankConnect;
 document.getElementById('bankRefresh').onclick=bankRefresh;
 document.getElementById('bankDisconnect').onclick=()=>{if(!confirm('Disconnect bank? (removes the stored link from this browser)'))return;localStorage.removeItem(PLAID_TOK);BANK={assets:[],debts:[]};bankLinkedUI(false);bankStatus('not connected');renderFinances()};
 if(localStorage.getItem(PLAID_TOK)){bankLinkedUI(true);bankRefresh()}
+// OAuth banks (USAA) redirect the browser back here mid-link — resume with the saved link_token + receivedRedirectUri.
+if(window.location.href.includes('oauth_state_id=')){
+  const savedToken=sessionStorage.getItem('plaid_link_token');
+  if(savedToken&&window.Plaid){
+    bankStatus('completing bank link…');
+    Plaid.create({token:savedToken,receivedRedirectUri:window.location.href,onSuccess:(public_token)=>plaidExchange(public_token),
+      onExit:(err)=>{if(err)bankStatus('cancelled / '+(err.error_message||''));else bankStatus('cancelled')}}).open();
+  }
+}
 
 /* ===== JARVIS — AI analyst panel. Builds a snapshot from the dashboard's
    already-loaded live state and narrates it via /api/jarvis. ===== */
