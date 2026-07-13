@@ -379,9 +379,10 @@
         <div class="chart-bar">
           <div class="chart-stats"><span>Open<b id="periodOpen">—</b></span><span>High<b id="periodHigh">—</b></span><span>Low<b id="periodLow">—</b></span><span>Chg<b id="periodChange">—</b></span></div>
           <div class="chart-ranges">
+            <button class="chart-range-btn active" data-days="30">30D</button>
             <button class="chart-range-btn" data-days="90">90D</button>
             <button class="chart-range-btn" data-days="180">180D</button>
-            <button class="chart-range-btn active" data-days="365">1Y</button>
+            <button class="chart-range-btn" data-days="365">1Y</button>
             <button class="chart-range-btn" data-days="1300">Cycle</button>
             <button class="chart-range-btn" data-days="3000">All</button>
           </div>
@@ -392,10 +393,11 @@
       <div class="sec" id="sec-cbbi"><div class="sec-h"><span class="chev">▼</span><span class="stitle">◍ Price × CBBI — Your Buys</span><span class="ssub">— BTC price (log) overlaid with the CBBI cycle score + your fills · like the CBBI site chart</span></div></div>
       <div class="panel">
         <div class="chart-ranges" style="display:flex;gap:7px;justify-content:flex-end;margin-bottom:10px">
+          <button class="cbbi-range-btn active" data-cut="30d">30D</button>
           <button class="cbbi-range-btn" data-cut="1y">1Y</button>
           <button class="cbbi-range-btn" data-cut="cycle">Cycle</button>
           <button class="cbbi-range-btn" data-cut="2020">Since 2020</button>
-          <button class="cbbi-range-btn active" data-cut="all">All</button>
+          <button class="cbbi-range-btn" data-cut="all">All</button>
         </div>
         <div class="chart-box"><canvas id="cbbiChart"></canvas></div>
         <div class="muted" id="cbbiNote" style="font-size:12.5px;margin-top:14px;line-height:1.6"></div>
@@ -666,7 +668,7 @@ const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
 let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
 let ONCHAIN=null,CBBI_VAL=null,FNG_NOW=null; // live on-chain bottom signals (btc-price ?ma200w=1)
 const BEAR_START='2025-10-06'; // canonical cycle top ($124,824) — bear-clock anchor
-let CBBI_HIST=null,CBBI_CHART=null,CBBI_CUT='all';
+let CBBI_HIST=null,CBBI_CHART=null,CBBI_CUT='30d';
 const FUSD=n=>'$'+Math.round(n).toLocaleString();
 const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA')&&!t.sellPct)a.push(t)}));return a};
 function effPrice(t){const ma=(t.maMultiple&&MA200W)?MA200W*t.maMultiple:null;const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier]?COWEN.tiers[t.tier].price:null;
@@ -903,7 +905,7 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 let STATE=loadState();
 function refreshPlan(){TRADES=STATE.trades||[];renderLadderV2();renderProjected();renderPosition();renderTradeList();renderFinances();renderTodayCall();if(BTC_CHART)renderChart(CHART_DAYS);renderCbbiChart()}
 
-let BTC_CHART=null,BTC_HISTORY=null,CHART_DAYS=365;
+let BTC_CHART=null,BTC_HISTORY=null,CHART_DAYS=30;
 async function fetchHistory(days){try{const d=await(await fetch(`/api/btc-price?chart=${days}`)).json();if(Array.isArray(d.history)){BTC_HISTORY=d.history;return d.history}}catch(e){}return null}
 function planAvgCostBasis(){const PS=PLAN.phases[0].start,buys=(STATE.trades||[]).filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS),u=buys.reduce((s,t)=>s+(t.usd||0),0),b=buys.reduce((s,t)=>s+(t.btc||0),0);return b>0?u/b:null}
 function chartBuyMarkers(){return(STATE.trades||[]).filter(t=>(t.type||'buy')==='buy'&&t.btc>0&&t.usd>0).map(t=>{const d=new Date(t.date+(t.date.length===10?'T12:00:00Z':''));return{x:d.getTime(),y:t.usd/t.btc,usd:t.usd,btc:t.btc}})}
@@ -949,7 +951,7 @@ function renderCbbiChart(){
   const price=priceSeriesFull();
   if(!price.length){if(note)note.textContent='Price history unavailable right now (CBBI source blocked).';if(CBBI_CHART){CBBI_CHART.destroy();CBBI_CHART=null;}return;}
   const nowV=full[full.length-1].y;
-  const cut=CBBI_CUT==='all'?0:CBBI_CUT==='2020'?Date.parse('2020-01-01'):CBBI_CUT==='cycle'?Date.parse('2022-11-21'):Date.now()-365*864e5;
+  const cut=CBBI_CUT==='all'?0:CBBI_CUT==='2020'?Date.parse('2020-01-01'):CBBI_CUT==='cycle'?Date.parse('2022-11-21'):CBBI_CUT==='30d'?Date.now()-30*864e5:Date.now()-365*864e5;
   const pser=cut?price.filter(p=>p.x>=cut):price, cser=cut?full.filter(p=>p.x>=cut):full;
   const buys=chartBuyMarkers().map(b=>({x:b.x,y:b.y,usd:b.usd,btc:b.btc,cbbi:cbbiAt(b.x,full)})).filter(b=>!cut||b.x>=cut);
   let avgBuy=null,inGreen=0;
@@ -961,7 +963,7 @@ function renderCbbiChart(){
     options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'nearest',axis:'x',intersect:false},
       plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(10,14,22,0.96)',borderColor:'#223049',borderWidth:1,titleColor:'#fff',bodyColor:'#bbb',
         callbacks:{label:c=>{const r=c.raw,ds=c.dataset.label;if(ds==='Your buys')return `Buy ${FMT_USD0.format(r.usd)} · ${r.btc.toFixed(5)} BTC @ ${FMT_USD0.format(r.y)}`+(r.cbbi!=null?` · CBBI ${r.cbbi.toFixed(0)}`:'');if(ds==='CBBI')return `CBBI: ${(+r.y).toFixed(1)}`;return `BTC: ${FMT_USD0.format(r.y)}`}}}},
-      scales:{x:{type:'time',time:{unit:CBBI_CUT==='1y'?'month':'year'},grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10}}},
+      scales:{x:{type:'time',time:{unit:CBBI_CUT==='30d'?'day':CBBI_CUT==='1y'?'month':'year'},grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10}}},
         y:{type:'logarithmic',position:'left',grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#7e8ba2',font:{size:10},callback:v=>{const e=Math.log10(v);return Math.abs(e-Math.round(e))<1e-9?'$'+(v>=1000?(v/1000)+'K':v):''}}},
         y1:{type:'linear',position:'right',min:0,max:100,grid:{drawOnChartArea:false},ticks:{color:'#caa15a',font:{size:10},stepSize:20}}}}};
   if(CBBI_CHART){CBBI_CHART.data=cfg.data;CBBI_CHART.options=cfg.options;CBBI_CHART.update('none')}else CBBI_CHART=new Chart(ctx,cfg);
