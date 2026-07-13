@@ -1078,31 +1078,36 @@ function renderVehicle(){const now=new Date();const val=vehicleValue(now);const 
 // ===== Net Worth & Cash Flow =====
 const FKEY={assets:'value',debts:'balance',income:'monthly'};
 function fin(){if(!STATE.finances)STATE.finances={assets:[],debts:[],income:[]};['assets','debts','income'].forEach(k=>{if(!Array.isArray(STATE.finances[k]))STATE.finances[k]=[]});return STATE.finances}
+function bankLooksLike(label,bankList){const ln=(label||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');if(!ln)return false;
+  return (bankList||[]).some(b=>{const bn=(b.name||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');if(!bn)return false;
+    if(bn.includes(ln)||ln.includes(bn))return true;
+    return bn.split(/\s+/).some(w=>w.length>=4&&ln.includes(w));});}
+const DUP_WARN=`<span style="color:#f0556b;font-size:10px;font-weight:700" title="A live bank account from Plaid looks like it matches this — you may be double-counting it. It's excluded from the totals below when detected.">⚠ possible duplicate of live bank data</span>`;
 function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').replace(/</g,'&lt;'),now=new Date(),sub='color:var(--dim);font-size:11px;font-weight:500';let html='';
   if(cat==='assets'){if(LIVE_PF.btcVal>0)html+=`<div class="nw-row"><span class="nl auto">₿ Bitcoin (live)</span><span class="nv">${FMT_USD0.format(LIVE_PF.btcVal)}</span></div>`;
     if(LIVE_PF.cash>1)html+=`<div class="nw-row"><span class="nl auto">💰 USDC (Coinbase) <span style="${sub}">buying power</span></span><span class="nv">${FMT_USD0.format(LIVE_PF.cash)}</span></div>`;
     html+=`<div class="nw-row"><span class="nl auto">🚗 ${VEHICLE.label} <span style="${sub}">est.</span></span><span class="nv">${FMT_USD0.format(LIAB.car)}</span></div>`;
     BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)} ${x.type==='depository'?`<span style="${sub}">DCA reserve</span>`:''}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
   if(cat==='debts'){
-    html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
-    html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
+    const macanDup=bankLooksLike(LOAN_AUTO.name,BANK.debts),personalDup=bankLooksLike(LOAN_PERSONAL.name,BANK.debts);
+    html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span> ${macanDup?DUP_WARN:''}</span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
+    html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span> ${personalDup?DUP_WARN:''}</span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
     BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);}
   if(!list.length&&!html)html+='<div class="nw-empty">None yet — click + Add.</div>';
   const bankList=cat==='assets'?BANK.assets:cat==='debts'?BANK.debts:[];
-  const looksDup=lbl=>{const ln=(lbl||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');if(!ln)return false;
-    return bankList.some(b=>{const bn=(b.name||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');if(!bn)return false;
-      if(bn.includes(ln)||ln.includes(bn))return true;
-      return bn.split(/\s+/).some(w=>w.length>=4&&ln.includes(w));});};
-  html+=list.map(x=>{const lbl=(x.label||'').replace(/</g,'&lt;'),dup=(cat==='assets'||cat==='debts')&&looksDup(x.label);
-    return `<div class="nw-row"><span class="nl" data-edit="${cat}:${x.id}">${lbl}${dup?` <span style="color:#f0556b;font-size:10px;font-weight:700" title="A live bank account from Plaid looks like it matches this manual entry — you may be double-counting it.">⚠ possible duplicate of live bank data</span>`:''}</span><span><span class="nv">${FMT_USD0.format(+x[key]||0)}</span> <button class="nx" data-del="${cat}:${x.id}">✕</button></span></div>`;
+  html+=list.map(x=>{const lbl=(x.label||'').replace(/</g,'&lt;'),dup=(cat==='assets'||cat==='debts')&&bankLooksLike(x.label,bankList);
+    return `<div class="nw-row"><span class="nl" data-edit="${cat}:${x.id}">${lbl}${dup?' '+DUP_WARN:''}</span><span><span class="nv">${FMT_USD0.format(+x[key]||0)}</span> <button class="nx" data-del="${cat}:${x.id}">✕</button></span></div>`;
   }).join('');
   return html}
 function renderFinances(){const F=fin();computeLiab();
-  const manualA=F.assets.reduce((s,x)=>s+(+x.value||0),0),manualD=F.debts.reduce((s,x)=>s+(+x.balance||0),0),income=F.income.reduce((s,x)=>s+(+x.monthly||0),0);
+  const manualA=F.assets.filter(x=>!bankLooksLike(x.label,BANK.assets)).reduce((s,x)=>s+(+x.value||0),0);
+  const manualD=F.debts.filter(x=>!bankLooksLike(x.label,BANK.debts)).reduce((s,x)=>s+(+x.balance||0),0);
+  const income=F.income.reduce((s,x)=>s+(+x.monthly||0),0);
   const bankA=BANK.assets.reduce((s,x)=>s+(+x.value||0),0),bankD=BANK.debts.reduce((s,x)=>s+(+x.balance||0),0);
   const bankCash=BANK.assets.filter(x=>x.type==='depository').reduce((s,x)=>s+(+x.value||0),0);
   const buyingPower=LIVE_PF.cash||0;
-  const autoDebts=LIAB.macan+LIAB.personal;
+  const macanDup=bankLooksLike(LOAN_AUTO.name,BANK.debts),personalDup=bankLooksLike(LOAN_PERSONAL.name,BANK.debts);
+  const autoDebts=(macanDup?0:LIAB.macan)+(personalDup?0:LIAB.personal);
   const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA+LIAB.car,totalDebts=manualD+bankD+autoDebts,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
   document.getElementById('nwSummary').innerHTML=`
     <div class="pstat"><div class="psl">Net Worth</div><div class="psv" style="color:${nwc}">${FMT_USD0.format(nw)}</div><div class="pss">assets − debts</div></div>
