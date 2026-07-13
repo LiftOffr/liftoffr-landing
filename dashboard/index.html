@@ -1112,12 +1112,15 @@ function renderFunding(){const g=document.getElementById('fundingGrid');if(!g)re
   const buys=TRADES.filter(t=>(t.type||'buy')==='buy'&&(t.date||'')>=PS),dep=buys.reduce((s,t)=>s+(t.usd||0),0);
   const remaining=Math.max(0,total-dep);
   const bankCash=BANK.assets.filter(x=>x.type==='depository').reduce((s,x)=>s+(+x.value||0),0);
-  const gap=Math.max(0,remaining-bankCash),coveredPct=remaining>0?Math.min(100,bankCash/remaining*100):100;
+  const buyingPower=LIVE_PF.cash||0;
+  const readySources=buyingPower+bankCash;
+  const gap=Math.max(0,remaining-readySources),coveredPct=remaining>0?Math.min(100,readySources/remaining*100):100;
   g.innerHTML=`<div class="pstat"><div class="psl">Remaining Plan Budget</div><div class="psv">${FUSD(remaining)}</div><div class="pss">still to deploy across open tiers</div></div>
+    <div class="pstat"><div class="psl">USDC Ready (Coinbase)</div><div class="psv" style="color:#26d07c">${FUSD(buyingPower)}</div><div class="pss">already there — not a bank pull</div></div>
     <div class="pstat"><div class="psl">Bank DCA Reserve</div><div class="psv">${FUSD(bankCash)}</div><div class="pss">already set aside, not yet moved</div></div>
     <div class="pstat"><div class="psl">Still to Pull From Bank</div><div class="psv" style="color:${gap>0?'#e8b339':'#26d07c'}">${FUSD(gap)}</div><div class="pss">${gap>0?'from future paychecks/savings':'plan fully funded'}</div></div>`;
   document.getElementById('fundingFill').style.width=coveredPct+'%';
-  document.getElementById('fundingTxt').textContent=remaining>0?`${FUSD(bankCash)} of ${FUSD(remaining)} remaining buys already in the bank (${coveredPct.toFixed(1)}%) · ${FUSD(gap)} still needs to come from future income`:'Buy plan fully deployed — no further bank pulls needed.';}
+  document.getElementById('fundingTxt').textContent=remaining>0?`${FUSD(buyingPower)} USDC on Coinbase + ${FUSD(bankCash)} in the bank = ${FUSD(readySources)} of ${FUSD(remaining)} already funded (${coveredPct.toFixed(1)}%) · ${FUSD(gap)} still needs to come from future income`:'Buy plan fully deployed — no further bank pulls needed.';}
 function openFin(cat,item){document.getElementById('finCat').value=cat;document.getElementById('finId').value=(item&&item.id)||'';
   const T={assets:'Asset',debts:'Debt',income:'Income'};document.getElementById('finTitle').textContent=(item?'Edit ':'Add ')+T[cat];
   document.getElementById('finAmtLbl').textContent=cat==='income'?'Monthly (USD)':cat==='debts'?'Balance (USD)':'Value (USD)';
