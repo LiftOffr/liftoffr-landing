@@ -23,6 +23,28 @@ export const config = { runtime: "nodejs" };
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
 const SUBJECT_BASE = "The LiftOffr Score this week";
+// OWNER_DISCORD_ID env var — Torin's Discord user ID, kept out of source since
+// this repo may be public. Tier-watch DMs go straight to him, not a channel.
+
+async function sendOwnerDM(content) {
+  const botToken = process.env.DISCORD_BOT_TOKEN;
+  const ownerId = process.env.OWNER_DISCORD_ID;
+  if (!botToken) return { ok: false, reason: "no bot token" };
+  if (!ownerId) return { ok: false, reason: "no OWNER_DISCORD_ID env var set" };
+  const dmRes = await fetch("https://discord.com/api/v10/users/@me/channels", {
+    method: "POST",
+    headers: { "Authorization": `Bot ${botToken}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ recipient_id: ownerId }),
+  });
+  if (!dmRes.ok) return { ok: false, reason: `open DM failed: ${dmRes.status}` };
+  const dm = await dmRes.json();
+  const sendRes = await fetch(`https://discord.com/api/v10/channels/${dm.id}/messages`, {
+    method: "POST",
+    headers: { "Authorization": `Bot ${botToken}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ content }),
+  });
+  return { ok: sendRes.ok, status: sendRes.status };
+}
 
 function unsubUrl(email) {
   const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
@@ -585,9 +607,6 @@ async function runTierWatch(baseUrl) {
     return { skipped: true, reason: "no tier actionable", btcPrice: data.usd, bottomSignalsLit: lit };
   }
 
-  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
-  if (!url) return { actionable: actionable.map((t) => t.name), volCap, error: "no webhook" };
-
   const lines = actionable.map((t) => {
     const expectedBtc = (t.remaining / data.usd).toFixed(4);
     return `**🟢 ${t.name} HIT** — ${t.label}\n` +
@@ -607,21 +626,10 @@ async function runTierWatch(baseUrl) {
     ? "🔻 **VOLUME CAPITULATION DETECTED** 🔻"
     : actionable.length === 1 ? "🚨 **BUY TIER HIT** 🚨" : `🚨 **${actionable.length} BUY TIERS HIT** 🚨`;
 
-  await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: "LiftOffr Tier Watch",
-      content: header,
-      embeds: [{
-        title: (volCap ? ["VOL-CAP"] : []).concat(actionable.map((t) => t.name)).join(" + "),
-        description: lines.join("\n\n") + "\n\n" + ocLine,
-        color: volCap ? 0xff453a : 0x34c759,
-        footer: { text: "Manual execute · Coinbase Advanced Trade BTC-USDC · liftoffr.com/dashboard" },
-        timestamp: new Date().toISOString(),
-      }],
-    }),
-  });
+  const dmResult = await sendOwnerDM(
+    `${header}\n\n${lines.join("\n\n")}\n\n${ocLine}\n\n` +
+    `_Manual execute · Coinbase Advanced Trade BTC-USDC · liftoffr.com/dashboard_`
+  ).catch((e) => ({ ok: false, reason: e.message }));
 
   return {
     ts: new Date().toISOString(),
@@ -629,6 +637,7 @@ async function runTierWatch(baseUrl) {
     volCap,
     bottomSignalsLit: lit,
     actionable: actionable.map((t) => ({ name: t.name, remaining: t.remaining, triggerPx: t.triggerPx })),
+    dm: dmResult,
   };
 }
 
