@@ -1088,7 +1088,14 @@ function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').rep
     html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
     BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);}
   if(!list.length&&!html)html+='<div class="nw-empty">None yet — click + Add.</div>';
-  html+=list.map(x=>`<div class="nw-row"><span class="nl" data-edit="${cat}:${x.id}">${(x.label||'').replace(/</g,'&lt;')}</span><span><span class="nv">${FMT_USD0.format(+x[key]||0)}</span> <button class="nx" data-del="${cat}:${x.id}">✕</button></span></div>`).join('');
+  const bankList=cat==='assets'?BANK.assets:cat==='debts'?BANK.debts:[];
+  const looksDup=lbl=>{const ln=(lbl||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');if(!ln)return false;
+    return bankList.some(b=>{const bn=(b.name||'').toLowerCase().replace(/[^a-z0-9\s]/g,'');if(!bn)return false;
+      if(bn.includes(ln)||ln.includes(bn))return true;
+      return bn.split(/\s+/).some(w=>w.length>=4&&ln.includes(w));});};
+  html+=list.map(x=>{const lbl=(x.label||'').replace(/</g,'&lt;'),dup=(cat==='assets'||cat==='debts')&&looksDup(x.label);
+    return `<div class="nw-row"><span class="nl" data-edit="${cat}:${x.id}">${lbl}${dup?` <span style="color:#f0556b;font-size:10px;font-weight:700" title="A live bank account from Plaid looks like it matches this manual entry — you may be double-counting it.">⚠ possible duplicate of live bank data</span>`:''}</span><span><span class="nv">${FMT_USD0.format(+x[key]||0)}</span> <button class="nx" data-del="${cat}:${x.id}">✕</button></span></div>`;
+  }).join('');
   return html}
 function renderFinances(){const F=fin();computeLiab();
   const manualA=F.assets.reduce((s,x)=>s+(+x.value||0),0),manualD=F.debts.reduce((s,x)=>s+(+x.balance||0),0),income=F.income.reduce((s,x)=>s+(+x.monthly||0),0);
