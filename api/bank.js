@@ -62,7 +62,7 @@ export default async function handler(req, res) {
       const body = {
         user: { client_user_id: "liftoffr-owner" },
         client_name: "LiftOffr Dashboard",
-        products: ["liabilities"],
+        products: ["transactions", "liabilities"],
         country_codes: ["US"],
         language: "en",
       };
@@ -88,6 +88,39 @@ export default async function handler(req, res) {
         institution: d.item && d.item.institution_id,
         asOf: new Date().toISOString(),
       });
+    }
+
+    if (action === "transactions") {
+      const access_token = (req.body && req.body.access_token) || url.searchParams.get("access_token");
+      if (!access_token) return res.status(400).json({ error: "not linked" });
+      const days = parseInt((req.body && req.body.days) || url.searchParams.get("days") || "180", 10);
+      const end = new Date();
+      const start = new Date(end.getTime() - days * 864e5);
+      const fmt = (d) => d.toISOString().slice(0, 10);
+      let offset = 0, all = [], total = Infinity;
+      while (offset < total) {
+        const d = await plaid("/transactions/get", {
+          access_token,
+          start_date: fmt(start),
+          end_date: fmt(end),
+          options: { count: 500, offset },
+        });
+        const batch = d.transactions || [];
+        all = all.concat(batch);
+        total = d.total_transactions || all.length;
+        offset += batch.length;
+        if (!batch.length) break;
+      }
+      const norm = all.map((t) => ({
+        date: t.date,
+        name: t.merchant_name || t.name,
+        amount: t.amount, // Plaid: positive = money out, negative = money in
+        pending: !!t.pending,
+        category: (t.personal_finance_category && t.personal_finance_category.primary)
+          || (Array.isArray(t.category) && t.category[t.category.length - 1])
+          || "OTHER",
+      }));
+      return res.status(200).json({ transactions: norm, asOf: new Date().toISOString() });
     }
 
     return res.status(400).json({ error: "unknown action" });
