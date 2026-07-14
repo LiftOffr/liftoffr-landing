@@ -114,11 +114,13 @@ export default async function handler(req, res) {
       const norm = all.map((t) => ({
         date: t.date,
         name: t.merchant_name || t.name,
+        raw: t.name || "", // original ACH/card descriptor — more reliable for text matching than the resolved merchant name
         amount: t.amount, // Plaid: positive = money out, negative = money in
         pending: !!t.pending,
         category: (t.personal_finance_category && t.personal_finance_category.primary)
           || (Array.isArray(t.category) && t.category[t.category.length - 1])
           || "OTHER",
+        detailed: (t.personal_finance_category && t.personal_finance_category.detailed) || null,
       }));
       return res.status(200).json({ transactions: norm, asOf: new Date().toISOString() });
     }

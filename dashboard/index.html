@@ -1190,10 +1190,12 @@ const SPEND_COLORS=['#4d8df0','#26d07c','#e8b339','#f0556b','#a374db','#37c9c1',
 const CUSTOM_CAT_LABELS={CAR_PAYMENT:'🚗 Car Payment',RENT:'🏠 Rent',BTC_DCA:'₿ BTC DCA (Coinbase)'};
 function catLabel(c){if(CUSTOM_CAT_LABELS[c])return CUSTOM_CAT_LABELS[c];return (c||'OTHER').replace(/_/g,' ').toLowerCase().replace(/\b\w/g,m=>m.toUpperCase());}
 // Plaid dumps ApplePay/ACH transfers into one generic TRANSFER_OUT/LOAN_PAYMENTS
-// bucket regardless of what they actually are — split the known recurring ones
-// (rent, the Macan payment, daily BTC DCA to Coinbase) back out by amount.
-function classifyCategory(t){const c=t.category||'',amt=t.amount;
-  if(!/^TRANSFER|^LOAN_PAYMENTS/.test(c))return c;
+// bucket regardless of what they actually are. Name-match first (reliable —
+// the raw ACH descriptor says "COINBASE"), amount-window only as a fallback
+// for transfers with no identifying merchant text (rent, the Macan payment).
+function classifyCategory(t){const c=t.category||'',amt=t.amount,raw=((t.raw||'')+' '+(t.name||'')).toLowerCase();
+  if(raw.includes('coinbase'))return 'BTC_DCA';
+  if(!/^TRANSFER|^LOAN_PAYMENTS/.test(c))return t.detailed||c;
   if(Math.abs(amt-LOAN_AUTO.payment)<=15)return 'CAR_PAYMENT';
   if(amt>=780&&amt<=820)return 'RENT';
   if(amt>=50&&amt<=85)return 'BTC_DCA';
@@ -1214,17 +1216,22 @@ function renderSpending(){const listEl=document.getElementById('spendList');
   document.getElementById('spendMonthLabel').textContent=new Date(SPEND_MONTH+'-01T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});
   document.getElementById('spendPrev').disabled=idx<=0;document.getElementById('spendNext').disabled=idx>=months.length-1;
   const txs=BANK_TX.filter(t=>t.date.slice(0,7)===SPEND_MONTH&&t.amount>0&&!t.pending);
-  const byCat={};txs.forEach(t=>{const c=classifyCategory(t);byCat[c]=(byCat[c]||0)+t.amount});
-  const cats=Object.entries(byCat).sort((a,b)=>b[1]-a[1]);
-  const total=cats.reduce((s,[,v])=>s+v,0);
+  const byCat={};txs.forEach(t=>{const c=classifyCategory(t);if(!byCat[c])byCat[c]={total:0,items:[]};byCat[c].total+=t.amount;byCat[c].items.push(t)});
+  const cats=Object.entries(byCat).sort((a,b)=>b[1].total-a[1].total);
+  const total=cats.reduce((s,[,v])=>s+v.total,0);
   const income=fin().income.reduce((s,x)=>s+(+x.monthly||0),0);
   document.getElementById('spendSummary').innerHTML=`
     <div class="pstat"><div class="psl">Spent This Month</div><div class="psv" style="color:#f0556b">${FMT_USD0.format(total)}</div><div class="pss">${txs.length} transactions</div></div>
-    <div class="pstat"><div class="psl">Top Category</div><div class="psv">${cats[0]?catLabel(cats[0][0]):'—'}</div><div class="pss">${cats[0]?FMT_USD0.format(cats[0][1]):''}</div></div>
+    <div class="pstat"><div class="psl">Top Category</div><div class="psv">${cats[0]?catLabel(cats[0][0]):'—'}</div><div class="pss">${cats[0]?FMT_USD0.format(cats[0][1].total):''}</div></div>
     <div class="pstat"><div class="psl">% of Income</div><div class="psv" style="color:${income&&total/income>0.9?'#f0556b':'var(--ink)'}">${income?Math.round(total/income*100)+'%':'—'}</div><div class="pss">${income?FMT_USD0.format(income)+' income tracked':'add income to compare'}</div></div>`;
-  listEl.innerHTML=cats.map(([c,v],i)=>`<div class="nw-row"><span class="nl"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${SPEND_COLORS[i%SPEND_COLORS.length]};margin-right:7px"></span>${catLabel(c)}</span><span class="nv">${FMT_USD0.format(v)} <span class="muted" style="font-size:11px">${total?Math.round(v/total*100):0}%</span></span></div>`).join('')||'<div class="nw-empty">No spending this month.</div>';
+  listEl.innerHTML=cats.map(([c,v],i)=>{
+    const rows=v.items.slice().sort((a,b)=>b.amount-a.amount)
+      .map(t=>`<div class="nw-row" style="padding-left:20px;font-size:12px"><span class="nl" style="color:var(--muted)">${t.date} · ${(t.name||'').replace(/</g,'&lt;')}</span><span class="nv">${FMT_USD0.format(t.amount)}</span></div>`).join('');
+    return `<div class="nw-row spend-cat-row" data-catrow="${i}" style="cursor:pointer"><span class="nl"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${SPEND_COLORS[i%SPEND_COLORS.length]};margin-right:7px"></span>${catLabel(c)} <span class="muted" style="font-size:10px">(${v.items.length} · click to see) </span></span><span class="nv">${FMT_USD0.format(v.total)} <span class="muted" style="font-size:11px">${total?Math.round(v.total/total*100):0}%</span></span></div><div class="spend-cat-detail" data-catdetail="${i}" style="display:none">${rows}</div>`;
+  }).join('')||'<div class="nw-empty">No spending this month.</div>';
+  document.querySelectorAll('.spend-cat-row').forEach(el=>el.onclick=()=>{const d=listEl.querySelector(`[data-catdetail="${el.dataset.catrow}"]`);if(d)d.style.display=d.style.display==='none'?'':'none'});
   const ctx=document.getElementById('spendChart');if(ctx&&window.Chart){
-    const cfg={type:'doughnut',data:{labels:cats.map(([c])=>catLabel(c)),datasets:[{data:cats.map(([,v])=>v),backgroundColor:cats.map((_,i)=>SPEND_COLORS[i%SPEND_COLORS.length]),borderColor:'#0b0f17',borderWidth:2}]},
+    const cfg={type:'doughnut',data:{labels:cats.map(([c])=>catLabel(c)),datasets:[{data:cats.map(([,v])=>v.total),backgroundColor:cats.map((_,i)=>SPEND_COLORS[i%SPEND_COLORS.length]),borderColor:'#0b0f17',borderWidth:2}]},
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${FMT_USD0.format(c.raw)} (${total?Math.round(c.raw/total*100):0}%)`}}}}};
     if(SPEND_CHART){SPEND_CHART.data=cfg.data;SPEND_CHART.options=cfg.options;SPEND_CHART.update('none')}else SPEND_CHART=new Chart(ctx,cfg);
   }}
