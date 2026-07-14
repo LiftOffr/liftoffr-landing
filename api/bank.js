@@ -112,6 +112,7 @@ export default async function handler(req, res) {
         if (!batch.length) break;
       }
       const norm = all.map((t) => ({
+        id: t.transaction_id,
         date: t.date,
         name: t.merchant_name || t.name,
         raw: t.name || "", // original ACH/card descriptor — more reliable for text matching than the resolved merchant name

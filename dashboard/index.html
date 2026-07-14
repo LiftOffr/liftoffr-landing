@@ -1195,7 +1195,9 @@ function catLabel(c){if(CUSTOM_CAT_LABELS[c])return CUSTOM_CAT_LABELS[c];return 
 // for transfers with no identifying merchant text (rent, the Macan payment).
 // Credit-card payoffs (also routed via Coinbase) must be checked BEFORE the
 // generic coinbase match, or they'd get swallowed into BTC DCA.
-function classifyCategory(t){const c=t.category||'',det=t.detailed||'',amt=t.amount,raw=((t.raw||'')+' '+(t.name||'')).toLowerCase();
+function spendOverrides(){if(!STATE.spendOverrides)STATE.spendOverrides={};return STATE.spendOverrides}
+function classifyCategory(t){const ov=spendOverrides();if(t.id&&ov[t.id])return ov[t.id];
+  const c=t.category||'',det=t.detailed||'',amt=t.amount,raw=((t.raw||'')+' '+(t.name||'')).toLowerCase();
   if(det==='LOAN_PAYMENTS_CREDIT_CARD_PAYMENT'||/credit\s*card/.test(raw))return 'CREDIT_CARD_PAYMENT';
   if(raw.includes('coinbase'))return 'BTC_DCA';
   if(!/^TRANSFER|^LOAN_PAYMENTS/.test(c))return t.detailed||c;
@@ -1227,12 +1229,16 @@ function renderSpending(){const listEl=document.getElementById('spendList');
     <div class="pstat"><div class="psl">Spent This Month</div><div class="psv" style="color:#f0556b">${FMT_USD0.format(total)}</div><div class="pss">${txs.length} transactions</div></div>
     <div class="pstat"><div class="psl">Top Category</div><div class="psv">${cats[0]?catLabel(cats[0][0]):'—'}</div><div class="pss">${cats[0]?FMT_USD0.format(cats[0][1].total):''}</div></div>
     <div class="pstat"><div class="psl">% of Income</div><div class="psv" style="color:${income&&total/income>0.9?'#f0556b':'var(--ink)'}">${income?Math.round(total/income*100)+'%':'—'}</div><div class="pss">${income?FMT_USD0.format(income)+' income tracked':'add income to compare'}</div></div>`;
+  const OV_OPTS=['BTC_DCA','CREDIT_CARD_PAYMENT','RENT','CAR_PAYMENT'];
   listEl.innerHTML=cats.map(([c,v],i)=>{
     const rows=v.items.slice().sort((a,b)=>b.amount-a.amount)
-      .map(t=>`<div class="nw-row" style="padding-left:20px;font-size:12px"><span class="nl" style="color:var(--muted)">${t.date} · ${(t.name||'').replace(/</g,'&lt;')}</span><span class="nv">${FMT_USD0.format(t.amount)}</span></div>`).join('');
+      .map(t=>{const ov=spendOverrides()[t.id];
+        const opts=`<option value="">recategorize…</option>`+OV_OPTS.map(o=>`<option value="${o}" ${ov===o?'selected':''}>${catLabel(o)}</option>`).join('');
+        return `<div class="nw-row" style="padding-left:20px;font-size:12px"><span class="nl" style="color:var(--muted)">${ov?'✎ ':''}${t.date} · ${(t.name||'').replace(/</g,'&lt;')}</span><span style="display:flex;align-items:center;gap:6px"><span class="nv">${FMT_USD0.format(t.amount)}</span><select class="spend-ov-select" data-txid="${t.id}" style="font-size:10.5px;background:var(--bg2);color:var(--muted);border:1px solid var(--line2);border-radius:6px;padding:2px 3px">${opts}</select></span></div>`;}).join('');
     return `<div class="nw-row spend-cat-row" data-catrow="${i}" style="cursor:pointer"><span class="nl"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${SPEND_COLORS[i%SPEND_COLORS.length]};margin-right:7px"></span>${catLabel(c)} <span class="muted" style="font-size:10px">(${v.items.length} · click to see) </span></span><span class="nv">${FMT_USD0.format(v.total)} <span class="muted" style="font-size:11px">${total?Math.round(v.total/total*100):0}%</span></span></div><div class="spend-cat-detail" data-catdetail="${i}" style="display:none">${rows}</div>`;
   }).join('')||'<div class="nw-empty">No spending this month.</div>';
   document.querySelectorAll('.spend-cat-row').forEach(el=>el.onclick=()=>{const d=listEl.querySelector(`[data-catdetail="${el.dataset.catrow}"]`);if(d)d.style.display=d.style.display==='none'?'':'none'});
+  document.querySelectorAll('.spend-ov-select').forEach(s=>{s.onclick=e=>e.stopPropagation();s.onchange=()=>{const ov=spendOverrides();if(s.value){ov[s.dataset.txid]=s.value}else{delete ov[s.dataset.txid]}saveState();renderSpending();}});
   const ctx=document.getElementById('spendChart');if(ctx&&window.Chart){
     const cfg={type:'doughnut',data:{labels:cats.map(([c])=>catLabel(c)),datasets:[{data:cats.map(([,v])=>v.total),backgroundColor:cats.map((_,i)=>SPEND_COLORS[i%SPEND_COLORS.length]),borderColor:'#0b0f17',borderWidth:2}]},
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.label}: ${FMT_USD0.format(c.raw)} (${total?Math.round(c.raw/total*100):0}%)`}}}}};
