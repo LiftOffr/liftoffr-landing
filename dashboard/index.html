@@ -1187,13 +1187,16 @@ async function bankRefresh(){const at=localStorage.getItem(PLAID_TOK);if(!at)ret
   }catch(e){bankStatus('refresh failed')}}
 let BANK_TX=null,SPEND_MONTH=null,SPEND_CHART=null;
 const SPEND_COLORS=['#4d8df0','#26d07c','#e8b339','#f0556b','#a374db','#37c9c1','#e08fd0','#8a94a6','#d98a4d','#5ad1e0'];
-const CUSTOM_CAT_LABELS={CAR_PAYMENT:'🚗 Car Payment',RENT:'🏠 Rent',BTC_DCA:'₿ BTC DCA (Coinbase)'};
+const CUSTOM_CAT_LABELS={CAR_PAYMENT:'🚗 Car Payment',RENT:'🏠 Rent',BTC_DCA:'₿ BTC DCA (Coinbase)',CREDIT_CARD_PAYMENT:'💳 Credit Card Payment'};
 function catLabel(c){if(CUSTOM_CAT_LABELS[c])return CUSTOM_CAT_LABELS[c];return (c||'OTHER').replace(/_/g,' ').toLowerCase().replace(/\b\w/g,m=>m.toUpperCase());}
 // Plaid dumps ApplePay/ACH transfers into one generic TRANSFER_OUT/LOAN_PAYMENTS
 // bucket regardless of what they actually are. Name-match first (reliable —
 // the raw ACH descriptor says "COINBASE"), amount-window only as a fallback
 // for transfers with no identifying merchant text (rent, the Macan payment).
-function classifyCategory(t){const c=t.category||'',amt=t.amount,raw=((t.raw||'')+' '+(t.name||'')).toLowerCase();
+// Credit-card payoffs (also routed via Coinbase) must be checked BEFORE the
+// generic coinbase match, or they'd get swallowed into BTC DCA.
+function classifyCategory(t){const c=t.category||'',det=t.detailed||'',amt=t.amount,raw=((t.raw||'')+' '+(t.name||'')).toLowerCase();
+  if(det==='LOAN_PAYMENTS_CREDIT_CARD_PAYMENT'||/credit\s*card/.test(raw))return 'CREDIT_CARD_PAYMENT';
   if(raw.includes('coinbase'))return 'BTC_DCA';
   if(!/^TRANSFER|^LOAN_PAYMENTS/.test(c))return t.detailed||c;
   if(Math.abs(amt-LOAN_AUTO.payment)<=15)return 'CAR_PAYMENT';
