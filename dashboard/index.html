@@ -457,6 +457,7 @@
           <div class="chart-box" style="flex:1;min-width:260px;max-width:380px;height:320px"><canvas id="spendChart"></canvas></div>
           <div id="spendList" style="flex:2;min-width:260px"></div>
         </div>
+        <div class="muted" style="font-size:11.5px;margin-top:12px;line-height:1.5">₿ BTC DCA is your buy plan moving money to Coinbase, not consumption — it's broken out here for visibility, not as a spending problem.</div>
       </div>
       <!-- VEHICLE -->
       <style>
@@ -1186,7 +1187,17 @@ async function bankRefresh(){const at=localStorage.getItem(PLAID_TOK);if(!at)ret
   }catch(e){bankStatus('refresh failed')}}
 let BANK_TX=null,SPEND_MONTH=null,SPEND_CHART=null;
 const SPEND_COLORS=['#4d8df0','#26d07c','#e8b339','#f0556b','#a374db','#37c9c1','#e08fd0','#8a94a6','#d98a4d','#5ad1e0'];
-function catLabel(c){return (c||'OTHER').replace(/_/g,' ').toLowerCase().replace(/\b\w/g,m=>m.toUpperCase());}
+const CUSTOM_CAT_LABELS={CAR_PAYMENT:'🚗 Car Payment',RENT:'🏠 Rent',BTC_DCA:'₿ BTC DCA (Coinbase)'};
+function catLabel(c){if(CUSTOM_CAT_LABELS[c])return CUSTOM_CAT_LABELS[c];return (c||'OTHER').replace(/_/g,' ').toLowerCase().replace(/\b\w/g,m=>m.toUpperCase());}
+// Plaid dumps ApplePay/ACH transfers into one generic TRANSFER_OUT/LOAN_PAYMENTS
+// bucket regardless of what they actually are — split the known recurring ones
+// (rent, the Macan payment, daily BTC DCA to Coinbase) back out by amount.
+function classifyCategory(t){const c=t.category||'',amt=t.amount;
+  if(!/^TRANSFER|^LOAN_PAYMENTS/.test(c))return c;
+  if(Math.abs(amt-LOAN_AUTO.payment)<=15)return 'CAR_PAYMENT';
+  if(amt>=780&&amt<=820)return 'RENT';
+  if(amt>=50&&amt<=85)return 'BTC_DCA';
+  return c;}
 async function fetchTransactions(){const at=localStorage.getItem(PLAID_TOK);if(!at)return;
   const se=document.getElementById('spendStatus');se.textContent='loading transactions…';
   try{const d=await(await fetch('/api/bank?action=transactions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({access_token:at,days:180})})).json();
@@ -1203,7 +1214,7 @@ function renderSpending(){const listEl=document.getElementById('spendList');
   document.getElementById('spendMonthLabel').textContent=new Date(SPEND_MONTH+'-01T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});
   document.getElementById('spendPrev').disabled=idx<=0;document.getElementById('spendNext').disabled=idx>=months.length-1;
   const txs=BANK_TX.filter(t=>t.date.slice(0,7)===SPEND_MONTH&&t.amount>0&&!t.pending);
-  const byCat={};txs.forEach(t=>{byCat[t.category]=(byCat[t.category]||0)+t.amount});
+  const byCat={};txs.forEach(t=>{const c=classifyCategory(t);byCat[c]=(byCat[c]||0)+t.amount});
   const cats=Object.entries(byCat).sort((a,b)=>b[1]-a[1]);
   const total=cats.reduce((s,[,v])=>s+v,0);
   const income=fin().income.reduce((s,x)=>s+(+x.monthly||0),0);
