@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "rWfLRMiyQVY",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Inflation and Bitcoin",
+    "published": "2026-07-15T02:14:08+00:00",
+    "processed_at": "2026-07-15T07:53:05.224177+00:00",
+    "url": "https://www.youtube.com/watch?v=rWfLRMiyQVY",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "200-week moving average",
+      "bear market resistance band",
+      "CPI",
+      "core inflation",
+      "inflation rate year-over-year"
+    ],
+    "key_points": [
+      "Cooler than expected headline and core inflation readings are fueling a short-term Bitcoin rally consistent with prior mid-term year seasonality",
+      "Price action is closely mirroring the 2018 cycle pattern: a June/July low sweep, a smaller rally, then a squeeze between the 200-week moving average and bear market resistance band",
+      "The current setup is a compression between key moving averages that should force a directional resolution between August and Q4",
+      "A breakdown from this squeeze would align with market cycle theory and produce a cycle low later in the year",
+      "Falling housing and transportation contributions were the main drivers of the inflation drop, though a potential oil price bounce is a risk to watch for renewed inflationary pressure"
+    ],
+    "summary": "Bitcoin is tracking historical mid-term year seasonality, rallying on a cooler CPI print while getting squeezed between the 200-week moving average and the bear market resistance band, much like the 2018 cycle. This compression is expected to resolve directionally between August and Q4, with a breakdown scenario aligning with a typical market cycle low later in the year."
+  },
+  {
     "video_id": "sigSZCnSa6M",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1479,26 +1507,5 @@ export default [
       "Stablecoin dominance surge (6% to 10%) is artificially depressing Bitcoin dominance metrics; dominance would already be at cycle highs if stablecoins were excluded from the equation"
     ],
     "summary": "Benjamin Cowen maintains a bearish outlook on altcoins and a cautious stance on Bitcoin's near-term upside, arguing that altcoins have consistently bled to Bitcoin and traditional assets for 5 years regardless of market conditions, making them comparable to penny stocks. While current Bitcoin dominance appears flat at 60%, excluding stablecoins it has risen to 68%, indicating fundamental weakness in the broader altcoin market driven by persistent restrictive monetary policy and rising energy prices that prevent the loosening conditions needed for altcoin outperformance."
-  },
-  {
-    "video_id": "4jEPcOfPW2g",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Alts Are Trading At..",
-    "published": "2026-04-24T22:44:00+00:00",
-    "processed_at": "2026-05-04T23:48:24.704218+00:00",
-    "url": "https://www.youtube.com/watch?v=4jEPcOfPW2g",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "cycle",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Altcoins are trading at lower valuations against gold in 2026 compared to 2023, despite years of bullish sentiment",
-      "Altcoins have maintained lower valuations compared to the entire previous bull market and even underperformed relative to last bear market lows",
-      "Gold represents a significantly safer long-term investment compared to altcoins from a valuation perspective",
-      "The valuation metrics make these patterns difficult to ignore once recognized"
-    ],
-    "summary": "Benjamin Cowen argues that altcoins have underperformed relative to gold on a valuation basis throughout the current cycle, trading lower than in 2023 and below historical bear market lows. He contends that gold represents a much safer long-term investment than altcoins based on these comparative valuations."
   }
 ];
