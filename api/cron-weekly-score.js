@@ -552,7 +552,11 @@ async function runTierWatch(baseUrl) {
   }
 
   // Fetch trades to figure out which tiers are already filled.
-  const sync = await fetch(`${baseUrl}/api/coinbase-sync`);
+  // /api/coinbase-sync sits behind the dashboard's Basic Auth middleware — must
+  // authenticate this internal call or it 401s and every tier looks unfilled.
+  const sync = await fetch(`${baseUrl}/api/coinbase-sync`, {
+    headers: { Authorization: `Basic ${Buffer.from(`cron:${process.env.DASHBOARD_PASSWORD}`).toString("base64")}` },
+  });
   const syncData = await sync.json().catch(() => ({}));
   const trades = syncData.trades || [];
   const PLAN_START = "2026-05-28";
