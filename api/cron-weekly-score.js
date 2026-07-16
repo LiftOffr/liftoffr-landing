@@ -210,21 +210,33 @@ async function sendResend(to, subject, text, html) {
 // Mirror of dashboard PLAN config — keep in sync.
 const BUY_PLAN = {
   totalBudget: 165182,
-  // Two automated daily DCAs via API:
-  //  DCA #1: $71/day BTC-USDC via v3 Advanced Trade (USDC pile)
-  //  DCA #2: $67/day BTC via v2 Simple Buy with bank as payment method
-  dcaDailyUsdc: 71,
-  dcaDailyBank: 67,
-  dcaDailyCombined: 138,
+  // DCA leg amounts are date-tilted, not flat — see dcaSchedule + dcaForToday().
+  // Only the USDC leg (v3 Advanced Trade) is API-automated; the bank leg is a
+  // Coinbase-UI recurring buy Torin has to update by hand at each tilt date.
+  dcaSchedule: [
+    { start: "2026-05-28", end: "2026-08-31", usdc: 50,  bank: 40 },  // Phase 1 remainder — Cowen's flagged rally-trap, taper down
+    { start: "2026-09-01", end: "2026-12-31", usdc: 110, bank: 60 },  // Phase 2 — capitulation window, ramp up (USDC carries it, bank stays light)
+    { start: "2027-01-01", end: "2027-03-31", usdc: 50,  bank: 40 },  // Phase 3 — post-bottom, taper back down
+  ],
   tiers: [
     { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
     { tier: "T1",        target: 15000, maMultiple: 1.10, fallbackDate: "2026-07-31", trigger: "Bear-band fail follow-through" },
     { tier: "T2",        target: 28000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
-    { tier: "T3",        target: 41200, maMultiple: 0.85, targetPrice: 53700, fallbackDate: "2026-11-30", trigger: "Realized-price test ~$53.7K (Cowen base · price-capitulation trigger)" },
-    { tier: "T4",        target: 20000, maMultiple: 0.73, targetPrice: 49900, fallbackDate: "2027-01-31", trigger: "Wick below realized (Cowen ~$50K cluster)" },
-    { tier: "T5",        target: 8000,  maMultiple: 0.65, targetPrice: 38500, fallbackDate: "2027-03-31", trigger: "Balance-price flush ~$38.5K · full price-based capitulation" },
+    // T3-T5 sub-laddered into upper/lower tranches per the bottom-projection probability bands
+    // (realized-price band 40%, wick-below band 25%, balance-price tail 12%) instead of one lump per tier.
+    { tier: "T3a", target: 20600, targetPrice: 55000, fallbackDate: "2026-11-30", trigger: "Realized-price band, upper half ~$55K (40% bottom-odds band)" },
+    { tier: "T3b", target: 20600, targetPrice: 52500, fallbackDate: "2026-11-30", trigger: "Realized-price band, lower half ~$52.5K (40% bottom-odds band)" },
+    { tier: "T4a", target: 10000, targetPrice: 50500, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, upper half ~$50.5K (25% band)" },
+    { tier: "T4b", target: 10000, targetPrice: 48000, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, lower half ~$48K (25% band)" },
+    { tier: "T5a", target: 4000,  targetPrice: 40000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, upper half ~$40K (12% tail band)" },
+    { tier: "T5b", target: 4000,  targetPrice: 38000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, lower half ~$38K (12% tail band)" },
   ],
 };
+
+function dcaForToday() {
+  const iso = new Date().toISOString().slice(0, 10);
+  return BUY_PLAN.dcaSchedule.find((s) => iso >= s.start && iso <= s.end) || BUY_PLAN.dcaSchedule[BUY_PLAN.dcaSchedule.length - 1];
+}
 
 async function fetchBtcAnd200wMA(baseUrl) {
   const r = await fetch(`${baseUrl}/api/btc-price?ma200w=1`);
@@ -309,8 +321,17 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }
     }).join("\n");
   }
 
+  const todaySched = dcaForToday();
+  const schedIdx = BUY_PLAN.dcaSchedule.indexOf(todaySched);
+  const nextSched = BUY_PLAN.dcaSchedule[schedIdx + 1];
+  const daysToNext = nextSched ? daysUntil(nextSched.start) : null;
+
   const dcaBlock = isMonday
-    ? `\n\n🔁 **DCA reminder (Monday)** — API cron auto-fires both DCAs daily:\n• \`$${BUY_PLAN.dcaDailyUsdc}/day BTC-USDC\` from USDC wallet (v3 Advanced Trade)\n• \`$${BUY_PLAN.dcaDailyBank}/day BTC\` from linked bank (v2 Simple Buy)\nNo manual touches needed. Combined ~$${BUY_PLAN.dcaDailyCombined}/day · ~$38K total.`
+    ? `\n\n🔁 **DCA reminder (Monday)**\n• \`$${todaySched.usdc}/day BTC-USDC\` from USDC wallet — cron auto-fires, no action needed\n• \`$${todaySched.bank}/day BTC\` from linked bank — you manage this one in the Coinbase app; confirm it still reads $${todaySched.bank}/day\nCombined ~$${todaySched.usdc + todaySched.bank}/day this phase.`
+    : "";
+
+  const tiltBlock = (daysToNext !== null && daysToNext >= 0 && daysToNext <= 7)
+    ? `\n\n⚠️ **DCA tilt changes in ${daysToNext}d (${nextSched.start})** — bump the Coinbase recurring buy (bank leg) to \`$${nextSched.bank}/day\`. USDC leg re-tilts itself automatically, nothing to do there.`
     : "";
 
   // Fallback warnings (anything within 7 days)
@@ -326,7 +347,7 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }
     username: "LiftOffr Buy Plan",
     embeds: [{
       title: `Morning Briefing — ${date}`,
-      description: heroLines.join("\n") + actionBlock + dcaBlock + fbBlock + "\n\n**Tier Ladder**\n" + lines.join("\n"),
+      description: heroLines.join("\n") + actionBlock + dcaBlock + tiltBlock + fbBlock + "\n\n**Tier Ladder**\n" + lines.join("\n"),
       color: actionable.length > 0 ? 0x34c759 : 0x4a4a4a,
       footer: { text: `liftoffr.com/dashboard · ${dayName} 8am MT` },
       timestamp: new Date().toISOString(),
@@ -518,6 +539,7 @@ async function runDailyDCA() {
   }
   const dateIso = new Date().toISOString().slice(0, 10);
   const results = [];
+  const { usdc: usdcAmount } = dcaForToday();
 
   // DCA #1 — v3 Advanced Trade BTC-USDC from USDC wallet.
   // DCA #2 (bank-funded) runs as a Coinbase UI recurring buy — v2 buys API
@@ -526,13 +548,13 @@ async function runDailyDCA() {
   try {
     const r = await placeMarketBuy({
       productId: "BTC-USDC",
-      quoteSize: BUY_PLAN.dcaDailyUsdc,
+      quoteSize: usdcAmount,
       dateIso, keyId, secret,
     });
     results.push({ dca: "USDC", ok: true, productId: r.productId, quoteSize: r.quoteSize, orderId: r.orderId });
   } catch (err) {
     const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
-    results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: BUY_PLAN.dcaDailyUsdc, error: err.message, dup });
+    results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: usdcAmount, error: err.message, dup });
   }
 
   return { ts: new Date().toISOString(), results };
