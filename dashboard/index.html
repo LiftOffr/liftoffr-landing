@@ -674,10 +674,13 @@ const PLAN={totalBudget:165182,targetBTC:2.78,phases:[
     {tier:'T1',target:15000,targetPrice:68000,maMultiple:1.10,fallbackDate:'2026-07-31'}]},
   {id:'p2',name:'Phase 2 — Capitulation',start:'2026-09-01',end:'2026-12-31',lumpTiers:[
     {tier:'T2',target:28000,targetPrice:60000,maMultiple:0.97,fallbackDate:'2026-09-30'},
-    {tier:'T3',target:41200,targetPrice:53700,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
+    {tier:'T3a',target:20600,targetPrice:55000,fallbackDate:'2026-11-30'},
+    {tier:'T3b',target:20600,targetPrice:52500,fallbackDate:'2026-11-30'}]},
   {id:'p3',name:'Phase 3 — Post-Bottom Recovery',start:'2027-01-01',end:'2027-03-31',lumpTiers:[
-    {tier:'T4',target:20000,targetPrice:49900,maMultiple:0.73,fallbackDate:'2027-01-31'},
-    {tier:'T5',target:8000,targetPrice:38500,maMultiple:0.65,fallbackDate:'2027-03-31'}]},
+    {tier:'T4a',target:10000,targetPrice:50500,fallbackDate:'2027-01-31'},
+    {tier:'T4b',target:10000,targetPrice:48000,fallbackDate:'2027-01-31'},
+    {tier:'T5a',target:4000,targetPrice:40000,fallbackDate:'2027-03-31'},
+    {tier:'T5b',target:4000,targetPrice:38000,fallbackDate:'2027-03-31'}]},
   {id:'p4',name:'Phase 4 — Bull Hold',start:'2027-04-01',end:'2029-05-31',lumpTiers:[]},
   // Sell tiers calibrated to diminishing-returns 2029 peak (~$425K median).
   // Old exits blended $170K — way too conservative. New blend = $415K.
@@ -1046,6 +1049,8 @@ async function maybeAutoSync(){try{if((STATE.trades||[]).some(t=>t.source==='coi
 const LOAN_AUTO={ name:'🚗 Macan loan (OCCU)', principal:47514, apr:5.74, payment:915.03, first:'2026-05-10', term:60, payDay:1 };
 // Personal loan: balance as provided, amortized forward from that date.
 const LOAN_PERSONAL={ name:'💵 Personal loan', balanceAsOf:23301.33, asOf:'2026-06-14', apr:0.5, payment:620.30, payDay:15 };
+// Grandparents loan: no payments — interest-only, compounds until the lump payoff at cycle top.
+const LOAN_GRANDPARENTS={ name:'👵 Grandparents loan', principal:25000, apr:4.5, start:'2026-07-16', payoffTarget:'2029-06-01' };
 const VEHICLE={ label:'2022 Porsche Macan S', sub:'Black / black trim · Sport Chrono · ~43k mi',
   vin:'WP1AG2A57NLB21022', baseValue:47477, baseDate:'2026-03-26', annualDepr:0.12 };
 
@@ -1065,15 +1070,20 @@ function curBalance(loan,now){
 }
 function nextPayment(loan,now){let d=new Date(now.getFullYear(),now.getMonth(),loan.payDay);if(d<now)d=new Date(now.getFullYear(),now.getMonth()+1,loan.payDay);return d;}
 function fmtDate(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function fmtMonthYear(iso){return new Date(iso+'T12:00:00').toLocaleDateString('en-US',{month:'short',year:'numeric'});}
+// Interest-only accrual, no payments — compounds annually from start until the lump payoff.
+function deferredBalance(loan,now){const yrs=Math.max(0,(now-new Date(loan.start+'T00:00:00'))/(365.25*864e5));
+  return loan.principal*Math.pow(1+(loan.apr||0)/100,yrs);}
 function vehicleValue(now){
   const v=(STATE.vehicle&&STATE.vehicle.manualValue)?{val:+STATE.vehicle.manualValue,d:STATE.vehicle.manualAsOf||VEHICLE.baseDate}:{val:VEHICLE.baseValue,d:VEHICLE.baseDate};
   const yrs=Math.max(0,(now-new Date(v.d+'T00:00:00'))/(365.25*864e5));
   return v.val*Math.pow(1-VEHICLE.annualDepr,yrs);
 }
-let LIAB={car:0,macan:0,personal:0,macanInfo:null,personalInfo:null};
+let LIAB={car:0,macan:0,personal:0,grandparents:0,macanInfo:null,personalInfo:null};
 function computeLiab(){const now=new Date();
   LIAB.macanInfo=curBalance(LOAN_AUTO,now);LIAB.macan=LIAB.macanInfo.balance;
   LIAB.personalInfo=curBalance(LOAN_PERSONAL,now);LIAB.personal=LIAB.personalInfo.balance;
+  LIAB.grandparents=deferredBalance(LOAN_GRANDPARENTS,now);
   LIAB.car=vehicleValue(now);}
 
 function renderVehicle(){const now=new Date();const val=vehicleValue(now);const m=curBalance(LOAN_AUTO,now);const eq=val-m.balance;
@@ -1112,6 +1122,7 @@ function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').rep
     const macanDup=bankLooksLike(LOAN_AUTO.name,BANK.debts),personalDup=bankLooksLike(LOAN_PERSONAL.name,BANK.debts);
     if(!macanDup)html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
     if(!personalDup)html+=`<div class="nw-row"><span class="nl auto">💵 Personal loan <span style="${sub}">$620.30/mo · next ${fmtDate(nextPayment(LOAN_PERSONAL,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.personal)}</span></div>`;
+    html+=`<div class="nw-row"><span class="nl auto">👵 Grandparents loan <span style="${sub}">${LOAN_GRANDPARENTS.apr}% accruing · no payments · payoff ~${fmtMonthYear(LOAN_GRANDPARENTS.payoffTarget)}</span></span><span class="nv">${FMT_USD0.format(LIAB.grandparents)}</span></div>`;
     BANK.debts.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)}</span><span class="nv">${FMT_USD0.format(+x.balance||0)}</span></div>`);}
   if(!list.length&&!html)html+='<div class="nw-empty">None yet — click + Add.</div>';
   const bankList=cat==='assets'?BANK.assets:cat==='debts'?BANK.debts:[];
@@ -1127,7 +1138,7 @@ function renderFinances(){const F=fin();computeLiab();
   const bankCash=BANK.assets.filter(x=>x.type==='depository').reduce((s,x)=>s+(+x.value||0),0);
   const buyingPower=LIVE_PF.cash||0;
   const macanDup=bankLooksLike(LOAN_AUTO.name,BANK.debts),personalDup=bankLooksLike(LOAN_PERSONAL.name,BANK.debts);
-  const autoDebts=(macanDup?0:LIAB.macan)+(personalDup?0:LIAB.personal);
+  const autoDebts=(macanDup?0:LIAB.macan)+(personalDup?0:LIAB.personal)+LIAB.grandparents;
   const live=(LIVE_PF.btcVal||0)+(LIVE_PF.cash||0),totalAssets=live+bankA+manualA+LIAB.car,totalDebts=manualD+bankD+autoDebts,nw=totalAssets-totalDebts,nwc=nw>=0?'#26d07c':'#f0556b';
   document.getElementById('nwSummary').innerHTML=`
     <div class="pstat"><div class="psl">Net Worth</div><div class="psv" style="color:${nwc}">${FMT_USD0.format(nw)}</div><div class="pss">assets − debts</div></div>
@@ -1305,13 +1316,14 @@ if(window.location.href.includes('oauth_state_id=')){
     const btcValue=(btc!=null&&LIVE_PRICE!=null)?btc*LIVE_PRICE:0;
     const cash=(LIVE_PF&&LIVE_PF.cash)||0;
     const totalAssets=btcValue+cash+bankA+manualA+LIAB.car;
-    const totalDebts=manualD+bankD+LIAB.macan+LIAB.personal;
+    const totalDebts=manualD+bankD+LIAB.macan+LIAB.personal+LIAB.grandparents;
     const now2=new Date();
     const finances={
       netWorth:Math.round(totalAssets-totalDebts),
       totalAssets:Math.round(totalAssets), totalDebts:Math.round(totalDebts),
       btcValue:Math.round(btcValue), buyingPower:Math.round(cash), dcaReserve:Math.round(bankCash),
       carValue:Math.round(LIAB.car), macanLoan:Math.round(LIAB.macan), personalLoan:Math.round(LIAB.personal),
+      grandparentsLoan:Math.round(LIAB.grandparents), grandparentsPayoffTarget:LOAN_GRANDPARENTS.payoffTarget,
       monthlyDebtService:Math.round((915.03+620.30)*100)/100,
       macanNext:fmtDate(nextPayment(LOAN_AUTO,now2)), personalNext:fmtDate(nextPayment(LOAN_PERSONAL,now2))
     };
