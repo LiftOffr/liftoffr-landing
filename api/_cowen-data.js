@@ -3,6 +3,37 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "XQN1M-sIuGs",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Market Cycles",
+    "published": "2026-07-16T19:48:27+00:00",
+    "processed_at": "2026-07-16T20:53:56.284588+00:00",
+    "url": "https://www.youtube.com/watch?v=XQN1M-sIuGs",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      64000
+    ],
+    "indicators_mentioned": [
+      "ROI from low",
+      "ROI after cycle peak",
+      "Presidential/election cycle model",
+      "DXY (Dollar Index)",
+      "Social interest/risk metric",
+      "YouTube views metric"
+    ],
+    "key_points": [
+      "Cycle timing charts (ROI from low, ROI from peak) suggest a bottom could form roughly 100 days out from the current point, based on alignment with prior two cycles",
+      "Price action closely mirrors Trump's first term and Biden's term patterns, including a summer decline, a rally, giveback in August/September, and a Q4 bottom",
+      "The dollar (DXY) is tracking similarly to Trump's first term and could move higher later in the year, acting as a continued headwind for Bitcoin",
+      "Midterm-year bear market comparisons (2014, 2018, 2022) show current price behavior is not unusual, with historical tendency for relief rallies in July",
+      "No price-based capitulation has occurred (unlike 2019/2020), suggesting the base case remains time-based capitulation rather than a sharp capitulation low, with social interest metrics closer to 2018 levels than 2022"
+    ],
+    "summary": "Current price behavior closely parallels prior Bitcoin market cycles and election-cycle patterns, pointing to a potential bottoming process unfolding over the coming months rather than a sharp price-based capitulation. Dollar strength later in the year could remain a headwind, while low social interest readings suggest sentiment resembles 2018 more than 2022, even as liquidity conditions echo 2019. The overall structure suggests dollar-cost averaging is more reliable than attempting to precisely time a bottom."
+  },
+  {
     "video_id": "rWfLRMiyQVY",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1471,41 +1502,5 @@ export default [
       "Business cycle likely extends beyond 2025; initial claims must reach 300k+ for recession confirmation, but geopolitical risks and debt dynamics create structural headwinds"
     ],
     "summary": "Benjamin Cowen maintains a bearish outlook on Bitcoin and crypto over the next 6-12 months, expecting weakness into summer followed by a potential October low in typical midterm-year fashion. While he acknowledges near-term potential to reach $84k, he views the current rally as unhealthy given negative funding rates and crypto's failure to outperform as a leading indicator. He expects eventual mean reversion in stock market valuations and a business cycle peak, though the timing remains uncertain and could extend into 2028."
-  },
-  {
-    "video_id": "VdCMIWRHkTs",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Dominance",
-    "published": "2026-04-24T21:21:48+00:00",
-    "processed_at": "2026-05-04T23:48:33.513540+00:00",
-    "url": "https://www.youtube.com/watch?v=VdCMIWRHkTs",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "cycle",
-    "key_levels": [
-      80000
-    ],
-    "indicators_mentioned": [
-      "Bitcoin Dominance",
-      "Bitcoin Dominance excluding stablecoins",
-      "Stablecoin Dominance",
-      "Bull Market Support Band",
-      "200-day moving average",
-      "Advanced Decline Index",
-      "Alt-Bitcoin pairs",
-      "Total 3 minus USDT divided by Bitcoin",
-      "ETH-Bitcoin valuation",
-      "Fed Funds Rate",
-      "Two-year yield"
-    ],
-    "key_points": [
-      "Bitcoin dominance is rising when excluding stablecoins (60% to 68%), indicating altcoins are continuously bleeding to Bitcoin despite nominal stablecoin-inflated metrics",
-      "Altcoins have underperformed Bitcoin, S&P 500, Nasdaq, gold, and silver for 5 consecutive years with lower highs and lower lows, making them inferior long-term investments",
-      "Restrictive monetary policy (Fed Funds Rate near neutral at 3.75%) and lack of expected rate cuts in 2026 create macro headwinds preventing altcoin rotation; rising oil prices worsen inflationary concerns",
-      "Current Bitcoin rally to $80k is a typical bear market countertrend rally similar to 2018 patterns, likely to retrace rather than lead to new all-time highs this cycle",
-      "Stablecoin dominance surge (6% to 10%) is artificially depressing Bitcoin dominance metrics; dominance would already be at cycle highs if stablecoins were excluded from the equation"
-    ],
-    "summary": "Benjamin Cowen maintains a bearish outlook on altcoins and a cautious stance on Bitcoin's near-term upside, arguing that altcoins have consistently bled to Bitcoin and traditional assets for 5 years regardless of market conditions, making them comparable to penny stocks. While current Bitcoin dominance appears flat at 60%, excluding stablecoins it has risen to 68%, indicating fundamental weakness in the broader altcoin market driven by persistent restrictive monetary policy and rising energy prices that prevent the loosening conditions needed for altcoin outperformance."
   }
 ];
