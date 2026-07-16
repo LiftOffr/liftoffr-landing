@@ -209,7 +209,7 @@ async function sendResend(to, subject, text, html) {
 
 // Mirror of dashboard PLAN config — keep in sync.
 const BUY_PLAN = {
-  totalBudget: 145182,
+  totalBudget: 165182,
   // Two automated daily DCAs via API:
   //  DCA #1: $71/day BTC-USDC via v3 Advanced Trade (USDC pile)
   //  DCA #2: $67/day BTC via v2 Simple Buy with bank as payment method
@@ -220,8 +220,8 @@ const BUY_PLAN = {
     { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
     { tier: "T1",        target: 15000, maMultiple: 1.10, fallbackDate: "2026-07-31", trigger: "Bear-band fail follow-through" },
     { tier: "T2",        target: 28000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
-    { tier: "T3",        target: 26200, maMultiple: 0.85, targetPrice: 53700, fallbackDate: "2026-11-30", trigger: "Realized-price test ~$53.7K (Cowen base · price-capitulation trigger)" },
-    { tier: "T4",        target: 15000, maMultiple: 0.73, targetPrice: 49900, fallbackDate: "2027-01-31", trigger: "Wick below realized (Cowen ~$50K cluster)" },
+    { tier: "T3",        target: 41200, maMultiple: 0.85, targetPrice: 53700, fallbackDate: "2026-11-30", trigger: "Realized-price test ~$53.7K (Cowen base · price-capitulation trigger)" },
+    { tier: "T4",        target: 20000, maMultiple: 0.73, targetPrice: 49900, fallbackDate: "2027-01-31", trigger: "Wick below realized (Cowen ~$50K cluster)" },
     { tier: "T5",        target: 8000,  maMultiple: 0.65, targetPrice: 38500, fallbackDate: "2027-03-31", trigger: "Balance-price flush ~$38.5K · full price-based capitulation" },
   ],
 };

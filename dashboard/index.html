@@ -362,7 +362,7 @@
       <!-- BUY LADDER -->
       <div class="sec" id="sec-ladder"><div class="sec-h"><span class="chev">▼</span><span class="stitle">▤ Buy Ladder</span><span class="ssub">— Cowen-driven accumulation tiers · triggers recalibrate live off the 200W MA</span></div></div>
       <div class="panel">
-        <div class="lad-meta"><span>Total budget <b style="color:var(--ink)">$145,182</b> · target <b style="color:var(--ink)">2.40 BTC</b> @ ~$60K avg basis</span><span>Phase: <b style="color:var(--green)" id="curPhase">—</b></span></div>
+        <div class="lad-meta"><span>Total budget <b style="color:var(--ink)">$165,182</b> · target <b style="color:var(--ink)">2.78 BTC</b> @ ~$60K avg basis</span><span>Phase: <b style="color:var(--green)" id="curPhase">—</b></span></div>
         <div class="deploy-bar"><div class="deploy-fill" id="deployFill" style="width:0%"></div></div>
         <div class="lad-meta"><span id="deployTxt" class="muted">—</span><span id="nextAction" style="font-weight:700;color:var(--ink)"></span></div>
         <div class="ladder" id="ladderV2"><div class="loading">Loading tiers…</div></div>
@@ -668,15 +668,15 @@ function renderTodayCall(){
 const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 
 // ===== PLAN (Cowen buy-ladder) — ported from /dashboard =====
-const PLAN={totalBudget:145182,targetBTC:2.40,phases:[
+const PLAN={totalBudget:165182,targetBTC:2.78,phases:[
   {id:'p1',name:'Phase 1 — Bear Grind',start:'2026-05-28',end:'2026-08-31',lumpTiers:[
     {tier:'IMMEDIATE',target:15000,targetPrice:73000,fallbackDate:'2026-05-28'},
     {tier:'T1',target:15000,targetPrice:68000,maMultiple:1.10,fallbackDate:'2026-07-31'}]},
   {id:'p2',name:'Phase 2 — Capitulation',start:'2026-09-01',end:'2026-12-31',lumpTiers:[
     {tier:'T2',target:28000,targetPrice:60000,maMultiple:0.97,fallbackDate:'2026-09-30'},
-    {tier:'T3',target:26200,targetPrice:53700,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
+    {tier:'T3',target:41200,targetPrice:53700,maMultiple:0.85,fallbackDate:'2026-11-30'}]},
   {id:'p3',name:'Phase 3 — Post-Bottom Recovery',start:'2027-01-01',end:'2027-03-31',lumpTiers:[
-    {tier:'T4',target:15000,targetPrice:49900,maMultiple:0.73,fallbackDate:'2027-01-31'},
+    {tier:'T4',target:20000,targetPrice:49900,maMultiple:0.73,fallbackDate:'2027-01-31'},
     {tier:'T5',target:8000,targetPrice:38500,maMultiple:0.65,fallbackDate:'2027-03-31'}]},
   {id:'p4',name:'Phase 4 — Bull Hold',start:'2027-04-01',end:'2029-05-31',lumpTiers:[]},
   // Sell tiers calibrated to diminishing-returns 2029 peak (~$425K median).
