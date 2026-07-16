@@ -682,14 +682,20 @@ const PLAN={totalBudget:165182,targetBTC:2.78,phases:[
     {tier:'T5a',target:4000,targetPrice:40000,fallbackDate:'2027-03-31'},
     {tier:'T5b',target:4000,targetPrice:38000,fallbackDate:'2027-03-31'}]},
   {id:'p4',name:'Phase 4 — Bull Hold',start:'2027-04-01',end:'2029-05-31',lumpTiers:[]},
-  // Sell tiers recalibrated (commit 343c0ca) via low-to-high multiplier method —
-  // this superseded the $425K-median/$415K-blend rainbow-band calibration below.
-  // Current S1-S4 (150K/200K/275K/400K @ 40/30/20/10%) blend to ~$215K/BTC.
+  // Sell tiers recalibrated 2026-07-16 (Fable 5 analysis: real Bitstamp OHLC back
+  // to 2013 + official CBBI data JSON + rainbow-chart regression, 5 independent
+  // methods). Blended median ~$165K, plausible range $130-225K. Retires both the
+  // rainbow-derived "$425K median" (indefensible — overshot the last 2 real tops,
+  // 2025's top never even entered its "sell" band) and the older 150/200/275/400K
+  // set, which repeated the 2025-cycle mistake of waiting on a price that never came.
+  // CBBI's own topping threshold has compressed each cycle (1.00 -> 0.989 -> 0.940
+  // max, actual 2025 top only 0.9076) — if CBBI prints >=0.88 with tiers still open,
+  // treat the cycle as topped and dump the rest rather than waiting for >=0.95.
   {id:'p5',name:'Phase 5 — Distribution',start:'2029-06-01',end:'2029-12-31',lumpTiers:[
-    {tier:'S1',sellPct:40,targetPrice:150000,trigger:'CBBI ≥ 85 OR first V7 TOP signal'},
-    {tier:'S2',sellPct:30,targetPrice:200000,trigger:'Two V7 TOP signals (~median peak)'},
-    {tier:'S3',sellPct:20,targetPrice:275000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
-    {tier:'S4',sellPct:10,targetPrice:400000,trigger:'Trailing stop / blow-off top wick'}]}]};
+    {tier:'S1',sellPct:40,targetPrice:140000,trigger:'CBBI ≥ 85 OR first V7 TOP signal'},
+    {tier:'S2',sellPct:30,targetPrice:175000,trigger:'Two V7 TOP signals (~median peak)'},
+    {tier:'S3',sellPct:20,targetPrice:220000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
+    {tier:'S4',sellPct:10,targetPrice:300000,trigger:'Trailing stop / blow-off top wick — OR dump remainder if CBBI ≥ 88 with tiers still open'}]}]};
 let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
 let ONCHAIN=null,CBBI_VAL=null,FNG_NOW=null; // live on-chain bottom signals (btc-price ?ma200w=1)
 const BEAR_START='2025-10-06'; // canonical cycle top ($124,824) — bear-clock anchor
