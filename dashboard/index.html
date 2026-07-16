@@ -682,8 +682,9 @@ const PLAN={totalBudget:165182,targetBTC:2.78,phases:[
     {tier:'T5a',target:4000,targetPrice:40000,fallbackDate:'2027-03-31'},
     {tier:'T5b',target:4000,targetPrice:38000,fallbackDate:'2027-03-31'}]},
   {id:'p4',name:'Phase 4 — Bull Hold',start:'2027-04-01',end:'2029-05-31',lumpTiers:[]},
-  // Sell tiers calibrated to diminishing-returns 2029 peak (~$425K median).
-  // Old exits blended $170K — way too conservative. New blend = $415K.
+  // Sell tiers recalibrated (commit 343c0ca) via low-to-high multiplier method —
+  // this superseded the $425K-median/$415K-blend rainbow-band calibration below.
+  // Current S1-S4 (150K/200K/275K/400K @ 40/30/20/10%) blend to ~$215K/BTC.
   {id:'p5',name:'Phase 5 — Distribution',start:'2029-06-01',end:'2029-12-31',lumpTiers:[
     {tier:'S1',sellPct:40,targetPrice:150000,trigger:'CBBI ≥ 85 OR first V7 TOP signal'},
     {tier:'S2',sellPct:30,targetPrice:200000,trigger:'Two V7 TOP signals (~median peak)'},
