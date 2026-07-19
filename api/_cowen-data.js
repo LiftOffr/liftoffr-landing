@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "q0-LgUAyf-o",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "S&P 500: Seasonal Correction Starting in August/September?",
+    "published": "2026-07-19T00:48:37+00:00",
+    "processed_at": "2026-07-19T01:54:51.127939+00:00",
+    "url": "https://www.youtube.com/watch?v=q0-LgUAyf-o",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Year-to-date ROI seasonality",
+      "Four-year cycle"
+    ],
+    "key_points": [
+      "Historical midterm-year seasonality shows the S&P 500 typically tops in August or September before dropping 10-20%",
+      "The last three midterm years (2022, 2018, 2014) all followed a pattern of early correction, summer rally, then a larger back-half-of-year decline",
+      "Current price action mirrors this pattern, with a shallow June correction followed by a July rally, suggesting a bigger correction is likely in August-September",
+      "Bitcoin's market cycle bottom has historically coincided with this seasonal stock market correction in the back half of midterm years",
+      "A potential catalyst for the anticipated correction could be weakness in the semiconductor sector after its elevated run"
+    ],
+    "summary": "Seasonal patterns from the last three midterm years point to a 10-20% S&P 500 correction likely developing in the August-September timeframe, following the current relief rally. Because Bitcoin's four-year cycle low has historically aligned with these stock market corrections in the back half of midterm years, a synchronized downturn across both markets is expected, potentially marking Bitcoin's major cycle bottom."
+  },
+  {
     "video_id": "XQN1M-sIuGs",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1467,40 +1492,5 @@ export default [
       "Base case scenario expects weakness later in year rather than immediate May selloff; could see bottom in May only if sharp sell-off follows gains like 2018, but more likely bottom occurs later"
     ],
     "summary": "Ben Cowen sees Bitcoin in a typical bear market countertrend rally similar to 2018, not necessarily following 'sell in May' seasonality. While the 21-week EMA support and recent four-week gains suggest strength through end of April, he expects weakness to return in summer around FOMC and BoJ meetings, with base case for a lower bottom later in the year rather than May."
-  },
-  {
-    "video_id": "Nt96daUeqm8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Market Discussion with Gareth Soloway, Mike McGlone, And Scott Melker",
-    "published": "2026-04-23T19:41:27+00:00",
-    "processed_at": "2026-05-04T23:48:41.893300+00:00",
-    "url": "https://www.youtube.com/watch?v=Nt96daUeqm8",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      80000,
-      60000,
-      50000,
-      84000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "ROI from low",
-      "perpetual swap funding rates",
-      "unemployment rate",
-      "stock market volatility",
-      "S&P 500 divided by unemployment rate squared",
-      "initial claims"
-    ],
-    "key_points": [
-      "Bitcoin is at the higher end of typical midterm year performance; next major weakness window likely June-July, with potential test of October lows before year-end",
-      "Despite 30% rally from $60k lows, funding rates on perpetual swaps remain negative\u2014indicating lack of conviction and a most-hated rally historically",
-      "Bitcoin and crypto underperforming relative to stock market; copper lagging suggests late-cycle peak, and crypto should not outperform without broader market strength",
-      "Stock market volatility at 10-year lows while commodities surge is unsustainable; stock market cap-to-GDP at highest since 1929/1936 signals reversion risk",
-      "Business cycle likely extends beyond 2025; initial claims must reach 300k+ for recession confirmation, but geopolitical risks and debt dynamics create structural headwinds"
-    ],
-    "summary": "Benjamin Cowen maintains a bearish outlook on Bitcoin and crypto over the next 6-12 months, expecting weakness into summer followed by a potential October low in typical midterm-year fashion. While he acknowledges near-term potential to reach $84k, he views the current rally as unhealthy given negative funding rates and crypto's failure to outperform as a leading indicator. He expects eventual mean reversion in stock market valuations and a business cycle peak, though the timing remains uncertain and could extend into 2028."
   }
 ];
