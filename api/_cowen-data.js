@@ -3,6 +3,35 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "OZAQDVkVuG8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Ethereum: Dubious Speculation",
+    "published": "2026-07-20T01:24:49+00:00",
+    "processed_at": "2026-07-20T01:55:32.583337+00:00",
+    "url": "https://www.youtube.com/watch?v=OZAQDVkVuG8",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Bull Market Support Band",
+      "Bear Market Resistance Band",
+      "20-month moving average",
+      "Social risk/social participation indicator",
+      "On-chain indicators",
+      "Year-to-date ROI comparison"
+    ],
+    "key_points": [
+      "Ethereum does not always bottom in sync with Bitcoin, as seen in 2022 when it printed a higher low while Bitcoin made a lower low",
+      "Structural similarities between 2026 and 2018 (same election cycle timing, similar low and sweep pattern) raise the risk that Ethereum could break down hard in August-September like it did in 2018, unlike the milder 2022 outcome",
+      "Low social participation and interest in crypto currently resembles 2018 conditions more than 2022, increasing risk of a deeper altcoin selloff due to lack of buyers",
+      "A potential rate hike scare in the September-October window could trigger one more leg down in the ETH/BTC pair before a macro higher low forms",
+      "The outcome is expected to fall somewhere between the 2018 (~80% drop) and 2022 (~40% drop) scenarios, with the key test period being August through October"
+    ],
+    "summary": "Ethereum's price action for the rest of the year is expected to hinge on Bitcoin's performance during the seasonal window of weakness in August-September, with low current social participation raising the risk of a deeper pullback than 2022 but not as severe as 2018. A drop of roughly 40% from a local high, potentially sweeping toward the April 2025 low, is viewed as the more likely outcome, with a possible additional leg down against Bitcoin around a September-October rate hike scare before a durable higher low and eventual break above the bear market resistance band, likely not until next year."
+  },
+  {
     "video_id": "q0-LgUAyf-o",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1459,38 +1488,5 @@ export default [
       "Bitcoin may have entered an oscillating pattern against gold rather than maintaining outperformance"
     ],
     "summary": "Bitcoin's performance against gold has deteriorated significantly since December 2024, declining 60% and approaching historical bear market resistance levels. Based on similar rejection patterns in 2014, 2018, and 2022, Cowen expects gold to outperform Bitcoin for the rest of the year, with Bitcoin entering a cyclical oscillation against gold rather than demonstrating sustained strength."
-  },
-  {
-    "video_id": "ltLH5NOqxiU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "NFA Live! Bitcoin in 2026!",
-    "published": "2026-04-23T13:40:20+00:00",
-    "processed_at": "2026-05-04T23:48:49.214371+00:00",
-    "url": "https://www.youtube.com/watch?v=ltLH5NOqxiU",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      75000,
-      77000,
-      78000,
-      85000
-    ],
-    "indicators_mentioned": [
-      "21-week EMA",
-      "200-week moving average",
-      "Heikin-Ashi candles",
-      "50-day moving average",
-      "200-day moving average",
-      "Bitcoin dominance"
-    ],
-    "key_points": [
-      "Countertrend rallies in bear markets are difficult to time; current rally similar to 2018 pattern with February low, April higher low, and sustained strength through April-May",
-      "Seasonality suggests weakness will return later in summer around FOMC meetings and Bank of Japan rate decisions, not necessarily following strict 'sell in May' pattern",
-      "Bear market structure remains intact on monthly Heikin-Ashi candles which typically stay red throughout; golden cross between 50-day and 200-day MA still several weeks away at 85k level",
-      "Base case scenario expects weakness later in year rather than immediate May selloff; could see bottom in May only if sharp sell-off follows gains like 2018, but more likely bottom occurs later"
-    ],
-    "summary": "Ben Cowen sees Bitcoin in a typical bear market countertrend rally similar to 2018, not necessarily following 'sell in May' seasonality. While the 21-week EMA support and recent four-week gains suggest strength through end of April, he expects weakness to return in summer around FOMC and BoJ meetings, with base case for a lower bottom later in the year rather than May."
   }
 ];
