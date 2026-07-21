@@ -11,21 +11,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Torin Christianson — LiftOffr Links</title>
-<meta name="description" content="Free BTC Cycle Top Checklist, daily signals, course, and community. Pick where you want to start.">
+<title>Torin Christianson — LiftOffr</title>
+<meta name="description" content="The LiftOffr Score reads the Bitcoin cycle every week. See where we are — free for 7 days, no card.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://liftoffr.com/links/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://liftoffr.com/links/">
 <meta property="og:title" content="Torin Christianson — LiftOffr">
-<meta property="og:description" content="Free BTC Cycle Top Checklist, daily signals, and the LiftOffr community.">
+<meta property="og:description" content="The LiftOffr Score reads the Bitcoin cycle every week. Free for 7 days, no card.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Torin Christianson — LiftOffr">
-<meta name="twitter:description" content="Free BTC Cycle Top Checklist, daily signals, and the LiftOffr community.">
+<meta name="twitter:description" content="The LiftOffr Score reads the Bitcoin cycle every week. Free for 7 days, no card.">
 <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +37,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     --red: #e63946;
     --green: #26d07c;
     --bg: #060910;
-    --card: rgba(255,255,255,0.04);
     --border: rgba(255,255,255,0.09);
     --text: #e9eef7;
     --muted: #8793a8;
@@ -56,304 +55,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-family: 'Inter', sans-serif;
     line-height: 1.5;
     min-height: 100vh;
-    padding: 48px 20px;
+    padding: 34px 20px;
   }
   .wrap { max-width: 480px; margin: 0 auto; }
-  .header { text-align: center; margin-bottom: 40px; }
-  .avatar {
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    background: #1a1a1a;
-    border: 3px solid var(--red);
+
+  /* IDENTITY */
+  .lh-identity {
     display: flex; align-items: center; justify-content: center;
-    font-size: 32px; font-weight: 900;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(230,57,70,0.3);
-  }
-  .avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .avatar { font-size: 0; line-height: 0; } /* hide alt text overflow if image fails */
-  h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.8px; margin-bottom: 6px; }
-  h1 span { color: var(--red); }
-  .tagline { font-size: 14px; color: var(--muted); margin-bottom: 4px; }
-  .stats { font-size: 12px; color: #555; margin-top: 8px; letter-spacing: 0.5px; }
-  .stats span { color: var(--red); font-weight: 800; }
-
-  /* PRIMARY (lead magnet) — visually loudest, with inline form */
-  .link-primary {
-    display: block;
-    background: linear-gradient(135deg, var(--red) 0%, #c12838 100%);
-    color: #fff;
-    padding: 20px 22px;
-    border-radius: 14px;
-    text-align: center;
-    margin-bottom: 14px;
-    box-shadow: 0 8px 30px rgba(230,57,70,0.35);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .link-primary .lp-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: 0.85; margin-bottom: 6px; }
-  .link-primary .lp-title { font-size: 19px; font-weight: 900; letter-spacing: -0.3px; }
-  .link-primary .lp-sub { font-size: 12px; opacity: 0.85; margin-top: 4px; margin-bottom: 14px; }
-  .lp-form { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-  .lp-form input { width: 100%; padding: 12px 14px; border-radius: 8px; border: none; background: rgba(0,0,0,0.25); color: #fff; font-size: 15px; font-family: inherit; outline: none; }
-  .lp-form input::placeholder { color: rgba(255,255,255,0.55); }
-  .lp-form button { width: 100%; padding: 12px; background: #fff; color: #c12838; border: none; border-radius: 8px; font-weight: 800; font-size: 14px; cursor: pointer; font-family: inherit; letter-spacing: 0.3px; }
-  .lp-form button:disabled { opacity: 0.65; }
-  .lp-msg { display: none; margin-top: 10px; font-size: 13px; line-height: 1.5; }
-  .lp-tiny { font-size: 10px; opacity: 0.65; margin-top: 8px; letter-spacing: 0.4px; }
-
-  /* JOIN — secondary loudest, dark with red glow */
-  .link-join {
-    display: flex; align-items: center; gap: 14px;
-    background: linear-gradient(158deg, rgba(230,57,70,0.16), rgba(230,57,70,0.04));
-    border: 1px solid rgba(230,57,70,0.5);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    color: #fff;
-    padding: 18px 20px;
-    border-radius: 16px;
-    text-decoration: none;
-    margin-bottom: 14px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 10px 30px rgba(230,57,70,0.20);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .link-join:hover { transform: translateY(-1px); box-shadow: 0 10px 32px rgba(230,57,70,0.32); }
-  .link-join .lj-icon { width: 40px; height: 40px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--red); border-radius: 10px; }
-  .link-join .lj-text { flex: 1; }
-  .link-join .lj-title { font-weight: 900; font-size: 15px; letter-spacing: -0.2px; }
-  .link-join .lj-sub { font-size: 12px; color: #ccc; margin-top: 3px; }
-  .link-join .lj-arrow { color: var(--red); font-size: 20px; font-weight: 800; }
-  .link-join .lj-stock { font-size: 10px; color: var(--red); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px; }
-  .link-join .lj-stock:empty { display: none; }
-  .link-join-alt { display: block; text-align: center; margin: -6px 0 4px; padding: 8px 12px; font-size: 12px; font-weight: 700; color: #aaa; text-decoration: none; border-radius: 10px; transition: color .15s; }
-  .link-join-alt:hover { color: #fff; }
-
-  /* PROOF — track record card */
-  .link-proof {
-    display: flex; align-items: center; gap: 14px;
-    background: linear-gradient(158deg, rgba(38,208,124,0.10), rgba(255,255,255,0.012));
-    border: 1px solid rgba(38,208,124,0.35);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    box-shadow: var(--glass-sh);
-    color: #fff;
-    padding: 16px 20px;
-    border-radius: 14px;
-    text-decoration: none;
-    margin-bottom: 14px;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .link-proof:hover { transform: translateY(-1px); border-color: #22c55e; }
-  .link-proof .lpr-icon { width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; background: rgba(34,197,94,0.12); border-radius: 8px; }
-  .link-proof .lpr-text { flex: 1; }
-  .link-proof .lpr-title { font-weight: 800; font-size: 15px; }
-  .link-proof .lpr-sub { font-size: 12px; color: #22c55e; margin-top: 2px; font-weight: 700; }
-  .link-proof .lpr-arrow { color: #22c55e; font-size: 18px; opacity: 0.7; }
-
-  .section-label { text-align: center; font-size: 11px; color: #555; margin: 20px 0 12px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
-
-  /* STANDARD LINK */
-  .link {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: var(--glass);
-    border: var(--glass-bd);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    box-shadow: var(--glass-sh);
-    color: #fff;
-    padding: 16px 20px;
-    border-radius: 14px;
-    margin-bottom: 12px;
-    text-decoration: none;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .link:hover { border-color: var(--red); transform: translateY(-1px); }
-  .link-icon { width: 36px; height: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; background: rgba(230,57,70,0.1); border-radius: 8px; }
-  .link-text { flex: 1; }
-  .link-title { font-weight: 700; font-size: 15px; }
-  .link-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .link-arrow { color: var(--red); font-size: 18px; opacity: 0.5; }
-
-  /* MEMBERSHIP — last, separated */
-  .link-member {
-    background: linear-gradient(158deg, rgba(230,57,70,0.10), rgba(255,255,255,0.012));
-    border-color: rgba(230,57,70,0.4);
-    margin-top: 24px;
-  }
-
-  footer { text-align: center; margin-top: 40px; font-size: 11px; color: #444; }
-  footer a { color: var(--red); text-decoration: none; }
-
-  /* OUTCOME LINE — bold one-liner that sets up the page intent */
-  .outcome-line {
-    text-align: center;
-    font-size: 17px;
-    font-weight: 800;
-    line-height: 1.3;
-    letter-spacing: -0.3px;
-    color: #fff;
-    margin: 8px 4px 22px;
-  }
-  .outcome-line em { font-style: normal; color: var(--red); }
-
-  /* PROOF CARD — green-accented backtest stats, mirrors homepage hero-proof */
-  .lh-proof {
-    display: block;
-    background: linear-gradient(158deg, rgba(38,208,124,0.10), rgba(255,255,255,0.012));
-    border: 1px solid rgba(38,208,124,0.35);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    box-shadow: var(--glass-sh);
-    border-radius: 16px;
-    padding: 15px 18px 13px;
-    margin-bottom: 18px;
-    text-decoration: none;
-    color: #fff;
-    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
-  }
-  .lh-proof:hover {
-    transform: translateY(-1px);
-    border-color: rgba(34,197,94,0.65);
-    box-shadow: 0 6px 20px rgba(34,197,94,0.14);
-  }
-  .lh-proof-eyebrow {
-    font-size: 9.5px; font-weight: 800;
-    letter-spacing: 1.8px; text-transform: uppercase;
-    color: #22c55e;
-    margin-bottom: 9px;
-    text-align: center;
-  }
-  .lh-proof-row { display: flex; align-items: center; justify-content: center; gap: 18px; }
-  .lh-proof-stat { text-align: center; }
-  .lh-proof-num {
-    font-family: 'JetBrains Mono', SF Mono, Menlo, monospace;
-    font-size: 18px; font-weight: 800;
-    letter-spacing: -0.5px;
-    color: #22c55e;
-    line-height: 1.1;
-  }
-  .lh-proof-num .arrow { color: #fff; padding: 0 4px; opacity: 0.55; font-weight: 500; }
-  .lh-proof-lbl { font-size: 10px; color: #aaa; margin-top: 3px; letter-spacing: 0.3px; }
-  .lh-proof-divider { width: 1px; height: 30px; background: #2a2a2a; }
-  .lh-proof-cta { margin-top: 10px; font-size: 11px; font-weight: 800; color: #22c55e; text-align: center; letter-spacing: 0.5px; }
-
-  /* SKIP-AHEAD CTA — appears inside the lead-magnet form success state.
-     Lets the visitor jump straight to Whop instead of waiting 5 days for nurture. */
-  .lp-skip {
-    display: block;
-    margin-top: 14px;
-    padding: 11px 14px;
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.22);
-    border-radius: 9px;
-    color: #fff;
+    gap: 10px;
+    margin: 0 0 14px;
     font-size: 13px;
-    font-weight: 800;
-    text-decoration: none;
+    color: #ccc;
+  }
+  .lh-identity .id-avatar {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    border: 2px solid var(--red);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .lh-identity .id-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lh-identity .id-text { text-align: left; line-height: 1.3; }
+  .lh-identity .id-name { font-weight: 800; color: #fff; font-size: 14px; }
+  .lh-identity .id-tag  { color: #888; font-size: 11px; }
+
+  /* PROMISE H1 */
+  .promise {
     text-align: center;
-    transition: background 0.18s, border-color 0.18s;
+    font-size: 21px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    color: #fff;
+    margin: 0 2px 18px;
   }
-  .lp-skip:hover { background: rgba(0,0,0,0.6); border-color: #fff; }
-  .lp-skip-eyebrow { display: block; font-size: 10px; font-weight: 700; opacity: 0.65; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .promise em { font-style: normal; color: var(--red); }
 
-  /* TESTIMONIALS — three Discord-styled cards from the homepage */
-  .lh-testimonials { margin: 28px 0 22px; }
-  .lh-testimonials-label {
-    text-align: center;
-    font-size: 11px; color: #555;
-    margin-bottom: 14px;
-    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;
-  }
-  .lh-test {
-    background: var(--glass);
-    border: var(--glass-bd);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    box-shadow: var(--glass-sh);
-    border-radius: 12px;
-    padding: 12px 14px;
-    margin-bottom: 10px;
-  }
-  .lh-test-bar {
-    font-size: 11px; color: #888;
-    margin-bottom: 8px; font-weight: 700;
-  }
-  .lh-test-bar .hash { color: #555; margin-right: 2px; }
-  .lh-test-body { display: flex; gap: 10px; }
-  .lh-test-avatar {
-    width: 28px; height: 28px;
-    border-radius: 50%; flex-shrink: 0;
-    overflow: hidden; background: #1a1a1a;
-  }
-  .lh-test-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .lh-test-content { flex: 1; min-width: 0; }
-  .lh-test-meta { font-size: 10.5px; color: #888; margin-bottom: 3px; }
-  .lh-test-name { color: #fff; font-weight: 700; margin-right: 6px; }
-  .lh-test-text { font-size: 13px; color: #ddd; line-height: 1.5; }
-
-  /* COMPACT SOCIALS — replaces the 5 prominent link cards. Demoted to a single row. */
-  .lh-socials { margin: 28px 0 12px; text-align: center; }
-  .lh-socials-label {
-    font-size: 11px; color: #555;
-    margin-bottom: 12px;
-    letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700;
-  }
-  .lh-socials-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-  .lh-social {
-    display: flex; align-items: center; gap: 6px;
-    padding: 8px 12px;
-    background: var(--glass);
-    border: var(--glass-bd);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    border-radius: 9px;
-    font-size: 12px; font-weight: 700;
-    color: #ccc; text-decoration: none;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .lh-social:hover { border-color: var(--red); color: #fff; }
-  .lh-social-icon { font-size: 13px; }
-
-  /* TOOLS — affiliate cards. Same card language as the rest of the page. */
-  .lh-tools { margin: 8px 0 12px; }
-  .lh-tool {
-    display: flex; align-items: center; gap: 12px;
-    padding: 13px 16px; margin-bottom: 8px;
-    background: var(--card);
-    border: 1px solid #1e1e1e;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: border-color 0.2s;
-  }
-  .lh-tool:hover { border-color: var(--red); }
-  .lh-tool-icon { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
-  .lh-tool-name { font-size: 14px; font-weight: 800; color: #fff; }
-  .lh-tool-sub { font-size: 12px; color: #8a8a8a; margin-top: 1px; }
-  .lh-tool-arrow { margin-left: auto; color: #555; font-weight: 700; }
-  .lh-tools-disclosure { font-size: 10px; color: #444; text-align: center; margin-top: 6px; }
-
-  /* SITE LINK — kept but compact, single row */
-  .lh-site {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 16px;
-    background: var(--glass);
-    border: var(--glass-bd);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    border-radius: 11px;
-    color: #ddd; text-decoration: none;
-    margin-top: 18px;
-    font-size: 13px; font-weight: 700;
-    transition: border-color 0.2s;
-  }
-  .lh-site:hover { border-color: var(--red); }
-  .lh-site .arrow { color: var(--red); font-weight: 800; }
-
-  /* LIVE LIFTOFFR SCORE — proves the product is running RIGHT NOW.
-     Pulls real data from /api/cycle-score. This is evidence, not claims. */
+  /* SCOREBOARD HERO */
   .lh-score {
     background: var(--glass);
     border: var(--glass-bd);
     backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
     box-shadow: var(--glass-sh);
     border-radius: 18px;
-    padding: 20px 16px 18px;
-    margin-bottom: 16px;
+    padding: 20px 16px 16px;
+    margin-bottom: 14px;
     text-align: center;
   }
   .lh-score-eyebrow {
@@ -371,7 +118,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   .lh-score-num {
     font-family: 'JetBrains Mono', SF Mono, Menlo, monospace;
-    font-size: 56px; font-weight: 700;
+    font-size: 58px; font-weight: 700;
     letter-spacing: -2px; line-height: 1;
     color: #fff;
   }
@@ -382,70 +129,127 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     color: #999;
   }
   .lh-score-trend {
-    margin-top: 10px;
+    margin-top: 9px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px; color: #888;
   }
-  .lh-score-commentary {
-    margin-top: 12px;
-    font-size: 13px; color: #ccc;
-    font-style: italic;
-    line-height: 1.5;
-    max-width: 340px;
-    margin-left: auto; margin-right: auto;
-  }
-  .lh-score-asof {
-    margin-top: 10px;
-    font-size: 10px; color: #555;
-    letter-spacing: 0.5px;
-  }
-  .lh-score-cta {
-    margin-top: 12px;
-    font-size: 11px;
-    color: #777;
-    line-height: 1.5;
-  }
-  .lh-score-cta b { color: var(--red); }
 
-  /* PAST CALLS TIMELINE — falsifiable timestamped evidence of the framework working */
+  /* LOCKED ACTION LINE — the curiosity gap. Real commentary, CSS-gated. */
+  .lh-locked {
+    position: relative;
+    margin: 14px auto 0;
+    max-width: 360px;
+    border-top: 1px solid var(--border);
+    padding-top: 13px;
+  }
+  .lh-locked-label {
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 1.6px; text-transform: uppercase;
+    color: #999;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  .lh-locked-text {
+    font-size: 13px; color: #ddd;
+    line-height: 1.55;
+    text-align: left;
+    filter: blur(7px);
+    user-select: none;
+    pointer-events: none;
+  }
+  .lh-locked-pill {
+    position: absolute;
+    left: 50%; top: 58%;
+    transform: translate(-50%, -50%);
+    background: rgba(6,9,16,0.85);
+    border: 1px solid rgba(230,57,70,0.5);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 11px; font-weight: 800;
+    color: #fff;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+  }
+  .lh-locked-pill .lock { color: var(--red); margin-right: 5px; }
+
+  /* PRIMARY CTA */
+  .link-join {
+    display: flex; align-items: center; gap: 14px;
+    background: linear-gradient(135deg, var(--red) 0%, #c12838 100%);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #fff;
+    padding: 18px 20px;
+    border-radius: 16px;
+    text-decoration: none;
+    margin-bottom: 10px;
+    box-shadow: 0 10px 30px rgba(230,57,70,0.32);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .link-join:hover { transform: translateY(-1px); box-shadow: 0 12px 34px rgba(230,57,70,0.45); }
+  .link-join .lj-text { flex: 1; }
+  .link-join .lj-stock { font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; opacity: 0.9; margin-bottom: 5px; }
+  .link-join .lj-title { font-weight: 900; font-size: 17px; letter-spacing: -0.2px; }
+  .link-join .lj-sub { font-size: 12px; opacity: 0.88; margin-top: 4px; }
+  .link-join .lj-arrow { font-size: 22px; font-weight: 800; }
+  .lj-reassure { text-align: center; font-size: 11.5px; color: #8a8a8a; margin: 0 0 16px; }
+
+  /* SINGLE NAMED TESTIMONIAL — static, directly under the CTA */
+  .lh-test {
+    background: var(--glass);
+    border: var(--glass-bd);
+    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--glass-sh);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+  }
+  .lh-test-bar { font-size: 11px; color: #888; margin-bottom: 8px; font-weight: 700; }
+  .lh-test-bar .hash { color: #555; margin-right: 2px; }
+  .lh-test-body { display: flex; gap: 10px; }
+  .lh-test-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%; flex-shrink: 0;
+    overflow: hidden; background: #1a1a1a;
+  }
+  .lh-test-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .lh-test-content { flex: 1; min-width: 0; }
+  .lh-test-meta { font-size: 10.5px; color: #888; margin-bottom: 3px; }
+  .lh-test-name { color: #fff; font-weight: 700; margin-right: 6px; }
+  .lh-test-text { font-size: 13px; color: #ddd; line-height: 1.5; }
+  .lh-test-note { font-size: 10px; color: #444; text-align: center; margin: -10px 0 18px; }
+
+  /* RECEIPTS — timestamped calls, always visible */
   .lh-calls {
-    margin: 22px 0 18px;
-    padding: 18px 16px;
+    padding: 16px 16px 12px;
     background: var(--glass);
     border: var(--glass-bd);
     backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
     box-shadow: var(--glass-sh);
     border-radius: 16px;
+    margin-bottom: 18px;
   }
   .lh-calls-label {
     text-align: center;
     font-size: 11px; color: #777;
     letter-spacing: 1.8px; text-transform: uppercase;
     font-weight: 800;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   .lh-calls-label em { font-style: normal; color: var(--red); }
   .lh-call {
     display: flex; gap: 12px;
-    padding: 11px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #161616;
   }
   .lh-call:last-child { border-bottom: none; }
-  .lh-call-icon {
-    font-size: 16px;
-    width: 26px; flex-shrink: 0;
-    text-align: center;
-    line-height: 1.4;
-  }
+  .lh-call-icon { font-size: 16px; width: 26px; flex-shrink: 0; text-align: center; line-height: 1.4; }
   .lh-call-icon.sell { color: #ef4444; }
   .lh-call-icon.buy  { color: #22c55e; }
   .lh-call-body { flex: 1; min-width: 0; }
   .lh-call-date {
     font-family: 'JetBrains Mono', SF Mono, Menlo, monospace;
-    font-size: 11px;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 0.3px;
+    font-size: 11px; color: #fff;
+    font-weight: 700; letter-spacing: 0.3px;
     margin-bottom: 3px;
   }
   .lh-call-date .tag {
@@ -456,132 +260,51 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .lh-call-date .tag.sell { color: #ef4444; background: rgba(239,68,68,0.1); }
   .lh-call-date .tag.buy  { color: #22c55e; background: rgba(34,197,94,0.1); }
-  .lh-call-text {
-    font-size: 12.5px; color: #ccc;
-    line-height: 1.5;
-  }
+  .lh-call-date .tag.lock { color: #ccc; background: rgba(255,255,255,0.07); }
+  .lh-call-text { font-size: 12.5px; color: #ccc; line-height: 1.5; }
   .lh-call-text strong { color: #fff; }
-  .lh-calls-note {
-    margin-top: 12px;
-    font-size: 10px; color: #555;
-    text-align: center;
-    line-height: 1.5;
+  .lh-call.locked .lh-call-text { filter: blur(6px); user-select: none; pointer-events: none; }
+  .lh-call.locked { position: relative; }
+  .lh-call.locked .lh-call-cta {
+    position: absolute; left: 38px; bottom: 14px;
+    font-size: 11px; font-weight: 800; color: #fff;
+    background: rgba(6,9,16,0.85);
+    border: 1px solid rgba(230,57,70,0.5);
+    border-radius: 999px;
+    padding: 5px 12px;
+    text-decoration: none;
   }
+  .lh-call.locked .lh-call-cta .lock { color: var(--red); margin-right: 4px; }
+  .lh-calls-note { margin-top: 10px; font-size: 10px; color: #555; text-align: center; line-height: 1.5; }
+  .lh-calls-note a { color: #999; }
 
-  /* COLLAPSIBLE PAST CALLS — native <details> expander, no JS needed.
-     Saves ~300px on first paint; users who want the evidence can open it. */
-  .lh-calls-expander {
-    background: var(--glass);
-    border: var(--glass-bd);
-    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
-    box-shadow: var(--glass-sh);
-    border-radius: 16px;
-    margin: 22px 0 18px;
-  }
-  .lh-calls-expander summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 13px 16px;
-    text-align: center;
-    font-size: 11px; color: #999;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    font-weight: 800;
-    user-select: none;
-  }
-  .lh-calls-expander summary::-webkit-details-marker { display: none; }
-  .lh-calls-expander summary .arrow { color: var(--red); margin-left: 4px; transition: transform 0.2s; display:inline-block; }
-  .lh-calls-expander[open] summary { border-bottom: 1px solid #161616; }
-  .lh-calls-expander[open] summary .arrow { transform: rotate(90deg); }
-  .lh-calls-expander .lh-calls {
-    margin: 0;
-    padding: 8px 16px 14px;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-  }
-  .lh-calls-expander .lh-calls-label { display: none; }
-
-  /* REVIEWS CAROUSEL — auto-advancing, swipe-friendly, pauses on touch */
-  .lh-carousel { margin: 22px 0 8px; overflow: hidden; }
-  .lh-carousel-label {
-    text-align: center; font-size: 11px; color: #555;
-    margin-bottom: 12px; letter-spacing: 1.5px;
-    text-transform: uppercase; font-weight: 700;
-  }
-  .lh-carousel-track {
-    display: flex; gap: 10px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-bottom: 4px;
-  }
-  .lh-carousel-track::-webkit-scrollbar { display: none; }
-  .lh-carousel-track .lh-test {
-    flex: 0 0 100%;
-    scroll-snap-align: center;
-    margin-bottom: 0;
-  }
-  .lh-carousel-dots {
-    display: flex; justify-content: center; gap: 7px;
-    margin-top: 12px;
-  }
-  .lh-carousel-dots .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #2a2a2a;
-    cursor: pointer;
-    transition: background 0.25s, transform 0.25s;
-  }
-  .lh-carousel-dots .dot.active {
-    background: var(--red);
-    transform: scale(1.3);
-  }
-  .lh-carousel-note {
-    font-size: 10px; color: #444;
-    text-align: center; margin-top: 10px;
-    line-height: 1.5;
-  }
-
-  /* COMPACT IDENTITY STRIP (replaces oversized hero avatar) */
-  .lh-identity {
-    display: flex; align-items: center; justify-content: center;
-    gap: 10px;
-    margin: 0 0 18px;
-    font-size: 13px;
-    color: #ccc;
-  }
-  .lh-identity .id-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: #1a1a1a;
-    border: 2px solid var(--red);
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .lh-identity .id-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .lh-identity .id-text { text-align: left; line-height: 1.3; }
-  .lh-identity .id-name { font-weight: 800; color: #fff; font-size: 14px; }
-  .lh-identity .id-tag  { color: #888; font-size: 11px; }
-
-  /* FINAL CTA — closes the page with the offer, not the social links */
+  /* ANCHOR + FINAL CTA */
   .lh-final {
-    margin: 28px 0 22px;
     padding: 22px 18px;
     background: linear-gradient(135deg, #1a0606 0%, #0d0202 100%);
     border: 1px solid var(--red);
-    border-radius: 14px;
+    border-radius: 16px;
     text-align: center;
     box-shadow: 0 6px 28px rgba(230,57,70,0.18);
+    margin-bottom: 18px;
   }
-  .lh-final-eyebrow {
-    font-size: 10px; font-weight: 800;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--red);
-    margin-bottom: 10px;
+  .lh-anchor {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    margin-bottom: 14px;
   }
+  .lh-anchor-item { text-align: center; }
+  .lh-anchor-price {
+    font-family: 'JetBrains Mono', SF Mono, Menlo, monospace;
+    font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+  }
+  .lh-anchor-item.ref .lh-anchor-price { color: #999; }
+  .lh-anchor-item.pick .lh-anchor-price { color: #fff; }
+  .lh-anchor-lbl { font-size: 10px; color: #888; margin-top: 3px; letter-spacing: 0.3px; }
+  .lh-anchor-divider { width: 1px; height: 34px; background: #2a1010; }
+  .lh-anchor-item.pick .lh-anchor-lbl b { color: var(--green); font-weight: 800; }
   .lh-final-h {
-    font-size: 22px; font-weight: 900;
-    letter-spacing: -0.5px; line-height: 1.2;
+    font-size: 20px; font-weight: 900;
+    letter-spacing: -0.5px; line-height: 1.25;
     color: #fff;
     margin-bottom: 14px;
   }
@@ -597,13 +320,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     transition: transform 0.18s, box-shadow 0.18s;
   }
   .lh-final-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 22px rgba(230,57,70,0.55); }
-  .lh-final-trust {
-    margin-top: 12px;
-    font-size: 11px; color: #aaa;
-    letter-spacing: 0.3px;
+  .lh-final-trust { margin-top: 11px; font-size: 11px; color: #aaa; letter-spacing: 0.3px; }
+  .lh-final-alt {
+    display: block; margin-top: 10px;
+    font-size: 11.5px; font-weight: 700; color: #888;
+    text-decoration: none;
   }
+  .lh-final-alt:hover { color: #fff; }
 
-  /* STICKY MOBILE CTA — always one tap to the buy decision */
+  /* FOOTER — demoted socials + escape hatch */
+  .lh-socials-row { display: flex; justify-content: center; gap: 14px; margin-bottom: 14px; }
+  .lh-social { font-size: 12px; font-weight: 700; color: #777; text-decoration: none; }
+  .lh-social:hover { color: #fff; }
+  footer { text-align: center; margin-top: 26px; font-size: 11px; color: #444; }
+  footer a { color: #666; text-decoration: none; }
+  .lh-escape {
+    display: block; text-align: center;
+    font-size: 12px; color: #777;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+  .lh-escape b { color: #999; }
+  .lh-escape:hover b { color: #fff; }
+
+  /* STICKY MOBILE CTA */
   .lh-sticky {
     display: none;
     position: fixed; left: 0; right: 0; bottom: 0;
@@ -657,7 +397,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='start'?'trial_start':sl==='founder'?'founder_skip':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='start'?'trial':sl==='founder'?'founder_paynow':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=a.getAttribute('data-cta')||(sl==='start'?'trial_start':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='start'?'trial':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
   window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
 })();
 </script>
@@ -672,384 +412,123 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <div class="wrap">
-  <!-- Identity strip — Torin at the very top -->
-  <div class="lh-identity" style="margin-top:0;">
-    <div class="id-avatar"><img src="/links/torin-avatar.jpg?v=5" alt="Torin Christianson" width="36" height="36" loading="eager"></div>
+  <!-- Identity -->
+  <div class="lh-identity">
+    <div class="id-avatar"><img src="/links/torin-avatar.jpg?v=5" alt="Torin Christianson" width="38" height="38" loading="eager"></div>
     <div class="id-text">
       <div class="id-name">Torin Christianson</div>
       <div class="id-tag">4M+ readers across IG, YouTube, TikTok</div>
     </div>
   </div>
 
-  <!-- Live LiftOffr Score (this week's read) — research's chart-first hero recommendation -->
+  <!-- Promise -->
+  <h1 class="promise">The market has a scoreboard.<br>Most people <em>never look at it.</em></h1>
+
+  <!-- Scoreboard hero: score shown, action gated -->
   <div class="lh-score">
     <div class="lh-score-eyebrow"><span class="pulse"></span>Live · this week's LiftOffr Score</div>
     <div id="lh-score-num" class="lh-score-num">--</div>
     <div id="lh-score-zone" class="lh-score-zone">loading…</div>
     <div id="lh-score-trend" class="lh-score-trend">—</div>
-    <div id="lh-score-commentary" class="lh-score-commentary">—</div>
-    <div id="lh-score-asof" class="lh-score-asof">—</div>
-    <div class="lh-score-cta">Members get this <b>every Sunday at 8am MT</b> with the full breakdown.</div>
-    <a href="/cycle" rel="noopener" style="display:inline-block;margin-top:12px;font-size:13px;font-weight:800;color:var(--red);text-decoration:none;border:1px solid rgba(230,57,70,0.4);border-radius:9px;padding:9px 16px;">📊 See the full live cycle dashboard — free →</a>
+    <div class="lh-locked">
+      <div class="lh-locked-label">What I'm doing about it</div>
+      <div id="lh-locked-text" class="lh-locked-text" aria-hidden="true">The full read covers what this score means for the buy zone this week, which levels I'm watching, and exactly what I'm doing with my own stack right now.</div>
+      <a href="/start" rel="noopener" class="lh-locked-pill" data-cta="score_lock"><span class="lock">&#128274;</span>Members only — unlock free for 7 days</a>
+    </div>
   </div>
 
-  <!-- Whop — 7-day free trial (primary) — placed right after the Score hook -->
-  <a href="/start" rel="noopener" class="link-join">
-    <div class="lj-icon">🚀</div>
+  <!-- Primary CTA -->
+  <a href="/start" rel="noopener" class="link-join" data-cta="hero_trial">
     <div class="lj-text">
-      <div class="lj-stock">🎁 7 days free · no card</div>
-      <div class="lj-title">Start 7 days free</div>
-      <div class="lj-sub">Get this Sunday's full Score + the daily brief, live dashboard & course.</div>
+      <div class="lj-stock">7 days free · no card required</div>
+      <div class="lj-title">Unlock the full read &rarr;</div>
+      <div class="lj-sub">This week's breakdown, the daily brief, the buy plan and the course. Full access from day one.</div>
     </div>
-    <div class="lj-arrow">→</div>
   </a>
-  <div class="lj-reassure" style="text-align:center;font-size:12px;color:#8a8a8a;margin:-2px 0 4px;">🔒 No card required. Full access free for 7 days — nothing charged, ever, unless you choose to stay.</div>
-  <a href="https://liftoffr.com/#pricing" rel="noopener" class="link-join-alt" data-cta-skip>Already sure? Skip the trial — see Core / Pro / Elite plans →</a>
+  <div class="lj-reassure">No card. Nothing charged, ever, unless you choose to stay.</div>
 
-  <!-- Verified backtest proof card -->
-  <a href="https://liftoffr.com/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_hero_proof" class="lh-proof">
-    <div class="lh-proof-eyebrow">Verified backtest · 2017 → 2026</div>
-    <div class="lh-proof-row">
-      <div class="lh-proof-stat">
-        <div class="lh-proof-num">$50<span class="arrow">→</span>$1.88M</div>
-        <div class="lh-proof-lbl">From $50/wk + V7 signals</div>
+  <!-- One named testimonial, adjacent to the CTA -->
+  <div class="lh-test">
+    <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
+    <div class="lh-test-body">
+      <div class="lh-test-avatar" style="image-rendering:pixelated;"><img src="https://api.dicebear.com/9.x/pixel-art/png?seed=Marcus_btc_v2&size=80&backgroundColor=1a1a1a" alt=""></div>
+      <div class="lh-test-content">
+        <div class="lh-test-meta"><span class="lh-test-name">Marcus_btc</span><span>April 3, 2025</span></div>
+        <div class="lh-test-text">In crypto since 2018, never had a system. First cycle with LiftOffr and I actually knew what the indicators were telling me. Sold 60% of my BTC stack when CBBI hit 0.83. Looking very smart now.</div>
       </div>
-      <div class="lh-proof-divider"></div>
-      <div class="lh-proof-stat">
-        <div class="lh-proof-num">+7,602%</div>
-        <div class="lh-proof-lbl">vs pure DCA</div>
-      </div>
-    </div>
-    <div class="lh-proof-cta">See the full backtest →</div>
-  </a>
-
-  <!-- Lead magnet email form — fallback for visitors not ready to start a trial -->
-  <div class="link-primary">
-    <div class="lp-eyebrow">Not ready to start? The buy zone is open —</div>
-    <div class="lp-title">Get the Bear Market Buy-Zone Plan</div>
-    <div class="lp-sub">The 4 price bands I'm buying at + this Sunday's Score · free PDF, instant</div>
-    <form data-lead-form data-medium="links_primary" data-magnet="buyzone" onsubmit="return submitLeadForm(this);" class="lp-form">
-      <input type="email" name="email" required placeholder="your@email.com" autocomplete="email">
-      <button type="submit">Get both — free →</button>
-      <div data-form-body style="display:none"></div>
-      <div data-form-message class="lp-msg"></div>
-    </form>
-    <div class="lp-tiny">Instant delivery · Unsubscribe anytime</div>
-  </div>
-
-  <!-- Past calls — collapsible by default. Native <details>, no JS needed. -->
-  <details class="lh-calls-expander">
-    <summary>See past calls — 3 logged signals<span class="arrow">→</span></summary>
-    <div class="lh-calls">
-      <div class="lh-call">
-        <div class="lh-call-icon buy">↑</div>
-        <div class="lh-call-body">
-          <div class="lh-call-date">Dec 15, 2018 <span class="tag buy">Bottom</span></div>
-          <div class="lh-call-text">Buy signal at $3.2K. <strong>BTC ran 21× to $69K.</strong></div>
-        </div>
-      </div>
-
-      <div class="lh-call">
-        <div class="lh-call-icon buy">↑</div>
-        <div class="lh-call-body">
-          <div class="lh-call-date">Nov 26, 2022 <span class="tag buy">Bottom</span></div>
-          <div class="lh-call-text">Buy signal at $16.5K, days after the FTX collapse. <strong>BTC ran 7.5× to $124,824.</strong></div>
-        </div>
-      </div>
-
-      <div class="lh-call">
-        <div class="lh-call-icon sell">↓</div>
-        <div class="lh-call-body">
-          <div class="lh-call-date">Dec 15, 2024 <span class="tag sell">Top</span></div>
-          <div class="lh-call-text">Sell signal at $104K. BTC peaked Oct 2025 at $124K. <strong>Down 36% since.</strong></div>
-        </div>
-      </div>
-
-      <div class="lh-calls-note">All in the public backtest. <a href="/track-record" style="color:#999;text-decoration:underline;">See the full trade log →</a></div>
-    </div>
-  </details>
-
-  <!-- AUTO-SCROLL REVIEWS CAROUSEL — 3 Discord member testimonials, advances every 5s -->
-  <div class="lh-carousel" id="lh-carousel">
-    <div class="lh-carousel-label">What <span id="lh-member-count">72</span> members say</div>
-    <div class="lh-carousel-track" id="lh-carousel-track">
-
-      <div class="lh-test">
-        <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
-        <div class="lh-test-body">
-          <div class="lh-test-avatar"><img src="https://api.dicebear.com/9.x/notionists/png?seed=kyle_stacks_v2&size=80&backgroundColor=1a1a1a" alt=""></div>
-          <div class="lh-test-content">
-            <div class="lh-test-meta"><span class="lh-test-name">kyle_stacks</span><span>March 19, 2025</span></div>
-            <div class="lh-test-text">The daily brief alone is worth every penny. Used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lh-test">
-        <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
-        <div class="lh-test-body">
-          <div class="lh-test-avatar" style="image-rendering:pixelated;"><img src="https://api.dicebear.com/9.x/pixel-art/png?seed=Marcus_btc_v2&size=80&backgroundColor=1a1a1a" alt=""></div>
-          <div class="lh-test-content">
-            <div class="lh-test-meta"><span class="lh-test-name">Marcus_btc</span><span>April 3, 2025</span></div>
-            <div class="lh-test-text">In crypto since 2018, never had a system. First cycle with LiftOffr and I actually knew what the indicators were telling me. Sold 60% of my BTC stack when CBBI hit 0.83. Looking very smart now.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="lh-test">
-        <div class="lh-test-bar"><span class="hash">#</span>member-wins</div>
-        <div class="lh-test-body">
-          <div class="lh-test-avatar"><img src="https://i.kym-cdn.com/entries/icons/facebook/000/046/344/blue_guy_copy.jpg" alt=""></div>
-          <div class="lh-test-content">
-            <div class="lh-test-meta"><span class="lh-test-name">Tyr</span><span>July 14, 2025</span></div>
-            <div class="lh-test-text">Finally had a system instead of a guess. Followed the cycle confluence into ETH before the July move — first time I traded on data, not gut. The framework is the real deal.</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <div class="lh-carousel-dots" id="lh-carousel-dots">
-      <span class="dot active" data-i="0"></span>
-      <span class="dot" data-i="1"></span>
-      <span class="dot" data-i="2"></span>
-    </div>
-    <div class="lh-carousel-note">Shared with permission · Educational, not financial advice</div>
-  </div>
-
-  <!-- Repeat trial CTA — intent peaks again right after social proof -->
-  <a href="/start" rel="noopener" class="link-join">
-    <div class="lj-icon">🚀</div>
-    <div class="lj-text">
-      <div class="lj-stock">🎁 7 days free · no card</div>
-      <div class="lj-title">Start 7 days free →</div>
-      <div class="lj-sub">Full access from day one. No card — nothing charged automatically.</div>
-    </div>
-    <div class="lj-arrow">→</div>
-  </a>
-
-  <!-- TOOLS I ACTUALLY USE — affiliate section.
-       AFFILIATE IDS: the hrefs below are plain (non-affiliate) links until Torin
-       signs up for each program. Swap each href for the referral URL when ready:
-       - Coinbase:    coinbase.com referral link (app → Settings → Invite friends)
-       - Ledger:      Ledger affiliate program (affiliate.ledger.com)
-       - TradingView: tradingview.com/pricing/?share_your_love=<username>
-       Every buy receipt posted on IG is a Coinbase screenshot; custody discipline
-       is a brand pillar — these three are the only brand-safe affiliate slots. -->
-  <div class="section-label">Tools I actually use</div>
-  <div class="lh-tools">
-    <a href="https://www.coinbase.com" target="_blank" rel="noopener sponsored" class="lh-tool" data-tool="coinbase">
-      <span class="lh-tool-icon">🪙</span>
-      <span>
-        <span class="lh-tool-name">Coinbase</span>
-        <div class="lh-tool-sub">Where every buy you've seen me post gets executed</div>
-      </span>
-      <span class="lh-tool-arrow">→</span>
-    </a>
-    <a href="https://www.ledger.com" target="_blank" rel="noopener sponsored" class="lh-tool" data-tool="ledger">
-      <span class="lh-tool-icon">🔒</span>
-      <span>
-        <span class="lh-tool-name">Ledger</span>
-        <div class="lh-tool-sub">Hardware wallet — not your keys, not your coins</div>
-      </span>
-      <span class="lh-tool-arrow">→</span>
-    </a>
-    <a href="https://www.tradingview.com" target="_blank" rel="noopener sponsored" class="lh-tool" data-tool="tradingview">
-      <span class="lh-tool-icon">📈</span>
-      <span>
-        <span class="lh-tool-name">TradingView</span>
-        <div class="lh-tool-sub">Every chart + indicator I post comes from here</div>
-      </span>
-      <span class="lh-tool-arrow">→</span>
-    </a>
-    <div class="lh-tools-disclosure">Some links may earn LiftOffr a commission at no cost to you.</div>
-  </div>
-  <script>
-    document.addEventListener('click', function(e){
-      var a = e.target.closest('a.lh-tool'); if (!a) return;
-      if (typeof window.track === 'function') {
-        window.track('affiliate_clicked', { tool: a.getAttribute('data-tool') || 'unknown', page: location.pathname });
-      }
-    }, true);
-  </script>
-
-  <!-- DEMOTED SOCIAL CHANNELS — single compressed row instead of 5 prominent cards -->
-  <div class="lh-socials">
-    <div class="lh-socials-label">Find Torin on</div>
-    <div class="lh-socials-row">
-      <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">📺</span><span>YouTube</span></a>
-      <a href="https://www.instagram.com/liftoffr/" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">📊</span><span>@liftoffr</span></a>
-      <a href="https://www.instagram.com/torin_christianson/" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">📸</span><span>@torin</span></a>
-      <a href="https://x.com/LiftOffr_" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">𝕏</span><span>X</span></a>
-      <a href="https://www.tiktok.com/@torin_christianson" target="_blank" rel="noopener me" class="lh-social"><span class="lh-social-icon">🎵</span><span>TikTok</span></a>
     </div>
   </div>
+  <div class="lh-test-note">Shared with permission · Educational, not financial advice</div>
 
-  <script>
-    function getLeadUtms() {
-      try {
-        var u = new URL(location.href);
-        return {
-          utm_source: u.searchParams.get('utm_source') || '',
-          utm_medium: u.searchParams.get('utm_medium') || '',
-          utm_campaign: u.searchParams.get('utm_campaign') || '',
-          utm_content: u.searchParams.get('utm_content') || ''
-        };
-      } catch (e) { return {}; }
-    }
+  <!-- Receipts: timestamped calls + gated current signal -->
+  <div class="lh-calls">
+    <div class="lh-calls-label">Timestamped calls — <em>the receipts</em></div>
 
-    function submitLeadForm(form) {
-      var emailInput = form.querySelector('input[type=email]');
-      var email = (emailInput || {}).value || '';
-      var medium = form.getAttribute('data-medium') || 'links';
-      var btn = form.querySelector('button[type=submit]');
-      var msg = form.querySelector('[data-form-message]');
-      var oldLabel = btn ? btn.textContent : '';
-      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-      if (emailInput) emailInput.disabled = true;
+    <div class="lh-call">
+      <div class="lh-call-icon buy">&#8593;</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Dec 15, 2018 <span class="tag buy">Bottom</span></div>
+        <div class="lh-call-text">Buy signal at $3.2K. <strong>BTC ran 21&times; to $69K.</strong></div>
+      </div>
+    </div>
 
-      var pageUtms = getLeadUtms();
-      var payload = {
-        email: email,
-        magnet: form.getAttribute('data-magnet') || 'checklist',
-        utm_source: pageUtms.utm_source || 'liftoffr',
-        utm_medium: medium,
-        utm_campaign: pageUtms.utm_campaign || 'checklist',
-        utm_content: pageUtms.utm_content || 'links_primary'
-      };
+    <div class="lh-call">
+      <div class="lh-call-icon buy">&#8593;</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Nov 26, 2022 <span class="tag buy">Bottom</span></div>
+        <div class="lh-call-text">Buy signal at $16.5K, days after the FTX collapse. <strong>BTC ran 7.5&times; to $124,824.</strong></div>
+      </div>
+    </div>
 
-      if (typeof window.track === 'function') {
-        window.track('lead_magnet_submit', {
-          source: medium, page: location.pathname,
-          utm_source: payload.utm_source, utm_medium: payload.utm_medium, utm_campaign: payload.utm_campaign
-        });
-      }
+    <div class="lh-call">
+      <div class="lh-call-icon sell">&#8595;</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">Dec 15, 2024 <span class="tag sell">Top</span></div>
+        <div class="lh-call-text">Sell signal at $104K. BTC peaked Oct 2025 at $124K. <strong>Down 36% since.</strong> Members saw it that morning.</div>
+      </div>
+    </div>
 
-      fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).then(function(r){
-        return r.json().then(function(data){ return { ok: r.ok, data: data }; });
-      }).then(function(result){
-        if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
-        form.style.display = 'none';
-        if (msg) {
-          msg.style.display = 'block';
-          msg.style.color = '#fff';
-          // Success state: confirm + offer the direct path to Whop so visitors who
-          // are already sold don't have to wait 5 days for the nurture sequence.
-          msg.innerHTML = '✓ <strong>Check your email</strong> — the checklist is on the way.' +
-            '<a href="/start" rel="noopener" class="lp-skip">' +
-              '<span class="lp-skip-eyebrow">Skip the email · join now</span>' +
-              'See Core / Pro / Elite plans →' +
-            '</a>';
-          form.parentNode.appendChild(msg);
-        }
-        if (typeof window.track === 'function') {
-          window.track('lead_captured', {
-            source: medium,
-            page: location.pathname,
-            utm_source: payload.utm_source,
-            utm_medium: payload.utm_medium,
-            utm_campaign: payload.utm_campaign
-          });
-        }
-      }).catch(function(err){
-        if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
-        if (emailInput) emailInput.disabled = false;
-        if (msg) {
-          msg.style.display = 'block';
-          msg.style.color = '#ffdada';
-          msg.textContent = 'Something went wrong. Try again in a moment.';
-        }
-        console.error('submitLeadForm error:', err);
-      });
+    <div class="lh-call locked">
+      <div class="lh-call-icon buy">&#8593;</div>
+      <div class="lh-call-body">
+        <div class="lh-call-date">This cycle <span class="tag lock">In progress</span></div>
+        <div class="lh-call-text">The next buy zone is mapped: four price bands, tranche sizes, and the confirmation stack I need to see before each one fires.</div>
+        <a href="/start" rel="noopener" class="lh-call-cta" data-cta="calls_lock"><span class="lock">&#128274;</span>Members only</a>
+      </div>
+    </div>
 
-      return false;
-    }
+    <div class="lh-calls-note">Every call above is in the public backtest. <a href="/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_receipts">Verify the full trade log &rarr;</a></div>
+  </div>
 
-    // Live founder spot count
-    (function(){
-      fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
-        if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
-        if (d.remaining <= 0) return;
-        var text = 'Plans from $49/mo · start 7 days free, no card';
-        var els = document.querySelectorAll('[data-founder-text]');
-        for (var i = 0; i < els.length; i++) els[i].textContent = text;
-      }).catch(function(){});
-    })();
+  <!-- Anchor + final CTA -->
+  <div class="lh-final">
+    <div class="lh-anchor">
+      <div class="lh-anchor-item ref">
+        <div class="lh-anchor-price">$497</div>
+        <div class="lh-anchor-lbl">1:1 Cycle Playbook session</div>
+      </div>
+      <div class="lh-anchor-divider"></div>
+      <div class="lh-anchor-item pick">
+        <div class="lh-anchor-price">$49/mo</div>
+        <div class="lh-anchor-lbl">Membership — same system · <b>first 7 days free</b></div>
+      </div>
+    </div>
+    <div class="lh-final-h">Stop guessing. <em>Read the cycle.</em></div>
+    <a href="/start" rel="noopener" class="lh-final-btn" data-cta="final_trial">Start 7 days free &rarr;</a>
+    <div class="lh-final-trust">No card required · Cancel in two clicks · Educational, not financial advice</div>
+    <a href="https://liftoffr.com/#pricing" rel="noopener" class="lh-final-alt" data-cta-skip>Already sure? Skip the trial — see Core / Pro / Elite &rarr;</a>
+  </div>
 
-    // Reviews carousel — auto-advance every 5s, pauses 8s after any user interaction
-    (function(){
-      var track = document.getElementById('lh-carousel-track');
-      var dots  = document.querySelectorAll('#lh-carousel-dots .dot');
-      if (!track || !dots.length) return;
-      var cards = track.children;
-      var idx = 0;
-      var paused = false;
-      var pauseUntil = 0;
-      function setActive(i){
-        idx = (i + cards.length) % cards.length;
-        for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('active', j === idx);
-      }
-      function go(i){
-        idx = (i + cards.length) % cards.length;
-        var card = cards[idx];
-        track.scrollTo({ left: card.offsetLeft, behavior: 'smooth' });
-        setActive(idx);
-      }
-      function pauseFor(ms){ pauseUntil = Date.now() + ms; }
-      // Auto-advance
-      setInterval(function(){
-        if (Date.now() < pauseUntil) return;
-        go(idx + 1);
-      }, 5000);
-      // Dot clicks
-      for (var i = 0; i < dots.length; i++) {
-        (function(i){
-          dots[i].addEventListener('click', function(){ go(i); pauseFor(8000); });
-        })(i);
-      }
-      // Track manual scroll (swipe) — update active dot, pause auto-advance
-      var scrollDebounce;
-      track.addEventListener('scroll', function(){
-        clearTimeout(scrollDebounce);
-        scrollDebounce = setTimeout(function(){
-          var cw = cards[0].offsetWidth + 10; // +gap
-          var newIdx = Math.round(track.scrollLeft / cw);
-          if (newIdx !== idx) setActive(newIdx);
-        }, 80);
-        pauseFor(8000);
-      });
-      track.addEventListener('touchstart', function(){ pauseFor(8000); }, {passive:true});
-    })();
+  <!-- Escape hatch for the not-ready: capture path moved OFF the main flow -->
+  <a href="/buyzone?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_escape" class="lh-escape">Not ready? <b>Get my free Bear Market Buy-Zone Plan &rarr;</b></a>
 
-    // Live LiftOffr Score — pulls /api/cycle-score and renders into the widget
-    (function(){
-      fetch('/api/cycle-score').then(function(r){return r.json();}).then(function(d){
-        if (!d || typeof d.score !== 'number') return;
-        var num = document.getElementById('lh-score-num');
-        var zone = document.getElementById('lh-score-zone');
-        var trend = document.getElementById('lh-score-trend');
-        var comm = document.getElementById('lh-score-commentary');
-        var asof = document.getElementById('lh-score-asof');
-        var zoneColor = {'exit':'#ef4444','warning':'#f97316','neutral':'#fbbf24','accumulation':'#22c55e','deep-accumulation':'#16a34a'}[d.zone] || '#999';
-        var zoneLabel = {'exit':'EXIT ZONE','warning':'WARNING','neutral':'NEUTRAL','accumulation':'ACCUMULATION','deep-accumulation':'DEEP ACCUMULATION'}[d.zone] || (d.zone||'').toUpperCase();
-        if (num) { num.textContent = d.score.toFixed(1); num.style.color = zoneColor; }
-        if (zone) { zone.textContent = zoneLabel; zone.style.color = zoneColor; }
-        if (trend) {
-          var arrow = d.trend === 'rising' ? '▲' : d.trend === 'falling' ? '▼' : '◆';
-          var sign = d.trendDelta7d >= 0 ? '+' : '';
-          trend.textContent = arrow + '  ' + sign + d.trendDelta7d + ' over last 7 days';
-        }
-        if (comm) comm.textContent = d.commentary || '';
-        if (asof && d.asOf) {
-          var dt = new Date(d.asOf);
-          asof.textContent = 'Updated ' + dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-        }
-      }).catch(function(){});
-    })();
-  </script>
+  <div class="lh-socials-row">
+    <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="lh-social">YouTube</a>
+    <a href="https://www.instagram.com/liftoffr/" target="_blank" rel="noopener me" class="lh-social">@liftoffr</a>
+    <a href="https://www.instagram.com/torin_christianson/" target="_blank" rel="noopener me" class="lh-social">@torin</a>
+    <a href="https://x.com/LiftOffr_" target="_blank" rel="noopener me" class="lh-social">X</a>
+    <a href="https://www.tiktok.com/@torin_christianson" target="_blank" rel="noopener me" class="lh-social">TikTok</a>
+  </div>
 
   <footer>
     Educational content only — not financial advice<br>
@@ -1057,11 +536,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 </div>
 
-<!-- Sticky mobile CTA — one tap to checkout, always visible -->
+<!-- Sticky mobile CTA -->
 <div class="lh-sticky">
-  <a href="/start" rel="noopener">Start 7 days free →</a>
+  <a href="/start" rel="noopener" data-cta="sticky_trial">Start 7 days free &rarr;</a>
   <div class="lh-sticky-sub">No card · nothing charged automatically</div>
 </div>
+
+<script>
+  // Live LiftOffr Score — score + zone shown, commentary rendered into the gated (blurred) line
+  (function(){
+    fetch('/api/cycle-score').then(function(r){return r.json();}).then(function(d){
+      if (!d || typeof d.score !== 'number') return;
+      var num = document.getElementById('lh-score-num');
+      var zone = document.getElementById('lh-score-zone');
+      var trend = document.getElementById('lh-score-trend');
+      var locked = document.getElementById('lh-locked-text');
+      var zoneColor = {'exit':'#ef4444','warning':'#f97316','neutral':'#fbbf24','accumulation':'#22c55e','deep-accumulation':'#16a34a'}[d.zone] || '#999';
+      var zoneLabel = {'exit':'EXIT ZONE','warning':'WARNING','neutral':'NEUTRAL','accumulation':'ACCUMULATION','deep-accumulation':'DEEP ACCUMULATION'}[d.zone] || (d.zone||'').toUpperCase();
+      if (num) { num.textContent = d.score.toFixed(1); num.style.color = zoneColor; }
+      if (zone) { zone.textContent = zoneLabel; zone.style.color = zoneColor; }
+      if (trend) {
+        var arrow = d.trend === 'rising' ? '▲' : d.trend === 'falling' ? '▼' : '◆';
+        var sign = d.trendDelta7d >= 0 ? '+' : '';
+        trend.textContent = arrow + '  ' + sign + d.trendDelta7d + ' over last 7 days';
+      }
+      if (locked && d.commentary) locked.textContent = d.commentary + ' ' + locked.textContent;
+    }).catch(function(){});
+  })();
+</script>
 
 </body>
 </html>
