@@ -58,7 +58,7 @@ function email2HTML() {
     </div>
     <p style="margin:18px 0 16px;">By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.</p>
     <p style="margin:0 0 16px;"><strong>Why this matters:</strong> the biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.</p>
-    <p style="margin:0 0 16px;">Members of LiftOffr get this framework as part of the 6-module course, plus a daily 3-minute brief in Discord at 8am MT that says "here's the read, here's what to do today."</p>
+    <p style="margin:0 0 16px;">Members of LiftOffr get this framework as part of the 36-lesson course, plus a daily 3-minute brief in Discord at 8am MT that says "here's the read, here's what to do today."</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
   <div style="padding:0 28px 32px;">
@@ -318,7 +318,7 @@ function trial3HTML() {
        <div>✕ The daily 8am market brief</div>
        <div>✕ The live cycle dashboard + Score</div>
        <div>✕ Real-time signal alerts</div>
-       <div>✕ The 6-module course</div>
+       <div>✕ The 36-lesson course</div>
        <div>✕ The private Discord community</div>
      </div>
      <p style="margin:0 0 8px;">Two options:</p>
@@ -328,17 +328,17 @@ function trial3HTML() {
      </div>
      <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — keep it before it ends.</p>
      <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
-     <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to go deeper than the membership? The <a href="https://liftoffr.com/playbook" style="color:#e63946;">Cycle Playbook</a> is the live cohort where we build your full buy + sell plan together.</p>`,
+     <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to go deeper than the membership? The <a href="https://liftoffr.com/playbook" style="color:#e63946;">Cycle Playbook</a> is a private 1:1 session where we build your full buy + sell plan together.</p>`,
     "Keep my access — go Pro →", TRIAL_CHECKOUT);
 }
 function trial3Text() {
   return ["Straight with you: tomorrow your free week ends and access just switches off. No card on file, so nothing gets charged — it simply lapses unless you keep it.","",
-    "Tomorrow you lose: the daily 8am brief, the live dashboard + Score, real-time signal alerts, the 6-module course, and the private Discord.","",
+    "Tomorrow you lose: the daily 8am brief, the live dashboard + Score, real-time signal alerts, the 36-lesson course, and the private Discord.","",
     "1. KEEP IT — keep all of it with Pro ($99/mo; or Core $49 if you mostly want the daily read):",
     "   " + TRIAL_CHECKOUT,
     "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
     "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr","",
-    "P.S. Want to go deeper? The Cycle Playbook live cohort: https://liftoffr.com/playbook"].join("\n");
+    "P.S. Want to go deeper? The Cycle Playbook — a private 1:1 session: https://liftoffr.com/playbook"].join("\n");
 }
 
 const TSUBJECT_4 = "Your LiftOffr access just lapsed";

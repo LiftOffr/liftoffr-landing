@@ -1329,7 +1329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div style="text-align:center;margin-top:26px;font-size:13px;color:#777;">36 lessons · 6 assessments · 3 member case studies · self-paced, yours from day one of the trial</div>
+    <div style="text-align:center;margin-top:26px;font-size:13px;color:#777;">36 lessons · 6 assessments · 3 member case studies · a <strong style="color:#fff;">$497 value</strong>, included with every tier from day one</div>
     <div style="text-align:center;margin-top:22px;">
       <a href="/start" rel="noopener" class="btn-red-xl">Start Module 1 today — free →</a>
     </div>
@@ -1539,31 +1539,43 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
+    <!-- BILLING TOGGLE — annual default (research: winners default annual, show monthly equivalent) -->
+    <div style="display:flex;justify-content:center;margin:0 0 26px;">
+      <div style="display:inline-flex;background:#111111;border:1px solid #1e1e1e;border-radius:999px;padding:4px;gap:4px;">
+        <button id="bill-monthly" onclick="setBilling('monthly')" style="border:none;background:transparent;color:#888;font-family:inherit;font-size:13px;font-weight:800;padding:9px 18px;border-radius:999px;cursor:pointer;">Monthly</button>
+        <button id="bill-annual" onclick="setBilling('annual')" style="border:none;background:var(--red);color:#fff;font-family:inherit;font-size:13px;font-weight:800;padding:9px 18px;border-radius:999px;cursor:pointer;">Annual · 2+ months free</button>
+      </div>
+    </div>
+
     <div class="pricing-grid">
 
       <!-- CORE -->
-      <div class="ptier">
+      <div class="ptier" data-tier data-m-num="$49" data-y-num="$33" data-m-frame="or $399/yr · save $189" data-y-frame="billed annually — $399 · save $189"
+           data-m-link="https://whop.com/checkout/plan_yi7i0rC444Ssk?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_core"
+           data-y-link="https://whop.com/checkout/plan_kBe5idN105Ipc?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_core_annual">
         <span class="ptier-badge">Core</span>
         <div class="ptier-name">Learn the system + the daily read</div>
-        <div class="ptier-price"><span class="num">$49</span><span class="per">/mo</span></div>
-        <div class="ptier-frame">or $399/yr · <strong>save $189</strong></div>
+        <div class="ptier-price"><span class="strike" data-strike style="display:none;color:#666;text-decoration:line-through;font-size:20px;font-weight:700;margin-right:8px;">$49</span><span class="num" data-num>$49</span><span class="per">/mo</span></div>
+        <div class="ptier-frame" data-frame>or $399/yr · <strong>save $189</strong></div>
         <ul class="ptier-features">
-          <li>Full 6-module course</li>
+          <li>Full 36-lesson course <strong style="color:#fff;">($497 value)</strong></li>
           <li>Live cycle indicator dashboard</li>
           <li>Daily BTC brief (8am MT weekdays)</li>
           <li>Weekly LiftOffr Score</li>
           <li>30-day money-back</li>
         </ul>
-        <a href="https://whop.com/checkout/plan_yi7i0rC444Ssk?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_core" rel="noopener" class="ptier-cta ptier-cta-secondary">Get Core →</a>
-        <div class="ptier-stock"><a href="https://whop.com/checkout/plan_kBe5idN105Ipc?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_core_annual" rel="noopener" style="color:#888;text-decoration:underline;">or pay yearly — $399</a></div>
+        <a data-cta href="https://whop.com/checkout/plan_yi7i0rC444Ssk?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_core" rel="noopener" class="ptier-cta ptier-cta-secondary">Get Core →</a>
+        <div class="ptier-stock"><a data-alt href="https://whop.com/checkout/plan_kBe5idN105Ipc?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_core_annual" rel="noopener" style="color:#888;text-decoration:underline;">or pay yearly — $399</a></div>
       </div>
 
       <!-- PRO (featured) -->
-      <div class="ptier ptier-featured">
+      <div class="ptier ptier-featured" data-tier data-m-num="$99" data-y-num="$66" data-m-frame="or $799/yr · save $389" data-y-frame="billed annually — $799 · save $389"
+           data-m-link="https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_pro"
+           data-y-link="https://whop.com/checkout/plan_nFxTZFYUqmMkx?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_pro_annual">
         <span class="ptier-badge featured">⭐ Most popular</span>
         <div class="ptier-name">The live edge — signals + community</div>
-        <div class="ptier-price"><span class="num">$99</span><span class="per">/mo</span></div>
-        <div class="ptier-frame">or $799/yr · <strong>save $389</strong></div>
+        <div class="ptier-price"><span class="strike" data-strike style="display:none;color:#666;text-decoration:line-through;font-size:20px;font-weight:700;margin-right:8px;">$99</span><span class="num" data-num>$99</span><span class="per">/mo</span></div>
+        <div class="ptier-frame" data-frame>or $799/yr · <strong>save $389</strong></div>
         <ul class="ptier-features">
           <li><strong style="color:#fff;">Everything in Core, plus:</strong></li>
           <li>Live 4hr trade-setup alerts</li>
@@ -1571,16 +1583,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li>Full market-intelligence signals</li>
           <li>Private Discord community</li>
         </ul>
-        <a href="https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_pro" rel="noopener" class="ptier-cta ptier-cta-primary">Get Pro →</a>
-        <div class="ptier-stock">🔥 <strong>Where most members land</strong> · <a href="https://whop.com/checkout/plan_nFxTZFYUqmMkx?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_pro_annual" rel="noopener" style="color:#888;text-decoration:underline;">pay yearly — $799</a></div>
+        <a data-cta href="https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_pro" rel="noopener" class="ptier-cta ptier-cta-primary">Get Pro →</a>
+        <div class="ptier-stock">🔥 <strong>Where most members land</strong> · <a data-alt href="https://whop.com/checkout/plan_nFxTZFYUqmMkx?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_pro_annual" rel="noopener" style="color:#888;text-decoration:underline;">pay yearly — $799</a></div>
       </div>
 
       <!-- ELITE -->
-      <div class="ptier">
+      <div class="ptier" data-tier data-m-num="$249" data-y-num="$166" data-m-frame="or $1,990/yr · save $998" data-y-frame="billed annually — $1,990 · save $998"
+           data-m-link="https://whop.com/checkout/plan_dMb9YIKbWN7ck?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_elite"
+           data-y-link="https://whop.com/checkout/plan_b0whXHoSzqDL1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_elite_annual">
         <span class="ptier-badge">Elite</span>
         <div class="ptier-name">Done with you — proximity + reviews</div>
-        <div class="ptier-price"><span class="num">$249</span><span class="per">/mo</span></div>
-        <div class="ptier-frame">or $1,990/yr · <strong>save $998</strong></div>
+        <div class="ptier-price"><span class="strike" data-strike style="display:none;color:#666;text-decoration:line-through;font-size:20px;font-weight:700;margin-right:8px;">$249</span><span class="num" data-num>$249</span><span class="per">/mo</span></div>
+        <div class="ptier-frame" data-frame>or $1,990/yr · <strong>save $998</strong></div>
         <ul class="ptier-features">
           <li><strong style="color:var(--red);">Everything in Pro, plus:</strong></li>
           <li>Private #elite-lounge</li>
@@ -1588,11 +1602,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li>Portfolio &amp; buy-plan review</li>
           <li>Priority replies</li>
         </ul>
-        <a href="https://whop.com/checkout/plan_dMb9YIKbWN7ck?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_elite" rel="noopener" class="ptier-cta ptier-cta-secondary">Get Elite →</a>
-        <div class="ptier-stock"><a href="https://whop.com/checkout/plan_b0whXHoSzqDL1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_elite_annual" rel="noopener" style="color:#888;text-decoration:underline;">or pay yearly — $1,990</a></div>
+        <a data-cta href="https://whop.com/checkout/plan_dMb9YIKbWN7ck?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_elite" rel="noopener" class="ptier-cta ptier-cta-secondary">Get Elite →</a>
+        <div class="ptier-stock"><a data-alt href="https://whop.com/checkout/plan_b0whXHoSzqDL1?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_elite_annual" rel="noopener" style="color:#888;text-decoration:underline;">or pay yearly — $1,990</a></div>
       </div>
 
     </div>
+
+    <script>
+    function setBilling(mode) {
+      var annual = mode === 'annual';
+      var mBtn = document.getElementById('bill-monthly');
+      var yBtn = document.getElementById('bill-annual');
+      mBtn.style.background = annual ? 'transparent' : 'var(--red)';
+      mBtn.style.color = annual ? '#888' : '#fff';
+      yBtn.style.background = annual ? 'var(--red)' : 'transparent';
+      yBtn.style.color = annual ? '#fff' : '#888';
+      document.querySelectorAll('[data-tier]').forEach(function(t) {
+        t.querySelector('[data-num]').textContent = annual ? t.getAttribute('data-y-num') : t.getAttribute('data-m-num');
+        t.querySelector('[data-strike]').style.display = annual ? 'inline' : 'none';
+        var frame = t.querySelector('[data-frame]');
+        frame.textContent = annual ? t.getAttribute('data-y-frame') : t.getAttribute('data-m-frame');
+        t.querySelector('[data-cta]').href = annual ? t.getAttribute('data-y-link') : t.getAttribute('data-m-link');
+        var alt = t.querySelector('[data-alt]');
+        alt.href = annual ? t.getAttribute('data-m-link') : t.getAttribute('data-y-link');
+        alt.textContent = annual ? ('or monthly — ' + t.getAttribute('data-m-num') + '/mo') : ('or pay yearly — ' + t.getAttribute('data-y-frame').split('— ')[1].split(' ·')[0]);
+      });
+      if (typeof gtag === 'function') gtag('event', 'billing_toggle', { mode: mode });
+    }
+    setBilling('annual');
+    </script>
 
     <!-- PROOF AT DECISION POINT — verifiable numbers only -->
     <a href="/track-record?utm_source=liftoffr&utm_medium=homepage&utm_campaign=evergreen&utm_content=pricing_proof" rel="noopener" style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;align-items:center;text-decoration:none;max-width:680px;margin:26px auto 0;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:12px;padding:14px 20px;">
@@ -1848,6 +1886,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
   (function() {
     if (localStorage.getItem('liftoffr_popup_dismissed')) return;
+    // Desktop exit-intent ONLY. The old 6s-timer + 60%-scroll triggers interrupted
+    // the trial path mid-read and are unreliable in the IG webview (dominant mobile traffic).
+    if (window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window) return;
     var popup = document.getElementById('emailPopup');
     var shown = false;
     function showPopup() {
@@ -1855,14 +1896,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       shown = true;
       popup.style.display = 'flex';
     }
-    if (document.readyState === 'complete') {
-      setTimeout(showPopup, 6000);
-    } else {
-      window.addEventListener('load', function() { setTimeout(showPopup, 6000); });
-    }
-    window.addEventListener('scroll', function() {
-      if ((window.scrollY + window.innerHeight) / document.body.scrollHeight > 0.6) showPopup();
-    }, { passive: true });
+    document.addEventListener('mouseout', function(e) {
+      if (!e.relatedTarget && e.clientY <= 0) showPopup();
+    });
   })();
 
   function dismissPopup() {
