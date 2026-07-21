@@ -171,19 +171,21 @@ async function aiWeeklyRead(score) {
   }
 }
 
-async function sendResend(to, subject, text, html) {
+async function sendResend(to, subject, text, html, idempotencyKey) {
   const uu = unsubUrl(to);
   html = (html || "").replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu);
   text = (text || "") + `\n\nUnsubscribe: ${uu}`;
+  const headers = {
+    Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+    "Content-Type": "application/json",
+    "User-Agent": "liftoffr-weekly-score/1.0",
+    "List-Unsubscribe": `<${uu}>`,
+    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+  };
+  if (idempotencyKey) headers["Idempotency-Key"] = idempotencyKey;
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-      "User-Agent": "liftoffr-weekly-score/1.0",
-      "List-Unsubscribe": `<${uu}>`,
-      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
-    },
+    headers,
     body: JSON.stringify({
       from: FROM_ADDRESS,
       to: [to],
@@ -192,13 +194,94 @@ async function sendResend(to, subject, text, html) {
       text,
       html,
       tags: [
-        { name: "campaign", value: "weekly_score" },
+        { name: "campaign", value: idempotencyKey ? "zone_change" : "weekly_score" },
       ],
     }),
   });
   const data = await r.json();
   if (!r.ok) throw new Error(JSON.stringify(data));
   return data.id;
+}
+
+// ── Zone-change alert (daily check, stateless) ───────────────────────────────
+// Compares the two newest daily Score zones from /api/cycle-score?history=7.
+// Fires ONLY when the newest data point crossed into a new zone AND that point
+// is fresh (≤2 days old). Resend Idempotency-Key makes re-runs safe.
+const ZONE_HEADLINES = {
+  "exit": "The Score just entered the EXIT ZONE",
+  "warning": "The Score just entered the WARNING band",
+  "neutral": "The Score just crossed into NEUTRAL",
+  "accumulation": "The Score just entered ACCUMULATION",
+  "deep-accumulation": "The Score just entered DEEP ACCUMULATION",
+};
+
+function zoneChangeText({ from, to, score, date }) {
+  return [
+    `The LiftOffr Score crossed from ${zoneLabel(from)} into ${zoneLabel(to)} on ${date}.`,
+    ``,
+    `Score now: ${score.toFixed(1)} / 100`,
+    ``,
+    `Zone changes are rare — this is the signal the weekly email exists for. Members got the full read and what I'm doing about it in this morning's brief.`,
+    ``,
+    `See the live score: https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert`,
+    `Full system, 7 days free (no card): https://liftoffr.com/start`,
+    ``,
+    `— Torin`,
+    ``,
+    `Educational content only — not financial advice.`,
+  ].join("\n");
+}
+
+function zoneChangeHTML(p) {
+  const color = { "exit": "#ef4444", "warning": "#f97316", "neutral": "#fbbf24", "accumulation": "#22c55e", "deep-accumulation": "#16a34a" }[p.to] || "#999";
+  return `<div style="font-family:-apple-system,Segoe UI,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#222;">
+    <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:14px;">LiftOffr · Zone change alert</div>
+    <h1 style="font-size:21px;margin:0 0 14px;">${ZONE_HEADLINES[p.to] || "The Score changed zones"}</h1>
+    <div style="background:#f7f7f8;border-radius:12px;padding:20px;text-align:center;margin:0 0 18px;">
+      <div style="font-family:ui-monospace,Menlo,monospace;font-size:44px;font-weight:700;color:${color};">${p.score.toFixed(1)}</div>
+      <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:${color};">${zoneLabel(p.to)}</div>
+      <div style="font-size:12px;color:#888;margin-top:6px;">was ${zoneLabel(p.from)} · crossed ${p.date}</div>
+    </div>
+    <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and what I'm doing about it in this morning's brief.</p>
+    <a href="https://liftoffr.com/start?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Unlock the full read — 7 days free →</a>
+    <p style="text-align:center;font-size:12px;"><a href="https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert" style="color:#888;">or watch the live score →</a></p>
+    <p style="font-size:11px;color:#999;margin-top:22px;">Educational content only — not financial advice. <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
+  </div>`;
+}
+
+async function runZoneChangeCheck(baseUrl) {
+  const r = await fetch(`${baseUrl}/api/cycle-score?history=7`);
+  if (!r.ok) throw new Error(`history fetch ${r.status}`);
+  const { history } = await r.json();
+  if (!history || history.length < 2) return { skipped: true, reason: "insufficient history" };
+
+  const [today, yesterday] = history;
+  if (today.zone === yesterday.zone) return { changed: false, zone: today.zone, score: today.score };
+
+  // Freshness guard: only alert if the crossing data point is ≤2 days old
+  // (prevents re-alerting on stale upstream data).
+  const ageDays = (Date.now() - new Date(today.date).getTime()) / 86400000;
+  if (ageDays > 2) return { changed: true, skipped: true, reason: `stale crossing (${today.date})` };
+
+  const payload = { from: yesterday.zone, to: today.zone, score: today.score, date: today.date };
+  const subject = `${ZONE_HEADLINES[today.zone] || "LiftOffr Score zone change"} — ${today.score.toFixed(1)}`;
+  const text = zoneChangeText(payload);
+  const html = zoneChangeHTML(payload);
+  const subs = await fetchResendAudienceContacts();
+
+  const results = { sent: 0, failed: 0, total: subs.length };
+  for (const s of subs) {
+    try {
+      // Idempotency: one send per contact per crossing, even if the cron re-runs.
+      await sendResend(s.email, subject, text, html, `zonechg-${today.date}-${today.zone}-${s.id || s.email}`);
+      results.sent++;
+    } catch (e) {
+      results.failed++;
+    }
+    await new Promise((rr) => setTimeout(rr, 600));
+  }
+  await sendOwnerDM(`🚨 Zone change: ${zoneLabel(payload.from)} → ${zoneLabel(payload.to)} at ${payload.score.toFixed(1)}. Alert emailed to ${results.sent}/${results.total} free subscribers.`).catch(() => {});
+  return { changed: true, ...payload, results };
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -756,6 +839,18 @@ export default async function handler(req, res) {
     } catch (err) {
       console.error("briefing error", err);
       out.tasks.briefing = { error: err.message };
+    }
+  }
+
+  // TASK 3.5 — Zone-change alert. Daily check at the send hour; emails the
+  // free audience only when the Score crosses into a new zone (rare, high-signal).
+  const runZoneCheck = (!tasksParam || tasksParam.includes("zonecheck")) && isDailySendHour;
+  if (runZoneCheck) {
+    try {
+      out.tasks.zoneChange = await runZoneChangeCheck(baseUrl);
+    } catch (err) {
+      console.error("zone-change check error", err);
+      out.tasks.zoneChange = { error: err.message };
     }
   }
 
