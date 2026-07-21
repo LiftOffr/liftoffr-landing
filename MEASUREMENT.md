@@ -39,3 +39,8 @@ STATUS: Baseline locked 2026-07-01. Day-0 health review run 2026-07-01 (below). 
 - [ ] Re-baseline this file with fresh 30d numbers.
 
 One page, on purpose. Optimization without this loop is just redecorating.
+
+## 2026-07-21 — RE-BASELINE (major overhaul shipped today; prior baselines superseded)
+Shipped today: /links single-offer rebuild (gated score, receipts, $497 anchor) · homepage course roadmap + score gating + 2021 miss + annual-default pricing toggle · popup desktop-exit-intent-only · TRIAL keyword live in IG bot · zone-change alert emails · score badge/widget API · Discord: live tickers, channel collapse, course 📚 opt-in, start-here v2, brief reply-hook polls, onboarding DMs = 7-day challenge.
+**Baseline (14d trailing, GA4): 49 sessions · 6 cta_clicked · 2 lead_captured · 2 checkout_confirmed · 0 begin_trial events.**
+Next review ~2026-08-04: compare sessions, cta_clicked rate, checkout_confirmed, TRIAL keyword comment counts (bot trigger_log), poll reaction counts (#daily-market-brief), 📚 opt-ins (Studying role count), zone-alert opens if one fires. Note: traffic (~3/day) is the binding constraint — page metrics need volume before they're readable.
