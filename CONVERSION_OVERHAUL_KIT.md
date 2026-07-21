@@ -1,12 +1,15 @@
 # CONVERSION_OVERHAUL_KIT.md — 2026-07-21
-STATUS: Site changes SHIPPED same day (homepage curriculum section, score gating, past-calls miss + locked row, FAQ, /links rebuild). Items below need Torin's call or Torin's hands. Research basis: 2025-26 teardown of Milk Road PRO, ITC, BM Pro, Real Vision, top Whop/Skool trading sellers.
+STATUS (updated same day, "launch whatever research says" pass): SHIPPED — homepage curriculum section, score gating, past-calls miss + locked row, FAQ, /links rebuild, annual-default pricing toggle, $497-value course anchor, popup → desktop exit-intent only, trial-email polish, TRIAL keyword live in IG bot (next 30-min tick). REMAINING items below genuinely need Torin's hands or a price decision. Research basis: 2025-26 teardown of Milk Road PRO, ITC, BM Pro, Real Vision, top Whop/Skool trading sellers.
 
-## A. OFFER DECISIONS (pricing-adjacent — your call, per-item)
+## A. OFFER DECISIONS
 
-1. **Annual as default presentation.** Winners (Milk Road, BM Pro) default the toggle to annual with monthly-equivalent shown and ~2 months free. Our prices already support it ($399/$799/$1,990). Change is presentation-only, no price edits. Say go and I ship it.
-2. **Bundle the course as the annual incentive.** Milk Road gives its $499 masterclass free with annual. Ours: "The 36-lesson course — included free with any annual plan" framing (it's already included everywhere; this makes it a named $497-value bonus instead of a bullet). Say go.
-3. **Founding-member cohort.** First 50 paid members lock 20-30% off forever + hard deadline, in exchange for a Whop review + testimonial. Recruit the 56 comped friends first — converts them from cost to social proof. Needs: your price call (e.g. Core $34, Pro $69 locked), new Whop plans, my copy. This also fixes the 0-reviews Whop listing.
-4. **Card-on-file trial (consider, don't rush).** Evidence: no-card converts 9-18% trial-to-paid vs 31-49% with card, but 3-4x fewer starts. At current volume keep no-card; revisit when traffic >10 sessions/day.
+1. ~~Annual as default presentation~~ **SHIPPED 2026-07-21** — toggle defaults annual ($33/$66/$166 equiv, strikethrough monthly, plan links swap). No price values changed.
+2. ~~Course value anchor~~ **SHIPPED** — course named "$497 value" in Core features + curriculum footer (honest version: included with every tier, not fake annual-exclusivity).
+3. **Founding-member cohort — READY, needs your price sign-off (the one thing I won't set unilaterally).**
+   Recommended spec: **Founding Core $34/mo, Founding Pro $69/mo (~30% off), locked for life, 50 seats total across both, 14-day deadline, condition = leave a Whop review.**
+   Whop dashboard path: Product (prod_qkbRaW1vFT2cM) → Pricing → Add plan → set price, visibility HIDDEN, stock limit. Or say "go at $34/$69" and I create both plans via API and hand you the announcement.
+   Announce order: (1) DM the 56 comped friends first — they convert to paid-at-founding-rate + reviews; (2) #announcements; (3) email list.
+4. **Card-on-file trial (revisit later).** No-card converts 9-18% trial-to-paid vs 31-49% with card, but 3-4x more starts. Keep no-card until traffic >10 sessions/day.
 
 ## B. TRIAL DAY 0-7 SEQUENCE (your unfair advantage: manual founder DMs at this scale)
 
