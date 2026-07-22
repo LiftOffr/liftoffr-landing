@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "jpQb-Aia57k",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold: Midterm Year Weakness",
+    "published": "2026-07-22T02:04:38+00:00",
+    "processed_at": "2026-07-22T02:57:00.328330+00:00",
+    "url": "https://www.youtube.com/watch?v=jpQb-Aia57k",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Bull Market Support Band",
+      "Year-to-date ROI seasonality"
+    ],
+    "key_points": [
+      "Gold is undergoing a typical midterm-year correction, currently down about 30% from highs, consistent with historical midterm-year drawdowns of 22-34%",
+      "Historical seasonality suggests the low likely forms between July and October, based on averaging prior midterm-year bottoms (2018 and 2022)",
+      "The gold bull market support band sits near 3,800, roughly 4% below current price, and is the key level to watch for a potential bottom",
+      "Silver is underperforming gold due to a prior low gold-silver ratio call, and this underperformance may persist until gold's bottom is confirmed",
+      "A break below 50 per ounce in silver would represent a deep value zone, though a bottom may lead to prolonged consolidation rather than an immediate rally, similar to the 1970s pattern"
+    ],
+    "summary": "Gold is in a seasonal midterm-year correction that should find a bottom between July and October, with the bull market support band near 3,800 serving as a key level to watch. Silver continues to underperform gold but could regain relative strength once gold's low is confirmed, with a deep value zone emerging below 50 per ounce, though any bottom may be followed by an extended consolidation rather than an immediate breakout."
+  },
+  {
     "video_id": "OZAQDVkVuG8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1467,26 +1492,5 @@ export default [
       "Gold could consolidate through summer 2026 (seasonal weakness in midterm years) before rallying to new highs later in the year, mirroring 1974 and 2006 patterns"
     ],
     "summary": "Gold remains structurally bullish despite a ~27% correction from early 2026 highs, with support at the 20-month EMA around $3,600-$3,700. The correction mirrors historical bull market pullbacks in 1973 and 2008 rather than marking a major top, and geopolitical uncertainty combined with anticipated recession will drive gold higher through the end of the decade. Gold is likely to consolidate through summer before rallying to new all-time highs later in 2026."
-  },
-  {
-    "video_id": "Q67V1CJQLdA",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin & Gold",
-    "published": "2026-04-22T18:56:25+00:00",
-    "processed_at": "2026-05-04T23:48:53.872555+00:00",
-    "url": "https://www.youtube.com/watch?v=Q67V1CJQLdA",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Bitcoin topped against gold in December 2024 and has declined ~60%, approaching bear market resistance bands",
-      "Historical precedent shows Bitcoin tested similar resistance levels in 2022, 2018, and 2014, getting rejected each time",
-      "Gold is likely to outperform Bitcoin for the remainder of the year",
-      "Bitcoin may have entered an oscillating pattern against gold rather than maintaining outperformance"
-    ],
-    "summary": "Bitcoin's performance against gold has deteriorated significantly since December 2024, declining 60% and approaching historical bear market resistance levels. Based on similar rejection patterns in 2014, 2018, and 2022, Cowen expects gold to outperform Bitcoin for the rest of the year, with Bitcoin entering a cyclical oscillation against gold rather than demonstrating sustained strength."
   }
 ];
