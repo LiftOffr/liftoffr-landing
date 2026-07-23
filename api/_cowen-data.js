@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "UIv9IQ4uXEA",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Social Interest: Dozens of us Left",
+    "published": "2026-07-23T10:53:23+00:00",
+    "processed_at": "2026-07-23T11:57:48.920354+00:00",
+    "url": "https://www.youtube.com/watch?v=UIv9IQ4uXEA",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      64000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "Social interest/social risk index",
+      "Google Trends",
+      "Advance-Decline Index",
+      "Bitcoin Dominance",
+      "Wikipedia page views",
+      "Crypto asset weighted sentiment"
+    ],
+    "key_points": [
+      "Social interest metrics (Google Trends, YouTube views/subscribers, X followers) have collapsed to a fraction of 2021 levels, signaling extremely low market participation",
+      "Current market structure and social interest closely mirror the 2018 bear market cycle, with similar support levels, lower highs, and higher lows patterns",
+      "Bitcoin dominance excluding stablecoins continues rising because so few participants remain to rotate into altcoins",
+      "Many altcoins never made new highs this cycle and now trade below their 2022 lows, unlike the broad rotation seen in prior cycles",
+      "Social interest is expected to continue declining before potentially bottoming in the next 6-12 months, setting up conditions for the next cycle"
+    ],
+    "summary": "Bitcoin's price action and social interest metrics are tracking closely with the 2018 bear market pattern, suggesting a similar structural phase rather than a new bullish cycle. Extremely depressed social engagement across YouTube, X, and search data indicates most participants have left the space, explaining weak altcoin rotation and rising Bitcoin dominance. A bottom in social interest may form within the next 6-12 months, potentially setting the stage for renewed growth heading into the pre-halving period."
+  },
+  {
     "video_id": "jpQb-Aia57k",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1460,37 +1492,5 @@ export default [
       "Historical patterns suggest the current rally will likely find a top within weeks before pulling back, with potential to retest bull market support band similar to 2014 and 2018 movements"
     ],
     "summary": "Bitcoin is experiencing a bear market rally consistent with prior market cycles, not a fundamental break from bear market structure. Despite above-average year-to-date performance and extended rally duration, the pattern of rallying above the 200-day moving average followed by pullbacks to support levels mirrors 2014, 2018, and 2019 bear markets. Another significant low remains likely later in the year given historical inter-low timeframes."
-  },
-  {
-    "video_id": "hMkHnOuVLIw",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Gold: Dubious Speculation",
-    "published": "2026-04-21T18:49:49+00:00",
-    "processed_at": "2026-05-04T23:49:02.013596+00:00",
-    "url": "https://www.youtube.com/watch?v=hMkHnOuVLIw",
-    "outlook": "bullish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      3600,
-      3700,
-      4800
-    ],
-    "indicators_mentioned": [
-      "20-week moving average",
-      "21-week EMA",
-      "20-month moving average",
-      "21-month EMA",
-      "monthly RSI"
-    ],
-    "key_points": [
-      "Gold experienced a ~27-30% correction in early 2026 similar to historical patterns in 1973 and 2008, which were temporary pullbacks within larger bull markets, not major tops",
-      "The 20-month/21-month EMA support band around $3,600-$3,700 remains intact and provides structural bullish support; gold has only broken below this level once since the 2000s bull market began",
-      "Gold's outperformance versus the S&P 500 ratio mirrors 1973 and 2008 patterns, suggesting gold will recover and reach new all-time highs despite near-term consolidation",
-      "Geopolitical uncertainty and potential U.S. recession will drive structural gold bullish demand through the end of the decade, similar to gold's performance through recessions in prior decades",
-      "Gold could consolidate through summer 2026 (seasonal weakness in midterm years) before rallying to new highs later in the year, mirroring 1974 and 2006 patterns"
-    ],
-    "summary": "Gold remains structurally bullish despite a ~27% correction from early 2026 highs, with support at the 20-month EMA around $3,600-$3,700. The correction mirrors historical bull market pullbacks in 1973 and 2008 rather than marking a major top, and geopolitical uncertainty combined with anticipated recession will drive gold higher through the end of the decade. Gold is likely to consolidate through summer before rallying to new all-time highs later in 2026."
   }
 ];
