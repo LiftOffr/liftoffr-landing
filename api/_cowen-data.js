@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "JY_wY8XXjYU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Between a Rock and a Hard Place",
+    "published": "2026-07-24T13:10:27+00:00",
+    "processed_at": "2026-07-25T15:08:13.149464+00:00",
+    "url": "https://www.youtube.com/watch?v=JY_wY8XXjYU",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      57000
+    ],
+    "indicators_mentioned": [
+      "bear market resistance band",
+      "200-week moving average",
+      "on-chain indicators"
+    ],
+    "key_points": [
+      "Bitcoin is range-bound between the 200-week moving average as support and the bear market resistance band as resistance, unable to durably break either.",
+      "Seasonal midterm-year patterns suggest a brief window of strength lasting two to four weeks following the summer low, similar to July rallies in 2014, 2018, and 2022.",
+      "Gains from this rally are expected to be given back into August and September, echoing the pattern seen in prior midterm cycle years.",
+      "A stock market correction of 10-20% has historically preceded Bitcoin's cycle bottom, and this correction has not yet occurred, suggesting a later breakdown once the S&P tops in August or September.",
+      "The current setup closely mirrors 2018, described as a less volatile version of that cycle, with a time-based capitulation expected later in the year if on-chain indicators fail to fully reset beforehand."
+    ],
+    "summary": "Bitcoin is caught between the 200-week moving average as support and the bear market resistance band as resistance, with a brief seasonal rally window expected before gains are likely reversed into August-September. The broader thesis points to a later-year breakdown coinciding with a stock market correction, forming the market cycle bottom before the next bull phase, though if this doesn't materialize by year-end, a bullish pivot would be warranted."
+  },
+  {
     "video_id": "UIv9IQ4uXEA",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1463,34 +1491,5 @@ export default [
       "Undervaluation regime expected to persist through end of 2026, with potential for mean reversion and overvaluation in the next market cycle"
     ],
     "summary": "Bitcoin and the broader crypto asset class are trading significantly below fair value according to logarithmic regression analysis, with this undervaluation likely to persist through 2026 despite near-term rallies. The current cycle lacks the euphoric conditions of previous peaks due to macro constraints, resulting in a bull market topped on apathy rather than extreme overvaluation. Mean reversion to overvaluation regimes may occur in subsequent cycles, with long-term fair value for total crypto market cap estimated at $10 trillion."
-  },
-  {
-    "video_id": "C5Y4zGO4Gxs",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Bear Goggles",
-    "published": "2026-05-05T17:26:08+00:00",
-    "processed_at": "2026-05-05T18:01:42.576109+00:00",
-    "url": "https://www.youtube.com/watch?v=C5Y4zGO4Gxs",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      10000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "bull market support band",
-      "bear market resistance band",
-      "year-to-date ROI"
-    ],
-    "key_points": [
-      "Bitcoin is currently above the bear market resistance band and 200-day moving average, a pattern seen in prior bear markets (2014, 2018, 2019) that typically precedes pullbacks to the bull market support band",
-      "Current rally duration of 88 days since February low is consistent with historical bear market rally patterns; prior bear markets showed lows occurring 140-174 days apart, suggesting another low likely within months",
-      "Bitcoin topped on apathy rather than euphoria in late 2025, with sustained low retail engagement and rising Bitcoin dominance indicating a structural bear market environment different from prior cycles",
-      "The year-to-date performance showing only 10% drawdown versus historical 30-35% average, while elevated, mirrors similar patterns in 2014 and does not represent a fundamental break from bear market behavior",
-      "Historical patterns suggest the current rally will likely find a top within weeks before pulling back, with potential to retest bull market support band similar to 2014 and 2018 movements"
-    ],
-    "summary": "Bitcoin is experiencing a bear market rally consistent with prior market cycles, not a fundamental break from bear market structure. Despite above-average year-to-date performance and extended rally duration, the pattern of rallying above the 200-day moving average followed by pullbacks to support levels mirrors 2014, 2018, and 2019 bear markets. Another significant low remains likely later in the year given historical inter-low timeframes."
   }
 ];
