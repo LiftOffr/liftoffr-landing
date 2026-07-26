@@ -85,6 +85,31 @@ async function sendGa4Event({ measurementId, apiSecret, name, clientId, userId, 
   return { status: r.status, ok: r.ok };
 }
 
+// Hardened `begin_trial` → GA4 Measurement Protocol. Total no-op until GA4_API_SECRET
+// is added in Vercel project settings (create it under GA4 Admin > Data streams >
+// Measurement Protocol API secrets). Never throws — safe to await in the hot path.
+async function fireGa4BeginTrial({ stableId, planId }) {
+  if (!process.env.GA4_API_SECRET) return; // silent no-op: add GA4_API_SECRET in Vercel to enable
+  try {
+    const measurementId = process.env.GA4_MEASUREMENT_ID || "G-015PKWM24J";
+    const url = `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(process.env.GA4_API_SECRET)}`;
+    // Stable per-user client_id: hash the membership/user id into GA4's "num.num" shape.
+    const h = crypto.createHash("sha256").update(String(stableId || "whop-unknown")).digest("hex");
+    const clientId = `${parseInt(h.slice(0, 8), 16)}.${parseInt(h.slice(8, 16), 16)}`;
+    const r = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        client_id: clientId,
+        events: [{ name: "begin_trial", params: { method: "whop", plan_id: planId || "(unknown)" } }],
+      }),
+    });
+    console.log(`[whop-webhook] begin_trial GA4 status=${r.status} plan=${planId}`);
+  } catch (e) {
+    console.warn("[whop-webhook] begin_trial GA4 send failed:", e?.message || e);
+  }
+}
+
 async function postDiscordAlert(webhookUrl, lines) {
   await fetch(webhookUrl, {
     method: "POST",
@@ -410,7 +435,11 @@ export default async function handler(req, res) {
     const planId = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
     const isTrialPlan = TRIAL_PLAN_IDS.includes(planId);
     const collected = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100;
-    const isTrialStart = type === "membership.activated" && isTrialPlan && collected === 0;
+    // Trial starts arrive as membership.activated OR membership.went_valid @ $0
+    // (went_valid at $0 on a trial plan must never fall through to `purchase`).
+    const isTrialStart =
+      (type === "membership.activated" || type === "membership.went_valid") &&
+      isTrialPlan && collected === 0;
 
     const isPaid =
       type === "payment.succeeded" ||
@@ -479,14 +508,10 @@ export default async function handler(req, res) {
         }
       }
 
-      if (!measurementId || !apiSecret) {
-        console.warn("[whop-webhook] GA4 env not set, skipping GA4 forward");
-        res.status(200).json({ ok: true, ga4: "skipped" });
-        return;
-      }
-
       // Free-trial START → `begin_trial`, NOT a purchase (no money changed hands).
       // The welcome/DM above already fired so the new trialist gets onboarded immediately.
+      // Handled BEFORE the GA4 env check below: fireGa4BeginTrial hard-guards on
+      // GA4_API_SECRET itself, and the Resend audience add must not depend on GA4 env.
       if (isTrialStart) {
         // Add the trialist to the Resend "LiftOffr Trial" audience so the
         // day-1/3/6 trial-nurture cron can email them before the day-7 charge.
@@ -509,19 +534,18 @@ export default async function handler(req, res) {
             console.warn("[whop-webhook] trial audience add failed:", e?.message || e);
           }
         }
-        const ga = await sendGa4Event({
-          measurementId, apiSecret,
-          name: "begin_trial",
-          clientId: data.user_id || data.user?.id || undefined,
-          userId: data.user?.id,
-          params: {
-            plan_id: planId, value: 0, currency,
-            source: utm.source || "(direct)", medium: utm.medium || "(none)",
-            campaign: utm.campaign || "(none)", content: utm.content || "(none)",
-          },
+        await fireGa4BeginTrial({
+          stableId: data.user?.id || data.user_id || data.membership_id || data.id,
+          planId,
         });
-        console.log(`[whop-webhook] begin_trial forwarded ga4=${ga.status} utm=${JSON.stringify(utm)}`);
-        res.status(200).json({ ok: true, type, event: "begin_trial", ga4_status: ga.status });
+        console.log(`[whop-webhook] begin_trial handled type=${type} plan=${planId} utm=${JSON.stringify(utm)}`);
+        res.status(200).json({ ok: true, type, event: "begin_trial" });
+        return;
+      }
+
+      if (!measurementId || !apiSecret) {
+        console.warn("[whop-webhook] GA4 env not set, skipping GA4 forward");
+        res.status(200).json({ ok: true, ga4: "skipped" });
         return;
       }
 
