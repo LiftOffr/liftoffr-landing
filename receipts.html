@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#e63946">
+<title>LiftOffr — Zone-Crossing Receipts (Full Model History)</title>
+<meta name="description" content="Every zone crossing the LiftOffr Score model produces across full BTC history — with BTC's actual +30/90/180-day outcomes, wins and losses both shown. Model backtest, clearly labeled.">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K5B4BX46');</script>
+
+<!-- GA4 + Clarity event tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+(function(){
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+  function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"], a[href$="/join"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='start'?'trial_start':sl==='founder'?'founder_skip':sl==='join'?'founder_join':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='start'?'trial':sl==='founder'||sl==='join'?'founder_paynow':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
+  var _sd={};window.addEventListener('scroll',function(){var h=document.documentElement;var pct=Math.round((h.scrollTop+h.clientHeight)/h.scrollHeight*100);[25,50,75,90].forEach(function(m){if(pct>=m&&!_sd[m]){_sd[m]=1;track('scroll_depth',{depth:m,page:location.pathname});}});},{passive:true});
+})();
+</script>
+
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#e63946;--green:#22c55e;--amber:#d9a441;--bg:#080808;--card:#111;--card2:#0f0f0f;--border:#1e1e1e;--text:#fff;--muted:#777}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6}
+.nav{position:sticky;top:0;z-index:50;background:rgba(8,8,8,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 20px}
+.nav-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;color:#bbb;text-decoration:none;font-size:14px;font-weight:600;transition:color 0.15s}
+.nav-back:hover{color:var(--red)}
+.nav-back-arrow{font-size:18px;line-height:1}
+.nav-logo{font-size:15px;font-weight:900;letter-spacing:-0.5px;color:#fff;text-decoration:none}
+.nav-logo em{color:var(--red);font-style:normal}
+.nav-cta{display:inline-block;background:var(--red);color:#fff;padding:8px 16px;border-radius:7px;font-weight:800;font-size:13px;text-decoration:none}
+.nav-cta:hover{opacity:0.9}
+@media(max-width:520px){.nav-cta{display:none}.nav-back{font-size:13px}.nav-logo{font-size:14px}}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 80px}
+.hero{text-align:center;margin:40px 0 32px}
+.hero h1{font-size:clamp(28px,5vw,46px);font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:14px}
+.hero h1 em{color:var(--red);font-style:normal}
+.hero p.sub{color:#b8b8b8;font-size:17px;max-width:720px;margin:0 auto;line-height:1.5}
+.hero .tag{display:inline-block;color:var(--red);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+.notice{max-width:860px;margin:0 auto 36px;background:rgba(217,164,65,0.08);border:1px solid rgba(217,164,65,0.35);border-radius:12px;padding:16px 20px;font-size:14px;color:#d8c9a8;line-height:1.55;text-align:center}
+.notice b{color:var(--amber)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:700}
+.stat-value{font-size:28px;font-weight:900;letter-spacing:-0.5px}
+.stat-sub{font-size:12px;color:#888;margin-top:4px}
+.events{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px}
+.events h2{font-size:18px;font-weight:800;margin-bottom:6px}
+.events p.note{font-size:13px;color:#999;margin-bottom:18px}
+.ev-row{display:grid;grid-template-columns:110px 1fr 60px 100px 80px 80px 80px;gap:10px;padding:12px 0;border-top:1px solid #1a1a1a;font-size:13px;align-items:center}
+.ev-row.head{border:0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-bottom:6px}
+.ev-date{color:#888;font-family:monospace;font-size:12px}
+.ev-arrow{font-size:11px;margin-right:2px}
+.ev-zone{font-weight:800}
+.ev-from{color:#777;font-size:12px;margin-left:6px}
+.badge{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;vertical-align:1px}
+.badge.bt{color:var(--amber);border:1px solid rgba(217,164,65,0.5)}
+.badge.live{color:var(--green);border:1px solid rgba(34,197,94,0.5)}
+.r{text-align:right;font-family:monospace}
+.pct.pos{color:var(--green);font-weight:700}
+.pct.neg{color:var(--red);font-weight:700}
+.pct.na{color:#555}
+.cta{background:linear-gradient(180deg,#1a0a0e 0%,#0a0303 100%);border:1px solid var(--red);border-radius:12px;padding:36px 24px;text-align:center;margin-top:48px}
+.cta h2{font-size:24px;font-weight:900;margin-bottom:12px;letter-spacing:-0.5px}
+.cta p{color:#ccc;margin-bottom:20px;font-size:15px;max-width:560px;margin-left:auto;margin-right:auto}
+.cta-btn{display:inline-block;background:var(--red);color:#fff;padding:13px 30px;border-radius:8px;font-weight:800;text-decoration:none;font-size:15px}
+.cta-btn:hover{opacity:0.9}
+.disclaimer{font-size:11px;color:#555;text-align:center;margin-top:30px;line-height:1.5;max-width:760px;margin-left:auto;margin-right:auto}
+@media(max-width:860px){
+  .ev-row{grid-template-columns:90px 1fr 70px 70px;font-size:12px}
+  .ev-row > div:nth-child(3),.ev-row > div:nth-child(6){display:none}
+  .stats{grid-template-columns:1fr 1fr;gap:8px}
+  .stat{padding:14px}.stat-value{font-size:21px}
+  .wrap{padding:18px 14px 60px}
+}
+</style>
+</head>
+<body>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-back"><span class="nav-back-arrow">&larr;</span>Back to LiftOffr</a>
+    <a href="/" class="nav-logo">Lift<em>Offr</em></a>
+    <a href="/start" class="nav-cta">Start 7 days free</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="tag">Receipts &middot; 2011 &rarr; today</span>
+    <h1>Every zone crossing the <em>LiftOffr Score</em> has ever produced.</h1>
+    <p class="sub">The score's math, applied to 64 confirmed zone changes across full Bitcoin history &mdash;
+    with what BTC actually did 30, 90, and 180 days later. Wins and losses both shown. Nothing cherry-picked.</p>
+  </header>
+
+  <div class="notice">
+    <b>These are model-backtest reconstructions, not contemporaneous calls.</b>
+    Rows labeled &ldquo;model backtest&rdquo; show what today's LiftOffr Score formula would have signaled on past data.
+    Only rows labeled &ldquo;logged live&rdquo; were recorded in real time. Educational output &mdash; not financial advice.
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Confirmed events</div><div class="stat-value">64</div><div class="stat-sub">7-day zone confirmation</div></div>
+    <div class="stat"><div class="stat-label">History covered</div><div class="stat-value">15 yrs</div><div class="stat-sub">Jun 27, 2011 &rarr; Jul 25, 2026</div></div>
+    <div class="stat"><div class="stat-label">BTC higher +30d</div><div class="stat-value">35/64</div><div class="stat-sub">events with data; losses shown too</div></div>
+    <div class="stat"><div class="stat-label">Score today</div><div class="stat-value" style="color:#9ca3af">31.1</div><div class="stat-sub">NEUTRAL &middot; Jul 25, 2026</div></div>
+  </div>
+
+  <section class="events">
+    <h2>Zone-crossing log (newest first)</h2>
+    <p class="note">A crossing counts only after the score holds the new zone for 7 straight days &mdash; the date shown is the first day of that hold. BTC % is the change from the crossing-day price.</p>
+    <div class="ev-row head">
+      <div>Date</div><div>Event</div><div class="r">Score</div><div class="r">BTC</div><div class="r">+30d</div><div class="r">+90d</div><div class="r">+180d</div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 30, 2025</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">67.1</div>
+      <div class="ev-btc r">$90,608</div>
+      <div class="r"><span class="pct neg">-2.4%</span></div>
+      <div class="r"><span class="pct neg">-26.1%</span></div>
+      <div class="r"><span class="pct neg">-19.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Oct 21, 2025</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.7</div>
+      <div class="ev-btc r">$108,700</div>
+      <div class="r"><span class="pct neg">-20.0%</span></div>
+      <div class="r"><span class="pct neg">-14.9%</span></div>
+      <div class="r"><span class="pct neg">-32.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jun 27, 2025</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.4</div>
+      <div class="ev-btc r">$107,091</div>
+      <div class="r"><span class="pct pos">+11.5%</span></div>
+      <div class="r"><span class="pct pos">+1.9%</span></div>
+      <div class="r"><span class="pct neg">-18.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jun 19, 2025</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">83.5</div>
+      <div class="ev-btc r">$104,710</div>
+      <div class="r"><span class="pct pos">+12.6%</span></div>
+      <div class="r"><span class="pct pos">+11.3%</span></div>
+      <div class="r"><span class="pct neg">-16.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 08, 2025</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.1</div>
+      <div class="ev-btc r">$103,070</div>
+      <div class="r"><span class="pct pos">+2.5%</span></div>
+      <div class="r"><span class="pct pos">+11.6%</span></div>
+      <div class="r"><span class="pct neg">-1.7%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Feb 18, 2025</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.5</div>
+      <div class="ev-btc r">$95,444</div>
+      <div class="r"><span class="pct neg">-11.9%</span></div>
+      <div class="r"><span class="pct pos">+10.7%</span></div>
+      <div class="r"><span class="pct pos">+23.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 16, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.0</div>
+      <div class="ev-btc r">$90,568</div>
+      <div class="r"><span class="pct pos">+16.9%</span></div>
+      <div class="r"><span class="pct pos">+7.6%</span></div>
+      <div class="r"><span class="pct pos">+14.5%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Oct 17, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.1</div>
+      <div class="ev-btc r">$67,338</div>
+      <div class="r"><span class="pct pos">+34.5%</span></div>
+      <div class="r"><span class="pct pos">+48.8%</span></div>
+      <div class="r"><span class="pct pos">+24.3%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Aug 03, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.0</div>
+      <div class="ev-btc r">$60,688</div>
+      <div class="r"><span class="pct neg">-2.5%</span></div>
+      <div class="r"><span class="pct pos">+14.5%</span></div>
+      <div class="r"><span class="pct pos">+73.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jul 19, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.1</div>
+      <div class="ev-btc r">$66,756</div>
+      <div class="r"><span class="pct neg">-11.9%</span></div>
+      <div class="r"><span class="pct pos">+0.9%</span></div>
+      <div class="r"><span class="pct pos">+50.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jun 24, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.2</div>
+      <div class="ev-btc r">$60,259</div>
+      <div class="r"><span class="pct pos">+8.5%</span></div>
+      <div class="r"><span class="pct pos">+5.5%</span></div>
+      <div class="r"><span class="pct pos">+61.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 16, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.6</div>
+      <div class="ev-btc r">$65,269</div>
+      <div class="r"><span class="pct pos">+1.4%</span></div>
+      <div class="r"><span class="pct neg">-9.8%</span></div>
+      <div class="r"><span class="pct pos">+34.9%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 07, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.3</div>
+      <div class="ev-btc r">$62,397</div>
+      <div class="r"><span class="pct pos">+13.4%</span></div>
+      <div class="r"><span class="pct neg">-12.9%</span></div>
+      <div class="r"><span class="pct pos">+10.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Apr 12, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.8</div>
+      <div class="ev-btc r">$67,098</div>
+      <div class="r"><span class="pct neg">-8.4%</span></div>
+      <div class="r"><span class="pct neg">-14.6%</span></div>
+      <div class="r"><span class="pct neg">-9.7%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Mar 04, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.9</div>
+      <div class="ev-btc r">$68,092</div>
+      <div class="r"><span class="pct neg">-2.9%</span></div>
+      <div class="r"><span class="pct neg">-0.4%</span></div>
+      <div class="r"><span class="pct neg">-13.4%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Feb 13, 2024</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.8</div>
+      <div class="ev-btc r">$49,628</div>
+      <div class="r"><span class="pct pos">+44.1%</span></div>
+      <div class="r"><span class="pct pos">+26.7%</span></div>
+      <div class="r"><span class="pct pos">+18.6%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Mar 17, 2023</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.3</div>
+      <div class="ev-btc r">$27,451</div>
+      <div class="r"><span class="pct pos">+10.4%</span></div>
+      <div class="r"><span class="pct neg">-6.9%</span></div>
+      <div class="r"><span class="pct neg">-4.5%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 14, 2023</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9650;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from DEEP ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">15.2</div>
+      <div class="ev-btc r">$21,011</div>
+      <div class="r"><span class="pct pos">+3.7%</span></div>
+      <div class="r"><span class="pct pos">+45.0%</span></div>
+      <div class="r"><span class="pct pos">+49.6%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jun 20, 2022</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#26d07c">&#9660;</span>
+        <span class="ev-zone" style="color:#26d07c">ENTERED DEEP ACCUMULATION</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">14.4</div>
+      <div class="ev-btc r">$20,572</div>
+      <div class="r"><span class="pct pos">+13.2%</span></div>
+      <div class="r"><span class="pct neg">-5.6%</span></div>
+      <div class="r"><span class="pct neg">-18.5%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 20, 2022</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">28.8</div>
+      <div class="ev-btc r">$29,224</div>
+      <div class="r"><span class="pct neg">-29.9%</span></div>
+      <div class="r"><span class="pct neg">-20.5%</span></div>
+      <div class="r"><span class="pct neg">-43.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Dec 13, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.2</div>
+      <div class="ev-btc r">$46,785</div>
+      <div class="r"><span class="pct neg">-6.0%</span></div>
+      <div class="r"><span class="pct neg">-19.2%</span></div>
+      <div class="r"><span class="pct neg">-39.4%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 17, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.3</div>
+      <div class="ev-btc r">$60,154</div>
+      <div class="r"><span class="pct neg">-23.0%</span></div>
+      <div class="r"><span class="pct neg">-26.0%</span></div>
+      <div class="r"><span class="pct neg">-50.3%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 09, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.8</div>
+      <div class="ev-btc r">$67,096</div>
+      <div class="r"><span class="pct neg">-28.6%</span></div>
+      <div class="r"><span class="pct neg">-34.6%</span></div>
+      <div class="r"><span class="pct neg">-49.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 01, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.3</div>
+      <div class="ev-btc r">$61,092</div>
+      <div class="r"><span class="pct neg">-6.4%</span></div>
+      <div class="r"><span class="pct neg">-37.8%</span></div>
+      <div class="r"><span class="pct neg">-38.3%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Oct 19, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.2</div>
+      <div class="ev-btc r">$64,291</div>
+      <div class="r"><span class="pct neg">-11.7%</span></div>
+      <div class="r"><span class="pct neg">-34.3%</span></div>
+      <div class="r"><span class="pct neg">-38.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jul 28, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">71.0</div>
+      <div class="ev-btc r">$39,939</div>
+      <div class="r"><span class="pct pos">+22.8%</span></div>
+      <div class="r"><span class="pct pos">+51.2%</span></div>
+      <div class="r"><span class="pct neg">-8.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jun 19, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">68.8</div>
+      <div class="ev-btc r">$35,556</div>
+      <div class="r"><span class="pct neg">-13.1%</span></div>
+      <div class="r"><span class="pct pos">+32.8%</span></div>
+      <div class="r"><span class="pct pos">+34.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 18, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">83.5</div>
+      <div class="ev-btc r">$42,790</div>
+      <div class="r"><span class="pct neg">-11.2%</span></div>
+      <div class="r"><span class="pct pos">+7.5%</span></div>
+      <div class="r"><span class="pct pos">+52.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Feb 02, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.0</div>
+      <div class="ev-btc r">$35,596</div>
+      <div class="r"><span class="pct pos">+36.2%</span></div>
+      <div class="r"><span class="pct pos">+60.8%</span></div>
+      <div class="r"><span class="pct pos">+12.3%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 21, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.8</div>
+      <div class="ev-btc r">$31,023</div>
+      <div class="r"><span class="pct pos">+80.1%</span></div>
+      <div class="r"><span class="pct pos">+74.1%</span></div>
+      <div class="r"><span class="pct neg">-4.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 03, 2021</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.6</div>
+      <div class="ev-btc r">$33,278</div>
+      <div class="r"><span class="pct pos">+7.0%</span></div>
+      <div class="r"><span class="pct pos">+72.1%</span></div>
+      <div class="r"><span class="pct pos">+1.5%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Dec 19, 2020</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">72.0</div>
+      <div class="ev-btc r">$23,857</div>
+      <div class="r"><span class="pct pos">+53.4%</span></div>
+      <div class="r"><span class="pct pos">+143.8%</span></div>
+      <div class="r"><span class="pct pos">+59.4%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Apr 25, 2020</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.1</div>
+      <div class="ev-btc r">$7,538</div>
+      <div class="r"><span class="pct pos">+18.2%</span></div>
+      <div class="r"><span class="pct pos">+26.7%</span></div>
+      <div class="r"><span class="pct pos">+72.4%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Mar 12, 2020</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">27.2</div>
+      <div class="ev-btc r">$4,959</div>
+      <div class="r"><span class="pct pos">+38.8%</span></div>
+      <div class="r"><span class="pct pos">+99.4%</span></div>
+      <div class="r"><span class="pct pos">+103.8%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 03, 2020</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.4</div>
+      <div class="ev-btc r">$7,315</div>
+      <div class="r"><span class="pct pos">+27.7%</span></div>
+      <div class="r"><span class="pct neg">-7.1%</span></div>
+      <div class="r"><span class="pct pos">+26.3%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Dec 12, 2019</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">29.4</div>
+      <div class="ev-btc r">$7,193</div>
+      <div class="r"><span class="pct pos">+11.7%</span></div>
+      <div class="r"><span class="pct pos">+10.4%</span></div>
+      <div class="r"><span class="pct pos">+36.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 11, 2019</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.9</div>
+      <div class="ev-btc r">$7,325</div>
+      <div class="r"><span class="pct pos">+9.1%</span></div>
+      <div class="r"><span class="pct pos">+61.9%</span></div>
+      <div class="r"><span class="pct pos">+25.7%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Apr 03, 2019</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9650;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from DEEP ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">17.0</div>
+      <div class="ev-btc r">$4,960</div>
+      <div class="r"><span class="pct pos">+14.1%</span></div>
+      <div class="r"><span class="pct pos">+117.0%</span></div>
+      <div class="r"><span class="pct pos">+67.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 25, 2018</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#26d07c">&#9660;</span>
+        <span class="ev-zone" style="color:#26d07c">ENTERED DEEP ACCUMULATION</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">14.6</div>
+      <div class="ev-btc r">$3,947</div>
+      <div class="r"><span class="pct neg">-4.7%</span></div>
+      <div class="r"><span class="pct pos">+4.1%</span></div>
+      <div class="r"><span class="pct pos">+102.4%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 08, 2018</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">29.6</div>
+      <div class="ev-btc r">$6,407</div>
+      <div class="r"><span class="pct neg">-46.8%</span></div>
+      <div class="r"><span class="pct neg">-47.4%</span></div>
+      <div class="r"><span class="pct neg">-9.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Mar 15, 2018</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">68.6</div>
+      <div class="ev-btc r">$8,269</div>
+      <div class="r"><span class="pct neg">-3.2%</span></div>
+      <div class="r"><span class="pct neg">-23.7%</span></div>
+      <div class="r"><span class="pct neg">-24.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 23, 2018</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.0</div>
+      <div class="ev-btc r">$10,849</div>
+      <div class="r"><span class="pct neg">-9.0%</span></div>
+      <div class="r"><span class="pct neg">-17.7%</span></div>
+      <div class="r"><span class="pct neg">-31.8%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 17, 2017</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">85.5</div>
+      <div class="ev-btc r">$7,729</div>
+      <div class="r"><span class="pct pos">+149.1%</span></div>
+      <div class="r"><span class="pct pos">+30.8%</span></div>
+      <div class="r"><span class="pct pos">+7.7%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Sep 28, 2017</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.0</div>
+      <div class="ev-btc r">$4,188</div>
+      <div class="r"><span class="pct pos">+37.6%</span></div>
+      <div class="r"><span class="pct pos">+267.5%</span></div>
+      <div class="r"><span class="pct pos">+87.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Sep 20, 2017</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.7</div>
+      <div class="ev-btc r">$3,896</div>
+      <div class="r"><span class="pct pos">+54.0%</span></div>
+      <div class="r"><span class="pct pos">+353.1%</span></div>
+      <div class="r"><span class="pct pos">+119.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Aug 05, 2017</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.4</div>
+      <div class="ev-btc r">$3,237</div>
+      <div class="r"><span class="pct pos">+35.1%</span></div>
+      <div class="r"><span class="pct pos">+122.4%</span></div>
+      <div class="r"><span class="pct pos">+179.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">May 28, 2016</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.7</div>
+      <div class="ev-btc r">$531</div>
+      <div class="r"><span class="pct pos">+22.9%</span></div>
+      <div class="r"><span class="pct pos">+9.0%</span></div>
+      <div class="r"><span class="pct pos">+38.9%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Oct 23, 2015</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9650;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from DEEP ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">15.6</div>
+      <div class="ev-btc r">$279</div>
+      <div class="r"><span class="pct pos">+16.2%</span></div>
+      <div class="r"><span class="pct pos">+46.9%</span></div>
+      <div class="r"><span class="pct pos">+58.9%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Dec 16, 2014</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#26d07c">&#9660;</span>
+        <span class="ev-zone" style="color:#26d07c">ENTERED DEEP ACCUMULATION</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">13.9</div>
+      <div class="ev-btc r">$329</div>
+      <div class="r"><span class="pct neg">-35.4%</span></div>
+      <div class="r"><span class="pct neg">-11.3%</span></div>
+      <div class="r"><span class="pct neg">-29.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Sep 19, 2014</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">29.1</div>
+      <div class="ev-btc r">$394</div>
+      <div class="r"><span class="pct neg">-1.3%</span></div>
+      <div class="r"><span class="pct neg">-20.4%</span></div>
+      <div class="r"><span class="pct neg">-34.7%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Feb 11, 2014</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.1</div>
+      <div class="ev-btc r">$672</div>
+      <div class="r"><span class="pct neg">-4.2%</span></div>
+      <div class="r"><span class="pct neg">-34.3%</span></div>
+      <div class="r"><span class="pct neg">-12.3%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Dec 16, 2013</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9660;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from EXIT</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">84.8</div>
+      <div class="ev-btc r">$678</div>
+      <div class="r"><span class="pct pos">+24.1%</span></div>
+      <div class="r"><span class="pct neg">-6.5%</span></div>
+      <div class="r"><span class="pct neg">-15.1%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 21, 2013</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#e63946">&#9650;</span>
+        <span class="ev-zone" style="color:#e63946">ENTERED EXIT</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">86.0</div>
+      <div class="ev-btc r">$721</div>
+      <div class="r"><span class="pct neg">-17.2%</span></div>
+      <div class="r"><span class="pct neg">-13.5%</span></div>
+      <div class="r"><span class="pct neg">-32.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 10, 2013</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">70.0</div>
+      <div class="ev-btc r">$328</div>
+      <div class="r"><span class="pct pos">+198.3%</span></div>
+      <div class="r"><span class="pct pos">+106.9%</span></div>
+      <div class="r"><span class="pct pos">+38.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Apr 13, 2013</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from WARNING</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">69.8</div>
+      <div class="ev-btc r">$98</div>
+      <div class="r"><span class="pct pos">+20.3%</span></div>
+      <div class="r"><span class="pct neg">-7.7%</span></div>
+      <div class="r"><span class="pct pos">+29.8%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Apr 02, 2013</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#d9a441">&#9650;</span>
+        <span class="ev-zone" style="color:#d9a441">ENTERED WARNING</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">71.3</div>
+      <div class="ev-btc r">$117</div>
+      <div class="r"><span class="pct neg">-8.9%</span></div>
+      <div class="r"><span class="pct neg">-29.0%</span></div>
+      <div class="r"><span class="pct pos">+8.9%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 21, 2013</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.3</div>
+      <div class="ev-btc r">$17</div>
+      <div class="r"><span class="pct pos">+77.7%</span></div>
+      <div class="r"><span class="pct pos">+606.1%</span></div>
+      <div class="r"><span class="pct pos">+406.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Nov 30, 2012</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">28.9</div>
+      <div class="ev-btc r">$13</div>
+      <div class="r"><span class="pct pos">+6.8%</span></div>
+      <div class="r"><span class="pct pos">+165.2%</span></div>
+      <div class="r"><span class="pct pos">+929.4%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Aug 03, 2012</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">30.7</div>
+      <div class="ev-btc r">$11</div>
+      <div class="r"><span class="pct neg">-6.3%</span></div>
+      <div class="r"><span class="pct neg">-2.8%</span></div>
+      <div class="r"><span class="pct pos">+80.8%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 26, 2012</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">28.3</div>
+      <div class="ev-btc r">$5</div>
+      <div class="r"><span class="pct neg">-11.1%</span></div>
+      <div class="r"><span class="pct neg">-4.1%</span></div>
+      <div class="r"><span class="pct pos">+59.8%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Jan 05, 2012</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9650;</span>
+        <span class="ev-zone" style="color:#9ca3af">ENTERED NEUTRAL</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">31.1</div>
+      <div class="ev-btc r">$7</div>
+      <div class="r"><span class="pct neg">-14.2%</span></div>
+      <div class="r"><span class="pct neg">-28.5%</span></div>
+      <div class="r"><span class="pct neg">-6.2%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Dec 19, 2011</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9650;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from DEEP ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">16.1</div>
+      <div class="ev-btc r">$4</div>
+      <div class="r"><span class="pct pos">+67.3%</span></div>
+      <div class="r"><span class="pct pos">+49.5%</span></div>
+      <div class="r"><span class="pct pos">+82.8%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Oct 17, 2011</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#26d07c">&#9660;</span>
+        <span class="ev-zone" style="color:#26d07c">ENTERED DEEP ACCUMULATION</span>
+        <span class="ev-from">from ACCUMULATION</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">13.1</div>
+      <div class="ev-btc r">$3</div>
+      <div class="r"><span class="pct neg">-1.3%</span></div>
+      <div class="r"><span class="pct pos">+173.0%</span></div>
+      <div class="r"><span class="pct pos">+92.0%</span></div>
+    </div>
+    <div class="ev-row">
+      <div class="ev-date">Sep 23, 2011</div>
+      <div class="ev-what"><span class="ev-arrow" style="color:#22c55e">&#9660;</span>
+        <span class="ev-zone" style="color:#22c55e">ENTERED ACCUMULATION</span>
+        <span class="ev-from">from NEUTRAL</span> <span class="badge bt">model backtest</span></div>
+      <div class="ev-score r">29.4</div>
+      <div class="ev-btc r">$6</div>
+      <div class="r"><span class="pct neg">-43.4%</span></div>
+      <div class="r"><span class="pct neg">-29.8%</span></div>
+      <div class="r"><span class="pct neg">-13.4%</span></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <h2>The score behind these receipts is live right now.</h2>
+    <p>The LiftOffr Score updates daily from nine on-chain cycle indicators. The course teaches what each zone means and what to do about it &mdash; the same framework shown on this page.</p>
+    <a href="/start" class="cta-btn">Start 7 days free</a>
+    <p style="margin-top:12px;font-size:13px;color:#888;">No card required &mdash; nothing charged automatically. <a href="/cycle" style="color:#aaa;">Or see the live score &rarr;</a></p>
+  </div>
+
+  <p class="disclaimer">
+    Zone events reconstructed by applying the current LiftOffr Score formula (V7-weighted CBBI components, colintalkscrypto.com data) to historical daily values from Jun 27, 2011 through Jul 25, 2026.
+    Backfilled rows are model output computed after the fact, not calls made at the time. Past performance does not guarantee future results.
+    This is educational content, not financial advice. Trading carries risk &mdash; only invest what you can afford to lose.
+  </p>
+
+</div>
+</body>
+</html>
