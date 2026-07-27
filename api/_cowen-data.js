@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "lfYYC7qxDQ8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Bear Market Resistance Band",
+    "published": "2026-07-27T02:29:51+00:00",
+    "processed_at": "2026-07-27T03:09:03.701543+00:00",
+    "url": "https://www.youtube.com/watch?v=lfYYC7qxDQ8",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      64000,
+      65000,
+      67000,
+      63700
+    ],
+    "indicators_mentioned": [
+      "year-to-date ROI",
+      "on-chain indicators"
+    ],
+    "key_points": [
+      "Bitcoin is following the same seasonal/structural playbook as 2018 and other midterm years: a February low, higher low in spring, a sweep of the low in late June/early July, and a rally into the bear market resistance band by late July/early August",
+      "In prior analogous years (2018, 2022, 2014), August and September turned red after the July rally, suggesting a similar rejection and pullback is likely this time",
+      "Historically Q4 is when on-chain indicators reset and market cycle bottoms tend to form, so a final drop later in the year remains a real possibility",
+      "Retail participation is notably absent this cycle, evidenced by declining crypto YouTube viewership, since the market topped on apathy rather than euphoria, unlike 2017 which had a euphoric blow-off top",
+      "Historically Bitcoin doesn't durably break above this resistance band until sometime in the post-halving year (ranging from June to January depending on cycle), implying the current resistance test is likely to fail"
+    ],
+    "summary": "Bitcoin's price structure this year mirrors 2018 closely, with a rally into resistance expected to get rejected in the late July/early August timeframe before a pullback into August-September. Retail apathy and historically slow post-halving-year breakouts suggest the bear market resistance band will likely hold for now, with the possibility of a final Q4 drop still on the table before a durable cycle low is confirmed."
+  },
+  {
     "video_id": "JY_wY8XXjYU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1465,31 +1495,5 @@ export default [
       "Asset prices remain at all-time highs; recession signals unlikely until lower asset prices trigger feedback loop in labor market"
     ],
     "summary": "Bitcoin faces headwinds from expected secondary stock market correction in late Q3/early Q4 2026, following the S&P/M2 fractal pattern observed in 2018. While labor market data remains supportive currently, seasonal deterioration in initial claims through summer and subsequent equity weakness typically correlate with Bitcoin declines, potentially establishing lower lows by year-end despite recent strength relative to prior midterm cycles."
-  },
-  {
-    "video_id": "E6xmZR6HRGw",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Beauty of Mathematics (Part 70)",
-    "published": "2026-05-07T12:29:53+00:00",
-    "processed_at": "2026-05-07T13:46:11.489058+00:00",
-    "url": "https://www.youtube.com/watch?v=E6xmZR6HRGw",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      80000
-    ],
-    "indicators_mentioned": [
-      "logarithmic regression trend line",
-      "fair value valuation model"
-    ],
-    "key_points": [
-      "Cryptocurrency market cap at $2.7 trillion remains significantly undervalued relative to the fair value logarithmic regression trend line and likely to stay undervalued through 2026",
-      "Current rally has not driven durable market cap gains; Bitcoin outperformance is relative positioning only, with crypto down against stock market, Nasdaq, gold, and energy year-to-date",
-      "This cycle lacks the euphoric rallies of previous peaks (2011, 2013, 2017); instead topping on apathy with macro headwinds preventing durably overvalued conditions",
-      "Undervaluation regime expected to persist through end of 2026, with potential for mean reversion and overvaluation in the next market cycle"
-    ],
-    "summary": "Bitcoin and the broader crypto asset class are trading significantly below fair value according to logarithmic regression analysis, with this undervaluation likely to persist through 2026 despite near-term rallies. The current cycle lacks the euphoric conditions of previous peaks due to macro constraints, resulting in a bull market topped on apathy rather than extreme overvaluation. Mean reversion to overvaluation regimes may occur in subsequent cycles, with long-term fair value for total crypto market cap estimated at $10 trillion."
   }
 ];
