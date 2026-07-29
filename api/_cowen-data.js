@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "uJ0DsQCvY7s",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The Fed Holds Rates Steady | Bond Market Revolts",
+    "published": "2026-07-29T21:28:02+00:00",
+    "processed_at": "2026-07-29T22:24:02.386664+00:00",
+    "url": "https://www.youtube.com/watch?v=uJ0DsQCvY7s",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "30-year yield",
+      "10-year yield",
+      "2-year yield",
+      "TLT",
+      "initial jobless claims",
+      "unemployment rate",
+      "Fed funds rate",
+      "neutral rate",
+      "XLE"
+    ],
+    "key_points": [
+      "The Fed held rates steady despite the bond market signaling that inflation risk, not labor market weakness, is the bigger concern, causing the 30-year yield to break out above a multi-year ceiling",
+      "The 2-year yield has risen above the Fed funds rate, implying the neutral rate has effectively increased and current policy is now more accommodative than restrictive despite unchanged rates",
+      "A rate hike is likely in September, October, or December 2026 as the labor market tightens (low layoffs, low initial claims) and wage/inflation pressures risk re-accelerating similar to the 1970s pattern",
+      "Historical midterm-year seasonality (2014, 2018, 2022) shows 10-20% equity corrections starting in the August-September window, often tied to rising yields, and a similar setup is forming now",
+      "A rising 10-year yield topping around October, echoing the October 2023 pattern, lines up with a potential Bitcoin market cycle bottom around the same period, after which conditions could improve into 2027"
+    ],
+    "summary": "The Fed's decision not to hike rates is triggering a bond market revolt, pushing the 30-year and 10-year yields higher as inflation risk resurfaces amid a tightening labor market. This yield spike is expected to trigger a 10-20% equity correction in the historically weak midterm-year August-October window, with a likely Fed rate hike by year-end, before conditions stabilize and risk assets, including Bitcoin, potentially bottom around October ahead of improvement into 2027."
+  },
+  {
     "video_id": "lfYYC7qxDQ8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1465,35 +1497,5 @@ export default [
       "Without catalysts to rebuild optimism, methodical downside or capitulation likely as year progresses, though exact timing and narrative driver remain uncertain"
     ],
     "summary": "Bitcoin testing the 200-day moving average as critical resistance following a price structure that closely parallels the 2018 bear market. Historical precedent suggests breakouts above this level are temporary, with prior bear markets showing reversals within weeks to months. Bear bias persists with expectation of eventual rollover and weakness through the remainder of the year."
-  },
-  {
-    "video_id": "APCjkL5gfFI",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Labor Market Holds Steady",
-    "published": "2026-05-08T18:10:28+00:00",
-    "processed_at": "2026-05-08T18:46:49.259357+00:00",
-    "url": "https://www.youtube.com/watch?v=APCjkL5gfFI",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "S&P 500 divided by M2 fractal",
-      "Recession Risk Dashboard",
-      "Initial Claims",
-      "Unemployment Rate",
-      "Job Openings",
-      "Non-Farm Payroll",
-      "ADP Employment"
-    ],
-    "key_points": [
-      "Labor market remains resilient with unemployment at 4.3% and initial claims low, but seasonal weakness typically emerges in summer months",
-      "Stock market following S&P/M2 historical fractal from 2018 with potential top in September before secondary correction in late Q3/early Q4",
-      "Bitcoin underperforming relative to equities and NASDAQ; weakness in other assets typically corresponds to Bitcoin declines during correction windows",
-      "Secondary window of weakness expected in latter part of midterm year 2026, likely corresponding to Bitcoin moving lower from current levels",
-      "Asset prices remain at all-time highs; recession signals unlikely until lower asset prices trigger feedback loop in labor market"
-    ],
-    "summary": "Bitcoin faces headwinds from expected secondary stock market correction in late Q3/early Q4 2026, following the S&P/M2 fractal pattern observed in 2018. While labor market data remains supportive currently, seasonal deterioration in initial claims through summer and subsequent equity weakness typically correlate with Bitcoin declines, potentially establishing lower lows by year-end despite recent strength relative to prior midterm cycles."
   }
 ];
