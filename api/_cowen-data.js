@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "7vNA0geUryY",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The End of July",
+    "published": "2026-07-30T20:25:26+00:00",
+    "processed_at": "2026-07-30T21:24:49.393933+00:00",
+    "url": "https://www.youtube.com/watch?v=7vNA0geUryY",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "200-day moving average",
+      "bear market resistance band",
+      "10-year yield",
+      "ROI from low chart",
+      "monthly returns seasonality"
+    ],
+    "key_points": [
+      "July's rally in midterm years historically acts as temporary relief following a June low, mirroring patterns from 2014, 2018, and 2022",
+      "Historical analogs suggest a renewed window of weakness typically emerges in August and September of midterm years, even when July closes green",
+      "Rising 10-year yields signal bond market stress, which previously coincided with Bitcoin downturns in 2023 and similar cycles",
+      "Uncertain whether price will tag the bear market resistance band or 200-day moving average before turning down again, as historical precedent is inconsistent",
+      "If the cycle continues to track prior bear markets, a cycle bottom could form around November, with a DCA approach favored over precise bottom-timing"
+    ],
+    "summary": "Bitcoin's July strength follows a well-worn seasonal pattern of midterm-year relief rallies after a June low, but historical analogs from 2014, 2018, 2022, and 2023 point to renewed weakness emerging in August and September, reinforced by rising 10-year yields signaling bond market stress. The path forward is uncertain in terms of exact timing and whether resistance levels get tagged, but if the cycle continues to mirror prior bear markets, a cyclical low could form around November."
+  },
+  {
     "video_id": "uJ0DsQCvY7s",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1468,34 +1496,5 @@ export default [
       "Energy sector historically tops 6+ months after broad market peaks in late-cycle environments, creating potential continued outperformance despite macro headwinds"
     ],
     "summary": "Inflation resurgence from geopolitical energy shocks has eliminated near-term rate cut expectations and reintroduced rate hike possibility, creating a potential Fed checkmate scenario if labor market weakens while inflation remains elevated. The S&P/M2 correlation remains intact and energy continues outperforming, but crypto faces headwinds as a higher-risk asset sensitive to liquidity withdrawal. Market timing remains difficult as historical precedent shows late-cycle rallies can persist longer than expected before eventual reversals."
-  },
-  {
-    "video_id": "Ox0mi5n3Ju4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Approaches an Important Level",
-    "published": "2026-05-11T13:49:16+00:00",
-    "processed_at": "2026-05-11T14:48:42.336646+00:00",
-    "url": "https://www.youtube.com/watch?v=Ox0mi5n3Ju4",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      65000,
-      64000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "monthly Heikin-Ashi candles"
-    ],
-    "key_points": [
-      "Bitcoin has arrived at the 200-day moving average, a critical resistance level that has historically acted as a barrier in bear markets (2018, 2022) with brief exceptions in 2014 and 2019",
-      "Price structure mirrors 2018 bear market pattern: low in February (~60K), higher low in April (~64-65K), rally to 200-day MA in May, suggesting potential rollover later in the year",
-      "Even in cycles where Bitcoin broke above the 200-day MA (2014, 2019), moves above it were short-lived and did not sustain higher prices before reversing",
-      "Monthly Heikin-Ashi candles suggest early May signals are inconclusive; historical bear markets show red monthly candles persist until capitulation, with brief green candles often preceding continuation of downtrends",
-      "Without catalysts to rebuild optimism, methodical downside or capitulation likely as year progresses, though exact timing and narrative driver remain uncertain"
-    ],
-    "summary": "Bitcoin testing the 200-day moving average as critical resistance following a price structure that closely parallels the 2018 bear market. Historical precedent suggests breakouts above this level are temporary, with prior bear markets showing reversals within weeks to months. Bear bias persists with expectation of eventual rollover and weakness through the remainder of the year."
   }
 ];
