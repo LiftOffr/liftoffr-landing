@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Scoreboard Is Free — LiftOffr</title>
+<meta name="description" content="The live cycle Score, the daily market brief, and every timestamped call. Open. No trial, no card, no catch.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://liftoffr.com/free/">
+
+<meta name="theme-color" content="#e63946">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e63946;
+    --green: #26d07c;
+    --bg: #060910;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.09);
+    --text: #e9eef7;
+    --muted: #8793a8;
+    --glass: linear-gradient(158deg, rgba(255,255,255,0.055), rgba(255,255,255,0.014));
+    --glass-bd: 1px solid rgba(255,255,255,0.09);
+    --glass-sh: inset 0 1px 0 rgba(255,255,255,0.07), 0 12px 34px rgba(0,0,0,0.45);
+    --blur: blur(14px) saturate(120%);
+  }
+  body {
+    background:
+      radial-gradient(1100px 560px at 22% -160px, rgba(38,208,124,0.10), transparent 60%),
+      radial-gradient(900px 480px at 96% 0, rgba(77,141,240,0.07), transparent 55%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  nav {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 14px 28px;
+    background: rgba(6,9,16,0.82);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 22px 80px; }
+
+  .hero { text-align: center; margin-bottom: 48px; }
+  h1 { font-size: 48px; font-weight: 900; letter-spacing: -1.8px; line-height: 1.05; margin-bottom: 18px; }
+  h1 em { color: var(--green); font-style: italic; }
+  .lede { font-size: 17px; color: #bdbdbd; max-width: 520px; margin: 0 auto; line-height: 1.65; }
+
+  .block {
+    background: var(--glass); border: var(--glass-bd);
+    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--glass-sh); border-radius: 16px; padding: 30px 28px; margin-bottom: 20px;
+  }
+  .block-num {
+    display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center;
+    background: var(--green); color: #04130a; border-radius: 6px; font-weight: 900; font-size: 13px; margin-bottom: 12px;
+  }
+  .block h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 10px; }
+  .block p { color: #a9b3c6; font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+  .block ul { list-style: none; margin: 0 0 20px; display: flex; flex-direction: column; gap: 9px; }
+  .block li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: #cfcfcf; }
+  .block li::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0; }
+
+  .cta-btn {
+    display: inline-block; background: var(--red); color: #fff; text-decoration: none;
+    padding: 15px 28px; border-radius: 10px; font-weight: 800; font-size: 16px;
+    box-shadow: 0 10px 30px rgba(230,57,70,0.32); transition: transform 0.15s, opacity 0.15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); opacity: 0.95; }
+
+  .email-form { display: flex; gap: 10px; flex-wrap: wrap; }
+  .email-form input {
+    flex: 1; min-width: 200px; padding: 14px 15px; border-radius: 9px; border: 1px solid #2a2a2a;
+    background: #1a1a1a; color: #fff; font-size: 15px; font-family: inherit; outline: none;
+    transition: border-color 0.15s;
+  }
+  .email-form input:focus { border-color: var(--red); }
+  .email-form button {
+    padding: 14px 22px; background: var(--red); color: #fff; border: none; border-radius: 9px;
+    font-weight: 800; font-size: 14px; cursor: pointer; font-family: inherit; white-space: nowrap;
+    transition: opacity 0.15s;
+  }
+  .email-form button:disabled { opacity: 0.65; cursor: default; }
+  .form-fine { font-size: 12px; color: #555; margin-top: 10px; }
+  .form-error { display: none; margin-top: 10px; padding: 12px 14px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; color: #ef4444; font-size: 14px; }
+
+  .record-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .record-links a {
+    flex: 1; min-width: 140px; text-align: center; text-decoration: none;
+    padding: 14px 12px; border-radius: 10px; border: 1px solid rgba(38,208,124,0.35);
+    background: rgba(38,208,124,0.08); color: var(--green); font-weight: 800; font-size: 14px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .record-links a:hover { border-color: rgba(38,208,124,0.7); transform: translateY(-1px); }
+
+  .plan-line { text-align: center; font-size: 14.5px; color: #8793a8; padding: 28px 0 8px; }
+  .plan-line a { color: #fff; font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(230,57,70,0.6); }
+  .plan-line a:hover { color: var(--red); }
+
+  .footer-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; font-size: 12px; color: #555; padding: 16px 0; }
+  .footer-row a { color: #666; text-decoration: none; }
+  .footer-row a:hover { color: var(--red); }
+  .footer-fine { text-align: center; color: #444; font-size: 11px; padding: 0 0 24px; }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 34px; letter-spacing: -1.1px; }
+    .lede { font-size: 16px; }
+    .wrap { padding: 36px 16px 60px; }
+    .block { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <img src="/img/torin-founder.jpg?v=20260503c" alt="Torin — LiftOffr founder" width="38" height="38" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid rgba(230,57,70,0.6);">
+  <div style="line-height:1.25;">
+    <div style="font-weight:800;font-size:14px;color:#fff;">Torin · LiftOffr</div>
+    <div style="font-size:11.5px;color:var(--muted);">Bitcoin cycle signals · 4M+ views</div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>The scoreboard is <em>free.</em></h1>
+    <p class="lede">The live cycle Score, the daily market brief, and every timestamped call I've made. Open. No trial, no card, no catch.</p>
+  </section>
+
+  <!-- BLOCK 1: DISCORD -->
+  <div class="block">
+    <div class="block-num">1</div>
+    <h2>Join the Discord</h2>
+    <p>Everything below is in the free tier. Walk in, read the feeds, decide for yourself.</p>
+    <ul>
+      <li>Daily market brief</li>
+      <li>Weekly Score</li>
+      <li>The indicator feeds</li>
+      <li>#wins</li>
+    </ul>
+    <!-- TODO: DISCORD_INVITE_URL after week-1 restructure -->
+    <a href="#" class="cta-btn" data-dest="discord" rel="noopener">Join the free Discord</a>
+  </div>
+
+  <!-- BLOCK 2: SUNDAY SCORE EMAIL -->
+  <div class="block">
+    <div class="block-num">2</div>
+    <h2>The Sunday Score email</h2>
+    <p>One email a week. Where the Score sits, what moved it, and whether the buy window is still open. Unsubscribe in one click.</p>
+    <form class="email-form" data-lead-form data-medium="free_page" onsubmit="return submitFreeForm(this);" id="leadForm">
+      <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
+      <button type="submit">Send me the Score</button>
+    </form>
+    <div class="form-error" id="formError">Something went wrong. Try again in a moment.</div>
+    <p class="form-fine">No spam. Unsubscribe in one click.</p>
+  </div>
+
+  <!-- BLOCK 3: TRACK RECORD -->
+  <div class="block">
+    <div class="block-num">3</div>
+    <h2>Judge the track record first</h2>
+    <p>Don't take my word for anything. The calls are timestamped and the backtest is public.</p>
+    <div class="record-links">
+      <a href="/cycle" data-dest="cycle">Live cycle Score</a>
+      <a href="/receipts" data-dest="receipts">The receipts</a>
+      <a href="/track-record" data-dest="proof">Track record</a>
+    </div>
+  </div>
+
+  <!-- PLAN LINE -->
+  <div class="plan-line">When you want the exact plan I'm executing: <a href="/plan" data-dest="plan">$29, once.</a></div>
+
+  <div class="footer-row">
+    <a href="/privacy">Privacy</a>
+    <span>·</span>
+    <a href="/terms">Terms</a>
+  </div>
+  <div class="footer-fine">© 2026 LiftOffr · Educational content only. Not financial advice.</div>
+</div>
+
+<script>
+  function getLeadUtms() {
+    try {
+      var u = new URL(location.href);
+      return {
+        utm_source: u.searchParams.get('utm_source') || '',
+        utm_campaign: u.searchParams.get('utm_campaign') || '',
+        utm_content: u.searchParams.get('utm_content') || ''
+      };
+    } catch (e) { return {}; }
+  }
+
+  function submitFreeForm(form) {
+    var email = (form.querySelector('input[type=email]') || {}).value || '';
+    var medium = form.getAttribute('data-medium') || 'free_page';
+    var btn = form.querySelector('button[type=submit]');
+    var input = form.querySelector('input[type=email]');
+    var errorBox = document.getElementById('formError');
+
+    if (btn) { btn.disabled = true; var oldLabel = btn.textContent; btn.textContent = 'Sending…'; }
+    if (input) { input.disabled = true; }
+    if (errorBox) errorBox.style.display = 'none';
+
+    var pageUtms = getLeadUtms();
+    var payload = {
+      email: email,
+      magnet: 'buyzone',
+      utm_source: pageUtms.utm_source || 'liftoffr',
+      utm_medium: medium,
+      utm_campaign: pageUtms.utm_campaign || 'free_page',
+      utm_content: pageUtms.utm_content || ''
+    };
+
+    if (typeof window.track === 'function') {
+      window.track('lead_magnet_submit', { source: medium, page: location.pathname });
+    }
+
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      return r.json().then(function(data){ return { ok: r.ok, data: data }; });
+    }).then(function(result){
+      if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+      form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox. The Score lands every Sunday.</div>';
+      if (typeof window.track === 'function') {
+        window.track('lead_captured', { source: medium, page: location.pathname });
+      }
+    }).catch(function(err){
+      if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
+      if (input) { input.disabled = false; }
+      if (errorBox) errorBox.style.display = 'block';
+      console.error('submitFreeForm error:', err);
+    });
+
+    return false;
+  }
+
+  // CTA click tracking (matches site-wide cta_clicked schema)
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-dest]');
+    if (!a) return;
+    if (typeof window.track === 'function') {
+      window.track('cta_clicked', {
+        cta_text: (a.textContent || '').trim().slice(0, 80),
+        cta_position: a.className || 'free_cta',
+        destination: a.getAttribute('data-dest'),
+        page: location.pathname
+      });
+    }
+  }, true);
+</script>
+</body>
+</html>

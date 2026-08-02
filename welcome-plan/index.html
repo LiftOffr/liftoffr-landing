@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're In — Start Here — LiftOffr</title>
+<meta name="description" content="You bought the plan. Do these three things tonight.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://liftoffr.com/welcome-plan/">
+
+<meta name="theme-color" content="#e63946">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e63946;
+    --green: #26d07c;
+    --bg: #060910;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.09);
+    --text: #e9eef7;
+    --muted: #8793a8;
+    --glass: linear-gradient(158deg, rgba(255,255,255,0.055), rgba(255,255,255,0.014));
+    --glass-bd: 1px solid rgba(255,255,255,0.09);
+    --glass-sh: inset 0 1px 0 rgba(255,255,255,0.07), 0 12px 34px rgba(0,0,0,0.45);
+    --blur: blur(14px) saturate(120%);
+  }
+  body {
+    background:
+      radial-gradient(1100px 560px at 22% -160px, rgba(38,208,124,0.10), transparent 60%),
+      radial-gradient(900px 480px at 96% 0, rgba(77,141,240,0.07), transparent 55%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  nav {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 14px 28px;
+    background: rgba(6,9,16,0.82);
+    backdrop-filter: blur(16px) saturate(120%);
+    -webkit-backdrop-filter: blur(16px) saturate(120%);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 56px 22px 80px; }
+
+  .hero { text-align: center; margin-bottom: 44px; }
+  .eyebrow {
+    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--green); padding: 6px 12px; background: rgba(38,208,124,0.10);
+    border: 1px solid rgba(38,208,124,0.35); border-radius: 999px; margin-bottom: 18px;
+  }
+  h1 { font-size: 44px; font-weight: 900; letter-spacing: -1.6px; line-height: 1.08; }
+
+  .step {
+    background: var(--glass); border: var(--glass-bd);
+    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--glass-sh); border-radius: 16px; padding: 30px 28px; margin-bottom: 20px;
+  }
+  .step-num {
+    display: inline-block; width: 28px; height: 28px; line-height: 28px; text-align: center;
+    background: var(--green); color: #04130a; border-radius: 6px; font-weight: 900; font-size: 13px; margin-bottom: 12px;
+  }
+  .step h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 10px; }
+  .step p { color: #a9b3c6; font-size: 15px; line-height: 1.65; margin-bottom: 16px; }
+  .step p:last-child { margin-bottom: 0; }
+  .step p strong { color: #fff; }
+
+  .cta-btn {
+    display: inline-block; background: var(--red); color: #fff; text-decoration: none;
+    padding: 15px 28px; border-radius: 10px; font-weight: 800; font-size: 16px;
+    box-shadow: 0 10px 30px rgba(230,57,70,0.32); transition: transform 0.15s, opacity 0.15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); opacity: 0.95; }
+  .btn-ghost {
+    display: inline-block; text-decoration: none;
+    padding: 15px 28px; border-radius: 10px; font-weight: 800; font-size: 16px;
+    border: 1px solid rgba(38,208,124,0.4); color: var(--green); background: rgba(38,208,124,0.08);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .btn-ghost:hover { border-color: rgba(38,208,124,0.75); transform: translateY(-1px); }
+
+  .bridge {
+    background: var(--glass); border: var(--glass-bd);
+    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--glass-sh); border-radius: 16px; padding: 32px 28px;
+    text-align: center; margin-top: 44px;
+  }
+  .bridge h3 { font-size: 21px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 10px; }
+  .bridge p { color: #a9b3c6; font-size: 15px; line-height: 1.65; max-width: 520px; margin: 0 auto 20px; }
+  .bridge p strong { color: #fff; }
+
+  .footer-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; font-size: 12px; color: #555; padding: 32px 0 16px; }
+  .footer-row a { color: #666; text-decoration: none; }
+  .footer-row a:hover { color: var(--red); }
+  .footer-fine { text-align: center; color: #444; font-size: 11px; padding: 0 0 24px; }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; letter-spacing: -1.1px; }
+    .wrap { padding: 36px 16px 60px; }
+    .step { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <img src="/img/torin-founder.jpg?v=20260503c" alt="Torin — LiftOffr founder" width="38" height="38" style="width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid rgba(230,57,70,0.6);">
+  <div style="line-height:1.25;">
+    <div style="font-weight:800;font-size:14px;color:#fff;">Torin · LiftOffr</div>
+    <div style="font-size:11.5px;color:var(--muted);">Bitcoin cycle signals · 4M+ views</div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Purchase confirmed</span>
+    <h1>You're in. Do these three things tonight.</h1>
+  </section>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-num">1</div>
+    <h2>Get the plan</h2>
+    <p>The full document lives in your Whop library: the ladder, the logic, the worksheet, the receipts. Open it now while this is fresh.</p>
+    <!-- TODO: Whop-hosted doc link -->
+    <a href="#" class="cta-btn" data-dest="plan_doc" rel="noopener">Open the plan</a>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-num">2</div>
+    <h2>Join #plan-updates</h2>
+    <p>Tier fires, recalibrations, and fallback-date deploys land here first. If a level triggers at 3am, this is where you find out what I did and why.</p>
+    <!-- TODO: role-gated invite -->
+    <a href="#" class="cta-btn" data-dest="plan_updates_discord" rel="noopener">Join #plan-updates</a>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-num">3</div>
+    <h2>Set your ladder</h2>
+    <p>Open the worksheet, write your numbers, place the limit orders. <strong>The whole point is deciding while you're calm.</strong></p>
+  </div>
+
+  <!-- SYSTEM BRIDGE (hidden until week 2 soft open) -->
+  <div class="bridge" id="system-bridge" style="display:none">
+    <h3>The plan tells you what I'm buying. The System is why, and when I'll sell.</h3>
+    <p>The 8 indicators behind these levels, the exit ladder, the full course. <strong>Founding price for plan buyers: $147.</strong></p>
+    <!-- TODO: /system when live (week 2 soft open) -->
+    <a href="#" class="cta-btn" data-dest="system">See The Cycle System</a>
+  </div>
+
+  <div class="footer-row">
+    <a href="/privacy">Privacy</a>
+    <span>·</span>
+    <a href="/terms">Terms</a>
+  </div>
+  <div class="footer-fine">© 2026 LiftOffr · Educational content only. Not financial advice.</div>
+</div>
+
+<script>
+  // CTA click tracking (matches site-wide cta_clicked schema)
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-dest]');
+    if (!a) return;
+    if (typeof window.track === 'function') {
+      window.track('cta_clicked', {
+        cta_text: (a.textContent || '').trim().slice(0, 80),
+        cta_position: a.className || 'welcome_plan_cta',
+        destination: a.getAttribute('data-dest'),
+        page: location.pathname
+      });
+    }
+  }, true);
+</script>
+</body>
+</html>
