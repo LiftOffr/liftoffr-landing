@@ -291,10 +291,21 @@ async function sendWelcomeDM(botToken, discordId, username) {
   return { ok: sendRes.ok, status: sendRes.status };
 }
 
+// Human label for a plan from whatever shape the payload carries (Whop often
+// sends only the bare plan id string, which rendered as "Plan: ?" in alerts).
+const PLAN_LABELS = {
+  plan_MntgjXJaQnGsW: "My Bear Market Buy Plan ($29 one-time)",
+  plan_uIpPdsPTSHdTp: "Cycle Playbook 1:1 ($997)",
+};
+function planLabel(data) {
+  const ref = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
+  return data.plan?.name || PLAN_LABELS[ref] || ref || data.product?.name || "?";
+}
+
 async function postNewMemberAlert(webhookUrl, eventType, data) {
   const email = data.user?.email || data.email || "(no email)";
   const username = data.user?.username || data.user?.name || "(unknown user)";
-  const plan = data.plan?.name || data.plan_id || data.product?.name || "?";
+  const plan = planLabel(data);
   const value = data.amount_after_fees ?? data.subtotal ?? data.amount;
   const valueStr = value ? `$${(value / 100).toFixed(2)}` : "";
   const utmSource = data.utm_source || data.referral?.utm_source || data.metadata?.utm_source;
@@ -323,7 +334,7 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
   const email = data.user?.email || data.email || "(no email)";
   const username = data.user?.username || data.user?.name || "(unknown user)";
   const memberId = data.membership_id || data.id || "?";
-  const plan = data.plan?.name || data.plan_id || data.product?.name || "?";
+  const plan = planLabel(data);
   const reason = data.cancel_reason || data.reason || "";
   const value = data.amount_after_fees ?? data.amount;
   const valueStr = value ? `$${(value / 100).toFixed(2)}` : "";
@@ -451,9 +462,11 @@ export default async function handler(req, res) {
       const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_uIpPdsPTSHdTp: 997 }[planId] ?? 0);
       const currency = (data.currency || "USD").toUpperCase();
 
-      // Discord new-member alert to ops channel (private notification for Torin)
+      // Discord new-member alert to ops channel (private notification for Torin).
+      // Skip payment.succeeded: Whop sends it ALONGSIDE membership.went_valid on
+      // every purchase, which double-posted the alert (verified 2026-08-02).
       const opsWebhook = process.env.DISCORD_OPS_WEBHOOK;
-      if (opsWebhook) {
+      if (opsWebhook && type !== "payment.succeeded") {
         try {
           await postNewMemberAlert(opsWebhook, type, data);
         } catch (e) {
@@ -548,7 +561,13 @@ export default async function handler(req, res) {
         return;
       }
 
-      const transactionId = data.id || data.payment_id || data.membership_id || `whop-${Date.now()}`;
+      // Prefer the membership id so payment.succeeded and membership.went_valid
+      // (Whop sends BOTH per purchase) carry the SAME transaction_id — GA4 then
+      // dedupes them into one purchase instead of double-counting revenue.
+      const membershipRef =
+        data.membership_id ||
+        (typeof data.membership === "string" ? data.membership : data.membership?.id);
+      const transactionId = membershipRef || data.id || data.payment_id || `whop-${Date.now()}`;
       const ga = await sendGa4Purchase({
         measurementId,
         apiSecret,
