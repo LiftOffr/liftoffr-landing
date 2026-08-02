@@ -147,6 +147,24 @@ const PLAN_TIER = {
   plan_zNprCbJjAquZ6: "pro",   // cardless 7-day trial → Pro taste
 };
 
+// Addon roles: additive, never part of the tier-swap strip logic. A member can
+// hold an addon alongside any tier (a System owner buying the $29 plan must not
+// lose their tier role, and vice versa). Only removed on refund of the addon plan.
+const ADDON_ROLES = { plan: "1533475043110293715" }; // @Plan
+const PLAN_ADDON = {
+  plan_MntgjXJaQnGsW: "plan", // My Bear Market Buy Plan, $29 one-time
+};
+
+async function applyAddonRole(botToken, discordId, planId, add = true) {
+  if (!botToken || !discordId) return { skipped: "no bot token or discord id" };
+  const addon = PLAN_ADDON[planId];
+  if (!addon) return null; // not an addon plan
+  const out = { addon };
+  try { out[add ? "add" : "rm"] = await setDiscordRole(botToken, discordId, ADDON_ROLES[addon], add); }
+  catch (e) { out.error = e?.message || String(e); }
+  return out;
+}
+
 // Pull a likely Discord user ID from a Whop membership payload.
 // Whop's payload shape varies: try common locations.
 function extractDiscordId(data) {
@@ -506,6 +524,36 @@ export default async function handler(req, res) {
         } catch (e) {
           console.warn("[whop-webhook] tier role assignment failed:", e?.message || e);
         }
+        try {
+          const addonRes = await applyAddonRole(botToken, await resolveDiscordId(data), planId, true);
+          if (addonRes) console.log(`[whop-webhook] addon role: ${JSON.stringify(addonRes)}`);
+        } catch (e) {
+          console.warn("[whop-webhook] addon role assignment failed:", e?.message || e);
+        }
+      }
+
+      // $29 plan buyers → Resend "Plan Buyers" audience for the D0/1/3/7/14
+      // upsell sequence. No-op unless RESEND_PLAN_AUDIENCE_ID is set (feature-flagged,
+      // same pattern as the trial audience).
+      if (PLAN_ADDON[planId]) {
+        const planAud = process.env.RESEND_PLAN_AUDIENCE_ID;
+        const resendKeyP = process.env.RESEND_API_KEY;
+        const buyerEmail = data.user?.email || data.email;
+        if (planAud && resendKeyP && buyerEmail) {
+          try {
+            await fetch(`https://api.resend.com/audiences/${planAud}/contacts`, {
+              method: "POST",
+              headers: { Authorization: `Bearer ${resendKeyP}`, "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: buyerEmail,
+                first_name: (data.user?.username || data.user?.name || "").split(" ")[0] || undefined,
+                unsubscribed: false,
+              }),
+            });
+          } catch (e) {
+            console.warn("[whop-webhook] plan audience add failed:", e?.message || e);
+          }
+        }
       }
 
       // Free-trial START → `begin_trial`, NOT a purchase (no money changed hands).
@@ -593,10 +641,17 @@ export default async function handler(req, res) {
       const churnBot = process.env.DISCORD_BOT_TOKEN;
       if (churnBot) {
         try {
-          const clr = await clearTierRoles(churnBot, await resolveDiscordId(data));
-          console.log(`[whop-webhook] cleared tier roles: ${JSON.stringify(clr)}`);
+          if (PLAN_ADDON[planId]) {
+            // Addon plan (e.g. $29 buy plan) refunded/invalidated: remove ONLY the
+            // addon role. The member's tier subscription, if any, is untouched.
+            const rm = await applyAddonRole(churnBot, await resolveDiscordId(data), planId, false);
+            console.log(`[whop-webhook] addon churn: ${JSON.stringify(rm)}`);
+          } else {
+            const clr = await clearTierRoles(churnBot, await resolveDiscordId(data));
+            console.log(`[whop-webhook] cleared tier roles: ${JSON.stringify(clr)}`);
+          }
         } catch (e) {
-          console.warn("[whop-webhook] clear tier roles failed:", e?.message || e);
+          console.warn("[whop-webhook] clear/addon roles on churn failed:", e?.message || e);
         }
       }
 
