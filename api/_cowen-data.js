@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "2o0qSlwjkv8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Beauty of Mathematics (Part 72)",
+    "published": "2026-08-02T02:32:22+00:00",
+    "processed_at": "2026-08-02T02:40:49.580879+00:00",
+    "url": "https://www.youtube.com/watch?v=2o0qSlwjkv8",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "logarithmic regression trend line",
+      "four-year cycle"
+    ],
+    "key_points": [
+      "Bitcoin remains well below its fair value logarithmic regression trend line, and since that trend line rises over time, sideways price action would make the asset even more undervalued",
+      "Current deviation from fair value is comparable only to levels seen in 2010, shortly after the asset's inception",
+      "The four-year cycle pattern suggests continued weakness for at least a few more months before any recovery begins",
+      "Repeated scams, memecoin rug pulls, and cold storage hacks are driving retail interest and YouTube engagement down, reflecting growing pains in industry maturation",
+      "Long-term thesis remains intact for the asset class eventually reaching a multi-trillion dollar valuation, roughly around 10 trillion, once it moves past this weak phase"
+    ],
+    "summary": "Bitcoin continues trading far below its fair value trend line, a divergence not seen since the asset's earliest days in 2010, and the four-year cycle framework points to further undervaluation over the coming months before any recovery. Scandals, rug pulls, and security breaches are compounding weakness by eroding retail trust and participation, representing necessary growing pains for the industry. The long-term outlook remains constructive, with an eventual multi-trillion dollar valuation still expected once this apathetic phase concludes."
+  },
+  {
     "video_id": "7vNA0geUryY",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1466,35 +1491,5 @@ export default [
       "Potential future scenario of Republican president with Democratic Congress (worst case for stocks historically) remains untested with Bitcoin"
     ],
     "summary": "Bitcoin data is too sparse (starting 2013) to draw reliable conclusions about political regime performance. Historical median returns show sweeps (unified control) have been bearish while split Congress scenarios have performed better, potentially indicating preference for political gridlock. Current midterm year performance is significantly underperforming the 65% average, and outcome depends heavily on whether Congress remains split or becomes unified Democrat-controlled."
-  },
-  {
-    "video_id": "Rf-gAQJk5-0",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Inflation Rises to 3.8%",
-    "published": "2026-05-12T15:36:29+00:00",
-    "processed_at": "2026-05-12T16:31:51.791889+00:00",
-    "url": "https://www.youtube.com/watch?v=Rf-gAQJk5-0",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "CPI",
-      "Core inflation",
-      "Unemployment rate",
-      "Initial claims",
-      "S&P 500/M2 correlation",
-      "Altcoin/Bitcoin dominance",
-      "Recession risk dashboard"
-    ],
-    "key_points": [
-      "Headline inflation rose to 3.78% driven by supply-side energy crisis, pushing rate cut expectations out to 2027 and introducing possibility of rate hikes instead",
-      "Rising inflation in late business cycle environment leaves Fed checkmated if labor market weakens simultaneously, as they cannot cut rates to support employment without fueling further inflation",
-      "Crypto assets are more sensitive to rate expectations and liquidity than equities; altcoins continue bleeding to Bitcoin as rate cut pricing declines",
-      "Stock market remains at all-time highs but labor market weakness unlikely until asset prices decline materially, though initial claims at 200k remain key recession signal if breached above 300k",
-      "Energy sector historically tops 6+ months after broad market peaks in late-cycle environments, creating potential continued outperformance despite macro headwinds"
-    ],
-    "summary": "Inflation resurgence from geopolitical energy shocks has eliminated near-term rate cut expectations and reintroduced rate hike possibility, creating a potential Fed checkmate scenario if labor market weakens while inflation remains elevated. The S&P/M2 correlation remains intact and energy continues outperforming, but crypto faces headwinds as a higher-risk asset sensitive to liquidity withdrawal. Market timing remains difficult as historical precedent shows late-cycle rallies can persist longer than expected before eventual reversals."
   }
 ];
