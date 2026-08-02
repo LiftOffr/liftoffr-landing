@@ -266,8 +266,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="form-success" id="formSuccess">
           <strong>✓ Check your inbox.</strong>
           <p>The Buy Zone Plan PDF + this week's LiftOffr Score are on their way (from torin@liftoffr.com). Whitelist that address so they don't end up in Promotions.</p>
-          <a href="/start" rel="noopener" style="display:block;margin-top:14px;background:var(--red);color:#fff;text-decoration:none;text-align:center;padding:13px;border-radius:9px;font-weight:800;font-size:14.5px;">While it sends — Start 7 days free →</a>
-          <p style="margin-top:8px;font-size:12px;color:#777;text-align:center;">The membership runs the plan for you: daily brief, band alerts, live dashboard. No card required.</p>
+          <a href="/plan" rel="noopener" style="display:block;margin-top:14px;background:var(--red);color:#fff;text-decoration:none;text-align:center;padding:13px;border-radius:9px;font-weight:800;font-size:14.5px;">While it sends — Get the plan — $29 once →</a>
+          <p style="margin-top:8px;font-size:12px;color:#777;text-align:center;">The exact tier-by-tier plan I'm executing — $29, once. No subscription.</p>
         </div>
         <p class="form-fine">No spam. Unsubscribe in one click.</p>
       </div>
@@ -365,11 +365,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <!-- UPGRADE -->
   <div class="upgrade">
-    <div class="upgrade-eyebrow">Want the system run for you?</div>
-    <h3>The plan is the <em>map</em>. LiftOffr is the <em>navigation</em>.</h3>
-    <p>The PDF gives you the framework. The membership gives you the daily 8am MT brief, live alerts when a band gets hit, the full 6-module course, and a private Discord — all free for 7 days — no card required.</p>
-    <a href="/start" rel="noopener" class="upgrade-btn">Start 7 days free →</a>
-    <div class="upgrade-fine">🛡️ 30-day money-back · Cancel in one click · Instant Discord access</div>
+    <div class="upgrade-eyebrow">Want the exact numbers, not just the framework?</div>
+    <h3>The PDF is the <em>map</em>. My plan is the <em>route</em>.</h3>
+    <p>The PDF gives you the framework. My Bear Market Buy Plan is the exact tier-by-tier plan I'm executing — every trigger price, every tranche size, timestamped receipts — $29, once.</p>
+    <a href="/plan" rel="noopener" class="upgrade-btn">Get the plan — $29 once →</a>
+    <div class="upgrade-fine">🛡️ 30-day money-back · One-time purchase · Instant Discord access</div>
   </div>
 
   <div class="footer-row">
@@ -431,7 +431,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         form.style.display = 'none';
         if (successBox) successBox.style.display = 'block';
       } else {
-        form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox — the plan is on its way.</div><a href="/start" rel="noopener" style="display:block;width:100%;margin-top:10px;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:12px;border-radius:9px;font-weight:800;font-size:14px;">While it sends — Start 7 days free →</a>';
+        form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox — the plan is on its way.</div><a href="/plan" rel="noopener" style="display:block;width:100%;margin-top:10px;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:12px;border-radius:9px;font-weight:800;font-size:14px;">While it sends — Get the plan — $29 once →</a>';
       }
       if (typeof window.track === 'function') {
         window.track('lead_captured', { source: medium, page: location.pathname });
@@ -451,14 +451,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   // CTA click tracking (matches homepage schema)
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href$="/start"], a[href^="/track-record"]');
+    var a = e.target.closest('a[href$="/plan"], a[href^="/track-record"]');
     if (!a) return;
     var isProof = a.getAttribute('href').indexOf('/track-record') === 0;
     if (typeof window.track === 'function') {
       window.track('cta_clicked', {
         cta_text: (a.textContent || '').trim().slice(0, 80),
         cta_position: a.className || 'buyzone_cta',
-        destination: isProof ? 'proof' : 'trial',
+        destination: isProof ? 'proof' : 'plan',
         page: location.pathname
       });
     }

@@ -1,6 +1,6 @@
 // Welcome sequence follow-up cron — Day 3 and Day 7 emails.
 //
-// Vercel cron config (vercel.json) calls this HOURLY. We compute each contact's
+// Vercel cron config (vercel.json) calls this DAILY (Hobby plan: 1 run/day). We compute each contact's
 // age from their Resend audience `created_at` timestamp and fire the right
 // follow-up at the right window:
 //
@@ -112,22 +112,20 @@ function email3HTML() {
     <p style="margin:0 0 16px;">Last email in the welcome sequence.</p>
     <p style="margin:0 0 16px;">From now on you'll get one email from me every Sunday morning — the LiftOffr Score, the zone, and a one-line read on what it means this week. That's the ongoing relationship. No daily spam, no sales sequences, no recycled Twitter takes.</p>
     <p style="margin:0 0 16px;">You can absolutely DIY this. Read the Score each Sunday, run the Checklist yourself, build your own discipline. That alone puts you ahead of 99% of crypto investors.</p>
-    <p style="margin:0 0 16px;">But if you'd rather have it <em>done for you</em> — the daily briefs, live dashboard, real-time signal alerts when triggers fire, 6-module course, and private Discord community — start a <strong>7-day free trial (no card)</strong>, then keep it from $49/mo.</p>
-    <p style="margin:18px 0 12px;font-weight:700;color:#080808;">Risk-free for 30 days. Full refund if it's not for you.</p>
+    <p style="margin:0 0 16px;">But if you want the shortcut — <strong>My Bear Market Buy Plan</strong> is the exact nine-tier ladder I'm executing with my own money, with a timestamped receipt on every fire. It's <strong>$29, once</strong>. No subscription.</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
-      <div>• Daily BTC market brief in Discord (8am MT, weekdays)</div>
-      <div>• Live dashboard with the current Score</div>
-      <div>• Real-time signal alerts when V7 triggers fire</div>
-      <div>• 6 modules: foundations → exit framework → multi-cycle wealth</div>
-      <div>• Custom AI Q&A bot trained on the curriculum</div>
-      <div>• Founder badge + private community</div>
+      <div>• Nine buy tiers — the exact levels I'm executing</div>
+      <div>• Timestamped receipts on every fire</div>
+      <div>• #plan-updates Discord channel — every move, live</div>
+      <div>• Updated for the rest of this bear</div>
+      <div>• Your $29 always counts toward The Cycle System</div>
     </div>
     <p style="margin:18px 0;">Either way — see you Sunday.</p>
     <p style="margin:18px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
-    <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to try it first? Start a 7-day free trial — no card, nothing charged automatically.</p>
+    <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Not ready for $29? The scoreboard stays free — Discord + the Sunday Score: https://liftoffr.com/free</p>
   </div>
   <div style="padding:0 28px 32px;">
-    <a href="https://liftoffr.com/start" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Start 7 days free — no card →</a>
+    <a href="https://liftoffr.com/plan" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Get the plan — $29 once →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
@@ -144,24 +142,21 @@ function email3Text() {
     "",
     "You can absolutely DIY this. That alone puts you ahead of 99% of crypto investors.",
     "",
-    "But if you'd rather have it done for you — daily briefs, live dashboard, real-time signal alerts, 6-module course, and private Discord — start a 7-day free trial (no card), then keep it from $49/mo.",
+    "But if you want the shortcut — My Bear Market Buy Plan is the exact nine-tier ladder I'm executing with my own money, receipts on every fire. $29, once. No subscription.",
     "",
-    "Risk-free for 30 days. Full refund if it's not for you.",
-    "",
-    "  • Daily BTC market brief in Discord (8am MT, weekdays)",
-    "  • Live dashboard with the current Score",
-    "  • Real-time signal alerts when V7 triggers fire",
-    "  • 6 modules: foundations → exit framework → multi-cycle wealth",
-    "  • Custom AI Q&A bot trained on the curriculum",
-    "  • Founder badge + private community",
+    "  • Nine buy tiers — the exact levels I'm executing",
+    "  • Timestamped receipts on every fire",
+    "  • #plan-updates Discord channel — every move, live",
+    "  • Updated for the rest of this bear",
+    "  • Your $29 always counts toward The Cycle System",
     "",
     "Either way — see you Sunday.",
     "— Torin",
     "Founder, LiftOffr",
     "",
-    "https://liftoffr.com/start",
+    "https://liftoffr.com/plan",
     "",
-    "P.S. Try it free for 7 days — no card. Plans at liftoffr.com/#pricing.",
+    "P.S. Not ready for $29? The scoreboard stays free: https://liftoffr.com/free",
   ].join("\n");
 }
 
@@ -194,9 +189,9 @@ function proofHTML() {
      </div>
      <p style="margin:0 0 16px;">It isn't magic. It's scaling <em>out</em> by the Score instead of guessing the top — and scaling <em>in</em> when everyone's scared.</p>
      <p style="margin:0 0 16px;">Receipts are timestamped. Dec 15, 2018: buy signal at $3.2K. BTC ran 21× to $69K. <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof" style="color:#e63946;font-weight:700;">Full backtest here →</a></p>
-     <p style="margin:0 0 16px;">Want to see what the indicators are flashing <em>right now</em> — live? That's what a membership is: the daily read, the dashboard, and alerts when it matters. Try it free for 7 days, no card.</p>
+     <p style="margin:0 0 16px;">Want the plan built on those indicators — the exact nine-tier ladder I'm executing right now, receipts included? It's $29, once.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "Start 7 days free — no card →", "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_trial");
+    "Get the plan — $29 once →", "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_plan");
 }
 function proofText() {
   return ["Most people don't believe this the first time — so here's the math, public and checkable.","",
@@ -208,8 +203,8 @@ function proofText() {
     "It isn't magic. It's scaling out by the Score instead of guessing the top — and scaling in when everyone's scared.","",
     "Receipts are timestamped. Dec 15, 2018: buy at $3.2K. BTC ran 21x to $69K.","",
     "Full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","",
-    "Want to see what the indicators are flashing right now — live? Try a membership free for 7 days, no card:",
-    "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_trial","","— Torin"].join("\n");
+    "Want the plan built on those indicators — the exact ladder I'm executing, receipts included? $29, once:",
+    "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_plan","","— Torin"].join("\n");
 }
 
 // ── Day 18: Re-engagement (timely buy-zone angle → trial) ──
@@ -217,17 +212,17 @@ function reengageHTML() {
   return shell("LiftOffr · checking in",
     `<p style="margin:0 0 16px;">I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.</p>
      <p style="margin:0 0 16px;">Right now the cycle's in the <strong>accumulation zone</strong> — the boring, scary part that quietly decides how the next bull plays out. It's the easy part to ignore and the expensive part to get wrong.</p>
-     <p style="margin:0 0 16px;">If you'd rather not freelance it, the done-for-you version is still open free for 7 days — daily brief, live signal alerts, and the exact buy-ladder I'm running. No card, nothing charged.</p>
+     <p style="margin:0 0 16px;">If you'd rather not freelance it, the exact buy-ladder I'm running — nine tiers, timestamped receipts on every fire — is $29, once. No subscription.</p>
      <p style="margin:0 0 16px;">If now's not the time, no worries — you'll still get the Score every Sunday.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "Start 7 days free — no card →", "https://liftoffr.com/start");
+    "Get the plan — $29 once →", "https://liftoffr.com/plan");
 }
 function reengageText() {
   return ["I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.","",
     "Right now the cycle's in the accumulation zone — the boring, scary part that decides how the next bull plays out. Easy to ignore, expensive to get wrong.","",
-    "If you'd rather not freelance it, the done-for-you version is open free for 7 days — daily brief, live signal alerts, the exact buy-ladder I'm running. No card, nothing charged.","",
+    "If you'd rather not freelance it, the exact buy-ladder I'm running — nine tiers, timestamped receipts — is $29, once. No subscription.","",
     "If now's not the time, no worries — you'll still get the Score every Sunday.","",
-    "Start 7 days free: https://liftoffr.com/start","","— Torin"].join("\n");
+    "Get the plan ($29, once): https://liftoffr.com/plan","","— Torin"].join("\n");
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -257,7 +252,7 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   <div style="padding:20px 28px 4px;border-top:1px solid #eee;font-size:13px;color:#666;line-height:1.7;">
     <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 3 ways I can help:</p>
     <p style="margin:0 0 2px;">1. <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_cycle" style="color:#e63946;">Check the live cycle dashboard</a> — free, always current</p>
-    <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_trial" style="color:#e63946;">Try the full system free for 7 days</a> — no card</p>
+    <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_plan" style="color:#e63946;">Get My Bear Market Buy Plan</a> — $29, once</p>
     <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
@@ -476,8 +471,9 @@ export default async function handler(req, res) {
       results.skipped++;
     }
 
-    // ── Trial nurture (only if the trial audience is configured) ──
-    const trialAud = process.env.RESEND_TRIAL_AUDIENCE_ID;
+    // ── Trial nurture — RETIRED 2026-08-02. The 7-day trial is dead (LIFTOFFR_MASTER_PLAN.md).
+    // Hard-disabled regardless of env: RESEND_TRIAL_AUDIENCE_ID may still exist in Vercel.
+    const trialAud = null;
     let trial = null;
     if (trialAud) {
       trial = { t1_sent: 0, t2_sent: 0, t3_sent: 0, t4_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };

@@ -261,7 +261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog">Blog</a>
     <a href="/proof">Track Record</a>
     <a href="/indicator-history">Indicators</a>
-    <div style="text-align:center;margin-top:20px;"><a href="/start" rel="noopener" class="site-nav-cta">Start 7 days free</a></div>
+    <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener" class="site-nav-cta">Get the plan — $29 once →</a></div>
   </div>
 </nav>
 
@@ -492,7 +492,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track All 8 Indicators in One Daily Brief</h3>
             <p>Fear &amp; Greed is just one of the eight signals LiftOffr monitors every day. Each morning at 8am MT, members receive a plain-English confluence read that synthesizes sentiment, on-chain data, and cycle timing into one clear verdict.</p>
-            <p><strong>LiftOffr — plans from $49/mo — <span data-founder-text>7-day free trial · no card</span></strong></p>
+            <p><a href="/plan"><strong>My exact bear market buy plan — $29, once.</strong></a></p>
             <p>Membership includes:</p>
             <ul>
                 <li>Daily confluence brief covering all 8 indicators</li>
@@ -501,7 +501,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li>Historical indicator data across Bitcoin cycles</li>
                 <li>Private member community and weekly analysis</li>
             </ul>
-            <div style="text-align:center;margin-top:20px;"><a href="/start" rel="noopener">Start 7 days free — no card</a></div>
+            <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener">Get the plan — $29 once →</a></div>
         </div>
 
         <div class="faq-section">
@@ -559,18 +559,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics and cycle indicators since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to everyday Bitcoin investors.</em></p>
         </div>
     </article>
-<script>
-// Live founder spot count — replaces [data-founder-text] with real
-// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
-(function(){
-  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
-    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
-    if (d.remaining <= 0) return;
-    var text = 'Plans from $49/mo · start 7 days free, no card';
-    var els = document.querySelectorAll('[data-founder-text]');
-    for (var i = 0; i < els.length; i++) els[i].textContent = text;
-  }).catch(function(){});
-})();
-</script>
 </body>
 </html>

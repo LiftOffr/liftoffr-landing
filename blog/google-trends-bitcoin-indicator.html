@@ -256,7 +256,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog">Blog</a>
     <a href="/proof">Track Record</a>
     <a href="/indicator-history">Indicators</a>
-    <div style="text-align:center;margin-top:20px;"><a href="/start" rel="noopener" class="site-nav-cta">Start 7 days free</a></div>
+    <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener" class="site-nav-cta">Get the plan — $29 once →</a></div>
   </div>
 </nav>
 
@@ -458,7 +458,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track All 8 Indicators in One Place</h3>
             <p>Google Trends is one piece of the puzzle. LiftOffr synthesizes all 8 cycle indicators — on-chain data, sentiment, technical signals, and search trends — into a single weekly confluence read.</p>
-            <p><strong>LiftOffr — plans from $49/mo — <span data-founder-text>7-day free trial · no card</span></strong></p>
+            <p><a href="/plan"><strong>My exact bear market buy plan — $29, once.</strong></a></p>
             <p>Get access to:</p>
             <ul style="text-align: left; display: inline-block;">
                 <li>Weekly confluence briefings when indicators align</li>
@@ -467,7 +467,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li>Plain-English summaries — no chart-reading required</li>
                 <li>Community of Bitcoin cycle investors sharing context in real time</li>
             </ul>
-            <p><a href="/start" rel="noopener">Start 7 days free — no card</a></p>
+            <p><a href="/plan" rel="noopener">Get the plan — $29 once →</a></p>
         </div>
 
         <div class="faq-section">
@@ -525,18 +525,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to everyday investors.</em></p>
         </div>
     </article>
-<script>
-// Live founder spot count — replaces [data-founder-text] with real
-// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
-(function(){
-  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
-    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
-    if (d.remaining <= 0) return;
-    var text = 'Plans from $49/mo · start 7 days free, no card';
-    var els = document.querySelectorAll('[data-founder-text]');
-    for (var i = 0; i < els.length; i++) els[i].textContent = text;
-  }).catch(function(){});
-})();
-</script>
 </body>
 </html>

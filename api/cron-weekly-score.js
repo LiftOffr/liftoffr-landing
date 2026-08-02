@@ -86,17 +86,17 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
   <div style="padding:0 28px 32px;font-size:14px;color:#444;line-height:1.6;">
     <p style="margin:0 0 12px;color:#666;font-size:13px;">The Score is a V7-weighted composite of 9 on-chain + market indicators. Above 85 = historic top zones. Below 20 = accumulation windows.</p>
-    <p style="margin:18px 0 0;">Want the daily brief, the live dashboard, and signal alerts when the Score crosses 70? Try LiftOffr free for 7 days — no card.</p>
+    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score — nine buy tiers, timestamped receipts on every fire? It's $29, once.</p>
   </div>
 
   <div style="padding:0 28px 32px;">
-    <a href="https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Start 7 days free — no card →</a>
+    <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Get the plan — $29 once →</a>
   </div>
 
   <div style="padding:20px 28px 4px;border-top:1px solid #eee;font-size:13px;color:#666;line-height:1.7;">
     <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 3 ways I can help:</p>
     <p style="margin:0 0 2px;">1. <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_cycle" style="color:#e63946;">Check the live cycle dashboard</a> — free, always current</p>
-    <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_trial" style="color:#e63946;">Try the full system free for 7 days</a> — no card</p>
+    <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_plan" style="color:#e63946;">Get My Bear Market Buy Plan</a> — $29, once</p>
     <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
   </div>
 
@@ -121,8 +121,8 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     "The Score is a V7-weighted composite of 9 on-chain + market indicators. Above 85 = historic top zones. Below 20 = accumulation windows.",
     "",
-    "Want the daily brief + live dashboard + signal alerts? Try it free for 7 days — no card:",
-    "https://liftoffr.com/start?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
+    "Want the exact plan I'm executing against this Score? $29, once:",
+    "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
     "",
     "— Torin",
     "",
@@ -224,7 +224,7 @@ function zoneChangeText({ from, to, score, date }) {
     `Zone changes are rare — this is the signal the weekly email exists for. Members got the full read and what I'm doing about it in this morning's brief.`,
     ``,
     `See the live score: https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert`,
-    `Full system, 7 days free (no card): https://liftoffr.com/start`,
+    `The exact plan I'm executing — $29, once: https://liftoffr.com/plan`,
     ``,
     `— Torin`,
     ``,
@@ -243,7 +243,7 @@ function zoneChangeHTML(p) {
       <div style="font-size:12px;color:#888;margin-top:6px;">was ${zoneLabel(p.from)} · crossed ${p.date}</div>
     </div>
     <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and what I'm doing about it in this morning's brief.</p>
-    <a href="https://liftoffr.com/start?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Unlock the full read — 7 days free →</a>
+    <a href="https://liftoffr.com/plan?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Get the plan — $29 once →</a>
     <p style="text-align:center;font-size:12px;"><a href="https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert" style="color:#888;">or watch the live score →</a></p>
     <p style="font-size:11px;color:#999;margin-top:22px;">Educational content only — not financial advice. <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
   </div>`;

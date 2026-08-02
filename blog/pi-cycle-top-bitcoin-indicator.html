@@ -252,7 +252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog">Blog</a>
     <a href="/proof">Track Record</a>
     <a href="/indicator-history">Indicators</a>
-    <div style="text-align:center;margin-top:20px;"><a href="/start" rel="noopener" class="site-nav-cta">Start 7 days free</a></div>
+    <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener" class="site-nav-cta">Get the plan — $29 once →</a></div>
   </div>
 </nav>
 
@@ -484,7 +484,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Track Pi Cycle Alongside 7 Other Indicators — Daily</h3>
             <p>LiftOffr members get a daily confluence brief covering Pi Cycle, MVRV, CBBI, and five more signals — synthesized into one clear read on the Bitcoin cycle every morning.</p>
-            <p><strong>Plans from $49/mo</strong> — <span data-founder-text>7-day free trial · no card</span>, lock it in before the price increases.</p>
+            <p><a href="/plan"><strong>My exact bear market buy plan — $29, once.</strong></a></p>
             <ul>
                 <li>Daily indicator confluence brief (8am MT)</li>
                 <li>Pi Cycle, MVRV, CBBI, and 5 more signals tracked in real time</li>
@@ -492,7 +492,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li>Private community of serious Bitcoin cycle analysts</li>
                 <li>30-day money-back guarantee</li>
             </ul>
-            <div style="text-align:center;margin-top:20px;"><a href="/start" rel="noopener">Start 7 days free</a></div>
+            <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener">Get the plan — $29 once →</a></div>
         </div>
 
         <div class="faq-section">
@@ -550,18 +550,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade cycle intelligence to retail investors.</em></p>
         </div>
     </article>
-<script>
-// Live founder spot count — replaces [data-founder-text] with real
-// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
-(function(){
-  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
-    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
-    if (d.remaining <= 0) return;
-    var text = 'Plans from $49/mo · start 7 days free, no card';
-    var els = document.querySelectorAll('[data-founder-text]');
-    for (var i = 0; i < els.length; i++) els[i].textContent = text;
-  }).catch(function(){});
-})();
-</script>
 </body>
 </html>

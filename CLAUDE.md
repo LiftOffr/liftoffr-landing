@@ -15,21 +15,24 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 ## Page map
 | Path | Role |
 |---|---|
-| `/` (index.html) | homepage: hero → proof bar → how-it-works → testimonials → pricing (Core/Pro/Elite) → FAQ. 8 `/start` CTAs + embedded Whop checkout modal |
+| `/` (index.html) | homepage: hero → proof bar → how-it-works → testimonials → offer ($29 plan + free door) → FAQ. CTAs → `/plan` |
 | `/links` | link-in-bio hub |
 | `/checklist` | lead-capture landing (current bio-link destination for IG/TikTok/YT/X via /ig /tt /yt /x) |
 | `/cycle` | PUBLIC live cycle dashboard (gauge, Four Pillars, indicators) |
 | `/track-record` | backtest proof: $50/wk → $1.88M vs $217K DCA, +7,602%, 417 start dates |
-| `/playbook` | $497 Cycle Playbook sales page (noindex) |
+| `/playbook` | $997 Cycle Playbook 1:1 sales page (noindex, 4 spots/month) |
 | `/blog/*` | 9 indicator SEO posts |
-| `/welcome` | post-checkout success → Discord |
+| `/welcome` | generic post-checkout success → Discord |
+| `/plan` | $29 one-time "My Bear Market Buy Plan" sales page (plan_MntgjXJaQnGsW) |
+| `/free` | free onramp: Discord invite + Sunday Score capture |
+| `/welcome-plan` | $29 plan post-purchase success page |
 | `/dashboard` | PRIVATE (basic-auth) founder dashboard |
 
-## Funnel wiring
-- `/start` `/free` → Whop cardless 7-day trial `plan_zNprCbJjAquZ6` (no card, auto-expires).
-- Tiers: Core $49/mo `plan_yi7i0rC444Ssk` ($399/yr `plan_kBe5idN105Ipc`) · Pro $99 `plan_JnWiKWtwzlTVR` ($799 `plan_nFxTZFYUqmMkx`) · Elite $249 `plan_dMb9YIKbWN7ck` ($1990 `plan_b0whXHoSzqDL1`) · Playbook $497 `plan_uIpPdsPTSHdTp`.
-- Whop webhook (`api/whop-webhook.js`) assigns Discord tier roles + fires GA4 events + adds to Resend trial audience.
-- Email: Resend — free nurture (D0/1/3/5/7/18), trial nurture (D1/3/6/8-9), Sunday Score. Crons in vercel.json (Hobby = 1/day per cron max — hourly schedules break ALL deploys).
+## Funnel wiring (post-pivot 2026-08-02 — truth: LIFTOFFR_MASTER_PLAN.md)
+- Offer ladder: FREE (/free: open Discord + Sunday Score) → $29 one-time "My Bear Market Buy Plan" `plan_MntgjXJaQnGsW` (/plan) → $197 one-time "The Cycle System" ($147 founding, 50 seats; Whop plan TBD) → $997 "The Cycle Playbook" 1:1 `plan_uIpPdsPTSHdTp` (/playbook).
+- DEAD (grandfathered only, hidden in Whop): Core/Pro/Elite subs, 7-day trial, annual plans. `/start` and `/join` now redirect to `/plan`.
+- Whop webhook (`api/whop-webhook.js`) assigns @Plan addon role + legacy tier roles + fires GA4 purchase (item_id per plan) + adds $29 buyers to Resend "Plan Buyers" audience. Trial paths are hard-retired no-ops.
+- Email: Resend — free nurture (D1/3/5/7/18, re-aimed at the $29 plan), Sunday Score. Trial nurture RETIRED (hard-disabled in code). Crons in vercel.json (Hobby = 1/day per cron max — hourly schedules break ALL deploys).
 - DO NOT touch payment logic or pricing values without explicit founder confirmation per item.
 
 ## Design language (preserve — never break)
@@ -45,7 +48,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 
 ## Analytics
 - GA4 `G-015PKWM24J` inline on every page (NOT via GTM). GTM `GTM-K5B4BX46` = Whop pixel only. Clarity `wl50cvbc1c`. New page ⇒ add GA4 + Clarity snippets manually.
-- Events: cta_clicked (destination param), lead_magnet_submit, lead_captured, exit_intent_*, begin_trial, checkout_confirmed, trial_converted, purchase.
+- Events: cta_clicked (destination param), lead_magnet_submit, lead_captured, exit_intent_*, checkout_confirmed, purchase. (begin_trial/trial_converted retired 2026-08-02.)
 - Query: `curl -u admin:<DASHBOARD_PASSWORD> "https://liftoffr.com/api/analytics?src=ga4&report=funnel|traffic&days=30"`.
 
 ## Discord

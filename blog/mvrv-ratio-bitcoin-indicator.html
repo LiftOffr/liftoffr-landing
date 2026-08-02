@@ -239,7 +239,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/blog">Blog</a>
     <a href="/proof">Track Record</a>
     <a href="/indicator-history">Indicators</a>
-    <div style="text-align:center;margin-top:20px;"><a href="/start" rel="noopener" class="site-nav-cta">Start 7 days free</a></div>
+    <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener" class="site-nav-cta">Get the plan — $29 once →</a></div>
   </div>
 </nav>
 
@@ -551,7 +551,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="cta-box">
             <h3>Ready to Stop Guessing and Start Winning?</h3>
             <p>Want to combine MVRV with Pi Cycle, CBBI, and Market Cipher B signals in real-time? Join 60+ traders who are timing Bitcoin cycles with precision.</p>
-            <p><strong>Plans from $49/mo · <span data-founder-text>7-day free trial · no card</span> · 30-day money-back guarantee</strong></p>
+            <p><a href="/plan"><strong>My exact bear market buy plan — $29, once.</strong></a> · 30-day money-back guarantee</p>
             <p>Get access to:</p>
             <ul style="text-align: left; display: inline-block;">
                 <li>✅ Real-time MVRV, Pi Cycle, and CBBI dashboards</li>
@@ -560,7 +560,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li>✅ Community of traders sharing live trade setups</li>
                 <li>✅ On-chain education (weekly deep dives)</li>
             </ul>
-            <p><a href="/start">Start 7 days free — no card</a></p>
+            <p><a href="/plan">Get the plan — $29 once →</a></p>
         </div>
 
         <div class="faq-section">
@@ -600,18 +600,5 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p><em>Torin has been analyzing Bitcoin on-chain metrics since 2018. He built LiftOffr to bring institutional-grade trading tools to retail investors.</em></p>
         </div>
     </article>
-<script>
-// Live founder spot count — replaces [data-founder-text] with real
-// "X of 30 founder spots remaining" from /api/founder-count (cached 5min).
-(function(){
-  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
-    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
-    if (d.remaining <= 0) return;
-    var text = 'Plans from $49/mo · start 7 days free, no card';
-    var els = document.querySelectorAll('[data-founder-text]');
-    for (var i = 0; i < els.length; i++) els[i].textContent = text;
-  }).catch(function(){});
-})();
-</script>
 </body>
 </html>

@@ -71,7 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1 id="hl">You're in. Welcome to LiftOffr.</h1>
   <p class="sub" id="sub">Taking you to the Discord welcome channel now… if it doesn't open automatically, tap the button below.</p>
 
-  <div class="reassure" id="reassure">🔒 <b>On the free trial?</b> Your card isn't charged for 7 days — cancel anytime before then and pay $0. Manage everything in your Whop dashboard.</div>
+  <div class="reassure" id="reassure">🔒 <b>Your purchase is confirmed</b> — the receipt lands in your email. If you bought the $29 plan, head to <a href="/welcome-plan" style="color:inherit;text-decoration:underline;">/welcome-plan</a> for your next steps.</div>
 
   <a href="https://discord.com/channels/1380245793780531351/1380272240150708326" class="cta" id="primary-cta">Open the Discord welcome channel →</a>
 
@@ -106,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   // Whop allows a single global post-purchase redirect, so this page can't know
   // the plan from a param — keep it plan-agnostic. The webhook fires the precise
-  // begin_trial vs purchase server-side; this client-side event just ties the
+  // purchase event server-side; this client-side event just ties the
   // checkout completion to the visitor's GA4 web session for funnel attribution.
   var p = new URLSearchParams(location.search);
   var utm = {

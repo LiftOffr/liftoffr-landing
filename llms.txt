@@ -4,12 +4,13 @@
 
 LiftOffr is for crypto investors who want to time cycle exits using on-chain data instead of emotion. The product tracks 8 cycle indicators (CBBI, MVRV, Pi Cycle Top, Puell Multiple, 2-Year MA Multiplier, BTC Rainbow Chart, Fear & Greed Index, Google Trends) and synthesizes them into a single plain-English daily brief delivered to a private Discord at 8am MT.
 
-Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikTok). Three tiers, all with a 7-day free trial (no card) and 30-day money-back guarantee: Core $49/mo, Pro $99/mo (most popular), Elite $249/mo. Plus the Cycle Playbook — a $497 live cohort.
+Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikTok). No subscriptions. Offers: My Bear Market Buy Plan ($29 one-time — Torin's exact tier-by-tier accumulation plan with timestamped receipts, at /plan), The Cycle System ($197 one-time — the full indicator course + exit ladder, lifetime updates), and The Cycle Playbook ($997 — a private 1:1 session, 4 spots/month). The scoreboard layer (live Score, daily brief, Sunday Score email, open Discord) is free at /free.
 
 ## Core pages
-- [Homepage](https://liftoffr.com/): Product overview, pricing, testimonials, lead magnet
+- [Homepage](https://liftoffr.com/): Product overview, live Score, receipts, lead magnet
+- [The Plan](https://liftoffr.com/plan): My Bear Market Buy Plan — $29 one-time
+- [Free tier](https://liftoffr.com/free): Open Discord + Sunday Score email, free
 - [Track Record](https://liftoffr.com/track-record): Full backtest dashboard of $50/wk DCA + cycle signals across every BTC cycle 2017–today
-- [Pricing](https://liftoffr.com/pricing.md): Machine-readable pricing for AI agents
 - [Blog](https://liftoffr.com/blog/): Indicator deep dives
 - [Bio Links](https://liftoffr.com/links/): Instagram bio link page (highest-traffic landing)
 - [Free Checklist](https://liftoffr.com/lead-magnet/checklist.html): BTC Cycle Top Checklist (lead magnet PDF)

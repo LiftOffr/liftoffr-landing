@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-08-02).** This document is a historical artifact. The single source of truth for offers, pricing, and routing is **LIFTOFFR_MASTER_PLAN.md** — do not implement anything from this file.
+
 # Whop Product Page Copy — Founder Annual ($249/yr)
 
 Paste each section into the corresponding Whop product page field.

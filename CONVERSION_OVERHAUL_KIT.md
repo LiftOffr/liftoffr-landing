@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-08-02).** This document is a historical artifact. The single source of truth for offers, pricing, and routing is **LIFTOFFR_MASTER_PLAN.md** — do not implement anything from this file.
+
 # CONVERSION_OVERHAUL_KIT.md — 2026-07-21
 STATUS (updated same day, "launch whatever research says" pass): SHIPPED — homepage curriculum section, score gating, past-calls miss + locked row, FAQ, /links rebuild, annual-default pricing toggle, $497-value course anchor, popup → desktop exit-intent only, trial-email polish, TRIAL keyword live in IG bot (next 30-min tick). REMAINING items below genuinely need Torin's hands or a price decision. Research basis: 2025-26 teardown of Milk Road PRO, ITC, BM Pro, Real Vision, top Whop/Skool trading sellers.
 

@@ -1,3 +1,5 @@
+> **SUPERSEDED (2026-08-02).** This document is a historical artifact. The single source of truth for offers, pricing, and routing is **LIFTOFFR_MASTER_PLAN.md** — do not implement anything from this file.
+
 # Pricing — LiftOffr
 
 LiftOffr is a Bitcoin cycle indicator framework, Discord community, and 6-module course. Plans are tiered by access level. Every plan includes a **7-day free trial (no card required)** and a **30-day money-back guarantee**. Start a trial at https://liftoffr.com/start

@@ -85,30 +85,6 @@ async function sendGa4Event({ measurementId, apiSecret, name, clientId, userId, 
   return { status: r.status, ok: r.ok };
 }
 
-// Hardened `begin_trial` → GA4 Measurement Protocol. Total no-op until GA4_API_SECRET
-// is added in Vercel project settings (create it under GA4 Admin > Data streams >
-// Measurement Protocol API secrets). Never throws — safe to await in the hot path.
-async function fireGa4BeginTrial({ stableId, planId }) {
-  if (!process.env.GA4_API_SECRET) return; // silent no-op: add GA4_API_SECRET in Vercel to enable
-  try {
-    const measurementId = process.env.GA4_MEASUREMENT_ID || "G-015PKWM24J";
-    const url = `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(process.env.GA4_API_SECRET)}`;
-    // Stable per-user client_id: hash the membership/user id into GA4's "num.num" shape.
-    const h = crypto.createHash("sha256").update(String(stableId || "whop-unknown")).digest("hex");
-    const clientId = `${parseInt(h.slice(0, 8), 16)}.${parseInt(h.slice(8, 16), 16)}`;
-    const r = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        client_id: clientId,
-        events: [{ name: "begin_trial", params: { method: "whop", plan_id: planId || "(unknown)" } }],
-      }),
-    });
-    console.log(`[whop-webhook] begin_trial GA4 status=${r.status} plan=${planId}`);
-  } catch (e) {
-    console.warn("[whop-webhook] begin_trial GA4 send failed:", e?.message || e);
-  }
-}
 
 async function postDiscordAlert(webhookUrl, lines) {
   await fetch(webhookUrl, {
@@ -367,7 +343,12 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
 }
 
 // Send a `purchase` event to GA4 via Measurement Protocol.
-async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, transactionId, value, currency, utm, productName }) {
+const GA4_ITEM_IDS = {
+  plan_MntgjXJaQnGsW: "bear-market-buy-plan",
+  plan_uIpPdsPTSHdTp: "cycle-playbook",
+};
+
+async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, transactionId, value, currency, utm, productName, planId }) {
   const url = `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`;
   const payload = {
     client_id: clientId || `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`,
@@ -386,7 +367,7 @@ async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, tra
           content: utm.content || "(none)",
           items: [
             {
-              item_id: "liftoffr-elite",
+              item_id: GA4_ITEM_IDS[planId] || "liftoffr-legacy",
               item_name: productName || "LiftOffr",
               price: value,
               quantity: 1,
@@ -439,14 +420,9 @@ export default async function handler(req, res) {
       content: data.utm_content || data.metadata?.utm_content || data.referral?.utm_content,
     };
 
-    // The $49/mo plan carries a 7-day free trial (initial_price $0).
-    // A trial START arrives as membership.activated with $0 collected — it is
-    // NOT revenue, so it must fire `begin_trial`, never `purchase` (otherwise the
-    // `|| 29` fallback below would log a phantom $29 sale for every free trial).
-    // Two trial front doors, both $0-at-signup:
-    //   - card trial:     $49/mo plan with 7 trial days, card required, auto-charges day 8
-    //   - cardless trial: $0 one_time plan, no card, Whop auto-expires access at day 7
-    // Both arrive as membership.activated @ $0 → begin_trial (never a purchase).
+    // Legacy trial plans (both retired 2026-08-02, hidden in Whop). A $0 event on
+    // one of these is NOT revenue and must never fall through to `purchase` — the
+    // guard below no-ops them entirely.
     const CARD_TRIAL_PLAN_ID = "plan_aYmWvRCWPXqdB";
     const CARDLESS_TRIAL_PLAN_ID = "plan_zNprCbJjAquZ6";
     const TRIAL_PLAN_IDS = [CARD_TRIAL_PLAN_ID, CARDLESS_TRIAL_PLAN_ID];
@@ -471,7 +447,8 @@ export default async function handler(req, res) {
       type === "membership.cancel_at_period_end_changed";
 
     if (isPaid) {
-      const value = collected || (isTrialPlan ? 49 : 29);
+      // Fallback values only matter when Whop reports $0 collected on a paid event.
+      const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_uIpPdsPTSHdTp: 997 }[planId] ?? 0);
       const currency = (data.currency || "USD").toUpperCase();
 
       // Discord new-member alert to ops channel (private notification for Torin)
@@ -556,38 +533,12 @@ export default async function handler(req, res) {
         }
       }
 
-      // Free-trial START → `begin_trial`, NOT a purchase (no money changed hands).
-      // The welcome/DM above already fired so the new trialist gets onboarded immediately.
-      // Handled BEFORE the GA4 env check below: fireGa4BeginTrial hard-guards on
-      // GA4_API_SECRET itself, and the Resend audience add must not depend on GA4 env.
       if (isTrialStart) {
-        // Add the trialist to the Resend "LiftOffr Trial" audience so the
-        // day-1/3/6 trial-nurture cron can email them before the day-7 charge.
-        // No-op unless RESEND_TRIAL_AUDIENCE_ID is set (feature-flagged).
-        const trialAud = process.env.RESEND_TRIAL_AUDIENCE_ID;
-        const resendKey = process.env.RESEND_API_KEY;
-        const trialEmail = data.user?.email || data.email;
-        if (trialAud && resendKey && trialEmail) {
-          try {
-            await fetch(`https://api.resend.com/audiences/${trialAud}/contacts`, {
-              method: "POST",
-              headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: trialEmail,
-                first_name: (data.user?.username || data.user?.name || "").split(" ")[0] || undefined,
-                unsubscribed: false,
-              }),
-            });
-          } catch (e) {
-            console.warn("[whop-webhook] trial audience add failed:", e?.message || e);
-          }
-        }
-        await fireGa4BeginTrial({
-          stableId: data.user?.id || data.user_id || data.membership_id || data.id,
-          planId,
-        });
-        console.log(`[whop-webhook] begin_trial handled type=${type} plan=${planId} utm=${JSON.stringify(utm)}`);
-        res.status(200).json({ ok: true, type, event: "begin_trial" });
+        // TRIAL RETIRED 2026-08-02 (LIFTOFFR_MASTER_PLAN.md). The guard stays so a
+        // stray $0 event on a legacy trial plan can never log a phantom purchase,
+        // but nothing fires anymore: no begin_trial GA4 event, no trial audience add.
+        console.log(`[whop-webhook] legacy trial event ignored type=${type} plan=${planId}`);
+        res.status(200).json({ ok: true, type, event: "trial_retired_noop" });
         return;
       }
 
@@ -608,28 +559,11 @@ export default async function handler(req, res) {
         currency,
         utm,
         productName: data.plan?.product?.name || data.product?.name || data.plan_name || "LiftOffr",
+        planId,
       });
 
-      // A successful payment on the trial plan = the trial converted to paid.
-      // NOTE: this also fires on monthly renewals (stateless webhook can't tell
-      // first charge from renewal); at current volume that's visually obvious in
-      // GA4. Revisit with membership age if renewals start to muddy the metric.
-      if (type === "payment.succeeded" && isTrialPlan) {
-        try {
-          await sendGa4Event({
-            measurementId, apiSecret,
-            name: "trial_converted",
-            clientId: data.user_id || data.user?.id || undefined,
-            userId: data.user?.id,
-            params: {
-              plan_id: planId, value, currency,
-              source: utm.source || "(direct)", medium: utm.medium || "(none)",
-            },
-          });
-        } catch (e) {
-          console.warn("[whop-webhook] trial_converted forward failed:", e?.message || e);
-        }
-      }
+      // trial_converted RETIRED 2026-08-02 — the trial is dead; renewals on
+      // grandfathered subs just log the purchase above, nothing extra.
 
       console.log(`[whop-webhook] purchase forwarded type=${type} ga4=${ga.status} value=${value} ${currency} utm=${JSON.stringify(utm)}`);
       res.status(200).json({ ok: true, type, ga4_status: ga.status });
@@ -665,7 +599,7 @@ export default async function handler(req, res) {
           userId: data.user?.id,
           params: {
             whop_event: type,
-            value: ((data.amount_after_fees ?? data.amount ?? 0) / 100) || 49,
+            value: (data.amount_after_fees ?? data.amount ?? 0) / 100,
             currency: (data.currency || "USD").toUpperCase(),
             cancel_reason: data.cancel_reason || data.reason || "unknown",
             membership_id: data.membership_id || data.id,

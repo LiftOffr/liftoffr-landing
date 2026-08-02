@@ -24,7 +24,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"], a[href$="/join"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='start'?'trial_start':sl==='founder'?'founder_skip':sl==='join'?'founder_join':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='start'?'trial':sl==='founder'||sl==='join'?'founder_paynow':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/plan"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='plan'?'plan_start':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='plan'?'plan':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
   window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
   var _sd={};window.addEventListener('scroll',function(){var h=document.documentElement;var pct=Math.round((h.scrollTop+h.clientHeight)/h.scrollHeight*100);[25,50,75,90].forEach(function(m){if(pct>=m&&!_sd[m]){_sd[m]=1;track('scroll_depth',{depth:m,page:location.pathname});}});},{passive:true});
 })();
@@ -188,7 +188,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <a href="/" class="nav-back"><span class="nav-back-arrow">←</span>Back to LiftOffr</a>
     <a href="/" aria-label="LiftOffr home" style="text-decoration:none;"><span class="lo-logo" style="font-size:18px;"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
     <a href="/receipts" class="nav-back">Signal history</a>
-    <a href="/start" class="nav-cta">Start 7 days free</a>
+    <a href="/plan" class="nav-cta">Get the plan — $29 once →</a>
   </div>
 </nav>
 
@@ -332,8 +332,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   <div class="cta">
     <h2>The system that produced this isn't a secret.</h2>
     <p>The exact indicators, thresholds, and execution rules used in this backtest are taught in the LiftOffr course. Module 4 covers the indicators. Module 5 covers the execution.</p>
-    <a href="/start" class="cta-btn">Start 7 days free</a>
-    <p style="margin-top:12px;font-size:13px;color:#888;">No card required — nothing charged automatically. <a href="/#pricing" style="color:#aaa;">Or see Core / Pro / Elite plans →</a></p>
+    <a href="/plan" class="cta-btn">Get the plan — $29 once →</a>
+    <p style="margin-top:12px;font-size:13px;color:#888;">One-time payment, no subscription. <a href="/free" style="color:#aaa;">The scoreboard is free →</a></p>
   </div>
 
   <p class="disclaimer">

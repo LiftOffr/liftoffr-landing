@@ -40,22 +40,17 @@
     },
     {
       "source": "/start",
-      "destination": "https://whop.com/checkout/plan_zNprCbJjAquZ6?utm_source=liftoffr&utm_medium=cta&utm_campaign=evergreen&utm_content=trial_free",
-      "permanent": false
-    },
-    {
-      "source": "/free",
-      "destination": "https://whop.com/checkout/plan_zNprCbJjAquZ6?utm_source=liftoffr&utm_medium=cta&utm_campaign=evergreen&utm_content=trial_free",
+      "destination": "/plan?utm_source=shortlink&utm_medium=cta&utm_campaign=plan&utm_content=start",
       "permanent": false
     },
     {
       "source": "/join",
-      "destination": "https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=shortlink&utm_medium=share&utm_campaign=evergreen&utm_content=join_pro",
+      "destination": "/plan?utm_source=shortlink&utm_medium=share&utm_campaign=plan&utm_content=join",
       "permanent": false
     },
     {
       "source": "/founder",
-      "destination": "https://liftoffr.com/#pricing",
+      "destination": "/plan?utm_source=shortlink&utm_medium=share&utm_campaign=plan&utm_content=founder",
       "permanent": false
     },
     {

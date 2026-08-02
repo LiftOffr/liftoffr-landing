@@ -12,20 +12,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Torin Christianson — LiftOffr</title>
-<meta name="description" content="The LiftOffr Score reads the Bitcoin cycle every week. See where we are — free for 7 days, no card.">
+<meta name="description" content="The LiftOffr Score reads the Bitcoin cycle every week. See where we are — free, forever.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://liftoffr.com/links/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://liftoffr.com/links/">
 <meta property="og:title" content="Torin Christianson — LiftOffr">
-<meta property="og:description" content="The LiftOffr Score reads the Bitcoin cycle every week. Free for 7 days, no card.">
+<meta property="og:description" content="The LiftOffr Score reads the Bitcoin cycle every week. Free, forever.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Torin Christianson — LiftOffr">
-<meta name="twitter:description" content="The LiftOffr Score reads the Bitcoin cycle every week. Free for 7 days, no card.">
+<meta name="twitter:description" content="The LiftOffr Score reads the Bitcoin cycle every week. Free, forever.">
 <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -414,7 +414,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=a.getAttribute('data-cta')||(sl==='start'?'trial_start':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='start'?'trial':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/plan"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=a.getAttribute('data-cta')||(sl==='plan'?'plan_start':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='plan'?'plan':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
   window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
 })();
 </script>
@@ -454,19 +454,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lh-locked">
       <div class="lh-locked-label">What I'm doing about it</div>
       <div id="lh-locked-text" class="lh-locked-text" aria-hidden="true">The full read covers what this score means for the buy zone this week, which levels I'm watching, and exactly what I'm doing with my own stack right now.</div>
-      <a href="/start" rel="noopener" class="lh-locked-pill" data-cta="score_lock"><span class="lock">&#128274;</span>Members only — unlock free for 7 days</a>
+      <a href="/plan" rel="noopener" class="lh-locked-pill" data-cta="score_lock"><span class="lock">&#128274;</span>Get the plan — $29 once</a>
     </div>
   </div>
 
   <!-- Primary CTA -->
-  <a href="/start" rel="noopener" class="link-join" data-cta="hero_trial">
+  <a href="/plan" rel="noopener" class="link-join" data-cta="hero_plan">
     <div class="lj-text">
-      <div class="lj-stock">7 days free · no card required</div>
-      <div class="lj-title">Unlock the full read &rarr;</div>
-      <div class="lj-sub">This week's breakdown, the daily brief, the buy plan and the course. Full access from day one.</div>
+      <div class="lj-stock">$29 · one-time · no subscription</div>
+      <div class="lj-title">Get the plan &rarr;</div>
+      <div class="lj-sub">The exact tier-by-tier plan I'm executing this bear market — every trigger price, every tranche size.</div>
     </div>
   </a>
-  <div class="lj-reassure">No card. Nothing charged, ever, unless you choose to stay.</div>
+  <div class="lj-reassure">One-time payment. Nothing recurring, ever.</div>
 
   <!-- One named testimonial, adjacent to the CTA -->
   <div class="lh-test">
@@ -514,7 +514,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="lh-call-body">
         <div class="lh-call-date">This cycle <span class="tag lock">In progress</span></div>
         <div class="lh-call-text">The next buy zone is mapped: four price bands, tranche sizes, and the confirmation stack I need to see before each one fires.</div>
-        <a href="/start" rel="noopener" class="lh-call-cta" data-cta="calls_lock"><span class="lock">&#128274;</span>Members only</a>
+        <a href="/plan" rel="noopener" class="lh-call-cta" data-cta="calls_lock"><span class="lock">&#128274;</span>Get the plan</a>
       </div>
     </div>
 
@@ -523,21 +523,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Anchor + final CTA -->
   <div class="lh-final">
-    <div class="lh-anchor">
-      <div class="lh-anchor-item ref">
-        <div class="lh-anchor-price">$497</div>
-        <div class="lh-anchor-lbl">1:1 Cycle Playbook session</div>
-      </div>
-      <div class="lh-anchor-divider"></div>
-      <div class="lh-anchor-item pick">
-        <div class="lh-anchor-price">$49/mo</div>
-        <div class="lh-anchor-lbl">Membership — same system · <b>first 7 days free</b></div>
-      </div>
-    </div>
     <div class="lh-final-h">Stop guessing. <em>Read the cycle.</em></div>
-    <a href="/start" rel="noopener" class="lh-final-btn" data-cta="final_trial">Start 7 days free &rarr;</a>
-    <div class="lh-final-trust">No card required · Cancel in two clicks · Educational, not financial advice</div>
-    <a href="https://liftoffr.com/#pricing" rel="noopener" class="lh-final-alt" data-cta-skip>Already sure? Skip the trial — see Core / Pro / Elite &rarr;</a>
+    <div class="lh-anchor">
+      <a href="/plan?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=anchor_plan" class="lh-anchor-item pick" style="text-decoration:none;color:inherit;">
+        <div class="lh-anchor-price">$29</div>
+        <div class="lh-anchor-lbl">My Bear Market Buy Plan — <b>once</b></div>
+      </a>
+      <div class="lh-anchor-divider"></div>
+      <a href="/free?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=anchor_free" class="lh-anchor-item ref" style="text-decoration:none;color:inherit;">
+        <div class="lh-anchor-price">Free</div>
+        <div class="lh-anchor-lbl">The scoreboard — Discord + Sunday Score</div>
+      </a>
+      <div class="lh-anchor-divider"></div>
+      <a href="/playbook?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=anchor_playbook" class="lh-anchor-item ref" style="text-decoration:none;color:inherit;">
+        <div class="lh-anchor-price">$997</div>
+        <div class="lh-anchor-lbl">The Cycle Playbook — 1:1</div>
+      </a>
+    </div>
+    <a href="/plan" rel="noopener" class="lh-final-btn" data-cta="final_plan">Get the plan — $29 once &rarr;</a>
+    <div class="lh-final-trust">One-time payment · No subscription · Educational, not financial advice</div>
   </div>
 
   <!-- Escape hatch for the not-ready: capture path moved OFF the main flow -->
@@ -559,8 +563,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- Sticky mobile CTA -->
 <div class="lh-sticky">
-  <a href="/start" rel="noopener" data-cta="sticky_trial">Start 7 days free &rarr;</a>
-  <div class="lh-sticky-sub">No card · nothing charged automatically</div>
+  <a href="/plan" rel="noopener" data-cta="sticky_plan">Get the plan — $29 once &rarr;</a>
+  <div class="lh-sticky-sub">One-time payment · no subscription</div>
 </div>
 
 <script>

@@ -16,7 +16,7 @@ export const config = { runtime: "nodejs" };
 
 // VESTIGIAL (decision 2026-06-14): the 30-spot "founder" scarcity concept is
 // RETIRED. The frontend no longer renders any spot count — the [data-founder-text]
-// JS now shows honest benefit copy ("Plans from $49/mo · start 7 days free, no card")
+// JS now shows honest benefit copy ("My exact buy plan — $29, once · no subscription")
 // regardless of this endpoint, and the blog/links CTAs were swept of "Founder Rate"/
 // "Limited availability" language. This API is kept only so legacy callers don't 404;
 // its numbers are not displayed anywhere. Safe to delete once nothing fetches it.
