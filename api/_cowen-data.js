@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "WRftdLFrepU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: A Decision Will be Forced",
+    "published": "2026-08-03T12:13:58+00:00",
+    "processed_at": "2026-08-03T13:31:25.443729+00:00",
+    "url": "https://www.youtube.com/watch?v=WRftdLFrepU",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      63500,
+      63700,
+      69000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "Bear market resistance band",
+      "200-week moving average",
+      "MVRV Z-score",
+      "Year-to-date ROI seasonality model"
+    ],
+    "key_points": [
+      "Bitcoin is squeezed between a declining bear market resistance band (~69k) and a rising 200-week moving average (~63.7k), forcing a directional decision within the next couple of months",
+      "On-chain indicators like the MVRV Z-score have not fully reset, suggesting another leg lower is likely before a sustainable bottom forms",
+      "Historical midterm-year patterns (2014, 2018, 2022) show a window of strength in July followed by a consistently red August, with drawdowns of 5-18%",
+      "Seasonality analysis shows Bitcoin tracking the average midterm-year path, currently entering the historical window of weakness that typically opens by mid-to-late August",
+      "Short-term price action remains unpredictable, but once the resistance band/200-week MA decision resolves, volatility is expected to increase sharply"
+    ],
+    "summary": "Bitcoin is caught between a falling bear market resistance band and a rising 200-week moving average, and this compression must resolve within the next couple of months. Historical seasonality and on-chain metrics suggest a likely move lower into August before any sustainable bottom, consistent with prior midterm-year cycles in 2014, 2018, and 2022. Once the decision between these two levels is made, volatility is expected to increase significantly."
+  },
+  {
     "video_id": "2o0qSlwjkv8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1469,27 +1501,5 @@ export default [
       "Bitcoin has underperformed alternative assets (S&P 500, gold, energy, silver) by 13-28% year-to-date, suggesting mid-term years favor non-Bitcoin exposure until late-year potential bottom formation"
     ],
     "summary": "Bitcoin remains in a bear market structure despite current counter-trend rally strength, with the 200-day moving average and 85K Fibonacci level serving as primary resistance targets. Historical comparisons to 2014, 2018, and 2019 bear markets suggest rallies peak around June before rolling over into Q4 declines driven by stock market weakness. The most probable outcome is a rally extension followed by significant drawdown into late 2026, making alternative asset allocation more favorable during the middle portion of this midterm year."
-  },
-  {
-    "video_id": "9a-LA7tm8Mo",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Market Returns by Political Party",
-    "published": "2026-05-13T13:55:43+00:00",
-    "processed_at": "2026-05-13T15:34:59.035772+00:00",
-    "url": "https://www.youtube.com/watch?v=9a-LA7tm8Mo",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Bitcoin has limited historical data (since 2013) making political regime analysis unreliable; median returns under both Democratic and Republican sweeps are negative (-2% and -6% respectively)",
-      "Highest median Bitcoin returns occur under split Congress scenarios (Democratic president with Republican Congress or Republican president with split Congress), suggesting the asset may prefer gridlock over unified party control",
-      "Midterm year Bitcoin average return is 65%, but current 2025 performance is down 7%, indicating significant deviation from historical trend",
-      "Republican sweep currently in place is historically favorable for stocks and gold but insufficient Bitcoin data exists to confirm similar patterns",
-      "Potential future scenario of Republican president with Democratic Congress (worst case for stocks historically) remains untested with Bitcoin"
-    ],
-    "summary": "Bitcoin data is too sparse (starting 2013) to draw reliable conclusions about political regime performance. Historical median returns show sweeps (unified control) have been bearish while split Congress scenarios have performed better, potentially indicating preference for political gridlock. Current midterm year performance is significantly underperforming the 65% average, and outcome depends heavily on whether Congress remains split or becomes unified Democrat-controlled."
   }
 ];
