@@ -3,6 +3,37 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "3yiYSG8sOFE",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Stocks Hit New Highs",
+    "published": "2026-08-04T20:15:28+00:00",
+    "processed_at": "2026-08-04T22:48:40.902910+00:00",
+    "url": "https://www.youtube.com/watch?v=3yiYSG8sOFE",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000
+    ],
+    "indicators_mentioned": [
+      "Bull Market Support Band",
+      "Year-to-date ROI comparison",
+      "10-year yield",
+      "30-year yield",
+      "DXY",
+      "Fed funds rate probability"
+    ],
+    "key_points": [
+      "Midterm year seasonality in prior cycles (2014, 2018, 2022) shows stock market corrections typically begin between mid-August and late September, often coinciding with a Fed meeting",
+      "The S&P is currently making new all-time highs, mirroring 2014 and 2018 patterns rather than the 2022 bear market setup, suggesting bullish continuation for several more weeks before any correction",
+      "A rate hike or continued rise in long-term yields (10-year approaching 5%, 30-year already breaking above late-2023 levels) could trigger the anticipated correction later in the year",
+      "Bitcoin's market cycle bottom historically forms during the second, deeper stock market correction of a midterm year, not the first, implying Bitcoin's cycle low is still ahead in Q3/Q4",
+      "A deeper S&P correction toward its long-term trendline (potentially down to 6000) could break Bitcoin support near 60000, similar to how Bitcoin fell far more than equities in 2018 despite a modest equity pullback"
+    ],
+    "summary": "Equity markets are extending new highs in classic midterm-year fashion, with historical precedent suggesting a correction won't begin until mid-August to late September, tied closely to Fed policy decisions and rising bond yields. This delayed equity correction is expected to precede and trigger Bitcoin's actual market cycle bottom later in the year, meaning near-term bullishness in stocks does not preclude a coming deeper drawdown that could pressure Bitcoin below its current support near 60000."
+  },
+  {
     "video_id": "WRftdLFrepU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1470,36 +1501,5 @@ export default [
       "Rate hikes could resume in 2027 if inflation remains elevated; however, eventual monetary easing would create conditions for the next bull market cycle beginning around 2027-2029"
     ],
     "summary": "Bitcoin is expected to experience a secondary correction in the second half of 2025 as part of the four-year market cycle, with a potential bottom around Q4 2026. Near-term rallies toward mid-80s are counter-trend moves within a broader bear market; rising inflation and Fed rate hold-steady stance make near-term weakness likely despite recent strength from 60k to 80k. The current phase mirrors historical bear market behavior where temporary rallies precede significant declines."
-  },
-  {
-    "video_id": "zKHgKnv51r0",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Dubious Speculation",
-    "published": "2026-05-14T20:00:13+00:00",
-    "processed_at": "2026-05-14T21:00:36.319618+00:00",
-    "url": "https://www.youtube.com/watch?v=zKHgKnv51r0",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      85000,
-      80000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "21-week EMA",
-      "Fibonacci retracement (0.382, 0.236, 0.5)",
-      "bull market support band",
-      "monthly heikin-ashi candles"
-    ],
-    "key_points": [
-      "Bitcoin is struggling against the 200-day moving average, a historical resistance point in prior bear markets (2014, 2018, 2022) where rallies stalled or reversed",
-      "If 200-day MA is breached, the 0.382 Fibonacci retracement level around 85K represents the next likely resistance based on patterns in 2014, 2018, and 2022 bare markets",
-      "Counter-trend rallies in bear markets (like 2014, 2018, 2019, 2022) have historically been convincing but ultimately failed; the pattern suggests a June peak followed by Q4 decline is probable",
-      "Stock market dynamics in 2026 are tracking 2018 midterm year behavior: early correction followed by late-year correction that triggered Bitcoin's bare market continuation; similar pattern may repeat",
-      "Bitcoin has underperformed alternative assets (S&P 500, gold, energy, silver) by 13-28% year-to-date, suggesting mid-term years favor non-Bitcoin exposure until late-year potential bottom formation"
-    ],
-    "summary": "Bitcoin remains in a bear market structure despite current counter-trend rally strength, with the 200-day moving average and 85K Fibonacci level serving as primary resistance targets. Historical comparisons to 2014, 2018, and 2019 bear markets suggest rallies peak around June before rolling over into Q4 declines driven by stock market weakness. The most probable outcome is a rally extension followed by significant drawdown into late 2026, making alternative asset allocation more favorable during the middle portion of this midterm year."
   }
 ];
