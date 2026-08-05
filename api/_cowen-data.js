@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "mo9PUWbEJ-4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold Path for 2026 [Update]",
+    "published": "2026-08-05T19:05:17+00:00",
+    "processed_at": "2026-08-05T19:49:27.315488+00:00",
+    "url": "https://www.youtube.com/watch?v=mo9PUWbEJ-4",
+    "outlook": "bullish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "20-month simple moving average",
+      "21-month EMA",
+      "bull market support band",
+      "year-to-date ROI comparison"
+    ],
+    "key_points": [
+      "Gold's recent ~30% correction from highs is consistent with normal pullbacks seen in prior bull markets and does not necessarily signal a bull market top",
+      "Historical midterm-year seasonality shows gold typically bottoms between June and October, with the average bottom occurring in early July",
+      "Year-to-date price action in 2026 closely tracks the paths seen in 2022 and 2018, both midterm years that preceded strong rallies in subsequent years",
+      "A stronger dollar, mirroring its 2018 pattern of a begrudging grind higher, could create residual weakness in gold before a bottom is confirmed",
+      "The current consolidation resembles the 2022 consolidation phase, suggesting one more leg up is likely before a more significant long-term top forms later in the decade"
+    ],
+    "summary": "Gold's pullback appears to be typical midterm-year weakness rather than the end of the broader bull market, with historical seasonality pointing to a bottom forming between June and October. Comparisons to 2018 and 2022 suggest a rebound into the pre-election year is likely, with a potential final major upleg still ahead before a more lasting top forms later in the decade."
+  },
+  {
     "video_id": "3yiYSG8sOFE",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1471,35 +1498,5 @@ export default [
       "Bitcoin is underperforming other asset classes including gold, S&P, and international markets year-to-date, consistent with typical bear market dynamics during midterm election years"
     ],
     "summary": "Bitcoin is likely in a bear market cycle similar to 2018 and 2019, with counter-trend rallies likely in May-June before a sustained decline into October and Q4. The current rally has only lasted 14 weeks, falling short of historical timelines of 19-25 weeks for bear market lows, and Bitcoin remains below key resistance at the 200-day moving average, with probable targets in the 40K range against realized and balance price levels."
-  },
-  {
-    "video_id": "FgxAe_NAh5c",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Powell Steps Down as Chair of the Federal Reserve",
-    "published": "2026-05-15T19:56:58+00:00",
-    "processed_at": "2026-05-15T22:50:31.313197+00:00",
-    "url": "https://www.youtube.com/watch?v=FgxAe_NAh5c",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      80000,
-      100000
-    ],
-    "indicators_mentioned": [
-      "20-week SMA",
-      "21-week EMA",
-      "50-day moving average",
-      "382 retracement"
-    ],
-    "key_points": [
-      "Bitcoin is in a counter-trend rally within a broader bear market cycle that should bottom around Q4 2026, consistent with the four-year cycle pattern observed across multiple asset classes",
-      "Secondary correction expected in Q3-Q4 2025 as inflation resurges and the Fed faces pressure; new Fed leadership unlikely to cut rates soon despite market expectations given PPI spikes and structural oil price support",
-      "Bitcoin historically underperforms during bear market phases despite outperforming 8x during bull markets; a secondary market correction in stocks would likely cascade into Bitcoin weakness similar to 2018 patterns",
-      "Mid-80s rally does not invalidate the bear market thesis and mirrors historical behavior where assets rally to 382 retracement before declining further, as seen in 2018, 2020, and 2022",
-      "Rate hikes could resume in 2027 if inflation remains elevated; however, eventual monetary easing would create conditions for the next bull market cycle beginning around 2027-2029"
-    ],
-    "summary": "Bitcoin is expected to experience a secondary correction in the second half of 2025 as part of the four-year market cycle, with a potential bottom around Q4 2026. Near-term rallies toward mid-80s are counter-trend moves within a broader bear market; rising inflation and Fed rate hold-steady stance make near-term weakness likely despite recent strength from 60k to 80k. The current phase mirrors historical bear market behavior where temporary rallies precede significant declines."
   }
 ];
