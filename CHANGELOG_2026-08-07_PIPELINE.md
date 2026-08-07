@@ -4,6 +4,29 @@ Follows `REVENUE_REVIEW_2026-08-07.md`. Everything below is executed and
 verified unless a line says otherwise. Three things need Torin and are listed
 at the bottom.
 
+## 0 · Correction: I aimed at the wrong queue first
+
+Torin's clarification: **the reels are faceless lifestyle footage — car POV,
+night drives, travel — with burned-in on-screen text. No charts, no talking
+head.** The Remotion reel factory renders animated chart/data reels. That
+format cannot ship on this account no matter how well it renders.
+
+So §1 and §2 below are real bug fixes to a real tool, but they were not the
+bottleneck. `com.liftoffr.reels-refill` has been **unloaded and removed** —
+rendering 3 chart reels a day would have burned ElevenLabs credits, CPU and
+disk on output that never posts. `make refill` still works manually, and the
+factory is functional again if a data reel is ever wanted for Stories, the
+site, or a different channel. The 6 reels rendered tonight are in
+`REVIEW/2026-08-07/`; treat them as optional, not queue.
+
+**What actually feeds the queue** (traced tonight):
+editor delivers a lifestyle clip → Drive → `auto_captioner.py` writes the
+caption sidecar from the video frames → `drive_to_instagram` publishes on the
+slot calendar. That pipeline is **healthy** — it captioned four clips at 23:15
+tonight while I was working.
+
+The real gap is one step earlier, and §2b is the fix.
+
 ## 1 · The reel factory was dead, not idle — root cause found and fixed
 
 The queue has been empty since 2026-08-01. It was not a scheduling gap. Two
@@ -43,6 +66,49 @@ distinct knowledge-base entries, 1 score update, 1 myth bust.
 Also installed: `anthropic` SDK, which was missing — `generate_script.py` was
 silently falling back to deterministic copy on every build. The LLM copy layer
 now actually runs.
+
+## 2b · Hook packs — how the market read gets into a lifestyle clip
+
+`auto_captioner` writes good captions, but it only sees the video frames. It
+has no idea what the market is doing that week. And the **overlay text is
+decided before the edit**, so it's the only place the current cycle read can
+enter a faceless lifestyle clip at all.
+
+New `src/hook_pack.py` + `com.liftoffr.hook-pack` (**installed and loaded**,
+Sundays 07:00 MT — before the editor sits down). Each Sunday it writes
+`~/liftoffr-video/CAPTIONS/hook_pack_<date>.md` with, per pack:
+
+- **overlay** — the burned-in on-screen hook, 4–9 words, has to land in the
+  first half second with no audio and no context
+- **caption** — 2–4 lowercase lines in the house format
+- **social** — the TikTok/YT/X one-liner with the link (comments don't work there)
+- **lane** (EDU/LIFE/HYB) and **what footage it wants** ("night drive POV",
+  "car walk-up") so the editor can match it to a clip
+
+House rules from `caption_templates.md` are enforced **in code**, not just
+asked for: keyword CTA capped 1-in-3 against `REEL_LEDGER.csv`, the ⸻ +
+disclaimer block required whenever the keyword appears, overlay word-count
+capped, and the same banned-language list `auto_captioner` uses plus the
+reel-lint third-party-name rule. Packs that fail validation are logged and
+dropped, not published.
+
+The angle enters as a *feeling or timing cue*, never as data — "everyone's
+waiting for green candles", not "the score is at 35". Never a chart, never a
+price, never a named analyst.
+
+**First pack written: 8 packs, 0 rejected**, in
+`CAPTIONS/hook_pack_2026-08-07.md`. Two things surfaced by running it:
+
+- The knowledge base carries gold and equities entries alongside BTC.
+  Unfiltered, the three newest were BTC, gold, and *"the S&P is making new
+  all-time highs"* — and it produced a new-highs hook tagged `#stockmarket` on
+  a Bitcoin account, contradicting our own bear read. Now BTC-filtered with
+  the emotional register and hashtag vocabulary pinned.
+- A flat token budget truncated the JSON array mid-string at count=8 and lost
+  the entire run. Budget now scales with count, and a truncated response
+  salvages its complete objects rather than failing.
+
+It never posts. It writes a file the editor reads.
 
 ## 3 · X threads now carry source attribution
 
@@ -91,6 +157,29 @@ weekly-indicators at 15:00). One message a week to `#general-chat`:
 No `@everyone`, no hard CTA, one post a week. If the data fetch fails it skips
 the week rather than posting a "week on the board" with no numbers in it.
 **First post fires automatically Sunday 2026-08-09.**
+
+## 5b · Research-task audit items — all four verified, three fixed
+
+Each was checked against the live code before anything was touched.
+
+| # | Claim | Verdict | Action |
+|---|---|---|---|
+| 1 | Homepage FAQ still has "billing period" language | **Confirmed** — `index.html:1601` answered *"How do I cancel?"* with "you keep access until the end of your billing period", three lines above "No subscription, ever". Also in the FAQPage JSON-LD (`:163`), so Google could surface the contradiction as a rich result. | Both replaced with a refund question that matches a one-time purchase. |
+| 2 | `/plan` redirects to Whop instead of embedded checkout | **Confirmed** — `/plan` used raw `href` links while the homepage already had a complete embedded implementation. | Ported verbatim, `return_url` → `/welcome-plan`. **Caveat on the research premise:** it claims embedded converts better on mobile IG traffic, but the existing implementation deliberately excludes IG/TikTok in-app browsers (`isWebview()`) because iframes are unreliable there — so IG traffic still gets the hosted flow *by design*. The win is desktop and non-webview mobile. Kept both safeguards (2s iframe fallback, webview bail-out); the anchor still works with JS off. Plan ID and price untouched. |
+| 3 | A testimonial avatar is hotlinked from a meme database | **Confirmed** — `i.kym-cdn.com` on 3 pages. | Localized, and the two dicebear hotlinks with it: 10 references across 4 pages now use `/img/avatar-*.png`. No third-party avatar requests remain. |
+| 4 | `/plan` lacks social proof near the CTA | **Confirmed, deliberately only part-fixed** | See below. |
+
+**On item 4** — I did *not* copy the testimonials from `/` and `/track-record`
+onto `/plan`. They're membership-era quotes ("the daily brief alone is worth
+every penny", "sold 60% of my stack when CBBI hit 0.83"), and putting them
+next to a $29 one-time buy plan misrepresents what the $29 actually buys.
+There's no confirmed $29-buyer count anywhere I can read, and BRAND_VOICE
+bans fabricated proof outright. Inventing "join 200+ buyers" would have been
+the easy fix and the wrong one.
+
+Instead the CTA now carries a **verifiable**-proof row: timestamped receipts
+(losses included), the live Score the tiers key off, and the free feed to read
+before buying. Real social proof needs real numbers — that one's yours.
 
 ## 6 · Internal strategy docs were publicly served — fixed
 
@@ -196,11 +285,44 @@ session so I could not verify or rotate it.
 Rotate at github.com/settings/tokens, then
 `git credential-osxkeychain erase` and re-authenticate on the next push.
 
-### 5. Review tonight's 6 reels before the queue drains
+### 5. Two growth moves from the research, both needing you
 
-`REVIEW/2026-08-07/` — 6 reels, none published. The Drive queue feeding IG is
-down to 2 videos and the poster holds a 2-hour pacing floor, so it will run
-dry within roughly a day. `make publish REEL=REVIEW/2026-08-07/<id>.mp4`
-after you approve each one. Note `publish_reel.py` uploads to
-`LiftOffr-Brand-Queue/`, which nothing posts from yet — the personal-account
-poster does not recurse into subfolders.
+**Comment-to-DM is reportedly ~12x link-in-bio.** You are already set up for
+this and it is working: ManyChat owns the `PLAN` keyword end-to-end,
+`instagram_comment_reply.py` defers to it, and every caption the auto-captioner
+writes rotates the keyword in at 1-in-3. The new hook packs follow the same
+rotation. **The lever left is the ratio, not the plumbing** — the 1-in-3 cap
+came from a "shares grow the account faster than DMs at our size" call in
+`hook_bank.md`. If comment-to-DM really is 12x, that cap is the thing to test,
+and it's a one-line change in `_plan_cta_allowed`. Your call, since it trades
+reach for conversion.
+
+**Whop Content Rewards (~$1 CPM)** — worth a look as a launch step: you pay
+creators per thousand views on content they make about the product. At $1 CPM
+it is roughly an order of magnitude under paid social, and it fits an account
+whose whole problem is distribution rather than offer. Not set up; nothing on
+this machine touches it. Needs a Whop dashboard session and a budget cap.
+
+### 6. Review tonight's 6 reels before the queue drains
+
+`REVIEW/2026-08-07/` — 6 reels, none published. **Low priority given §0**:
+these are chart/data reels, which is not your format. They only matter if you
+want one for Stories, the site, or a channel where a data reel fits. The
+factory works again either way. Note `publish_reel.py` uploads to
+`LiftOffr-Brand-Queue/`, which nothing posts from yet.
+
+**The thing to actually watch** is the Drive folder: `drive_to_instagram` was
+down to 2 unposted videos earlier tonight and holds a 2-hour pacing floor.
+More clips landed since (`auto_captioner` captioned four at 23:15), but that
+queue is footage-bound, not caption-bound — it empties as fast as you shoot.
+`CAPTIONS/hook_pack_2026-08-07.md` has 8 overlay hooks ready for the next batch.
+
+### 7. `auto_captioner` is stuck in a retry loop on `V29.mov`
+
+It re-downloaded and re-attempted that one file every ~15 minutes from 21:12
+to 23:00 without ever succeeding, then moved on. It alerted once (file id
+`1CDlRRxoc5g98NfvG-sJs1ZNH73p6Mmk9`), so you may already have the DM. There's a
+sidecar named `V29_1080.txt` in the caption queue but the Drive file is
+`V29.mov` — the stem doesn't match, so it never counts as captioned. Renaming
+one to match the other should settle it. Minor, but it re-downloads a large
+`.mov` every quarter hour until it does.
