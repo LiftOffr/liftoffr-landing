@@ -140,6 +140,60 @@
   .cta-btn:hover { transform: translateY(-1px); opacity: 0.95; }
   .price-fine { font-size: 12px; color: #666; margin-top: 16px; }
 
+  /* Hero CTA — above the fold for mobile IG traffic */
+  .hero-cta { margin-top: 26px; }
+  .hero-cta .cta-btn { margin-bottom: 10px; }
+  .hero-cta-fine { font-size: 12.5px; color: var(--muted); }
+  .hero-cta-fine strong { color: #cdd6e6; font-weight: 700; }
+
+  /* Price anchor */
+  .price-anchor {
+    font-size: 13.5px; color: var(--muted); margin-bottom: 10px; line-height: 1.5;
+  }
+  .price-anchor s { color: #5b6577; }
+
+  /* Risk reversal */
+  .guarantee {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: rgba(38,208,124,0.07); border: 1px solid rgba(38,208,124,0.3);
+    border-radius: 14px; padding: 20px 22px; margin-bottom: 24px;
+  }
+  .guarantee-mark {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(38,208,124,0.16); border: 1px solid rgba(38,208,124,0.45);
+    color: var(--green); font-weight: 900; font-size: 17px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .guarantee-body { font-size: 14.5px; color: #a9b3c6; line-height: 1.6; }
+  .guarantee-body strong { color: #fff; display: block; font-size: 15.5px; margin-bottom: 4px; }
+
+  /* Inline email capture for non-buyers */
+  .capture {
+    background: var(--glass); border: var(--glass-bd);
+    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--glass-sh); border-radius: 14px; padding: 26px 26px 22px;
+    text-align: center; margin-bottom: 20px;
+  }
+  .capture h3 { font-size: 19px; font-weight: 900; letter-spacing: -0.3px; margin-bottom: 8px; }
+  .capture p { font-size: 14.5px; color: #a9b3c6; line-height: 1.6; max-width: 460px; margin: 0 auto 18px; }
+  .email-form { display: flex; gap: 9px; max-width: 440px; margin: 0 auto; flex-wrap: wrap; }
+  .email-form input {
+    flex: 1 1 210px; min-width: 0; padding: 13px 15px; font-size: 15px; font-family: inherit;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 9px; color: var(--text);
+  }
+  .email-form input::placeholder { color: #61708a; }
+  .email-form input:focus { outline: none; border-color: rgba(38,208,124,0.55); }
+  .email-form button {
+    flex: 0 0 auto; padding: 13px 22px; font-size: 15px; font-weight: 800; font-family: inherit;
+    background: var(--green); color: #04130a; border: none; border-radius: 9px; cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .email-form button:hover { opacity: 0.9; }
+  .email-form button:disabled { opacity: 0.6; cursor: default; }
+  .form-error { display: none; margin-top: 12px; font-size: 13px; color: #ff8b93; }
+  .form-fine { font-size: 12px; color: #5b6577; margin-top: 12px; }
+
   .free-door {
     background: var(--glass); border: var(--glass-bd);
     backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
@@ -177,6 +231,9 @@
     h1 { font-size: 40px; letter-spacing: -1.4px; }
   }
   @media (max-width: 480px) {
+    .email-form { flex-direction: column; }
+    .email-form input, .email-form button { flex: 1 1 auto; width: 100%; }
+    .guarantee { padding: 18px; gap: 12px; }
     h1 { font-size: 32px; letter-spacing: -1.1px; }
     .lede { font-size: 16px; }
     .section-h { font-size: 26px; }
@@ -202,6 +259,10 @@
     <span class="eyebrow">LIFTOFFR · ONE-TIME PURCHASE, NOT A SUBSCRIPTION</span>
     <h1>The exact plan I'm buying this bear market with.</h1>
     <p class="lede">Nine buy tiers. Real receipts on every fire, timestamped. <strong>$29 once, updated for the rest of this bear.</strong></p>
+    <div class="hero-cta">
+      <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="hero" rel="noopener">Get the plan · $29</a>
+      <div class="hero-cta-fine">One time, not a subscription. <strong>30 days to change your mind.</strong></div>
+    </div>
   </section>
 
   <!-- PROOF STRIP -->
@@ -256,17 +317,38 @@
 
   <!-- PRICE -->
   <div class="price-block">
+    <div class="price-anchor">The full Cycle System — indicators, exit ladder, course — is <s>$197</s>. This is the buy side of it, on its own.</div>
     <div class="price-num">$29</div>
     <div class="price-once">One time. Not a subscription.</div>
     <p class="price-incl">Includes <strong>lifetime updates for this bear market</strong> and access to the <strong>#plan-updates</strong> channel in the LiftOffr Discord.</p>
-    <!-- TODO: replace with live Whop plan URL before launch -->
-    <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" rel="noopener">Get the plan · $29</a>
+    <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="price_block" rel="noopener">Get the plan · $29</a>
     <div class="price-fine">Instant access after checkout.</div>
+  </div>
+
+  <!-- RISK REVERSAL -->
+  <div class="guarantee">
+    <div class="guarantee-mark">&check;</div>
+    <div class="guarantee-body">
+      <strong>Read it for 30 days first.</strong>
+      Open the doc, run your numbers through the worksheet, watch a tier fire. If it isn't worth $29 to you, email me inside 30 days and I refund it. No form, no reason needed.
+    </div>
+  </div>
+
+  <!-- EMAIL CAPTURE (non-buyers) -->
+  <div class="capture">
+    <h3>Not buying today?</h3>
+    <p>Take the free Bear Market Buy Zone Plan — the four bands I ladder inside — plus the Score every Sunday morning.</p>
+    <form class="email-form" data-lead-form data-medium="plan_page" onsubmit="return submitPlanForm(this);" id="leadForm">
+      <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
+      <button type="submit">Send it to me</button>
+    </form>
+    <div class="form-error" id="formError">Something went wrong. Try again in a moment.</div>
+    <p class="form-fine">Free. No card. Unsubscribe in one click.</p>
   </div>
 
   <!-- FREE DOOR -->
   <div class="free-door">
-    Not ready to spend $29? The scoreboard is free. Live Score, daily brief, every timestamped call.
+    Want the whole free tier? Live Score, daily brief, open Discord, every timestamped call.
     <a href="/free" data-dest="free">See the free tier &rarr;</a>
   </div>
 
@@ -276,6 +358,10 @@
     <div class="faq-item">
       <div class="faq-q">Is this financial advice?</div>
       <div class="faq-a">No. It is what I am doing with my own money, published with timestamps. What you do is your decision.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if it's not for me?</div>
+      <div class="faq-a">Email me inside 30 days and I refund the $29. You keep whatever you got out of it. I'd rather you ask for the money back than sit on something you don't use.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">What's different from the free stuff?</div>
@@ -301,6 +387,66 @@
 </div>
 
 <script>
+  function getLeadUtms() {
+    try {
+      var u = new URL(location.href);
+      return {
+        utm_source: u.searchParams.get('utm_source') || '',
+        utm_campaign: u.searchParams.get('utm_campaign') || '',
+        utm_content: u.searchParams.get('utm_content') || ''
+      };
+    } catch (e) { return {}; }
+  }
+
+  // Inline capture for non-buyers — same /api/subscribe path as /free.
+  function submitPlanForm(form) {
+    var email = (form.querySelector('input[type=email]') || {}).value || '';
+    var medium = form.getAttribute('data-medium') || 'plan_page';
+    var btn = form.querySelector('button[type=submit]');
+    var input = form.querySelector('input[type=email]');
+    var errorBox = document.getElementById('formError');
+    var oldLabel = btn ? btn.textContent : '';
+
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    if (input) { input.disabled = true; }
+    if (errorBox) errorBox.style.display = 'none';
+
+    var pageUtms = getLeadUtms();
+    var payload = {
+      email: email,
+      magnet: 'buyzone',
+      utm_source: pageUtms.utm_source || 'liftoffr',
+      utm_medium: medium,
+      utm_campaign: pageUtms.utm_campaign || 'plan_page',
+      utm_content: pageUtms.utm_content || ''
+    };
+
+    if (typeof window.track === 'function') {
+      window.track('lead_magnet_submit', { source: medium, page: location.pathname });
+    }
+
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      return r.json().then(function(data){ return { ok: r.ok, data: data }; });
+    }).then(function(result){
+      if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+      form.innerHTML = '<div style="padding:14px;background:rgba(38,208,124,0.10);border:1px solid rgba(38,208,124,0.35);border-radius:9px;color:#26d07c;font-weight:700;text-align:center;width:100%;">✓ Check your inbox. The Score lands every Sunday.</div>';
+      if (typeof window.track === 'function') {
+        window.track('lead_captured', { source: medium, page: location.pathname });
+      }
+    }).catch(function(err){
+      if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
+      if (input) { input.disabled = false; }
+      if (errorBox) errorBox.style.display = 'block';
+      console.error('submitPlanForm error:', err);
+    });
+
+    return false;
+  }
+
   // CTA click tracking (matches site-wide cta_clicked schema)
   document.addEventListener('click', function(e){
     var a = e.target.closest('a[data-dest]');
@@ -308,7 +454,7 @@
     if (typeof window.track === 'function') {
       window.track('cta_clicked', {
         cta_text: (a.textContent || '').trim().slice(0, 80),
-        cta_position: a.className || 'plan_cta',
+        cta_position: a.getAttribute('data-cta-slot') || a.className || 'plan_cta',
         destination: a.getAttribute('data-dest'),
         page: location.pathname
       });
