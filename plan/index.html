@@ -50,6 +50,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Whop embedded checkout loader (on-site checkout; progressive enhancement) -->
+<script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 
@@ -118,6 +120,15 @@
   h1 em { color: var(--red); font-style: italic; }
   .lede { font-size: 17px; color: #bdbdbd; max-width: 560px; margin: 0 auto; line-height: 1.65; }
   .lede strong { color: #fff; }
+
+  .check-row {
+    margin-top: 14px; font-size: 12.5px; line-height: 1.9; color: var(--muted);
+    display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center;
+  }
+  .check-row a { color: #a9b8d0; text-decoration: underline; text-underline-offset: 2px; }
+  .check-row a:hover { color: var(--green); }
+  .check-dot { opacity: 0.4; }
+  @media (max-width: 560px) { .check-row { flex-direction: column; gap: 2px; } .check-dot { display: none; } }
 
   .proof-strip {
     display: flex; gap: 0; background: var(--glass); border: var(--glass-bd);
@@ -360,6 +371,17 @@
     <p class="price-incl">Includes <strong>lifetime updates for this bear market</strong> and access to the <strong>#plan-updates</strong> channel in the LiftOffr Discord.</p>
     <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="price_block" rel="noopener">Get the plan · $29</a>
     <div class="price-fine">Instant access after checkout.</div>
+    <!-- Verifiable proof at the decision point. Deliberately NOT testimonials:
+         the quotes on / and /track-record are membership-era and there is no
+         confirmed $29-buyer count, and BRAND_VOICE bans fabricated proof. -->
+    <div class="check-row">
+      <span>Don't take my word for it —</span>
+      <a href="/receipts.html" data-dest="receipts_from_price">every zone cross, timestamped, losses included &rarr;</a>
+      <span class="check-dot">·</span>
+      <a href="/cycle" data-dest="cycle_from_price">the live Score the tiers key off &rarr;</a>
+      <span class="check-dot">·</span>
+      <a href="/free" data-dest="free_from_price">read the daily feed free first &rarr;</a>
+    </div>
   </div>
 
   <!-- RISK REVERSAL -->
@@ -497,6 +519,88 @@
       });
     }
   }, true);
+</script>
+<!-- ===== Whop on-site checkout (progressive enhancement; hosted-redirect fallback) ===== -->
+<div id="wco-overlay" hidden role="dialog" aria-modal="true" aria-label="Secure checkout">
+  <div id="wco-sheet">
+    <button id="wco-close" type="button" aria-label="Close checkout">&times;</button>
+    <div id="wco-mount"><div id="wco-loading">Loading secure checkout…</div></div>
+  </div>
+</div>
+<style>
+  #wco-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(3,5,9,.80);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px;}
+  #wco-overlay[hidden]{display:none;}
+  #wco-sheet{position:relative;width:100%;max-width:460px;max-height:92vh;overflow:auto;background:#0b0f17;border:1px solid rgba(255,255,255,.10);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);padding:10px;}
+  #wco-close{position:absolute;top:9px;right:11px;z-index:2;background:rgba(255,255,255,.09);color:#fff;border:none;width:34px;height:34px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;font-weight:700;}
+  #wco-close:hover{background:rgba(255,255,255,.18);}
+  #wco-mount{min-height:140px;}
+  #wco-loading{color:#8aa3b0;text-align:center;font:600 14px system-ui,sans-serif;padding:48px 12px;}
+</style>
+<script>
+(function(){
+  var PLAN_SHORTLINKS = {}; // trial retired 2026-08-02 — /start and /free now route to pages, not checkout
+  var RETURN_URL = 'https://liftoffr.com/welcome-plan';
+  function isWebview(){
+    var ua = navigator.userAgent || '';
+    return /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Line\/|TikTok|musical_ly|Bytedance|Snapchat|Pinterest|GSA\//i.test(ua);
+  }
+  function planFromHref(href){
+    try{
+      var u = new URL(href, location.href);
+      var path = u.pathname.replace(/\/$/,'') || '/';
+      if (PLAN_SHORTLINKS[path]) return PLAN_SHORTLINKS[path];
+      var m = u.pathname.match(/\/checkout\/(plan_[A-Za-z0-9]+)/);
+      if (m) return m[1];
+    }catch(e){}
+    return null;
+  }
+  var overlay, mount, fbTimer;
+  function ensure(){
+    if (overlay) return;
+    overlay = document.getElementById('wco-overlay');
+    mount = document.getElementById('wco-mount');
+    document.getElementById('wco-close').addEventListener('click', close);
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay && !overlay.hidden) close(); });
+  }
+  function close(){
+    if (!overlay) return;
+    overlay.hidden = true; mount.innerHTML = ''; document.body.style.overflow = '';
+    if (fbTimer) clearTimeout(fbTimer);
+  }
+  function open(planId, fallbackUrl){
+    ensure();
+    mount.innerHTML = '<div id="wco-loading">Loading secure checkout…</div>';
+    var el = document.createElement('div');
+    el.setAttribute('data-whop-checkout-plan-id', planId);
+    el.setAttribute('data-whop-checkout-theme', 'dark');
+    el.setAttribute('data-whop-checkout-theme-accent-color', '#e63946');
+    el.setAttribute('data-whop-checkout-theme-background-color', '#0b0f17');
+    el.setAttribute('data-whop-checkout-return-url', RETURN_URL);
+    el.setAttribute('data-whop-checkout-on-complete', 'wcoComplete');
+    mount.appendChild(el);
+    overlay.hidden = false; document.body.style.overflow = 'hidden';
+    // If the embed iframe doesn't mount quickly (loader broken/blocked), use the proven hosted checkout.
+    if (fbTimer) clearTimeout(fbTimer);
+    fbTimer = setTimeout(function(){ if (!mount.querySelector('iframe')) { location.href = fallbackUrl; } }, 2000);
+  }
+  window.wcoComplete = function(data){
+    try{
+      var planId = (data && data.planId) || '';
+      if (window.dataLayer) window.dataLayer.push({ event: 'purchase', plan_id: planId, receipt_id: data && data.receiptId });
+    }catch(e){}
+    // Whop also redirects to return-url (/welcome) which fires checkout_confirmed; this is belt-and-suspenders.
+  };
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href*="whop.com/checkout"]');
+    if (!a) return;
+    if (isWebview()) return;                       // in-app browsers → proven hosted flow (iframes unreliable there)
+    var planId = planFromHref(a.href);
+    if (!planId) return;                            // unknown target → let the link work normally
+    e.preventDefault();
+    open(planId, a.href);
+  }, false);
+})();
 </script>
 </body>
 </html>
