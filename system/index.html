@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cycle System — opens August 24 | LiftOffr</title>
+<meta name="description" content="The 8-indicator phase matrix, the confluence score, the buy and exit ladders, and the signals feed — one payment, lifetime updates. Opens August 24, 2026.">
+<!-- Not a cold-traffic page: the System is only ever offered to $29 plan buyers
+     and the warm list (master plan ruling, §1). noindex is deliberate. -->
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://liftoffr.com/system/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LiftOffr">
+<meta property="og:url" content="https://liftoffr.com/system/">
+<meta property="og:title" content="The Cycle System — opens August 24">
+<meta property="og:description" content="The plan tells you what I'm buying. The System is why, and when I'll sell.">
+<meta property="og:image" content="https://liftoffr.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Cycle System — opens August 24">
+<meta name="twitter:description" content="The plan tells you what I'm buying. The System is why, and when I'll sell.">
+<meta name="twitter:image" content="https://liftoffr.com/og-image.png">
+<meta name="theme-color" content="#e63946">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e63946;
+    --bg: #080808;
+    --ink: #e9e9e9;
+    --muted: #8a8a8a;
+    --line: rgba(255,255,255,0.10);
+    --gold: #d9a441;
+  }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 22px; }
+  header { padding: 30px 0 10px; }
+  .logo {
+    display: inline-block; background: var(--red); color: #fff; padding: 5px 12px;
+    border-radius: 4px; font-family: Helvetica, sans-serif; font-style: italic;
+    font-size: 21px; font-weight: 900; letter-spacing: -0.5px; text-decoration: none;
+  }
+  .logo span { color: #000; }
+  .status {
+    display: inline-block; margin: 34px 0 18px; padding: 6px 14px; border-radius: 999px;
+    border: 1px solid var(--gold); color: var(--gold);
+    font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px;
+  }
+  h1 { font-size: 40px; line-height: 1.12; font-weight: 900; letter-spacing: -1.4px; margin-bottom: 18px; }
+  h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; margin: 40px 0 14px; }
+  .lede { font-size: 18px; color: #c9c9c9; margin-bottom: 10px; }
+  p { margin-bottom: 15px; }
+  .card {
+    background: #111; border: 1px solid #1e1e1e; border-radius: 14px;
+    padding: 24px 22px; margin: 26px 0;
+  }
+  .card ul { list-style: none; }
+  .card li { padding: 7px 0 7px 26px; position: relative; color: #d2d2d2; font-size: 15px; }
+  .card li::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+  .pricerow {
+    display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: baseline;
+    padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .pricerow .big { font-size: 40px; font-weight: 900; letter-spacing: -1.6px; line-height: 1; }
+  .pricerow .sub { color: var(--muted); font-size: 14px; }
+  .founding { color: var(--gold); font-weight: 800; }
+  .btn {
+    display: block; text-align: center; background: var(--red); color: #fff;
+    text-decoration: none; padding: 15px; border-radius: 9px;
+    font-weight: 800; font-size: 15px; margin-top: 8px;
+  }
+  .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--ink); }
+  .muted { color: var(--muted); font-size: 13.5px; }
+  footer { margin: 54px 0 40px; padding-top: 22px; border-top: 1px solid #1a1a1a; }
+  footer a { color: var(--muted); text-decoration: none; }
+  .fine { color: #666; font-size: 12px; margin-top: 10px; line-height: 1.6; }
+  @media (max-width: 600px) { h1 { font-size: 31px; } .pricerow .big { font-size: 34px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header><a href="/" class="logo">lift<span>offr</span></a></header>
+
+  <div class="status">Opens August 24, 2026</div>
+
+  <h1>The plan tells you what I'm buying. The System is why, and when I'll sell.</h1>
+  <p class="lede">The Cycle System isn't open yet. Here's exactly what it is and when you can buy it, so you can decide before the seats go.</p>
+
+  <h2>What's in it</h2>
+  <div class="card">
+    <ul>
+      <li>The 8-indicator phase matrix — the indicators behind every level I publish</li>
+      <li>The weekly confluence score, and how to run it yourself</li>
+      <li>The buy ladders <em>and</em> the exit ladders — the half almost nobody writes down</li>
+      <li>Rebalancing rules and hardware-wallet custody setup</li>
+      <li>The signals feed</li>
+      <li>One payment. Lifetime updates. No subscription.</li>
+    </ul>
+  </div>
+
+  <h2>Price</h2>
+  <div class="card">
+    <div class="pricerow">
+      <div><div class="big">$197</div><div class="sub">one-time, when it opens</div></div>
+      <div><div class="big founding">$147</div><div class="sub founding">founding price — first 50 seats</div></div>
+    </div>
+    <p class="muted" style="margin-bottom:0;">
+      The founding price is for people who already bought the $29 plan and for the
+      email list. It is not offered to cold traffic. If you own the $29 plan, your
+      $29 counts toward it.
+    </p>
+  </div>
+
+  <h2>Why you can't buy it today</h2>
+  <p>
+    Because it isn't finished, and I'd rather tell you that than take your money for
+    a "coming soon" folder. It opens <strong>August 24, 2026</strong>. I'm not going
+    to pretend a countdown makes that sooner.
+  </p>
+
+  <h2>How you'll hear when it opens</h2>
+  <p>
+    If you've bought the $29 plan, you're already on the list that gets the founding
+    invite — you don't need to do anything. If you haven't, the plan is the way in,
+    and it's the cheapest thing I sell.
+  </p>
+
+  <a href="/plan?utm_source=liftoffr&utm_medium=system&utm_campaign=system_prelaunch&utm_content=plan_route" class="btn" data-dest="plan" onclick="track('cta_clicked',{destination:'plan_from_system'})">Get My Bear Market Buy Plan — $29 once →</a>
+  <a href="/free?utm_source=liftoffr&utm_medium=system&utm_campaign=system_prelaunch&utm_content=free_route" class="btn ghost" data-dest="free" onclick="track('cta_clicked',{destination:'free_from_system'})">Or start free — Discord + the Sunday Score</a>
+
+  <p class="muted" style="margin-top:26px;">
+    Want me to build your ladders with you 1:1 instead of learning the system
+    yourself? That's the <a href="/playbook?utm_source=liftoffr&amp;utm_medium=system&amp;utm_campaign=system_prelaunch&amp;utm_content=playbook_route" style="color:var(--red);">Cycle Playbook</a> — four spots a month.
+  </p>
+
+  <footer>
+    <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a>
+    <div class="fine">
+      © 2026 LiftOffr · Educational content only. Not financial advice, and I am not a
+      registered investment adviser. Backtested results are historical; past performance
+      does not guarantee future results.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

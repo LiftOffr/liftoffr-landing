@@ -295,7 +295,7 @@ async function sendWelcomeDM(botToken, discordId, username) {
 // sends only the bare plan id string, which rendered as "Plan: ?" in alerts).
 const PLAN_LABELS = {
   plan_MntgjXJaQnGsW: "My Bear Market Buy Plan ($29 one-time)",
-  plan_uIpPdsPTSHdTp: "Cycle Playbook 1:1 ($997)",
+  plan_uIpPdsPTSHdTp: "Cycle Playbook 1:1 ($497)",
 };
 function planLabel(data) {
   const ref = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
@@ -459,7 +459,9 @@ export default async function handler(req, res) {
 
     if (isPaid) {
       // Fallback values only matter when Whop reports $0 collected on a paid event.
-      const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_uIpPdsPTSHdTp: 997 }[planId] ?? 0);
+      // Keep in sync with the live Whop plan prices — a stale value here reports
+      // phantom revenue to GA4. Verified against the Whop API 2026-08-07.
+      const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_uIpPdsPTSHdTp: 497 }[planId] ?? 0);
       const currency = (data.currency || "USD").toUpperCase();
 
       // Discord new-member alert to ops channel (private notification for Torin).
