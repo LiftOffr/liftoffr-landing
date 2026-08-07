@@ -197,6 +197,99 @@ machine with a remote. `liftoffr-reels`, `liftoffr-course`, `liftoffr-video`
 have no origin, and `discord-rebuild` is not a git repo at all. No plaintext
 `ghp_` remains in any `.git/config`.
 
+## 7 · Discord permission audit — the problem was the opposite of a leak
+
+Audited all 126 channels and 32 roles against ruling 8, computing **effective**
+view permission per tier rather than eyeballing the sidebar.
+
+**Method note, because it changes the answer.** Channels do *not* inherit their
+category's overwrites when Discord computes permissions — only the channel's own
+`permission_overwrites` count, and "syncing" works by *copying* the category's
+overwrites onto the channel. This server also runs `@everyone` **without**
+`VIEW_CHANNEL` at guild level, so a channel is public only if it explicitly
+allows view. Reading the categories alone gives the wrong answer in both
+directions; I computed per-tier visibility from the raw permission bits.
+
+### No leaks — the free/paid boundary is intact
+
+A free member sees exactly **21 channels**: welcome/rules/start-here, the four
+Community channels, the four Free Market Feed channels, the four
+`🔒 Locked · Paid Access` sales channels (public on purpose — they're the "here's
+what you're missing" surface), Info, Verify, Help/Support, and the two ticker
+voice channels. **No course lesson, no signals channel, no staff channel and no
+archived channel is visible to a free member.** `#plan-updates` is correctly
+restricted to `@Plan` plus the grandfathered roles, exactly as the 2026-08-02
+advisor ruling specified. Archive, Staff Area, Server Logs and Ticket Logs are
+invisible to every customer tier.
+
+### The real fault: five paid channels nobody could read
+
+`⚡・urgent-alerts`, `📡・btc-signals`, `🔥・trade-setups`,
+`⚙️・indicator-readings` and `🪙・altcoin-radar` were visible to **nobody** —
+not free, not Plan, not System, not Founding Circle, not Pro, not Elite. Admins
+only.
+
+Each carried a single `@everyone` overwrite denying `SEND_MESSAGES` and
+`MENTION_EVERYONE` — the read-only-announcement pattern — and **no view grant for
+any role**. Their categories grant view to Elite/Pro/Founding Circle/LiftOffr
+Life, but a category grant does nothing for a de-synced child. So the channels
+were sealed.
+
+**Four bots have been posting into them on schedule the whole time.**
+`price-alerts` → `#btc-signals` (Aug 5), `cipher-analysis` → `#trade-setups`,
+`weekly-indicators` → `#indicator-readings` (Jul 26),
+`altcoin-watchlist` → `#altcoin-radar` (Jul 26). The fleet audit marked all four
+"Healthy" because they exit 0 — they do. This is the same failure the Cowen bot
+had when it published into an archived channel for five weeks, and it is the
+shape you asked me to look for. It just landed on the paid side: these are
+headline `$197` System deliverables, and no paying member could open them.
+
+Granted `VIEW_CHANNEL + READ_MESSAGE_HISTORY` (mask 66560, the same one
+`#plan-updates` already used) to the intended roles on all five. The
+`@everyone` send-denies are untouched — they stay bot-broadcast channels.
+
+### `@System` was missing everywhere it mattered
+
+Ruling 8: *"@System ($197 buyers + all grandfathered paid + Founding Circle) →
+course channels **+ #signals**."* `@System` had the course, but was absent from
+the Signals & Alerts and Market Intelligence categories **and** from all five
+channels above. The System launches Aug 24; buyers would have paid $197, received
+the course, and found the signals feed missing. Added to both categories and all
+five channels.
+
+Also added `@System` to `#plan-updates`. **Flagging this one as an inference**:
+ruling 8 lists `@Plan` and the grandfathered roles for that channel and doesn't
+mention System. But the ladder is cumulative and "your $29 counts toward the
+System", so a $197 buyer being locked out of a $29 channel is a launch-day
+support ticket. One `PUT` to reverse if you disagree.
+
+### Per-tier permission map (verified live after the changes)
+
+| Tier | Channels | What it unlocks over the tier below |
+|---|---|---|
+| **Free** (`@everyone`) | **21** | Welcome ×3, Community ×4, Free Market Feed ×4 (daily-brief, cbbi-pi-cycle, macro-watch, market-intel), Locked·Paid-Access ×4, Info, Verify, Help ×2, tickers ×2 |
+| **`@Plan`** ($29) | **22** | `+ 📈・plan-updates` |
+| **`@System`** ($197) | **80** | `+` Signals & Alerts ×3, Market Intelligence ×2, LIFTOFFR-HUB ×5, Modules 1–6 ×48 |
+| **Founding Circle** (56 comped) | **81** | `+ 🧠・mindset` (archived) |
+| **Pro** (grandfathered) | **81** | same as Founding Circle |
+| **Elite** (grandfathered) | **83** | `+ 💎・elite-lounge`, `+ ⏰・book-your-1-on-1` |
+| **Playbook** ($497) | — | No Discord role. 1:1 delivery, no channel. |
+
+Six channels changed, every one in the grant-access-to-people-who-paid
+direction. Re-computed after the writes: the free member's surface is still
+exactly those 21 channels — **nothing was widened for `@everyone`.**
+
+### Two things I did not change
+
+- **`📚 Studying` grants full course access** — all 48 lesson channels plus the
+  HUB, sitting alongside the paid roles. **0 members hold it**, so there is no
+  live exposure, but if it is self-assignable anywhere (reaction roles, ProBot),
+  it is a free key to the $197 course. Worth checking how someone gets it; I
+  didn't strip it across 50+ channels on a guess.
+- **`📰・daily-market-brief` carries a stray `Core` allow.** Harmless — the
+  channel is public to `@everyone` anyway — just a leftover from the pre-pivot
+  gating. Cosmetic.
+
 ---
 
 ## What still needs Torin
@@ -261,7 +354,14 @@ Worth deciding before the next Playbook sale rather than after.
 API. The pacing floor caught it, but the 10-post Aug 6 burst is what earned it.
 Queue depth is healthy again (6 clips), so there's no pressure to burst.
 
-### 5. Unchanged from the earlier pass, still open
+### 5. 📚 Check how someone gets the `📚 Studying` Discord role
+
+It opens all 48 course lesson channels. Nobody holds it today, so nothing is
+exposed right now — but if a reaction-role or ProBot self-assign is wired to it,
+it's a free key to the $197 product the day the System launches. Either confirm
+it's admin-assigned only, or tell me and I'll strip it from the course channels.
+
+### 6. Unchanged from the earlier pass, still open
 
 Kalshi API keys still live on a concluded project (`~/kalshi-btc-buckets`, its
 `paper.live_engine` daemon is still running); the GCP service-account key is
