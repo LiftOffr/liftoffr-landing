@@ -53,3 +53,22 @@ STATUS: Tier 1 executed 2026-07-01 (D1/Army angle struck by founder). Before →
    - consider banning `thren0115` + an AutoMod rule for DM-solicitation patterns
 2. ~~Elite 1:1 cadence~~ — CONFIRMED monthly by founder 2026-07-01; live copy already matches.
 3. Tier 2 list in OPTIMIZATION_PLAN.md: testimonials ask, Whop cancel-flow config, onboarding-DM LaunchAgent, which PDF reads AI
+
+---
+
+## 2026-08-07 — Revenue-review execution (REVENUE_REVIEW_2026-08-07 items 2–5)
+
+| # | Surface | Before → After |
+|---|---|---|
+| 1 | plan/index.html | First CTA at ~70% scroll → buy button in the hero, above the fold on mobile (375px verified) |
+| 2 | plan/index.html | No risk reversal → "Read it for 30 days first" refund block + matching FAQ entry. Framed as try-then-decide per AUDIT_NOTES ("try it free" > "money-back guarantee") |
+| 3 | plan/index.html | Non-buyers cost 1 click to /free → inline `/api/subscribe` form (magnet: `buyzone`), same payload shape as the /free form, verified posting correctly |
+| 4 | plan/index.html | "$29" unanchored → anchored against the $197 Cycle System |
+| 5 | plan/index.html | Both checkout CTAs reported the same `cta_position` → `data-cta-slot` (hero / price_block) so GA4 separates them |
+| 6 | welcome-plan/index.html | /playbook had zero inbound paths sitewide → one line post-purchase, UTM-tagged `welcome_plan / post_purchase` |
+| 7 | free/index.html | Discord CTA was a dead `#` → verified never-expiring invite (guild 1380245793780531351 confirmed via Discord API) |
+| 8 | RATE_CARD.md | Did not exist → brand-partnership rate card, $1,500–3,500 tiers per master plan §9, with the §9 brand filter and FTC disclosure terms |
+| 9 | BRAND_DEAL_TARGETS.md | Did not exist → 20 paid targets split Tier A (brand-fit crypto tools) / Tier B (audience-fit lifestyle-auto), outreach order + cold email template |
+| 10 | .git/config | GitHub PAT in plaintext in the remote URL → stripped; remote is now a clean https URL |
+
+**Not touched (require founder decision):** all prices and payment logic; the $49/mo subscription model (killed 2026-08-02, not revived); `/system` page (still 404, bridge still `display:none`).
