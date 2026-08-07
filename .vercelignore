@@ -1,19 +1,18 @@
-# Internal docs — never deploy to the public site
-AUDIT_NOTES.md
-COMPETITOR_INTEL.md
-OPTIMIZATION_PLAN.md
-CHANGELOG.md
-BRAND_VOICE.md
-MEASUREMENT.md
-DISCORD_STAGED_POSTS.md
-AFFILIATE_LAUNCH.md
+# Internal docs — never deploy to the public site.
+#
+# This was a hand-maintained name-by-name list and it drifted: on 2026-08-07,
+# LIFTOFFR_MASTER_PLAN.md, REVENUE_REVIEW_2026-08-07.md, RATE_CARD.md and
+# PIVOT_DECISION_2026-08-02.md were all serving 200 at liftoffr.com — revenue
+# figures, the offer ladder, brand-deal rates and a live security to-do, public
+# and crawlable. Every new doc leaked by default until someone remembered to
+# add it here.
+#
+# Now the default is inverted: NO markdown ships. The site is HTML + JS; if a
+# .md ever genuinely needs to be public, un-ignore that one file explicitly
+# with a `!` line below. (llms.txt and robots.txt are not .md and are
+# unaffected.)
+*.md
+**/*.md
+
+# Non-markdown internal files
 lead-magnet/buy-zone-plan.html
-CLAUDE.md
-SEO_ACTION_PLAN.md
-WHOP_ANNUAL_COPY.md
-lead-magnet/BEEHIIV_HANDOFF.md
-lead-magnet/welcome-sequence.md
-api/WHOP_SETUP_CHECKLIST.md
-dashboard/SETUP.md
-COLLAB_TARGETS.md
-NIGHT_PASS.md
