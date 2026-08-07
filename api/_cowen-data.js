@@ -3,6 +3,39 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "CmGkfyot8qY",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Where in the Cycle Are We?",
+    "published": "2026-08-06T23:38:34+00:00",
+    "processed_at": "2026-08-07T00:34:28.054749+00:00",
+    "url": "https://www.youtube.com/watch?v=CmGkfyot8qY",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "100-week moving average",
+      "200-week moving average",
+      "MVRV",
+      "days-from-low cycle model",
+      "days-from-peak cycle model",
+      "halving cycle comparison",
+      "year-to-date ROI seasonality"
+    ],
+    "key_points": [
+      "Bitcoin continues to follow its historical four-year cycle, with lows consistently forming roughly every four years regardless of narrative differences this cycle",
+      "Measured from both the prior low and prior peak, the current bear market is tracking closely with the two previous cycles, suggesting a bottom is likely between late September and mid-December",
+      "Price action mirrors 2019 macro conditions (top near QT ending, three Fed rate cuts, no altcoin rotation, apathetic sentiment), reinforcing that the current downtrend is a normal midterm-year weak period rather than something structurally different",
+      "The moving average breakdown sequence (50-week, then 100-week, then 200-week) has repeated exactly as in prior bear markets, arguing against the idea that 'this time is different'",
+      "The market is estimated to be in the final ~30% of the bear market, with accumulation considered reasonable for long-term positioning despite possible further short-term downside"
+    ],
+    "summary": "Bitcoin is judged to be late in its historical four-year bear market cycle, with multiple independent measures (days from low, days from peak, moving average breakdowns, and comparison to the 2019 macro analog) all pointing to a bottom forming between late September and December. The bear market is expected to persist a bit longer before transitioning into the next bull phase, and current price weakness is viewed as a normal, recurring feature of the cycle rather than a sign of structural change."
+  },
+  {
     "video_id": "mo9PUWbEJ-4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1462,41 +1495,5 @@ export default [
       "Stock market weakness will likely trigger Bitcoin decline; macro conditions and elevated interest rates continue to restrict high-risk asset appreciation compared to gold and manufacturing"
     ],
     "summary": "Bitcoin faces a structural bear market with rejection at the 200-day moving average consistent with prior cycle behavior. Near-term weakness is expected into June with a potential June low followed by a counter-trend rally, ultimately leading to an October market cycle bottom. Current price levels exceed historical midterm year averages, suggesting significant downside risk toward 51-52K before any sustained recovery can establish."
-  },
-  {
-    "video_id": "WHK1S6MrlCA",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Psychology of a Bear Market",
-    "published": "2026-05-17T15:26:53+00:00",
-    "processed_at": "2026-05-17T15:41:42.810079+00:00",
-    "url": "https://www.youtube.com/watch?v=WHK1S6MrlCA",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      78000,
-      85000,
-      77000,
-      80000,
-      40000,
-      54000,
-      39000
-    ],
-    "indicators_mentioned": [
-      "200 day moving average",
-      "Fibonacci retracement",
-      "realized price",
-      "balance price",
-      "MVRV"
-    ],
-    "key_points": [
-      "Bitcoin is likely in a bear market cycle similar to 2018 and 2019, with a high probable turning point in June followed by a decline into October",
-      "Current price action has only taken 14 weeks to rally from the low, whereas historical bear markets took 19-25 weeks to put in new lows, suggesting further downside is probable",
-      "Bitcoin has formed lower highs compared to prior rallies and is struggling with the 200-day moving average, which historically provided resistance during bear markets",
-      "Realized price at 54K and balance price at 39K suggest Bitcoin typically trades below these levels during bear market cycles, with potential for 40K levels by Q4",
-      "Bitcoin is underperforming other asset classes including gold, S&P, and international markets year-to-date, consistent with typical bear market dynamics during midterm election years"
-    ],
-    "summary": "Bitcoin is likely in a bear market cycle similar to 2018 and 2019, with counter-trend rallies likely in May-June before a sustained decline into October and Q4. The current rally has only lasted 14 weeks, falling short of historical timelines of 19-25 weeks for bear market lows, and Bitcoin remains below key resistance at the 200-day moving average, with probable targets in the 40K range against realized and balance price levels."
   }
 ];
