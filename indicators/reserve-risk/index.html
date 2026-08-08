@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitcoin Reserve Risk today — live reading + every cycle top since 2013 | LiftOffr</title>
+<meta name="description" content="Reserve Risk reads 19/100 today. See what it read at every Bitcoin cycle top and bottom since 2013, how it is built, and where it has been wrong.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://liftoffr.com/indicators/reserve-risk">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LiftOffr">
+<meta property="og:url" content="https://liftoffr.com/indicators/reserve-risk">
+<meta property="og:title" content="Bitcoin Reserve Risk today — live reading + every cycle top since 2013 | LiftOffr">
+<meta property="og:description" content="Reserve Risk reads 19/100 today. See what it read at every Bitcoin cycle top and bottom since 2013, how it is built, and where it has been wrong.">
+<meta property="og:image" content="https://liftoffr.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bitcoin Reserve Risk today — live reading + every cycle top since 2013 | LiftOffr">
+<meta name="twitter:description" content="Reserve Risk reads 19/100 today. See what it read at every Bitcoin cycle top and bottom since 2013, how it is built, and where it has been wrong.">
+<meta name="twitter:image" content="https://liftoffr.com/og-image.png">
+<meta name="theme-color" content="#e63946">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Reserve Risk \u2014 normalised daily reading", "description": "Daily normalised (0-100) Reserve Risk reading for Bitcoin, with historical values at every cycle top and bottom since 2013.", "url": "https://liftoffr.com/indicators/reserve-risk", "creator": {"@type": "Organization", "name": "LiftOffr", "url": "https://liftoffr.com/"}, "isBasedOn": "https://colintalkscrypto.com/cbbi/", "temporalCoverage": "2011-06-28/2026-08-06", "variableMeasured": "Reserve Risk", "license": "https://liftoffr.com/terms"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the Reserve Risk reading today?", "acceptedAnswer": {"@type": "Answer", "text": "As of August 6, 2026 the Reserve Risk reads 19 out of 100 on the normalised scale LiftOffr uses, with Bitcoin at $64,212. The number on this page updates daily."}}, {"@type": "Question", "name": "What did the Reserve Risk read at the last Bitcoin top?", "acceptedAnswer": {"@type": "Answer", "text": "At the October 2025 top it read 99. Every cycle top and bottom since 2013 is in the table on this page, taken from the same daily series."}}, {"@type": "Question", "name": "Has the Reserve Risk ever been wrong?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on coin-day metrics that exchange and ETF custody distort \u2014 coins moving between custodial wallets look like holders capitulating when nothing changed hands economically. Its signal has been noisier since 2024 for exactly that reason."}}, {"@type": "Question", "name": "Is the Reserve Risk enough on its own?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every indicator on this site has a failure mode, which is why LiftOffr weights nine of them into one score rather than trusting any single one. The live composite is at liftoffr.com/cycle."}}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red:#e63946; --green:#26d07c; --amber:#e8b339; --blue:#4d8df0;
+    --bg:#060910; --border:rgba(255,255,255,0.09); --text:#e9eef7; --muted:#8793a8;
+    --glass:linear-gradient(158deg, rgba(255,255,255,0.055), rgba(255,255,255,0.014));
+    --glass-bd:1px solid rgba(255,255,255,0.09);
+    --glass-sh:inset 0 1px 0 rgba(255,255,255,0.07), 0 12px 34px rgba(0,0,0,0.45);
+    --blur:blur(14px) saturate(120%);
+  }
+  body {
+    background:
+      radial-gradient(1100px 560px at 22% -160px, rgba(38,208,124,0.10), transparent 60%),
+      radial-gradient(900px 480px at 96% 0, rgba(77,141,240,0.07), transparent 55%),
+      var(--bg);
+    background-attachment: fixed; color: var(--text);
+    font-family:'Inter',sans-serif; line-height:1.65; min-height:100vh;
+  }
+  a { color:#9dc4ff; }
+  nav {
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:13px 22px; background:rgba(6,9,16,0.82);
+    backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%);
+    border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100;
+  }
+  nav .brand { font-weight:900; letter-spacing:-0.4px; color:#fff; text-decoration:none; font-size:15px; }
+  nav .brand span { color:var(--red); }
+  nav .navlinks { display:flex; gap:16px; font-size:13px; }
+  nav .navlinks a { color:var(--muted); text-decoration:none; }
+  nav .navlinks a:hover { color:#fff; }
+  .wrap { max-width:820px; margin:0 auto; padding:44px 20px 72px; }
+  .crumb { font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .crumb a { color:var(--muted); text-decoration:none; }
+  .crumb a:hover { color:#fff; }
+  h1 { font-size:38px; font-weight:900; letter-spacing:-1.4px; line-height:1.08; margin-bottom:10px; }
+  h2 { font-size:23px; font-weight:900; letter-spacing:-0.6px; margin:40px 0 12px; }
+  h3 { font-size:16px; font-weight:800; margin:22px 0 6px; }
+  p { margin-bottom:14px; color:#c3cbd9; }
+  .updated { font-size:12.5px; color:var(--muted); margin-bottom:24px; }
+  .reading {
+    background:var(--glass); border:var(--glass-bd); backdrop-filter:var(--blur);
+    -webkit-backdrop-filter:var(--blur); box-shadow:var(--glass-sh);
+    border-radius:16px; padding:26px 24px; margin-bottom:26px; text-align:center;
+  }
+  .reading-num { font-size:60px; font-weight:900; letter-spacing:-2.5px; line-height:1; }
+  .reading-lbl { font-size:11px; text-transform:uppercase; letter-spacing:1.6px; color:var(--muted); font-weight:800; margin-top:8px; }
+  .reading-sub { font-size:13.5px; color:var(--muted); margin-top:12px; }
+  .answer {
+    background:rgba(38,208,124,0.07); border:1px solid rgba(38,208,124,0.28);
+    border-radius:14px; padding:20px 22px; margin-bottom:26px; font-size:16px; color:#dbe4f0;
+  }
+  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0 8px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; min-width:460px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); }
+  th { font-size:11px; text-transform:uppercase; letter-spacing:1.1px; color:var(--muted); font-weight:800; }
+  td.num { font-variant-numeric:tabular-nums; font-weight:700; }
+  .hot { color:var(--red); } .cold { color:var(--green); } .mid { color:var(--amber); }
+  .note { font-size:12.5px; color:var(--muted); margin-top:6px; }
+  .card {
+    background:var(--glass); border:var(--glass-bd); backdrop-filter:var(--blur);
+    -webkit-backdrop-filter:var(--blur); box-shadow:var(--glass-sh);
+    border-radius:14px; padding:20px 22px; margin-bottom:12px;
+  }
+  .card .q { font-weight:800; color:#fff; margin-bottom:6px; font-size:15.5px; }
+  .card .a { font-size:14.5px; color:#a9b3c6; }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:18px 0 8px; }
+  .grid a { text-decoration:none; color:inherit; display:block; }
+  .grid .name { font-weight:800; color:#fff; font-size:15px; }
+  .grid .val { font-size:26px; font-weight:900; letter-spacing:-1px; margin-top:4px; }
+  .grid .w { font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .cta {
+    background:linear-gradient(158deg, rgba(230,57,70,0.16), rgba(230,57,70,0.04));
+    border:1px solid rgba(230,57,70,0.42); border-radius:16px;
+    padding:26px 24px; margin:40px 0 26px; text-align:center;
+  }
+  .cta h3 { font-size:20px; margin:0 0 8px; }
+  .cta p { font-size:14.5px; color:#bcc5d4; max-width:520px; margin:0 auto 16px; }
+  .cta a.btn {
+    display:inline-block; background:var(--red); color:#fff; text-decoration:none;
+    padding:14px 28px; border-radius:10px; font-weight:800; font-size:15.5px;
+    box-shadow:0 10px 30px rgba(230,57,70,0.28);
+  }
+  .cta .fine { font-size:12px; color:var(--muted); margin-top:10px; }
+  .disclaimer {
+    border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:18px 20px;
+    margin:32px 0 24px; font-size:12.5px; color:#5b6577; line-height:1.7;
+  }
+  .footer-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; font-size:12px; color:#555; padding:14px 0; }
+  .footer-row a { color:#666; text-decoration:none; }
+  @media (max-width:640px) {
+    h1 { font-size:29px; letter-spacing:-1px; }
+    .grid { grid-template-columns:1fr; }
+    .reading-num { font-size:48px; }
+    .wrap { padding:30px 15px 56px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">lift<span>offr</span></a>
+  <div class="navlinks">
+    <a href="/cycle">Live Score</a>
+    <a href="/indicators">Indicators</a>
+    <a href="/track-record">Track record</a>
+    <a href="/plan">The plan</a>
+  </div>
+</nav>
+<div class="wrap">
+
+  <div class="crumb"><a href="/">Home</a> › <a href="/indicators">Indicators</a> › Reserve Risk</div>
+  <h1>Bitcoin Reserve Risk today</h1>
+  <div class="updated">Last updated <span data-live-asof>August 6, 2026</span> ·
+    Also called HODL bank / opportunity cost · Weighted 5% of the LiftOffr Score</div>
+
+  <div class="reading">
+    <div class="reading-num cold" data-live-key="ReserveRisk">19</div>
+    <div class="reading-lbl">Reserve Risk · 0-100 normalised</div>
+    <div class="reading-sub">Bitcoin $64,212 · Today's reading sits 18% of the way from the average cycle-bottom reading (2) to the average cycle-top reading (96).</div>
+  </div>
+
+  <div class="answer">Reserve Risk weighs the confidence of long-term holders against the price they are being offered to sell. Low readings mean conviction is high and price is low — historically the best risk-reward accumulation windows. High readings mean holders are being paid a lot to give up their coins.</div>
+
+  <h2>What it actually measures</h2>
+  <p>The ratio of holder conviction to the reward for abandoning it.</p>
+  <h3>How it is calculated</h3>
+  <p>Price ÷ HODL bank (cumulative coin-days destroyed opportunity cost), normalised 0-100.</p>
+  
+
+  <h2>What it read at every cycle top and bottom</h2>
+  <p>This is the table that does not exist anywhere else. Every value is the Reserve Risk reading
+     on the day of that cycle turn, pulled from the same daily series the number above comes from.</p>
+  <div class="tablewrap"><table><thead><tr><th>Cycle turn</th><th>Date</th><th>BTC close</th><th>Reserve Risk (0-100)</th></tr></thead><tbody><tr><td>2013 top</td><td>2013-11-30</td><td class="num">$1,119</td><td class="num hot">96</td></tr><tr><td>2017 top</td><td>2017-12-17</td><td class="num">$19,250</td><td class="num hot">100</td></tr><tr><td>2021 top</td><td>2021-11-10</td><td class="num">$64,756</td><td class="num hot">91</td></tr><tr><td>2025 top</td><td>2025-10-06</td><td class="num">$124,824</td><td class="num hot">99</td></tr><tr><td>2015 bottom</td><td>2015-01-14</td><td class="num">$176</td><td class="num cold">0</td></tr><tr><td>2018 bottom</td><td>2018-12-15</td><td class="num">$3,185</td><td class="num cold">7</td></tr><tr><td>2022 bottom</td><td>2022-11-21</td><td class="num">$15,778</td><td class="num cold">0</td></tr></tbody></table></div>
+  <p class="note">Readings are normalised 0-100. Bitcoin closes are the same day's price from the
+     source dataset. Cycle turn dates are daily-close highs and lows.</p>
+  <p>Average reading at a cycle top: <strong>96</strong>.
+     Average at a cycle bottom: <strong>2</strong>.
+     The weakest top signal it ever gave was the 2021 top at 91;
+     the highest it ever read at a bottom was the 2018 bottom at 7.</p>
+
+  <h2>Where it has been wrong</h2>
+  <p>It depends on coin-day metrics that exchange and ETF custody distort — coins moving between custodial wallets look like holders capitulating when nothing changed hands economically. Its signal has been noisier since 2024 for exactly that reason.</p>
+  <p>This section is on every indicator page here on purpose. An indicator sold as infallible is
+     being sold, not explained — and the gap between "it called three tops" and "it will call the
+     next one" is where people lose money.</p>
+
+  <h2>The other eight</h2>
+  <p>No single indicator survives contact with a real cycle. These are the other components of the
+     LiftOffr Score, live right now:</p>
+  <div class="grid"><a href="/indicators/rhodl-ratio" data-dest="indicator_rhodl-ratio"><div class="card"><div class="name">RHODL Ratio</div><div class="val mid">41</div><div class="w">weight 20% of the Score</div></div></a><a href="/indicators/puell-multiple" data-dest="indicator_puell-multiple"><div class="card"><div class="name">Puell Multiple</div><div class="val mid">62</div><div class="w">weight 20% of the Score</div></div></a><a href="/indicators/rainbow-chart" data-dest="indicator_rainbow-chart"><div class="card"><div class="name">Logarithmic Regression Band</div><div class="val cold">15</div><div class="w">weight 15% of the Score</div></div></a><a href="/indicators/mvrv-z-score" data-dest="indicator_mvrv-z-score"><div class="card"><div class="name">MVRV Z-Score</div><div class="val cold">15</div><div class="w">weight 15% of the Score</div></div></a><a href="/indicators/pi-cycle-top" data-dest="indicator_pi-cycle-top"><div class="card"><div class="name">Pi Cycle Top Indicator</div><div class="val mid">39</div><div class="w">weight 10% of the Score</div></div></a><a href="/indicators/2-year-ma-multiplier" data-dest="indicator_2-year-ma-multiplier"><div class="card"><div class="name">2-Year MA Multiplier</div><div class="val mid">45</div><div class="w">weight 5% of the Score</div></div></a><a href="/indicators/woobull-top-cap" data-dest="indicator_woobull-top-cap"><div class="card"><div class="name">Woobull Top Cap Ratio</div><div class="val cold">26</div><div class="w">weight 5% of the Score</div></div></a><a href="/indicators/rupl" data-dest="indicator_rupl"><div class="card"><div class="name">RUPL / NUPL</div><div class="val mid">36</div><div class="w">weight 5% of the Score</div></div></a></div>
+
+  <div class="cta">
+    <h3>The reading tells you where. It doesn't tell you what to do.</h3>
+    <p>My Bear Market Buy Plan is the nine-tier ladder I'm actually executing against these
+       indicators — every level, every trigger, timestamped receipts when a tier fires.
+       $29 once, no subscription.</p>
+    <a class="btn" href="/plan" data-dest="plan" data-cta-slot="indicator_page">Get my plan — $29, once →</a>
+    <div class="fine">Or read the whole free feed first — <a href="/free" data-dest="free">the live Score, the daily brief, the open Discord →</a></div>
+  </div>
+
+  <h2>Questions</h2>
+  <div class="card"><div class="q">What is the Reserve Risk reading today?</div><div class="a">As of August 6, 2026 the Reserve Risk reads 19 out of 100 on the normalised scale LiftOffr uses, with Bitcoin at $64,212. The number on this page updates daily.</div></div><div class="card"><div class="q">What did the Reserve Risk read at the last Bitcoin top?</div><div class="a">At the October 2025 top it read 99. Every cycle top and bottom since 2013 is in the table on this page, taken from the same daily series.</div></div><div class="card"><div class="q">Has the Reserve Risk ever been wrong?</div><div class="a">It depends on coin-day metrics that exchange and ETF custody distort — coins moving between custodial wallets look like holders capitulating when nothing changed hands economically. Its signal has been noisier since 2024 for exactly that reason.</div></div><div class="card"><div class="q">Is the Reserve Risk enough on its own?</div><div class="a">No. Every indicator on this site has a failure mode, which is why LiftOffr weights nine of them into one score rather than trusting any single one. The live composite is at liftoffr.com/cycle.</div></div>
+
+  <div class="disclaimer">
+    <strong>Read this first.</strong> Everything on this page is educational market information, not
+    financial advice, and not a recommendation to buy or sell anything. I am not a registered
+    investment adviser. Indicator readings are historical measurements, not predictions — every one
+    of them has been wrong before, which is why each page here has a section saying exactly how.
+    Bitcoin can fall further than you expect and stay there longer than you expect. Do your own
+    research and never invest money you cannot afford to lose.
+  </div>
+  <div class="footer-row">
+    <a href="/">Home</a><span>·</span>
+    <a href="/cycle">Live Score</a><span>·</span>
+    <a href="/indicators">All indicators</a><span>·</span>
+    <a href="/track-record">Track record</a><span>·</span>
+    <a href="/privacy">Privacy</a><span>·</span>
+    <a href="/terms">Terms</a>
+  </div>
+  <div style="text-align:center;color:#444;font-size:11px;padding:0 0 22px;">
+    © 2026 LiftOffr · Educational content only. Not financial advice.
+    Indicator data derived from the public CBBI dataset.
+  </div>
+</div>
+<script>
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-dest]');
+    if (!a || typeof window.track !== 'function') return;
+    window.track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || 'indicator_page',
+      destination: a.getAttribute('data-dest'),
+      page: location.pathname
+    });
+  }, true);
+</script>
+<script>
+/* Live refresh: the baked number is the crawler's copy and is honest as of the
+   dateline above; this replaces it with today's reading for humans. Failure is
+   silent on purpose — a stale-but-dated number beats an error state. */
+(function(){
+  var els = document.querySelectorAll('[data-live-key]');
+  if (!els.length) return;
+  fetch('/api/cycle-score').then(function(r){ return r.json(); }).then(function(d){
+    els.forEach(function(el){
+      var k = el.getAttribute('data-live-key');
+      var v = k === 'score' ? d.score : (d.components && d.components[k] && d.components[k].value);
+      if (typeof v === 'number') el.textContent = v.toFixed(k === 'score' ? 1 : 0);
+    });
+    var stamp = document.querySelectorAll('[data-live-asof]');
+    if (d.asOf) {
+      var day = new Date(d.asOf).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+      stamp.forEach(function(el){ el.textContent = day; });
+    }
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>

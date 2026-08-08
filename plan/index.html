@@ -271,6 +271,40 @@
   .footer-row a:hover { color: var(--red); }
   .footer-fine { text-align: center; color: #444; font-size: 11px; padding: 0 0 24px; }
 
+  /* Objection handling — the questions people ask themselves, not the ones
+     they ask us. Sits above the FAQ because these kill the sale silently. */
+  .objections { margin-bottom: 56px; }
+  .obj {
+    background: var(--glass); border: var(--glass-bd);
+    backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur);
+    box-shadow: var(--glass-sh); border-radius: 14px; padding: 20px 22px; margin-bottom: 10px;
+  }
+  .obj-q { font-size: 15.5px; font-weight: 800; color: #fff; margin-bottom: 7px; }
+  .obj-a { font-size: 14.5px; color: #98a3b8; line-height: 1.65; }
+  .obj-a a { color: var(--green); }
+
+  /* Payment trust row */
+  .paytrust {
+    display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center; align-items: center;
+    font-size: 11.5px; color: #5b6577; margin-top: 14px;
+  }
+
+  /* Sticky mobile buy bar — activates once the hero CTA scrolls off.
+     Published tests put this at +9-14% on mobile, and IG traffic is ~all mobile. */
+  .sticky-buy {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 900;
+    display: none; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(6,9,16,0.94);
+    backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border-top: 1px solid var(--border);
+  }
+  .sticky-buy.on { display: flex; }
+  .sticky-price { font-size: 13px; line-height: 1.3; color: var(--muted); font-weight: 700; }
+  .sticky-price strong { display: block; color: #fff; font-size: 16px; font-weight: 900; }
+  .sticky-buy .cta-btn { padding: 12px 20px; font-size: 15px; box-shadow: none; }
+  @media (min-width: 861px) { .sticky-buy.on { display: none; } }
+
   @media (max-width: 900px) {
     .ind-grid { grid-template-columns: 1fr; }
     .proof-strip { flex-direction: column; }
@@ -308,7 +342,7 @@
     <h1>The exact plan I'm buying this bear market with.</h1>
     <p class="lede">Nine buy tiers. Real receipts on every fire, timestamped. <strong>$29 once, updated for the rest of this bear.</strong></p>
     <div class="hero-cta">
-      <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="hero" rel="noopener">Get the plan · $29</a>
+      <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="hero" rel="noopener">Get my plan — $29, once</a>
       <div class="hero-cta-fine">One time, not a subscription. <strong>30 days to change your mind.</strong></div>
     </div>
   </section>
@@ -369,8 +403,15 @@
     <div class="price-num">$29</div>
     <div class="price-once">One time. Not a subscription.</div>
     <p class="price-incl">Includes <strong>lifetime updates for this bear market</strong> and access to the <strong>#plan-updates</strong> channel in the LiftOffr Discord.</p>
-    <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="price_block" rel="noopener">Get the plan · $29</a>
+    <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="price_block" rel="noopener">Get my plan — $29, once</a>
     <div class="price-fine">Instant access after checkout.</div>
+    <div class="paytrust">
+      <span>Secure checkout by Whop</span><span class="check-dot">·</span>
+      <span>Apple&nbsp;Pay</span><span class="check-dot">·</span>
+      <span>Google&nbsp;Pay</span><span class="check-dot">·</span>
+      <span>Card</span><span class="check-dot">·</span>
+      <span>No account needed on this site</span>
+    </div>
     <!-- Verifiable proof at the decision point. Deliberately NOT testimonials:
          the quotes on / and /track-record are membership-era and there is no
          confirmed $29-buyer count, and BRAND_VOICE bans fabricated proof. -->
@@ -409,6 +450,50 @@
   <div class="free-door">
     Want the whole free tier? Live Score, daily brief, open Discord, every timestamped call.
     <a href="/free" data-dest="free">See the free tier &rarr;</a>
+  </div>
+
+  <!-- OBJECTIONS -->
+  <div class="section-label">Let's address what you're actually thinking</div>
+  <div class="objections">
+    <div class="obj">
+      <div class="obj-q">"This is probably a scam."</div>
+      <div class="obj-a">Keep that instinct — it's the correct default for a faceless crypto account
+        asking for money. So check before you pay: every call I've made is
+        <a href="/receipts.html" data-dest="receipts_from_objections">timestamped on the receipts page</a>,
+        losses included. The Score the tiers key off is
+        <a href="/cycle" data-dest="cycle_from_objections">live and public</a>. The Discord and the
+        daily brief are <a href="/free" data-dest="free_from_objections">free to read before you spend anything</a>.
+        I will never tell you what you'll make, because I don't know and neither does anyone
+        who says otherwise.</div>
+    </div>
+    <div class="obj">
+      <div class="obj-q">"I don't know enough about Bitcoin for this."</div>
+      <div class="obj-a">Then this is the right end of the ladder. It's a plan document, not a
+        curriculum — nine levels, why each one exists, and a worksheet that turns your own stack
+        size into your own ladder in about 30 minutes. If you want the indicator theory behind it,
+        that's the System later, and your $29 counts toward it.</div>
+    </div>
+    <div class="obj">
+      <div class="obj-q">"I don't have much money to invest."</div>
+      <div class="obj-a">The worksheet is built for exactly that — it works in fractions of whatever
+        you have, not dollar amounts copied from me. And the honest answer: if $29 is a meaningful
+        amount of money right now, don't spend it here. The free tier has the Score, the brief and
+        the framework, and it will still be free in six months.</div>
+    </div>
+    <div class="obj">
+      <div class="obj-q">"What if it's wrong?"</div>
+      <div class="obj-a">It might be. I've been wrong before and it's on the site: 2021 cost me
+        about $30,000 because I ignored my own indicators. The plan isn't a prediction that the
+        levels get hit — it's a decision made while I'm calm instead of while I'm scared. That's the
+        part that survives being wrong.</div>
+    </div>
+    <div class="obj">
+      <div class="obj-q">"Why is it only $29? What's the catch?"</div>
+      <div class="obj-a">There's no upsell at checkout and no subscription attached. $29 is what it
+        costs to get someone to actually open a document and use it. If you later want the
+        indicators and the exit side, that's a separate $197 decision you can make in a year — or
+        never.</div>
+    </div>
   </div>
 
   <!-- FAQ -->
@@ -520,6 +605,23 @@
     }
   }, true);
 </script>
+<!-- Sticky mobile buy bar. Same href as every other CTA, so the embedded-checkout
+     delegate below picks it up identically. -->
+<div class="sticky-buy" id="stickyBuy">
+  <div class="sticky-price"><strong>$29 · once</strong>30-day refund</div>
+  <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="sticky_mobile" rel="noopener">Get my plan →</a>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById('stickyBuy');
+  var hero = document.querySelector('.hero-cta');
+  if (!bar || !hero || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function(entries){
+    bar.classList.toggle('on', !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0);
+  }, { threshold: 0 }).observe(hero);
+})();
+</script>
+
 <!-- ===== Whop on-site checkout (progressive enhancement; hosted-redirect fallback) ===== -->
 <div id="wco-overlay" hidden role="dialog" aria-modal="true" aria-label="Secure checkout">
   <div id="wco-sheet">

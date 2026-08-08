@@ -68,7 +68,7 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
 4. **Pick your fallback dates** — one per phase-end. No open-ended waiting.
 5. **The last row of the worksheet is execution timing.** Mine went in as limit orders the same night I wrote the plan, because the whole point of a plan is deciding while you're calm.
 
-[Worksheet table with blank rows for the reader's numbers]
+**The worksheet itself is now written** — full fill-in version at `~/liftoffr-plan-product/build-your-own-ladder-worksheet.md` (2026-08-07). Five steps: the war chest number + emergency-fund gate, the coarse-fraction split table, trigger prices as 200W MA multiples, fallback dates, and a same-night execution checklist, plus an override log. Drop it in here verbatim; it holds the Option B disclosure rule (coarse fractions only, no back-divisible percentages) and carries its own disclaimer. Adds ~1,400 words, which roughly doubles the doc and moves it toward the 25–35 page spec it currently misses by a wide margin.
 
 ## 4. EXECUTION MECHANICS
 

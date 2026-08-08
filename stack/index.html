@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The exact stack I run LiftOffr on — hardware, tax, charts | LiftOffr</title>
+<meta name="description" content="Every tool I actually use to hold and track Bitcoin: hardware wallets, crypto tax software, and charting. What each one is for, what it costs, and where I'd skip it. Commission status disclosed on every link.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://liftoffr.com/stack">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="LiftOffr">
+<meta property="og:url" content="https://liftoffr.com/stack">
+<meta property="og:title" content="The exact stack I run LiftOffr on">
+<meta property="og:description" content="Hardware wallets, tax software, charting — what I actually use, what it's for, and where I'd skip it.">
+<meta property="og:image" content="https://liftoffr.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The exact stack I run LiftOffr on">
+<meta name="twitter:description" content="Hardware wallets, tax software, charting — what I actually use and where I'd skip it.">
+<meta name="twitter:image" content="https://liftoffr.com/og-image.png">
+<meta name="theme-color" content="#e63946">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    --red:#e63946; --green:#26d07c; --amber:#e8b339;
+    --bg:#060910; --border:rgba(255,255,255,0.09); --text:#e9eef7; --muted:#8793a8;
+    --glass:linear-gradient(158deg, rgba(255,255,255,0.055), rgba(255,255,255,0.014));
+    --glass-bd:1px solid rgba(255,255,255,0.09);
+    --glass-sh:inset 0 1px 0 rgba(255,255,255,0.07), 0 12px 34px rgba(0,0,0,0.45);
+    --blur:blur(14px) saturate(120%);
+  }
+  body {
+    background:
+      radial-gradient(1100px 560px at 22% -160px, rgba(38,208,124,0.10), transparent 60%),
+      radial-gradient(900px 480px at 96% 0, rgba(77,141,240,0.07), transparent 55%),
+      var(--bg);
+    background-attachment:fixed; color:var(--text);
+    font-family:'Inter',sans-serif; line-height:1.65; min-height:100vh;
+  }
+  a { color:#9dc4ff; }
+  nav {
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:13px 22px; background:rgba(6,9,16,0.82);
+    backdrop-filter:blur(16px) saturate(120%); -webkit-backdrop-filter:blur(16px) saturate(120%);
+    border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100;
+  }
+  nav .brand { font-weight:900; letter-spacing:-0.4px; color:#fff; text-decoration:none; font-size:15px; }
+  nav .brand span { color:var(--red); }
+  nav .navlinks { display:flex; gap:16px; font-size:13px; }
+  nav .navlinks a { color:var(--muted); text-decoration:none; }
+  nav .navlinks a:hover { color:#fff; }
+  .wrap { max-width:780px; margin:0 auto; padding:44px 20px 72px; }
+  h1 { font-size:38px; font-weight:900; letter-spacing:-1.4px; line-height:1.08; margin-bottom:12px; }
+  h2 { font-size:22px; font-weight:900; letter-spacing:-0.6px; margin:40px 0 10px; }
+  p { margin-bottom:14px; color:#c3cbd9; }
+  .crumb { font-size:12px; color:var(--muted); margin-bottom:14px; }
+  .crumb a { color:var(--muted); text-decoration:none; }
+  .disclose {
+    background:rgba(232,179,57,0.08); border:1px solid rgba(232,179,57,0.32);
+    border-radius:12px; padding:16px 18px; margin:18px 0 30px; font-size:14px; color:#e2dcc9;
+  }
+  .disclose strong { color:#f3e2b4; }
+  .tool {
+    background:var(--glass); border:var(--glass-bd); backdrop-filter:var(--blur);
+    -webkit-backdrop-filter:var(--blur); box-shadow:var(--glass-sh);
+    border-radius:16px; padding:22px 24px; margin-bottom:14px;
+  }
+  .tool-head { display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .tool-name { font-size:19px; font-weight:900; letter-spacing:-0.4px; color:#fff; }
+  .tool-price { font-size:12.5px; color:var(--muted); font-weight:700; }
+  .tool-for { font-size:13px; color:var(--green); font-weight:700; text-transform:uppercase; letter-spacing:1.1px; margin:6px 0 10px; }
+  .tool p { font-size:14.8px; margin-bottom:10px; }
+  .tool .skip { font-size:13.5px; color:var(--muted); border-left:2px solid rgba(255,255,255,0.13); padding-left:12px; margin:12px 0 14px; }
+  .tool a.go {
+    display:inline-block; background:rgba(255,255,255,0.07); border:1px solid var(--border);
+    color:#fff; text-decoration:none; padding:10px 18px; border-radius:9px;
+    font-weight:800; font-size:14px;
+  }
+  .tool a.go:hover { border-color:rgba(38,208,124,0.5); }
+  .tool .affnote { font-size:11.5px; color:#61708a; margin-top:8px; }
+  .no {
+    background:rgba(230,57,70,0.05); border:1px solid rgba(230,57,70,0.25);
+    border-radius:14px; padding:20px 22px; margin:16px 0 10px;
+  }
+  .no h3 { font-size:16px; font-weight:800; margin-bottom:8px; color:#fff; }
+  .no li { font-size:14.5px; color:#b6bfcd; margin:0 0 8px 18px; }
+  .cta {
+    background:linear-gradient(158deg, rgba(230,57,70,0.16), rgba(230,57,70,0.04));
+    border:1px solid rgba(230,57,70,0.42); border-radius:16px;
+    padding:26px 24px; margin:40px 0 24px; text-align:center;
+  }
+  .cta h3 { font-size:20px; margin-bottom:8px; }
+  .cta p { font-size:14.5px; color:#bcc5d4; max-width:520px; margin:0 auto 16px; }
+  .cta a.btn {
+    display:inline-block; background:var(--red); color:#fff; text-decoration:none;
+    padding:14px 28px; border-radius:10px; font-weight:800; font-size:15.5px;
+    box-shadow:0 10px 30px rgba(230,57,70,0.28);
+  }
+  .cta .fine { font-size:12px; color:var(--muted); margin-top:10px; }
+  .disclaimer {
+    border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:18px 20px;
+    margin:30px 0 22px; font-size:12.5px; color:#5b6577; line-height:1.7;
+  }
+  .footer-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; font-size:12px; color:#555; padding:14px 0; }
+  .footer-row a { color:#666; text-decoration:none; }
+  @media (max-width:640px) {
+    h1 { font-size:29px; letter-spacing:-1px; }
+    .wrap { padding:30px 15px 56px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a class="brand" href="/">lift<span>offr</span></a>
+  <div class="navlinks">
+    <a href="/cycle">Live Score</a>
+    <a href="/indicators">Indicators</a>
+    <a href="/track-record">Track record</a>
+    <a href="/plan">The plan</a>
+  </div>
+</nav>
+<div class="wrap">
+  <div class="crumb"><a href="/">Home</a> › My stack</div>
+  <h1>The exact stack I run this on</h1>
+  <p>Five tools. That's the whole operation — no exchange referrals, no trading bots, no leverage
+     platforms. If a tool isn't on this page, I don't use it, and I'm not going to pretend otherwise
+     for a commission.</p>
+
+  <div class="disclose">
+    <strong>Disclosure:</strong> where a link on this page earns me a commission it says
+    <em>“Affiliate link”</em> directly underneath it, and where it doesn't it says
+    <em>“Direct link — no commission”</em>. Either way it costs you nothing extra and it does not
+    change what I recommend: the honest limits of every tool are written under it, including the
+    reasons you might skip it. Nothing on this page is financial or tax advice.
+  </div>
+
+  <h2>Custody — the part that actually matters</h2>
+  <p>Everything else on this page is convenience. This part is the difference between owning Bitcoin
+     and owning an IOU. If you buy one thing from this list, buy a hardware wallet, and buy it from
+     the manufacturer directly — never from a marketplace reseller.</p>
+
+  <div class="tool">
+    <div class="tool-head">
+      <div class="tool-name">Ledger</div>
+      <div class="tool-price">~$79–$279 one-time</div>
+    </div>
+    <div class="tool-for">Cold storage · what I hold long-term positions on</div>
+    <p>A hardware wallet keeps your private keys on a device that never touches the internet. Every
+       tier that fires in my buy plan ends the same way: coins move off the exchange and onto cold
+       storage within the week. That step is not optional in this house.</p>
+    <div class="skip"><strong>Where I'd skip it:</strong> if your entire position is smaller than
+      the cost of the device, buy the Bitcoin first. And know that Ledger's 2020 customer-database
+      breach leaked buyer names and addresses — the coins were never at risk, but the privacy
+      failure was real and I'd rather you hear it from me.</div>
+    <a class="go" href="https://www.ledger.com/" rel="sponsored nofollow noopener" target="_blank"
+       data-dest="aff_ledger" data-aff="pending">Ledger →</a>
+    <div class="affnote" data-affnote>Direct link — no commission</div>
+  </div>
+
+  <div class="tool">
+    <div class="tool-head">
+      <div class="tool-name">Trezor</div>
+      <div class="tool-price">~$49–$219 one-time</div>
+    </div>
+    <div class="tool-for">Cold storage · the open-source alternative</div>
+    <p>Same job as Ledger, different philosophy: Trezor's firmware is fully open source, which some
+       people consider non-negotiable and others don't care about. Both are fine. Owning one of them
+       matters far more than which one.</p>
+    <div class="skip"><strong>Where I'd skip it:</strong> the cheapest model has a smaller screen and
+      fewer supported coins. If you only hold Bitcoin that's irrelevant, which is most of this
+      audience.</div>
+    <a class="go" href="https://trezor.io/" rel="sponsored nofollow noopener" target="_blank"
+       data-dest="aff_trezor" data-aff="pending">Trezor →</a>
+    <div class="affnote" data-affnote>Direct link — no commission</div>
+  </div>
+
+  <h2>Tax — the bill that shows up whether you planned for it or not</h2>
+  <p>Every tier that fires is a cost-basis event you'll have to account for later. Reconstructing a
+     year of laddered buys in April, from memory, is how people end up guessing on a tax return.
+     Both of these connect to exchange accounts and generate the forms.</p>
+
+  <div class="tool">
+    <div class="tool-head">
+      <div class="tool-name">Koinly</div>
+      <div class="tool-price">Free to view · ~$49+/yr to file</div>
+    </div>
+    <div class="tool-for">Crypto tax reporting · what I use</div>
+    <p>Imports transaction history, works out cost basis, produces the report your accountant
+       actually wants. The free tier lets you see the whole calculation before paying anything,
+       which is the right way round.</p>
+    <div class="skip"><strong>Where I'd skip it:</strong> if you have fewer than about twenty
+      transactions a year, a spreadsheet is genuinely fine and free.</div>
+    <a class="go" href="https://koinly.io/" rel="sponsored nofollow noopener" target="_blank"
+       data-dest="aff_koinly" data-aff="pending">Koinly →</a>
+    <div class="affnote" data-affnote>Direct link — no commission</div>
+  </div>
+
+  <div class="tool">
+    <div class="tool-head">
+      <div class="tool-name">CoinLedger</div>
+      <div class="tool-price">Free to view · ~$49+/yr to file</div>
+    </div>
+    <div class="tool-for">Crypto tax reporting · the US-focused option</div>
+    <p>Same category as Koinly with a tighter US focus and direct export into the mainstream filing
+       software. Try both free — they'll disagree on your numbers if one of them is mis-importing an
+       exchange, and that disagreement is worth finding in February rather than April.</p>
+    <div class="skip"><strong>Where I'd skip it:</strong> outside the US, Koinly generally handles
+      local rules better.</div>
+    <a class="go" href="https://coinledger.io/" rel="sponsored nofollow noopener" target="_blank"
+       data-dest="aff_coinledger" data-aff="pending">CoinLedger →</a>
+    <div class="affnote" data-affnote>Direct link — no commission</div>
+  </div>
+
+  <h2>Charts — for looking, not for trading</h2>
+
+  <div class="tool">
+    <div class="tool-head">
+      <div class="tool-name">TradingView</div>
+      <div class="tool-price">Free tier · paid from ~$15/mo</div>
+    </div>
+    <div class="tool-for">Charting · where I check the levels in my ladder</div>
+    <p>I use it for exactly two things: drawing the tier levels from my buy plan, and setting price
+       alerts on them so I don't have to watch anything. The free tier does both. Everything else it
+       can do — indicators stacked twelve deep, strategy backtesting — is the part that gets people
+       into trouble.</p>
+    <div class="skip"><strong>Where I'd skip it:</strong> honestly, most people here don't need the
+      paid tier. Free alerts are enough for a ladder that fires a few times a year.</div>
+    <a class="go" href="https://www.tradingview.com/" rel="sponsored nofollow noopener" target="_blank"
+       data-dest="aff_tradingview" data-aff="pending">TradingView →</a>
+    <div class="affnote" data-affnote>Direct link — no commission</div>
+  </div>
+
+  <h2>What's deliberately not on this list</h2>
+  <div class="no">
+    <h3>Things I've been offered and turned down</h3>
+    <ul>
+      <li><strong>Exchange sign-up bonuses.</strong> They pay the most in this niche — often a share
+        of your trading fees for months. That's a direct conflict: I'd be paid more the more you
+        trade, and this entire site argues you should trade less.</li>
+      <li><strong>Trading bots and copy-trading platforms.</strong> Recurring commissions, and the
+        exact opposite of a written plan you execute yourself.</li>
+      <li><strong>Anything with leverage.</strong> Not at any commission. Leverage is how the 2022
+        version of me would have turned a $30,000 round trip into a zero.</li>
+      <li><strong>Altcoin launches, presales, "gems."</strong> Retired that entire surface on
+        purpose.</li>
+    </ul>
+  </div>
+  <p>The rule I hold myself to: I only put a link on this page for something I already paid for with
+     my own money before anyone offered me a commission on it.</p>
+
+  <div class="cta">
+    <h3>The tools are the easy part. The levels are the hard part.</h3>
+    <p>My Bear Market Buy Plan is the nine-tier ladder I'm actually executing — the exact prices,
+       what has to be true at each one, and a timestamped receipt every time a tier fires.
+       $29 once, no subscription.</p>
+    <a class="btn" href="/plan" data-dest="plan" data-cta-slot="stack_page">Get my plan — $29, once →</a>
+    <div class="fine">Or start free — <a href="/free" data-dest="free">the live Score, the daily brief, the open Discord →</a></div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Read this first.</strong> This page lists tools I personally use and is educational
+    content, not financial, tax, or investment advice. I am not a registered investment adviser and
+    I am not a tax professional — crypto tax software produces a report, it does not replace an
+    accountant who knows your situation. Some links are affiliate links, marked as such, and I may
+    earn a commission if you buy through them at no additional cost to you. Prices shown are
+    approximate and change without notice. Bitcoin can lose most of its value; never invest money
+    you cannot afford to lose.
+  </div>
+
+  <div class="footer-row">
+    <a href="/">Home</a><span>·</span>
+    <a href="/cycle">Live Score</a><span>·</span>
+    <a href="/indicators">Indicators</a><span>·</span>
+    <a href="/free">Free tier</a><span>·</span>
+    <a href="/privacy">Privacy</a><span>·</span>
+    <a href="/terms">Terms</a>
+  </div>
+  <div style="text-align:center;color:#444;font-size:11px;padding:0 0 22px;">
+    © 2026 LiftOffr · Educational content only. Not financial advice.
+  </div>
+</div>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     AFFILIATE LINKS — the only block to edit when a program is approved.
+     Steps for each program are in AFFILIATE_SETUP.md (repo root, not deployed).
+
+     Paste the tracking URL as `url` and the label flips itself from
+     "Direct link — no commission" to "Affiliate link". Leave `url` empty and
+     the page keeps sending people to the plain manufacturer link and says so.
+     Never label a link affiliate before the URL is actually a tracking one —
+     that is a false disclosure, which is worse than no disclosure.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<script>
+  var AFFILIATES = {
+    aff_ledger:      { url: "" },   // affiliate.ledger.com — 10% of net sale, paid in BTC
+    aff_trezor:      { url: "" },   // trezor.io/learn/a/for-affiliates — 12%, 15% after 10 sales
+    aff_koinly:      { url: "" },   // koinly.io/affiliate — 20% base
+    aff_coinledger:  { url: "" },   // coinledger.io/affiliate-program — 25% recurring
+    aff_tradingview: { url: "" }    // tradingview.com/partner-program — 30% recurring
+  };
+  (function(){
+    Object.keys(AFFILIATES).forEach(function(key){
+      var cfg = AFFILIATES[key];
+      if (!cfg || !cfg.url) return;
+      var a = document.querySelector('a[data-dest="' + key + '"]');
+      if (!a) return;
+      a.href = cfg.url;
+      a.setAttribute('data-aff', 'live');
+      var note = a.parentNode.querySelector('[data-affnote]');
+      if (note) note.textContent = 'Affiliate link';
+    });
+  })();
+</script>
+<script>
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-dest]');
+    if (!a || typeof window.track !== 'function') return;
+    window.track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || 'stack_page',
+      destination: a.getAttribute('data-dest'),
+      page: location.pathname
+    });
+  }, true);
+</script>
+</body>
+</html>

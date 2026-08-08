@@ -1,0 +1,397 @@
+# THE LIFTOFFR BUSINESS MODEL — 2026-08-08
+
+The definitive money map. Supersedes the revenue-line sections of
+`REVENUE_REVIEW_2026-08-07.md` and consolidates the research in the growth
+playbook and the competitor teardown into one operating model.
+
+**It does not supersede `LIFTOFFR_MASTER_PLAN.md`.** The ladder, the prices, the
+kill gates and the standing constraints there are locked and this document
+assumes every one of them. What follows is *how the machine makes money inside
+those rules*, what runs itself, and what is honestly worth expecting.
+
+---
+
+## 0. The model in one paragraph
+
+Faceless lifestyle reels create reach. On-screen text and a keyword CTA convert
+a fraction of that reach into a comment. Comment-to-DM automation converts the
+comment into either a $29 buyer or an email address — and the email address is
+the asset, because it is the only thing that survives an algorithm change. The
+$29 buyer is not the revenue; the $29 buyer is a qualified lead who has proven
+they will pay for Bitcoin cycle guidance, which is what makes the $197 System
+and the $497 Playbook sellable at all. Everyone who never buys anything is
+monetised twice: once by affiliate commissions on tools they were going to buy
+regardless, and once as reach that brand deals pay for directly. Bots run the
+free layer so the community retains without the founder showing up daily —
+which is the single hardest constraint in this niche and the one thing LiftOffr
+is genuinely built for.
+
+---
+
+## 1. Why this shape and not another
+
+Nine creators in this niche were torn down. Three business models exist:
+
+| Model | Example | Monthly ceiling | Requires |
+|---|---|---|---|
+| Community subscription | TJR ($150/mo), Jdub ($200/mo) | $1M+ at the top | **Daily live presence.** Every retaining paid community in this niche does daily live sessions. Every low-touch one bleeds out — Maurits Neo's $97.99/mo community is down to ~7 paying members. |
+| Course / high-ticket | Steven Dux, Sara Finance | $100K+ | Webinar funnels, application calls, phone-sales energy. |
+| Affiliate-first | Milan Singh, Joe Investss, faceless pages | $750-$7M claimed | Nothing but placement. Zero fulfilment. |
+
+LiftOffr is active-duty, evenings only, ~20 hours a month, no group calls. That
+rules out model 1 and model 2 as the *core*. What is left is the automatable
+lane: **one-time digital products + an affiliate layer + a bot-run free
+community**, with a strictly capped 1:1 product at the top.
+
+The single most relevant teardown is Umar Ashraf / TradeZella: content
+dramatises one problem repeatedly, and a tool solves it. LiftOffr already owns
+the tool — the Score, the indicator pipeline, the receipts logger. The
+difference is that TradeZella charges $35-99/mo for it and LiftOffr gives it
+away, which is a deliberate choice (the free layer is the proof) and also the
+open question flagged in §7.
+
+---
+
+## 2. The money map
+
+```
+                        IG / TikTok / YT reels  (~433K views/mo)
+                                    │
+                     overlay hook + caption + pinned comment
+                                    │
+              ┌─────────────────────┼─────────────────────┐
+              │                     │                     │
+        comment "PLAN"        bio link → /links      nothing (94%+)
+         (~0.2-0.5%)             (~0.5% of              │
+              │                   clickers)             │
+      ManyChat DM flow                │                  │
+              │                       │                  │
+      ┌───────┴───────┐               │                  │
+      │               │               │                  │
+  buys $29        gives email         │                  │
+      │               │               │                  │
+      │               ▼               ▼                  ▼
+      │        Resend free list   /plan  /free    ← BRAND DEALS
+      │        (D1/3/5/7/9/18)        │              rent the reach
+      │               │               │              $1.5-3.5K/reel
+      │               └──────┬────────┘                  │
+      │                      │                           │
+      │              ┌───────┴────────┐                  │
+      │              │                │                  │
+      ▼              ▼                ▼                  │
+  @Plan role    free Discord     /indicators SEO         │
+  #plan-updates  (bot-run)       /when-will-bitcoin-     │
+      │              │            bottom, /stack         │
+      │              │                │                  │
+      │              │                ▼                  │
+      │              │          AFFILIATE LAYER ◄────────┘
+      │              │          Ledger · Trezor · Koinly
+      │              │          CoinLedger · TradingView
+      │              │
+      ▼              ▼
+  Plan-buyer     Mon/Wed/Fri engagement, Sunday Score,
+  emails         7 daily bot feeds, onboarding DM drip
+  D0/1/3/7/14         │
+      │               │
+      ▼               ▼
+  $197 System ◄── ascension prompts (1 in 3 max)
+      │
+      ▼
+  $497 Playbook (cap 4/mo)
+```
+
+### Layer by layer
+
+**Traffic.** ~433K IG views/month, faceless lifestyle. The binding constraint is
+not reach, it is views→site: currently **0.013-0.034%** against a target of
+**0.1%**. Everything in the hook-bank and caption work exists to move this one
+number. Nothing downstream matters until it does.
+
+**Capture.** Two doors, and the research is unambiguous about which is better:
+comment-keyword → DM converts at **5-8%** of engagers versus **~0.5%** for
+passive link-in-bio — roughly 12×. ManyChat owns the `PLAN` keyword end to end
+and it works today. DM-native email capture also produces ~150% more leads than
+a landing page. The keyword CTA is currently capped at **1 in 3** captions.
+
+**The ladder.** FREE → **$29** plan → **$197** System ($147 founding) → **$497**
+Playbook (4/month). One-time throughout. No subscriptions, ever — that decision
+is locked and correct: the value of a cycle system arrives twice a cycle, not
+monthly.
+
+**The affiliate layer.** Five programs, all passing the brand filter. Monetises
+the ~99% who never buy anything. See §5 for honest numbers.
+
+**Rent-the-reach.** Brand deals at $1,500-3,500/reel. **One deal per month
+out-earns the entire product ladder at full target execution.** This is the
+highest dollars-per-hour line in the business and it has the fewest assets built
+against it.
+
+**Retention.** Bots. The free Discord gets seven feeds a day plus four
+human-shaped touchpoints a week, and none of it requires Torin to be awake.
+
+---
+
+## 3. Who runs what
+
+Twenty-seven LaunchAgents, two Vercel crons, one webhook. What a human touches
+is at the bottom.
+
+### Content pipeline
+| Agent | Cadence | Job |
+|---|---|---|
+| `hook-pack` | Sun 07:00 | Writes the week's overlay hooks + captions. **Now seeded from a 56-angle bank**, rotated so all 56 ship before any repeat, interleaved across six categories, house rules enforced in code (lowercase, lifestyle-first, keyword cap 1-in-3, banned-language list, disclaimer required with any CTA or performance claim). |
+| `auto-captioner` | every 15 min | Writes the caption sidecar from the video frames. |
+| `drive-instagram` | slot calendar | Publishes, holding a 2-hour pacing floor. |
+| `instagram-comment-reply` | continuous | Public keyword replies; defers to ManyChat on `PLAN`. |
+| `x-daily` / `x-thread` / `x-engage` / `x-alerts` | daily | X presence, with mandatory source attribution on threads. |
+
+### Free-layer Discord
+| Agent | Cadence | Job |
+|---|---|---|
+| `daily-brief` | daily 08:00 | The return-visit habit. |
+| `price-alerts`, `weekly-indicators`, `cbbi`, `macro-calendar`, `altcoin-watchlist`, `whale-alerts`, `supply-gap` | various | Seven feeds. Broadcast. |
+| `youtube-intel` | hourly | Third-party analyst digest → free layer, attributed. Also auto-commits `api/_cowen-data.js`. |
+| `weekly-engage` | Sun 18:00 | Score + one question → `#general-chat`. |
+| **`discord-engage`** ← new | Mon/Wed/Fri 17:30 | Mon: rotating question → `#questions-daily`. Wed: indicator of the week, live reading + link to its `/indicators` page → `#general-chat`. Fri: wins **and losses** prompt → `#wins-progress`. **Ascension pointer capped at 1 in 3 posts**, tracked across all formats. |
+| `onboarding-dm` | hourly | Day 1/3/5/7/**14** DM drip to new members. |
+
+### Site + money
+| Agent | Cadence | Job |
+|---|---|---|
+| `api/whop-webhook.js` | on purchase | @Plan role, Resend audience, GA4 purchase event. |
+| `cron-weekly-score` | daily 15:00 UTC | Sunday Score email. |
+| `cron-welcome-followups` | daily 17:00 UTC | Free nurture D1/3/5/7/**9**/18 **and** the new plan-buyer sequence D0/1/3/7/14. |
+| **`build_indicator_pages.py`** ← new | on demand / daily | Regenerates 11 SEO pages from the live CBBI series and rewrites its own sitemap block. |
+| `receipts-daily` | daily | The proof asset. Never touched. |
+
+### What Torin actually does — the weekly loop
+
+This is the design target and everything above exists to protect it.
+
+| When | What | Time |
+|---|---|---|
+| Sunday | Read `CAPTIONS/hook_pack_<date>.md`. Pick which hooks the week's clips get. | 15 min |
+| Mon/Wed/Fri/Sun | Post the reels the pipeline has queued. Pin the comment. | 20 min |
+| Any day | **Reply to humans.** DMs, Discord replies, the Friday wins thread. This is the only irreplaceable job on the list. | 60 min |
+| Once a week | One brand-deal outreach email from the target list. | 15 min |
+| Monthly | Check the KPI table in §6. Kill what isn't moving. | 30 min |
+
+**Total: ~2.5 hours a week, ~10 hours a month** — half the 20-hour ceiling. The
+remaining half is the buffer for filming days and the founding-window launch.
+
+If the loop ever exceeds 20 hours in a month, the design has failed regardless
+of revenue. That is a standing constraint, not a preference.
+
+---
+
+## 4. Where the money actually comes from
+
+Ranked by realistic monthly dollars, not by how much work went in.
+
+| Line | Realistic ceiling/mo | Effort/mo | Assets built | Dollars per hour |
+|---|---|---|---|---|
+| **Brand deals** | $1,500-3,500 (1 deal) | ~2 hrs | Rate card ✓, target list ✓, outreach **not sent** | **~$1,000/hr** |
+| **$497 Playbook** | $1,988 (4 spots) | ~6 hrs (1:1 delivery) | Page ✓, priced correctly ✓, routes in ✓ (D14 email, /welcome-plan) | ~$330/hr |
+| **$197 System** | $294-441 | build once, then ~0 | Page ✓, **Whop plan does not exist yet** | high once built |
+| **$29 plan** | $377-628 | most of the remaining hours | Everything ✓ | ~$60/hr |
+| **Affiliate** | $20-80 (see §5) | ~0 after setup | Page ✓, emails ✓, **programs not joined** | ~$40/hr one-time |
+
+**The effort allocation is still inverted and this is the most important
+sentence in this document.** Maximum build effort sits at the lowest price
+point. The $29 is not the business — it is the qualifier that makes the top two
+lines sellable. Judge it on *buyer count*, never on revenue.
+
+### The ladder's honest ceiling
+
+Every input below is the master plan's own **goal**, not the current actual:
+
+| Input | Value |
+|---|---|
+| IG views | 433K/mo |
+| views→site at the 0.1% target | 433 sessions |
+| /plan conversion, cold traffic | 3-5% |
+| $29 sales | 13-22/mo → **$377-628** |
+| System take-rate on buyers | 15% → 2-3 sales → **$294-441** |
+| **Ladder total, everything working** | **$670-1,070/mo** |
+
+Add a full Playbook month and one brand deal and the realistic good month is
+**$4,000-6,500**. That is the shape of this business at full success: two
+high-ticket lines carrying it, with the ladder as the qualifier underneath.
+
+### The reel-level reality check
+
+A 250K-view reel with a strong keyword CTA realistically produces:
+
+```
+250,000 views
+  → 0.2-0.5% comment the keyword     =  500-1,250 comments
+  → ~85% open the DM                 =  425-1,060 opens
+  → 25-40% click to checkout         =  105-425 clicks
+  → 2-5% buy                         =  2-21 sales
+                                     =  $60-610
+```
+
+That will feel brutally low next to the view count. It is normal, it is what
+every faceless account in this niche experiences, and the correct response is
+to capture the email of everyone who didn't buy — 25-40% of low-ticket buyers
+historically take a higher-ticket upsell later, and that is where the money is.
+
+---
+
+## 5. The affiliate layer, sized honestly
+
+Five programs: Ledger, Trezor, Koinly, CoinLedger, TradingView. Placement on
+`/stack`, in the Day 9 nurture email, in the Day 1 plan-buyer email, and in the
+Day 14 onboarding DM. Application steps are in `AFFILIATE_SETUP.md`.
+
+**Expected: $20-80/month at current traffic.** Not a business line — a line that
+costs nothing to maintain and monetises people who were never going to buy
+anything. Three reasons it earns its place anyway:
+
+1. It compounds with the SEO layer, which is the only traffic source here that
+   grows while nobody touches it.
+2. Jan-April is a genuine spike on recurring-commission tax software that every
+   US holder needs annually.
+3. It is the fallback monetisation if the day-30 kill gate fires — at which
+   point rent-the-reach and affiliate *become* the business.
+
+**The rejected programs matter as much as the accepted ones.** Coinbase, Kraken,
+OKX and the bot platforms pay 3-5× more and every one of them pays more when
+the reader trades more. That is a direct conflict with a site whose entire
+argument is to trade less. The "here's what I turned down and why" section on
+`/stack` is a trust asset, and it evaporates the day an exchange link appears.
+
+---
+
+## 6. KPIs — the five numbers that matter
+
+Everything else is vanity. Check monthly, ~30 minutes.
+
+| # | Metric | Where | Now | Target | Why it's on the list |
+|---|---|---|---|---|---|
+| 1 | **views→site CTR** | GA4 traffic report | 0.013-0.034% | **0.1%** | The single binding constraint. Every other number is downstream of it. Below 0.1%, nothing else is worth optimising. |
+| 2 | **cold $29 buyers** | Whop, cross-checked against Resend + Discord | ~0 | **20 by Sep 1** | The day-30 gate. Cold means not a friend and not on the list. Count people, not dollars. |
+| 3 | **free Discord members** | Discord | 58-70 | **150 by Oct 1** | The day-60 distribution gate. Was going backwards (72→58) before the engagement work; watch the trend, not the level. |
+| 4 | **email list size** | Resend | small | grows every week | The only asset that survives an algorithm change. If this is flat, the DM capture is broken. |
+| 5 | **brand-deal replies** | inbox | 0 sent | ≥1 deal/quarter | Highest dollars-per-hour line. Zero outreach sent = zero replies, forever. |
+
+**Secondary, worth a glance:** upsell take-rate ($197 purchases ÷ $29 buyers,
+target 10-20%), organic impressions on `/indicators` in GSC (expect nothing for
+3-4 months), affiliate clicks by tool in GA4 (tells you which programs deserve
+the application before you apply).
+
+**Deliberately not tracked:** follower count, likes, total views. None of them
+have ever predicted a sale here.
+
+---
+
+## 7. 90-day roadmap with honest projections
+
+Day 0 = 2026-08-08. Projections assume the master plan's targets are hit, which
+they historically have not been — so treat the low column as the base case.
+
+### Days 1-30 (Aug 8 – Sep 7) — prove the front door
+| Do | Owner |
+|---|---|
+| Build The Cycle System in Whop (**before Aug 24**) and wire the checkout into `/system` | Torin |
+| Founding-window warm-list announcement Aug 24, close Sep 7 | Torin |
+| Send 20 brand-deal outreach emails — one per weekday for four weeks | Torin |
+| Apply to all five affiliate programs in one sitting | Torin |
+| Post 5-10 filmed hybrid reels; measure per-reel CTR; kill formats under 0.1% | Torin + pipeline |
+| Turn on Whop automated messages + connect Instagram on all three products | Torin |
+| Everything else | agents |
+
+**Expected: $150-700.** Mostly $29s and the first founding seats. The day-30
+gate on Sep 1 will most likely read *"deferred — under 500K views"*, and per the
+master plan that is the plan working, not failing. **Do not panic-pivot on
+Sep 1.**
+
+### Days 31-60 (Sep 8 – Oct 7) — prove the ladder joint
+| Do |
+|---|
+| Plan-buyer sequence has now run on real buyers — read the D3→System conversion |
+| First Playbook sale actively pursued (the D14 email is the only route; it exists now) |
+| Second brand-deal outreach wave to whoever didn't reply |
+| `/indicators` pages: first GSC impressions should appear ~here |
+| Scale whichever reel format cleared 0.1% |
+
+**Expected: $400-1,500.** One Playbook sale would double the top of that range
+on its own. The number to watch is not revenue — it is the **$29→$197
+take-rate**, because that joint is where this ladder lives or dies.
+
+### Days 61-90 (Oct 8 – Nov 6) — the first honest verdict
+| Do |
+|---|
+| **Oct 1: day-60 gate.** Cumulative System sales, Playbook sales, free Discord size. |
+| Read the asymmetric signals in master plan §6 and act on exactly one of them |
+| If ≥1 organic reel cleared 0.1% CTR, fund a $500 Whop Content Rewards test |
+| Tax-season affiliate content queued for the January spike |
+
+**Expected: $600-2,500/mo run rate.** With one brand deal landed, $2,000-6,000.
+
+### The 90-day number, stated plainly
+
+**Base case: $1,200-4,700 total across 90 days.** Good case with two brand deals
+and two Playbook sales: **$8,000-12,000.** The bear case — under $500 total — is
+a live possibility and it is what the kill gates exist to catch.
+
+Anyone promising more than this from 433K monthly views of lifestyle content is
+selling something. The competitor research is blunt about it: accounts with
+millions of passive followers routinely drive zero revenue while a targeted 5K
+account outsells them. Reach was never the problem. The bridge is.
+
+---
+
+## 8. The five things most likely to break this
+
+1. **views→site never reaches 0.1%.** The most likely failure by a distance.
+   Everything downstream is built and waiting on a number that has moved
+   fractionally in 90 days. If it hasn't moved by Oct 1, the offer isn't wrong —
+   the audience-offer match is, and rent-the-reach becomes the business.
+2. **The laptop.** The entire operation depends on `com.liftoffr.caffeinate`
+   holding one MacBook awake, with no failover. Daily brief, receipts, Discord,
+   IG posting — all of it stops if that machine sleeps. The customer-visible
+   subset belongs on Vercel crons or a $5/mo VPS.
+3. **Meta.** One flag on aggressive financial promotion kills the top of the
+   funnel overnight. Mitigations: disclaimers on every money caption, no income
+   claims, email as the owned fallback. The email list is the insurance policy.
+4. **Selling something you won't show up for.** Every low-touch paid community
+   in this niche has bled out. The free Discord is bot-run *by design* and the
+   paid rungs are all one-time products with no recurring delivery promise. Keep
+   it that way; do not launch a monthly tier.
+5. **The founder's time.** 20 hours a month, active duty. The weekly loop in §3
+   is 10. That margin is the whole safety factor, and every new "quick idea"
+   spends it.
+
+---
+
+## 9. Decisions this document does not make
+
+Four open items, all Torin's, all with real money attached:
+
+1. **$497 or $997 on the Playbook.** The page and the charge now agree at $497.
+   Raising it to $997 is one dashboard edit and doubles the ceiling of the
+   second-best revenue line. At 4 spots/month that is a **$2,000/month**
+   decision.
+2. **The 1-in-3 keyword cap.** If comment-to-DM really is 12× link-in-bio, the
+   cap is the binding constraint on the whole funnel and it is a one-line change
+   in `_plan_cta_allowed`. It trades reach for conversion. See the experiment
+   note below.
+3. **Whether the free layer should ever become a product.** TradeZella charges
+   $35-99/mo for less tooling than the Score, the indicator pipeline and the
+   receipts logger. The free layer is deliberately the proof — but that is a
+   choice worth revisiting once distribution works, not before.
+4. **PAT rotation.** Not revenue, still the most urgent open item on the board.
+
+### Standing experiment: the ascension cap in Discord
+
+`discord_engage.py` ships with `ASCENSION_EVERY = 3` — at most one in three
+posts carries a paid pointer. That number is inherited from the reel-caption
+rule, not measured here.
+
+**Measurement plan:** run at 3 for four weeks (12 posts, 4 ascension). Record
+`cta_clicked` with `destination: plan` from Discord referrals in GA4, plus
+member count at the start and end. Then run at 2 for four weeks. If click volume
+roughly doubles and member count doesn't fall, keep 2. If members leave or the
+room goes quieter, it goes back to 3 permanently. One variable, one month, one
+decision — do not change the post formats during the test.

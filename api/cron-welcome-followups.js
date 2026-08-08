@@ -35,6 +35,131 @@ const SUBJECT_PROOF = "$50/week became $1.88M — the backtest";
 const SUBJECT_E3 = "7 days of the full system — free, no card (last welcome email)";
 const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 
+// ── Plan-buyer sequence (LIFTOFFR_MASTER_PLAN.md §5) ──
+// Audience: Resend "LiftOffr Plan Buyers", populated by api/whop-webhook.js on
+// the $29 purchase. Dormant until RESEND_PLAN_AUDIENCE_ID is set in Vercel —
+// the audience has to exist before anything can be sent to it, and sending the
+// free-list sequence to buyers would be worse than sending nothing.
+//
+// Shape, and the reason for it: D0 and D1 are pure delivery with zero pitch.
+// You earn the right to pitch by making the thing work first; a buyer who gets
+// upsold in the receipt email learns the $29 was the bait.
+const PSUBJECT_0  = "You're in — your plan + the one thing to do tonight";
+const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
+const PSUBJECT_3  = "The plan is a snapshot. Here's the camera.";
+const PSUBJECT_7  = "The 2021 miss that built this — and the receipts since";
+const PSUBJECT_14 = "Where the founding window stands";
+
+function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
+  return trialShell(eyebrow, bodyHTML, ctaText, ctaHref);
+}
+
+function plan0HTML() {
+  return planShell("Plan · Day 0",
+    `<p style="margin:0 0 16px;">You're in. Thank you — genuinely.</p>
+     <p style="margin:0 0 16px;">Three things, then I'll leave you alone:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
+       <div><strong>1.</strong> Your plan document is in Whop, under your purchases. Lifetime access, and it updates in place.</div>
+       <div><strong>2.</strong> Join the Discord and check <strong>#plan-updates</strong> — that's where a tier firing gets announced, with the receipt.</div>
+       <div><strong>3.</strong> Tonight, do the worksheet. Twenty minutes. Your stack size in, your own nine levels out.</div>
+     </div>
+     <p style="margin:18px 0 16px;"><strong>Do number three tonight.</strong> Not this weekend. The entire value of a written plan is that it was written before anything was happening — and right now, nothing is happening. That's the window.</p>
+     <p style="margin:0 0 16px;">No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "Open the Discord →", "https://liftoffr.com/welcome-plan");
+}
+function plan0Text() {
+  return ["You're in. Thank you — genuinely.","","Three things, then I'll leave you alone:","",
+    "1. Your plan document is in Whop, under your purchases. Lifetime access, updates in place.",
+    "2. Join the Discord and check #plan-updates — a tier firing gets announced there, with the receipt.",
+    "3. Tonight, do the worksheet. Twenty minutes. Your stack size in, your own nine levels out.","",
+    "Do number three tonight, not this weekend. The whole value of a written plan is that it was written before anything was happening — and right now nothing is. That's the window.","",
+    "No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.","",
+    "https://liftoffr.com/welcome-plan","","— Torin"].join("\n");
+}
+
+function plan1HTML() {
+  return planShell("Plan · Day 1",
+    `<p style="margin:0 0 16px;">Execution, since that's where written plans die.</p>
+     <p style="margin:0 0 14px;"><strong>Place the ladder as limit orders, not reminders.</strong> A limit order at your tier price executes whether or not you're awake, calm, or looking. A note in your phone requires you to be all three on the worst day of the year.</p>
+     <p style="margin:0 0 14px;"><strong>The fallback rule matters more than the tiers.</strong> If price never reaches your levels, you don't get to sit in cash for two years feeling clever. The doc has the DCA fallback — read that section twice.</p>
+     <p style="margin:0 0 14px;"><strong>Every fill ends the same way.</strong> Off the exchange, onto hardware, same week. An unexecuted custody step is how a good entry becomes someone else's Bitcoin.</p>
+     <p style="margin:0 0 16px;">That's the whole mechanic. Tools I use for the alerts and the custody are listed here if you need them: <a href="https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack" style="color:#e63946;">liftoffr.com/stack</a> — commission status disclosed on every link.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "", "");
+}
+function plan1Text() {
+  return ["Execution, since that's where written plans die.","",
+    "1. Place the ladder as LIMIT ORDERS, not reminders. A limit order executes whether or not you're awake, calm, or looking. A note in your phone needs you to be all three on the worst day of the year.","",
+    "2. The fallback rule matters more than the tiers. If price never reaches your levels you don't get to sit in cash for two years feeling clever. Read that section twice.","",
+    "3. Every fill ends the same way: off the exchange, onto hardware, same week.","",
+    "Tools I use for alerts and custody: https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack — commission status disclosed on every link.","","— Torin"].join("\n");
+}
+
+function plan3HTML() {
+  return planShell("Plan · Day 3",
+    `<p style="margin:0 0 16px;">First time I'll mention this, and then it's in the footer where you can ignore it.</p>
+     <p style="margin:0 0 16px;">The plan you bought is a <em>snapshot</em>: nine levels, priced off where the cycle is now. It answers "what am I buying and at what price."</p>
+     <p style="margin:0 0 16px;">It doesn't answer the other two questions, and both cost more than the first one:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
+       <div><strong>Why those levels</strong> — the eight indicators, how each one has failed, and how the weighted Score turns them into one number</div>
+       <div><strong>When to sell</strong> — the exit ladder. Deliberately not in the $29, because scaling out is the half that actually made the difference in the backtest</div>
+     </div>
+     <p style="margin:18px 0 16px;"><strong>The Cycle System is $197, one payment.</strong> Founding price <strong>$147</strong> for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.</p>
+     <p style="margin:0 0 16px;">If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "See what's in the System →", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_system");
+}
+function plan3Text() {
+  return ["First time I'll mention this, then it lives in the footer where you can ignore it.","",
+    "The plan you bought is a snapshot: nine levels, priced off where the cycle is now. It answers 'what am I buying and at what price.'","",
+    "It doesn't answer the other two questions, and both cost more than the first:","",
+    "  • WHY those levels — the eight indicators, how each one has failed, and how the weighted Score turns them into one number",
+    "  • WHEN TO SELL — the exit ladder. Deliberately not in the $29, because scaling out is the half that made the difference in the backtest.","",
+    "The Cycle System is $197, one payment. Founding price $147 for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.","",
+    "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
+    "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_system","","— Torin"].join("\n");
+}
+
+function plan7HTML() {
+  return planShell("Plan · Day 7",
+    `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
+     <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
+     <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. October 6, 2025: DCA'd out at <strong>$124,824</strong>. Not because I got smarter — because it was already written down.</p>
+     <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
+     <p style="margin:0 0 16px;">One ask, and it is not a condition of anything: if the plan has been worth the $29, an honest review on Whop takes two minutes and does more for this than any ad I could run. If it hasn't, reply and tell me that instead — I'd rather have the correction.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "See the receipts →", "https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_cta");
+}
+function plan7Text() {
+  return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
+    "In 2021 my own indicators told me to scale out. I didn't. I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
+    "Everything since exists so that decision gets made while I'm calm instead of euphoric. October 6, 2025: DCA'd out at $124,824. Not because I got smarter — because it was already written down.","",
+    "Public and checkable, misses included:",
+    "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",
+    "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
+    "One ask, not a condition of anything: if the plan's been worth $29, an honest Whop review takes two minutes and does more for this than any ad I could run. If it hasn't, reply and tell me instead.","","— Torin"].join("\n");
+}
+
+function plan14HTML() {
+  return planShell("Plan · Day 14 · last dedicated email",
+    `<p style="margin:0 0 16px;">Last email in this sequence. After today you're just on the Sunday Score with everyone else.</p>
+     <p style="margin:0 0 16px;">Two things worth knowing before I stop:</p>
+     <p style="margin:0 0 14px;"><strong>1. The founding window on The Cycle System.</strong> 50 seats at $147, and a written close date — no timer, no countdown, no "spots going fast" theatre. After it closes the price is $197 and your $29 still credits, permanently. That is the entire offer.</p>
+     <p style="margin:0 0 14px;"><strong>2. If you'd rather I just do it with you.</strong> The Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio, and you leave with the document and the recording. Four a month, because it's my calendar. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook" style="color:#e63946;">Details here.</a></p>
+     <p style="margin:0 0 16px;">And if the answer to both is no — that's a normal outcome and the plan you already have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "The Cycle System — $147 founding →", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system");
+}
+function plan14Text() {
+  return ["Last email in this sequence. After today you're on the Sunday Score with everyone else.","",
+    "1. THE FOUNDING WINDOW on The Cycle System: 50 seats at $147 and a written close date — no timer, no countdown, no 'spots going fast' theatre. After it closes the price is $197 and your $29 still credits, permanently.","",
+    "2. IF YOU'D RATHER I DID IT WITH YOU: the Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio. You leave with the doc and the recording. Four a month.",
+    "   https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook","",
+    "If the answer to both is no, that's a normal outcome — the plan you have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.","",
+    "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system","","— Torin"].join("\n");
+}
+
 function email2HTML() {
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"><style>:root{color-scheme:light only;supported-color-schemes:light only}</style></head><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
@@ -58,11 +183,11 @@ function email2HTML() {
     </div>
     <p style="margin:18px 0 16px;">By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.</p>
     <p style="margin:0 0 16px;"><strong>Why this matters:</strong> the biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.</p>
-    <p style="margin:0 0 16px;">Members of LiftOffr get this framework as part of the 36-lesson course, plus a daily 3-minute brief in Discord at 8am MT that says "here's the read, here's what to do today."</p>
+    <p style="margin:0 0 16px;">The nine indicators the Score is built from are all public, each with today's reading and what it read at every cycle top since 2013. No signup, nothing gated.</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
   <div style="padding:0 28px 32px;">
-    <a href="https://liftoffr.com/?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See what's inside LiftOffr →</a>
+    <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See all 9 indicators, live →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
@@ -93,8 +218,8 @@ function email2Text() {
     "",
     "The biggest mistake of every cycle is binary thinking. The Score lets you scale — that's the difference between round-tripping and compounding.",
     "",
-    "Members get this framework + a daily 3-minute brief in Discord at 8am MT:",
-    "https://liftoffr.com/?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_cta",
+    "The nine indicators behind the Score are all public — today's reading for each, plus what every one read at every cycle top since 2013:",
+    "https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators",
     "",
     "— Torin",
   ].join("\n");
@@ -205,6 +330,36 @@ function proofText() {
     "Full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","",
     "Want the plan built on those indicators — the exact ladder I'm executing, receipts included? $29, once:",
     "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_plan","","— Torin"].join("\n");
+}
+
+// ── Day 9: The stack (goodwill + the affiliate layer) ──
+// Non-buyers are the majority forever, and this is the one email that earns
+// from them without asking them for anything. Affiliate status is disclosed on
+// the page itself, per link, and the email says so before the click.
+const SUBJECT_STACK = "The 5 tools I actually run this on";
+function stackHTML() {
+  return shell("LiftOffr · the stack",
+    `<p style="margin:0 0 16px;">Most-asked question in my DMs, and it isn't about Bitcoin's price. It's "what do you actually use?"</p>
+     <p style="margin:0 0 16px;">Five tools. That's the whole operation:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
+       <div><strong>Two hardware wallets</strong> — every tier that fires ends with coins off the exchange, same week</div>
+       <div><strong>Two tax tools</strong> — because a year of laddered buys is unreconstructable in April</div>
+       <div><strong>One charting app</strong> — for drawing my tier levels and setting alerts. Nothing else.</div>
+     </div>
+     <p style="margin:18px 0 16px;">What's <em>not</em> on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.</p>
+     <p style="margin:0 0 16px;">Full page has what each one is for, roughly what it costs, and where I'd tell you to skip it. Some links earn me a commission and every one says so underneath it.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "See the stack →", "https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day9_stack");
+}
+function stackText() {
+  return ["Most-asked question in my DMs, and it isn't about Bitcoin's price. It's 'what do you actually use?'","",
+    "Five tools. That's the whole operation:",
+    "  • Two hardware wallets — every tier that fires ends with coins off the exchange, same week",
+    "  • Two tax tools — a year of laddered buys is unreconstructable in April",
+    "  • One charting app — for drawing tier levels and setting alerts. Nothing else.","",
+    "What's NOT on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.","",
+    "Full page has what each is for, roughly what it costs, and where I'd tell you to skip it. Some links earn me a commission and every one says so underneath it:",
+    "https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day9_stack","","— Torin"].join("\n");
 }
 
 // ── Day 18: Re-engagement (timely buy-zone angle → trial) ──
@@ -423,7 +578,9 @@ export default async function handler(req, res) {
   const preview = _url.searchParams.get("preview");
   if (preview) {
     const map = {
-      qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML, reengage: reengageHTML,
+      qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML,
+      stack: stackHTML, reengage: reengageHTML,
+      p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: plan7HTML, p14: plan14HTML,
       t1: trial1HTML, t2: trial2HTML, t3: trial3HTML, t4: trial4HTML,
     };
     const fn = map[preview];
@@ -442,7 +599,7 @@ export default async function handler(req, res) {
 
   try {
     const contacts = await fetchContacts();
-    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, reengage_failed: 0, skipped: 0, errors: [] };
+    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, stack_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, stack_failed: 0, reengage_failed: 0, skipped: 0, errors: [] };
 
     // Fire one email for a contact, dedupe via idempotency key, then pace 600ms.
     const fire = async (c, subject, text, html, key, tag, okCounter, badCounter) => {
@@ -466,9 +623,48 @@ export default async function handler(req, res) {
       if (age >= 5.0 && age < 6.0) { await fire(c, SUBJECT_PROOF, proofText(), proofHTML(), "welcome-proof", "day5", "proof_sent", "proof_failed"); continue; }
       // Day 7 — conversion / founder pitch (7.0–8.0)
       if (age >= 7.0 && age < 8.0) { await fire(c, SUBJECT_E3, email3Text(), email3HTML(), "welcome-e3", "day7", "e3_sent", "e3_failed"); continue; }
+      // Day 9 — the stack (goodwill + affiliate layer) (9.0–10.0)
+      if (age >= 9.0 && age < 10.0) { await fire(c, SUBJECT_STACK, stackText(), stackHTML(), "welcome-stack", "day9", "stack_sent", "stack_failed"); continue; }
       // Day 18 — re-engagement (18.0–19.0)
       if (age >= 18.0 && age < 19.0) { await fire(c, SUBJECT_REENGAGE, reengageText(), reengageHTML(), "welcome-reengage", "day18", "reengage_sent", "reengage_failed"); continue; }
       results.skipped++;
+    }
+
+    // ── Plan-buyer sequence (master plan §5). Dormant until the audience exists.
+    const planAud = process.env.RESEND_PLAN_AUDIENCE_ID || null;
+    let planSeq = null;
+    if (planAud) {
+      planSeq = { p0_sent: 0, p1_sent: 0, p3_sent: 0, p7_sent: 0, p14_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
+      const buyers = await fetchAudience(planAud);
+      planSeq.total = buyers.length;
+      const steps = [
+        { lo: 0.0,  hi: 1.0,  subj: PSUBJECT_0,  html: plan0HTML,  text: plan0Text,  key: "p0",  k: "p0_sent" },
+        { lo: 1.0,  hi: 2.0,  subj: PSUBJECT_1,  html: plan1HTML,  text: plan1Text,  key: "p1",  k: "p1_sent" },
+        { lo: 3.0,  hi: 4.0,  subj: PSUBJECT_3,  html: plan3HTML,  text: plan3Text,  key: "p3",  k: "p3_sent" },
+        { lo: 7.0,  hi: 8.0,  subj: PSUBJECT_7,  html: plan7HTML,  text: plan7Text,  key: "p7",  k: "p7_sent" },
+        { lo: 14.0, hi: 15.0, subj: PSUBJECT_14, html: plan14HTML, text: plan14Text, key: "p14", k: "p14_sent" },
+      ];
+      for (const c of buyers) {
+        const age = ageDays(c.created_at);
+        const step = steps.find((s) => age >= s.lo && age < s.hi);
+        if (!step) { planSeq.skipped++; continue; }
+        try {
+          await sendResend({
+            to: c.email,
+            subject: step.subj,
+            text: step.text(),
+            html: step.html(),
+            idempotencyKey: `plan-${step.key}-${c.id}`,
+            tag: step.key,
+            campaign: "plan",
+          });
+          planSeq[step.k]++;
+        } catch (e) {
+          planSeq.failed++;
+          planSeq.errors.push({ id: c.id, step: step.key, err: String(e).slice(0, 200) });
+        }
+        await new Promise((r) => setTimeout(r, 600));
+      }
     }
 
     // ── Trial nurture — RETIRED 2026-08-02. The 7-day trial is dead (LIFTOFFR_MASTER_PLAN.md).
@@ -512,6 +708,7 @@ export default async function handler(req, res) {
       ts: new Date().toISOString(),
       total_contacts: contacts.length,
       results,
+      plan: planSeq,
       trial,
     });
   } catch (err) {

@@ -1,4 +1,4 @@
-# Whop listing copy — 2026-08-07
+# Whop listing copy — updated 2026-08-08 · PASTE-READY
 
 Paste-ready descriptions for the three live ladder rungs. Written to a file
 rather than pushed via the API on purpose: the Whop v5 `description` field
@@ -10,27 +10,41 @@ Constraints applied: one-time ladder only (no subscription language), no
 promised returns, no price predictions, education framing with the
 not-financial-advice line intact, no fabricated testimonials.
 
+**Status: unblocked.** The earlier $497/$997 mismatch is resolved — the
+Playbook page and every other surface now state **$497**, which is what
+`plan_uIpPdsPTSHdTp` actually charges. All three descriptions below are safe to
+paste as-is. If Torin later raises the Whop plan to $997, the only edits needed
+are the two price mentions in section 3 plus the five on `/playbook`.
+
+### How to paste (5 minutes per product)
+
+1. Whop dashboard → the product → **Page / storefront** (not the plan) → replace
+   the description with the "Full description" block below.
+2. Short description → the store-card line.
+3. Check the price on the card matches the price in the copy before saving.
+   That is the exact failure that made this document necessary.
+
 ---
 
-## ⛔ BLOCKER — verify before touching any listing
+## Structural notes from the teardown of what actually converts on Whop
 
-**`plan_uIpPdsPTSHdTp` charges $497. `/playbook` advertises $997 in five places.**
+Observed live on the top-earning storefronts in this niche (TJR Trades: 4.8★,
+2,209 reviews, 181K free members; EmmanuelTrades; Jdub, 4.9★/509 reviews):
 
-Confirmed live via the Whop API today (`plan_type: one_time`,
-`initial_price: 497.0`, visibility `hidden`). The Aug 2 repricing from $497
-to $997 was classifier-blocked and never landed. Right now a buyer who reads
-"$997" on the page reaches a $497 checkout.
-
-This is a founder decision (pricing is locked), so nothing here changes it.
-Two options, both need Torin:
-
-1. **Raise the plan to $997** in the Whop dashboard — matches the page and the
-   master plan's ladder.
-2. **Drop the page to $497** — five edits in `playbook/index.html` plus the
-   two `btn-sub` lines.
-
-Until one of those happens, the $997 listing copy below is unusable, because
-it would state a price the checkout does not honor.
+- **Social proof does the work, not prose.** The converting elements sit above
+  the copy: star rating, review count, member count, media gallery, connected
+  socials. TJR's paid product description is literally two casual sentences.
+  Implication: the copy below is worth an hour; getting the first ten honest
+  reviews is worth ten.
+- **Connect the Instagram account** on every product page. It is the single
+  highest-value field for IG-sourced traffic and it is currently empty.
+- **Superlatives go on the offer, never on outcomes.** "The best free trading
+  education on the internet" is compliant; anything about what a buyer will earn
+  is the FTC's exact target (Online Trading Academy, $370M).
+- **Five FAQs in buyer voice** beats fifteen in seller voice. Each listing below
+  has its objections in the body for that reason.
+- **Review asks are never conditioned on price or access** (ruling 14). Ask well,
+  ask often, tie it to nothing.
 
 ---
 
@@ -131,11 +145,13 @@ it would state a price the checkout does not honor.
 
 ---
 
-## 3 · The Cycle Playbook — 1:1 (`plan_uIpPdsPTSHdTp`)
+## 3 · The Cycle Playbook — $497 1:1 (`plan_uIpPdsPTSHdTp`)
 
-> ⚠️ **Do not publish until the $497 / $997 mismatch above is resolved.**
-> Copy below is written for $997; swap the two price mentions if the founder
-> decision goes the other way.
+> Priced at **$497**, which is what the plan charges as of 2026-08-08. The body
+> copy deliberately never repeats the number — Whop prints it on the card, and a
+> price stated in two places is a price that can disagree with itself, which is
+> exactly what went wrong here before. If you raise the plan to $997, only the
+> heading above and the five prices on `/playbook` need changing.
 
 **Short description**
 
@@ -183,6 +199,42 @@ it would state a price the checkout does not honor.
 > *Educational material only. Not financial advice, not a registered
 > investment adviser. You build your own plan and make your own decisions —
 > that's the entire point.*
+
+---
+
+## Whop features that are free, already in your stack, and currently off
+
+Ranked by return per minute of dashboard time. Everything here is native — no
+new tool, no new subscription, no code.
+
+| # | Feature | What it does here | Time | Notes |
+|---|---|---|---|---|
+| 1 | **Automated Messages** | Native abandoned-cart: fires when someone opens the checkout and doesn't finish. Also join-welcome and post-refund. | 15 min | The single highest-value one. At current volume it recovers a handful of $29s a month, but it costs nothing forever. Do **not** attach a discount code to the cart message — a $29 product discounted to $19 teaches people to abandon carts. |
+| 2 | **Connect Instagram** on all three products | IG-sourced buyers can verify the account is the same one they came from. | 5 min | Whop's own guidance lists this as critical for social traffic. |
+| 3 | **Ask every buyer for a review** | 0 reviews is the visible weak point on all three listings. Marketplace ranking keys off review count and recency. | ongoing | Already wired into the D7 plan-buyer email as a soft ask. Never tie it to price or access. |
+| 4 | **Member affiliate program** at 30% on the $29 | Buyers become the sales force. A $29 sale paying $8.70 is still a customer you didn't pay to acquire. | 10 min | Set 20-25% on the $197. Skip on the $497 — 1:1 delivery, no margin for it. |
+| 5 | **Order bump on the $197 checkout** | An accessory at ~$19 attached to the System checkout. | 20 min | Only if a genuine one exists — a worksheet pack, not filler. Do not build one just to have one. |
+| 6 | **Waitlist on the $497** | Caps at 4/month honestly and collects demand instead of turning it away. | 10 min | This is real scarcity (it's your calendar), so it's usable without any fake-urgency problem. |
+
+### Content Rewards — worth understanding, not worth starting yet
+
+Whop's clipper marketplace pays creators per 1,000 verified views on content
+they make about the product (market rate $0.25-$5 per 1K; ~$1 is the realistic
+entry). That is roughly an order of magnitude under Meta's CPM, and it is how
+TJR's 24,000-clipper engine works.
+
+**The honest read for LiftOffr specifically:** clippers amplify whatever the
+offer already converts at. The current funnel converts cold IG traffic at
+roughly 0.013-0.034% views→site. Paying for another million views through the
+same funnel buys the same conversion rate at a larger number. Fix the
+views→site rate first — that is what the whole hook-bank and comment-to-DM work
+is for — then a $500 clipper budget is a genuinely good trade. Revisit once a
+single organic reel clears the 0.1% CTR bar in the master plan.
+
+If you do start: budget cap $500, $1 per 1K views, min payout $5-10 to filter
+junk, max $250 per video, approve every post before it pays, and brief clippers
+with a doc that bans income claims explicitly. One clipper implying returns is
+your FTC problem, not theirs.
 
 ---
 
