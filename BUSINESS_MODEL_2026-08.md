@@ -154,6 +154,24 @@ is at the bottom.
 | `weekly-engage` | Sun 18:00 | Score + one question → `#general-chat`. |
 | **`discord-engage`** ← new | Mon/Wed/Fri 17:30 | Mon: rotating question → `#questions-daily`. Wed: indicator of the week, live reading + link to its `/indicators` page → `#general-chat`. Fri: wins **and losses** prompt → `#wins-progress`. **Ascension pointer capped at 1 in 3 posts**, tracked across all formats. |
 | `onboarding-dm` | hourly | Day 1/3/5/7/**14** DM drip to new members. |
+| **`zone-watch`** ← new | daily 08:10 | The only automation allowed to ping a role. Fires on a **state change**, not a schedule: when the Score crosses a zone boundary it announces to the free feed and pings 🔔 Cycle Alerts. A day with no crossing posts nothing. |
+| **`/score` `/indicator` `/bottom` `/ladder`** ← new | on demand | Slash commands, answered by `api/cycle-score.js`. No process to keep alive. |
+
+### The Discord layer, benchmarked
+
+What professional crypto servers run, and where LiftOffr now stands:
+
+| Feature | Status |
+|---|---|
+| Live price / market-status channels | **Had it** — BTC, ETH, SOL and a live Score voice-channel ticker |
+| Daily + weekly automated market content | **Had it** — 7 feeds, daily brief, weekly Score |
+| On-demand bot commands | **New** — 4 slash commands over the same data the site serves |
+| Self-serve opt-in ping roles | **New** — native Discord onboarding, no reaction-role bot to keep running |
+| Role-pinged alerts | **New** — urgent alerts ping 📡 Signal Drops; zone changes ping 🔔 Cycle Alerts |
+| Consistent branded embeds on every bot post | **New** — one shared style module; 1 of 7 bots used embeds before, all 7 do now |
+| Structured onboarding drip | **Had it, now correct** — the Day 3 DM was promising the $197 course for free |
+| Weekly conversation prompts | **New this session** — Mon/Wed/Fri + Sunday |
+| XP / levels / giveaways / trial roles | **Deferred** — see §10 |
 
 ### Site + money
 | Agent | Cadence | Job |
@@ -395,3 +413,24 @@ member count at the start and end. Then run at 2 for four weeks. If click volume
 roughly doubles and member count doesn't fall, keep 2. If members leave or the
 room goes quieter, it goes back to 3 permanently. One variable, one month, one
 decision — do not change the post formats during the test.
+
+---
+
+## 10. Discord: what was deliberately deferred
+
+Built this session: slash commands, self-serve ping roles, role-pinged zone
+changes, branded embeds everywhere, weekday engagement, a corrected onboarding
+drip. What was left out, and why — each of these is a real feature on bigger
+servers, and each one is currently the wrong trade at 70 members:
+
+| Deferred | Why now is wrong | Revisit when |
+|---|---|---|
+| **XP / levels (Arcane or ProBot)** | ProBot is already in the server, so this is configuration rather than code — and a leaderboard with four active humans on it advertises how quiet the room is. | 150+ members, which is also the day-60 distribution gate |
+| **Engagement-triggered 72h trial** (level 5 → temporary paid access) | The research is good and the mechanic is proven, but it needs both an XP system and TempRoles, and it converts a cohort that does not exist yet. | After XP, and after the $197 System actually exists in Whop |
+| **Giveaways / chart battles** | Both need a critical mass of participants or they read as an empty room with a prize in it. | 150+ members |
+| **`/alerts` slash command to self-toggle ping roles** | Would need the admin bot token in a second system (Vercel env). Native onboarding already does the same job with zero token exposure. | Only if onboarding proves insufficient |
+| **Ticket-based support automation** | Ticket Tool is installed and the volume is a handful a month. | Volume, not now |
+| **Paid-tier live voice sessions** | The entire competitor teardown says presence-dependent products are what kills low-touch communities. This one is deferred permanently unless the constraint changes. | Never, under the current constraints |
+
+The pattern in every row: these are amplifiers. They multiply an engaged
+community and they advertise an empty one. Distribution first.

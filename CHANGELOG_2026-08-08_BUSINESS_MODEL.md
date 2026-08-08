@@ -247,7 +247,141 @@ from the last pass. Added:
 - **Payment trust row** under the buy button.
 - **First-person CTA copy** — "Get my plan — $29, once" everywhere.
 
-## 8 · Whop listing copy is unblocked and paste-ready
+## 8 · Discord, benchmarked against professional crypto servers
+
+Torin's ask: *"as value packed and making people money as possible, with cool
+automations like other professional crypto servers."* Here's what those servers
+actually run, what LiftOffr already had, and what was missing.
+
+### Slash commands — the biggest gap, now closed
+
+Four commands, live and instant in the server:
+
+| Command | What it answers |
+|---|---|
+| `/score` | Today's Score, zone, 7-day move, BTC price, plus the three hottest and three coldest indicators right now |
+| `/indicator <name>` | Live reading for any of the nine, what it measures, and a link to where it has been wrong |
+| `/bottom` | How far into this bear we are, measured against the last three |
+| `/ladder` | What LiftOffr sells — free, $29, $197, $497, no subscriptions |
+
+**Where they run, and why that matters.** The handler lives inside
+`api/cycle-score.js`, not a new `api/discord.js`, because the project is **at**
+Vercel's 12-function cap and every `api/*.js` counts. It's also the honest home:
+that file already computes exactly what the commands answer. While in there I
+extracted `computeAll()` and pointed the existing GET path at it, so the bot and
+the JSON API physically cannot quote different numbers on the same day.
+
+No gateway process, no always-on listener, nothing new to keep alive on a laptop
+that is already the business's single point of failure.
+
+**Security.** Ed25519 signature verification via `node:crypto`, zero
+dependencies. Verification reads the **raw** body — the signature covers raw
+bytes, so re-stringifying Vercel's parsed object would fail every request, which
+is the classic way this integration silently breaks. Unsigned POSTs get a 401,
+which Discord requires and actively tests.
+
+**Verified end to end, twice.** Discord accepted the interactions endpoint,
+which means it sent a real signed PING and our verification passed. Then I
+generated a throwaway keypair, pointed the (now env-overridable) public key at
+it, and exercised every command with genuine signatures: all four return valid
+embeds, unknown commands and unknown indicators return ephemeral errors, and the
+largest response is 1,118 bytes against Discord's 6,000-byte limit.
+
+Registered guild-scoped rather than global so they appear **instantly** instead
+of after up to an hour of global cache. Globals were cleared so the picker
+doesn't list everything twice.
+
+### Every bot post now looks like it came from the same company
+
+Of the seven bots posting into the server, **exactly one** used embeds. The
+other six posted raw text, so the feed looked like it was configured by
+different people on different days.
+
+New `src/lib/embeds.py` is the house style, with the rules in code rather than
+in a caller's head:
+
+- **Zone colour is derived from the number**, never passed in. A green embed
+  over a reading of 88 is a lie told by a formatting bug.
+- **Every embed carries the education-not-advice footer.** There is no code path
+  that produces a LiftOffr embed without it.
+- **Timestamps are the data's `asOf`**, not "now" — a brief built from
+  yesterday's close says so.
+- A monospace meter (`████░░░░░░`) renders a 0-100 reading on mobile with no
+  image.
+
+All six plain-text bots wired to it: `weekly_cbbi`, `macro_watch`,
+`weekly_indicators`, `weekly_altcoin`, `btc_signals`, `urgent_alerts`.
+
+**Deliberately a wrapper, not a rewrite.** Those six post copy that has been
+tuned over months; re-authoring it field-by-field would have risked the content
+to buy presentation. `embeds.wrap()` takes the first line as the title and the
+rest as the body — and **returns `None` if the message won't fit**, so the
+caller falls back to posting exactly what it posts today. Failing open to the
+working behaviour beats a truncated market brief.
+
+The conversational bots (`discord_engage`, `weekly_engage`) stay plain text on
+purpose. A question to the room formatted as a corporate embed stops reading
+like a person asking.
+
+One bug caught by looking at a real rendered post rather than trusting the code:
+stripping `*` from the ends of a title missed the leading pair whenever a line
+opened with an emoji, producing `🌡️ **CBBI & Pi Cycle — weekly read`. Embed
+titles don't render markdown anyway, so the markers are now removed outright.
+
+### Self-serve ping roles, with no bot to keep running
+
+Two opt-in roles, assigned through **Discord's native onboarding** — no
+reaction-role bot, no gateway listener, nothing to fail:
+
+| Role | Fires on | Frequency |
+|---|---|---|
+| 🔔 Cycle Alerts | The Score crossing a zone boundary | A few times a *cycle* |
+| 📡 Signal Drops | Urgent alerts in the paid channels | Rare by design |
+
+Both are **not mentionable**, so only Mission Control can ping them — a ping
+stays a signal instead of something any member can fire at the whole room. Both
+carry `permissions: 0`.
+
+**Re-computed the permission map after adding them:** a free member still sees
+exactly **21 channels**, and the two new roles unlock **nothing**. The
+free/paid boundary from the last audit is intact.
+
+### `zone_watch` — the one thing worth interrupting someone for
+
+New `src/zone_watch.py` + `com.liftoffr.zone-watch` (**installed, loaded**,
+daily 08:10 MT, just before the daily brief so the brief can reference it).
+
+The Score moves every day and almost none of those moves matter. Crossing a zone
+does: it's the event the entire framework exists to detect. So this is the only
+automation allowed to mention a role, and it fires on a **state change** rather
+than a schedule — a day with no crossing posts nothing at all.
+
+It announces to the **free** feed on purpose. A zone change is the proof the
+free layer exists to show; putting it behind the paywall would make the free
+tier a lobby instead of a product.
+
+**The first run records a baseline and stays silent.** Otherwise deploying it
+would have fired a "zone change" alert at everyone for a zone we've been sitting
+in for months. Verified: first run logged the baseline, second run no-oped, and
+a forced dry run produced the correct embed and ping target.
+
+`urgent_alerts` now pings 📡 Signal Drops on real alerts — and deliberately
+**not** on its `--test` path, because a verification post must never ping people
+who opted in for real signals.
+
+### What was deliberately deferred
+
+XP/levels, the engagement-triggered 72h trial, giveaways, chart battles, a
+`/alerts` toggle command, and ticket automation. Every one is a real feature on
+a bigger server and every one is currently the wrong trade — they amplify an
+engaged community and they advertise an empty one. Full table with the revisit
+trigger for each is in `BUSINESS_MODEL_2026-08.md` §10.
+
+The `/alerts` command specifically was rejected because it would need the admin
+bot token in a second system (Vercel env), and native onboarding already does
+the same job with zero additional token exposure.
+
+## 9 · Whop listing copy is unblocked and paste-ready
 
 `WHOP_LISTING_COPY.md` opened with a blocker: the Playbook charged $497 while
 the page said $997. That was resolved in the last pass by aligning the page, so
@@ -267,6 +401,39 @@ organic reel clears the 0.1% bar.
 ---
 
 # What still needs Torin
+
+## 0. 📋 The Whop listings — I could not apply these, and here is exactly why
+
+You green-lit editing the product descriptions directly. **I tried both routes
+and neither is open from here**, so the copy is still paste-ready in
+`WHOP_LISTING_COPY.md` rather than live. What I found:
+
+**Chrome is signed out of Whop.** `whop.com/dashboard` redirects to the
+"Launch your business on Whop" splash with a **Sign in** button in the corner,
+and the public storefront renders logged-out. Signing in means handling your
+password, which I don't do — that one's yours, and it's about a 30-second fix
+before this becomes possible.
+
+**The API silently refuses the write.** The key in
+`~/.openclaw/secrets/whop.env` works and reads everything fine. But:
+
+- `POST /api/v2/products/{id}` with a `description` returns **201 and ignores
+  the field** — I confirmed by reading the product back afterwards: still
+  `null`. A 201 that changes nothing is the worst kind of API response, and it
+  is exactly the sort of thing that gets reported as "done" when it isn't.
+- `PATCH /api/v5/company/products/{id}` → **404** (no such route).
+- `PUT /api/v2/products/{id}` → **401, key lacks permission for this route.**
+
+This confirms the earlier session's read: storefront copy lives on the newer
+`page_id` surface, which this key can't reach. **Nothing on Whop was changed** —
+I verified all five products afterwards and every field is exactly as it was.
+
+So: sign into Whop in Chrome and the browser route opens, or paste the three
+blocks yourself (~5 minutes each, procedure at the top of
+`WHOP_LISTING_COPY.md`). While you're in there, the ranked list of free Whop
+features currently switched off is in the same file — **automated messages
+(native abandoned cart) and connecting your Instagram are the two worth doing
+first**, and both take under 15 minutes.
 
 ## The three new ones, in money order
 
