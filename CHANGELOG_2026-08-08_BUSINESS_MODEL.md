@@ -583,11 +583,77 @@ cold IG traffic at 0.013-0.034% views→site. Paying for another million views
 through the same funnel buys the same rate at a bigger number. Revisit once one
 organic reel clears the 0.1% bar.
 
+
+## 13 · Clipping campaign — live per Torin, NOT independently verified
+
+Torin reports the Content Rewards campaign is active. **I could not confirm any
+of its settings**, and I'd rather say that than imply a check I didn't run.
+
+Three routes, all closed:
+
+| Route | Result |
+|---|---|
+| Whop API | `/v2/content_rewards/campaigns` and `/v2/campaigns` → **401, "API Key supplied does not have permission to access this route"**. `/v5/company/content_rewards` and `/v5/company/campaigns` → 404. |
+| Content Rewards app UI | Same iframe auth failure as when creating it — the app never inserts its frame. |
+| Public Discover listing | `/discover/content-rewards/` is the app's *product* page (reviews, install count), not a campaign index. No per-campaign public URL reachable. |
+
+**So these remain unverified against the brief and are worth Torin eyeballing
+once:** rate $1/1K, budget $1,000, min payout $5, max per video $250, manual
+approval (not auto), platforms all four, Discover visibility on, and the linked
+product being the **$29 front end** rather than the $197 System — that last one
+matters most, because a clipper campaign pointing at the $197 would be sending
+cold traffic at the rung the master plan says cold traffic must never see first.
+
+## 14 · The campaign chat promise is now fulfillable
+
+The campaign description tells clippers "hook bank, caption formats and the full
+library drop in the campaign chat once you join." Nothing was there, so the
+description was promising something that didn't exist.
+
+`CLIPPER_WELCOME_POST.md` is the paste-ready post: how a winning clip is built,
+**49 hooks** as burned-in overlay lines grouped by angle, a caption template
+with both required disclosure lines pre-baked, the rejection rules, and payout
+terms.
+
+Hooks are the clipper-safe subset of the 56-bank. Excluded on purpose: the five
+carrying the `PLAN` comment keyword (that's Torin's ManyChat funnel — a clipper
+telling people to comment PLAN on *their own* post breaks the automation) and
+the three stating the 2025 top exit (those are Torin's receipts to claim; a
+clipper repeating them is precisely the income-claim shape the rules ban).
+
+Could not post it — the campaign chat lives inside the same blocked app.
+
+## 15 · ⚠️ The Drive footage folder is now the critical path
+
+The campaign's entire differentiator is **"footage provided"** — that is the one
+thing making a $1,000 pool competitive next to $250K campaigns. Until the Drive
+link exists, a clipper who joins finds nothing to clip, and the campaign's
+headline promise is false.
+
+This is now the single most urgent open item, ahead of the PAT and the affiliate
+signups, because it's the only one where money is already committed and burning
+credibility while it waits.
+
 ---
 
 # What still needs Torin
 
-## 0. 🔴 Two Whop products still sell the dead $29/mo subscription
+## 0. 🎬 Upload the clipper footage folder — the campaign is live and waiting on it
+
+The campaign promises **"footage provided"**, and that promise is the only
+reason a $1,000 pool competes with $250K ones. Right now there is no folder, so
+a clipper who joins has nothing to clip.
+
+Make a public-view Google Drive folder of approved clips, drop the link into the
+campaign chat with `CLIPPER_WELCOME_POST.md`, and add it to the campaign
+description. Until then the campaign is paying for attention it can't convert.
+
+Also worth a 60-second look: I **could not verify** any campaign setting (API
+returns 401 on the content-rewards routes, the app UI won't render). Confirm
+rate $1/1K, budget $1,000, $5 min, $250 max, **manual** approval, and that the
+linked product is the **$29 plan** — not the $197 System.
+
+## 1. 🔴 Two Whop products still sell the dead $29/mo subscription
 
 `LiftOffr Founder` and `Founder Annual` are both **Visible**, and the first one
 advertises "Claim Founder Rate — **$29/mo Forever**". That number will be read
@@ -602,7 +668,7 @@ them, so hiding them costs nothing and breaks no grandfathered billing.
 I left it because visibility is a sales surface and that's your call, not a copy
 edit. Two clicks, fully reversible. Details in §9.
 
-## The three new ones, in money order
+## The rest, in money order
 
 ### 1. ✅ The Cycle System — BUILT AND LIVE (2026-08-08)
 `prod_b4DoR00YHuysT`, $197 `plan_WHByzwILskLsc` + $147/50-seat
