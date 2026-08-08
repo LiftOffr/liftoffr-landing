@@ -24,26 +24,53 @@ Everything below is what to put in the form. Copy-paste.
 | Approval | **Manual review before payout** | Do not leave this on auto-approve. See the compliance section. |
 | Duration | Until budget is spent | No end date needed at this size. |
 
-## Campaign title
+## Campaign title (paste)
 
-> Clip LiftOffr — Bitcoin cycle content, $1 per 1K views
+```
+Clip Bitcoin Content — $1 / 1K Views · Footage Provided
+```
 
-## Campaign description (paste this)
+Rate goes in the title. Every high-submission campaign does this
+("Fanatics UGC - $3 per 1,000 views") because clippers scan a grid and filter
+on the number before they read a word.
 
-> I run a faceless Bitcoin cycle account: car-POV and lifestyle b-roll with
-> burned-in text over it. No charts, no talking head, no hype. The whole brand
-> is "write the plan down before you need it" — I sold the 2025 top at $124,824
-> and I round-tripped $30,000 in 2022, and both are on the site with dates.
+## Thumbnail
+
+`img/campaign/liftoffr-clipping-thumbnail.png` — 1920×1080 (Whop wants 16:9).
+Re-render at a different rate/pool with:
+`python3 scripts/make_campaign_thumb.py --rate 1.50 --pool 500`
+
+## Campaign description (paste this — written FOR CLIPPERS, not buyers)
+
+> **$1 per 1,000 views. $500 pool. Footage handed to you.**
 >
-> Clip from my existing library and post it. I pay $1 per 1,000 verified views.
+> You don't have to film anything, write anything, or know a single thing about
+> Bitcoin. I hand you the library — car POV, night drives, travel, lifestyle
+> b-roll already shot and colour-graded. You cut it, slap the hook on, post it.
 >
-> **What I want:** short, quiet, confident. The hook lands in the first half
-> second with no audio. The payoff is discipline, not money.
+> **Why this one is easy money:**
+> ✅ **Footage provided** — no filming, no sourcing, no watermark scrubbing
+> ✅ **$1 / 1K views**, every platform, stacked across all four
+> ✅ **Reviewed fast** — I approve manually, usually same day. No two-week ghosting.
+> ✅ **No face, no voice needed** — the whole brand is faceless. Text on b-roll.
+> ✅ **Repost the same cut** to TikTok, Reels, Shorts and X — all four count
 >
-> **What gets rejected instantly:** anything implying returns, any "10x", any
-> price prediction, any fake urgency, any watermark from another app, and
-> anything that makes it look like I manage money or give personal advice. I'm
-> education only and I stay that way.
+> **The niche nobody is clipping:** everyone's fighting over the same trading
+> and hustle campaigns. This is Bitcoin cycle content with an actual receipt
+> behind it — I called the 2025 top at $124,824 and I publicly ate a $30,000
+> loss in 2022. Both are timestamped on the site. That's the story, and it's
+> a story nobody else in this category can tell.
+>
+> **What performs:** quiet luxury b-roll + a hard text hook in the first half
+> second. No screaming, no charts, no talking head. Think "everyone wants this,
+> nobody wants the boring years first" over a night drive.
+>
+> Hook bank, caption formats and the full library drop in the campaign chat
+> once you join. First submissions usually approved within 24h.
+>
+> **Read the requirements before you post** — I reject on compliance, not on
+> taste, and rejected clips don't get paid. The rules are short and they're
+> non-negotiable.
 
 ## Content requirements (paste into the requirements field)
 
@@ -158,3 +185,81 @@ Whop support is in the dashboard sidebar under **Support chats**. Tell them:
 *"Content Rewards app loads to an infinite spinner, console shows
 `FORCE CLOSED: user_id_mismatch_client_some_server_none`."* That error string
 will get you to the right engineer immediately.
+
+---
+
+## Research: what actually works on Whop Content Rewards
+
+Sources: Whop's own setup guide and docs, OpenClip's clipper guide, campaign
+rate data from July-August 2026.
+
+### The three numbers clippers filter on
+
+They scan a grid and sort by **rate**, then check **remaining budget**, then
+**competition**. Everything else — your story, your product, your brand — is
+read *after* they've already decided the economics work. That's why the rate
+belongs in the title and on the thumbnail.
+
+### Real campaigns, for calibration
+
+| Campaign | Rate / 1K | Budget | Read |
+|---|---|---|---|
+| Roobet | $1.50 | **$250,000** | "The textbook deep pool" — mid rate, enormous headroom. Clippers can earn for months. |
+| Call of Duty MW4 | $1.50 | $120,000 | Same shape |
+| Boxabl | $0.50 | $85,000 | Low rate survives on budget depth |
+| Pacinos | $1.00 | $50,000 | Market-average rate |
+| MUTUUM | **$6.00** | small | The cautionary tale: 4× the average "attracts a swarm of clippers who can drain a small pool in days" |
+
+Marketplace average is **~$1/1K**. Most campaigns sit **$0.50–$1.50**. Full
+range is $0.20–$6.
+
+### ⚠️ The honest problem with our campaign
+
+**Our $500 pool is 1/100th to 1/500th the size of the campaigns we're next to.**
+A clipper sorting by remaining budget sees $250K, $120K, $85K… and $500. At
+market-average rate, we are the least attractive card on the page on the exact
+metric they screen second.
+
+We cannot win on budget. So we have to win on the other two things clippers
+actually respond to:
+
+1. **Effort.** Nearly every clipping campaign says "clip our podcast/streams" —
+   the clipper has to find, watch and cut long-form. **We hand over pre-shot,
+   colour-graded b-roll.** That is a genuinely lower-effort offer and it is the
+   single strongest thing we have. It leads the description for that reason.
+2. **Competition.** The money/hustle categories are saturated. Faceless Bitcoin
+   cycle content with public receipts is a thin category — less competition per
+   view.
+
+### The one change worth considering
+
+At **$1.00/1K** we are average rate + smallest pool = easy to scroll past.
+At **$1.50/1K** we'd match Roobet and CoD on rate, which is the number that
+gets the click, and $500 still buys 333K views of headroom.
+
+The trade is 500K potential views → 333K. But **500K views nobody clips is
+worth zero**, and the real goal here is a *measurement*, which needs
+submissions to exist at all. If the campaign sits dead for a week at $1, raise
+it to $1.50 before adding budget.
+
+Re-render the thumbnail for the new rate in one command:
+`python3 scripts/make_campaign_thumb.py --rate 1.50 --pool 500`
+
+### Thumbnail design rules, from what the winners do
+
+- **Bold text + money/lifestyle aesthetic**, readable at ~340px card width
+- **The rate is the biggest element on the image** — bigger than the logo,
+  bigger than the brand name
+- High contrast, dark background, one accent colour
+- A face or a car reads better than an abstract graphic at small size
+
+Ours puts `$1 / 1K` at 190px type over the Urus shot with a green dollar sign
+(money cue) and a `$500 POOL` pill. Verified legible shrunk to 340×191.
+
+### What we're deliberately NOT copying
+
+Every "make money" campaign leads with income claims. We can't, and shouldn't:
+the clipper-facing pitch can hype **their** earnings all it likes (that's a
+factual rate), but the **clips themselves** must stay clean — no income claims,
+disclosure required, education-only. That split is exactly how the description
+and the requirements block are written.
