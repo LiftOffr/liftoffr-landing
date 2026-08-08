@@ -1,0 +1,327 @@
+# CHANGELOG — the business-model build-out (2026-08-08)
+
+Synthesises the 2026-08-07 growth playbook and competitor teardown into
+shipped infrastructure, inside the locked ladder and prices. Two commits
+pushed (`9f33a6e`, `4edc8fb`), Vercel redeployed, all 13 new pages verified
+live. Two new LaunchAgents installed and loaded. One Discord post live.
+
+The definitive model doc is **`BUSINESS_MODEL_2026-08.md`** — money map, who
+runs what, the weekly Torin loop, five KPIs, 90-day projections. Everything
+below is what was built to make that doc true.
+
+What still needs Torin is at the bottom, and it's the same four standing items
+plus three new ones with money attached.
+
+---
+
+## 1 · The 56-hook bank is in the generator's rotation
+
+`src/hook_bank_56.py` (new) + `src/hook_pack.py` (rewired).
+
+The playbook's 56 hooks are **angles, not copy** — they're title-case and
+CTA-first, and the house voice is lowercase and lifestyle-first. Shipping them
+verbatim would have broken the style rules the generator exists to enforce. So
+they seed the prompt and the model rewrites each into house voice.
+
+What the code enforces, not asks for:
+
+- **Rotation.** All 56 ship before any repeat, tracked in task state, advanced
+  only on a run that actually wrote a file — a failed write doesn't silently
+  burn eight angles.
+- **Category interleaving.** Straight bank order groups by theme (hooks 1-10
+  are all money/freedom), which would have produced a week of eight
+  near-identical angles — the exact sameness the bank exists to fix. Seeds now
+  round-robin across the six categories.
+- **The two compliance flags.** Five hooks carry the `PLAN` keyword and three
+  make a performance claim ("I sold in 2025", "called the top"). Both kinds
+  ship **only in the single CTA slot**, because that's the slot carrying the
+  ⸻ + "not financial advice" block. On a run where the 1-in-3 rotation blocks
+  the keyword, there is no such slot, so both sit the round out. A performance
+  claim with no disclaimer under it is the precise shape the FTC finfluencer
+  sweep goes after — 23 cases in 2025, crypto first among them.
+
+**Verified by running it:** 8 packs, 0 rejected, seeds `#1 #11 #23 #31 #41 #51
+#2 #12` — one from each category, then wrapping. This week's pack is written.
+Simulated eight weeks forward: 51 distinct angles used, no repeats, CTA hooks
+appearing only on permitted rounds.
+
+## 2 · Discord: a weekday engagement engine with a hard ascension cap
+
+`src/discord_engage.py` + `com.liftoffr.discord-engage` (**installed, loaded**,
+Mon/Wed/Fri 17:30 MT).
+
+`weekly_engage` already owns Sunday in `#general-chat`. This owns three
+weekdays, each in a **different** channel, so no channel hears from the bot more
+than once a week:
+
+| Day | Channel | Format |
+|---|---|---|
+| Mon | `#questions-daily` | One question from a 13-deep rotating deck, opened with the live Score and BTC price |
+| Wed | `#general-chat` | **Indicator of the week** — live reading of one of the nine, a two-line plain-English explainer, and a link to its new `/indicators` page |
+| Fri | `#wins-progress` | Wins **and losses** prompt, rotating |
+
+Friday names losses on purpose: review sites treat wins-only trading servers as
+a scam marker, and it's the cheapest legitimacy signal available.
+
+**The ascension cap is the rule to read before editing this file.** At most
+**1 in 3** posts carries a paid pointer, counted across all three formats in
+task state. In a 70-member server where roughly four members aren't comped
+friends, a buy link more often than that converts nobody and costs the room its
+tone. `ASCENSION_EVERY = 3`, one constant.
+
+The Wednesday format does three jobs at once: it's genuinely useful content,
+it's a recurring reason to open the server, and it drives internal traffic to
+the SEO pages that need it most.
+
+**Verified live:** Friday's post is up in `#wins-progress`
+(msg `1535445110685307010`), the counter reset, so Monday and Wednesday carry no
+paid pointer. Data-fetch failure skips the day rather than posting a prompt with
+an empty number in it — same rule `weekly_engage` uses.
+
+I did **not** loosen the 1-in-3 cap. `BUSINESS_MODEL_2026-08.md` §9 carries a
+written experiment for testing 1-in-2: four weeks at 3, four weeks at 2, measure
+`cta_clicked` from Discord referrals plus member count, one variable, formats
+frozen during the test.
+
+## 3 · The onboarding DM was promising the $197 course for free
+
+Found while auditing the drip, and it explains the open `📚 Studying` question
+from the last pass.
+
+**Day 3 of `onboarding_dm.py` told every new free member:** *"React 📚 on the
+pinned message in `#🧰・course-resources` and Modules 2-6 appear in your sidebar
+within the hour."*
+
+Three things wrong with that, in ascending order:
+
+1. `#course-resources` denies `VIEW_CHANNEL` to `@everyone`. Free members
+   couldn't see the channel, so the instruction was dead on arrival.
+2. There is no 📚 reaction on either pinned message in that channel. I checked
+   both. So even a member who could see it had nothing to react to.
+3. The course is now the **$197 System**. The DM was promising a paid product
+   for free to every single new joiner, in writing, from an automated system.
+
+**On `📚 Studying` specifically** — the previous pass flagged that the role
+opens all 48 lesson channels and asked how someone gets it. Answer, as far as
+the evidence goes: **nothing currently assigns it.** 0 of 70 members hold it, no
+reaction role exists on the pinned messages, and the only thing in the codebase
+that ever pointed at that unlock was this DM. I left the role's permissions
+alone — the acquisition path was a dead instruction, not a live leak, and
+stripping a role across 50+ channels on the strength of "I couldn't find one"
+is the wrong trade. If ProBot has a reaction role wired somewhere I can't read,
+say so and I'll strip it.
+
+Day 3 now points at `/indicators`, which is free, real, and the surface that
+wants the traffic. Added **Day 14** (the `/stack` tools DM), with the same
+migration guard the day5 addition used — anyone already past day 7 is marked as
+having received it, so adding a step doesn't fire a retroactive DM at 58
+existing members. **Verified by dry run: 0 DMs would fire.**
+
+## 4 · SEO: 11 programmatic pages, and the moat is a table nobody else has
+
+`scripts/build_indicator_pages.py` (new) generates, from the live CBBI daily
+series:
+
+- `/indicators` — hub, all nine live readings
+- `/indicators/{slug}` × 9 — RHODL, Puell, rainbow band, MVRV Z-Score, Pi Cycle,
+  2Y MA Multiplier, Reserve Risk, Woobull Top Cap, NUPL
+- `/when-will-bitcoin-bottom` — the keyword that is peaking right now
+
+**Why these and not more blog posts.** ~68% of Google searches are zero-click
+and educational finance gets 67-91% AI-Overview coverage — but live-data pages
+sit in the ~7% coverage band and rank on utility. So every page leads with a
+number that is true today.
+
+**The moat is the historical table.** Each page shows what that indicator read
+at every cycle top and bottom since 2013, computed from the source series. Every
+value is looked up, never typed — that rule is what makes the tables safe to
+publish. The generator's own output validates it: the 2025 top row prints
+**$124,824**, matching the canonical anchor exactly, without that number
+appearing anywhere in the script.
+
+Each page also carries a **"Where it has been wrong"** section. Pi Cycle didn't
+fire at the 2025 top. MVRV's peak reading has fallen every cycle. Puell breaks
+across a halving. The rainbow band gets refitted as new data arrives, so old
+readings aren't measured against the same curve. That section is E-E-A-T gold
+and it's the one competitors skip.
+
+**Cannibalisation avoided deliberately.** Five of the nine already have blog
+explainers. The blog owns definition intent ("what is CBBI"); these own live
+intent ("what does it read today"). Each canonicals to itself, and all six blog
+posts now cross-link forward to their live page.
+
+`/when-will-bitcoin-bottom` runs the arithmetic honestly: BTC is 49% below the
+Oct 6 2025 top and 304 days in; the last three bears bottomed 363-410 days after
+their top with 76-84% drawdowns. It states outright that nobody knows the date,
+that three cycles isn't a sample, that every drawdown has been shallower than
+the last (84% → 83% → 76%) so applying an old percentage understates the floor,
+and that **LiftOffr does not publish price predictions**. Leaving the arithmetic
+out entirely would have been the dishonest version; presenting it as a target
+would have been the other one.
+
+**Freshness is kept true, not claimed.** The generator owns a delimited block of
+`sitemap.xml` so `lastmod` is accurate, and
+`com.liftoffr.indicator-refresh` (**installed, loaded**, daily 07:20 MT)
+regenerates and commits **only when the data actually changed**. It rebase-pulls
+first to avoid fighting `youtube_intel`'s hourly push, refuses to run at all if
+the tree has unrelated changes, and yields rather than forcing on conflict.
+Both guards tested: the dirty-tree path caught its own untracked file, the clean
+path correctly reported "no change in the data, nothing to commit".
+
+Also: `OAI-SearchBot` added to `robots.txt` (the other AI crawlers were already
+allowed).
+
+## 5 · The affiliate layer, and the part where links stay honest
+
+`/stack` — five tools, all clearing the master plan §9 brand filter: Ledger,
+Trezor, Koinly, CoinLedger, TradingView.
+
+**No link claims a commission that doesn't exist.** Every link currently points
+at the manufacturer directly and is labelled *"Direct link — no commission"*.
+One config block near the bottom of the page takes a tracking URL per tool, and
+the label flips itself to "Affiliate link". Labelling a link affiliate before
+it is one would be a false disclosure, which is worse than no disclosure — so
+the label is derived from the URL rather than hand-written next to it.
+
+Every tool card carries a **"where I'd skip it"** paragraph, including Ledger's
+2020 customer-database breach and the fact that most readers don't need
+TradingView's paid tier.
+
+The page also names **what was turned down**: Coinbase, Kraken, OKX, Binance,
+3Commas, Cryptohopper, anything with leverage. Those are the highest-paying
+programs in the niche and every one pays more when the reader trades more —
+a direct conflict with a site arguing you should trade less. That section is a
+trust asset and it evaporates the day an exchange link appears on the page.
+
+Placements: `/stack` (site), Day 9 of the free nurture, Day 1 of the plan-buyer
+sequence, Day 14 of the Discord onboarding DM. Every affiliate click fires
+`cta_clicked` with `destination: aff_<tool>`, so GA4 shows which programs are
+worth applying to **before** applying.
+
+Signup steps, terms, and application order are in `AFFILIATE_SETUP.md`.
+Honest expectation, stated in both docs: **$20-80/month** at current traffic.
+
+## 6 · Email: the plan-buyer sequence exists, and one membership-era leak closed
+
+`api/cron-welcome-followups.js`.
+
+**New plan-buyer sequence** (master plan §5) — D0, D1, D3, D7, D14, on the
+Resend "Plan Buyers" audience, deduped by idempotency key like everything else.
+D0 and D1 are **pure delivery with zero pitch**: a buyer upsold in the receipt
+email learns the $29 was bait. D3 makes the System case once. D7 is the 2021
+miss plus the receipts, and carries the review ask as an explicit
+non-condition. D14 is the last dedicated ask and mentions the Playbook — which,
+with `/welcome-plan`, is now one of only two routes to the $497 rung that exist
+anywhere.
+
+**Dormant until `RESEND_PLAN_AUDIENCE_ID` is set** in Vercel — same flag
+`whop-webhook.js` already uses to populate the audience. Sending the free-list
+sequence to buyers would be worse than sending nothing, so it fails closed.
+
+**Day 3 of the free nurture was still membership-era.** It said *"Members of
+LiftOffr get this framework as part of the 36-lesson course, plus a daily
+3-minute brief in Discord"* and pointed at the homepage — pitching a product
+that no longer exists, in the sequence the pivot explicitly re-aimed at the $29.
+Now points at `/indicators`, which is free and real.
+
+**New Day 9** — "The 5 tools I actually run this on". Goodwill plus the
+affiliate layer, aimed at the majority who will never buy anything.
+
+**All 11 templates render** — verified through the endpoint's preview mode:
+`qw, e2, proof, e3, stack, reengage, p0, p1, p3, p7, p14`.
+
+## 7 · `/plan` CRO — the remaining playbook items
+
+The page already had the hero CTA, guarantee, price anchor and inline capture
+from the last pass. Added:
+
+- **Objection-handling block** — five things people think and don't ask: *this
+  is probably a scam* (answered with three things to check before paying, all
+  free), *I don't know enough*, *I don't have much money* (with an honest "then
+  don't spend it here"), *what if it's wrong* (the $30K 2021 answer), *why only
+  $29*.
+- **Sticky mobile buy bar**, activating once the hero CTA scrolls off. Published
+  tests put it at +9-14% on mobile, and IG traffic is effectively all mobile.
+  It reuses the same href, so the embedded-checkout delegate picks it up
+  unchanged.
+- **Payment trust row** under the buy button.
+- **First-person CTA copy** — "Get my plan — $29, once" everywhere.
+
+## 8 · Whop listing copy is unblocked and paste-ready
+
+`WHOP_LISTING_COPY.md` opened with a blocker: the Playbook charged $497 while
+the page said $997. That was resolved in the last pass by aligning the page, so
+all three descriptions are now safe to paste. Added a paste procedure, the
+structural findings from the storefront teardowns (social proof does the work,
+not prose — TJR's paid description is two sentences next to 2,209 reviews), and
+a ranked table of **free Whop features currently switched off**: automated
+messages/abandoned cart, connecting Instagram, review asks, member affiliates,
+order bump, $497 waitlist.
+
+**Content Rewards is documented but explicitly not recommended yet.** Clippers
+amplify whatever the offer already converts at; the funnel currently converts
+cold IG traffic at 0.013-0.034% views→site. Paying for another million views
+through the same funnel buys the same rate at a bigger number. Revisit once one
+organic reel clears the 0.1% bar.
+
+---
+
+# What still needs Torin
+
+## The three new ones, in money order
+
+### 1. 💵 Build The Cycle System in Whop — **before Aug 24**
+Unchanged from the last pass and now more urgent, because the plan-buyer D3 and
+D14 emails both point at `/system`. The page tells the truth today (opens
+Aug 24, can't be bought yet); that stops being true on the 24th. Once the plan
+exists: wire the checkout, delete the "why you can't buy it today" section, and
+unhide the `/welcome-plan` bridge.
+
+### 2. 📧 Create the Resend "LiftOffr Plan Buyers" audience and set `RESEND_PLAN_AUDIENCE_ID`
+Two minutes in the Resend dashboard plus one Vercel env var. Until it's set, the
+webhook doesn't file buyers and the whole D0-D14 sequence stays dormant. Every
+$29 buyer between now and then gets the product and no follow-up — which is the
+sequence that carries the $197 and the only route to the $497.
+
+### 3. 🔗 Apply to the five affiliate programs — one sitting, ~45 minutes
+Ledger → Trezor → Koinly → CoinLedger → TradingView, in that order and for the
+reasons in `AFFILIATE_SETUP.md`. Approval takes days to weeks and nothing on the
+site changes until you paste a URL, so there's no half-live state. Worth
+$20-80/month now and materially more in the January-April tax window.
+
+## The four standing items
+
+### 4. 🔑 Rotate the PAT
+Still unrotated, still the highest-priority open item, still not something I do
+with a live credential. The scope is one repo — `liftoffr-landing` is the only
+checkout with a remote and `youtube_intel.py` is the only automated pusher, so a
+fine-grained token with **Contents: Read and write on
+`LiftOffr/liftoffr-landing`** covers everything. The exact commands are in
+`CHANGELOG_2026-08-08_CLEANUP.md` §1. Note that `com.liftoffr.indicator-refresh`
+now pushes through the same credential daily, which adds a second live test of
+the rotation.
+
+### 5. 💰 $497 or $997 on the Playbook
+The page and the charge agree at $497. Raising the Whop plan to $997 is one
+dashboard edit and doubles the ceiling of the second-best revenue line — at 4
+spots/month it is a **$2,000/month** decision. Worth making before the next
+Playbook sale, not after.
+
+### 6. 📚 The `📚 Studying` role
+Downgraded from "unknown risk" to "probably inert" — see §3. Nothing assigns it,
+0 of 70 hold it, and the one thing that ever pointed at it was the DM I
+rewrote. Confirm no ProBot reaction role is wired to it and it can be closed; if
+one is, tell me and I'll strip it from the 50+ course channels.
+
+### 7. 📮 Send the brand-deal outreach
+The rate card and the 20-target list exist. **Zero emails have been sent.** This
+is the highest dollars-per-hour line in the entire business — one deal per month
+out-earns the whole product ladder at full target execution — and it is the only
+line where the asset is built and the action isn't taken. One email per weekday
+for four weeks is the whole ask.
+
+## Unchanged, still open
+
+The fleet still depends on `com.liftoffr.caffeinate` holding one laptop awake
+with no failover; the Kalshi keys are still live on a concluded project; the GCP
+service-account key is untouched since May 8.

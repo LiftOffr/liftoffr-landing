@@ -127,9 +127,281 @@ function commentary(score, trendDir) {
   return "Deep accumulation. Historically the best risk-reward window in a cycle.";
 }
 
+// Single implementation of "what does the CBBI payload say right now", shared
+// by the JSON API and the Discord commands. Two copies of this arithmetic is
+// how the bot and the site end up quoting different numbers on the same day.
+function computeAll(data) {
+  const components = {};
+  let weightedSum = 0, weightUsed = 0, asOfTs = 0;
+
+  for (const [name, weight] of Object.entries(WEIGHTS)) {
+    const e = latestEntry(data[name]);
+    if (!e || !isFinite(e.value)) continue;
+    const v100 = Math.max(0, Math.min(100, e.value * 100));
+    components[name] = { value: Math.round(v100 * 10) / 10, weight, asOf: e.ts };
+    weightedSum += v100 * weight;
+    weightUsed += weight;
+    if (e.ts > asOfTs) asOfTs = e.ts;
+  }
+
+  const conf = latestEntry(data.Confidence);
+  if (conf) components._cbbi_confidence = { value: Math.round(conf.value * 100 * 10) / 10, asOf: conf.ts };
+  const price = latestEntry(data.Price);
+  if (price) components._btc_price = { value: Math.round(price.value), asOf: price.ts };
+
+  const score = weightUsed === 0 ? null : Math.round((weightedSum / weightUsed) * 10) / 10;
+
+  let trend = "flat", trendDelta = 0;
+  try {
+    const rhodl = data.RHODL || {};
+    const keys = Object.keys(rhodl).sort((a, b) => Number(b) - Number(a));
+    const idx = Math.min(7, keys.length - 1);
+    const delta = (Number(rhodl[keys[0]]) - Number(rhodl[keys[idx]])) * 100;
+    trendDelta = Math.round(delta * 10) / 10;
+    if (delta > 0.5) trend = "rising";
+    else if (delta < -0.5) trend = "falling";
+  } catch (_) {}
+
+  return { score, zone: score === null ? null : zone(score), trend, trendDelta,
+           components, asOfTs, weightUsed };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// DISCORD SLASH COMMANDS
+//
+// This endpoint doubles as the Discord interactions receiver. It lives here
+// rather than in its own api/discord.js for one hard reason: the project is AT
+// Vercel's 12-serverless-function cap (CLAUDE.md), and every api/*.js counts.
+// It is also the natural home — the commands answer questions about the Score,
+// which is exactly what this file already computes.
+//
+// GET behaviour is untouched. Only a signed POST is treated as Discord.
+//
+// Discord signs every request with Ed25519 over (timestamp + body) and REQUIRES
+// that unsigned requests get a 401 — it verifies that during endpoint setup and
+// will refuse the URL otherwise.
+// ═══════════════════════════════════════════════════════════════════════════
+
+import { createPublicKey, verify as cryptoVerify } from "node:crypto";
+
+// The application's public key. Public by definition — it verifies Discord's
+// signature, it does not create one. Hard-coded so the endpoint has no env
+// dependency that could silently break command handling on a redeploy.
+const DISCORD_PUBLIC_KEY =
+  "4c5fb780547535f4cc5ade18c1fa40ed56d6a4bbd10885e88c0255b49762edb6";
+
+const ZONE_INT = { // embed colours, matching ZONE_COLORS above
+  exit: 0xef4444, warning: 0xf97316, neutral: 0xfbbf24,
+  accumulation: 0x22c55e, "deep-accumulation": 0x16a34a,
+};
+
+// slug + one-line "what it is", mirroring the /indicators pages so the bot and
+// the site can never say different things about the same indicator.
+const IND_META = {
+  RHODL:       ["rhodl-ratio",           "RHODL Ratio",            "Coins moved this week vs coins last moved 1-2 years ago. Spikes when new money buys what old holders sell."],
+  Puell:       ["puell-multiple",        "Puell Multiple",         "Daily miner revenue against its own 365-day average. Low means miners are earning very little."],
+  Trolololo:   ["rainbow-chart",         "Rainbow band",           "Where price sits inside a log regression of Bitcoin's whole history."],
+  MVRV:        ["mvrv-z-score",          "MVRV Z-Score",           "Unrealised profit across the entire supply, in standard deviations."],
+  PiCycle:     ["pi-cycle-top",          "Pi Cycle Top",           "111-day MA vs 2x the 350-day MA. Landed within days of three cycle tops, missed the 2025 one."],
+  "2YMA":      ["2-year-ma-multiplier",  "2-Year MA Multiplier",   "Price against its own two-year average. Under the line has been accumulation territory every cycle."],
+  ReserveRisk: ["reserve-risk",          "Reserve Risk",           "Holder conviction against the price being offered to sell."],
+  Woobull:     ["woobull-top-cap",       "Woobull Top Cap",        "Price as a fraction of a long-run modelled ceiling."],
+  RUPL:        ["rupl",                  "NUPL",                   "What share of the supply is sitting in profit."],
+};
+
+function verifyDiscord(req, rawBody) {
+  const sig = req.headers["x-signature-ed25519"];
+  const ts = req.headers["x-signature-timestamp"];
+  if (!sig || !ts) return false;
+  try {
+    // Wrap the raw 32-byte Ed25519 key in SPKI DER so node:crypto accepts it.
+    const der = Buffer.concat([
+      Buffer.from("302a300506032b6570032100", "hex"),
+      Buffer.from(DISCORD_PUBLIC_KEY, "hex"),
+    ]);
+    const key = createPublicKey({ key: der, format: "der", type: "spki" });
+    return cryptoVerify(null, Buffer.from(ts + rawBody), key, Buffer.from(sig, "hex"));
+  } catch (_) {
+    return false;
+  }
+}
+
+async function readRawBody(req) {
+  // Vercel parses JSON bodies, but the signature covers the RAW bytes, so the
+  // parsed object cannot be re-stringified and checked — key order and spacing
+  // would differ and every request would fail verification.
+  if (typeof req.body === "string") return req.body;
+  if (Buffer.isBuffer(req.body)) return req.body.toString("utf8");
+  const chunks = [];
+  for await (const c of req) chunks.push(c);
+  return Buffer.concat(chunks).toString("utf8");
+}
+
+const FOOTER = { text: "LiftOffr · education, not financial advice · liftoffr.com" };
+
+function scoreEmbed(score, z, trend, trendDelta, components, asOfTs) {
+  const btc = components._btc_price?.value;
+  const arrow = trend === "rising" ? "▲" : trend === "falling" ? "▼" : "◆";
+  const sign = trendDelta >= 0 ? "+" : "";
+  const ranked = Object.entries(IND_META)
+    .filter(([k]) => components[k])
+    .sort((a, b) => components[b[0]].value - components[a[0]].value);
+  return {
+    title: `LiftOffr Score — ${score.toFixed(1)} / 100`,
+    url: "https://liftoffr.com/cycle",
+    description:
+      `**${ZONE_LABELS[z] || z}** · ${arrow} ${sign}${trendDelta} over 7 days` +
+      (btc ? ` · BTC $${btc.toLocaleString("en-US")}` : "") +
+      `\n${commentary(score, trend)}`,
+    color: ZONE_INT[z] || 0x8793a8,
+    fields: [
+      {
+        name: "Hottest right now",
+        value: ranked.slice(0, 3)
+          .map(([k]) => `\`${components[k].value.toFixed(0).padStart(3)}\` ${IND_META[k][1]}`)
+          .join("\n") || "—",
+        inline: true,
+      },
+      {
+        name: "Coldest right now",
+        value: ranked.slice(-3).reverse()
+          .map(([k]) => `\`${components[k].value.toFixed(0).padStart(3)}\` ${IND_META[k][1]}`)
+          .join("\n") || "—",
+        inline: true,
+      },
+      {
+        name: "​",
+        value: "[Full gauge →](https://liftoffr.com/cycle) · " +
+               "[All 9 indicators →](https://liftoffr.com/indicators) · " +
+               "[Receipts →](https://liftoffr.com/receipts.html)",
+      },
+    ],
+    footer: FOOTER,
+    timestamp: new Date(asOfTs * 1000).toISOString(),
+  };
+}
+
+function indicatorEmbed(key, components, asOfTs) {
+  const meta = IND_META[key];
+  const v = components[key]?.value;
+  if (!meta || v === undefined) return null;
+  const [slug, name, blurb] = meta;
+  const band = v >= 70 ? "hot — late-cycle territory"
+             : v <= 35 ? "cold — early-cycle territory"
+             : "middle of its range";
+  return {
+    title: `${name} — ${v.toFixed(0)} / 100`,
+    url: `https://liftoffr.com/indicators/${slug}`,
+    description: `${blurb}\n\nReading is **${band}**. Weighted ` +
+      `**${(components[key].weight * 100).toFixed(0)}%** of the LiftOffr Score.`,
+    color: v >= 70 ? 0xef4444 : v <= 35 ? 0x22c55e : 0xfbbf24,
+    fields: [{
+      name: "​",
+      value: `[What it read at every cycle top since 2013, and where it has been wrong →](https://liftoffr.com/indicators/${slug})`,
+    }],
+    footer: FOOTER,
+    timestamp: new Date(asOfTs * 1000).toISOString(),
+  };
+}
+
+function ladderEmbed() {
+  return {
+    title: "What LiftOffr actually sells",
+    description:
+      "No subscriptions. Every rung is a one-time payment, and each one credits toward the next.",
+    color: 0xe63946,
+    fields: [
+      { name: "Free — forever", value: "The live Score, the daily brief, all 9 indicator pages, every timestamped receipt, and this Discord.\n[liftoffr.com/free](https://liftoffr.com/free)" },
+      { name: "$29 · My Bear Market Buy Plan", value: "The nine-tier ladder I'm actually executing. Every level, what has to be true at each one, a receipt when it fires, and the `#plan-updates` channel.\n[liftoffr.com/plan](https://liftoffr.com/plan)" },
+      { name: "$197 · The Cycle System", value: "Why those levels — all 8 indicators, the confluence method, and the exit ladder. Opens Aug 24.\n[liftoffr.com/system](https://liftoffr.com/system)" },
+      { name: "$497 · The Cycle Playbook", value: "A private 90-minute session where we build your ladder against your actual portfolio. 4 a month.\n[liftoffr.com/playbook](https://liftoffr.com/playbook)" },
+    ],
+    footer: FOOTER,
+  };
+}
+
+function reply(res, embeds, { ephemeral = false } = {}) {
+  return res.status(200).json({
+    type: 4,
+    data: { embeds, flags: ephemeral ? 64 : 0 },
+  });
+}
+
 export default async function handler(req, res) {
+  // ── Discord interactions (POST, Ed25519-signed) ──
+  if (req.method === "POST") {
+    const raw = await readRawBody(req);
+    if (!verifyDiscord(req, raw)) {
+      // Must be 401 — Discord tests this before accepting the endpoint URL.
+      return res.status(401).send("invalid request signature");
+    }
+    let body;
+    try { body = JSON.parse(raw); } catch (_) { return res.status(400).send("bad json"); }
+
+    if (body.type === 1) return res.status(200).json({ type: 1 }); // PING
+
+    if (body.type === 2) {
+      const name = body.data?.name;
+      if (name === "ladder") return reply(res, [ladderEmbed()]);
+
+      let data;
+      try {
+        const r = await fetch(CBBI_URL, { headers: { Accept: "application/json" } });
+        if (!r.ok) throw new Error(`upstream ${r.status}`);
+        data = await r.json();
+      } catch (_) {
+        return reply(res, [{
+          title: "Data source is unreachable right now",
+          description: "The upstream indicator feed didn't answer. Try again in a few minutes — " +
+                       "[the site](https://liftoffr.com/cycle) serves a cached reading meanwhile.",
+          color: 0x8793a8, footer: FOOTER,
+        }], { ephemeral: true });
+      }
+
+      const { score, zone: z, trend, trendDelta, components, asOfTs } = computeAll(data);
+
+      if (name === "score") return reply(res, [scoreEmbed(score, z, trend, trendDelta, components, asOfTs)]);
+
+      if (name === "indicator") {
+        const key = body.data?.options?.[0]?.value;
+        const e = indicatorEmbed(key, components, asOfTs);
+        return e ? reply(res, [e]) : reply(res, [{
+          title: "Unknown indicator",
+          description: "Pick one from the list — the autocomplete has all nine.",
+          color: 0x8793a8, footer: FOOTER,
+        }], { ephemeral: true });
+      }
+
+      if (name === "bottom") {
+        return reply(res, [{
+          title: "When will Bitcoin bottom?",
+          url: "https://liftoffr.com/when-will-bitcoin-bottom",
+          description:
+            "**Nobody knows the date, and anyone who gives you one is guessing.**\n\n" +
+            "What can be measured: the last three bear markets bottomed **363-410 days** after " +
+            "their cycle top, with drawdowns of **76-84%** — and every drawdown has been " +
+            "shallower than the one before it, so applying an old percentage understates the floor.\n\n" +
+            `The Score reads **${score.toFixed(1)}** today (${ZONE_LABELS[z] || z}). Past cycle ` +
+            "bottoms printed composite readings in the low teens.",
+          color: ZONE_INT[z] || 0x8793a8,
+          fields: [{
+            name: "​",
+            value: "[The full table — every previous bear, measured →](https://liftoffr.com/when-will-bitcoin-bottom)",
+          }],
+          footer: FOOTER,
+        }]);
+      }
+
+      return reply(res, [{
+        title: "Unknown command", color: 0x8793a8, footer: FOOTER,
+      }], { ephemeral: true });
+    }
+
+    return res.status(400).send("unhandled interaction type");
+  }
+
   if (req.method !== "GET") {
-    res.setHeader("Allow", "GET");
+    res.setHeader("Allow", "GET, POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
@@ -140,49 +412,11 @@ export default async function handler(req, res) {
     }
     const data = await r.json();
 
-    const components = {};
-    let weightedSum = 0;
-    let weightUsed = 0;
-    let asOfTs = 0;
-
-    for (const [name, weight] of Object.entries(WEIGHTS)) {
-      const e = latestEntry(data[name]);
-      if (!e || !isFinite(e.value)) continue;
-      // CBBI components are already on a 0-1 scale (0.00 to 1.00). Multiply by 100.
-      const v100 = Math.max(0, Math.min(100, e.value * 100));
-      components[name] = { value: Math.round(v100 * 10) / 10, weight, asOf: e.ts };
-      weightedSum += v100 * weight;
-      weightUsed += weight;
-      if (e.ts > asOfTs) asOfTs = e.ts;
-    }
-
-    // Also expose CBBI's own composite for reference
-    const conf = latestEntry(data.Confidence);
-    if (conf) components._cbbi_confidence = { value: Math.round(conf.value * 100 * 10) / 10, asOf: conf.ts };
-
-    const price = latestEntry(data.Price);
-    if (price) components._btc_price = { value: Math.round(price.value), asOf: price.ts };
+    const { score, components, asOfTs, trend, trendDelta, weightUsed } = computeAll(data);
 
     if (weightUsed === 0) {
       return res.status(502).json({ error: "No CBBI components parsed" });
     }
-
-    const score = Math.round((weightedSum / weightUsed) * 10) / 10;
-
-    // Compute 7-day trend (compare to value ~7 days back, using RHODL as proxy)
-    let trend = "flat";
-    let trendDelta = 0;
-    try {
-      const rhodlSeries = data.RHODL || {};
-      const keys = Object.keys(rhodlSeries).sort((a, b) => Number(b) - Number(a));
-      const dayAgoIdx = Math.min(7, keys.length - 1);
-      const cur = Number(rhodlSeries[keys[0]]);
-      const past = Number(rhodlSeries[keys[dayAgoIdx]]);
-      const delta = (cur - past) * 100;
-      trendDelta = Math.round(delta * 10) / 10;
-      if (delta > 0.5) trend = "rising";
-      else if (delta < -0.5) trend = "falling";
-    } catch (_) {}
 
     const q = req.query || {};
 
