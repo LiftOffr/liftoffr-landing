@@ -96,20 +96,18 @@ Three things wrong with that, in ascending order:
 
 1. `#course-resources` denies `VIEW_CHANNEL` to `@everyone`. Free members
    couldn't see the channel, so the instruction was dead on arrival.
-2. There is no 📚 reaction on either pinned message in that channel. I checked
-   both. So even a member who could see it had nothing to react to.
+2. The reaction-role message it referred to was **not pinned**, so a member
+   following the instruction to "react on the pinned message" would not have
+   found it there.
 3. The course is now the **$197 System**. The DM was promising a paid product
    for free to every single new joiner, in writing, from an automated system.
 
-**On `📚 Studying` specifically** — the previous pass flagged that the role
-opens all 48 lesson channels and asked how someone gets it. Answer, as far as
-the evidence goes: **nothing currently assigns it.** 0 of 70 members hold it, no
-reaction role exists on the pinned messages, and the only thing in the codebase
-that ever pointed at that unlock was this DM. I left the role's permissions
-alone — the acquisition path was a dead instruction, not a live leak, and
-stripping a role across 50+ channels on the strength of "I couldn't find one"
-is the wrong trade. If ProBot has a reaction role wired somewhere I can't read,
-say so and I'll strip it.
+**On `📚 Studying`** — ⚠️ my first read of this was wrong and §11 has the
+correction. I searched only the *pinned* messages in `#course-resources` and
+concluded nothing assigned the role. The reaction-role message existed; it just
+wasn't pinned, and a second message in `#how-to-use-this-course` advertised it.
+Both are deleted now. Still true: 0 of 70 members hold the role and the channel
+was never visible to free members.
 
 Day 3 now points at `/indicators`, which is free, real, and the surface that
 wants the traffic. Added **Day 14** (the `/stack` tools DM), with the same
