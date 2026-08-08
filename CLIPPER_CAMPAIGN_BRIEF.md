@@ -1,12 +1,11 @@
 # Content Rewards — campaign brief, ready to paste (2026-08-08)
 
-**Status: app installed, campaign not created.** Content Rewards is live in your
-whop sidebar (`/joined/liftoffr/content-rewards-PwoRzw7zm9mxqQ/app/`). The
-campaign builder itself renders in an embedded iframe that failed to
-authenticate in the automated browser session
-(`FORCE CLOSED: user_id_mismatch`) — almost certainly Brave blocking
-third-party cookies for the embed. Open it yourself and it should load; if it
-doesn't, drop Brave Shields for whop.com and reload.
+**Status: app installed, campaign not created — the builder will not
+authenticate in the automated browser.** Retried 2026-08-08 with three
+workarounds; all failed. Details at the bottom under "Why I couldn't do it."
+
+**You need to open it once yourself.** Fastest route is the Whop mobile app.
+Steps are at the bottom. Then paste everything below into the form.
 
 Everything below is what to put in the form. Copy-paste.
 
@@ -103,3 +102,59 @@ still smart:
 
 Either outcome is worth $500. Spending it and *not* reading the number is the
 only way this is wasted.
+
+
+---
+
+## Why I couldn't do it, and exactly what you tap
+
+### What was tried (2026-08-08)
+
+| Attempt | Result |
+|---|---|
+| Fresh reload of the app surface | Infinite spinner |
+| Enter via sidebar click instead of direct URL | Same spinner |
+| Grab the app iframe's URL and open it first-party | **No app iframe is ever created** — the only iframe on the page is a Stripe helper. The app fails before it inserts its own frame, so there is nothing to open directly. |
+| `/dashboard/.../marketing/content-rewards/` | Redirects to dashboard home; route doesn't exist |
+| `whop.com/joined/contentrewards/` | That's the clipper-facing community (473K members, Daniel Bitton's) — where clippers *find* campaigns, not where brands create them |
+
+Console shows the actual fault:
+
+```
+[PAGE_VIEW.requested] /joined/liftoffr/ ; Expecting: bot_id
+[WS:LOG] WebSocket connection established
+[WS:LOG] WebSocket connection closed after 101 ms
+[WS:ERROR] FORCE CLOSED: user_id_mismatch_client_some_server_none
+```
+
+"client some, server none" means the browser is sending a user id the server
+can't match to a session. Every other part of Whop authenticates fine in this
+browser — dashboard, products, affiliates all work — so it's specific to the
+embedded-app layer. Most likely Brave blocking the cross-site cookie the embed
+needs. I'm not going to lower your browser's security settings on my own.
+
+### Do it on your phone — 6 taps
+
+1. Open the **Whop app** (native — no iframe, no cookie problem). If you don't
+   have it, App Store → "Whop".
+2. Bottom bar → your **LiftOffr** whop.
+3. Left sidebar / app list → **Content Rewards** (it's installed and waiting).
+4. **Create campaign** → choose **Clipping**.
+5. Fill it from the settings table above. The two that matter most:
+   **$1.00 per 1,000 views** and **$500 total budget**.
+6. Paste the description and content requirements from above.
+
+Stop at the payment popup — that's the funding step and it's your card.
+
+### If you're on desktop Brave instead
+
+Tap the **lion icon** in the address bar → toggle **Shields DOWN** for
+whop.com → reload the page. The app should render. Turn Shields back on
+afterwards if you like; the campaign will already exist.
+
+### Still stuck?
+
+Whop support is in the dashboard sidebar under **Support chats**. Tell them:
+*"Content Rewards app loads to an infinite spinner, console shows
+`FORCE CLOSED: user_id_mismatch_client_some_server_none`."* That error string
+will get you to the right engineer immediately.
