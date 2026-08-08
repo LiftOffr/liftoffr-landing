@@ -108,7 +108,7 @@ function plan3HTML() {
      <p style="margin:18px 0 16px;"><strong>The Cycle System is $197, one payment.</strong> Founding price <strong>$147</strong> for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.</p>
      <p style="margin:0 0 16px;">If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "See what's in the System →", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_system");
+    "Claim a founding seat — $147 →", "https://whop.com/checkout/plan_3SEycpErj9Zk7");
 }
 function plan3Text() {
   return ["First time I'll mention this, then it lives in the footer where you can ignore it.","",
@@ -118,7 +118,7 @@ function plan3Text() {
     "  • WHEN TO SELL — the exit ladder. Deliberately not in the $29, because scaling out is the half that made the difference in the backtest.","",
     "The Cycle System is $197, one payment. Founding price $147 for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.","",
     "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
-    "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_system","","— Torin"].join("\n");
+    "https://whop.com/checkout/plan_3SEycpErj9Zk7","","— Torin"].join("\n");
 }
 
 function plan7HTML() {
@@ -149,7 +149,7 @@ function plan14HTML() {
      <p style="margin:0 0 14px;"><strong>2. If you'd rather I just do it with you.</strong> The Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio, and you leave with the document and the recording. Four a month, because it's my calendar. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook" style="color:#e63946;">Details here.</a></p>
      <p style="margin:0 0 16px;">And if the answer to both is no — that's a normal outcome and the plan you already have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "The Cycle System — $147 founding →", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system");
+    "Claim a founding seat — $147 →", "https://whop.com/checkout/plan_3SEycpErj9Zk7");
 }
 function plan14Text() {
   return ["Last email in this sequence. After today you're on the Sunday Score with everyone else.","",
@@ -157,7 +157,7 @@ function plan14Text() {
     "2. IF YOU'D RATHER I DID IT WITH YOU: the Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio. You leave with the doc and the recording. Four a month.",
     "   https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook","",
     "If the answer to both is no, that's a normal outcome — the plan you have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.","",
-    "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system","","— Torin"].join("\n");
+    "https://whop.com/checkout/plan_3SEycpErj9Zk7","","— Torin"].join("\n");
 }
 
 function email2HTML() {
@@ -590,10 +590,13 @@ export default async function handler(req, res) {
   }
 
   // Auth guard
+  // `?force=1` used to bypass this check entirely, which left a public endpoint
+  // that sends email to the whole list callable by anyone who knew the URL.
+  // Auth is now unconditional; force only exists to skip the once-per-window
+  // guard for an authorised manual run.
   const expected = process.env.CRON_SECRET;
   const got = req.headers["authorization"] || "";
-  const force = (req.query?.force || new URL(req.url, "http://localhost").searchParams.get("force")) === "1";
-  if (expected && got !== `Bearer ${expected}` && !force) {
+  if (expected && got !== `Bearer ${expected}`) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 

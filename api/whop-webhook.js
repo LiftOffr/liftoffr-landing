@@ -126,9 +126,18 @@ const PLAN_TIER = {
 // Addon roles: additive, never part of the tier-swap strip logic. A member can
 // hold an addon alongside any tier (a System owner buying the $29 plan must not
 // lose their tier role, and vice versa). Only removed on refund of the addon plan.
-const ADDON_ROLES = { plan: "1533475043110293715" }; // @Plan
+const ADDON_ROLES = {
+  plan:   "1533475043110293715", // @Plan   — $29 buy plan
+  system: "1535404459407048714", // @System — The Cycle System
+};
 const PLAN_ADDON = {
-  plan_MntgjXJaQnGsW: "plan", // My Bear Market Buy Plan, $29 one-time
+  plan_MntgjXJaQnGsW: "plan",   // My Bear Market Buy Plan, $29 one-time
+  // The Cycle System (prod_b4DoR00YHuysT), created 2026-08-08. Both plans grant
+  // the same @System role — the only difference is the price and the 50-seat cap.
+  // Addon, not a tier: a System buyer who also owns the $29 plan must keep @Plan,
+  // and grandfathered members already hold @System without either purchase.
+  plan_WHByzwILskLsc: "system", // $197 standard
+  plan_3SEycpErj9Zk7: "system", // $147 founding, 50 seats, hidden from store
 };
 
 async function applyAddonRole(botToken, discordId, planId, add = true) {
@@ -295,6 +304,8 @@ async function sendWelcomeDM(botToken, discordId, username) {
 // sends only the bare plan id string, which rendered as "Plan: ?" in alerts).
 const PLAN_LABELS = {
   plan_MntgjXJaQnGsW: "My Bear Market Buy Plan ($29 one-time)",
+  plan_WHByzwILskLsc: "The Cycle System ($197)",
+  plan_3SEycpErj9Zk7: "The Cycle System — FOUNDING ($147)",
   plan_uIpPdsPTSHdTp: "Cycle Playbook 1:1 ($497)",
 };
 function planLabel(data) {
@@ -356,6 +367,8 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
 // Send a `purchase` event to GA4 via Measurement Protocol.
 const GA4_ITEM_IDS = {
   plan_MntgjXJaQnGsW: "bear-market-buy-plan",
+  plan_WHByzwILskLsc: "cycle-system",
+  plan_3SEycpErj9Zk7: "cycle-system-founding",
   plan_uIpPdsPTSHdTp: "cycle-playbook",
 };
 
@@ -461,7 +474,8 @@ export default async function handler(req, res) {
       // Fallback values only matter when Whop reports $0 collected on a paid event.
       // Keep in sync with the live Whop plan prices — a stale value here reports
       // phantom revenue to GA4. Verified against the Whop API 2026-08-07.
-      const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_uIpPdsPTSHdTp: 497 }[planId] ?? 0);
+      const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_WHByzwILskLsc: 197,
+                                   plan_3SEycpErj9Zk7: 147, plan_uIpPdsPTSHdTp: 497 }[planId] ?? 0);
       const currency = (data.currency || "USD").toUpperCase();
 
       // Discord new-member alert to ops channel (private notification for Torin).

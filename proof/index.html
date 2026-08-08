@@ -986,7 +986,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }).then(function(r){
         return r.json().then(function(d){ return { ok: r.ok, data: d }; });
       }).then(function(result){
-        if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+        if (!result.ok) throw new Error((result.data && result.data.error) || 'Signup failed');
         if (body) body.style.display = 'none';
         if (msg) {
           msg.style.display = 'block';
@@ -1021,7 +1021,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p style="color:#aaa;font-size:16px;max-width:480px;margin:0 auto 32px;line-height:1.65;">When they align again, you'll want to already be watching. Start free — no card required.</p>
   <a href="/plan" rel="noopener" class="btn-red-xl">Get the plan — $29 once →</a>
   <div class="trust-row">
-    <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Instant Discord access</span><span class="dot">·</span><span>Cancel anytime</span>
+    <span>🛡️ 30-day money-back</span><span class="dot">·</span><span>Instant Discord access</span><span class="dot">·</span><span>One-time — nothing renews</span>
   </div>
   <div style="margin-top:36px;">
     <a href="/indicator-history" style="color:#888;font-size:13px;text-decoration:underline;text-underline-offset:3px;">Read: Indicator readings at every cycle top →</a>

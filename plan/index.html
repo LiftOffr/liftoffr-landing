@@ -576,7 +576,7 @@
     }).then(function(r){
       return r.json().then(function(data){ return { ok: r.ok, data: data }; });
     }).then(function(result){
-      if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+      if (!result.ok) throw new Error((result.data && result.data.error) || 'Signup failed');
       form.innerHTML = '<div style="padding:14px;background:rgba(38,208,124,0.10);border:1px solid rgba(38,208,124,0.35);border-radius:9px;color:#26d07c;font-weight:700;text-align:center;width:100%;">✓ Check your inbox. The Score lands every Sunday.</div>';
       if (typeof window.track === 'function') {
         window.track('lead_captured', { source: medium, page: location.pathname });
