@@ -604,18 +604,23 @@ edit. Two clicks, fully reversible. Details in §9.
 
 ## The three new ones, in money order
 
-### 1. 💵 Build The Cycle System in Whop — **before Aug 24**
+### 1. ✅ The Cycle System — BUILT AND LIVE (2026-08-08)
+`prod_b4DoR00YHuysT`, $197 `plan_WHByzwILskLsc` + $147/50-seat
+`plan_3SEycpErj9Zk7`. Role delivery, /system, /welcome-plan and the emails are
+all wired. See `FINISHED_PRODUCT_REPORT.md`. Original item below for the record:
+
+### ~~1. 💵 Build The Cycle System in Whop — before Aug 24~~
 Unchanged from the last pass and now more urgent, because the plan-buyer D3 and
 D14 emails both point at `/system`. The page tells the truth today (opens
 Aug 24, can't be bought yet); that stops being true on the 24th. Once the plan
 exists: wire the checkout, delete the "why you can't buy it today" section, and
 unhide the `/welcome-plan` bridge.
 
-### 2. 📧 Create the Resend "LiftOffr Plan Buyers" audience and set `RESEND_PLAN_AUDIENCE_ID`
-Two minutes in the Resend dashboard plus one Vercel env var. Until it's set, the
-webhook doesn't file buyers and the whole D0-D14 sequence stays dormant. Every
-$29 buyer between now and then gets the product and no follow-up — which is the
-sequence that carries the $197 and the only route to the $497.
+### 2. ✅ RESEND_PLAN_AUDIENCE_ID — DONE, and it was never actually missing
+**Corrected 2026-08-08.** The audience existed and the env var was already set in
+Vercel production. I verified it functionally rather than by assumption: the cron
+resolved the audience, found its contact, and correctly sent nothing because that
+contact sits outside every send window. The D0-D14 sequence is armed.
 
 ### 3. 🔗 Apply to the five affiliate programs — one sitting, ~45 minutes
 Ledger → Trezor → Koinly → CoinLedger → TradingView, in that order and for the
