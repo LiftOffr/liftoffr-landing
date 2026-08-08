@@ -138,18 +138,43 @@ the two new ping roles unlock nothing.
 
 ## What still needs you — four things
 
-### 1. 💵 The Whop service fee is passed to the buyer
-This is the one real decision I left alone, because it changes your take-home.
+### 1. ✅ The Whop checkout fee — decided, and handled the only way it can be
 
-Your site says **"$29, once."** The checkout charges **$30.45** — Whop adds a
-~5% service fee on top, plus local tax. On the System it's $197 → $206.85 before
-tax. It is disclosed on Whop's payment step, so nobody is deceived, but the
-number the buyer sees on your page is not the number they pay.
+You said "whatever you think is best," and the call was **absorb it** so the
+buyer pays exactly $29. **That setting does not exist.**
 
-Two options: absorb the fee in Whop's settings (buyer pays exactly $29, you net
-~$1.45 less per sale), or leave it. I added a line to `/system` noting the fee
-is added at checkout. **`/plan` has no such line yet** — I left that page's copy
-alone until you decide, because the fix depends on which way you go.
+I checked, in this order: business Settings → Checkout, Settings → Payments,
+the per-plan settings in the product editor, the plan object via the API (no
+fee field anywhere), and Whop's own fees documentation. Whop's buyer-facing
+service fee is a **platform charge on the customer's total** — the seller has no
+dashboard control over it. (Payment orchestration's 0.8% is a separate fee
+charged to *you*, not this one.)
+
+So the intent got implemented the only honest way left, and it's arguably the
+part that actually mattered: **the abandonment trigger is discovering a number
+you weren't warned about, not the $1.45 itself.** The fee is now stated up
+front, before the click.
+
+Measured at exactly **5.0%** on two independent checkouts:
+
+| Rung | Listed | + 5% fee | Buyer pays (before local tax) |
+|---|---|---|---|
+| Plan | $29 | $1.45 | **$30.45** |
+| System founding | $147 | $7.35 | **$154.35** |
+| System | $197 | $9.85 | **$206.85** |
+| Playbook | $497 | $24.85 | **$521.85** |
+
+`/plan` states it at the hero CTA and again at the price block. `/system`'s
+vaguer "Whop adds its own service fee" line now carries the exact figure.
+
+**Deliberately not added:** "no hidden fees" and "the price you see is the price
+you pay." You asked for those *if accurate*. They aren't, while the fee exists —
+and a false trust claim sitting next to a checkout is worse than the fee it
+would be papering over.
+
+If you ever want the buyer's total to be a round $29, the remaining lever is
+pricing itself (list $27.62 so the total lands on $29), and that's a locked
+number I won't move without you saying so explicitly.
 
 ### 2. ✅ The two legacy $29/mo products — DONE
 `LiftOffr Founder` and `Founder Annual` are both **Hidden** as of 2026-08-08.
