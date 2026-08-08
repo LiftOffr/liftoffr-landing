@@ -187,7 +187,10 @@ import { createPublicKey, verify as cryptoVerify } from "node:crypto";
 // The application's public key. Public by definition — it verifies Discord's
 // signature, it does not create one. Hard-coded so the endpoint has no env
 // dependency that could silently break command handling on a redeploy.
+// Env wins when set, so the key can be rotated (or a test key substituted)
+// without a redeploy.
 const DISCORD_PUBLIC_KEY =
+  process.env.DISCORD_PUBLIC_KEY ||
   "4c5fb780547535f4cc5ade18c1fa40ed56d6a4bbd10885e88c0255b49762edb6";
 
 const ZONE_INT = { // embed colours, matching ZONE_COLORS above
