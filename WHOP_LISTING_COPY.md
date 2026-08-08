@@ -10,11 +10,23 @@ Constraints applied: one-time ladder only (no subscription language), no
 promised returns, no price predictions, education framing with the
 not-financial-advice line intact, no fabricated testimonials.
 
-**Status: unblocked.** The earlier $497/$997 mismatch is resolved — the
-Playbook page and every other surface now state **$497**, which is what
-`plan_uIpPdsPTSHdTp` actually charges. All three descriptions below are safe to
-paste as-is. If Torin later raises the Whop plan to $997, the only edits needed
-are the two price mentions in section 3 plus the five on `/playbook`.
+**Status (2026-08-08): rung 1 is LIVE, rungs 2 and 3 are still paste-ready.**
+
+- **§1, the $29 plan — APPLIED.** The storefront at
+  `whop.com/liftoffr/liftoffr-elite/` was rewritten in the dashboard and
+  verified live. It had been selling the killed subscription (7-day trial,
+  $49-$249/mo, "cancel anytime") plus a fabricated "most members report payback"
+  claim. All five FAQs were replaced too. See
+  `CHANGELOG_2026-08-08_BUSINESS_MODEL.md` §9 for the before/after.
+- **§2, The Cycle System — cannot be applied yet.** The product does not exist
+  in Whop. Build it (before Aug 24), then paste.
+- **§3, The Cycle Playbook — ready to paste.** Priced at $497, matching what
+  `plan_uIpPdsPTSHdTp` charges. If you raise the plan to $997, change the
+  heading here and the five prices on `/playbook`.
+
+⚠️ **Also see the changelog §9 warning:** `LiftOffr Founder` and `Founder Annual`
+are still Visible and still sell a $29/mo subscription. That needs a visibility
+toggle, not copy.
 
 ### How to paste (5 minutes per product)
 

@@ -381,7 +381,108 @@ The `/alerts` command specifically was rejected because it would need the admin
 bot token in a second system (Vercel env), and native onboarding already does
 the same job with zero additional token exposure.
 
-## 9 · Whop listing copy is unblocked and paste-ready
+## 9 · The Whop storefront was still selling the killed subscription — fixed live
+
+Applied directly in Torin's Brave browser (the Claude extension is connected
+there; the earlier attempt failed because that session wasn't authenticated
+yet). Live and verified at `whop.com/liftoffr/liftoffr-elite/`.
+
+**What was actually there is worse than "the description is empty."** The v5 API
+reports `description: null` on every product, which is why earlier passes
+concluded there was nothing to write. That field simply isn't the surface the
+storefront renders. The real page — **Live on Discover**, so it takes
+marketplace traffic — was selling this:
+
+> "Start with **7 days free** — no card, nothing charged automatically. Plans
+> from **$49/mo (Core)** to **$249/mo (Elite** — includes a monthly 20-min
+> 1:1). 30-day money-back on paid plans. **Cancel anytime.**"
+
+Every one of those offers was killed on 2026-08-02. Several of the bullets it
+sold as paid features — the daily brief, the cycle dashboard, macro watch — are
+free now. And the FAQ carried this:
+
+> **"What's the payback period?"** — "**Most members report payback** within
+> their first cycle signal (2-4 weeks). One well-timed exit using Module 5
+> confluence triggers **often covers months of membership**."
+
+That is a fabricated proof claim (there is no data behind "most members
+report") stacked on an implied-earnings claim — the exact pairing the FTC has
+been pursuing in this niche, and a straight violation of the no-fabricated-proof
+rule in BRAND_VOICE.
+
+### What it says now
+
+| Surface | Before | After |
+|---|---|---|
+| Headline | "Exit Bitcoin Tops 2-4 Weeks Early." | "The exact plan I'm buying this bear market with. $29, once." |
+| Description | 7-day trial, $49-$249/mo tiers, cancel anytime, "one well-timed exit covers years of membership" | The 2025 exit at $124,824 and the 2022 $30K round-trip, both dated. A free/$29 split. "One payment. No subscription, no renewal, no upsell at checkout." Full disclaimer paragraph. |
+| FAQ 1 | "What exactly is LiftOffr?" (membership) | Same question, answered as a public scoreboard + the plan I run against it |
+| FAQ 2 | "What's included in my membership?" | "What's free and what's the $29 for?" — the actual split |
+| FAQ 3 | "I'm new to crypto" → Module 1 of the course | Start on the free side; the $29 is a document, not a course |
+| FAQ 4 | "30-day money-back… then cancel anytime" | "There's nothing to cancel — it's a one-time $29 payment" |
+| FAQ 5 | **"What's the payback period?"** | **"Will this make me money?"** — *"I don't know, and nobody selling you something in this space does either — the difference is I'll say it out loud."* |
+
+**Nothing about pricing, plans, visibility or Discover status was touched.**
+Verified after saving: still $29.00, still Visible, still Live on Discover.
+
+One correction I made to my own work mid-flight: the first headline I wrote led
+with "Free cycle Score and daily brief." Then I looked at the rendered page and
+the only button on it is a **$29 Buy now** — leading with "Free" on a page with
+no free CTA is the same species of mismatch as the $997/$497 problem. Rewritten
+to lead with the plan.
+
+**Final check on the live page:** zero occurrences of `$49`, `$99`, `$249`,
+`/mo`, "cancel anytime", "7 days free", "membership", "most members report" or
+"payback period". Disclaimer present.
+
+### The two dashboard wins — one is not what the research said it was
+
+- **Automated messages / abandoned cart: not a native toggle in this account.**
+  The 2026 research described it as a built-in Whop feature. In the current
+  dashboard the equivalents are **third-party App Store apps** ("Email
+  Marketing & Automations", "Automations"). Installing one grants a third party
+  access to member data, may carry a fee, and overlaps with the Resend program
+  that already runs every sequence. That is a decision with a real trade-off, so
+  I did not install one — see the item below.
+- **Connect Instagram: no such setting exists in this dashboard version.**
+  Checked business Settings, Home preferences, and the product-level settings.
+  Settings carries pixels (Google Analytics active; Meta, TikTok, X inactive)
+  but no social-account connection.
+
+Two things I did find while in there, both left alone deliberately:
+
+- **`Settings → Checkout` reports "1 domain needs Apple Pay setup."** The
+  playbook rates Apple Pay highly for one-tap iOS purchases, and `/plan` already
+  runs embedded Whop checkout, so this is a genuine conversion item. It's a
+  domain-verification flow, so it's yours.
+- **Product `Growth tools` has "Show discount" and "Show member count", both
+  off.** Leave "Show discount" off — it's the strikethrough fake-urgency pattern
+  the master plan bans. "Show member count" is real proof rather than fabricated,
+  but at ~20 members it reads as a weak number; worth turning on once it isn't.
+
+### ⚠️ Found while in the dashboard: a second product is still selling $29/mo
+
+**`LiftOffr Founder` (`prod_6gBXfN32SNbU3`) is Visible and its page reads
+"Claim Founder Rate — $29/mo Forever."** with "Capped at 30 members." It sells a
+monthly subscription that was killed — at a number that will be read as the $29
+one-time plan.
+
+I did **not** change it, and copy can't fix it: rewriting the page to drop the
+monthly language would make the copy contradict what the checkout charges, which
+is precisely the mistake that produced the $997/$497 mess. The only real fixes
+are visibility or price, both of which are payment-surface decisions and yours.
+
+Assessed exposure before leaving it: **not** listed on Discover, **0 active
+users**, $30 all-time revenue, and **no link to it anywhere in the site repo** —
+so it's reachable by direct URL only. Low risk, non-zero. `Founder Annual`
+(`prod_KKTF8DklVBYZx`) is in the same state with $0 revenue.
+
+The master plan already ruled that retired subscription plans should be hidden
+from sale, so hiding both is arguably just executing a decision you already
+made — it's one toggle each and fully reversible. I left it to you because it's
+a sales surface, not copy.
+
+## 10 · Whop listing copy doc is paste-ready for the rungs not yet built
 
 `WHOP_LISTING_COPY.md` opened with a blocker: the Playbook charged $497 while
 the page said $997. That was resolved in the last pass by aligning the page, so
@@ -402,38 +503,20 @@ organic reel clears the 0.1% bar.
 
 # What still needs Torin
 
-## 0. 📋 The Whop listings — I could not apply these, and here is exactly why
+## 0. 🔴 Two Whop products still sell the dead $29/mo subscription
 
-You green-lit editing the product descriptions directly. **I tried both routes
-and neither is open from here**, so the copy is still paste-ready in
-`WHOP_LISTING_COPY.md` rather than live. What I found:
+`LiftOffr Founder` and `Founder Annual` are both **Visible**, and the first one
+advertises "Claim Founder Rate — **$29/mo Forever**". That number will be read
+as the $29 one-time plan by anyone who lands on it.
 
-**Chrome is signed out of Whop.** `whop.com/dashboard` redirects to the
-"Launch your business on Whop" splash with a **Sign in** button in the corner,
-and the public storefront renders logged-out. Signing in means handling your
-password, which I don't do — that one's yours, and it's about a 30-second fix
-before this becomes possible.
+Copy cannot fix this — rewriting the page to drop "monthly" would make it
+contradict what the checkout charges, which is the exact failure mode of the
+$997/$497 mismatch. The fix is one toggle: set both to **Hidden**. Neither has a
+single active user, neither is on Discover, and nothing in the site links to
+them, so hiding them costs nothing and breaks no grandfathered billing.
 
-**The API silently refuses the write.** The key in
-`~/.openclaw/secrets/whop.env` works and reads everything fine. But:
-
-- `POST /api/v2/products/{id}` with a `description` returns **201 and ignores
-  the field** — I confirmed by reading the product back afterwards: still
-  `null`. A 201 that changes nothing is the worst kind of API response, and it
-  is exactly the sort of thing that gets reported as "done" when it isn't.
-- `PATCH /api/v5/company/products/{id}` → **404** (no such route).
-- `PUT /api/v2/products/{id}` → **401, key lacks permission for this route.**
-
-This confirms the earlier session's read: storefront copy lives on the newer
-`page_id` surface, which this key can't reach. **Nothing on Whop was changed** —
-I verified all five products afterwards and every field is exactly as it was.
-
-So: sign into Whop in Chrome and the browser route opens, or paste the three
-blocks yourself (~5 minutes each, procedure at the top of
-`WHOP_LISTING_COPY.md`). While you're in there, the ranked list of free Whop
-features currently switched off is in the same file — **automated messages
-(native abandoned cart) and connecting your Instagram are the two worth doing
-first**, and both take under 15 minutes.
+I left it because visibility is a sales surface and that's your call, not a copy
+edit. Two clicks, fully reversible. Details in §9.
 
 ## The three new ones, in money order
 
