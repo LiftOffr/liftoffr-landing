@@ -482,7 +482,93 @@ from sale, so hiding both is arguably just executing a decision you already
 made — it's one toggle each and fully reversible. I left it to you because it's
 a sales surface, not copy.
 
-## 10 · Whop listing copy doc is paste-ready for the rungs not yet built
+## 10 · Reference sheets are PDFs now
+
+The three course reference sheets shipped as raw `.md` attachments. On a phone
+that opens as a wall of pipes and asterisks — and the Phase Matrix literally
+says *"One page. Print it."* PDF was the format the content already assumed.
+
+New `scripts/md_to_pdf.py`. No pandoc, no weasyprint, no new dependency: a
+focused markdown subset (only the constructs these files actually use — tables,
+headings, lists, fenced blocks, emphasis) rendered to HTML and printed by the
+headless Chrome already in the Playwright cache.
+
+**Rendered for paper, not for the dark UI.** White background, black text, red
+rule under a `liftoffr` masthead, zebra-striped tables, and the fill-in blocks
+as monospace forms with a red left border. A dark-background PDF is unprintable
+and unreadable in daylight, which defeats the entire point of these documents.
+
+Two things caught by rendering a page and *looking* at it rather than trusting
+the code:
+
+- **Chrome was stamping its own header and footer on every page** — the print
+  date across the top and, worse, `file:///tmp/liftoffr-pdf/out/Phase-Matrix.html`
+  across the bottom. Every member download would have carried a local file path
+  from my scratch directory. Fixed with `--no-pdf-header-footer`; the document's
+  own masthead and footnote block carry the branding and the disclaimer instead.
+- **The wide matrix left a half-page of dead space**, because `break-inside:
+  avoid` pushed it whole to the next page. Wide tables now break across pages
+  with the header row repeating.
+
+Every page carries the education-not-advice footnote. Sources and generated
+PDFs are both kept in `discord-rebuild/reference-sheets/` so a re-render never
+depends on downloading them back out of Discord.
+
+Live: the PDF message is posted and pinned in `#course-resources`, the `.md`
+message is deleted, and the two orphaned "pinned a message" system notices went
+with it.
+
+## 11 · Channel cleanup — every stale message, logged
+
+Scanned **97 text channels**, 50 messages deep each, against nine
+stale-content signatures. 35 raw hits, triaged down to 8 real problems. Every
+action below is on a message the Mission Control bot owns. **Nothing
+member-authored was touched.**
+
+| # | Action | Channel | What was wrong |
+|---|---|---|---|
+| 1 | **EDIT** | `🧭・whats-locked-and-why` (pinned) | The price map — the canonical "here's what everything costs" post — listed **"🟠 $997 — The Cycle Playbook"** and "$997 = me, on your numbers". The plan charges $497. Both corrected. |
+| 2 | **EDIT** | `🎯・1-on-1-playbook` (pinned) | Sales embed titled **"The Cycle Playbook — $997"**. → $497. |
+| 3 | **DELETE** | `🚀・start-here` (pinned) | A pinned welcome selling **"Pro tier"**, **"Elite tier"**, a trial, and "react 📚 to unlock Modules 2-6". Superseded by the current pinned start-here embed, which is correct. |
+| 4 | **DELETE** | `🧰・course-resources` | **The 📚 reaction-role message** — see the correction below. |
+| 5 | **DELETE** | `🤔・how-to-use-this-course` | "React 📚 on the pinned message… Modules 2-6 appear for you" — same free-course promise, pointing at a message that no longer exists. |
+| 6 | **EDIT** | `📢・announcements` | The July "State of LiftOffr" post still sold **Core $49/mo · Pro $99/mo · Elite $249/mo**, "7 days free, no card required", linked to `/start` — which now redirects to `/plan`, so the link contradicted its own sentence. **Kept as a record**, not deleted: a superseded banner added at the top, dead pricing struck through, current ladder named. |
+| 7 | **EDIT** | `🎉・welcome` (pinned) | Opened *"Whether you just subscribed"* with a *"Just subscribed?"* field and pitched the course as included. Rewritten for the one-time ladder, pointing at start-here and the price map. |
+| 8 | **DELETE ×11** | `💎・gem-radar` | Third-party memecoin forwards published under the Mission Control bot — `$MEOWSHI`, `$SHITCOIN`, `$STOCKCOIN`, `$CASHCAT`, raw contract addresses. Ruling 9 killed gem calls as a liability shape and the channel was archived, but the posts stayed up. **Full record archived to `data/gem_radar_archive_2026-08-08.json` before deleting** — the channel is empty of bot posts now, and nothing was destroyed. |
+
+**Re-scanned after the sweep: 4 hits left, all correct to leave.** One is the
+superseded banner I wrote matching my own regex. Three are the word
+"shitcoins" appearing in course lessons that *warn against them* — checked each
+in context rather than pattern-matching them into a deletion.
+
+**Deliberately left alone:** `🔧︱whop-logs` "Membership was generated" entries
+(a legitimate Whop event log in a staff channel, not marketing copy), and an
+`altcoin-radar` post that tripped the `$549` filter with **BNB's price**.
+
+### ⚠️ Correction to what I told you earlier about `📚 Studying`
+
+Last pass I reported the role as "probably inert — nothing assigns it." **That
+was wrong, and the method was wrong.** I checked only the *pinned* messages in
+`#course-resources` and concluded no reaction-role message existed.
+
+It existed. It just wasn't pinned:
+
+> **📚 Taking the course?** React with 📚 below and Modules 2-6 appear in your
+> sidebar within the hour…
+
+It carried a live 📚 reaction, and a second message in
+`#how-to-use-this-course` advertised it. So there *was* a documented path to a
+role that opens all 48 lesson channels — the $197 product — and the onboarding
+DM I rewrote was pointing new members straight at it.
+
+Both messages are now deleted, so the path is gone. Still true: **0 of 70
+members hold the role**, and `#course-resources` was never visible to free
+members, so nobody appears to have used it. The role itself still exists with
+its course-channel grants — with no message left to earn it from, that's inert,
+but deleting the role outright is the clean finish and it's one click in Server
+Settings if you want it gone.
+
+## 12 · Whop listing copy doc is paste-ready for the rungs not yet built
 
 `WHOP_LISTING_COPY.md` opened with a blocker: the Playbook charged $497 while
 the page said $997. That was resolved in the last pass by aligning the page, so
@@ -557,11 +643,12 @@ dashboard edit and doubles the ceiling of the second-best revenue line — at 4
 spots/month it is a **$2,000/month** decision. Worth making before the next
 Playbook sale, not after.
 
-### 6. 📚 The `📚 Studying` role
-Downgraded from "unknown risk" to "probably inert" — see §3. Nothing assigns it,
-0 of 70 hold it, and the one thing that ever pointed at it was the DM I
-rewrote. Confirm no ProBot reaction role is wired to it and it can be closed; if
-one is, tell me and I'll strip it from the 50+ course channels.
+### 6. 📚 The `📚 Studying` role — optional cleanup, no longer a risk
+**Corrected in §11:** a reaction-role message for it did exist (I'd checked only
+pinned messages last pass and missed it). It's deleted now, along with the
+message advertising it, so there is no way left to earn the role. 0 of 70 hold
+it. The role still carries its course-channel grants but nothing can assign
+them — deleting the role in Server Settings is the tidy finish, not a fix.
 
 ### 7. 📮 Send the brand-deal outreach
 The rate card and the 20-target list exist. **Zero emails have been sent.** This
