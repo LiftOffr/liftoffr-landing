@@ -151,23 +151,43 @@ Two options: absorb the fee in Whop's settings (buyer pays exactly $29, you net
 is added at checkout. **`/plan` has no such line yet** — I left that page's copy
 alone until you decide, because the fix depends on which way you go.
 
-### 2. 🔴 Two products still sell the dead $29/mo subscription
-Unchanged from yesterday, still one toggle. `LiftOffr Founder` advertises
-**"Claim Founder Rate — $29/mo Forever"** and `Founder Annual` is beside it.
-Both **Visible**. Copy can't fix this — rewriting it would make the page
-contradict what the checkout charges. Set both to **Hidden**: zero active users,
-not on Discover, nothing on the site links to them.
+### 2. ✅ The two legacy $29/mo products — DONE
+`LiftOffr Founder` and `Founder Annual` are both **Hidden** as of 2026-08-08.
+Whop's confirm dialog states the scope exactly: *"private to everyone, whether
+via a direct link or searchable on Discover"* — so the "$29/mo Forever" page is
+no longer reachable by anyone. Verified via the API afterwards. All four live
+ladder checkouts still return 200, and hiding a product does not touch existing
+memberships, so grandfathered billing is unaffected.
 
-### 3. 🔑 Rotate the GitHub PAT
-Untouched, because it means handling a live credential. Scope is one repo —
-`liftoffr-landing` is the only checkout with a remote. Exact commands in
-`CHANGELOG_2026-08-08_CLEANUP.md` §1. Note that two agents now push through it
-daily (`youtube-intel` hourly, `indicator-refresh` at 07:20).
+### 3. 🔑 Rotate the GitHub PAT — still yours, for two separate reasons
+**GitHub is signed out in Brave** (github.com/settings/tokens redirects to the
+login page), so it is blocked on a login regardless.
+
+And even signed in, generating a token means reading a live secret off the
+screen and writing it into the keychain. I don't handle credential values —
+that limit doesn't move with authorisation, because the failure mode is a
+token ending up somewhere neither of us intended. This one is genuinely yours.
+
+It is a five-minute job and the exact commands are in
+`CHANGELOG_2026-08-08_CLEANUP.md` §1. A fine-grained token needs **Contents:
+Read and write on `LiftOffr/liftoffr-landing` only** — nothing else on the
+machine pushes anywhere. Two agents now push through it daily
+(`youtube-intel` hourly, `indicator-refresh` 07:20), so the next hour is a
+live test either way.
 
 ### 4. 🔗 Affiliate program signups
-Five applications, ~45 minutes, all in `AFFILIATE_SETUP.md`. Needs your identity
-and payout details, so it isn't mine to do. `/stack` is live and honest until
-then — every link says *"Direct link — no commission."*
+Checked tonight: **Ledger's affiliate portal is signed out**; TradingView is
+signed into your normal account but "Become a partner" starts a *new affiliate
+application*, not a link you can just copy.
+
+Every one of the five is an account creation followed by tax and payout details
+— data only you have, and account creation isn't something I do on your behalf.
+So this stays yours. ~45 minutes for all five, steps and terms in
+`AFFILIATE_SETUP.md`.
+
+`/stack` is live and honest until then: every link says *"Direct link — no
+commission"*, and flipping one to affiliate is a single URL paste into the
+config block at the bottom of the page.
 
 ### Also worth knowing, no action needed tonight
 - **`📚 Studying` is fully closed.** Both messages that granted it are deleted;

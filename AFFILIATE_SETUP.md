@@ -5,6 +5,31 @@ goes to the manufacturer directly and is labelled *"Direct link — no
 commission"*. Nothing claims a commission that doesn't exist. When you join a
 program, you paste one URL and the label flips itself.
 
+
+## Login state checked 2026-08-08 (overnight pass)
+
+Before assuming any of this is half-done: I checked the browser and **none of
+the five affiliate accounts exist yet**.
+
+- **Ledger affiliate portal** — signed out (`affiliate.ledger.com` shows
+  Sign up / Login).
+- **TradingView** — you are signed into your *normal* account, but
+  "Become a partner" opens a **new affiliate application**, not a link you can
+  copy from an existing partner account.
+- The other three were not reachable without starting a signup.
+
+All five are: create an affiliate account → agree to terms → submit tax and
+payout details. That last part is data only you have, and account creation on
+your behalf isn't something I do — so all five stay on your list. The upside is
+they're quick and can be done in one sitting.
+
+**Nothing on the site is waiting on them.** `/stack` is live and every link
+currently reads *"Direct link — no commission"*, which is true. When a program
+approves you, paste the tracking URL into the `AFFILIATES` block at the bottom
+of `stack/index.html` and the label flips itself to "Affiliate link".
+
+---
+
 ## What's built
 
 | Surface | State |
