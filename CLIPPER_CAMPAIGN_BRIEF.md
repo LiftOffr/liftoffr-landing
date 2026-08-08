@@ -17,7 +17,7 @@ Everything below is what to put in the form. Copy-paste.
 |---|---|---|
 | Type | **Clipping** | You have a reel library. UGC campaigns need creators to shoot new footage; clipping uses what exists. |
 | Rate | **$1.00 per 1,000 views** | Market range is $0.25-$5. $1 is the honest entry point and roughly 1/10th of Meta's CPM. |
-| Total budget | **$500** to start | ≈500K views at $1 CPM. Enough to read a signal, small enough that a dud costs you a weekend, not a month. |
+| Total budget | **$1,000** | Whop's minimum. At $1/1K that's up to **1,000,000 views** of headroom. |
 | Min payout | **$5** | Filters junk submissions that would eat your review time. |
 | Max per video | **$250** | Caps a single viral clip from swallowing the budget. |
 | Platforms | **TikTok, Instagram Reels, YouTube Shorts, X** | All four are supported and all four are places your format already works. |
@@ -38,11 +38,11 @@ on the number before they read a word.
 
 `img/campaign/liftoffr-clipping-thumbnail.png` — 1920×1080 (Whop wants 16:9).
 Re-render at a different rate/pool with:
-`python3 scripts/make_campaign_thumb.py --rate 1.50 --pool 500`
+`python3 scripts/make_campaign_thumb.py --rate 1.50 --pool 1000`
 
 ## Campaign description (paste this — written FOR CLIPPERS, not buyers)
 
-> **$1 per 1,000 views. $500 pool. Footage handed to you.**
+> **$1 per 1,000 views. $1,000 pool. Footage handed to you.**
 >
 > You don't have to film anything, write anything, or know a single thing about
 > Bitcoin. I hand you the library — car POV, night drives, travel, lifestyle
@@ -97,8 +97,9 @@ Re-render at a different rate/pool with:
 1. **Open the app and create the campaign** (the builder wouldn't render for me).
 2. **Fund it.** Whop's docs: *"you will not be charged until you set up your
    payments on Whop and deposit funds."* You'll get a payment popup after
-   creating the campaign — choose a method and deposit. **$500** to start.
-   Your Whop balance is currently **$26.54**, so this is a real card charge.
+   creating the campaign — choose a method and deposit. **$1,000** — Whop's
+   minimum, so there is no smaller option. Your Whop balance is **$26.54**, so
+   this is a real card charge.
 3. **Give clippers the footage.** Point the campaign at a public Google Drive
    folder or a Drive link with the approved library. Without source material a
    clipping campaign has nothing to clip.
@@ -110,26 +111,35 @@ Re-render at a different rate/pool with:
 `WHOP_LISTING_COPY.md` recommended holding off on clippers until one organic
 reel clears the 0.1% views→site bar, and that reasoning hasn't changed:
 **clippers multiply whatever the funnel already converts at.** Right now that's
-0.013-0.034%. At $1 CPM, 500K bought views through the current funnel is a
-realistic **65-170 site sessions** and **0-8 sales** — likely a net loss on the
-$500, judged purely on direct revenue.
+0.013-0.034%.
 
-You asked for it and it's built, so here's the version where spending it is
-still smart:
+**$1,000 at $1/1K buys up to 1,000,000 views.** Run through the current funnel
+that's a realistic **130-340 site sessions** and, at 3-5% cold conversion,
+**4-17 sales** — roughly **$116-$493** against $1,000 spent. On direct revenue
+alone, expect a loss.
 
-- **Treat the $500 as a measurement, not a customer-acquisition spend.** It buys
-  a clean read on whether the offer converts *any* cold traffic at volume —
-  which is the exact question the day-30 gate asks and can't currently answer,
-  because there isn't enough traffic to judge.
-- **Watch views→site, not sales.** If bought views convert at the same 0.02% as
-  organic, the bottleneck is the offer/landing, not distribution, and no amount
-  of reach fixes it. If they convert meaningfully better, clippers are a real
-  channel and you scale.
-- **Stop at $500 and read it** before funding more. One decision, one number.
+Whop's $1,000 minimum removes the "start smaller" option, so the question is
+just whether the information is worth $1,000. It is, on one condition — you
+actually read it:
 
-Either outcome is worth $500. Spending it and *not* reading the number is the
-only way this is wasted.
+- **Treat it as a measurement, not customer acquisition.** A million views is
+  genuinely enough to answer the question the day-30 gate can't currently
+  answer: does this offer convert *any* cold traffic at volume? Today there
+  isn't enough traffic to judge, and that ambiguity is worth more than $1,000
+  to remove.
+- **Watch views→site, not sales.** If bought views convert at the same ~0.02%
+  as organic, the bottleneck is the offer and the landing page — and no amount
+  of reach fixes that. If they convert meaningfully better, clippers are a real
+  channel and scaling is justified.
+- **Stop at $1,000 and read the number before adding a cent more.** One
+  decision, one number. Do not top up on momentum.
+- **Watch the burn rate too.** A million views is a lot of headroom; if it
+  drains in days you have a demand signal worth acting on, and if it barely
+  moves in two weeks the problem is the campaign's attractiveness, not the
+  funnel — raise the rate to $1.50 before topping up the pool.
 
+Either outcome is worth the money. Spending it and *not* reading the number is
+the only way this is wasted.
 
 ---
 
@@ -168,7 +178,7 @@ needs. I'm not going to lower your browser's security settings on my own.
 3. Left sidebar / app list → **Content Rewards** (it's installed and waiting).
 4. **Create campaign** → choose **Clipping**.
 5. Fill it from the settings table above. The two that matter most:
-   **$1.00 per 1,000 views** and **$500 total budget**.
+   **$1.00 per 1,000 views** and **$1,000 total budget** (Whop's minimum).
 6. Paste the description and content requirements from above.
 
 Stop at the payment popup — that's the funding step and it's your card.
@@ -215,10 +225,11 @@ range is $0.20–$6.
 
 ### ⚠️ The honest problem with our campaign
 
-**Our $500 pool is 1/100th to 1/500th the size of the campaigns we're next to.**
-A clipper sorting by remaining budget sees $250K, $120K, $85K… and $500. At
-market-average rate, we are the least attractive card on the page on the exact
-metric they screen second.
+**Our $1,000 pool is still 1/50th to 1/250th the size of the campaigns we're
+next to.** A clipper sorting by remaining budget sees $250K, $120K, $85K… and
+$1,000. At market-average rate we're near the bottom of the page on the exact
+metric they screen second. Whop's $1,000 minimum is the floor, so this is as
+small as a campaign can be.
 
 We cannot win on budget. So we have to win on the other two things clippers
 actually respond to:
@@ -235,15 +246,15 @@ actually respond to:
 
 At **$1.00/1K** we are average rate + smallest pool = easy to scroll past.
 At **$1.50/1K** we'd match Roobet and CoD on rate, which is the number that
-gets the click, and $500 still buys 333K views of headroom.
+gets the click, and $1,000 still buys 667K views of headroom.
 
-The trade is 500K potential views → 333K. But **500K views nobody clips is
+The trade is 1M potential views → 667K. But **1M views nobody clips is
 worth zero**, and the real goal here is a *measurement*, which needs
 submissions to exist at all. If the campaign sits dead for a week at $1, raise
 it to $1.50 before adding budget.
 
 Re-render the thumbnail for the new rate in one command:
-`python3 scripts/make_campaign_thumb.py --rate 1.50 --pool 500`
+`python3 scripts/make_campaign_thumb.py --rate 1.50 --pool 1000`
 
 ### Thumbnail design rules, from what the winners do
 
@@ -254,7 +265,7 @@ Re-render the thumbnail for the new rate in one command:
 - A face or a car reads better than an abstract graphic at small size
 
 Ours puts `$1 / 1K` at 190px type over the Urus shot with a green dollar sign
-(money cue) and a `$500 POOL` pill. Verified legible shrunk to 340×191.
+(money cue) and a `$1000 POOL` pill. Verified legible shrunk to 340×191.
 
 ### What we're deliberately NOT copying
 
