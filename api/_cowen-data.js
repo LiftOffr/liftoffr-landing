@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "Ju6Q-D9GZZU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Something Strange Is Happening in the Labor Market",
+    "published": "2026-08-09T03:21:42+00:00",
+    "processed_at": "2026-08-09T03:34:28.470219+00:00",
+    "url": "https://www.youtube.com/watch?v=Ju6Q-D9GZZU",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Non-farm payroll",
+      "Unemployment rate",
+      "Labor force participation rate",
+      "Initial jobless claims",
+      "Job openings",
+      "2-year yield",
+      "Fed funds rate",
+      "US-Japan interest rate differential",
+      "Macro recession risk dashboard",
+      "Liquidity risk dashboard",
+      "Bitcoin dominance",
+      "GDP-weighted global interest rates",
+      "Global inflation rate"
+    ],
+    "key_points": [
+      "Non-farm payroll growth has slowed dramatically from 4-5% annually in 2022 to near 0% now, leaving little margin for error if the Fed missteps",
+      "Falling unemployment rate is misleading since it is driven largely by a declining labor force participation rate rather than job creation strength",
+      "Layoffs and initial claims remain near pre-pandemic lows, indicating no recessionary feedback loop has started despite headline weakness",
+      "Regional and sector-level divergence (crypto/altcoins weak, AI/semis strong) means the market keeps climbing the wall of worry rather than pricing in recession, unlike 2008 or 2001 when weakness was nationwide",
+      "Global monetary easing has stalled and GDP-weighted rates are ticking back up, which is cited as a contributing factor to crypto's continued underperformance this year",
+      "A stock market correction is expected to begin by late September into October, consistent with prior midterm-year seasonal patterns, coinciding with the September Fed meeting uncertainty"
+    ],
+    "summary": "The labor market shows genuine but gradual weakening\u2014stalling job growth and rising unemployment duration\u2014yet layoffs and claims remain too low to confirm recession, leaving the Fed in a difficult position between hiking risk and slowing growth. Bitcoin and crypto remain pressured by a stalled global easing cycle and risk-off rotation into blue chips, while a seasonal equity correction is anticipated around September before markets likely resume climbing the wall of worry given the absence of nationwide economic distress."
+  },
+  {
     "video_id": "CmGkfyot8qY",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1463,37 +1500,5 @@ export default [
       "Bitcoin dominance excluding stablecoins continues higher despite headline dominance decline, suggesting capital concentration rather than true altcoin strength"
     ],
     "summary": "The unfortunate pattern applied to stablecoin dominance suggests an extended bearish structure similar to prior cycles. Bitcoin's rejection from the 200-day moving average combined with stablecoin dominance dipping below the 21-week EMA mirrors conditions that preceded June lows in both 2018 and 2022, indicating potential for further downside rather than immediate bullish reversal."
-  },
-  {
-    "video_id": "M5d5fbiSfhc",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Rejected off the 200D",
-    "published": "2026-05-19T02:49:37+00:00",
-    "processed_at": "2026-05-19T09:57:03.640840+00:00",
-    "url": "https://www.youtube.com/watch?v=M5d5fbiSfhc",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [
-      75000,
-      51000,
-      52000
-    ],
-    "indicators_mentioned": [
-      "200-day simple moving average",
-      "20-week SMA",
-      "382 Fibonacci level",
-      "21-week EMA",
-      "Stable coin dominance"
-    ],
-    "key_points": [
-      "Bitcoin rejected at 200-day MA historically signals weakness in bear markets; prior cycles (2014, 2018, 2022) show similar rejection patterns followed by declines into June",
-      "Average performance in midterm years shows Bitcoin should be ~40% down from yearly open (~51-52K), but current price is well above this level, suggesting a significant pullback is due",
-      "Weakness window expected into June with potential for further drops into Q4; October is identified as most likely market cycle bottom based on 4-year cycle patterns",
-      "After initial June weakness, the 382 Fibonacci level remains untested and historically must be tagged before final capitulation; this could occur before Q4 decline",
-      "Stock market weakness will likely trigger Bitcoin decline; macro conditions and elevated interest rates continue to restrict high-risk asset appreciation compared to gold and manufacturing"
-    ],
-    "summary": "Bitcoin faces a structural bear market with rejection at the 200-day moving average consistent with prior cycle behavior. Near-term weakness is expected into June with a potential June low followed by a counter-trend rally, ultimately leading to an October market cycle bottom. Current price levels exceed historical midterm year averages, suggesting significant downside risk toward 51-52K before any sustained recovery can establish."
   }
 ];
