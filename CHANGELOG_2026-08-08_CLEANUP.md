@@ -281,7 +281,7 @@ exactly those 21 channels — **nothing was widened for `@everyone`.**
 
 ### Two things I did not change
 
-- **`📚 Studying` grants full course access** — all 48 lesson channels plus the
+- **`📚 Studying` grants full course access** — all 48 course channels plus the
   HUB, sitting alongside the paid roles. **0 members hold it**, so there is no
   live exposure, but if it is self-assignable anywhere (reaction roles, ProBot),
   it is a free key to the $197 course. Worth checking how someone gets it; I

@@ -556,7 +556,7 @@ It existed. It just wasn't pinned:
 
 It carried a live 📚 reaction, and a second message in
 `#how-to-use-this-course` advertised it. So there *was* a documented path to a
-role that opens all 48 lesson channels — the $197 product — and the onboarding
+role that opens all 48 course channels — the $197 product — and the onboarding
 DM I rewrote was pointing new members straight at it.
 
 Both messages are now deleted, so the path is gone. Still true: **0 of 70
