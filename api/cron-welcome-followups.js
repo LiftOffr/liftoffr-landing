@@ -32,7 +32,11 @@ function unsubUrl(email) {
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
 const SUBJECT_E2 = "How to actually use the Score (3-minute habit, every Sunday)";
 const SUBJECT_PROOF = "$50/week became $1.88M — the backtest";
-const SUBJECT_E3 = "7 days of the full system — free, no card (last welcome email)";
+// Was: "7 days of the full system — free, no card (last welcome email)" — a
+// leftover from the 7-day trial, which was retired 2026-08-02. The body pitches
+// the $29 plan and has never mentioned a trial; the subject was promising a
+// product that no longer exists.
+const SUBJECT_E3 = "The shortcut, if you want it (last welcome email)";
 const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 
 // ── Plan-buyer sequence (LIFTOFFR_MASTER_PLAN.md §5) ──
@@ -183,11 +187,11 @@ function email2HTML() {
     </div>
     <p style="margin:18px 0 16px;">By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.</p>
     <p style="margin:0 0 16px;"><strong>Why this matters:</strong> the biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.</p>
-    <p style="margin:0 0 16px;">The nine indicators the Score is built from are all public, each with today's reading and what it read at every cycle top since 2013. No signup, nothing gated.</p>
+    <p style="margin:0 0 16px;">The eight indicators the Score is built from are all public, each with today's reading and what it read at every cycle top since 2013. No signup, nothing gated.</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
   <div style="padding:0 28px 32px;">
-    <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See all 9 indicators, live →</a>
+    <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See every indicator, live →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     Backtested 2017–2026. Past performance does not guarantee future results.<br/>
@@ -218,7 +222,7 @@ function email2Text() {
     "",
     "The biggest mistake of every cycle is binary thinking. The Score lets you scale — that's the difference between round-tripping and compounding.",
     "",
-    "The nine indicators behind the Score are all public — today's reading for each, plus what every one read at every cycle top since 2013:",
+    "The eight indicators behind the Score are all public — today's reading for each, plus what every one read at every cycle top since 2013:",
     "https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators",
     "",
     "— Torin",
@@ -288,15 +292,15 @@ function email3Text() {
 // ── Day 1: Quick win (activation → live dashboard) ──
 function quickWinHTML() {
   return shell("Welcome · Day 1",
-    `<p style="margin:0 0 16px;">Yesterday you grabbed the Checklist — the 9 indicators that flag a cycle top.</p>
-     <p style="margin:0 0 16px;">Reading all 9 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 9 into <strong>one number, 0–100</strong>, updated daily.</p>
+    `<p style="margin:0 0 16px;">Yesterday you grabbed the Checklist — the 8 indicators that flag a cycle top.</p>
+     <p style="margin:0 0 16px;">Reading all 8 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 8 into <strong>one number, 0–100</strong>, updated daily.</p>
      <p style="margin:0 0 16px;">Open it and you'll see exactly where the cycle stands today — color-coded buy zone, neutral, or top zone. Ten seconds, no charts to decode.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See today's Score →", "https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
 }
 function quickWinText() {
-  return ["Yesterday you grabbed the Checklist — the 9 indicators that flag a cycle top.","",
-    "Reading all 9 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 9 into one number, 0–100, updated daily.","",
+  return ["Yesterday you grabbed the Checklist — the 8 indicators that flag a cycle top.","",
+    "Reading all 8 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 8 into one number, 0–100, updated daily.","",
     "Open it and you'll see exactly where the cycle stands today — buy zone, neutral, or top zone. Ten seconds.","",
     "See today's Score: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
 }
@@ -573,10 +577,19 @@ function ageDays(createdAt) {
 }
 
 export default async function handler(req, res) {
-  // Preview mode — render any email as HTML (no auth, no send). For QA/review.
+  const expected = process.env.CRON_SECRET;
+  const got = req.headers["authorization"] || "";
+  const authed = !expected || got === `Bearer ${expected}`;
+
+  // Preview mode — render any email as HTML (no send). For QA/review.
+  // Was unauthenticated, which published every template — including the retired
+  // trial emails and their dead $99/mo + $49/mo pricing — on a public URL that
+  // contradicted the live one-time-purchase pricing everywhere else. Same auth
+  // as the send path now.
   const _url = new URL(req.url, "http://localhost");
   const preview = _url.searchParams.get("preview");
   if (preview) {
+    if (!authed) return res.status(401).json({ error: "Unauthorized" });
     const map = {
       qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML,
       stack: stackHTML, reengage: reengageHTML,
@@ -594,9 +607,7 @@ export default async function handler(req, res) {
   // that sends email to the whole list callable by anyone who knew the URL.
   // Auth is now unconditional; force only exists to skip the once-per-window
   // guard for an authorised manual run.
-  const expected = process.env.CRON_SECRET;
-  const got = req.headers["authorization"] || "";
-  if (expected && got !== `Bearer ${expected}`) {
+  if (!authed) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 

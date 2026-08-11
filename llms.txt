@@ -4,7 +4,7 @@
 
 LiftOffr is for crypto investors who want to time cycle exits using on-chain data instead of emotion. The product tracks 8 cycle indicators (CBBI, MVRV, Pi Cycle Top, Puell Multiple, 2-Year MA Multiplier, BTC Rainbow Chart, Fear & Greed Index, Google Trends) and synthesizes them into a single plain-English daily brief delivered to a private Discord at 8am MT.
 
-Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikTok). No subscriptions. Offers: My Bear Market Buy Plan ($29 one-time — Torin's exact tier-by-tier accumulation plan with timestamped receipts, at /plan), The Cycle System ($197 one-time — the full indicator course + exit ladder, lifetime updates), and The Cycle Playbook ($997 — a private 1:1 session, 4 spots/month). The scoreboard layer (live Score, daily brief, Sunday Score email, open Discord) is free at /free.
+Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikTok). No subscriptions. Offers: My Bear Market Buy Plan ($29 one-time — Torin's exact tier-by-tier accumulation plan with timestamped receipts, at /plan), The Cycle System ($197 one-time — the full indicator course + exit ladder, lifetime updates), and The Cycle Playbook ($497 — a private 1:1 session, 4 spots/month). The scoreboard layer (live Score, daily brief, Sunday Score email, open Discord) is free at /free.
 
 ## Core pages
 - [Homepage](https://liftoffr.com/): Product overview, live Score, receipts, lead magnet
@@ -35,9 +35,8 @@ Torin Christianson — Bitcoin cycle investor and educator. Analyzing BTC on-cha
 - [TikTok @torin_christianson](https://www.tiktok.com/@torin_christianson)
 
 ## Public APIs
-- [/api/founder-count](https://liftoffr.com/api/founder-count): GET — returns live count of remaining founder spots, e.g. `{"filled":1,"remaining":29,"total":30}`
 - [/api/subscribe](https://liftoffr.com/api/subscribe): POST — adds email to LiftOffr free list and immediately sends the welcome email (Cycle Top Checklist PDF + current LiftOffr Score)
-- [/api/cycle-score](https://liftoffr.com/api/cycle-score): GET — returns the live LiftOffr Score (0-100 composite of 9 BTC cycle indicators), zone, trend, and component readings
+- [/api/cycle-score](https://liftoffr.com/api/cycle-score): GET — returns the live LiftOffr Score (0-100 composite of the 8 BTC cycle indicators), zone, trend, and component readings
 
 ## Disclaimer
 All content is educational only and not financial advice. Cryptocurrency markets are highly volatile. Past indicator behavior does not guarantee future results.
