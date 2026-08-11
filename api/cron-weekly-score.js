@@ -786,10 +786,14 @@ export default async function handler(req, res) {
   const force = (req.query?.force || new URL(req.url, "http://localhost").searchParams.get("force")) === "1";
   const tasksParam = req.query?.tasks || new URL(req.url, "http://localhost").searchParams.get("tasks");
 
-  // Auth guard for cron — allow ?force=1 for manual testing
+  // Auth guard for cron. `force` overrides the HOUR GATE only — it is not an
+  // auth bypass. It used to be: anyone who guessed this URL could append
+  // ?force=1 and fire a real Coinbase buy, post to Discord, and (on Sundays)
+  // email the entire Resend audience, all unauthenticated.
   const expected = process.env.CRON_SECRET;
   const got = req.headers["authorization"] || req.headers["Authorization"] || "";
-  if (expected && got !== `Bearer ${expected}` && !force) {
+  const authed = !expected || got === `Bearer ${expected}`;
+  if (!authed) {
     return res.status(401).json({ error: "Unauthorized — missing/wrong cron secret" });
   }
 

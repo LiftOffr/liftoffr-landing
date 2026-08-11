@@ -131,6 +131,44 @@ export default async function handler(req, res) {
       });
     }
 
+    // ?previewDca=<usd> — dry-run the exact daily DCA order path.
+    // POST /api/v3/brokerage/orders/preview VALIDATES an order and returns the
+    // quote; it does not create one. This is the only way to prove the buy path
+    // works end to end without spending money. Product is pinned to BTC-USDC
+    // and the size is capped, so this can never be steered into a real trade.
+    const previewRaw = req.query?.previewDca ??
+      new URL(req.url, "http://localhost").searchParams.get("previewDca");
+    if (previewRaw != null) {
+      const amount = Math.min(Math.max(Number(previewRaw) || 50, 1), 250);
+      const path = "/api/v3/brokerage/orders/preview";
+      const jwt = makeJWT("POST", path, keyId, secret);
+      const r = await fetch(`https://${HOST}${path}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${jwt}`, "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          product_id: "BTC-USDC",
+          side: "BUY",
+          order_configuration: { market_market_ioc: { quote_size: amount.toFixed(2) } },
+        }),
+      });
+      const body = await r.json().catch(() => ({}));
+      const errs = body?.errs || [];
+      const ok = r.ok && errs.length === 0;
+      return res.status(ok ? 200 : (r.status === 200 ? 400 : r.status)).json({
+        dryRun: true,
+        placed: false,
+        productId: "BTC-USDC",
+        quoteSize: amount,
+        ok,
+        wouldFill: ok ? { btc: body.base_size, price: body.average_filled_price, fee: body.commission_total } : null,
+        errs,
+        warning: body?.warning,
+        note: ok
+          ? "Dry run accepted by Coinbase. The daily USDC DCA buy will succeed. No order was placed."
+          : "Coinbase rejected the dry run — the daily USDC DCA buy would fail. No order was placed.",
+      });
+    }
+
     // page through accounts (typical users have <10)
     const accounts = [];
     let cursor = "";
