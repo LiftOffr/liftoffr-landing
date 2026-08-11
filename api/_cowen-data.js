@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "zsnxQO7tC9M",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: It's Almost Crunch Time",
+    "published": "2026-08-10T15:39:31+00:00",
+    "processed_at": "2026-08-11T01:21:40.876441+00:00",
+    "url": "https://www.youtube.com/watch?v=zsnxQO7tC9M",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      64000,
+      70000
+    ],
+    "indicators_mentioned": [
+      "MVRV Z-Score",
+      "200-day moving average",
+      "Bear market resistance band",
+      "Social interest/social dominance"
+    ],
+    "key_points": [
+      "Bitcoin historically forms a low in the summer during midterm cycle years, followed by a period of low volatility, then a sharp final drop later in the year triggered by some catalyst before the next bull market begins",
+      "Social interest metrics are currently at levels similar to August 2018 and less than half of where they were at the same point in the 2022 cycle, suggesting waning retail attention consistent with pre-bottom conditions",
+      "Onchain indicators like the MVRV Z-Score have not yet dropped below zero, a level historically associated with cycle bottoms, implying further downside risk is still possible",
+      "Price is currently trapped between the 200-day moving average and the bear market resistance band, and this range is expected to resolve soon with a decisive breakout or breakdown",
+      "Based on historical analogues (2015, 2018, 2022), late August through October is the most probable window for the next major low, with October viewed as the most likely month"
+    ],
+    "summary": "Bitcoin is approaching a historically significant decision point where price has stalled between key moving averages, mirroring prior midterm cycle years like 2018 and 2022. Onchain and social sentiment indicators suggest the bottom is not yet confirmed, favoring a final capitulation event\u2014most likely in October\u2014before the next bull market begins."
+  },
+  {
     "video_id": "Ju6Q-D9GZZU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1467,38 +1497,5 @@ export default [
       "Lower regression band represents support floor that could hold absent recession conditions, with potential for sizable counter-trend rally afterward"
     ],
     "summary": "Ethereum faces imminent decline toward the lower logarithmic regression band near April 2025 lows as it bleeds against Bitcoin due to tighter monetary policy and fundamental asset hierarchy. A potential Bank of Japan rate hike in June could accelerate liquidations, with the most likely scenario placing lows within weeks rather than months, contingent on absence of broader recession signals in traditional markets."
-  },
-  {
-    "video_id": "mIjviu7Q4ag",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: An Unfortunate Pattern [Update]",
-    "published": "2026-05-20T03:00:00+00:00",
-    "processed_at": "2026-05-20T07:57:37.607670+00:00",
-    "url": "https://www.youtube.com/watch?v=mIjviu7Q4ag",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "weeks",
-    "key_levels": [
-      91000,
-      48000,
-      49000
-    ],
-    "indicators_mentioned": [
-      "stablecoin dominance",
-      "USDT dominance",
-      "USDC dominance",
-      "21-week EMA",
-      "20-week SMA",
-      "Bitcoin dominance",
-      "200-day moving average"
-    ],
-    "key_points": [
-      "Bitcoin rejected from 200-day moving average mirroring 2022 and 2018 bear market rejections at similar levels",
-      "Stablecoin dominance pattern (A-B-C-D structure) suggests continuation of established trend; failure to durably break down indicates structural strength in the pattern",
-      "Historical precedent shows June lows in 2018 and 2022; current price action mirrors February-April-May 2018 setup that preceded June sweep below prior lows",
-      "Bitcoin dominance excluding stablecoins continues higher despite headline dominance decline, suggesting capital concentration rather than true altcoin strength"
-    ],
-    "summary": "The unfortunate pattern applied to stablecoin dominance suggests an extended bearish structure similar to prior cycles. Bitcoin's rejection from the 200-day moving average combined with stablecoin dominance dipping below the 21-week EMA mirrors conditions that preceded June lows in both 2018 and 2022, indicating potential for further downside rather than immediate bullish reversal."
   }
 ];
