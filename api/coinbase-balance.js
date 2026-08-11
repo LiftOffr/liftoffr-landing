@@ -108,6 +108,29 @@ export default async function handler(req, res) {
   }
 
   try {
+    // ?permissions=1 — read-only diagnostic. Answers the question that actually
+    // matters when DCA buys stop: does this key still have Trade permission?
+    // A key that can read fills but not trade makes the dashboard look healthy
+    // while every buy POST fails. Lives here rather than in its own endpoint
+    // because the project is at Vercel's 12-function Hobby cap.
+    const wantPerms = (req.query?.permissions ??
+      new URL(req.url, "http://localhost").searchParams.get("permissions")) === "1";
+    if (wantPerms) {
+      const p = await cb("/api/v3/brokerage/key_permissions", keyId, secret);
+      return res.status(200).json({
+        keyId,
+        canView: p.can_view === true,
+        canTrade: p.can_trade === true,
+        canTransfer: p.can_transfer === true,
+        portfolioUuid: p.portfolio_uuid,
+        portfolioType: p.portfolio_type,
+        dcaReady: p.can_trade === true,
+        note: p.can_trade === true
+          ? "Key can place orders — the daily USDC DCA buy will fire."
+          : "Key CANNOT trade. The daily USDC DCA buy will fail until a key with Trade permission is set.",
+      });
+    }
+
     // page through accounts (typical users have <10)
     const accounts = [];
     let cursor = "";
