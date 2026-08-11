@@ -97,6 +97,37 @@ Trades never touch a server we don't own. Coinbase keys are stored only in Verce
 | **Calendar** | Month grid like a trading P/L calendar. Each day with trades shows USD spent + live P/L vs today |
 | **All Trades** | Sortable list with source badge, amount, fill price, P/L |
 
+## Part 5b — When the Coinbase key gets rotated
+
+CDP keys stop working the moment they're rotated, revoked, or deleted in the
+Coinbase portal. Symptom: `/api/coinbase-sync` and `/api/coinbase-balance`
+return **401**, the dashboard sync status turns red, and no new buys appear on
+the calendar.
+
+**This does not stop your recurring buys.** The key is read-only (View +
+Trade history, no Trade permission) — it cannot place, modify, or cancel
+orders. Coinbase executes the recurring order on its own schedule regardless.
+A 401 here means the dashboard has gone blind, not that a purchase failed. If a
+buy genuinely didn't execute, the cause is on the Coinbase side (payment method,
+ACH hold, or the recurring order itself) and shows up at
+coinbase.com → Advanced → Recurring.
+
+To fix a rotated key:
+
+1. Create a new read-only key — https://portal.cdp.coinbase.com/access/api,
+   permissions **View** + **Trade history** only, Ed25519, no IP allowlist.
+2. Run, and paste the two values at the prompts (nothing is echoed or stored):
+   ```
+   bash ~/liftoffr-landing/scripts/set-coinbase-key.sh
+   ```
+   It validates the format, updates both Vercel env vars, redeploys, and
+   verifies with a read-only balance call.
+3. Open the dashboard and hit **⟳ Sync Coinbase**. Re-syncs are idempotent —
+   any buys that landed while the key was dead get imported then.
+
+Manual alternative: Vercel → Settings → Environment Variables → update
+`COINBASE_API_KEY_ID` and `COINBASE_API_SECRET` → Deployments → ⋯ → Redeploy.
+
 ## Part 6 — Manual safety net
 
 If Coinbase API ever breaks or you buy off-platform (e.g. P2P, gift):

@@ -25,7 +25,13 @@ function makeJWT(method, path, keyId, secretB64) {
   // Decode the 64-byte Ed25519 secret (32-byte seed + 32-byte pub key)
   const secretBytes = Buffer.from(secretB64, "base64");
   if (secretBytes.length < 32) {
-    throw new Error("COINBASE_API_SECRET is too short — expected base64 of >=32 bytes");
+    const e = new Error(
+      "COINBASE_API_SECRET is malformed — expected the base64 Ed25519 private key " +
+      `(88 chars, decodes to >=32 bytes); got ${secretBytes.length} bytes.`
+    );
+    e.status = 401;
+    e.code = "COINBASE_SECRET_MALFORMED";
+    throw e;
   }
   const seed = secretBytes.subarray(0, 32);
 
@@ -73,12 +79,38 @@ async function cb(path, keyId, secret) {
   });
   const data = await r.json().catch(() => ({}));
   if (!r.ok) {
-    const err = new Error(`Coinbase ${r.status}: ${JSON.stringify(data.error || data.message || data)}`);
+    const err = new Error(describeCbError(r.status, data));
     err.status = r.status;
     err.body = data;
+    err.code = r.status === 401 ? "COINBASE_KEY_REJECTED"
+      : r.status === 403 ? "COINBASE_KEY_SCOPE"
+      : "COINBASE_UPSTREAM";
     throw err;
   }
   return data;
+}
+
+// Coinbase returns a bare 401 with an empty body when a CDP key has been
+// rotated, revoked, or deleted — which reads as a generic outage unless we
+// spell out what actually happened and what fixes it.
+function describeCbError(status, data) {
+  const upstream = JSON.stringify(data.error || data.message || data);
+  if (status === 401) {
+    return "Coinbase rejected the API key (401). The CDP key was most likely " +
+      "rotated, revoked, or deleted. Fix: create a new read-only CDP key at " +
+      "portal.cdp.coinbase.com/access/api, then update COINBASE_API_KEY_ID and " +
+      "COINBASE_API_SECRET in Vercel and redeploy. " +
+      "Note: this key is read-only and cannot place or cancel orders, so this " +
+      "failure does NOT affect your Coinbase recurring buys.";
+  }
+  if (status === 403) {
+    return "Coinbase accepted the key but denied the scope (403). The CDP key " +
+      "needs the View + Trade-history permissions. " + upstream;
+  }
+  if (status === 429) {
+    return "Coinbase rate-limited the request (429). Retry in a minute.";
+  }
+  return `Coinbase ${status}: ${upstream}`;
 }
 
 async function fetchFills(keyId, secret) {
@@ -201,8 +233,13 @@ export default async function handler(req, res) {
   const keyId = process.env.COINBASE_API_KEY_ID;
   const secret = process.env.COINBASE_API_SECRET;
   if (!keyId || !secret) {
+    const missing = [
+      !keyId && "COINBASE_API_KEY_ID",
+      !secret && "COINBASE_API_SECRET",
+    ].filter(Boolean).join(" and ");
     return res.status(401).json({
-      error: "Coinbase keys not configured. Set COINBASE_API_KEY_ID and COINBASE_API_SECRET in Vercel env.",
+      error: `Coinbase keys not configured — ${missing} missing from the Vercel environment.`,
+      code: "COINBASE_KEY_MISSING",
     });
   }
 
@@ -257,9 +294,10 @@ export default async function handler(req, res) {
       sources: { v3: v3Trades.length, v2_simple: v2NetNew.length },
     });
   } catch (err) {
-    console.error("coinbase-sync error", err.status, err.message, err.body);
+    console.error("coinbase-sync error", err.status, err.code, err.message, err.body);
     return res.status(err.status || 502).json({
       error: err.message || "Upstream error",
+      code: err.code || "COINBASE_UPSTREAM",
       detail: err.body || null,
     });
   }

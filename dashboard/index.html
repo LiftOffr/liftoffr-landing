@@ -696,7 +696,7 @@ const PLAN={totalBudget:165182,targetBTC:2.78,phases:[
     {tier:'S2',sellPct:30,targetPrice:175000,trigger:'Two V7 TOP signals (~median peak)'},
     {tier:'S3',sellPct:20,targetPrice:220000,trigger:'All V7 TOPs + CBBI ≥ 90 (extreme bubble)'},
     {tier:'S4',sellPct:10,targetPrice:300000,trigger:'Trailing stop / blow-off top wick — OR dump remainder if CBBI ≥ 88 with tiers still open'}]}]};
-let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
+let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,CB_ERR=null,TRADES=[],LIVE_PF={btcVal:0,cash:0},BANK={assets:[],debts:[]};
 let ONCHAIN=null,CBBI_VAL=null,FNG_NOW=null; // live on-chain bottom signals (btc-price ?ma200w=1)
 const BEAR_START='2025-10-06'; // canonical cycle top ($124,824) — bear-clock anchor
 let CBBI_HIST=null,CBBI_CHART=null,CBBI_CUT='60d';
@@ -856,7 +856,7 @@ async function load(){
   try{hist=await(await fetch('https://colintalkscrypto.com/cbbi/data/latest.json')).json()}catch(e){}
   CBBI_HIST=hist;
   try{const f=await(await fetch('https://api.alternative.me/fng/?limit=60')).json();fngArr=f.data.map(x=>+x.value).reverse()}catch(e){}
-  try{CB=await(await fetch('/api/coinbase-balance')).json()}catch(e){}
+  try{const cbr=await fetch('/api/coinbase-balance');CB=await cbr.json();if(!cbr.ok){CB_ERR=CB.error||'Coinbase balance unavailable';CB=null}}catch(e){CB_ERR='Coinbase balance unavailable: '+e.message;CB=null}
   try{STATE=loadState();TRADES=STATE.trades||[]}catch(e){STATE={trades:[],settings:{}};TRADES=[]}
   LIVE_PRICE=bp.usd||null; MA200W=(typeof bp.ma200w==='number')?bp.ma200w:null; COWEN=bp.cowen||null;
   ONCHAIN=bp.onchain||null; CBBI_VAL=(typeof bp.cbbi==='number')?bp.cbbi:null;
@@ -1048,8 +1048,13 @@ function parseRow(cols,header,source){const cells=header.split(',').map(s=>s.tri
 document.querySelectorAll('.chart-range-btn').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.chart-range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');BTC_HISTORY=null;renderChart(parseInt(btn.dataset.days,10))});
 document.querySelectorAll('.cbbi-range-btn').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.cbbi-range-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');CBBI_CUT=btn.dataset.cut;renderCbbiChart()});
 
-async function maybeAutoSync(){try{if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;await new Promise(r=>setTimeout(r,1500));if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;if(!CB||!(CB.btc>0.001))return;
-  const d=await(await fetch('/api/coinbase-sync')).json();if(Array.isArray(d.trades)){const manual=STATE.trades.filter(t=>t.source!=='coinbase');STATE.trades=[...manual,...d.trades.map(t=>({...t,id:uid()}))];saveState();refreshPlan();setSync(`Auto-synced ${d.trades.length} trades. ${new Date().toLocaleString()}`)}}catch(e){}}
+async function maybeAutoSync(){
+  // A dead Coinbase key used to fail silently here, which looks identical to
+  // "no new DCA buys arrived" — always surface the auth error instead.
+  if(CB_ERR){setSync(CB_ERR,true);return}
+  try{if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;await new Promise(r=>setTimeout(r,1500));if((STATE.trades||[]).some(t=>t.source==='coinbase'))return;if(!CB||!(CB.btc>0.001))return;
+  const r=await fetch('/api/coinbase-sync'),d=await r.json();if(!r.ok){setSync('Auto-sync failed: '+(d.error||`HTTP ${r.status}`),true);return}
+  if(Array.isArray(d.trades)){const manual=STATE.trades.filter(t=>t.source!=='coinbase');STATE.trades=[...manual,...d.trades.map(t=>({...t,id:uid()}))];saveState();refreshPlan();setSync(`Auto-synced ${d.trades.length} trades. ${new Date().toLocaleString()}`)}}catch(e){setSync('Auto-sync failed: '+e.message,true)}}
 
 // ===== Personal liabilities + vehicle (amortized / depreciated, live) =====
 // Car loan: exact terms from the OCCU retail installment contract.
