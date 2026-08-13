@@ -1,6 +1,10 @@
 // Vercel Edge Middleware.
-//  1. Redirects www.liftoffr.com → liftoffr.com  (except /sitemap.xml + /robots.txt
-//     so Search Console / search bots can fetch them directly on the www property).
+//  1. Redirects www.liftoffr.com → liftoffr.com  (except /sitemap.xml + /robots.txt,
+//     which still serve on www so any bot that reaches the www host can fetch them
+//     without a hop. NOTE: the Search Console property was moved to the bare domain
+//     on 2026-08-13 — the old www property had 14 URLs submitted and 0 indexed
+//     precisely because everything here 308s to the apex. The exemption is now
+//     belt-and-braces rather than load-bearing.)
 //  2. Gates /dashboard, JARVIS, and analytics APIs behind HTTP Basic Auth (DASHBOARD_PASSWORD).
 
 export const config = {

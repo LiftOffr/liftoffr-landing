@@ -18,7 +18,11 @@ Welcome — here's everything you need. Read once, then you never have to ask me
 ━━━━━━━━━━━━━━━━━━━━━━
 [DRIVE LINK]
 
-Car POV, night drives, city, travel, watches, jet ski. Already shot, already colour-graded, no watermarks. Take whatever you want. New clips get added — check back.
+Car POV, night drives, exteriors, detail. Already shot, already colour-graded, no watermarks. Take whatever you want. New clips get added — check back.
+
+⚠️ THE CLIPS ARE SILENT. That's deliberate, not a broken export.
+
+Add trending audio from the platform's own library — TikTok, Reels, Shorts, X each have one, and platform-native audio is what the algorithm actually rewards. Never use original audio from this footage, even if you end up with a copy that has it. A clip with original audio is rejected and unpaid, no exceptions and no appeal.
 
 ━━━━━━━━━━━━━━━━━━━━━━
 2 · HOW A WINNING CLIP IS BUILT
@@ -27,6 +31,7 @@ Three parts. That's it.
 
 • 7-15 seconds of b-roll from the folder
 • ONE line of burned-in text, on screen from frame one, big, centred, inside the safe zone
+• Trending audio off the platform's library — the clips arrive silent, you supply the sound
 • The caption from section 4
 
 No voiceover. No music with lyrics fighting the text. No charts. No talking head. ~40% watch muted — if it doesn't work on mute it doesn't work.
@@ -99,7 +104,7 @@ Paste this, swap the first line for your hook. The last two lines are NOT option
 [your hook line, lowercase]
 [one short line that turns it — see examples]
 
-full plan at liftoffr.com
+full plan at liftoffr.com/clip
 
 #ad · education only, not financial advice
 #bitcoin #btc #cryptolifestyle #discipline
@@ -127,10 +132,12 @@ I reject on compliance, not taste. Rejected = unpaid. These are short and non-ne
 ✗ Anything suggesting I manage money or give personal advice
 ✗ Countdown timers, fake scarcity, invented testimonials
 ✗ Other creators' watermarked footage
+✗ Original audio from the LiftOffr footage — the clips are silent, keep them that way and add platform audio
 
 ✓ #ad or "paid partnership" — visible, not buried in hashtags
+✓ Trending audio from the platform's own library
 ✓ "education only, not financial advice" in the caption
-✓ liftoffr.com on screen or in the caption
+✓ liftoffr.com/clip on screen or in the caption — that exact link, not the bare domain
 ✓ 9:16, 1080p+, no TikTok/CapCut watermark
 
 Why I'm strict: crypto is the #1 target for finfluencer enforcement right now. One clip promising returns is my problem, not just yours. Everything else you have total freedom on.

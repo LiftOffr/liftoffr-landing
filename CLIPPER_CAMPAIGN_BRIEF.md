@@ -76,8 +76,12 @@ Re-render at a different rate/pool with:
 
 > **Must:**
 > - Use LiftOffr footage or your own b-roll — no other creators' watermarked clips
+> - **Add trending audio from the platform's own library. The clips are provided
+>   silent on purpose. Never use original audio from the footage, even if you
+>   have a copy that includes it.**
 > - 9:16, 1080p or better, no TikTok/CapCut watermark
-> - Include `liftoffr.com` on screen or in the caption
+> - Include `liftoffr.com/clip` on screen or in the caption — that exact link,
+>   not the bare domain (it is the campaign's only attribution handle)
 > - Include "education only, not financial advice" in the caption
 > - Disclose the paid relationship (#ad or "paid partnership") — this is not optional
 >
@@ -88,6 +92,7 @@ Re-render at a different rate/pool with:
 > - Give a specific Bitcoin price prediction as fact
 > - Claim LiftOffr manages money, gives personal advice, or tells anyone what to buy
 > - Use countdown timers, fake scarcity, or invented testimonials
+> - Use original audio from the LiftOffr footage under any circumstances
 >
 > Rejected submissions aren't paid. If you're unsure whether something crosses
 > the line, ask before you post — I'd rather answer than reject.

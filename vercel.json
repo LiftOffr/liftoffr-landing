@@ -39,6 +39,11 @@
       "permanent": false
     },
     {
+      "source": "/clip",
+      "destination": "/links?utm_source=clippers&utm_medium=social&utm_campaign=clipping&utm_content=clip",
+      "permanent": false
+    },
+    {
       "source": "/start",
       "destination": "/plan?utm_source=shortlink&utm_medium=cta&utm_campaign=plan&utm_content=start",
       "permanent": false
