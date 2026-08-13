@@ -164,3 +164,31 @@ Sources: [WhopReviews clipping guide](https://www.whopreviews.com/guides/whop-cl
 [Brez Clips on Whop](https://whop.com/discover/brez-clips/) ·
 [Lumina — what is a clipping campaign](https://luminaclippers.com/blog/what-is-a-clipping-campaign) ·
 [Airaa — clipping campaigns guide](https://airaa.xyz/blog/clipping-campaigns-guide)
+
+---
+
+## D · Campaign-chat message — announcing the link change (paste as-is)
+
+Post this in the campaign chat. Short on purpose: it's a rule change, not a
+lecture, and clippers stop reading at three lines.
+
+```
+small change, effective now: put liftoffr.com/clip in your caption instead of plain liftoffr.com — same page, it just tells me which views came from your clips. anything already posted is fine, use /clip from here on.
+```
+
+**Also update the live campaign description in the Whop dashboard** — §A above is
+the source of truth, but it has to be re-pasted by hand. Whop's Content Rewards
+campaigns aren't exposed on the v2 API (401 on `/campaigns`, `/content_rewards`,
+`/bounties`), so this is the one step that can't be automated.
+
+### Why /clip and not per-platform links
+`/clip` 307s to `/links` carrying
+`utm_source=clippers&utm_medium=social&utm_campaign=clipping`. One link, not four:
+Whop already records the platform on each submission for payout, so per-platform
+URLs would add a way to get the instruction wrong and buy nothing. `/links`
+already fires `utm_landing` on load and folds the UTMs into `cta_clicked`, so no
+tracking code was needed.
+
+**Read it in GA4** under Traffic acquisition → `clippers / social`, or filter any
+report on `sessionCampaignName = clipping`. Baseline to beat: instagram/bio ran
+0.86 sessions/day over Aug 7-13.
