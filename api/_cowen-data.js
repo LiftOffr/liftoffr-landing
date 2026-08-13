@@ -3,6 +3,45 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "6V6rlIV2Zek",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Next 60 Days",
+    "published": "2026-08-13T01:17:13+00:00",
+    "processed_at": "2026-08-13T01:58:51.257185+00:00",
+    "url": "https://www.youtube.com/watch?v=6V6rlIV2Zek",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      63000,
+      60000,
+      56000,
+      50000
+    ],
+    "indicators_mentioned": [
+      "ROI from the low",
+      "MVRV-Z score",
+      "PEL multiple",
+      "MVRV",
+      "transaction fees",
+      "terminal price",
+      "miner cap to thermocap ratio",
+      "market cap to thermal cap ratio",
+      "social interest/social risk",
+      "monthly seasonality returns",
+      "presidential returns comparison"
+    ],
+    "key_points": [
+      "August to mid-October is historically one of the weakest seasonal windows for Bitcoin in midterm years, with average drawdowns of roughly 10% in August and 8% in September",
+      "The ROI-from-low cycle timing analysis suggests the four-year cycle low should land within a week or two of prior cycle lows, projecting into mid-to-late October",
+      "Structural comparison to the 2018 bear market shows a similar pattern of low, higher low, then lower low, just at 10x higher prices, supporting the idea of a roughly one-year bear market",
+      "If price instead grinds sideways near 60K as it did in 2018 rather than breaking down, the eventual low could be pushed later, potentially into November",
+      "On-chain risk indicators (MVRV-Z, on-chain risk composite) typically reset to cycle-low levels near the end of midterm-year bear markets, and confirmation of that reset is needed before conviction increases"
+    ],
+    "summary": "The next 60 days are viewed as pivotal because they align both with the seasonally weakest stretch of the year for Bitcoin and with the historical timing window for four-year cycle lows, pointing toward an October low as the base case. Structural similarities to the 2018 bear market\u2014same pattern of higher lows followed by a final flush, just at a higher price scale\u2014support the idea of an approximately one-year bear market, though a sideways grind near current levels could push the eventual low out toward November instead."
+  },
+  {
     "video_id": "zsnxQO7tC9M",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1470,32 +1509,5 @@ export default [
       "Continued elevated losses and red weeks suggest this is a bear market rally rather than true bull market reversal, similar to patterns seen in 2014 and 2018"
     ],
     "summary": "Bitcoin at 77k faces likely downside pressure through June aligned with midterm year weakness seasonality and bear market resistance band rejection. A sweep of the 60k low is probable within weeks as rate hike expectations create macro headwinds, with potential capitulation timing near late June central bank meetings following a 20-week bear market cycle pattern consistent with 2014-2018 precedent."
-  },
-  {
-    "video_id": "mwrgOz852wI",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Ethereum: Rejected off the Bear Market Resistance Band",
-    "published": "2026-05-21T03:08:48+00:00",
-    "processed_at": "2026-05-21T06:45:54.739505+00:00",
-    "url": "https://www.youtube.com/watch?v=mwrgOz852wI",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "weeks",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "logarithmic regression band",
-      "50-week moving average",
-      "ETH/BTC ratio",
-      "bare market resistance band"
-    ],
-    "key_points": [
-      "Ethereum rejected from bear market resistance band and likely to decline to lower regression band around April 2025 lows (~$1,500 level) within weeks",
-      "ETH/BTC ratio in downtrend due to tighter monetary policy and fundamental Bitcoin superiority, with potential further deterioration if Bitcoin stabilizes at $60K",
-      "Bank of Japan rate hike expected in June could trigger liquidation cascade similar to historical precedent, potentially accelerating downside move",
-      "Ethereum may not bottom until Q4 2025 unless recession occurs, but interim lows likely by June mirroring 2019 cycle pattern",
-      "Lower regression band represents support floor that could hold absent recession conditions, with potential for sizable counter-trend rally afterward"
-    ],
-    "summary": "Ethereum faces imminent decline toward the lower logarithmic regression band near April 2025 lows as it bleeds against Bitcoin due to tighter monetary policy and fundamental asset hierarchy. A potential Bank of Japan rate hike in June could accelerate liquidations, with the most likely scenario placing lows within weeks rather than months, contingent on absence of broader recession signals in traditional markets."
   }
 ];
