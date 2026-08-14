@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found | LiftOffr</title>
+<meta name="description" content="That page doesn't exist. Here's the live Bitcoin cycle Score, the free checklist and everything else worth reading on LiftOffr.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#080808">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  // Log what was actually missing, so dead inbound links are findable in GA4
+  // instead of silently bleeding traffic.
+  gtag('event', 'page_not_found', { missing_path: location.pathname, referrer: document.referrer || '(none)' });
+</script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{--red:#e63946;--bg:#080808;--card:#111;--line:#1e1e1e;--ink:#e9e9e9;--muted:#8a8a8a}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+       line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  .wrap{max-width:640px;margin:0 auto;padding:0 22px;width:100%}
+  header{padding:26px 0}
+  main{flex:1;display:flex;align-items:center;padding:32px 0 64px}
+  .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.18em;
+        text-transform:uppercase;color:var(--red);font-weight:700}
+  h1{font-size:clamp(30px,7vw,42px);font-weight:900;letter-spacing:-1px;line-height:1.1;margin:14px 0 12px}
+  .lede{color:var(--muted);font-size:16.5px;margin-bottom:30px}
+  .links{display:grid;gap:10px}
+  a.row{display:flex;align-items:baseline;gap:12px;text-decoration:none;color:inherit;background:var(--card);
+        border:1px solid var(--line);border-radius:12px;padding:15px 17px;transition:border-color .15s,background .15s}
+  a.row:hover{border-color:#333;background:#151515}
+  a.row b{font-weight:700;font-size:15.5px;white-space:nowrap}
+  a.row span{color:var(--muted);font-size:13.5px}
+  footer{border-top:1px solid var(--line);padding:22px 0 30px;color:#666;font-size:12.5px;line-height:1.7}
+  footer a{color:#888}
+  @media(max-width:520px){a.row{flex-direction:column;gap:3px}a.row b{white-space:normal}}
+</style>
+</head>
+<body>
+  <header><div class="wrap">
+    <a href="/" aria-label="LiftOffr home"><span class="lo-logo"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
+  </div></header>
+
+  <main><div class="wrap">
+    <div class="code">Error 404</div>
+    <h1>That page doesn't exist.</h1>
+    <p class="lede">Either it moved or the link was wrong. Everything worth reading is one tap away.</p>
+
+    <div class="links">
+      <a class="row" href="/"><b>Home</b><span>The framework, the Score and the receipts</span></a>
+      <a class="row" href="/cycle"><b>Live cycle Score</b><span>Where the cycle stands today, updated daily. Free.</span></a>
+      <a class="row" href="/indicators"><b>All 9 indicators</b><span>Today's reading, plus every cycle top since 2013</span></a>
+      <a class="row" href="/free"><b>Start free</b><span>Open Discord and the Sunday Score email</span></a>
+      <a class="row" href="/plan"><b>My Bear Market Buy Plan</b><span>The nine-tier ladder I'm executing — $29, once</span></a>
+      <a class="row" href="/receipts"><b>The receipts</b><span>Every call, timestamped — including the misses</span></a>
+    </div>
+  </div></main>
+
+  <footer><div class="wrap">
+    © 2026 LiftOffr · Educational content only. Not financial advice, and I am not a registered
+    investment adviser. Past performance does not guarantee future results.<br>
+    <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/faq">FAQ</a>
+  </div></footer>
+</body>
+</html>
