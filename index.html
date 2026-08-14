@@ -71,44 +71,56 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Product",
       "name": "My Bear Market Buy Plan",
       "description": "Torin's exact nine-tier Bitcoin bear market buy plan — timestamped receipts on every fire, updated for the rest of this bear. One-time purchase.",
-      "brand": { "@id": "https://liftoffr.com/#org" },
+      "brand": {
+        "@type": "Brand",
+        "name": "LiftOffr"
+      },
       "offers": {
         "@type": "Offer",
+        "url": "https://liftoffr.com/plan",
         "price": "29.00",
         "priceCurrency": "USD",
-        "url": "/plan",
         "availability": "https://schema.org/InStock",
-        "priceValidUntil": "2027-12-31"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "reviewCount": "3",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "review": [
-        {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Tyr" },
-          "datePublished": "2025-07-14",
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "Followed the cycle signals and positioned into ETH before the July move. Portfolio up $47,970 in one month. The confluence framework is the real deal. I finally had a system instead of a guess."
+        "itemCondition": "https://schema.org/NewCondition",
+        "validFrom": "2026-08-02",
+        "priceValidUntil": "2027-12-31",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "USD"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "US"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            }
+          }
         },
-        {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Marcus_btc" },
-          "datePublished": "2025-04-03",
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "Been in crypto since 2018, never had a system. First cycle with LiftOffr and I actually knew what the indicators were telling me. Sold 60% of my BTC stack when CBBI hit 0.83."
-        },
-        {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "kyle_stacks" },
-          "datePublished": "2025-03-19",
-          "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-          "reviewBody": "The daily brief alone is worth every penny. I used to spend 2 hours a day doom-scrolling crypto Twitter. Now I read one post at 8am and actually know what's happening."
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays": 30,
+          "returnFees": "https://schema.org/FreeReturn"
         }
+      },
+      "image": [
+        "https://liftoffr.com/img/product/liftoffr-buy-plan-whop-wide.png",
+        "https://liftoffr.com/img/product/liftoffr-buy-plan-whop-tall.png"
       ]
     },
     {
@@ -117,10 +129,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "url": "https://liftoffr.com/",
       "name": "LiftOffr",
       "description": "Bitcoin cycle intelligence — 8-indicator confluence system for timing Bitcoin cycle tops",
-      "publisher": { "@id": "https://liftoffr.com/#org" },
+      "publisher": {
+        "@id": "https://liftoffr.com/#org"
+      },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": { "@type": "EntryPoint", "urlTemplate": "https://liftoffr.com/blog/?q={search_term_string}" },
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://liftoffr.com/blog/?q={search_term_string}"
+        },
         "query-input": "required name=search_term_string"
       }
     },
@@ -130,43 +147,64 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {
           "@type": "Question",
           "name": "What if I'm too late — is this cycle already over?",
-          "acceptedAnswer": { "@type": "Answer", "text": "If the cycle isn't over, you have a system. If it is, you'll learn the same framework that worked in 2013, 2017, 2021, and 2025 — which means you're ready before everyone else for the next one. Either way, the 30-day refund means you risk zero to find out." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If the cycle isn't over, you have a system. If it is, you'll learn the same framework that worked in 2013, 2017, 2021, and 2025 — which means you're ready before everyone else for the next one. Either way, the 30-day refund means you risk zero to find out."
+          }
         },
         {
           "@type": "Question",
           "name": "What if Pi Cycle doesn't fire / what if there's no top this cycle?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Pi Cycle is one of nine inputs we track. We don't trade off any single signal — we wait for confluence between Pi Cycle, MVRV-Z, Puell, and Rainbow band before going louder. If no top fires, you'll have a complete profit-taking framework that works in every cycle." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pi Cycle is one of nine inputs we track. We don't trade off any single signal — we wait for confluence between Pi Cycle, MVRV-Z, Puell, and Rainbow band before going louder. If no top fires, you'll have a complete profit-taking framework that works in every cycle."
+          }
         },
         {
           "@type": "Question",
           "name": "I can get this free on YouTube — why pay for this?",
-          "acceptedAnswer": { "@type": "Answer", "text": "YouTube gives you 100 takes from 100 people. LiftOffr gives you ONE system, run consistently, with the daily brief and confluence dashboard already done for you. You're paying for the absence of guesswork." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "YouTube gives you 100 takes from 100 people. LiftOffr gives you ONE system, run consistently, with the daily brief and confluence dashboard already done for you. You're paying for the absence of guesswork."
+          }
         },
         {
           "@type": "Question",
           "name": "Do I need trading experience to join?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Module 1 starts from wallets and your first buy. Beginners follow along; experienced investors still pick up new frameworks. The daily brief is written so a new investor can read it in 3 minutes and know what to do." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Module 1 starts from wallets and your first buy. Beginners follow along; experienced investors still pick up new frameworks. The daily brief is written so a new investor can read it in 3 minutes and know what to do."
+          }
         },
         {
           "@type": "Question",
           "name": "What indicators do you track?",
-          "acceptedAnswer": { "@type": "Answer", "text": "CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear & Greed Index, and Google Trends. Updated weekly with plain-English commentary." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear & Greed Index, and Google Trends. Updated weekly with plain-English commentary."
+          }
         },
         {
           "@type": "Question",
           "name": "Is this financial advice?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. Everything in LiftOffr is educational content only. We teach frameworks and how to read indicators — you make your own decisions. Always do your own research." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Everything in LiftOffr is educational content only. We teach frameworks and how to read indicators — you make your own decisions. Always do your own research."
+          }
         },
         {
           "@type": "Question",
           "name": "What if I want a refund?",
-          "acceptedAnswer": { "@type": "Answer", "text": "There is nothing to cancel — it is a one-time payment, not a subscription, so nothing renews and nothing bills again. If the plan is not what you expected, ask within 30 days and Whop refunds you in full, one click, no questions. The free side of the Discord stays open either way." }
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There is nothing to cancel — it is a one-time payment, not a subscription, so nothing renews and nothing bills again. If the plan is not what you expected, ask within 30 days and Whop refunds you in full, one click, no questions. The free side of the Discord stays open either way."
+          }
         }
       ]
     }
   ]
 }
-</script>
+  </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
