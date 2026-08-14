@@ -1289,6 +1289,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div style="text-align:center;margin-top:26px;font-size:13px;color:#777;">36 lessons · 6 module overviews · 6 assessments — included with <strong style="color:#fff;">The Cycle System</strong>, one payment</div>
     <div style="text-align:center;margin-top:22px;">
       <a href="/plan" rel="noopener" class="btn-red-xl">Start with the plan — $29 once →</a>
+      <!-- The section names The Cycle System and, until now, linked only to /plan
+           and a grey footer link. The $29 stays the primary ask per the ladder;
+           this is the secondary route for someone the course copy has already sold. -->
+      <div style="margin-top:14px;font-size:13.5px;color:#777;">
+        Or go straight to the course — <a href="/system" style="color:#e63946;font-weight:600;">The Cycle System, $197 once →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1905,18 +1911,6 @@ function dismissExitModal() {
   if (typeof gtag === 'function') gtag('event', 'exit_intent_dismissed', { page: location.pathname });
 }
 
-// Live founder spot count — replaces every [data-founder-text] with real
-// "X of 30 founder spots remaining" from the Whop API (cached at edge 5min).
-(function(){
-  fetch('/api/founder-count').then(function(r){ return r.json(); }).then(function(d){
-    if (!d || typeof d.remaining !== 'number' || typeof d.total !== 'number') return;
-    if (d.remaining <= 0) return;
-    // Sell the lock-in benefit, not the empty seats. Same fact, better framing.
-    var text = 'My exact buy plan — $29, once · no subscription';
-    var els = document.querySelectorAll('[data-founder-text]');
-    for (var i = 0; i < els.length; i++) els[i].textContent = text;
-  }).catch(function(){});
-})();
 
 </script>
 
