@@ -626,7 +626,7 @@ def build_indicator(ind: dict, raw: dict, today: str, all_now: dict) -> str:
         "license": "https://liftoffr.com/terms",
     }) + "</script>")
 
-    title = f"{ind['h1']} — live reading + every cycle top since 2013 | LiftOffr"
+    title = f"{ind['h1']} — live reading | LiftOffr"
     desc = (f"{ind['name']} reads {now:.0f}/100 today. See what it read at every Bitcoin cycle top "
             f"and bottom since 2013, how it is built, and where it has been wrong.")
     canonical = f"{SITE}/indicators/{ind['slug']}"
@@ -726,7 +726,7 @@ def build_hub(raw: dict, today: str, all_now: dict, score_now: float) -> str:
          "No. These are measurements of public on-chain and price data, published as education. "
          "Nothing here tells you what to buy or sell."),
     ]
-    title = "Bitcoin cycle indicators — live readings for all 9 | LiftOffr"
+    title = "Bitcoin cycle indicators — all 9, live | LiftOffr"
     desc = ("Live 0-100 readings for the nine Bitcoin cycle indicators behind the LiftOffr Score — "
             "RHODL, Puell, MVRV, Pi Cycle, rainbow band and more, plus what each read at every "
             "cycle top since 2013.")
@@ -840,7 +840,7 @@ def build_bottom_page(raw: dict, today: str, score_now: float) -> str:
          "fires. The alternative — deciding while it is happening — is what cost me $30,000 in 2022."),
     ]
 
-    title = f"When will Bitcoin bottom? Live cycle data — updated {today} | LiftOffr"
+    title = "When will Bitcoin bottom? Live cycle data | LiftOffr"
     desc = (f"Bitcoin is {draw_now:.0f}% below the {last_top_date.strftime('%B %Y')} top, "
             f"{days_since} days in. Past bears bottomed after {min_days}-{max_days} days and "
             f"{max_draw:.0f}% to {min_draw:.0f}% drawdowns. Live indicator readings, updated daily.")
