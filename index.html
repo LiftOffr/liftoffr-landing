@@ -208,8 +208,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/img/torin-hero-bg-mobile.jpg?v=20260503b" media="(max-width: 768px)" fetchpriority="high">
-<link rel="preload" as="image" href="/img/torin-hero-bg.jpg?v=20260503b" media="(min-width: 769px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="/img/torin-hero-bg-mobile.webp?v=20260813" media="(max-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" href="/img/torin-hero-bg.webp?v=20260813" media="(min-width: 769px)" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script defer src="/_vercel/insights/script.js"></script>
 
@@ -398,7 +398,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     content: '';
     position: absolute;
     inset: 0;
-    background-image: image-set(url('/img/torin-hero-bg.jpg?v=20260503b') 1x);
+    background-image: url('/img/torin-hero-bg.jpg?v=20260503b');
+    background-image: image-set(url('/img/torin-hero-bg.webp?v=20260813') type('image/webp'), url('/img/torin-hero-bg.jpg?v=20260503b') type('image/jpeg'));
     background-size: cover;
     background-position: center 25%;
     background-repeat: no-repeat;
@@ -406,6 +407,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   @media (max-width: 768px) {
     .hero-bg::before { background-image: url('/img/torin-hero-bg-mobile.jpg?v=20260503b'); }
+    .hero-bg::before { background-image: image-set(url('/img/torin-hero-bg-mobile.webp?v=20260813') type('image/webp'), url('/img/torin-hero-bg-mobile.jpg?v=20260503b') type('image/jpeg')); }
   }
   .hero-bg::after {
     content: '';
@@ -1547,7 +1549,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>🛡️ One-time payment</span><span class="dot">·</span><span>Instant access</span><span class="dot">·</span><span>No subscription, ever</span>
   </div>
   <div class="founder-byline">
-    <img src="/img/torin-founder.jpg?v=20260503c" alt="Torin Christianson" loading="lazy">
+    <picture><source srcset="/img/torin-founder.webp?v=20260813" type="image/webp"><img src="/img/torin-founder.jpg?v=20260503c" alt="Torin Christianson" loading="lazy"></picture>
     <div class="founder-byline-text">
       <div class="founder-byline-name">Torin Christianson</div>
       <div class="founder-byline-sub">Founder, LiftOffr · I built this because I needed it. The same system I run on my own portfolio.</div>
