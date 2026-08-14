@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "3f7iDFfYAeg",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Whale Watching",
+    "published": "2026-08-14T17:41:53+00:00",
+    "processed_at": "2026-08-14T18:25:36.016757+00:00",
+    "url": "https://www.youtube.com/watch?v=3f7iDFfYAeg",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Whale transaction score",
+      "Exchange activity score",
+      "Exchange inflow composition",
+      "Whale holder positioning",
+      "Advance decline index of top 100 cryptocurrencies",
+      "Bitcoin supply by address balance",
+      "Bitcoin address count by balance"
+    ],
+    "key_points": [
+      "Whale activity metrics are currently subdued, showing little large-holder transaction activity, similar to conditions seen in August 2018",
+      "Spikes in whale activity historically occur near both major tops and major bottoms, making the metric more useful for timing turning points than predicting direction",
+      "Exchange activity scores tend to spike more at market lows, while whale transaction scores tend to spike more at market tops, and combining them creates a broader activity signal",
+      "There is an ongoing redistribution of Bitcoin supply, with holdings in the 1,000-10,000 BTC bracket declining while the 100-1,000 BTC bracket has grown since 2021",
+      "Absence of a current spike in whale activity suggests the market is not yet at an extreme, though this could change within a few months as volatility increases"
+    ],
+    "summary": "Whale activity across transaction counts, exchange flows, and holder positioning remains historically low, mirroring quiet periods like August 2018 rather than conditions typically seen near cycle extremes. Because whale activity tends to spike at both tops and bottoms during volatile moves, the current lack of spikes suggests the market is not presently at a major inflection point, though this could shift in the coming months as supply distribution among mid-sized holders continues to evolve."
+  },
+  {
     "video_id": "6V6rlIV2Zek",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1479,35 +1509,5 @@ export default [
       "Bitcoin bottoming in Q4 of the midterm year (expected October 2026) remains the most likely outcome based on four-year cycle timing, with potential local lows in June preceding a final capitulation phase"
     ],
     "summary": "The four-year cycle remains intact despite conventional narratives suggesting its breakdown. Bitcoin topped precisely when historical cycles predict\u2014end of post-halving year\u2014and current price action mirrors prior bear market rallies in duration, magnitude, and technical patterns. Additional downside to at least 60K support and a final capitulation phase around October 2026 remain probable outcomes."
-  },
-  {
-    "video_id": "dy3E7Jzte88",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Bear Market Resistance Band",
-    "published": "2026-05-25T03:28:59+00:00",
-    "processed_at": "2026-05-25T03:58:40.599843+00:00",
-    "url": "https://www.youtube.com/watch?v=dy3E7Jzte88",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      77000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "bull market support band",
-      "bear market resistance band",
-      "20-week SMA",
-      "21-week EMA"
-    ],
-    "key_points": [
-      "Historical midterm year weakness patterns point to potential lows forming in June, with February and late March/early April as prior weakness windows",
-      "Bear market resistance band rejection at current valuation levels against S&P 500 suggests continued underperformance; Bitcoin rejected at 20-week SMA/21-week EMA similar to prior midterm years",
-      "Rate hike expectations being priced in by markets due to elevated oil prices and monetary policy tightening create macro headwinds for crypto dependent on liquidity",
-      "A sweep of the 60k low is highly probable within the next couple of months; historical patterns show 19-21 week intervals between bear market lows, placing potential capitulation near late June Fed and Bank of Japan meetings",
-      "Continued elevated losses and red weeks suggest this is a bear market rally rather than true bull market reversal, similar to patterns seen in 2014 and 2018"
-    ],
-    "summary": "Bitcoin at 77k faces likely downside pressure through June aligned with midterm year weakness seasonality and bear market resistance band rejection. A sweep of the 60k low is probable within weeks as rate hike expectations create macro headwinds, with potential capitulation timing near late June central bank meetings following a 20-week bear market cycle pattern consistent with 2014-2018 precedent."
   }
 ];
