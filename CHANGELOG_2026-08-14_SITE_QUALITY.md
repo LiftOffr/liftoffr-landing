@@ -130,12 +130,15 @@ as the fallback child. All originals remain on disk.
    the image URLs Google is re-checking. webp versions were generated (94%
    smaller) and then deleted rather than left unused; regenerate with
    `cwebp -q 90` if that trade is ever worth making.
-2. **GTM on 26 of 44 pages** while GA4 `gtag` loads on all of them. If the GTM
-   container also fires a GA4 tag for `G-015PKWM24J`, those 26 pages may be
-   double-counting pageviews — which would mean the traffic figures reported
-   yesterday are overstated on exactly the pages that carry both. I can't inspect
-   container contents without GTM access. **Worth checking before trusting any
-   traffic comparison across pages.**
+2. ~~**GTM on 26 of 44 pages** may be double-counting pageviews.~~
+   **RESOLVED 2026-08-14 — there is no double-counting.** Container
+   GTM-K5B4BX46 (live Version 2, published 2026-05-12) holds 1 tag, 0 triggers,
+   0 variables, and that tag is the Whop conversion pixel, not GA4. Confirmed
+   empirically from network logs: exactly **one** `page_view` hit per load on a
+   GTM page (`/faq`), a non-GTM page (`/stack`) and a newly-tagged page
+   (`/plan`). The traffic figures reported 2026-08-13 stand as measured — they
+   are not overstated. The inspection instead found the opposite gap: the Whop
+   pixel was missing from `/plan`, `/system`, `/free` and `/welcome-plan`. Fixed.
 3. **`api/founder-count.js` itself.** Now that nothing calls it, it can be
    deleted — it frees a Vercel function slot against the 12-function cap. Left
    because deleting endpoints is a deploy-shape change, not a content fix.
