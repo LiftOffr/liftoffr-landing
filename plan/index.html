@@ -560,16 +560,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
   </div>
 
-  <!-- EMAIL CAPTURE (non-buyers) -->
+  <!-- ESCAPE HATCH (non-buyers) — was the "Bear Market Buy Zone Plan" opt-in,
+       one of two competing lead magnets. Consolidated into the quiz 2026-08-16
+       per 02-plan-page-rewrite.md: the quiz result is a segment tag, which is
+       what makes the follow-up sequence segmented rather than a newsletter. -->
   <div class="capture">
     <h3>Not buying today?</h3>
-    <p>Take the free Bear Market Buy Zone Plan — the four bands I ladder inside — plus the Score every Sunday morning.</p>
-    <form class="email-form" data-lead-form data-medium="plan_page" onsubmit="return submitPlanForm(this);" id="leadForm">
-      <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
-      <button type="submit">Send it to me</button>
-    </form>
-    <div class="form-error" id="formError">Something went wrong. Try again in a moment.</div>
-    <p class="form-fine">Free. No card. Unsubscribe in one click.</p>
+    <p>Take the 60-second cycle-position quiz. You'll get where you sit right now, what the current score means for someone in your position, and the Sunday email if you want it. Free, no card.</p>
+    <a href="/quiz?utm_source=liftoffr&utm_medium=plan&utm_campaign=quiz&utm_content=plan_escape" style="display:inline-block;margin-top:6px;padding:14px 24px;background:var(--red);color:#fff;text-decoration:none;border-radius:10px;font-weight:800;font-size:15px;">Start — 60 seconds, free &rarr;</a>
+    <p class="form-fine">No email needed to see your result.</p>
   </div>
 
   <!-- FREE DOOR -->
@@ -631,53 +630,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   // Inline capture for non-buyers — same /api/subscribe path as /free.
-  function submitPlanForm(form) {
-    var email = (form.querySelector('input[type=email]') || {}).value || '';
-    var medium = form.getAttribute('data-medium') || 'plan_page';
-    var btn = form.querySelector('button[type=submit]');
-    var input = form.querySelector('input[type=email]');
-    var errorBox = document.getElementById('formError');
-    var oldLabel = btn ? btn.textContent : '';
-
-    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-    if (input) { input.disabled = true; }
-    if (errorBox) errorBox.style.display = 'none';
-
-    var pageUtms = getLeadUtms();
-    var payload = {
-      email: email,
-      magnet: 'buyzone',
-      utm_source: pageUtms.utm_source || 'liftoffr',
-      utm_medium: medium,
-      utm_campaign: pageUtms.utm_campaign || 'plan_page',
-      utm_content: pageUtms.utm_content || ''
-    };
-
-    if (typeof window.track === 'function') {
-      window.track('lead_magnet_submit', { source: medium, page: location.pathname });
-    }
-
-    fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function(r){
-      return r.json().then(function(data){ return { ok: r.ok, data: data }; });
-    }).then(function(result){
-      if (!result.ok) throw new Error((result.data && result.data.error) || 'Signup failed');
-      form.innerHTML = '<div style="padding:14px;background:rgba(38,208,124,0.10);border:1px solid rgba(38,208,124,0.35);border-radius:9px;color:#26d07c;font-weight:700;text-align:center;width:100%;">✓ Check your inbox. The Score lands every Sunday.</div>';
-      if (typeof window.track === 'function') {
-        window.track('lead_captured', { source: medium, page: location.pathname });
-      }
-    }).catch(function(err){
-      if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
-      if (input) { input.disabled = false; }
-      if (errorBox) errorBox.style.display = 'block';
-      console.error('submitPlanForm error:', err);
-    });
-
-    return false;
-  }
+  // submitPlanForm() removed 2026-08-16 — the inline opt-in it served was
+  // replaced by a link to /quiz, which posts to /api/subscribe itself with its
+  // segment tag.
 
   // CTA click tracking (matches site-wide cta_clicked schema)
   document.addEventListener('click', function(e){

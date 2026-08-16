@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K5B4BX46');</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where are you in the cycle? — 60-second quiz | LiftOffr</title>
+<meta name="description" content="Six questions about what you hold, when you bought, and what you'd do if Bitcoin dropped 40% tomorrow. You'll get your cycle position and what today's score means for someone in it. Free, no card.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://liftoffr.com/quiz">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LiftOffr">
+<meta property="og:url" content="https://liftoffr.com/quiz">
+<meta property="og:title" content="Where are you in the Bitcoin cycle?">
+<meta property="og:description" content="Six questions, 60 seconds. Your cycle position, and what today's score means for someone in it. Free, no card.">
+<meta property="og:image" content="https://liftoffr.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where are you in the Bitcoin cycle?">
+<meta name="twitter:description" content="Six questions, 60 seconds. Free, no card.">
+<meta name="twitter:image" content="https://liftoffr.com/og-image.png">
+
+<meta name="theme-color" content="#e63946">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/brand.css">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wl50cvbc1c");
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e63946;
+    --green: #22c55e;
+    --bg: #080808;
+    --card: #111111;
+    --border: #1e1e1e;
+    --ink: #e9e9e9;
+    --muted: #777777;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh;
+  }
+  nav {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 14px 22px; border-bottom: 1px solid var(--border);
+    background: rgba(8,8,8,0.9); backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px); position: sticky; top: 0; z-index: 50;
+  }
+  .lo-logo { font-style: italic; font-weight: 900; letter-spacing: -0.5px; font-size: 20px; text-decoration: none; color: #fff; }
+  .lo-logo .lo-offr { color: var(--red); }
+
+  .wrap { max-width: 620px; margin: 0 auto; padding: 40px 22px 80px; }
+
+  .eyebrow {
+    display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+  }
+  h1 { font-size: 36px; font-weight: 900; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 14px; color: #fff; }
+  h1 em { color: var(--red); font-style: normal; }
+  .lede { font-size: 16.5px; color: #bdbdbd; line-height: 1.7; }
+  .lede strong { color: #fff; font-weight: 800; }
+
+  /* PROGRESS */
+  .prog-wrap { margin: 26px 0 22px; }
+  .prog-track { height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--red); width: 0%; transition: width .28s ease; }
+  .prog-lbl { font-size: 11px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); margin-top: 9px; }
+
+  /* QUESTIONS */
+  .q-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 26px 22px; margin-bottom: 16px;
+  }
+  .q-text { font-size: 21px; font-weight: 800; color: #fff; letter-spacing: -0.4px; line-height: 1.3; margin-bottom: 18px; }
+  .q-help { font-size: 13.5px; color: var(--muted); margin: -12px 0 18px; line-height: 1.6; }
+  .opt {
+    display: block; width: 100%; text-align: left; cursor: pointer;
+    background: #0d0d0d; border: 1px solid var(--border); border-radius: 10px;
+    padding: 15px 17px; margin-bottom: 10px; color: var(--ink);
+    font-family: inherit; font-size: 15px; font-weight: 600; line-height: 1.5;
+    transition: border-color .14s ease, background .14s ease, transform .1s ease;
+  }
+  .opt:hover { border-color: #333; background: #121212; }
+  .opt:active { transform: scale(0.995); }
+  .opt.sel { border-color: var(--red); background: rgba(230,57,70,0.08); }
+  .opt-sub { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 3px; }
+
+  .backlink {
+    background: none; border: none; color: var(--muted); font-family: inherit;
+    font-size: 13.5px; font-weight: 700; cursor: pointer; padding: 6px 0;
+  }
+  .backlink:hover { color: #aaa; }
+
+  /* RESULT */
+  .result-tag {
+    display: inline-block; font-size: 12px; font-weight: 900; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green); background: rgba(34,197,94,0.10);
+    border: 1px solid rgba(34,197,94,0.35); border-radius: 999px; padding: 7px 15px; margin-bottom: 16px;
+  }
+  .result-h { font-size: 30px; font-weight: 900; letter-spacing: -1px; line-height: 1.15; color: #fff; margin-bottom: 14px; }
+  .result-body { font-size: 16px; color: #bdbdbd; line-height: 1.75; }
+  .result-body strong { color: #fff; font-weight: 800; }
+  .result-body p { margin-bottom: 14px; }
+
+  .score-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px; text-align: center; margin: 22px 0;
+  }
+  .score-lbl { font-size: 11px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); }
+  .score-num { font-size: 54px; font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-top: 6px; color: #fff; }
+  .score-zone { font-size: 13px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--red); margin-top: 4px; }
+  .score-note { font-size: 13.5px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+
+  /* EMAIL CAPTURE */
+  .cap {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 24px 22px; margin-top: 22px;
+  }
+  .cap h3 { font-size: 19px; font-weight: 900; color: #fff; letter-spacing: -0.4px; margin-bottom: 8px; }
+  .cap p { font-size: 14.5px; color: #a5a5a5; line-height: 1.65; margin-bottom: 16px; }
+  .email-form { display: flex; flex-direction: column; gap: 10px; }
+  .email-form input {
+    width: 100%; padding: 14px 16px; border-radius: 10px; border: 1px solid #2a2a2a;
+    background: #0a0a0a; color: #fff; font-size: 16px; font-family: inherit;
+  }
+  .email-form input:focus { outline: none; border-color: var(--red); }
+  .email-form button {
+    width: 100%; padding: 15px; border: none; border-radius: 10px; background: var(--red);
+    color: #fff; font-size: 16px; font-weight: 800; font-family: inherit; cursor: pointer;
+  }
+  .email-form button:disabled { opacity: .6; cursor: default; }
+  .form-fine { font-size: 12.5px; color: var(--muted); margin-top: 11px; text-align: center; }
+  .form-error { display: none; margin-top: 11px; font-size: 13.5px; color: #ff8b94; text-align: center; }
+  .cap-done {
+    display: none; padding: 16px; background: rgba(34,197,94,0.10);
+    border: 1px solid rgba(34,197,94,0.35); border-radius: 10px;
+    color: var(--green); font-weight: 700; text-align: center; font-size: 15px; line-height: 1.55;
+  }
+
+  .next-links { margin-top: 26px; border-top: 1px solid var(--border); padding-top: 22px; }
+  .next-links a {
+    display: block; color: #bdbdbd; text-decoration: none; font-size: 14.5px;
+    padding: 11px 0; border-bottom: 1px solid #141414; font-weight: 600;
+  }
+  .next-links a:last-child { border-bottom: none; }
+  .next-links a span { color: var(--red); font-weight: 800; }
+
+  .disclaimer {
+    margin-top: 30px; font-size: 12px; color: #5a5a5a; line-height: 1.7;
+    border-top: 1px solid var(--border); padding-top: 18px;
+  }
+  .disclaimer a { color: #7a7a7a; }
+
+  .hidden { display: none; }
+
+  @media (max-width: 520px) {
+    h1 { font-size: 29px; }
+    .q-text { font-size: 19px; }
+    .result-h { font-size: 25px; }
+    .score-num { font-size: 46px; }
+  }
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<nav>
+  <a href="/" class="lo-logo" aria-label="LiftOffr home">lift<span class="lo-offr">offr</span></a>
+</nav>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <section id="intro">
+    <span class="eyebrow">60 seconds · 6 questions · free</span>
+    <h1>Where are you <em>in the cycle</em>?</h1>
+    <p class="lede">
+      Six questions about what you hold, when you bought, and what you'd do if Bitcoin dropped 40% tomorrow.
+      You'll get your cycle position, what today's score means for someone in it, and the Sunday email if you want it.
+      <strong>No card. Nothing to install.</strong>
+    </p>
+    <div class="q-card" style="margin-top:24px;">
+      <button class="opt" id="startBtn" style="border-color:var(--red);background:var(--red);color:#fff;font-weight:800;font-size:16px;text-align:center;">Start — 60 seconds, free →</button>
+      <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6;">
+        No email needed to see your result. I only ask after.
+      </p>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="hidden">
+    <div class="prog-wrap">
+      <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+      <div class="prog-lbl" id="progLbl">Question 1 of 6</div>
+    </div>
+    <div class="q-card">
+      <div class="q-text" id="qText"></div>
+      <div class="q-help hidden" id="qHelp"></div>
+      <div id="qOpts"></div>
+    </div>
+    <button class="backlink" id="backBtn">← Back</button>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" class="hidden">
+    <span class="result-tag" id="resTag"></span>
+    <h2 class="result-h" id="resH"></h2>
+    <div class="result-body" id="resBody"></div>
+
+    <div class="score-card">
+      <div class="score-lbl">Today's LiftOffr Score</div>
+      <div class="score-num" id="scoreNum">—</div>
+      <div class="score-zone" id="scoreZone">loading</div>
+      <div class="score-note">
+        Above 85 the model reads as exit territory. Below 20, accumulation. In between it's telling you to do
+        nothing — which is where it sits most of the time, and which is the part people find hardest.
+      </div>
+    </div>
+
+    <div class="cap" id="capCard">
+      <h3>Want the rest of it?</h3>
+      <p>
+        Seven emails over two weeks, written for the position you just came out as — the story behind this,
+        the honest version of what my backtest is and isn't, and what I actually do about it. Then it's just
+        the Sunday score. Unsubscribe in one click, any time.
+      </p>
+      <form class="email-form" id="capForm" onsubmit="return submitQuizForm(this);">
+        <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
+        <button type="submit" id="capBtn">Send it to me</button>
+      </form>
+      <div class="form-error" id="formError">Something went wrong. Try again in a moment.</div>
+      <p class="form-fine">Free. No card. One click to unsubscribe.</p>
+      <div class="cap-done" id="capDone">✓ Check your inbox — your result is on its way.</div>
+    </div>
+
+    <div class="next-links">
+      <a href="/receipts?utm_source=liftoffr&utm_medium=quiz&utm_campaign=quiz&utm_content=result_receipts">
+        Read the receipts first — all 64 zone changes, 29 of which went the wrong way <span>→</span>
+      </a>
+      <a href="/cycle?utm_source=liftoffr&utm_medium=quiz&utm_campaign=quiz&utm_content=result_cycle">
+        The live score, free, no account needed <span>→</span>
+      </a>
+      <a href="/free?utm_source=liftoffr&utm_medium=quiz&utm_campaign=quiz&utm_content=result_free">
+        The open Discord and the 8am daily brief <span>→</span>
+      </a>
+    </div>
+
+    <p class="disclaimer">
+      Educational content only. Not financial advice, and nothing here is personalised to you — this quiz sorts
+      you into one of four broad positions so I can send you something relevant, and that is all it does.
+      I'm not a registered investment adviser. Every dated signal on this site is a
+      <a href="/receipts">historical backtest</a>, not a record of calls published at the time.
+      Past performance does not predict future results.
+    </p>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  // ── The six questions. Each option carries weights toward the four segment
+  //    tags defined in 04-email-sequence.md. Scoring is client-side only; the
+  //    resulting tag is what makes the email sequence segmented rather than a
+  //    newsletter, so it is the one field that must always reach the server.
+  var QUESTIONS = [
+    {
+      q: "How much Bitcoin do you own right now?",
+      opts: [
+        { t: "None yet", w: { NEW: 3 } },
+        { t: "A small amount", s: "Enough to watch the price, not enough to lose sleep", w: { NEW: 2 } },
+        { t: "A meaningful position", s: "It would matter if it halved", w: { ACCUMULATING: 1, SITTING: 1 } },
+        { t: "Most of what I've saved", w: { ACCUMULATING: 1, SITTING: 2 } }
+      ]
+    },
+    {
+      q: "When did you first buy?",
+      opts: [
+        { t: "I haven't", w: { NEW: 3 } },
+        { t: "In the last year or so", w: { NEW: 1, ACCUMULATING: 1 } },
+        { t: "2021 or 2022", w: { ROUNDTRIPPED: 1, SITTING: 1 } },
+        { t: "2017 or earlier", w: { ROUNDTRIPPED: 2 } }
+      ]
+    },
+    {
+      q: "Have you held Bitcoin through a full cycle and watched it go most of the way back down?",
+      help: "The honest answer, not the flattering one. This is the single most useful thing you can tell me.",
+      opts: [
+        { t: "Yes — I rode it up and gave it back", w: { ROUNDTRIPPED: 5 } },
+        { t: "Partly — I sold some, held too much", w: { ROUNDTRIPPED: 3 } },
+        { t: "No, I got out in reasonable shape", w: { ACCUMULATING: 1 } },
+        { t: "No — I haven't been through one", w: { NEW: 2 } }
+      ]
+    },
+    {
+      q: "Are you buying at the moment?",
+      opts: [
+        { t: "Yes, on a schedule", s: "Weekly or monthly, automatically", w: { ACCUMULATING: 4 } },
+        { t: "Yes, when it feels cheap", w: { ACCUMULATING: 2 } },
+        { t: "No — I'm holding and waiting", w: { SITTING: 4 } },
+        { t: "No — I'm not sure what I should be doing", w: { SITTING: 3, NEW: 1 } }
+      ]
+    },
+    {
+      q: "Have you written down a price at which you'd sell?",
+      help: "Written down somewhere you'd actually find it. Not a number you've thought about.",
+      opts: [
+        { t: "No, and I've never really tried", w: { SITTING: 2, ACCUMULATING: 2 } },
+        { t: "I have a rough number in my head", w: { SITTING: 2, ACCUMULATING: 1 } },
+        { t: "I had one last cycle and ignored it", w: { ROUNDTRIPPED: 4 } },
+        { t: "Yes, written down, and I'd follow it", w: { ACCUMULATING: 1 } }
+      ]
+    },
+    {
+      q: "Bitcoin drops 40% tomorrow. What actually happens?",
+      help: "Not what you'd like to happen. What you think you'd really do.",
+      opts: [
+        { t: "I buy more — that's the plan", w: { ACCUMULATING: 3 } },
+        { t: "I do nothing and feel sick about it", w: { SITTING: 3 } },
+        { t: "I'd probably sell some", w: { SITTING: 2, ROUNDTRIPPED: 1 } },
+        { t: "I genuinely don't know", w: { NEW: 2, SITTING: 1 } }
+      ]
+    }
+  ];
+
+  // Result copy per segment. Angle shifts match the sequence's segment table.
+  var RESULTS = {
+    ROUNDTRIPPED: {
+      tag: "Round-tripped",
+      h: "You've been through this once, and it cost you.",
+      oneLine: "you've held through a full cycle and given most of it back",
+      body:
+        "<p>You already know the part most people have to learn expensively: <strong>the problem was never the information.</strong> " +
+        "You could see it. You had a number in your head, or close to one. The moment arrived and there was a reason it was different this time, " +
+        "and the reason was convincing, and you held.</p>" +
+        "<p>That's what happened to me in 2021. I had every indicator I now publish sitting on a screen in front of me, and I did nothing, " +
+        "and about $30,000 went up and came all the way back down while I watched.</p>" +
+        "<p><strong>The fix isn't more data.</strong> It's writing the decision down before the moment arrives, while you're calm and " +
+        "nothing is happening — which is exactly what today is.</p>"
+    },
+    ACCUMULATING: {
+      tag: "Accumulating",
+      h: "You've got the easy half handled.",
+      oneLine: "you're buying consistently, with no written rule for getting out",
+      body:
+        "<p>Buying on a schedule is genuinely the hard-to-start, easy-to-continue half, and most people never manage it. " +
+        "You have. That puts you ahead of nearly everyone reading this.</p>" +
+        "<p><strong>The other half is the one nobody writes down.</strong> There's an enormous amount of content telling you when to buy " +
+        "and almost none telling you when to stop, because \"buy\" is easy to publish and nobody can prove you wrong for years, " +
+        "while \"here's the price where I sell\" is a number people can hold you to next month.</p>" +
+        "<p>So people arrive at the top of a cycle with a lot of conviction and no exit. You'll need that rule sooner than it currently feels necessary.</p>"
+    },
+    SITTING: {
+      tag: "Sitting",
+      h: "You're holding, and it doesn't feel like a decision.",
+      oneLine: "you're holding without a written rule in either direction",
+      body:
+        "<p>That's the dangerous part, and it's worth saying plainly: <strong>doing nothing is a position.</strong> " +
+        "It just doesn't feel like one, because you never had to actively choose it.</p>" +
+        "<p>You're carrying the same exposure as someone who deliberately decided to hold — you're carrying it without having decided anything, " +
+        "which means when the moment comes there's no rule to fall back on. That's exactly where I was in 2021.</p>" +
+        "<p>The useful move here isn't to buy or sell. It's to make the decision in advance, in writing, on a boring day when nothing is happening.</p>"
+    },
+    NEW: {
+      tag: "Early",
+      h: "You're early — which is the best time to hear any of this.",
+      oneLine: "you're early enough to build the rule before you have anything at stake in it",
+      body:
+        "<p>Everyone else reading this has to unlearn a habit. You don't. You can build the rule <strong>before</strong> you have " +
+        "enough at stake for the rule to be hard to follow, and that's an advantage that doesn't come back.</p>" +
+        "<p>Genuinely: don't spend money on any of this yet. The score is free, the daily brief is free, and the record — " +
+        "including the 29 signals that went the wrong way — is public. Use the free side for a while first. It'll still be free in six months.</p>" +
+        "<p>The one thing worth doing today, and it costs nothing: write down what you'd do if the price halved. Then you'll know whether you meant it.</p>"
+    }
+  };
+
+  var idx = 0;
+  var answers = [];
+  var segment = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function utms() {
+    var p = new URLSearchParams(location.search);
+    return {
+      utm_source: p.get('utm_source') || 'liftoffr',
+      utm_medium: p.get('utm_medium') || 'quiz',
+      utm_campaign: p.get('utm_campaign') || 'quiz',
+      utm_content: p.get('utm_content') || ''
+    };
+  }
+
+  function render() {
+    var q = QUESTIONS[idx];
+    $('qText').textContent = q.q;
+    var help = $('qHelp');
+    if (q.help) { help.textContent = q.help; help.classList.remove('hidden'); }
+    else { help.classList.add('hidden'); }
+
+    var box = $('qOpts');
+    box.innerHTML = '';
+    q.opts.forEach(function (o, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'opt' + (answers[idx] === i ? ' sel' : '');
+      b.innerHTML = o.s
+        ? o.t + '<span class="opt-sub">' + o.s + '</span>'
+        : o.t;
+      b.addEventListener('click', function () { choose(i); });
+      box.appendChild(b);
+    });
+
+    $('progFill').style.width = ((idx) / QUESTIONS.length * 100) + '%';
+    $('progLbl').textContent = 'Question ' + (idx + 1) + ' of ' + QUESTIONS.length;
+    $('backBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
+  }
+
+  function choose(i) {
+    answers[idx] = i;
+    if (typeof window.track === 'function') {
+      window.track('quiz_answer', { question: idx + 1, choice: i });
+    }
+    if (idx < QUESTIONS.length - 1) { idx++; render(); }
+    else { finish(); }
+  }
+
+  function score() {
+    var totals = { ROUNDTRIPPED: 0, ACCUMULATING: 0, SITTING: 0, NEW: 0 };
+    answers.forEach(function (a, qi) {
+      var w = QUESTIONS[qi].opts[a].w || {};
+      Object.keys(w).forEach(function (k) { totals[k] += w[k]; });
+    });
+    // Tie-break order is deliberate, not alphabetical: ROUND-TRIPPED is the
+    // highest-intent segment per the research, and NEW is the one segment the
+    // sequence actively defers rather than pitches — so a genuine tie should
+    // land on the answer that changes the emails most.
+    var order = ['ROUNDTRIPPED', 'NEW', 'ACCUMULATING', 'SITTING'];
+    var best = order[0];
+    order.forEach(function (k) { if (totals[k] > totals[best]) best = k; });
+    return best;
+  }
+
+  function finish() {
+    segment = score();
+    var r = RESULTS[segment];
+    $('resTag').textContent = r.tag;
+    $('resH').textContent = r.h;
+    $('resBody').innerHTML = r.body;
+
+    $('quiz').classList.add('hidden');
+    $('result').classList.remove('hidden');
+    window.scrollTo(0, 0);
+
+    if (typeof window.track === 'function') {
+      window.track('quiz_completed', { segment: segment });
+    }
+    loadScore();
+  }
+
+  function loadScore() {
+    fetch('/api/cycle-score')
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || typeof d.score !== 'number') throw new Error('no score');
+        $('scoreNum').textContent = d.score.toFixed(1);
+        $('scoreZone').textContent = (d.zone || 'neutral');
+      })
+      .catch(function () {
+        // The score is decoration on this page, not the payload. If the
+        // endpoint is down, drop the card rather than showing a stale number.
+        var c = document.querySelector('.score-card');
+        if (c) c.style.display = 'none';
+      });
+  }
+
+  window.submitQuizForm = function (form) {
+    var email = (form.email.value || '').trim();
+    if (!email || email.indexOf('@') < 0) return false;
+
+    var btn = $('capBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    $('formError').style.display = 'none';
+
+    var u = utms();
+    var payload = {
+      email: email,
+      magnet: 'quiz',
+      segment: segment,
+      utm_source: u.utm_source,
+      utm_medium: u.utm_medium,
+      utm_campaign: u.utm_campaign,
+      utm_content: u.utm_content || ('segment_' + segment)
+    };
+
+    if (typeof window.track === 'function') {
+      window.track('lead_magnet_submit', { source: 'quiz', segment: segment, page: location.pathname });
+    }
+
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      return r.json().then(function (d) { return { ok: r.ok, data: d }; });
+    }).then(function (res) {
+      if (!res.ok) throw new Error((res.data && res.data.error) || 'Subscription failed');
+      form.style.display = 'none';
+      document.querySelector('.form-fine').style.display = 'none';
+      $('capDone').style.display = 'block';
+      if (typeof window.track === 'function') {
+        window.track('lead_captured', { source: 'quiz', segment: segment, page: location.pathname });
+      }
+    }).catch(function (err) {
+      console.error('submitQuizForm error:', err);
+      btn.disabled = false;
+      btn.textContent = 'Send it to me';
+      $('formError').style.display = 'block';
+    });
+
+    return false;
+  };
+
+  $('startBtn').addEventListener('click', function () {
+    $('intro').classList.add('hidden');
+    $('quiz').classList.remove('hidden');
+    render();
+    if (typeof window.track === 'function') window.track('quiz_started', {});
+  });
+
+  $('backBtn').addEventListener('click', function () {
+    if (idx > 0) { idx--; render(); }
+  });
+})();
+</script>
+
+</body>
+</html>

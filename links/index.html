@@ -12,7 +12,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Torin Christianson — LiftOffr</title>
-<meta name="description" content="Everything LiftOffr in one place — the live cycle Score, the free buy-zone plan, the backtested signal log, and my $29 bear market buy plan.">
+<meta name="description" content="Everything LiftOffr in one place — the live cycle Score, the 60-second cycle-position quiz, the backtested signal log, and my $29 bear market buy plan.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://liftoffr.com/links">
 
@@ -433,10 +433,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Quick links: what "it's in the link in bio" points to -->
   <a href="/cycle?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_cycle" class="lh-quick" data-cta="links_cycle">&#128202; This week's cycle read — live score &rarr;<span class="lq-sub">The full public dashboard: score, zone, and all four pillars. Free.</span></a>
   <a href="/indicators?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_indicators" class="lh-quick" data-cta="links_indicators">All 9 cycle indicators — live &rarr;<span class="lq-sub">Today's reading for each, plus what every one read at every cycle top since 2013.</span></a>
-  <!-- Free-magnet slot: Score-driven. Buy-zone is the default (Score below 70);
-       the checklist takes over in the warning band. See applyMagnetMode() below. -->
-  <a href="/buyzone?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_buyzone" class="lh-quick" data-cta="links_buyzone" data-magnet-panel="buy">Free bear-market buy-zone plan &rarr;<span class="lq-sub">The four bands I'm buying into, and what has to confirm first — free, straight to your inbox.</span></a>
-  <a href="/checklist?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_checklist" class="lh-quick" data-cta="links_checklist" data-magnet-panel="sell" hidden>Free cycle-top checklist &rarr;<span class="lq-sub">The signals I watch before selling — free, straight to your inbox.</span></a>
+  <!-- One free step, not two. The Score-driven buy-zone/checklist magnet swap
+       was retired 2026-08-16 and consolidated into the cycle-position quiz. -->
+  <a href="/quiz?utm_source=liftoffr&utm_medium=links&utm_campaign=quiz&utm_content=links_quiz" class="lh-quick" data-cta="links_quiz">Where are you in the cycle? &rarr;<span class="lq-sub">Six questions, 60 seconds. Your cycle position and what today's score means for someone in it — free, no card.</span></a>
 
   <!-- Scoreboard hero: score shown, action gated -->
   <div class="lh-score">
@@ -531,8 +530,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- Escape hatch for the not-ready: capture path moved OFF the main flow.
        Mirrors the magnet slot above — whichever PDF is not the headline offer lands here. -->
-  <a href="/checklist?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_escape" class="lh-escape" data-magnet-panel="buy">Not selling yet? <b>Get my free BTC Cycle Top Checklist &rarr;</b></a>
-  <a href="/buyzone?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_escape" class="lh-escape" data-magnet-panel="sell" hidden>Not ready? <b>Get my free Bear Market Buy-Zone Plan &rarr;</b></a>
+  <a href="/quiz?utm_source=liftoffr&utm_medium=links&utm_campaign=quiz&utm_content=links_escape" class="lh-escape">Not sure where you sit? <b>Get my free BTC Cycle Top Checklist &rarr;</b></a>
+  <a href="/quiz?utm_source=liftoffr&utm_medium=links&utm_campaign=quiz&utm_content=links_escape_b" class="lh-escape" hidden>Not ready? <b>Get my free Bear Market Buy-Zone Plan &rarr;</b></a>
 
   <div class="lh-socials-row">
     <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="lh-social">YouTube</a>
@@ -573,17 +572,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         trend.textContent = arrow + '  ' + sign + d.trendDelta7d + ' over last 7 days';
       }
       if (locked && d.commentary) locked.textContent = d.commentary + ' ' + locked.textContent;
-      applyMagnetMode(d.score >= 70 ? 'sell' : 'buy');
     }).catch(function(){});
 
-    // Free-magnet slot follows the Score: below 70 the audience has a buying
-    // problem, at 70+ (WARNING in api/cycle-score.js) it becomes a selling one.
-    // 'buy' is the no-JS HTML default, so a dead API leaves the page correct.
-    function applyMagnetMode(mode){
-      document.querySelectorAll('[data-magnet-panel]').forEach(function(el){
-        el.hidden = el.getAttribute('data-magnet-panel') !== mode;
-      });
-    }
+    // applyMagnetMode() removed 2026-08-16 with the two competing lead magnets
+    // it switched between. The quiz does not vary by Score.
   })();
 </script>
 

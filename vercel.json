@@ -44,6 +44,16 @@
       "permanent": false
     },
     {
+      "source": "/checklist",
+      "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_checklist",
+      "permanent": false
+    },
+    {
+      "source": "/buyzone",
+      "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_buyzone",
+      "permanent": false
+    },
+    {
       "source": "/start",
       "destination": "/plan?utm_source=shortlink&utm_medium=cta&utm_campaign=plan&utm_content=start",
       "permanent": false
