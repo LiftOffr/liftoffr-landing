@@ -4,8 +4,8 @@ Everything on this branch is built and inert. **Nothing has been pushed or deplo
 no live account was touched** — no Resend audience created, no ManyChat keyword changed,
 no Whop config or price modified.
 
-This is the single list of things only you can do. Three groups: **decide before merging**,
-**do in a dashboard**, **do on an ongoing basis.**
+This is the single list of things only you can do: **decide before merging**, **do in a
+dashboard**, **do on an ongoing basis** — plus one optional project at the end.
 
 Deep technical detail lives in `QUIZ_SETUP.md`; the full record of what changed and why is
 in `CHANGELOG_2026-08-16_RESEARCH_FINDINGS.md`.
@@ -40,9 +40,12 @@ overrule — each is a small revert if you disagree.
       typical-results disclosure. I did **not** backfill the slot with a fabricated
       stand-in — one card points at the record, the other says plainly there are no
       testimonials yet.
-- [ ] **`/receipts` now publishes a live-log start date of August 16, 2026.** That's a
-      public commitment the site now makes on your behalf. If you're not starting the daily
-      log on that date, change the date before this merges — see section C.
+- [ ] **`/receipts` no longer promises anything.** It previously committed to a live log
+      starting August 16. That commitment is gone from all six places it appeared
+      (`/receipts`, homepage §6, homepage FAQ, `/plan`, and both email templates), replaced
+      with an instruction the reader can act on immediately: recompute any row from CBBI's
+      public data using the published weights. Nothing on the site now depends on you
+      remembering to do something daily.
 
 ---
 
@@ -127,12 +130,17 @@ segment. Contacts age off Resend's `created_at`, so email 2 lands the next day.
 
 ## C. Ongoing — the things no code change can do for you
 
-- [ ] **Start the live signal log, and keep it.** `/receipts`, the homepage, `/plan` and
-      email 3 of the sequence all now promise that from **August 16, 2026** every zone
-      change is logged the day it happens, marked `LOGGED LIVE`, and left up whether it
-      worked or not. The research calls this the only proof asset that compounds. It's also
-      now a public commitment in four places — if it doesn't happen, the branch has made
-      the credibility problem worse, not better.
+> **Removed from this list on purpose: "start the live signal log."** The site no longer
+> promises one. There is no persistent storage wired into this project (no Blob, KV,
+> Postgres or `GITHUB_TOKEN` — the Score is computed on the fly from CBBI and cached), so
+> an automated append-only log could not be built on this branch. And every store that
+> *could* be provisioned is freely rewritable by you, which would make a "live log" a
+> claim rather than proof. So the copy now points at something better and permanent: the
+> Score is deterministically recomputable from CBBI's public data using the weights already
+> published on the indicator pages. Anyone can verify any date without trusting your
+> storage or your memory. Nothing here can lapse. See section E if you ever want the
+> automated version.
+
 - [ ] **Say the CTA on camera.** The shipping rule from the research: if it isn't spoken in
       the first five seconds and burned in as text, the post doesn't ship. This is the
       single biggest traffic lever available and it costs nothing.
@@ -178,3 +186,27 @@ every footer carries the full substantiation line.
 
 The same `$1.88M` figure was also sitting in the `/track-record` anchor text of all nine
 blog posts. Both were found on a second sweep after the first pass missed them.
+
+---
+
+## E. If you ever want the automated live log
+
+Not built, and deliberately not promised anywhere on the site. What it would take:
+
+1. **Provision a store.** Vercel Blob is the least-effort option (dashboard → Storage →
+   Create → Blob), which sets `BLOB_READ_WRITE_TOKEN` automatically.
+2. **Append from the existing cron.** `api/cron-welcome-followups.js` already runs daily and
+   already has the score-fetch helper. One append per run, no new function, cap untouched.
+3. **Render `/receipts` from it** instead of the current static rows.
+
+**The honest caveat, which is why it isn't the default:** Blob, KV and Postgres are all
+freely rewritable by you. A log on mutable storage the publisher controls is not proof — it
+is the same claim with more infrastructure, and claiming immutability for it would be worse
+than claiming nothing. The only version that is genuinely tamper-evident is committing each
+day's reading to git, where GitHub's timestamped history is external to you — the same
+pattern `youtube_intel.py` already uses for `api/_cowen-data.js`. That needs a
+`GITHUB_TOKEN` and would fire a production deploy daily, so it is a real project, not a
+config change.
+
+**Until then the current copy is stronger anyway**, because recomputability from a public
+third-party source requires trusting neither your storage nor your discipline.

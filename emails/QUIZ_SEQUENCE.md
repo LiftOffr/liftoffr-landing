@@ -68,7 +68,8 @@ the same pass:
 
 - **No dollar outcomes.** No `$1.88M`, no portfolio values, no "turned X into Y".
 - **No percentages presented as achievable.** No `+7,602%`, no `100% win rate`.
-- **No "called."** Everything before today is a backtest and says so.
+- **No "called."** Every row is a backtest and says so.
+- **No promise of a future cadence** — nothing the system does not do automatically. Verifiability comes from the public CBBI source and published weights, not from a log anyone has to remember to keep.
 - **Educational framing throughout**, disclaimer in the footer of every send.
 - The only dollar figure anywhere in this sequence is **$30,000 — and it's a loss.**
 
@@ -149,9 +150,9 @@ positioning in one instruction.
 >
 > That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.
 >
-> So here's what I've changed. **From now, every zone change gets logged the day it happens**, marked LOGGED LIVE, and stays on the page whether it works or not.
+> So here's what I'm *not* going to do: promise you a live track record I'd then have to remember to keep. **Here's what you can check instead, today.**
 >
-> That record is short right now. It's the only kind that means anything, and the only way to get a long one is to start.
+> The Score is computed from CBBI's public daily data using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.
 >
 > — Torin
 

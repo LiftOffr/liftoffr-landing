@@ -186,5 +186,12 @@ signal still say 2021.
   the Sep 7 founding window), the order bump (#14), review collection (#7), proof-page
   consolidation (#15), and both pricing tests (#23, #24 — the research defers these until
   after the first ten `/system` buyers).
-- **Starting the live log (#5).** `/receipts` now publishes the commitment and the date. The
+- **Starting the live log (#5) — reversed 2026-08-16, third pass.** An earlier version of
+  this branch had `/receipts` promise a live log from Aug 16 forward. That promise rested
+  on Torin remembering to do something manually, with no system behind it, so it was
+  removed from all six places it appeared. There is no persistent storage in this project
+  (the Score is computed on the fly from CBBI and edge-cached), and every store that could
+  be provisioned is publisher-rewritable — a live log on mutable storage is a claim, not
+  proof. The copy now points at recomputability from CBBI's public data using the published
+  weights, which is verifiable today, requires no storage, and cannot lapse.
   daily discipline is Torin's, not a code change.

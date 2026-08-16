@@ -319,8 +319,8 @@ function proofHTML() {
      <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with the dates and the outcomes.</p>
      <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
      <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
-     <p style="margin:0 0 16px;">So here's what I've changed. <strong>From now, every zone change gets logged the day it happens</strong>, marked LOGGED LIVE, and stays on the page whether it works or not.</p>
-     <p style="margin:0 0 16px;">That record is short right now. It's the only kind that means anything, and the only way to get a long one is to start.</p>
+     <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
+     <p style="margin:0 0 16px;">The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" style="color:#e63946;">CBBI's public daily data</a> using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "Read the receipts →", "https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts");
 }
@@ -329,8 +329,8 @@ function proofText() {
     "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with the dates and the outcomes.","",
     "EVERY ONE OF THEM IS A BACKTEST.","",
     "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
-    "So here's what I've changed. From now, every zone change gets logged the day it happens, marked LOGGED LIVE, and stays on the page whether it works or not.","",
-    "That record is short right now. It's the only kind that means anything, and the only way to get a long one is to start.","",
+    "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
+    "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.","",
     "Read the receipts: https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts","","— Torin"].join("\n");
 }
 
@@ -604,8 +604,8 @@ function quiz3HTML(seg, sc) {
      <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.</p>
      <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
      <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
-     <p style="margin:0 0 16px;">So here's what I've changed. <strong>From now, every zone change gets logged the day it happens</strong>, marked LOGGED LIVE, and stays on the page whether it works or not.</p>
-     <p style="margin:0 0 16px;">That record is short right now. It's the only kind that means anything, and the only way to get a long one is to start.</p>
+     <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
+     <p style="margin:0 0 16px;">The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" style="color:#e63946;">CBBI's public daily data</a> using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "Go read it →", QL("/receipts", "e3_receipts"));
 }
@@ -614,8 +614,8 @@ function quiz3Text() {
     "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.","",
     "EVERY ONE OF THEM IS A BACKTEST.","",
     "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
-    "So here's what I've changed. From now, every zone change gets logged the day it happens, marked LOGGED LIVE, and stays on the page whether it works or not.","",
-    "That record is short right now. It's the only kind that means anything, and the only way to get a long one is to start.","",
+    "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
+    "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.","",
     "Go read it: " + QL("/receipts", "e3_receipts"),"","— Torin"]);
 }
 
