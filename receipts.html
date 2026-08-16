@@ -80,6 +80,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .hero .tag{display:inline-block;color:var(--red);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
 .notice{max-width:860px;margin:0 auto 36px;background:rgba(217,164,65,0.08);border:1px solid rgba(217,164,65,0.35);border-radius:12px;padding:16px 20px;font-size:14px;color:#d8c9a8;line-height:1.55;text-align:center}
 .notice b{color:var(--amber)}
+.notice a{color:var(--amber);text-decoration:underline;text-underline-offset:2px}
+.notice a:hover{color:#e8c98a}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:36px}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
 .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:700}
@@ -140,8 +142,19 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
   <div class="notice">
     <b>These are model-backtest reconstructions, not contemporaneous calls.</b>
-    Rows labeled &ldquo;model backtest&rdquo; show what today's LiftOffr Score formula would have signaled on past data.
-    Only rows labeled &ldquo;logged live&rdquo; were recorded in real time. Educational output &mdash; not financial advice.
+    Every row on this page is one &mdash; today's LiftOffr Score formula run over past data.
+    None of them is a record of a call published at the time.
+    If a row is ever recorded in real time rather than reconstructed, it will be labelled
+    &ldquo;logged live&rdquo;. None currently is.
+    Educational output &mdash; not financial advice.
+    <br><br>
+    <b>A formula tested against the same history it was built on will always flatter itself.</b>
+    Mine included. So the useful thing on this page isn't the outcome column &mdash; it's that
+    you don't have to take my word for any of it. The Score is computed from
+    <a href="https://colintalkscrypto.com/cbbi/" target="_blank" rel="noopener noreferrer">CBBI's public daily data</a>
+    using the weights published on each <a href="/indicators">indicator page</a>. Pick any date below,
+    pull the same source, and recompute it yourself. If a number here doesn't match, tell me and
+    I'll correct it or take it down.
   </div>
 
   <div class="stats">

@@ -31,7 +31,7 @@ function unsubUrl(email) {
 
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
 const SUBJECT_E2 = "How to actually use the Score (3-minute habit, every Sunday)";
-const SUBJECT_PROOF = "$50/week became $1.88M — the backtest";
+const SUBJECT_PROOF = "don't trust my backtest";
 // Was: "7 days of the full system — free, no card (last welcome email)" — a
 // leftover from the 7-day trial, which was retired 2026-08-02. The body pitches
 // the $29 plan and has never mentioned a trial; the subject was promising a
@@ -51,7 +51,7 @@ const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 const PSUBJECT_0  = "You're in — your plan + the one thing to do tonight";
 const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
 const PSUBJECT_3  = "The plan is a snapshot. Here's the camera.";
-const PSUBJECT_7  = "The 2021 miss that built this — and the receipts since";
+const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
 const PSUBJECT_14 = "Where the founding window stands";
 
 function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
@@ -128,7 +128,7 @@ function plan3Text() {
 function plan7HTML() {
   return planShell("Plan · Day 7",
     `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
-     <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
+     <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
      <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. October 6, 2025: DCA'd out at <strong>$124,824</strong>. Not because I got smarter — because it was already written down.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <p style="margin:0 0 16px;">One ask, and it is not a condition of anything: if the plan has been worth the $29, an honest review on Whop takes two minutes and does more for this than any ad I could run. If it hasn't, reply and tell me that instead — I'd rather have the correction.</p>
@@ -137,7 +137,7 @@ function plan7HTML() {
 }
 function plan7Text() {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
-    "In 2021 my own indicators told me to scale out. I didn't. I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
+    "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
     "Everything since exists so that decision gets made while I'm calm instead of euphoric. October 6, 2025: DCA'd out at $124,824. Not because I got smarter — because it was already written down.","",
     "Public and checkable, misses included:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",
@@ -194,7 +194,7 @@ function email2HTML() {
     <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See every indicator, live →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Backtested 2017–2026. Past performance does not guarantee future results.<br/>
+    Every dated signal is a historical backtest, not a record of calls published at the time. Past performance does not predict future results. Educational content, not financial advice.<br/>
     LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
@@ -257,7 +257,7 @@ function email3HTML() {
     <a href="https://liftoffr.com/plan" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Get the plan — $29 once →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Backtested 2017–2026. Past performance does not guarantee future results.<br/>
+    Every dated signal is a historical backtest, not a record of calls published at the time. Past performance does not predict future results. Educational content, not financial advice.<br/>
     LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
@@ -305,35 +305,33 @@ function quickWinText() {
     "See today's Score: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
 }
 
-// ── Day 5: Proof (the backtest + timestamped calls) ──
+// ── Day 5: Proof — REWRITTEN 2026-08-16 ──
+// This email previously led with "$24,450 contributed -> $1.88M", "+7,602% over
+// plain DCA" and "100% win rate across 417 start dates", and its subject line
+// was "$50/week became $1.88M". Those are the exact claims removed from every
+// page of the site in the same pass, and they were still going out daily to the
+// whole free list — a live send is a worse exposure than a page, not a better
+// one. Same rule applies here: no income claims, no unqualified percentages,
+// no "calls". Do not reinstate a currency or ROI figure in this email.
 function proofHTML() {
   return shell("Welcome · Day 5",
-    `<p style="margin:0 0 16px;">Most people don't believe this the first time — so here's the math, public and checkable.</p>
-     <p style="margin:0 0 16px;">Run <strong>$50/week</strong> through this framework from 2017 to today:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;">
-       <div>$24,450 contributed → <strong>$1.88M</strong></div>
-       <div>Same $50/wk just buying &amp; holding → $217K</div>
-       <div><strong>+7,602%</strong> over plain DCA</div>
-       <div>100% win rate across 417 different start dates</div>
-     </div>
-     <p style="margin:0 0 16px;">It isn't magic. It's scaling <em>out</em> by the Score instead of guessing the top — and scaling <em>in</em> when everyone's scared.</p>
-     <p style="margin:0 0 16px;">Receipts are timestamped. Dec 15, 2018: buy signal at $3.2K. BTC ran 21× to $69K. <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof" style="color:#e63946;font-weight:700;">Full backtest here →</a></p>
-     <p style="margin:0 0 16px;">Want the plan built on those indicators — the exact nine-tier ladder I'm executing right now, receipts included? It's $29, once.</p>
+    `<p style="margin:0 0 16px;">I want to explain something about my own receipts page, because most people in this industry won't and it matters.</p>
+     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with the dates and the outcomes.</p>
+     <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
+     <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
+     <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
+     <p style="margin:0 0 16px;">The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" style="color:#e63946;">CBBI's public daily data</a> using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "Get the plan — $29 once →", "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_plan");
+    "Read the receipts →", "https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts");
 }
 function proofText() {
-  return ["Most people don't believe this the first time — so here's the math, public and checkable.","",
-    "Run $50/week through this framework from 2017 to today:",
-    "  • $24,450 contributed -> $1.88M",
-    "  • Same $50/wk buy-and-hold -> $217K",
-    "  • +7,602% over plain DCA",
-    "  • 100% win rate across 417 start dates","",
-    "It isn't magic. It's scaling out by the Score instead of guessing the top — and scaling in when everyone's scared.","",
-    "Receipts are timestamped. Dec 15, 2018: buy at $3.2K. BTC ran 21x to $69K.","",
-    "Full backtest: https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_proof","",
-    "Want the plan built on those indicators — the exact ladder I'm executing, receipts included? $29, once:",
-    "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_plan","","— Torin"].join("\n");
+  return ["I want to explain something about my own receipts page, because most people in this industry won't and it matters.","",
+    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with the dates and the outcomes.","",
+    "EVERY ONE OF THEM IS A BACKTEST.","",
+    "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
+    "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
+    "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.","",
+    "Read the receipts: https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts","","— Torin"].join("\n");
 }
 
 // ── Day 9: The stack (goodwill + the affiliate layer) ──
@@ -418,7 +416,7 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
     <p style="margin:0 0 14px;">4. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Backtested 2017–2026. Past performance does not guarantee future results.<br/>
+    Every dated signal is a historical backtest, not a record of calls published at the time. Past performance does not predict future results. Educational content, not financial advice.<br/>
     LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
@@ -453,7 +451,7 @@ function trial2HTML() {
     `<p style="margin:0 0 16px;">Halfway through your trial. Quick gut-check.</p>
      <p style="margin:0 0 16px;">If you've been reading the daily brief, you've already seen the thing most people pay to learn the hard way: <strong>the read changes, and you don't have to guess.</strong></p>
      <p style="margin:0 0 16px;">If you <em>haven't</em> opened it yet — that's the whole product. One post, 8am MT, every weekday: here's the Score, here's the zone, here's what it means today. Three minutes. No charts to stare at, no Twitter to doom-scroll.</p>
-     <p style="margin:0 0 16px;">The backtest is public if you want the proof: $50/wk run through this framework since 2017 turned $24,450 of contributions into $1.88M — vs $217K just buying and holding. 100% win rate vs DCA across 417 start dates.</p>
+     <p style="margin:0 0 16px;">The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the 29 that went the wrong way. It is a backtest and every row says so.</p>
      <p style="margin:24px 0 0;">Four days left. And if you already know it's a keeper, don't wait for the day-6 reminder — lock in your founder rate now. It holds whether you do it today or Friday.</p>
      <p style="margin:18px 0 0;">— Torin</p>`,
     "Lock in my membership →", TRIAL_CHECKOUT);
@@ -462,7 +460,7 @@ function trial2Text() {
   return ["Halfway through your trial. Quick gut-check.","",
     "If you've read the daily brief, you've seen the thing most people pay to learn the hard way: the read changes, and you don't have to guess.","",
     "If you haven't opened it — that's the product. One post, 8am MT, weekdays: Score, zone, what it means today. Three minutes.","",
-    "Proof is public: $50/wk through this framework since 2017 = $1.88M vs $217K buy-and-hold. 100% win rate vs DCA across 417 start dates.","",
+    "The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the 29 that went the wrong way. It is a backtest and every row says so.","",
     "Four days left. If you already know it's a keeper, lock in your founder rate now — it holds whether you do it today or Friday:",
     TRIAL_CHECKOUT,"","— Torin"].join("\n");
 }
@@ -485,7 +483,7 @@ function trial3HTML() {
      </div>
      <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — keep it before it ends.</p>
      <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
-     <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to go deeper than the membership? The <a href="https://liftoffr.com/playbook" style="color:#e63946;">Cycle Playbook</a> is a private 1:1 session where we build your full buy + sell plan together.</p>`,
+     <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to go deeper than the membership? The <a href="https://liftoffr.com/playbook" style="color:#e63946;">Cycle Playbook</a> is a private session where we build your full buy + sell plan together.</p>`,
     "Keep my access — go Pro →", TRIAL_CHECKOUT);
 }
 function trial3Text() {
@@ -495,7 +493,7 @@ function trial3Text() {
     "   " + TRIAL_CHECKOUT,
     "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
     "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr","",
-    "P.S. Want to go deeper? The Cycle Playbook — a private 1:1 session: https://liftoffr.com/playbook"].join("\n");
+    "P.S. Want to go deeper? The Cycle Playbook — a private session: https://liftoffr.com/playbook"].join("\n");
 }
 
 const TSUBJECT_4 = "Your LiftOffr access just lapsed";
@@ -518,6 +516,225 @@ function trial4Text() {
     "  • Core $49/mo — the lighter set if you just want the read","",
     "Cancel anytime, 30-day refund. Heads-up: founder pricing goes up as we add tiers — reactivating today locks your rate.","",
     "Reactivate: " + TRIAL_CHECKOUT,"","— Torin, Founder LiftOffr"].join("\n");
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// QUIZ SEQUENCE — the segmented 7-email nurture (04-email-sequence.md)
+//
+// Entry point is the cycle-position quiz at /quiz. Email 1 (Day 0, "the result")
+// is sent inline by api/subscribe.js on submit; emails 2-7 are fired from here
+// off the contact's age, exactly like every other sequence in this file.
+//
+// Cadence: Day 1, 3, 5, 7, 10, 14. Then the segment drops to the Sunday Score.
+//
+// DORMANT until RESEND_QUIZ_AUDIENCE_ID is set in Vercel. That is deliberate:
+// the audience has to exist before anything can be sent to it, and the whole
+// documented advantage of this structure is that ONLY the segment that raised
+// its hand gets pitched. Running it against the untagged free list would make
+// it a newsletter and throw away the mechanism. See QUIZ_SETUP.md.
+//
+// Compliance applied to every email below: no dollar outcomes, no percentages
+// presented as achievable, no "called", educational framing, disclaimer in the
+// footer of every send.
+// ═════════════════════════════════════════════════════════════════════════════
+const QSUBJECT_2 = "i built this because i lost $30,000";
+const QSUBJECT_3 = "don't trust my backtest";
+const QSUBJECT_4 = "the two-sided problem nobody sells a fix for";
+const QSUBJECT_5 = "the nine levels i'm actually buying at";
+const QSUBJECT_6 = "no. (a reply to the most common question i get)";
+const QSUBJECT_7 = "last one from me about this";
+
+// Per-segment paragraph swaps. Emails 2 and 5 are the only ones that change —
+// everything else is identical across segments, which keeps the sequence
+// maintainable and keeps the personalisation where it actually earns its keep.
+const QSEG_E2 = {
+  ROUNDTRIPPED: "You told me in the quiz you've been through this. Then you already know the part I'm describing, and you know it isn't about information.",
+  SITTING: "You said you're holding and not sure what to do. That's exactly where I was. It doesn't feel like a decision, which is what makes it dangerous — doing nothing is a position.",
+  ACCUMULATING: "You said you're still buying. Good — that's the easy half. The hard half is the one nobody writes down, and you'll need it sooner than feels necessary.",
+  NEW: "You said you're early in this. Genuinely the best possible time to hear it, because you can build the rule before you have anything at stake in it.",
+};
+const QSEG_E5 = {
+  ROUNDTRIPPED: "Given what you told me in the quiz, the part I'd point you at is the fallback rule — for when price never touches a level and you have no plan for that. That's the failure mode that gets people who've already been burned once.",
+  NEW: "Honestly: you probably don't need this yet. The free layer has the score, the brief and the framework, and it'll still be free in six months. I'd rather you use that for a while first.",
+  SITTING: "",
+  ACCUMULATING: "",
+};
+
+const QL = (path, content) =>
+  `https://liftoffr.com${path}?utm_source=resend&utm_medium=email&utm_campaign=quiz&utm_content=${content}`;
+
+// Text bodies are assembled from arrays with optional segment paragraphs, so a
+// blank segment would otherwise leave a triple newline. Normalise on the way out.
+function tjoin(lines) {
+  return lines.filter((l) => l !== null && l !== undefined).join("\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+function scoreLine(sc) {
+  if (!sc || typeof sc.score !== "number") return "";
+  return `<p style="margin:0 0 16px;">Today's score: <strong>${sc.score.toFixed(1)}</strong> — ${sc.zone}. <a href="${QL("/cycle", "score_link")}" style="color:#e63946;">See it live →</a></p>`;
+}
+function scoreLineText(sc) {
+  if (!sc || typeof sc.score !== "number") return "";
+  return `Today's score: ${sc.score.toFixed(1)} — ${sc.zone}. ${QL("/cycle", "score_link")}\n`;
+}
+
+function quiz2HTML(seg, sc) {
+  return shell("Day 1",
+    `<p style="margin:0 0 16px;">In 2021 I had every indicator I now publish sitting on a screen in front of me. They were flashing. I knew what they meant.</p>
+     <p style="margin:0 0 16px;">I did nothing. Then I did nothing for a while longer. Then it was 2022 and about <strong>$30,000</strong> had gone up and come all the way back down, and the only thing I'd actually done was watch.</p>
+     <p style="margin:0 0 16px;">Here's what I got wrong, and it isn't the part people expect. <strong>I wasn't wrong about the data. I was wrong about myself.</strong> I assumed that when the moment came I'd act on what I knew, and it turns out that's not how anyone works. In the moment there's always a reason it's different this time, and the reason is always available, and it's always convincing.</p>
+     ${QSEG_E2[seg] ? `<p style="margin:0 0 16px;color:#555;font-style:italic;">${QSEG_E2[seg]}</p>` : ""}
+     <p style="margin:0 0 16px;">The fix wasn't more data. It was writing the decision down before the moment arrived, when I was calm and nothing was happening.</p>
+     ${scoreLine(sc)}
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "", "");
+}
+function quiz2Text(seg, sc) {
+  return tjoin(["In 2021 I had every indicator I now publish sitting on a screen in front of me. They were flashing. I knew what they meant.","",
+    "I did nothing. Then I did nothing for a while longer. Then it was 2022 and about $30,000 had gone up and come all the way back down, and the only thing I'd actually done was watch.","",
+    "Here's what I got wrong, and it isn't the part people expect. I wasn't wrong about the data. I was wrong about myself. I assumed that when the moment came I'd act on what I knew, and it turns out that's not how anyone works. In the moment there's always a reason it's different this time, and the reason is always available, and it's always convincing.","",
+    QSEG_E2[seg] || null, QSEG_E2[seg] ? "" : null,
+    "The fix wasn't more data. It was writing the decision down before the moment arrived, when I was calm and nothing was happening.","",
+    scoreLineText(sc) || null, "— Torin"]);
+}
+
+function quiz3HTML(seg, sc) {
+  return shell("Day 3",
+    `<p style="margin:0 0 16px;">I want to explain something about my own receipts page, because most people in this industry won't and it matters.</p>
+     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.</p>
+     <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
+     <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
+     <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
+     <p style="margin:0 0 16px;">The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" style="color:#e63946;">CBBI's public daily data</a> using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "Go read it →", QL("/receipts", "e3_receipts"));
+}
+function quiz3Text() {
+  return tjoin(["I want to explain something about my own receipts page, because most people in this industry won't and it matters.","",
+    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.","",
+    "EVERY ONE OF THEM IS A BACKTEST.","",
+    "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
+    "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
+    "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.","",
+    "Go read it: " + QL("/receipts", "e3_receipts"),"","— Torin"]);
+}
+
+function quiz4HTML(seg, sc) {
+  return shell("Day 5",
+    `<p style="margin:0 0 16px;">There's an enormous amount of content telling you when to buy. There's almost none telling you when to stop.</p>
+     <p style="margin:0 0 16px;">That's not an accident. <em>"Buy"</em> is easy to publish — it's shareable, it's optimistic, and nobody can prove you wrong for years. <em>"Here's the price where I sell"</em> is a number people can hold you to next month.</p>
+     <p style="margin:0 0 16px;">So most people arrive at the top of a cycle with a lot of conviction and no exit, and they give it back. That's what happened in 2017. It's what happened to me in 2021. It'll happen again, because the mechanism that causes it isn't information, it's the absence of a written rule.</p>
+     <p style="margin:0 0 10px;">What I actually do about it, in three parts:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.8;color:#333;">
+       <div><strong>One number.</strong> Nine indicators, weighted, 0 to 100. Not nine charts to interpret — one number and a verdict.</div>
+       <div><strong>Written levels.</strong> Prices decided in advance, in writing, when nothing is happening.</div>
+       <div><strong>A rule for doing nothing.</strong> Most days the score says nothing changed. That's the system working. The point is to stop you acting on days when nothing changed.</div>
+     </div>
+     ${scoreLine(sc)}
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "", "");
+}
+function quiz4Text(seg, sc) {
+  return tjoin(["There's an enormous amount of content telling you when to buy. There's almost none telling you when to stop.","",
+    "That's not an accident. 'Buy' is easy to publish — shareable, optimistic, and nobody can prove you wrong for years. 'Here's the price where I sell' is a number people can hold you to next month.","",
+    "So most people arrive at the top of a cycle with a lot of conviction and no exit, and they give it back. That's what happened in 2017. It's what happened to me in 2021. The mechanism isn't information, it's the absence of a written rule.","",
+    "What I actually do about it, in three parts:",
+    "  ONE NUMBER. Nine indicators, weighted, 0 to 100. Not nine charts to interpret — one number and a verdict.",
+    "  WRITTEN LEVELS. Prices decided in advance, in writing, when nothing is happening.",
+    "  A RULE FOR DOING NOTHING. Most days the score says nothing changed. That's the system working.","",
+    scoreLineText(sc) || null, "— Torin"]);
+}
+
+function quiz5HTML(seg, sc) {
+  return shell("Day 7",
+    `<p style="margin:0 0 16px;">Everything I've sent you so far is free and stays free. <strong>This is the one email where I tell you about the thing that isn't.</strong></p>
+     <p style="margin:0 0 16px;">I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When a level fires you get the alert and the updated document.</p>
+     <p style="margin:0 0 16px;">It's <strong>$29, once.</strong> Not a subscription. Nothing renews.</p>
+     <p style="margin:0 0 10px;"><strong>What it isn't</strong>, because this matters more than what it is:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.75;color:#333;">
+       <div style="margin-bottom:10px;">It isn't a course. There are 54,000 words of education behind it and this is not that — this is the output. What my money does, at what price, and what happens next.</div>
+       <div style="margin-bottom:10px;">It isn't a prediction that those levels get hit. It's a decision I made while I was calm instead of while I was scared. That's the part that survives being wrong.</div>
+       <div>It isn't advice for you. It's a record of what I'm doing, published with timestamps. You decide what to do with your own money.</div>
+     </div>
+     ${QSEG_E5[seg] ? `<p style="margin:0 0 16px;color:#555;font-style:italic;">${QSEG_E5[seg]}</p>` : ""}
+     <p style="margin:0 0 16px;"><strong>And the direct version:</strong> if $29 is money you'd notice missing right now, don't spend it here. I mean that. The free side has the score, the brief and the framework, and it isn't going anywhere.</p>
+     <p style="margin:0 0 16px;">30 days to change your mind, no form, no reason needed.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "If it's useful — $29, once →", QL("/plan", "e5_plan"));
+}
+function quiz5Text(seg, sc) {
+  return tjoin(["Everything I've sent you so far is free and stays free. This is the one email where I tell you about the thing that isn't.","",
+    "I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When a level fires you get the alert and the updated document.","",
+    "It's $29, once. Not a subscription. Nothing renews.","",
+    "WHAT IT ISN'T, because this matters more than what it is:",
+    "  It isn't a course. There are 54,000 words of education behind it and this is not that — this is the output.",
+    "  It isn't a prediction that those levels get hit. It's a decision I made while calm instead of scared.",
+    "  It isn't advice for you. It's a record of what I'm doing, published with timestamps.","",
+    QSEG_E5[seg] || null, QSEG_E5[seg] ? "" : null,
+    "And the direct version: if $29 is money you'd notice missing right now, don't spend it here. I mean that. The free side has the score, the brief and the framework, and it isn't going anywhere.","",
+    "If it's useful: " + QL("/plan", "e5_plan"),
+    "30 days to change your mind, no form, no reason needed.","","— Torin"]);
+}
+
+function quiz6HTML(seg, sc) {
+  return shell("Day 10",
+    `<p style="margin:0 0 16px;">Three things people write back with. All fair.</p>
+     <p style="margin:0 0 8px;"><strong>"I can get these indicators free."</strong></p>
+     <p style="margin:0 0 16px;color:#555;">You can, and you should. CBBI, LookIntoBitcoin and Bitbo are free and they're good — my score is built on the same public data. I'm not selling you the numbers. What none of those sites will give you is a verdict, because none of them has a person attached who can be held to one. I publish one number, what I think it means, and what I'm doing about it with my own money, with my name on it.</p>
+     <p style="margin:0 0 8px;"><strong>"How do I know this isn't a scam?"</strong></p>
+     <p style="margin:0 0 16px;color:#555;">You don't, yet, and that's the correct default for a faceless crypto account asking you for money. So check before you pay. The score is public. The receipts are public and the losses are on them. The Discord is free to read. And I'll never tell you what you'll make, because I don't know and neither does anyone who says otherwise.</p>
+     <p style="margin:0 0 8px;"><strong>"What if the levels never get hit?"</strong></p>
+     <p style="margin:0 0 16px;color:#555;">Then I don't buy, and neither do you, and we both keep our money. A level that doesn't fire is a level doing its job. There's a fallback rule in the document for exactly this, because the most common way a ladder fails isn't being wrong — it's price running away while you have no rule for it.</p>
+     ${scoreLine(sc)}
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "", "");
+}
+function quiz6Text(seg, sc) {
+  return tjoin(["Three things people write back with. All fair.","",
+    "\"I CAN GET THESE INDICATORS FREE.\"",
+    "You can, and you should. CBBI, LookIntoBitcoin and Bitbo are free and they're good — my score is built on the same public data. I'm not selling you the numbers. What none of those sites will give you is a verdict, because none of them has a person attached who can be held to one.","",
+    "\"HOW DO I KNOW THIS ISN'T A SCAM?\"",
+    "You don't, yet, and that's the correct default for a faceless crypto account asking you for money. So check before you pay. The score is public. The receipts are public and the losses are on them. The Discord is free to read. And I'll never tell you what you'll make, because I don't know and neither does anyone who says otherwise.","",
+    "\"WHAT IF THE LEVELS NEVER GET HIT?\"",
+    "Then I don't buy, and neither do you, and we both keep our money. A level that doesn't fire is a level doing its job. There's a fallback rule in the document for exactly this.","",
+    scoreLineText(sc) || null, "— Torin"]);
+}
+
+function quiz7HTML(seg, sc) {
+  const zone = sc && typeof sc.score === "number" ? `<strong>${sc.score.toFixed(1)}</strong>, which is ${sc.zone}` : "on the dashboard";
+  return shell("Day 14 · last one",
+    `<p style="margin:0 0 16px;">This is the last email I'll send you about the $29 plan. After this you'll get the Sunday score and nothing else, unless you ask.</p>
+     <p style="margin:0 0 16px;">Where things stand: the score is ${zone}.</p>
+     <p style="margin:0 0 16px;">If you want the levels I'm buying at, they're <a href="${QL("/plan", "e7_plan")}" style="color:#e63946;">here</a> — $29 once, 30 days to change your mind.</p>
+     <p style="margin:0 0 16px;">If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up including the ones that went the wrong way. That was all true before you got this email and it'll be true in six months.</p>
+     <p style="margin:0 0 16px;">The only thing I'd actually push you on, and it costs nothing: <strong>write down the price you'd sell at.</strong> Not the price you think it'll hit — the price at which you'd take money off the table. Put it in your notes app. Do it on a boring day when nothing's happening, because that's the only time anyone can think clearly about it.</p>
+     <p style="margin:0 0 16px;">That one habit is worth more than anything I sell.</p>
+     <p style="margin:24px 0 0;">— Torin</p>`,
+    "", "");
+}
+function quiz7Text(seg, sc) {
+  const zone = sc && typeof sc.score === "number" ? `${sc.score.toFixed(1)}, which is ${sc.zone}` : "on the dashboard";
+  return tjoin(["This is the last email I'll send you about the $29 plan. After this you'll get the Sunday score and nothing else, unless you ask.","",
+    `Where things stand: the score is ${zone}.`,"",
+    "If you want the levels I'm buying at: " + QL("/plan", "e7_plan") + " — $29 once, 30 days to change your mind.","",
+    "If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up including the ones that went the wrong way. That was all true before you got this email and it'll be true in six months.","",
+    "The only thing I'd actually push you on, and it costs nothing: WRITE DOWN THE PRICE YOU'D SELL AT. Not the price you think it'll hit — the price at which you'd take money off the table. Put it in your notes app. Do it on a boring day when nothing's happening, because that's the only time anyone can think clearly about it.","",
+    "That one habit is worth more than anything I sell.","","— Torin"]);
+}
+
+// Resolve a contact's quiz segment. Preferred source is a per-segment audience
+// (RESEND_QUIZ_AUDIENCE_ROUNDTRIPPED etc). With a single pooled audience there
+// is no per-contact tag available from the Resend contacts API, so the sequence
+// falls back to the neutral copy — every email still reads correctly without a
+// segment, the two personalised paragraphs simply don't render.
+const QUIZ_SEGMENTS = ["ROUNDTRIPPED", "ACCUMULATING", "SITTING", "NEW"];
+
+async function fetchScoreSafe() {
+  try {
+    const r = await fetch("https://liftoffr.com/api/cycle-score");
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
 }
 
 async function fetchContacts() {
@@ -597,6 +814,9 @@ export default async function handler(req, res) {
       qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML,
       stack: stackHTML, reengage: reengageHTML,
       p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: plan7HTML, p14: plan14HTML,
+      q2: () => quiz2HTML("ROUNDTRIPPED", null), q3: () => quiz3HTML("ROUNDTRIPPED", null),
+      q4: () => quiz4HTML("ROUNDTRIPPED", null), q5: () => quiz5HTML("NEW", null),
+      q6: () => quiz6HTML("SITTING", null), q7: () => quiz7HTML("ACCUMULATING", null),
       t1: trial1HTML, t2: trial2HTML, t3: trial3HTML, t4: trial4HTML,
     };
     const fn = map[preview];
@@ -684,6 +904,61 @@ export default async function handler(req, res) {
       }
     }
 
+    // ── Quiz sequence (04-email-sequence.md). Emails 2-7; email 1 goes out
+    // inline from api/subscribe.js on quiz submit. Dormant until the audience
+    // exists — see QUIZ_SETUP.md for the four dashboard steps.
+    //
+    // Reads either four per-segment audiences (personalised paragraphs render)
+    // or one pooled audience (neutral copy, everything else identical).
+    let quizSeq = null;
+    const quizPooled = process.env.RESEND_QUIZ_AUDIENCE_ID || null;
+    const quizPerSeg = QUIZ_SEGMENTS
+      .map((s) => ({ seg: s, aud: process.env[`RESEND_QUIZ_AUDIENCE_${s}`] || null }))
+      .filter((x) => x.aud);
+    if (quizPooled || quizPerSeg.length) {
+      quizSeq = { q2_sent: 0, q3_sent: 0, q4_sent: 0, q5_sent: 0, q6_sent: 0, q7_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
+      const sc = await fetchScoreSafe();
+      const steps = [
+        { lo: 1.0,  hi: 2.0,  subj: QSUBJECT_2, html: quiz2HTML, text: quiz2Text, key: "q2", k: "q2_sent" },
+        { lo: 3.0,  hi: 4.0,  subj: QSUBJECT_3, html: quiz3HTML, text: quiz3Text, key: "q3", k: "q3_sent" },
+        { lo: 5.0,  hi: 6.0,  subj: QSUBJECT_4, html: quiz4HTML, text: quiz4Text, key: "q4", k: "q4_sent" },
+        { lo: 7.0,  hi: 8.0,  subj: QSUBJECT_5, html: quiz5HTML, text: quiz5Text, key: "q5", k: "q5_sent" },
+        { lo: 10.0, hi: 11.0, subj: QSUBJECT_6, html: quiz6HTML, text: quiz6Text, key: "q6", k: "q6_sent" },
+        { lo: 14.0, hi: 15.0, subj: QSUBJECT_7, html: quiz7HTML, text: quiz7Text, key: "q7", k: "q7_sent" },
+      ];
+      // Per-segment audiences take precedence; the pooled audience is the
+      // fallback and runs with seg = null (neutral copy).
+      const buckets = quizPerSeg.length
+        ? quizPerSeg
+        : [{ seg: null, aud: quizPooled }];
+
+      for (const b of buckets) {
+        const people = await fetchAudience(b.aud);
+        quizSeq.total += people.length;
+        for (const c of people) {
+          const age = ageDays(c.created_at);
+          const step = steps.find((s) => age >= s.lo && age < s.hi);
+          if (!step) { quizSeq.skipped++; continue; }
+          try {
+            await sendResend({
+              to: c.email,
+              subject: step.subj,
+              text: step.text(b.seg, sc),
+              html: step.html(b.seg, sc),
+              idempotencyKey: `quiz-${step.key}-${c.id}`,
+              tag: step.key,
+              campaign: "quiz",
+            });
+            quizSeq[step.k]++;
+          } catch (e) {
+            quizSeq.failed++;
+            quizSeq.errors.push({ id: c.id, step: step.key, err: String(e).slice(0, 200) });
+          }
+          await new Promise((r) => setTimeout(r, 600));
+        }
+      }
+    }
+
     // ── Trial nurture — RETIRED 2026-08-02. The 7-day trial is dead (LIFTOFFR_MASTER_PLAN.md).
     // Hard-disabled regardless of env: RESEND_TRIAL_AUDIENCE_ID may still exist in Vercel.
     const trialAud = null;
@@ -726,6 +1001,7 @@ export default async function handler(req, res) {
       total_contacts: contacts.length,
       results,
       plan: planSeq,
+      quiz: quizSeq,
       trial,
     });
   } catch (err) {

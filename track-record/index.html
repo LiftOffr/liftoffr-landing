@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#e63946">
-<title>LiftOffr — Real Track Record ($50/week since 2017)</title>
-<meta name="description" content="The full V7 backtest: $50/week from 2017 turned $24,450 of contributions into $1.88M vs $217K buy-and-hold, across 417 start dates.">
+<title>LiftOffr — The Backtest, Explained (Methodology)</title>
+<meta name="description" content="The methodology page for the LiftOffr backtest: what it tested, what it assumes, why a formula tested against its own design history flatters itself, and where the losing signals are.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://liftoffr.com/track-record">
 
@@ -13,7 +13,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="LiftOffr">
 <meta property="og:url" content="https://liftoffr.com/track-record">
-<meta property="og:title" content="$50/week since 2017: $217K on autopilot, $1.88M with the cycle Score.">
+<meta property="og:title" content="What the backtest is, plainly — and what's wrong with it.">
 <meta property="og:description" content="Backtested across every Bitcoin cycle 2017–2026 and 417 different start dates. Same money in, different exit discipline. Every assumption shown.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -22,8 +22,8 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="$50/week since 2017: $217K on autopilot, $1.88M with the cycle Score.">
-<meta name="twitter:description" content="417 start dates, every Bitcoin cycle 2017–2026. Same money in, different exit discipline.">
+<meta name="twitter:title" content="What the backtest is, plainly — and what's wrong with it.">
+<meta name="twitter:description" content="Every assumption behind the LiftOffr backtest, including the 29 signals that went the wrong way.">
 <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
 
 <!-- Google Tag Manager -->
@@ -201,10 +201,32 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div class="wrap">
 
   <header class="hero">
-    <span class="tag">Backtested Track Record · 2017 → today</span>
-    <h1>$50/week DCA + <em>cycle indicators</em> = <em>$1.88M</em></h1>
-    <p class="sub">The exact framework taught in LiftOffr, applied weekly since January 2017. Real BTC prices. Real cycle signals. Real backtest. Below: every buy and every sell.</p>
+    <span class="tag">The methodology page · Backtest, 2017 → today</span>
+    <h1>What the backtest is, <em>plainly</em>.</h1>
+    <p class="sub">This is the page where the number gets explained instead of advertised. Every assumption, every input, and every losing period is below.</p>
   </header>
+
+  <!-- WHAT THE BACKTEST IS — required framing block. This page is the only place on the
+       site where the backtest figure appears at all; it does not belong in any hero,
+       proof strip, meta title, or social card. See 05-offer-critique.md §5. -->
+  <div class="compare" style="border-left:3px solid var(--red);">
+    <h2>What the backtest is, plainly.</h2>
+    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:16px;">
+      I built the V7 formula, then ran it against Bitcoin's price history from 2017. In that test, a hypothetical $50/week input with signal adjustments outperformed plain dollar-cost-averaging by a wide margin. Three things you should know before that number means anything to you:
+    </p>
+    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:12px;">
+      <strong style="color:#fff;">It's retroactive.</strong> The formula didn't exist for most of the period it's tested against. No person did this. No customer of mine has done this.
+    </p>
+    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:12px;">
+      <strong style="color:#fff;">It flatters itself.</strong> A formula tested on the same history it was designed against will always look better than it deserves to. That's true of every backtest, including mine.
+    </p>
+    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:12px;">
+      <strong style="color:#fff;">It is not a prediction, a promise, or a typical result.</strong> I don't know what you'll make. Nobody does.
+    </p>
+    <p style="color:#ccc;font-size:15px;line-height:1.75;margin:0;">
+      Every losing signal is at <a href="/receipts" style="color:var(--red);font-weight:700;">/receipts</a> — 29 of the 64 went the wrong way. If any of this doesn't hold up, I'd rather you find out before you pay me $29 than after.
+    </p>
+  </div>
 
   <!-- Hero Stats -->
   <div class="stats">
@@ -253,29 +275,13 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     </div>
   </div>
 
-  <!-- Multi-tier — what works at different DCA amounts -->
-  <div class="compare">
-    <h2>Run the numbers for yourself</h2>
-    <p style="color:#aaa;font-size:14px;margin-bottom:18px;line-height:1.5;">
-      Returns scale linearly with contribution — the framework's % gains stay the same. Find your level:
-    </p>
-    <div class="tier-table">
-      <div class="tier-row tier-head">
-        <div>Weekly DCA</div>
-        <div>Lifestyle equivalent</div>
-        <div class="r">Total contributed</div>
-        <div class="r">Final value</div>
-      </div>
-      <div class="tier-row"><div>$10/wk</div><div>A daily coffee</div><div class="r">$4,890</div><div class="r" style="color:#22c55e">~$376,638</div></div>
-      <div class="tier-row"><div>$25/wk</div><div>Spotify + Netflix</div><div class="r">$12,225</div><div class="r" style="color:#22c55e">~$941,597</div></div>
-      <div class="tier-row tier-highlight"><div><strong>$50/wk</strong></div><div>Most committed retail</div><div class="r">$24,450</div><div class="r" style="color:#22c55e"><strong>$1,883,194</strong></div></div>
-      <div class="tier-row"><div>$100/wk</div><div>Middle-class committed</div><div class="r">$48,900</div><div class="r" style="color:#22c55e">~$3,766,388</div></div>
-      <div class="tier-row"><div>$200/wk</div><div>High-earner serious</div><div class="r">$97,800</div><div class="r" style="color:#22c55e">~$7,532,776</div></div>
-    </div>
-    <p style="color:#666;font-size:12px;margin-top:14px;text-align:center;">
-      Compounding effect, fees, and taxes are not modeled. Results assume identical signal execution at any tier.
-    </p>
-  </div>
+  <!-- REMOVED 2026-08-16: the "Run the numbers for yourself" tier table, which projected
+       ~$376,638 to ~$7,532,776 against "lifestyle equivalent" contribution levels
+       ($10/wk = "a daily coffee"). A personalised projection of what a reader could have
+       is the single strongest income-claim shape on the site — structurally the
+       WealthPress / DK Automation pattern, and it breaks the no-income-claims rule
+       outright. Do not reinstate a per-reader projection table. Original values are
+       recoverable from git history and CHANGELOG_2026-08-16_RESEARCH_FINDINGS.md. -->
 
   <!-- Calendar visualization -->
   <div class="calendar-card">

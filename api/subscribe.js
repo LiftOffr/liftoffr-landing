@@ -41,6 +41,128 @@ const MAGNETS = {
   },
 };
 
+// ── QUIZ (magnet: "quiz") ────────────────────────────────────────────────────
+// The cycle-position quiz at /quiz is the single free step in front of the $29
+// plan. Its result is a segment tag, and that tag is what makes the 7-email
+// sequence in api/cron-welcome-followups.js segmented rather than a newsletter.
+//
+// This lives inside subscribe.js on purpose: the project is AT Vercel's
+// 12-function cap (see CLAUDE.md), so the quiz must not add an endpoint.
+//
+// This is EMAIL 1 of the sequence (Day 0, "the result"). Emails 2–7 are fired
+// by the daily follow-up cron off the contact's age, same as every other
+// sequence in this repo.
+const SEGMENTS = {
+  ROUNDTRIPPED: {
+    label: "Round-tripped",
+    oneLine: "you've held through a full cycle and given most of it back",
+    angle:
+      "You already know the part most people learn expensively: the problem was never the information. " +
+      "You could see it, the moment arrived, and there was a convincing reason it was different this time. " +
+      "That's exactly what happened to me: the indicators topped out in 2021, I did nothing, and it cost me through 2022.",
+  },
+  ACCUMULATING: {
+    label: "Accumulating",
+    oneLine: "you're buying consistently, with no written rule for getting out",
+    angle:
+      "Buying on a schedule is the half most people never manage, and you have. The other half is the one nobody " +
+      "writes down — and you'll need it sooner than it currently feels necessary.",
+  },
+  SITTING: {
+    label: "Sitting",
+    oneLine: "you're holding without a written rule in either direction",
+    angle:
+      "Worth saying plainly: doing nothing is a position. It just doesn't feel like one, because you never had to " +
+      "actively choose it — which means when the moment comes there's no rule to fall back on.",
+  },
+  NEW: {
+    label: "Early",
+    oneLine: "you're early enough to build the rule before you have anything at stake in it",
+    angle:
+      "Everyone else reading this has to unlearn a habit. You don't. And genuinely — don't spend money on any of " +
+      "this yet. The free side has the score, the brief and the record, and it'll still be free in six months.",
+  },
+};
+
+function normaliseSegment(raw) {
+  const s = String(raw || "").toUpperCase().replace(/[^A-Z]/g, "");
+  return SEGMENTS[s] ? s : null;
+}
+
+const L = (path, content) =>
+  `https://liftoffr.com${path}?utm_source=resend&utm_medium=email&utm_campaign=quiz&utm_content=${content}`;
+
+function quizHTML({ score, zone }, segKey) {
+  const seg = SEGMENTS[segKey] || SEGMENTS.SITTING;
+  const label = SEGMENTS[segKey] ? seg.label : "your cycle position";
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"><style>:root{color-scheme:light only;supported-color-schemes:light only}</style></head><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5;">
+  <div style="background:#080808;padding:28px;text-align:center;">
+    <div style="display:inline-block;background:#e63946;color:#fff;padding:5px 12px;border-radius:4px;font-family:Helvetica,sans-serif;font-style:italic;font-size:22px;font-weight:900;letter-spacing:-0.5px;">lift<span style="color:#000;">offr</span></div>
+    <div style="margin-top:14px;color:#999;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">Your cycle position</div>
+  </div>
+  <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.7;">
+    <p style="margin:0 0 16px;">You came out as <strong style="color:#080808;">${label}</strong>.</p>
+    <p style="margin:0 0 16px;">What that means in one line: ${seg.oneLine}.</p>
+    <p style="margin:0 0 20px;color:#555;">${seg.angle}</p>
+
+    <div style="background:#080808;color:#fff;border-radius:10px;padding:22px;margin:20px 0;text-align:center;">
+      <div style="font-size:11px;color:#999;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">Today's Score</div>
+      <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:56px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${score.toFixed(1)}</div>
+      <div style="margin-top:8px;font-size:13px;font-weight:700;color:#e63946;letter-spacing:1.5px;text-transform:uppercase;">${zone}</div>
+    </div>
+
+    <p style="margin:0 0 16px;">Above 85 the model reads as exit territory. Below 20, accumulation. In between it's telling you to do nothing, which is where it sits most of the time and which is the part people find hardest.</p>
+
+    <p style="margin:24px 0 10px;font-weight:700;color:#080808;">Three things, all free, no card:</p>
+    <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.8;color:#333;">
+      <div><strong>The score</strong> — updated every morning, public, no account needed: <a href="${L("/cycle", "e1_cycle")}" style="color:#e63946;">liftoffr.com/cycle</a></div>
+      <div><strong>The daily brief</strong> — 8am MT in the Discord: <a href="${L("/free", "e1_free")}" style="color:#e63946;">liftoffr.com/free</a></div>
+      <div><strong>The receipts</strong> — every zone change the model has produced across fifteen years, including the ones that went the wrong way: <a href="${L("/receipts", "e1_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a></div>
+    </div>
+
+    <p style="margin:0 0 16px;"><strong>Go look at the receipts page first.</strong> Read the label at the top of it. I'd rather you start there than anywhere else on the site.</p>
+    <p style="margin:24px 0 0;">— Torin</p>
+  </div>
+  <div style="padding:0 28px 32px;">
+    <a href="${L("/receipts", "e1_cta")}" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Read the receipts →</a>
+  </div>
+  <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
+    Educational content only. Not financial advice. Every dated signal on the site is a historical backtest, not a record of calls published at the time. Past performance does not predict future results.<br/>
+    LiftOffr · You took the cycle-position quiz at liftoffr.com/quiz.<br/>
+    <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
+  </div>
+</div></body></html>`;
+}
+
+function quizText({ score, zone }, segKey) {
+  const seg = SEGMENTS[segKey] || SEGMENTS.SITTING;
+  const label = SEGMENTS[segKey] ? seg.label : "your cycle position";
+  return [
+    `You came out as ${label}.`,
+    "",
+    `What that means in one line: ${seg.oneLine}.`,
+    "",
+    seg.angle,
+    "",
+    `Today's Score: ${score.toFixed(1)} (${zone})`,
+    "",
+    "Above 85 the model reads as exit territory. Below 20, accumulation. In between it's telling you to do nothing — where it sits most of the time, and the part people find hardest.",
+    "",
+    "THREE THINGS, ALL FREE, NO CARD:",
+    `  The score, updated every morning: ${L("/cycle", "e1_cycle")}`,
+    `  The daily brief, 8am MT in the Discord: ${L("/free", "e1_free")}`,
+    `  The receipts — every zone change across fifteen years, including the ones that went the wrong way: ${L("/receipts", "e1_receipts")}`,
+    "",
+    "Go look at the receipts page first. Read the label at the top of it. I'd rather you start there than anywhere else on the site.",
+    "",
+    "— Torin",
+    "",
+    "Educational content only. Not financial advice. Every dated signal on the site is a historical backtest, not a record of calls published at the time.",
+  ].join("\n");
+}
+
 function unsubUrl(email) {
   const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
     .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
@@ -104,7 +226,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     <p style="margin:18px 0;">You'll get a fresh read every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what to do this week.</p>
 
     <p style="margin:28px 0 10px;color:#555;"><strong style="color:#080808;">Why I built this:</strong></p>
-    <p style="margin:0 0 18px;color:#555;">In 2021 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. The Checklist + Score is the system I wish I'd had then.</p>
+    <p style="margin:0 0 18px;color:#555;">Through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. The Checklist + Score is the system I wish I'd had then.</p>
 
     <p style="margin:24px 0 0;">See you Sunday.</p>
     <p style="margin:6px 0 0;color:#555;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
@@ -150,7 +272,7 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     "",
     "You'll get a fresh read every Sunday. No fluff. Just the number, the zone, and what to do this week.",
     "",
-    "Why I built this: in 2021 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. The Checklist + Score is the system I wish I'd had then.",
+    "Why I built this: through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. The Checklist + Score is the system I wish I'd had then.",
     "",
     "See you Sunday.",
     "— Torin",
@@ -251,10 +373,41 @@ export default async function handler(req, res) {
     const score = await fetchScore(baseUrl);
 
     // Step 3 — send Welcome email immediately (magnet-aware)
-    const magnetKey = body.magnet === "buyzone" ? "buyzone" : "checklist";
-    const magnet = MAGNETS[magnetKey];
-    const subject = magnet.subject;
+    // The quiz takes its own branch: different email, and it carries a segment
+    // tag that the follow-up cron reads to pick emails 2-7.
+    const isQuiz = body.magnet === "quiz";
+    const segmentKey = isQuiz ? normaliseSegment(body.segment) : null;
+    const magnetKey = isQuiz ? "quiz" : body.magnet === "buyzone" ? "buyzone" : "checklist";
+    const magnet = MAGNETS[magnetKey] || MAGNETS.checklist;
+    const subject = isQuiz ? "your cycle position" : magnet.subject;
     const uu = unsubUrl(email);
+
+    // Segment routing. Each quiz segment can have its own Resend audience so the
+    // sequence can address them separately; until those audiences exist in the
+    // Resend dashboard the contact simply stays in the main free audience and
+    // the segment travels as a Resend tag instead. See QUIZ_SETUP.md — this is
+    // deliberately a no-op rather than an error when unconfigured, so nothing
+    // in the live account has to change for the quiz to work.
+    if (isQuiz && segmentKey) {
+      const segAud = process.env[`RESEND_QUIZ_AUDIENCE_${segmentKey}`] || process.env.RESEND_QUIZ_AUDIENCE_ID;
+      if (segAud) {
+        try {
+          await fetch(`https://api.resend.com/audiences/${segAud}/contacts`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+              "Content-Type": "application/json",
+              "User-Agent": "liftoffr-subscribe/1.0",
+            },
+            body: JSON.stringify({ email, unsubscribed: false }),
+          });
+        } catch (e) {
+          // Non-fatal: the welcome email still sends and the contact is already
+          // in the main audience. Segment routing degrading must never cost a lead.
+          console.error("subscribe: quiz segment audience add failed", segmentKey, String(e).slice(0, 200));
+        }
+      }
+    }
     const sendRes = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -269,11 +422,12 @@ export default async function handler(req, res) {
         to: [email],
         reply_to: REPLY_TO,
         subject,
-        text: (welcomeText(score, magnet) || "") + `\n\nUnsubscribe: ${uu}`,
-        html: welcomeHTML(score, magnet).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
+        text: (isQuiz ? quizText(score, segmentKey) : welcomeText(score, magnet) || "") + `\n\nUnsubscribe: ${uu}`,
+        html: (isQuiz ? quizHTML(score, segmentKey) : welcomeHTML(score, magnet)).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
         tags: [
-          { name: "campaign", value: "welcome" },
+          { name: "campaign", value: isQuiz ? "quiz" : "welcome" },
           { name: "magnet", value: magnetKey },
+          { name: "segment", value: segmentKey || "none" },
           { name: "utm_source", value: utm_source },
           { name: "utm_medium", value: utm_medium },
           { name: "utm_campaign", value: utm_campaign },
