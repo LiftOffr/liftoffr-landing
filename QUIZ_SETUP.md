@@ -28,77 +28,18 @@ sequence rides on the existing daily follow-up cron. Function count is still 12.
 
 ---
 
-## Step 1 — Resend: create the audience(s) *(required to switch on emails 2–7)*
+## The steps themselves live in `TORIN_ACTION_CHECKLIST.md`
 
-Two options. **Recommended: option B**, because it is what makes emails 2 and 5 actually
-personalised, and personalisation is the entire reason the quiz exists.
+The Resend / ManyChat / Whop dashboard steps, the verification commands and the ongoing
+items are consolidated into one checklist so there is a single file to work from and a
+single place to keep current:
 
-### Option A — one pooled audience (simpler, neutral copy)
+**→ `TORIN_ACTION_CHECKLIST.md`** (repo root)
 
-1. Resend → **Audiences** → **Create Audience** → name it `LiftOffr Quiz`.
-2. Copy its UUID.
-3. Vercel → project → **Settings → Environment Variables** → add
-   `RESEND_QUIZ_AUDIENCE_ID` = that UUID, for **Production**.
-
-Result: all seven emails send on schedule. The two segment paragraphs (emails 2 and 5)
-don't render — every email still reads correctly without them.
-
-### Option B — four segment audiences (recommended)
-
-1. Create four audiences: `LiftOffr Quiz — Round-tripped`, `— Accumulating`,
-   `— Sitting`, `— New`.
-2. Add four env vars in Vercel Production, each set to the matching UUID:
-   - `RESEND_QUIZ_AUDIENCE_ROUNDTRIPPED`
-   - `RESEND_QUIZ_AUDIENCE_ACCUMULATING`
-   - `RESEND_QUIZ_AUDIENCE_SITTING`
-   - `RESEND_QUIZ_AUDIENCE_NEW`
-
-Result: full sequence with the segment paragraphs live. Per-segment audiences take
-precedence over the pooled one if both are set.
-
-**Either way the contact is also added to the main `RESEND_AUDIENCE_ID` free audience**,
-so the Sunday Score keeps reaching them and the existing unsubscribe path keeps working
-unchanged.
-
----
-
-## Step 2 — ManyChat: point the keyword at the quiz
-
-Not done here — this is live ManyChat config.
-
-- Current keyword flows send to `/checklist` or `/buyzone`. **Both now 307-redirect to
-  `/quiz`**, so nothing is broken if you never touch ManyChat.
-- When convenient, change the destination URL to
-  `https://liftoffr.com/quiz?utm_source=instagram&utm_medium=manychat&utm_campaign=quiz`
-  so the redirect hop and the stale UTMs go away.
-
-**The higher-impact ManyChat-adjacent change isn't in ManyChat at all** (research action
-#4): the bottleneck measured was view → comment, not ManyChat → click. Say the CTA on
-camera in the first 5 seconds and burn it in as a text overlay. That is the ~38×
-lever; the keyword destination is housekeeping.
-
----
-
-## Step 3 — Verify before you trust it
-
-Preview any template without sending (auth required — same `CRON_SECRET`):
-
-```
-curl -u :$CRON_SECRET "https://liftoffr.com/api/cron-welcome-followups?preview=q2"
-```
-
-Valid values: `q2` `q3` `q4` `q5` `q6` `q7` (quiz), `qw` `e2` `proof` `e3` `stack`
-`reengage` (free list), `p0` `p1` `p3` `p7` `p14` (plan buyers).
-
-Then take the quiz yourself with a real address and confirm email 1 arrives with the
-right segment. Contacts age off Resend's `created_at`, so email 2 lands the next day.
-
----
-
-## Step 4 — Whop
-
-**Nothing to do.** No Whop config was touched, no plan ID or price was changed, and the
-quiz does not interact with checkout.
+Short version: **Resend is the only required step** — create the quiz audience(s) and set
+the matching `RESEND_QUIZ_AUDIENCE_*` env vars in Vercel Production to switch on emails
+2–7. ManyChat is optional (both retired magnet URLs already redirect to `/quiz`). Whop
+needs nothing.
 
 ---
 
