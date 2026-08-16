@@ -59,7 +59,7 @@ const SEGMENTS = {
     angle:
       "You already know the part most people learn expensively: the problem was never the information. " +
       "You could see it, the moment arrived, and there was a convincing reason it was different this time. " +
-      "That's exactly what happened to me in 2021.",
+      "That's exactly what happened to me: the indicators topped out in 2021, I did nothing, and it cost me through 2022.",
   },
   ACCUMULATING: {
     label: "Accumulating",
@@ -226,7 +226,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     <p style="margin:18px 0;">You'll get a fresh read every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what to do this week.</p>
 
     <p style="margin:28px 0 10px;color:#555;"><strong style="color:#080808;">Why I built this:</strong></p>
-    <p style="margin:0 0 18px;color:#555;">In 2021 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. The Checklist + Score is the system I wish I'd had then.</p>
+    <p style="margin:0 0 18px;color:#555;">Through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. The Checklist + Score is the system I wish I'd had then.</p>
 
     <p style="margin:24px 0 0;">See you Sunday.</p>
     <p style="margin:6px 0 0;color:#555;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
@@ -272,7 +272,7 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     "",
     "You'll get a fresh read every Sunday. No fluff. Just the number, the zone, and what to do this week.",
     "",
-    "Why I built this: in 2021 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. The Checklist + Score is the system I wish I'd had then.",
+    "Why I built this: through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. The Checklist + Score is the system I wish I'd had then.",
     "",
     "See you Sunday.",
     "— Torin",

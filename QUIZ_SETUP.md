@@ -126,10 +126,11 @@ landing pages are retired. Reverting is deleting two entries from `vercel.json`.
 The Score-driven magnet swap (`applyMagnetMode`, buy-zone below Score 70 / checklist at
 70+) is gone from the homepage and `/links` along with the magnets it switched between.
 
-### Still unresolved and still flagged
+### Resolved: the $30K round-trip year is 2022
 
-**The $30K round-trip year — 2021 or 2022?** `/playbook` said 2022; `/`, `/plan` and
-`/about` say 2021. I set /playbook to 2021 on the majority, and email 2 of the new
-sequence is written so both readings survive ("flashing in 2021… then it was 2022").
-**You still need to confirm the true year**, and silence is not confirmation. It is the
-founder's signature credibility story on a site whose pitch is "check my math."
+Confirmed by Torin 2026-08-16. The indicators topped out in **November 2021**; the
+money came off **through 2022**. `CLAUDE.md` and `BRAND_VOICE.md` both already carried
+2022 as canonical — the 2021 references on `/`, `/plan` and `/about` were drift, and
+`/playbook` was the one page that had it right. All references now say 2022, and the
+distinction between the 2021 signal and the 2022 loss is preserved everywhere rather
+than flattened into one year.

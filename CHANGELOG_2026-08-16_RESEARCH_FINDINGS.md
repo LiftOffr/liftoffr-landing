@@ -145,13 +145,21 @@ lower-risk direction to sit in while that happens.
   meaningful amount of money right now, don't spend it here", "I will never tell you what
   you'll make", "This is not a course", the exact-total transparency, the $29 credit.
 
-### Consistency fix (action #16)
+### Consistency fix (action #16) — CORRECTED 2026-08-16, second pass
 
-`/playbook` said the $30K round-trip was **2022**; `/`, `/plan` and `/about` say **2021**.
-Changed `/playbook` to 2021 — three pages against one, and `/about` tells the story in detail.
-**Confirm 2021 is the true year** before this ships.
+`/playbook` said the $30K round-trip was **2022**; `/`, `/plan` and `/about` said **2021**.
+I first changed `/playbook` to 2021 on a three-against-one majority. **That was wrong.**
 
----
+Torin confirmed the true year is **2022**, and the repo already said so: `CLAUDE.md`
+(*"$30K round-trip loss 2022"*) and `BRAND_VOICE.md` both carry 2022 as canon, as do
+`WHOP_LISTING_COPY.md` and `/lead-magnet/buy-zone-plan`. The majority was drift; the
+outlier was right. Counting pages was the wrong method when a canonical source existed
+in the repo — I should have checked `BRAND_VOICE.md` before counting.
+
+All references now say 2022, and — the part worth preserving — **the two dates are kept
+distinct rather than flattened into one year**: the indicators topped out in **November
+2021**, and the money came off **through 2022**. Pages that correctly describe the 2021
+signal still say 2021.
 
 ## Judgment calls Torin should overrule if he disagrees
 

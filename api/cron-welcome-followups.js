@@ -51,7 +51,7 @@ const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 const PSUBJECT_0  = "You're in — your plan + the one thing to do tonight";
 const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
 const PSUBJECT_3  = "The plan is a snapshot. Here's the camera.";
-const PSUBJECT_7  = "The 2021 miss that built this — and the receipts since";
+const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
 const PSUBJECT_14 = "Where the founding window stands";
 
 function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
@@ -128,7 +128,7 @@ function plan3Text() {
 function plan7HTML() {
   return planShell("Plan · Day 7",
     `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
-     <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
+     <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
      <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. October 6, 2025: DCA'd out at <strong>$124,824</strong>. Not because I got smarter — because it was already written down.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <p style="margin:0 0 16px;">One ask, and it is not a condition of anything: if the plan has been worth the $29, an honest review on Whop takes two minutes and does more for this than any ad I could run. If it hasn't, reply and tell me that instead — I'd rather have the correction.</p>
@@ -137,7 +137,7 @@ function plan7HTML() {
 }
 function plan7Text() {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
-    "In 2021 my own indicators told me to scale out. I didn't. I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
+    "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
     "Everything since exists so that decision gets made while I'm calm instead of euphoric. October 6, 2025: DCA'd out at $124,824. Not because I got smarter — because it was already written down.","",
     "Public and checkable, misses included:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",

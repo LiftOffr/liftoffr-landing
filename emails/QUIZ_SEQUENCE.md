@@ -45,7 +45,7 @@ differ most.
 
 | Tag | Who they are | Angle shift |
 |---|---|---|
-| `ROUNDTRIPPED` | Held through a full cycle and gave it back | Lead with the 2021 story — highest-intent segment |
+| `ROUNDTRIPPED` | Held through a full cycle and gave it back | Lead with the 2021-top / 2022 round-trip story — highest-intent segment |
 | `ACCUMULATING` | Holds BTC, buying, no exit rule | Lead with the exit problem |
 | `SITTING` | Holds BTC, doing nothing, unsure | Lead with the decision-in-advance problem |
 | `NEW` | Little or no BTC, curious | Lead with the free layer; slow the pitch |
@@ -122,11 +122,11 @@ positioning in one instruction.
 >
 > — Torin
 
-> ⚠️ **Open question, unresolved.** This email says the round-trip ran into **2022**;
-> the site says the loss was **2021**. Torin has not confirmed which is right — see
-> `CHANGELOG_2026-08-16_RESEARCH_FINDINGS.md`. The narrative here (flashing in 2021,
-> "then it was 2022") is consistent with a 2021 top and a 2022 drawdown, so both
-> readings survive as written. **Confirm before this sequence goes live.**
+> **The year is confirmed: 2022.** Torin confirmed 2026-08-16 that the round-trip
+> loss was 2022 — the indicators topped out in November 2021 and the money came off
+> through the bear that followed. This email's "flashing in 2021… then it was 2022"
+> is correct as written. `CLAUDE.md` and `BRAND_VOICE.md` both carried 2022 as canon
+> all along.
 
 **Segment paragraphs (`QSEG_E2`):**
 
