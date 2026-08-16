@@ -221,7 +221,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin-bottom: 18px;
   }
 
-  /* RECEIPTS — timestamped calls, always visible */
+  /* RECEIPTS — dated backtest signals, always visible */
   .lh-calls {
     padding: 16px 16px 12px;
     background: var(--glass);
@@ -433,7 +433,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Quick links: what "it's in the link in bio" points to -->
   <a href="/cycle?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_cycle" class="lh-quick" data-cta="links_cycle">&#128202; This week's cycle read — live score &rarr;<span class="lq-sub">The full public dashboard: score, zone, and all four pillars. Free.</span></a>
   <a href="/indicators?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_indicators" class="lh-quick" data-cta="links_indicators">All 9 cycle indicators — live &rarr;<span class="lq-sub">Today's reading for each, plus what every one read at every cycle top since 2013.</span></a>
-  <a href="/checklist?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_checklist" class="lh-quick" data-cta="links_checklist">Free cycle-top checklist &rarr;<span class="lq-sub">The signals I watch before selling — free, straight to your inbox.</span></a>
+  <!-- Free-magnet slot: Score-driven. Buy-zone is the default (Score below 70);
+       the checklist takes over in the warning band. See applyMagnetMode() below. -->
+  <a href="/buyzone?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_buyzone" class="lh-quick" data-cta="links_buyzone" data-magnet-panel="buy">Free bear-market buy-zone plan &rarr;<span class="lq-sub">The four bands I'm buying into, and what has to confirm first — free, straight to your inbox.</span></a>
+  <a href="/checklist?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_checklist" class="lh-quick" data-cta="links_checklist" data-magnet-panel="sell" hidden>Free cycle-top checklist &rarr;<span class="lq-sub">The signals I watch before selling — free, straight to your inbox.</span></a>
 
   <!-- Scoreboard hero: score shown, action gated -->
   <div class="lh-score">
@@ -458,9 +461,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
   <div class="lj-reassure">One-time payment. Nothing recurring, ever.</div>
 
-  <!-- Receipts: timestamped calls + gated current signal -->
+  <!-- Receipts: dated backtest signals + gated current signal -->
   <div class="lh-calls">
-    <div class="lh-calls-label">Timestamped calls — <em>the receipts</em></div>
+    <div class="lh-calls-label">Dated signals — <em>the backtest</em></div>
 
     <div class="lh-call">
       <div class="lh-call-icon buy">&#8593;</div>
@@ -482,7 +485,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="lh-call-icon sell">&#8595;</div>
       <div class="lh-call-body">
         <div class="lh-call-date">Dec 15, 2024 <span class="tag sell">Top</span></div>
-        <div class="lh-call-text">Sell signal at $104K. BTC peaked Oct 2025 at $124K. <strong>Down 36% since.</strong> Members saw it that morning.</div>
+        <div class="lh-call-text">Sell signal at $104K. BTC peaked Oct 2025 at $124K. <strong>Down 36% since.</strong> The model cleared early and left ~20% on the table.</div>
       </div>
     </div>
 
@@ -495,7 +498,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
 
-    <div class="lh-calls-note">Every call above is in the public backtest. <a href="/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_receipts">Verify the full trade log &rarr;</a></div>
+    <div class="lh-calls-note">Every signal above is a backtest output, not a call published at the time. <a href="/track-record?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_receipts">Verify the full trade log &rarr;</a></div>
   </div>
 
   <!-- Anchor + final CTA -->
@@ -526,8 +529,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lh-final-trust">One-time payment · No subscription · Educational, not financial advice</div>
   </div>
 
-  <!-- Escape hatch for the not-ready: capture path moved OFF the main flow -->
-  <a href="/buyzone?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_escape" class="lh-escape">Not ready? <b>Get my free Bear Market Buy-Zone Plan &rarr;</b></a>
+  <!-- Escape hatch for the not-ready: capture path moved OFF the main flow.
+       Mirrors the magnet slot above — whichever PDF is not the headline offer lands here. -->
+  <a href="/checklist?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_escape" class="lh-escape" data-magnet-panel="buy">Not selling yet? <b>Get my free BTC Cycle Top Checklist &rarr;</b></a>
+  <a href="/buyzone?utm_source=liftoffr&utm_medium=links&utm_campaign=evergreen&utm_content=links_escape" class="lh-escape" data-magnet-panel="sell" hidden>Not ready? <b>Get my free Bear Market Buy-Zone Plan &rarr;</b></a>
 
   <div class="lh-socials-row">
     <a href="https://www.youtube.com/@torin-liftoffr" target="_blank" rel="noopener me" class="lh-social">YouTube</a>
@@ -568,7 +573,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         trend.textContent = arrow + '  ' + sign + d.trendDelta7d + ' over last 7 days';
       }
       if (locked && d.commentary) locked.textContent = d.commentary + ' ' + locked.textContent;
+      applyMagnetMode(d.score >= 70 ? 'sell' : 'buy');
     }).catch(function(){});
+
+    // Free-magnet slot follows the Score: below 70 the audience has a buying
+    // problem, at 70+ (WARNING in api/cycle-score.js) it becomes a selling one.
+    // 'buy' is the no-JS HTML default, so a dead API leaves the page correct.
+    function applyMagnetMode(mode){
+      document.querySelectorAll('[data-magnet-panel]').forEach(function(el){
+        el.hidden = el.getAttribute('data-magnet-panel') !== mode;
+      });
+    }
   })();
 </script>
 

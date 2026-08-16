@@ -103,6 +103,14 @@
   }
   .card .q { font-weight:800; color:#fff; margin-bottom:6px; font-size:15.5px; }
   .card .a { font-size:14.5px; color:#a9b3c6; }
+  .reads { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0 14px; }
+  .reads a {
+    display:block; text-decoration:none; color:#fff; font-weight:700; font-size:14.5px;
+    background:var(--glass); border:var(--glass-bd); border-radius:12px; padding:14px 16px;
+    transition:border-color 0.15s, transform 0.15s;
+  }
+  .reads a:hover { border-color:rgba(230,57,70,0.5); transform:translateY(-1px); }
+  .reads a span { display:block; font-weight:400; font-size:12.5px; color:var(--muted); margin-top:3px; line-height:1.5; }
   .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:18px 0 8px; }
   .grid a { text-decoration:none; color:inherit; display:block; }
   .grid .name { font-weight:800; color:#fff; font-size:15px; }
@@ -130,6 +138,7 @@
   @media (max-width:640px) {
     h1 { font-size:29px; letter-spacing:-1px; }
     .grid { grid-template-columns:1fr; }
+    .reads { grid-template-columns:1fr; }
     .reading-num { font-size:48px; }
     .wrap { padding:30px 15px 56px; }
   }
@@ -175,6 +184,23 @@
      making the whole decision. That is the entire argument for a composite, and it is why the
      "where it has been wrong" section exists on every page here.</p>
 
+  <h2>Read the long-form explainers</h2>
+  <p>The pages above carry the live number. These are the write-ups — how each indicator is built,
+     what it read at past turns, and where it has failed. Four of them cover signals that feed the
+     Score without having a page of their own here.</p>
+  <div class="reads">
+    <a href="/blog/how-to-identify-bitcoin-cycle-top" data-dest="blog_cycle_top">How to identify a Bitcoin cycle top<span>The 8-indicator confluence framework — start here.</span></a>
+    <a href="/blog/cbbi-bitcoin-indicator" data-dest="blog_cbbi">CBBI explained<span>The composite these nine readings are derived from.</span></a>
+    <a href="/blog/pi-cycle-top-bitcoin-indicator" data-dest="blog_pi_cycle">Pi Cycle Top<span>The MA cross — and the 2025 top it did not fire on.</span></a>
+    <a href="/blog/mvrv-ratio-bitcoin-indicator" data-dest="blog_mvrv">MVRV Ratio<span>Unrealised profit across the supply, and its shrinking peaks.</span></a>
+    <a href="/blog/puell-multiple-bitcoin-indicator" data-dest="blog_puell">Puell Multiple<span>Miner revenue as a cycle clock, and what halvings do to it.</span></a>
+    <a href="/blog/bitcoin-rainbow-chart-indicator" data-dest="blog_rainbow">Rainbow Chart<span>Every colour band, and why the curve keeps moving down.</span></a>
+    <a href="/blog/bitcoin-2-year-ma-multiplier" data-dest="blog_2yma">2-Year MA Multiplier<span>The long-term mean-reversion band.</span></a>
+    <a href="/blog/crypto-fear-greed-index-bitcoin" data-dest="blog_fng">Fear &amp; Greed Index<span>Sentiment as a confirmation signal, not a trigger.</span></a>
+    <a href="/blog/google-trends-bitcoin-indicator" data-dest="blog_trends">Google Trends<span>Retail search interest, and why it now lags.</span></a>
+  </div>
+  <p style="font-size:13.5px;"><a href="/blog" data-dest="blog_index">Every LiftOffr write-up is indexed at /blog →</a></p>
+
   <div class="cta">
     <h3>These indicators are why I buy where I buy.</h3>
     <p>My Bear Market Buy Plan is the nine-tier ladder built on top of them — the exact levels,
@@ -199,6 +225,7 @@
     <a href="/">Home</a><span>·</span>
     <a href="/cycle">Live Score</a><span>·</span>
     <a href="/indicators">All indicators</a><span>·</span>
+    <a href="/blog">Blog</a><span>·</span>
     <a href="/track-record">Track record</a><span>·</span>
     <a href="/privacy">Privacy</a><span>·</span>
     <a href="/terms">Terms</a>

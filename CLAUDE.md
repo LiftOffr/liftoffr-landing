@@ -20,7 +20,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 | `/checklist` | lead-capture landing (current bio-link destination for IG/TikTok/YT/X via /ig /tt /yt /x) |
 | `/cycle` | PUBLIC live cycle dashboard (gauge, Four Pillars, indicators) |
 | `/track-record` | backtest proof: $50/wk → $1.88M vs $217K DCA, +7,602%, 417 start dates |
-| `/playbook` | $497 Cycle Playbook 1:1 sales page (noindex, 4 spots/month) |
+| `/playbook` | $497 Cycle Playbook 1:1 sales page (indexed since 2026-08-16, 4 spots/month; linked from home footer + ladder, /plan, /faq, /links, /system, /welcome-plan) |
 | `/system` | $197 "The Cycle System" sales page (noindex — warm list only; $147 founding, 50 seats) |
 | `/blog/*` | 9 indicator SEO posts |
 | `/welcome` | generic post-checkout success → Discord |
