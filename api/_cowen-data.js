@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "OXUeLGbMKyU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Winds of Winter",
+    "published": "2026-08-16T10:28:00+00:00",
+    "processed_at": "2026-08-16T10:47:53.587639+00:00",
+    "url": "https://www.youtube.com/watch?v=OXUeLGbMKyU",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      60000,
+      62000,
+      63000
+    ],
+    "indicators_mentioned": [
+      "200-week moving average",
+      "bear market resistance band",
+      "social risk metric",
+      "volatility (60-day, 30-day, 180-day)",
+      "on-chain risk indicators",
+      "four-year cycle",
+      "Bitcoin ROI from bottom"
+    ],
+    "key_points": [
+      "Bitcoin is being squeezed between the 200-week moving average and the bear market resistance band, which will force a decisive breakout in either direction",
+      "Volatility has compressed to historically low levels (60-day at 1.47%, 30-day at 1.16%), and such compression historically precedes a sharp volatility expansion",
+      "Current market structure closely mirrors 2018, with social interest and risk metrics declining in similar fashion during the back half of a midterm year",
+      "A further drawdown would likely reset on-chain indicators completely, removing the justification for continued lower prices and setting up a market cycle bottom",
+      "Bitcoin has historically diverged from stock market performance during its own bear markets (2014, 2018), meaning a stock correction is not required for a Bitcoin bottom to form"
+    ],
+    "summary": "Bitcoin remains stuck in a low-volatility, low-interest phase reminiscent of prior midterm-year bear markets, particularly 2018, as it consolidates between the 200-week moving average and bear market resistance band. A further breakdown is likely to trigger the final capitulation needed to reset on-chain metrics and mark the cycle bottom, after which volatility should expand sharply and the market should begin transitioning toward a new bull phase within the next few months."
+  },
+  {
     "video_id": "3f7iDFfYAeg",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1476,38 +1510,5 @@ export default [
       "Midterm year seasonality historically produces multiple corrections throughout the year rather than single event"
     ],
     "summary": "A correction in the S&P 500 appears likely in the June-July timeframe, with a larger decline potentially starting in September based on historical fractal patterns. Bitcoin will likely experience amplified downside during equity selloffs, potentially bottoming in October if the stock market peaks in September, due to its position higher on the risk curve."
-  },
-  {
-    "video_id": "7byCfkDQxq8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Four Year Cycle Is Not Dead",
-    "published": "2026-05-26T00:46:56+00:00",
-    "processed_at": "2026-05-26T01:23:21.394690+00:00",
-    "url": "https://www.youtube.com/watch?v=7byCfkDQxq8",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [
-      60000,
-      75000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "21-week EMA",
-      "stablecoin dominance",
-      "USDT dominance",
-      "USDC dominance",
-      "bull market support band",
-      "ROI after cycle peak"
-    ],
-    "key_points": [
-      "Bitcoin topped in Q4 2025 at the same time as historical cycles despite narratives about ETFs and corporate buying breaking the pattern\u2014topping on apathy rather than euphoria does not prevent bear markets as evidenced by S&P 500 historical behavior",
-      "Current bear market rally of 35-36% off the low is actually weaker than prior midterm year rallies; price action mirrors 2022 and 2018 patterns with similar 52% drops, higher lows in March-April, and highs in early May",
-      "The 16-week period without a new low is not anomalous\u2014historical bear market rallies lasted 15-25 weeks before establishing new lows, suggesting another capitulation phase likely ahead",
-      "Stablecoin dominance (USDT + USDC) behavior and summer weakness pattern match prior midterm years; resistance at 200-day moving average has consistently failed in previous cycles before bear markets resumed",
-      "Bitcoin bottoming in Q4 of the midterm year (expected October 2026) remains the most likely outcome based on four-year cycle timing, with potential local lows in June preceding a final capitulation phase"
-    ],
-    "summary": "The four-year cycle remains intact despite conventional narratives suggesting its breakdown. Bitcoin topped precisely when historical cycles predict\u2014end of post-halving year\u2014and current price action mirrors prior bear market rallies in duration, magnitude, and technical patterns. Additional downside to at least 60K support and a final capitulation phase around October 2026 remain probable outcomes."
   }
 ];
