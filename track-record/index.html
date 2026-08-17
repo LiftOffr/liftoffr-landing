@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#e63946">
-<title>LiftOffr — The Backtest, Explained (Methodology)</title>
-<meta name="description" content="The methodology page for the LiftOffr backtest: what it tested, what it assumes, why a formula tested against its own design history flatters itself, and where the losing signals are.">
+<title>LiftOffr — The Full Method, Open For Inspection</title>
+<meta name="description" content="The complete LiftOffr method: every input, every weight, every assumption, and every losing signal — published so you can recompute it from free public data.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://liftoffr.com/track-record">
 
@@ -13,7 +13,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="LiftOffr">
 <meta property="og:url" content="https://liftoffr.com/track-record">
-<meta property="og:title" content="What the backtest is, plainly — and what's wrong with it.">
+<meta property="og:title" content="The full method, open for inspection.">
 <meta property="og:description" content="Backtested across every Bitcoin cycle 2017–2026 and 417 different start dates. Same money in, different exit discipline. Every assumption shown.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -22,8 +22,8 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="What the backtest is, plainly — and what's wrong with it.">
-<meta name="twitter:description" content="Every assumption behind the LiftOffr backtest, including the 29 signals that went the wrong way.">
+<meta name="twitter:title" content="The full method, open for inspection.">
+<meta name="twitter:description" content="Every input, weight and assumption behind the LiftOffr Score — recomputable from free public data.">
 <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
 
 <!-- Google Tag Manager -->
@@ -213,49 +213,54 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div class="wrap">
 
   <header class="hero">
-    <span class="tag">The methodology page · Backtest, 2017 → today</span>
-    <h1>What the backtest is, <em>plainly</em>.</h1>
-    <p class="sub">This is the page where the number gets explained instead of advertised. Every assumption, every input, and every losing period is below.</p>
+    <span class="tag">Methodology · every assumption, published</span>
+    <h1>The full method, <em>open for inspection</em>.</h1>
+    <p class="sub">Most people show you a chart. This is the page where I show you how it was built, what it
+    assumes, and where it's weakest &mdash; so you can decide whether to trust it instead of taking my word.</p>
   </header>
 
-  <!-- WHAT THE BACKTEST IS — required framing block. This page is the only place on the
-       site where the backtest figure appears at all; it does not belong in any hero,
-       proof strip, meta title, or social card. See 05-offer-critique.md §5. -->
+  <!-- The honest-limits block. This is the ONE place on the site where the backtest
+       caveat is spelled out at length, and it belongs here because this is the
+       methodology page. Do not copy this framing onto sales pages — that was the
+       over-correction Torin flagged on 2026-08-16. Site-wide disclosure is the
+       homepage footer; sales pages sell. -->
   <div class="compare" style="border-left:3px solid var(--red);">
-    <h2>What the backtest is, plainly.</h2>
-    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:16px;">
-      I built the V7 formula, then ran it against Bitcoin's price history from 2017. In that test, a hypothetical $50/week input with signal adjustments outperformed plain dollar-cost-averaging by a wide margin. Three things you should know before that number means anything to you:
-    </p>
-    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:12px;">
-      <strong style="color:#fff;">It's retroactive.</strong> The formula didn't exist for most of the period it's tested against. No person did this. No customer of mine has done this.
-    </p>
-    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:12px;">
-      <strong style="color:#fff;">It flatters itself.</strong> A formula tested on the same history it was designed against will always look better than it deserves to. That's true of every backtest, including mine.
-    </p>
-    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:12px;">
-      <strong style="color:#fff;">It is not a prediction, a promise, or a typical result.</strong> I don't know what you'll make. Nobody does.
+    <h2>Read this before you read the numbers</h2>
+    <p style="color:#ccc;font-size:15px;line-height:1.75;margin-bottom:14px;">
+      I built the V7 formula, then ran it against Bitcoin's price history from 2017. Everything below is that test.
+      <strong style="color:#fff;">It's a backtest, and it's retroactive</strong> &mdash; the formula didn't exist for
+      most of the period it's measured against, so no person and no customer of mine actually did this. Any formula
+      tested on the history it was designed against flatters itself, mine included, and it is not a prediction or a
+      promise about what you'd make.
     </p>
     <p style="color:#ccc;font-size:15px;line-height:1.75;margin:0;">
-      Every losing signal is at <a href="/receipts" style="color:var(--red);font-weight:700;">/receipts</a> — 29 of the 64 went the wrong way. If any of this doesn't hold up, I'd rather you find out before you pay me $29 than after.
+      <strong style="color:#fff;">That's the caveat, stated once.</strong> What's underneath it is a fully specified
+      method: every input, every weight, every losing signal. All 64 signals &mdash; including the 29 that went the
+      wrong way &mdash; are at <a href="/receipts" style="color:var(--red);font-weight:700;">/receipts</a>, and every
+      one is recomputable from CBBI's free public data. <strong style="color:#fff;">Check it and hold me to it.</strong>
     </p>
   </div>
 
   <!-- Hero Stats -->
+  <!-- NO OUTCOME FIGURES HERE. The portfolio-value and ROI cells that used to sit in
+       this row were $1.88M and +7,602% written without commas, which is how they
+       survived earlier sweeps. Same numbers, same rule: they do not go back.
+       These four describe the METHOD, which is what this page is for. -->
   <div class="stats">
     <div class="stat">
-      <div class="stat-label">Total Contributed</div>
-      <div class="stat-value">$24,450</div>
-      <div class="stat-sub">$50/wk × 489 weeks</div>
+      <div class="stat-label">Period Tested</div>
+      <div class="stat-value">489 wks</div>
+      <div class="stat-sub">Jan 2017 → today</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Portfolio Value Today</div>
-      <div class="stat-value green">$1,883,194</div>
-      <div class="stat-sub">0.0396 BTC + $1,880,006 cash</div>
+      <div class="stat-label">Indicators Weighted</div>
+      <div class="stat-value">9</div>
+      <div class="stat-sub">every weight published</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Return on Investment</div>
-      <div class="stat-value green">+7602%</div>
-      <div class="stat-sub">$1,858,744 gain</div>
+      <div class="stat-label">Signals Produced</div>
+      <div class="stat-value">64</div>
+      <div class="stat-sub">29 went the wrong way</div>
     </div>
     <div class="stat">
       <div class="stat-label">Max Drawdown</div>
@@ -270,21 +275,28 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="chart-wrap"><canvas id="valueChart"></canvas></div>
   </div>
 
-  <!-- Comparison -->
+  <!-- Comparison — drawdown, not dollars. The dollar columns here were the banned
+       figures in another costume; the drawdown comparison makes the same strategic
+       point (exit discipline changes the ride) without an earnings claim. -->
   <div class="compare">
-    <h2>vs Just Holding Bitcoin</h2>
+    <h2>What the exit discipline actually changed</h2>
     <div class="compare-grid">
       <div class="compare-item">
-        <h3>Pure DCA (no cycle exits)</h3>
-        <div class="num">$217,634</div>
-        <div class="delta">+790% — survived a -79% drawdown</div>
+        <h3>Pure DCA, no cycle exits</h3>
+        <div class="num" style="font-size:32px;">-79%</div>
+        <div class="delta">deepest drawdown you'd have had to sit through</div>
       </div>
       <div class="compare-item">
-        <h3>LiftOffr Framework</h3>
-        <div class="num" style="color:var(--green)">$1,883,194</div>
-        <div class="delta">+7602% — $1,665,560 more, lower drawdown</div>
+        <h3>Same money, with the Score's exits</h3>
+        <div class="num" style="color:var(--green);font-size:32px;">-60%</div>
+        <div class="delta">shallower ride, same contributions</div>
       </div>
     </div>
+    <p style="color:#999;font-size:14px;margin-top:16px;line-height:1.65;">
+      That gap is the whole argument for having a written exit, and it's the part of a backtest
+      that's least flattering to itself — a drawdown number can't be inflated by cherry-picking an
+      end date. Backtested over 2017&ndash;today; past performance does not predict future results.
+    </p>
   </div>
 
   <!-- REMOVED 2026-08-16: the per-reader projection table that estimated portfolio
