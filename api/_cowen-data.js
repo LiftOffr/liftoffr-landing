@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "NxBLe5qTi_g",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The Rate Cutting Cycle is Over",
+    "published": "2026-08-17T20:29:48+00:00",
+    "processed_at": "2026-08-17T22:16:55.820412+00:00",
+    "url": "https://www.youtube.com/watch?v=NxBLe5qTi_g",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "non-farm payrolls",
+      "unemployment rate",
+      "labor force participation rate",
+      "initial claims",
+      "job openings",
+      "job openings per unemployed worker",
+      "CPI/headline inflation",
+      "30-year yield",
+      "10-year yield",
+      "Fed funds rate",
+      "GDP weighted policy rate"
+    ],
+    "key_points": [
+      "The rate cutting cycle appears over, with a realistic chance of a 25 basis point rate hike occurring in September or December as labor market tightness and sticky inflation risks resurface",
+      "Multiple global central banks (Europe, Australia, Japan, New Zealand) have already begun hiking rates again after cutting, suggesting the US could follow the same pattern",
+      "Rising 30-year and 10-year yields signal markets are more worried about inflation reacceleration than an imminent recession, since yields fall ahead of recessions rather than rise",
+      "A stock market correction of 10-20% is expected to begin around September/October, but this is not expected to be a full recession, and historically rate hikes have preceded further market strength rather than collapse",
+      "This anticipated correction is expected to be the catalyst that allows Bitcoin to find its market cycle bottom before the next cycle begins"
+    ],
+    "summary": "The rate cutting cycle is likely over, with rising yields and mixed labor/inflation data pointing to a possible token rate hike later this year, mirroring rate hiking cycles already underway in several other countries. This macro backdrop is expected to produce a 10-20% stock market correction starting around September or October, which would likely serve as the catalyst for Bitcoin to establish its market cycle bottom rather than signal a deeper recession."
+  },
+  {
     "video_id": "OXUeLGbMKyU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1484,31 +1518,5 @@ export default [
       "Market bottom is time-based capitulation rather than price-specific; the cycle historically requires navigating through weakness into Q4, with shift in narrative and analyst sentiment unlikely until late 2026 or early 2027"
     ],
     "summary": "Bitcoin is replicating typical midterm year patterns with bare market counter-trend rallies that fail to sustain above resistance levels. Expected weakness should persist through summer and Q4 2026 before potential cycle bottom forms, with the 200-week moving average as the critical capitulation level. Timing of eventual reversal is more important than exact bottom price, with major bullish shift unlikely until Q4 or early 2027."
-  },
-  {
-    "video_id": "Ibh7wDgNGCE",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "S&P 500: Outlook for the Rest of 2026",
-    "published": "2026-05-27T12:03:22+00:00",
-    "processed_at": "2026-05-27T12:33:52.808497+00:00",
-    "url": "https://www.youtube.com/watch?v=Ibh7wDgNGCE",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "S&P 500 / M2 ratio",
-      "unemployment rate by state",
-      "initial claims"
-    ],
-    "key_points": [
-      "S&P 500 / M2 fractal suggests small correction in June-July timeframe, followed by larger correction in September-early Q4",
-      "Bitcoin lags stock market rallies but gets hit harder during stock market corrections, repeating 2018 and 2022 patterns",
-      "Stock market approaching correction after 7-8 weeks of continuous gains with no sufficient reason yet to reverse",
-      "Bitcoin likely to bottom in October if S&P tops in September, given its higher position on risk curve",
-      "Midterm year seasonality historically produces multiple corrections throughout the year rather than single event"
-    ],
-    "summary": "A correction in the S&P 500 appears likely in the June-July timeframe, with a larger decline potentially starting in September based on historical fractal patterns. Bitcoin will likely experience amplified downside during equity selloffs, potentially bottoming in October if the stock market peaks in September, due to its position higher on the risk curve."
   }
 ];
