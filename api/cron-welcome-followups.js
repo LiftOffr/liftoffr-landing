@@ -53,6 +53,12 @@ const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
 const PSUBJECT_3  = "The plan is a snapshot. Here's the camera.";
 const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
 const PSUBJECT_14 = "Where the founding window stands";
+// Review request, D+21. Deliberately AFTER the last sales email so the ask is
+// never bundled with a pitch. Asked of EVERY buyer, not a filtered happy subset
+// — selectively soliciting positive reviews is the 16 CFR 255 problem that took
+// the unattributed testimonials off /playbook. No incentive is offered, because
+// an incentive conditioned on sentiment is the same problem wearing a hat.
+const PSUBJECT_21 = "three weeks in — worth it or not?";
 
 function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   return trialShell(eyebrow, bodyHTML, ctaText, ctaHref);
@@ -131,7 +137,6 @@ function plan7HTML() {
      <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
      <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. October 6, 2025: DCA'd out at <strong>$124,824</strong>. Not because I got smarter — because it was already written down.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
-     <p style="margin:0 0 16px;">One ask, and it is not a condition of anything: if the plan has been worth the $29, an honest review on Whop takes two minutes and does more for this than any ad I could run. If it hasn't, reply and tell me that instead — I'd rather have the correction.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See the receipts →", "https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_cta");
 }
@@ -162,6 +167,25 @@ function plan14Text() {
     "   https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook","",
     "If the answer to both is no, that's a normal outcome — the plan you have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.","",
     "https://whop.com/checkout/plan_3SEycpErj9Zk7","","— Torin"].join("\n");
+}
+
+function plan21HTML() {
+  return planShell("Plan · Day 21",
+    `<p style="margin:0 0 16px;">Three weeks since you got the plan. Long enough to know whether it did anything.</p>
+     <p style="margin:0 0 16px;"><strong>Did you actually write your levels down?</strong> That's the only question that matters. Not whether you liked the document &mdash; whether it changed what you'll do when price moves.</p>
+     <p style="margin:0 0 16px;"><strong>If yes:</strong> a review on Whop takes two minutes and does more for this than anything else you could do. Whatever it says. I'm not asking for a good one, I'm asking for a real one.</p>
+     <p style="margin:0 0 16px;"><strong>If no &mdash; or if it wasn't worth the $29 &mdash; tell me that instead.</strong> Reply to this email and I'll refund you, and I'd genuinely rather have the correction than the money.</p>
+     <p style="margin:0 0 16px;">To leave one: open Whop, go to your Hub, find LiftOffr, tap the three dots and choose <strong>Leave a Review</strong>.</p>
+     <p style="margin:24px 0 0;">&mdash; Torin</p>`,
+    "Open my Whop Hub &rarr;", "https://whop.com/hub");
+}
+function plan21Text() {
+  return ["Three weeks since you got the plan. Long enough to know whether it did anything.","",
+    "Did you actually write your levels down? That's the only question that matters. Not whether you liked the document — whether it changed what you'll do when price moves.","",
+    "If yes: a review on Whop takes two minutes and does more for this than anything else you could do. Whatever it says. I'm not asking for a good one, I'm asking for a real one.","",
+    "If no — or if it wasn't worth the $29 — tell me that instead. Reply to this email and I'll refund you, and I'd genuinely rather have the correction than the money.","",
+    "To leave one: open Whop, go to your Hub (https://whop.com/hub), find LiftOffr, tap the three dots and choose Leave a Review.","",
+    "— Torin"].join("\n");
 }
 
 function email2HTML() {
@@ -813,7 +837,7 @@ export default async function handler(req, res) {
     const map = {
       qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML,
       stack: stackHTML, reengage: reengageHTML,
-      p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: plan7HTML, p14: plan14HTML,
+      p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: plan7HTML, p14: plan14HTML, p21: plan21HTML,
       q2: () => quiz2HTML("ROUNDTRIPPED", null), q3: () => quiz3HTML("ROUNDTRIPPED", null),
       q4: () => quiz4HTML("ROUNDTRIPPED", null), q5: () => quiz5HTML("NEW", null),
       q6: () => quiz6HTML("SITTING", null), q7: () => quiz7HTML("ACCUMULATING", null),
@@ -871,7 +895,7 @@ export default async function handler(req, res) {
     const planAud = process.env.RESEND_PLAN_AUDIENCE_ID || null;
     let planSeq = null;
     if (planAud) {
-      planSeq = { p0_sent: 0, p1_sent: 0, p3_sent: 0, p7_sent: 0, p14_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
+      planSeq = { p0_sent: 0, p1_sent: 0, p3_sent: 0, p7_sent: 0, p14_sent: 0, p21_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
       const buyers = await fetchAudience(planAud);
       planSeq.total = buyers.length;
       const steps = [
@@ -880,6 +904,7 @@ export default async function handler(req, res) {
         { lo: 3.0,  hi: 4.0,  subj: PSUBJECT_3,  html: plan3HTML,  text: plan3Text,  key: "p3",  k: "p3_sent" },
         { lo: 7.0,  hi: 8.0,  subj: PSUBJECT_7,  html: plan7HTML,  text: plan7Text,  key: "p7",  k: "p7_sent" },
         { lo: 14.0, hi: 15.0, subj: PSUBJECT_14, html: plan14HTML, text: plan14Text, key: "p14", k: "p14_sent" },
+        { lo: 21.0, hi: 22.0, subj: PSUBJECT_21, html: plan21HTML, text: plan21Text, key: "p21", k: "p21_sent" },
       ];
       for (const c of buyers) {
         const age = ageDays(c.created_at);

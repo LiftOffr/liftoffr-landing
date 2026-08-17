@@ -20,6 +20,10 @@ production, it works.
 audiences made in Resend and four variables pasted into Vercel. That's the only thing
 between you and a working funnel. **~5 minutes, phone is fine.** Step 1 below.
 
+**New:** every $29 buyer now gets a review request automatically at day 21, and star
+ratings appear on the sales pages the moment real reviews exist. Two small things make
+that fully live — steps 2 and 3.
+
 **Not touched, on purpose:** anything that charges customers money, and anything on your
 Instagram account.
 
@@ -77,7 +81,50 @@ email 1 really sends in production. Same reason I can't remove it myself.
 
 ---
 
-## 2. Pin comments on your top 10 posts · ~20 min · phone is fine
+## 2. Fill in the Playbook product ID · ~2 min · one field
+
+**This silently costs you star ratings on your most expensive product.**
+
+The review display is live on `/plan`, `/system` and `/playbook`. It reads real
+reviews from Whop and renders them automatically. But the Playbook's Whop
+product ID isn't recorded anywhere in the repo, so `/playbook` — the $497 page —
+will show no rating even after reviews come in.
+
+1. dash.whop.com → **Products** → Cycle Playbook → copy the `prod_…` from the URL
+2. Vercel → liftoffr-landing → **Settings → Environment Variables** → add
+   `WHOP_PLAYBOOK_PRODUCT_ID` = that value, **Production**
+3. Deployments → top one → ⋯ → **Redeploy**
+
+`/plan` and `/system` already have their IDs and need nothing.
+
+- [ ] Playbook product ID set
+
+---
+
+## 3. Post the review request · ~1 min · phone is fine
+
+You have 208 Whop members and 70 in Discord, and **zero reviews**. TJR has 2,240.
+That's the biggest proof gap on the site.
+
+Every future $29 buyer now gets asked automatically at day 21 — that part is
+done and needs nothing from you. But it can't reach anyone who bought *before*
+today, and Discord is the only channel that does.
+
+Copy is in **`REVIEW_CAMPAIGN.md` § 2** — Discord announcement, three buyer
+emails, and a Whop DM. Paste the Discord one first; it's the highest return.
+
+Three rules baked into all of it, don't edit them out: ask **everyone** (not just
+the happy ones), offer **no incentive**, and point unhappy buyers at the 30-day
+refund. Selectively soliciting positive reviews is what forced the old
+testimonials off `/playbook`.
+
+- [ ] Discord announcement posted
+- [ ] Buyer emails sent (Resend → Broadcasts, or hand me a send-scoped key)
+- [ ] Whop DM sent
+
+---
+
+## 4. Pin comments on your top 10 posts · ~20 min · phone is fine
 
 Second-highest value, no filming needed.
 
@@ -91,20 +138,7 @@ Also point your bio link at `liftoffr.com/quiz`.
 
 ---
 
-## 3. Send the review requests · ~10 min
-
-You have buyers and zero displayed reviews, in a category where every competitor shows
-4.8–5.0.
-
-**`DRAFTS_FOR_TORIN.md` → Part 1.** Three emails, one per product tier.
-
-They deliberately invite unhappy buyers to speak up and offer them refunds. Keep that in —
-asking only happy customers is exactly what forced the unverifiable testimonials off
-`/playbook`.
-
----
-
-## 4. Film the on-camera CTA · when you can
+## 5. Film the on-camera CTA · when you can
 
 The one thing nothing substitutes for, and roughly a 38× lever by itself.
 
@@ -114,7 +148,7 @@ read the caption.
 
 ---
 
-## 5. September 7 — honour it, then index `/system`
+## 6. September 7 — honour it, then index `/system`
 
 `/system` publicly says founding pricing closes September 7 and that the date won't move.
 It's `noindex` right now on purpose; the research says index it *after* the window closes.
@@ -126,7 +160,7 @@ site has.
 
 ---
 
-## 6. Two decisions I left for you
+## 7. Two decisions I left for you
 
 **The $9 order bump on `/plan`.** Adding the Exit Ladder Worksheet as a checkout add-on.
 The worksheet already exists inside `/system`, so there's nothing to build — it's a Whop
@@ -146,9 +180,9 @@ Each is a small edit to reverse. All are live.
 - **Homepage lead CTA is now free** (`/cycle`), not the $29 plan. The paid path is still in
   the nav, the pricing section and the sticky bar. Research: nobody in this category sells
   to cold traffic.
-- **`/track-record` still shows the backtest figure** in its body, wrapped in the "here's
-  what's wrong with this number" framing. It's gone from every hero, meta title and social
-  card. Want zero occurrences anywhere? Say so.
+- **The backtest outcome figures are gone from `/track-record` entirely** — including the
+  equity-curve chart, which plotted the same number. That page now shows the method, the
+  signals against price, and the drawdown comparison instead.
 - **The projection table is deleted** — the one estimating what different weekly amounts
   would have become. It was the strongest income claim on the site.
 - **Two `— LiftOffr member` quotes came off `/playbook`.** Exact wording saved in

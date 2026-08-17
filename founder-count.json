@@ -1,0 +1,7 @@
+{
+  "deprecated": true,
+  "note": "The 30-seat Founder Rate was retired 2026-06-14. This endpoint is a static stub kept only so legacy callers receive a well-formed 200 instead of a 404. It is served by a vercel.json rewrite, not a serverless function, so it consumes no slot against the 12-function cap.",
+  "filled": null,
+  "remaining": null,
+  "total": null
+}
