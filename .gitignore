@@ -1,3 +1,8 @@
 .vercel
 __pycache__/
 *.pyc
+
+# Never commit pulled Vercel env files
+.env
+.env.*
+!.env.example

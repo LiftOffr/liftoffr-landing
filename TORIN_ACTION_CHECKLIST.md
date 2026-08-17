@@ -51,82 +51,69 @@ overrule — each is a small revert if you disagree.
 
 ## B. Dashboard steps
 
-### B1. Resend — the only step that switches emails 2–7 on
+### B1. Resend — BLOCKED, and here is exactly why
 
-**Required for the sequence. Everything else works without it.** Until this is done a
-visitor still takes the quiz, sees their result, submits their email, lands in the existing
-free audience, and receives email 1 with their segment. Only emails 2–7 are dormant — on
-purpose, because sending a segmented sequence to an untagged pooled list would throw away
-the entire mechanism.
+I tried to create the four quiz audiences for you and could not. **Every credential in
+your Vercel project is sensitive-flagged**, which means the value is write-only and cannot
+be read back by anyone — not by the CLI, not by me, not by you without going to Resend
+directly. `vercel env pull` returned 13 non-secret variables populated and all 34 actual
+secrets empty, including `RESEND_API_KEY`.
 
-**Recommended: Option B.** It's what makes emails 2 and 5 actually personalised, and
-personalisation is the whole reason the quiz exists.
+That is good security and I did not try to work around it. It leaves three options:
 
-**Option B — four segment audiences (recommended)**
+1. **Do it by hand — about four minutes.** Resend → Audiences → Create Audience, four
+   times: `LiftOffr Quiz — Round-tripped`, `— Accumulating`, `— Sitting`, `— New`. Then
+   Vercel → Settings → Environment Variables → add for **Production**:
+   `RESEND_QUIZ_AUDIENCE_ROUNDTRIPPED`, `RESEND_QUIZ_AUDIENCE_ACCUMULATING`,
+   `RESEND_QUIZ_AUDIENCE_SITTING`, `RESEND_QUIZ_AUDIENCE_NEW`. Redeploy (any push, or
+   Vercel → Deployments → Redeploy) so the functions pick them up.
+2. **Simpler, slightly worse:** one audience called `LiftOffr Quiz`, one env var
+   `RESEND_QUIZ_AUDIENCE_ID`. All seven emails send; the two personalised paragraphs in
+   emails 2 and 5 don't render. Every email still reads correctly without them.
+3. **Hand me a Resend API key** with audience scope and I'll do all of it plus the
+   end-to-end verification.
 
-1. Resend → **Audiences** → **Create Audience**, four times:
-   `LiftOffr Quiz — Round-tripped`, `— Accumulating`, `— Sitting`, `— New`
-2. Copy each UUID.
-3. Vercel → project → **Settings → Environment Variables** → add four vars for
-   **Production**:
-   - `RESEND_QUIZ_AUDIENCE_ROUNDTRIPPED`
-   - `RESEND_QUIZ_AUDIENCE_ACCUMULATING`
-   - `RESEND_QUIZ_AUDIENCE_SITTING`
-   - `RESEND_QUIZ_AUDIENCE_NEW`
-
-**Option A — one pooled audience (simpler)**
-
-1. Create one audience, `LiftOffr Quiz`. Copy the UUID.
-2. Add `RESEND_QUIZ_AUDIENCE_ID` = that UUID, Production.
-
-All seven emails send on schedule either way; with Option A the two segment paragraphs
-don't render and every email still reads correctly without them. Per-segment audiences
-take precedence if both are set.
-
-**Either way** the contact is also added to the main `RESEND_AUDIENCE_ID` free audience, so
-the Sunday Score keeps reaching them and the existing unsubscribe path is unchanged.
+Until then: **email 1 is live and sending today** — verified in production, Resend
+returned a contact ID and a send ID. Only emails 2–7 wait on this.
 
 - [ ] Audiences created
 - [ ] Env vars set in Vercel Production
+- [ ] Redeployed so the cron picks them up
 
-### B2. ManyChat — optional, nothing is broken if you skip it
+### B2. Whop — NOT TOUCHED, needs your decision
 
-- Current keyword flows point at `/checklist` and `/buyzone`. **Both now 307-redirect to
-  `/quiz`**, so existing flows keep working untouched.
-- When convenient, repoint the destination to
-  `https://liftoffr.com/quiz?utm_source=instagram&utm_medium=manychat&utm_campaign=quiz`
-  to drop the redirect hop and the stale UTMs.
+The +$9 Exit Ladder Worksheet order bump (action #14) changes what customers are charged,
+so it was deliberately left alone. The worksheet already exists as a `/system` deliverable,
+so there is nothing to build — it is a Whop checkout config plus a decision about whether
+you want a bump at all.
 
-- [ ] Keyword destination repointed *(optional)*
+- [ ] Decide on the order bump, then configure it in Whop
 
-> **The higher-impact change isn't in ManyChat at all.** The measured bottleneck was
-> view → comment, not ManyChat → click. Say the CTA on camera in the first five seconds
-> and burn it in as a text overlay — that's the ~38× lever. The keyword destination is
-> housekeeping. See section C.
+### B3. Instagram — NOT TOUCHED, by design
 
-### B3. Whop — nothing to do
+Automating caption edits or comments on your account violates Instagram's terms and risks
+the account. Paste-ready copy is in **`DRAFTS_FOR_TORIN.md`** instead — pinned comments,
+caption openers, and the order to work through your back catalogue.
 
-No Whop config was touched. No plan ID, no price, no checkout change. The quiz doesn't
-interact with checkout at all.
+- [ ] Pin comments on your top 10 posts by views *(highest-return item available to you)*
+- [ ] Bio link → `liftoffr.com/quiz`
 
-### B4. Verify before you trust it
+### B4. Verify
 
-Preview any email template without sending (auth uses your existing `CRON_SECRET`):
+Preview any email template without sending (needs `CRON_SECRET`, which I also can't read):
 
 ```
 curl -u :$CRON_SECRET "https://liftoffr.com/api/cron-welcome-followups?preview=q2"
 ```
 
-Valid values: `q2` `q3` `q4` `q5` `q6` `q7` (quiz) · `qw` `e2` `proof` `e3` `stack`
-`reengage` (free list) · `p0` `p1` `p3` `p7` `p14` (plan buyers).
+Valid: `q2`–`q7` (quiz) · `qw` `e2` `proof` `e3` `stack` `reengage` (free list) ·
+`p0` `p1` `p3` `p7` `p14` (plan buyers).
 
-Then take the quiz yourself with a real address and confirm email 1 arrives with the right
-segment. Contacts age off Resend's `created_at`, so email 2 lands the next day.
+### B5. Housekeeping
 
-- [ ] Templates previewed
-- [ ] Live quiz submission tested end to end
-
----
+- [ ] Remove the test contact `torin.christianson+quiztest20260816@gmail.com` from the
+      Resend free audience. It was created to verify email 1 fires in production. I can't
+      remove it for the same reason I can't create the audiences.
 
 ## C. Ongoing — the things no code change can do for you
 
