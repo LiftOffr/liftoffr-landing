@@ -1,5 +1,13 @@
 # CLAUDE.md — liftoffr.com
 
+> **2026-08-16 — the competitive-research rebuild shipped to production.**
+> Start with **`TORIN_ACTION_CHECKLIST.md`** (what to do, in order) and
+> **`DRAFTS_FOR_TORIN.md`** (copy to paste). Full record in
+> `CHANGELOG_2026-08-16_RESEARCH_FINDINGS.md`.
+> Live now: the `/quiz` funnel, income claims removed sitewide and from the nurture
+> emails, proof pages cross-linked. Dormant: quiz emails 2–7, pending four Resend
+> audiences + four Vercel env vars (checklist step 1).
+
 LiftOffr: Bitcoin cycle-indicator education + paid Discord community. Solo founder (Torin). This file orients any session — read it before scanning the repo.
 
 ## Ongoing work state

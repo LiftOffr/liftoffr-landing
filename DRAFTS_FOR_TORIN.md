@@ -1,5 +1,8 @@
 # Drafts — ready to paste, nothing sent
 
+> Companion to **`TORIN_ACTION_CHECKLIST.md`**, which tells you when to use these.
+> Part 1 = checklist step 3. Part 2 = checklist step 2.
+
 **Nothing in this file has been sent, posted, or scheduled.** No email went out, no
 Instagram action was taken. Copy is written to be pasted as-is.
 

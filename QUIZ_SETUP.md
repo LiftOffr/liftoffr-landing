@@ -1,4 +1,7 @@
-# Quiz + sequence — the dashboard steps only Torin can do
+# Quiz + sequence — technical notes
+
+> **Not the starting point.** For what to actually do, in order, read
+> **`TORIN_ACTION_CHECKLIST.md`**. This file is background detail.
 
 Everything in the repo is built and inert. Nothing below has been touched in any live
 account: no Resend audience was created, no ManyChat keyword was changed, no Whop
