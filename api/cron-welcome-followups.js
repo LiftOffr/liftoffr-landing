@@ -144,10 +144,10 @@ function plan7Text() {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
     "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
     "Everything since exists so that decision gets made while I'm calm instead of euphoric. October 6, 2025: DCA'd out at $124,824. Not because I got smarter — because it was already written down.","",
-    "Public and checkable, misses included:",
+    "Public and checkable:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",
     "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
-    "One ask, not a condition of anything: if the plan's been worth $29, an honest Whop review takes two minutes and does more for this than any ad I could run. If it hasn't, reply and tell me instead.","","— Torin"].join("\n");
+    "— Torin"].join("\n");
 }
 
 function plan14HTML() {
