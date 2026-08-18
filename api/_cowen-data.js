@@ -3,6 +3,39 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "-mx3UwwJ5P4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The Market is Wrong About the US Dollar",
+    "published": "2026-08-18T20:42:44+00:00",
+    "processed_at": "2026-08-18T21:08:13.612239+00:00",
+    "url": "https://www.youtube.com/watch?v=-mx3UwwJ5P4",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      105000,
+      106000
+    ],
+    "indicators_mentioned": [
+      "DXY",
+      "2-year yield",
+      "Fed funds rate",
+      "Fed watch tool",
+      "XLE",
+      "presidential term return paths",
+      "risk metric (Bitcoin)"
+    ],
+    "key_points": [
+      "The dollar is expected to rally significantly in the near term, contrary to consensus expectations of continued decline",
+      "Historical parallels with Trump's first term and prior presidential cycles suggest the dollar bottoms in the first half of the midterm year before trending higher",
+      "Rising 2-year yields alongside global central banks already hiking rates (Europe, Japan, New Zealand, Australia) suggest the US may be forced into a rate hike rather than further cuts",
+      "Energy prices/XLE making new highs historically precede Fed rate hikes and signal inflation is not yet tamed, reinforcing the case for higher rates and a stronger dollar",
+      "A stronger dollar driven by a potential rate hike is expected to act as a final headwind for Bitcoin and stocks, likely triggering a correction starting around August-September into the end of the year"
+    ],
+    "summary": "The dollar is poised for a substantial short-term rally, diverging from consensus, driven by rising 2-year yields, global central banks already hiking rates, and persistent inflation evidenced by new highs in energy stocks. This dollar strength is expected to act as a headwind for Bitcoin and equities, likely triggering a correction before the end of the midterm year, following a pattern similar to Trump's first term and the 1990s rate-hike cycle."
+  },
+  {
     "video_id": "NxBLe5qTi_g",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1485,38 +1518,5 @@ export default [
       "Q4 capitulation remains expected final phase; interim rallies through July-August unlikely to establish sustainable lows, making early midterm weakness continuation probable"
     ],
     "summary": "Bitcoin faces extended weakness into mid-to-late June as part of midterm year cycle dynamics, with potential for another low formation around Bank of Japan rate decision. July typically generates counter-trend rallies that fail to establish true lows, with final capitulation expected in Q4 following the established four-year cycle pattern seen in 2014, 2018, and 2022."
-  },
-  {
-    "video_id": "slTIiS-Y65k",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Falls Below The Bear Market Resistance Band",
-    "published": "2026-05-28T04:31:16+00:00",
-    "processed_at": "2026-05-28T08:26:14.840940+00:00",
-    "url": "https://www.youtube.com/watch?v=slTIiS-Y65k",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [
-      74000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "Bull Market Support Band",
-      "Bear Market Resistance Band",
-      "21-week EMA",
-      "20-week SMA",
-      "200-day MA",
-      "200-week MA",
-      "4-year cycle"
-    ],
-    "key_points": [
-      "Bitcoin has fallen below bear market resistance band on the daily timeframe with minimal follow-through, suggesting a potential fake-out typical of midterm year counter-trend rallies rather than sustained bull market continuation",
-      "Midterm years historically exhibit weakness around June and form major lows in Q4; structural patterns favor a summer low followed by final drop in September-October before cycle bottom",
-      "The 200-week moving average represents a critical level of destiny where the market will eventually make contact; this level is now higher than the February low and serves as key support/capitulation point",
-      "Bitcoin's underperformance relative to stocks reflects its position higher on the risk curve, exacerbated by macro headwinds from potential rate hikes; macro conditions likely remain unfavorable for several more months",
-      "Market bottom is time-based capitulation rather than price-specific; the cycle historically requires navigating through weakness into Q4, with shift in narrative and analyst sentiment unlikely until late 2026 or early 2027"
-    ],
-    "summary": "Bitcoin is replicating typical midterm year patterns with bare market counter-trend rallies that fail to sustain above resistance levels. Expected weakness should persist through summer and Q4 2026 before potential cycle bottom forms, with the 200-week moving average as the critical capitulation level. Timing of eventual reversal is more important than exact bottom price, with major bullish shift unlikely until Q4 or early 2027."
   }
 ];
