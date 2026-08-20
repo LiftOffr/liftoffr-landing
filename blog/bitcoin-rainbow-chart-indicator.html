@@ -221,6 +221,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         /* The nav bar ran ~4px past the content box on a 375px viewport once the
            vertical scrollbar is accounted for, so every post scrolled sideways.
            Drop the secondary links on narrow phones; the logo still goes home. */
+        /* Wide data tables overran the viewport on narrow phones. Let the table
+           itself scroll rather than clipping or dropping columns. */
+        @media (max-width: 480px) {
+          table { display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        }
         @media (max-width: 480px) {
           .site-nav-links { gap: 12px; }
           .site-nav-links a:not(.site-nav-cta) { display: none; }
