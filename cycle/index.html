@@ -7,11 +7,11 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="The live LiftOffr Bitcoin cycle Score — nine published weights, the four pillars, on-chain indicators and macro in one view, recomputed daily from public data. Free.">
+<meta name="description" content="The live LiftOffr Bitcoin cycle Score — nine published weights, the live on-chain components and macro context in one view, recomputed daily from public data. Free.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://liftoffr.com/cycle">
 <meta property="og:title" content="Live Bitcoin Cycle Dashboard — LiftOffr">
-<meta property="og:description" content="Live cycle Score, four pillars, on-chain indicators and macro in one view. Nine published weights, recomputable from free public data. Free, no login.">
+<meta property="og:description" content="Live cycle Score, the nine weighted components and macro context in one view. Nine published weights, recomputable from free public data. Free, no login.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://liftoffr.com/cycle">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
@@ -104,13 +104,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .vc h2{font-size:21px;font-weight:900;letter-spacing:-.4px;margin-bottom:8px}.vc p{color:var(--muted);font-size:13.5px;line-height:1.6}
   .vc .tag{display:inline-block;margin-top:13px;padding:5px 13px;border-radius:999px;font-size:11.5px;font-weight:800;letter-spacing:.5px}
   .pgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:20px}
-  .pcards{display:grid;grid-template-columns:1fr 1fr;gap:13px}
   .pill{background:rgba(255,255,255,.03);border:var(--gbd);border-radius:13px;padding:15px 16px;border-left:3px solid var(--muted);backdrop-filter:var(--blur)}
   .pill .ph{display:flex;justify-content:space-between;align-items:flex-start}.pill .pn{font-size:13px;font-weight:700}.pill .pw{font-size:11px;color:var(--dim);font-family:var(--mono)}
   .pill .pv{font-family:var(--mono);font-size:31px;font-weight:700;line-height:1;margin-top:7px}
   .pbot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px}.pill .pd{font-family:var(--mono);font-size:11px;color:var(--muted)}
   .pill .pb{font-size:10px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:5px}
-  .radar{display:flex;align-items:center;justify-content:center}
   .igrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
   .ind{background:var(--glass);border:var(--gbd);border-radius:14px;padding:16px 18px;backdrop-filter:var(--blur);box-shadow:var(--gsh)}
   .ind .ih{display:flex;justify-content:space-between;align-items:center}.ind .in{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px}
@@ -166,12 +164,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="vc"><h2 id="vTitle">Reading the cycle…</h2><p id="vCopy" class="loading">Loading live signal stack…</p><span class="tag" id="vTag"></span></div>
     </div>
 
-    <div class="sec-h">🧱 The Four Pillars <span class="s">— Cycle · Valuation · Technical · Sentiment</span></div>
-    <div class="pgrid">
-      <div class="pcards" id="pcards"></div>
-      <div class="panel radar"><svg id="radar" width="320" height="290" viewBox="0 0 320 290"></svg></div>
-    </div>
-
     <div class="sec-h">📈 Cycle Indicators <span class="s">— the on-chain signal stack, 0–100</span></div>
     <div class="igrid" id="igrid"><div class="loading">Loading indicators…</div></div>
 
@@ -200,13 +192,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 const FUSD=n=>'$'+Math.round(n).toLocaleString();
 const niceName={PiCycle:'Pi Cycle Top',RUPL:'NUPL (RUPL)',RHODL:'RHODL Ratio',Puell:'Puell Multiple','2YMA':'2Y MA Multiplier',Trolololo:'Trolololo Trend',MVRV:'MVRV-Z Score',ReserveRisk:'Reserve Risk',Woobull:'Woobull Top Cap',Confidence:'CBBI Confidence','F&G':'Fear & Greed'};
 const desc={PiCycle:'111DMA vs 350DMA×2 — historic top timing',RUPL:'Net unrealized profit/loss across supply',RHODL:'1w vs 1–2y HODL wave ratio',Puell:'Miner revenue vs 365d average','2YMA':'Price vs 2-year MA bands',Trolololo:'Logarithmic regression channel',MVRV:'Market vs realized value (z-score)',ReserveRisk:'Conviction vs price',Woobull:'Top cap vs average cap',Confidence:'Composite of all cycle indicators','F&G':'Crowd sentiment 0=fear,100=greed'};
-function zColor(v){if(v>=80)return'#f0556b';if(v>=60)return'#e8b339';if(v>=40)return'#4d8df0';return'#26d07c'}
-function zLabel(v){if(v>=85)return'TOP ZONE';if(v>=60)return'LATE CYCLE';if(v>=40)return'NEUTRAL';if(v>=20)return'ACCUMULATION';return'DEEP VALUE'}
+function zColor(v){if(v>=85)return'#f0556b';if(v>=70)return'#e8b339';if(v>=50)return'#4d8df0';return'#26d07c'}
+/* Bands are the engine's, from api/cycle-score.js commentary(). This page used to
+   carry its own scheme (85/60/40/20) which disagreed with /score, /quiz and the
+   weekly email about what the same number meant on the same day. */
+function zLabel(v){if(v>=85)return'EXIT ZONE';if(v>=70)return'WARNING';if(v>=50)return'MID-CYCLE';if(v>=30)return'RE-ACCUMULATION';if(v>=15)return'ACCUMULATION';return'DEEP ACCUMULATION'}
 function dpill(d){if(d==null||isNaN(d))return'';const rising=d>=0,c=d===0?'#7e8ba2':(rising?'#f0556b':'#26d07c');const a=d>0?'▲':(d<0?'▼':'■');return `<span class="dpill" style="background:${c}1f;color:${c}">${a} ${Math.abs(d).toFixed(1)}</span>`}
 function sparkline(s,color,refY){const w=288,h=44,n=s.length;if(n<2)return'';const mx=Math.max(...s,60),mn=Math.min(...s,0),rng=(mx-mn)||1,X=i=>i/(n-1)*w,Y=v=>h-((v-mn)/rng)*(h-4)-2;let d='M '+X(0)+' '+Y(s[0]);for(let i=1;i<n;i++)d+=` L ${X(i)} ${Y(s[i-1])} L ${X(i)} ${Y(s[i])}`;let ref='';if(refY!=null){const ry=Y(refY);ref=`<line x1="0" y1="${ry}" x2="${w}" y2="${ry}" stroke="#f0556b" stroke-width="1" stroke-dasharray="3 3" opacity=".45"/>`}const g='g'+color.replace('#','');return `<svg width="100%" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="margin-top:11px"><defs><linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".24"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></linearGradient></defs>${ref}<path d="${d} L ${w} ${h} L 0 ${h} Z" fill="url(#${g})"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2"/></svg>`}
 function drawGauge(score,cap,color){const svg=document.getElementById('gauge'),cx=170,cy=190,r=140;let h='<defs><filter id="gg" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';h+=`<path d="M ${cx-r} ${cy} A ${r} ${r} 0 0 1 ${cx+r} ${cy}" stroke="rgba(255,255,255,.06)" stroke-width="22" fill="none" stroke-linecap="round"/>`;const N=72;for(let i=0;i<N;i++){const t0=i/N,t1=(i+1)/N,a0=Math.PI*(1-t0),a1=Math.PI*(1-t1),pct=t0*100,c=pct<25?'#26d07c':pct<45?'#4d8df0':pct<65?'#e8b339':'#f0556b';h+=`<path d="M ${cx+r*Math.cos(a0)} ${cy-r*Math.sin(a0)} A ${r} ${r} 0 0 1 ${cx+r*Math.cos(a1)} ${cy-r*Math.sin(a1)}" stroke="${c}" stroke-width="20" fill="none" filter="url(#gg)"/>`}const na=Math.PI*(1-score/100),ux=Math.cos(na),uy=-Math.sin(na),px=-uy,py=ux,w=7,tx=cx+(r+6)*ux,ty=cy+(r+6)*uy,bx=cx+(r-26)*ux,by=cy+(r-26)*uy;h+=`<polygon points="${tx},${ty} ${bx+px*w},${by+py*w} ${bx-px*w},${by-py*w}" fill="#fff"/><circle cx="${cx+r*ux}" cy="${cy+r*uy}" r="3.5" fill="${color}" stroke="#fff" stroke-width="1.5"/>`;h+=`<text x="${cx}" y="${cy-36}" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="56" font-weight="700" fill="${color}" letter-spacing="-2">${score.toFixed(1)}</text><text x="${cx}" y="${cy-10}" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" font-weight="800" letter-spacing="1.6" fill="${color}">${cap}</text>`;svg.innerHTML=h}
-function drawRadar(P){const svg=document.getElementById('radar'),cx=160,cy=140,R=100,n=P.length;let h='';[.33,.66,1].forEach(f=>{let p='';for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `}h+=`<polygon points="${p}" fill="none" stroke="#223049" stroke-width="1"/>`});for(let i=0;i<n;i++){const a=-Math.PI/2+i*2*Math.PI/n;h+=`<line x1="${cx}" y1="${cy}" x2="${cx+R*Math.cos(a)}" y2="${cy+R*Math.sin(a)}" stroke="#1a2334" stroke-width="1"/>`}let p='';P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,f=q.val/100;p+=`${cx+R*f*Math.cos(a)},${cy+R*f*Math.sin(a)} `});h+=`<polygon points="${p}" fill="rgba(38,208,124,.18)" stroke="#26d07c" stroke-width="2"/>`;P.forEach((q,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,lx=cx+(R+22)*Math.cos(a),ly=cy+(R+20)*Math.sin(a);h+=`<text x="${lx}" y="${ly}" fill="#7e8ba2" font-size="11" font-weight="700" text-anchor="middle" dominant-baseline="middle">${q.name}</text>`});svg.innerHTML=h}
-const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
 let MA200W=null,COWEN=null,LIVE_PRICE=null;
 
 async function load(){
@@ -219,9 +212,9 @@ async function load(){
   if(bp.usd){document.getElementById('tbP').textContent=FUSD(bp.usd);const c=bp.change24h||0,e=document.getElementById('tb24');e.textContent=(c>=0?'+':'')+c.toFixed(1)+'%';e.className='v '+(c>=0?'up':'down')}
   const score=cs.score!=null?cs.score:(bp.cbbi!=null?bp.cbbi*100:50);
   document.getElementById('tbS').textContent=score.toFixed(1);
-  const cap=score>=60?'SELL ZONE':score>=40?'NEUTRAL ZONE':'BUY ZONE';drawGauge(score,cap,zColor(score));
+  const cap=zLabel(score);drawGauge(score,cap,zColor(score));
   document.getElementById('gdelta').innerHTML=cs.trendDelta7d!=null?`${cs.trendDelta7d>=0?'▲':'▼'} ${Math.abs(cs.trendDelta7d).toFixed(1)} (7d) · trend: ${cs.trend||'—'}`:'';
-  document.getElementById('vTitle').textContent=score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
+  document.getElementById('vTitle').textContent=zLabel(score).charAt(0)+zLabel(score).slice(1).toLowerCase()+' \u2014 '+score.toFixed(1)+' / 100.';
   document.getElementById('vCopy').textContent=cs.commentary||'';document.getElementById('vCopy').classList.remove('loading');
   const vt=document.getElementById('vTag');vt.textContent=(cs.zone||zLabel(score)).toUpperCase();vt.style.background=zColor(score)+'26';vt.style.color=zColor(score);
 
@@ -231,12 +224,30 @@ async function load(){
   if(cur['Confidence']==null&&bp.cbbi!=null)cur['Confidence']=bp.cbbi*100;
   keys.forEach(k=>{const o=hist[k];if(!o)return;const ts=Object.keys(o).sort(),vals=ts.map(t=>o[t]*100),last=vals.slice(-60);series[k]=last;cur[k]=vals[vals.length-1];d1[k]=cur[k]-vals[vals.length-2];d7[k]=cur[k]-(vals[vals.length-8]||vals[vals.length-2])});
   if(fng.length){series['F&G']=fng;cur['F&G']=fng[fng.length-1];d1['F&G']=fng[fng.length-1]-fng[fng.length-2];d7['F&G']=fng[fng.length-1]-(fng[fng.length-8]||fng[fng.length-2])}
-  const order=['Confidence','PiCycle','RHODL','MVRV','RUPL','Puell','ReserveRisk','2YMA','Trolololo','Woobull','F&G'],ig=document.getElementById('igrid');ig.innerHTML='';
-  order.filter(k=>cur[k]!=null).forEach(k=>{const v=cur[k],c=zColor(v);ig.innerHTML+=`<div class="ind"><div class="ih"><div class="in"><span class="ick" style="background:${c}">✓</span>${niceName[k]||k}</div></div><div class="iv"><span class="ival" style="color:${c}">${v.toFixed(1)}</span><span class="iu">/100</span>${dpill(d1[k])}<span style="font-size:10px;color:var(--dim)">1d</span>${dpill(d7[k])}<span style="font-size:10px;color:var(--dim)">7d</span></div><div class="idsc">${desc[k]||''}</div>${sparkline(series[k]||[v],c,k==='F&G'?50:80)}</div>`});
+  /* Eleven tiles used to render under a heading claiming nine weighted indicators.
+     CBBI ('Confidence') is the upstream data source, not a component, and Fear &
+     Greed carries no weight at all — /score and /faq both say so. They are kept as
+     context and labelled as carrying zero weight, rather than sitting unmarked
+     among the nine. WEIGHTS mirrors api/cycle-score.js. */
+  const WEIGHTS={RHODL:20,Puell:20,Trolololo:15,MVRV:15,PiCycle:10,'2YMA':5,ReserveRisk:5,Woobull:5,RUPL:5};
+  const order=['RHODL','Puell','Trolololo','MVRV','PiCycle','2YMA','ReserveRisk','Woobull','RUPL'];
+  const contextOrder=['Confidence','F&G'];
+  const ig=document.getElementById('igrid');ig.innerHTML='';
+  const excluded=(cs.excluded||[]).map(x=>x.name);
+  function tile(k,tag){
+    const missing=excluded.indexOf(k)>=0||cur[k]==null;
+    const v=cur[k],c=missing?'#7e8ba2':zColor(v);
+    const mark=missing?'<span class="ick" style="background:#7e8ba2">&mdash;</span>'
+                      :`<span class="ick" style="background:${c}">\u2713</span>`;
+    const val=missing?'<span class="ival" style="color:#7e8ba2">no reading</span>'
+                     :`<span class="ival" style="color:${c}">${v.toFixed(1)}</span><span class="iu">/100</span>`;
+    const meta=missing?'<span style="font-size:10px;color:var(--dim)">excluded today; divisor drops to match</span>'
+                      :`${dpill(d1[k])}<span style="font-size:10px;color:var(--dim)">1d</span>${dpill(d7[k])}<span style="font-size:10px;color:var(--dim)">7d</span>`;
+    ig.innerHTML+=`<div class="ind"><div class="ih"><div class="in">${mark}${niceName[k]||k}</div><div style="font-size:10px;color:var(--dim);font-weight:700">${tag}</div></div><div class="iv">${val}${meta}</div><div class="idsc">${desc[k]||''}</div>${missing?'':sparkline(series[k]||[v],c,k==='F&G'?50:80)}</div>`;
+  }
+  order.forEach(k=>tile(k,'weight '+WEIGHTS[k]+'%'));
+  contextOrder.filter(k=>cur[k]!=null).forEach(k=>tile(k,'context \u00b7 no weight'));
 
-  const pc=document.getElementById('pcards');pc.innerHTML='';const radar=[];
-  Object.entries(PILLARS).forEach(([name,cfg])=>{const vs=cfg.keys.map(k=>cur[k]).filter(v=>v!=null);if(!vs.length)return;const pv=vs.reduce((a,b)=>a+b,0)/vs.length;const dd1=cfg.keys.map(k=>d1[k]).filter(v=>v!=null),pd1=dd1.length?dd1.reduce((a,b)=>a+b,0)/dd1.length:0;const dd7=cfg.keys.map(k=>d7[k]).filter(v=>v!=null),pd7=dd7.length?dd7.reduce((a,b)=>a+b,0)/dd7.length:0;const c=zColor(pv);radar.push({name,val:pv});pc.innerHTML+=`<div class="pill" style="border-left-color:${c}"><div class="ph"><div class="pn">${cfg.icon} ${name}</div><div class="pw">${cfg.wt}%</div></div><div class="pv" style="color:${c}">${pv.toFixed(0)}</div><div class="pbot"><span class="pd">${pd1>=0?'▲':'▼'}${Math.abs(pd1).toFixed(1)} 1d · ${pd7>=0?'▲':'▼'}${Math.abs(pd7).toFixed(1)} 7d</span><span class="pb" style="background:${c}26;color:${c}">${zLabel(pv)}</span></div></div>`});
-  drawRadar(radar);
   renderProjected();renderChart();renderMacro(fng.length?fng[fng.length-1]:null);
 }
 function renderProjected(){const g=document.getElementById('pbands');if(!MA200W){g.innerHTML='<div class="loading">200W MA loading…</div>';return}

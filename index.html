@@ -2166,13 +2166,25 @@ function submitHomeLead(form) {
     if (v <= 75) return { bg: 'rgba(251,191,36,0.12)', color: '#fbbf24' };
     return { bg: 'rgba(34,197,94,0.12)', color: '#22c55e' };
   }
-  function confluenceFromFng(v) {
-    if (v <= 24) return { label: 'Extreme Fear', color: '#ef4444' };
-    if (v <= 46) return { label: 'Fear', color: '#f97316' };
-    if (v <= 53) return { label: 'Neutral', color: '#94a3b8' };
-    if (v <= 75) return { label: 'Greed', color: '#fbbf24' };
-    return { label: 'Extreme Greed', color: '#22c55e' };
+  // Bands mirror api/cycle-score.js commentary(); see also /cycle zLabel().
+  function scoreBand(v) {
+    if (v >= 85) return { label: 'Exit zone', color: '#ef4444' };
+    if (v >= 70) return { label: 'Warning', color: '#f97316' };
+    if (v >= 50) return { label: 'Mid-cycle', color: '#94a3b8' };
+    if (v >= 30) return { label: 'Re-accumulation', color: '#22c55e' };
+    if (v >= 15) return { label: 'Accumulation', color: '#22c55e' };
+    return { label: 'Deep accumulation', color: '#22c55e' };
   }
+  (function(){
+    var el = document.getElementById('liveConfluence');
+    if (!el) return;
+    fetch('/api/cycle-score').then(function(r){ return r.json(); }).then(function(d){
+      if (typeof d.score !== 'number') return;
+      var b = scoreBand(d.score);
+      el.textContent = b.label;
+      el.style.color = b.color;
+    }).catch(function(){});
+  })();
 
   // BTC Price
   fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true')
@@ -2207,11 +2219,10 @@ function submitHomeLead(form) {
         fngLabel.style.background = c.bg;
         fngLabel.style.color = c.color;
       }
-      if (confEl) {
-        var conf = confluenceFromFng(val);
-        confEl.textContent = conf.label;
-        confEl.style.color = conf.color;
-      }
+      /* The Confluence tile used to be confluenceFromFng(val) — a label derived
+         purely from Fear & Greed, an index /score and /faq both say carries zero
+         weight in the Score. Labelling that "Confluence" implied it was the
+         nine-indicator reading. It now shows the actual weighted Score band. */
     }).catch(function() {});
 })();
 
