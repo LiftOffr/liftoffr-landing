@@ -14,7 +14,12 @@ Fired tiers in real dollars (receipts style, consistent with what /receipts alre
 The exact ladder I'm buying this bear market with. Not a course. A plan — with the receipts attached.
 
 by Torin — LiftOffr
-Last updated: August 2026 · Lifetime updates for this bear market included
+Last updated: 20 August 2026 · Lifetime updates for this bear market included
+
+*What changed in this revision: corrected the component count to nine (the Score has always
+used nine weighted components; an earlier draft said eight), and added the exit thresholds,
+the whipsaw rule and the recompute sheet — three things the sales page commits to that the
+previous revision did not contain.*
 
 ---
 
@@ -79,10 +84,56 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
 
 ## 5. THE RECEIPTS
 
-- Sold the top: **October 6, 2025 — $124,824.** DCA'd out clean per the exit ladder. [screenshot]
+- ⚠️ **HOLD — AWAITING TORIN'S ANSWER. Do not re-render the PDF until this line is settled.**
+  The current PDF says: *"Sold the top: October 6, 2025 — $124,824. DCA'd out clean per the exit
+  ladder, not one lucky market order."* That asserts a sale **at** the top, on the peak day and
+  price. `/about` now says he laddered out from the 27 June 2025 crossing over the following
+  weeks, that **the ladder was early**, and that it is his word, unaudited and outside the
+  record. `/disclaimer` §4 says no one acted on the dated signals as they printed. These are
+  incompatible and the PDF holds the stronger version — the one the site was corrected away
+  from on 20 Aug. "DCA'd out clean" also adds an accuracy flourish the site no longer makes.
+  **Once Torin confirms which account is true, replace this bullet with wording that matches
+  `/about` exactly, and say plainly that it is unaudited.** Do not pick a version without him.
 - The miss that built the system: **November 2021** — indicators flagged the top, I didn't follow them, round-tripped $30K. The rules exist because I paid for them.
 - This plan's fires so far: IMMEDIATE (May 28), T1, T2 — [dates + fills from ledger. TORIN: confirm what you want shown]
 - Everything timestamped: liftoffr.com/receipts and /track-record.
+
+## 5b. THE EXIT SIDE — what puts me on alert, and the whipsaw rule
+
+*(/plan items 7 and 8. Everything here is already public on /receipts and /score.)*
+
+- **The bands that put me on alert.** The Score runs 0–100 on six bands: 85+ exit zone,
+  70–85 warning, 50–70 mid-cycle, 30–50 re-accumulation, 15–30 accumulation, below 15 deep
+  accumulation. Every cycle top since 2013 printed with the Score in the 85+ band — and the
+  Score has also sat in that band for months while price kept rising. Both halves are true and
+  both matter.
+- **The whipsaw rule, which is the part people miss.** Between 16 Nov 2024 and 21 Oct 2025 the
+  Score entered the exit zone three times and dropped back out of it three times — six
+  transitions in twelve months (in 16 Nov 2024, out 18 Feb 2025; in 8 May, out 19 Jun; in
+  27 Jun, out 21 Oct). The top was 6 October, and the model left the zone for the last time
+  fifteen days after it.
+- **So the rule I follow is a fraction per crossing, not a decision per crossing.** Acting in
+  full on each of those six transitions would have meant six reversals in a year. Acting on a
+  fraction at each, and not reversing on the way back, is what makes a threshold model
+  survivable. That is why the plan is a ladder and not a date.
+- The full four-tranche exit ladder, with the fractions and the reasoning, is in The Cycle System.
+
+## 5c. THE RECOMPUTE SHEET — rebuild my number yourself
+
+*(/plan item 9. All of this is free and public; it is here so the document is self-contained.)*
+
+- **The nine weighted components:** RHODL Ratio 20%, Puell Multiple 20%, Trolololo trend line 15%,
+  MVRV Z-Score 15%, Pi Cycle Top 10%, 2-Year MA Multiplier 5%, Reserve Risk 5%, Woobull Top Cap 5%,
+  RUPL 5%. They sum to 100%.
+- **The source:** CBBI's public daily data at colintalkscrypto.com/cbbi — free, no account.
+- **The arithmetic:** take each component's 0–100 reading, multiply by its weight, add them up,
+  then divide by the weight you actually used.
+- **The one rule that trips people up:** if the source publishes no reading for one of the nine on
+  a given day, that component is left out and the divisor drops to match — 0.95 instead of 1.00,
+  say. It is never counted as a zero. A recompute that always divides by 1.00 will disagree with
+  my number, and it will be the one that is wrong.
+- Live worked arithmetic, updated daily: liftoffr.com/score. Every crossing the model has ever
+  produced, wins and losses in the same table: liftoffr.com/receipts.
 
 ## 6. WHAT YOU GET GOING FORWARD
 
@@ -90,7 +141,7 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
 - **The updated doc** every time the plan materially changes, for the rest of this bear market.
 - What this is NOT: a signals service, a chat with me, or the full LiftOffr system. This is my buy plan, kept live.
 
-*(One quiet line, last page:)* The plan tells you what I'm buying. The System — the 8 indicators behind these levels, and the exit ladder for the other side of the cycle — is at liftoffr.com/system. Your $29 always counts toward it.
+*(One quiet line, last page:)* The plan tells you what I'm buying. The System — the nine weighted components behind these levels, and the exit ladder for the other side of the cycle — is at liftoffr.com/system. Your $29 always counts toward it.
 
 [Disclaimer repeats, short form]
 
