@@ -515,7 +515,7 @@ function trial2HTML() {
     `<p style="margin:0 0 16px;">Halfway through your trial. Quick gut-check.</p>
      <p style="margin:0 0 16px;">If you've been reading the daily brief, you've already seen the thing most people pay to learn the hard way: <strong>the read changes, and you don't have to guess.</strong></p>
      <p style="margin:0 0 16px;">If you <em>haven't</em> opened it yet — that's the whole product. One post, 8am MT, every weekday: here's the Score, here's the zone, here's what it means today. Three minutes. No charts to stare at, no Twitter to doom-scroll.</p>
-     <p style="margin:0 0 16px;">The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the 29 that went the wrong way. It is a backtest and every row says so.</p>
+     <p style="margin:0 0 16px;">The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the ones that went the wrong way. It is a backtest and every row says so.</p>
      <p style="margin:24px 0 0;">Four days left. And if you already know it's a keeper, don't wait for the day-6 reminder — lock in your founder rate now. It holds whether you do it today or Friday.</p>
      <p style="margin:18px 0 0;">— Torin</p>`,
     "Lock in my membership →", TRIAL_CHECKOUT);
@@ -524,7 +524,7 @@ function trial2Text() {
   return ["Halfway through your trial. Quick gut-check.","",
     "If you've read the daily brief, you've seen the thing most people pay to learn the hard way: the read changes, and you don't have to guess.","",
     "If you haven't opened it — that's the product. One post, 8am MT, weekdays: Score, zone, what it means today. Three minutes.","",
-    "The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the 29 that went the wrong way. It is a backtest and every row says so.","",
+    "The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the ones that went the wrong way. It is a backtest and every row says so.","",
     "Four days left. If you already know it's a keeper, lock in your founder rate now — it holds whether you do it today or Friday:",
     TRIAL_CHECKOUT,"","— Torin"].join("\n");
 }

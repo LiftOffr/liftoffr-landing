@@ -132,9 +132,9 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 /* At 375px only DATE and EVENT are visible at rest and every number sits behind a
    horizontal scroll with nothing to indicate it. The hint below shows only when the
    table actually overflows, and disappears once the reader has scrolled. */
-.ev-hint{display:none;font-size:11px;color:#7a7a7a;letter-spacing:.4px;padding:6px 0 2px;align-items:center;gap:6px}
-.ev-scroll.is-scrollable + .ev-hint,.ev-scroll.is-scrollable ~ .ev-hint{display:flex}
-.ev-scroll.scrolled ~ .ev-hint{display:none}
+.ev-hint{display:none;font-size:11.5px;color:#8a8a8a;letter-spacing:.3px;padding:8px 10px;margin:0 0 8px;
+  align-items:center;gap:8px;border:1px solid #1e1e1e;border-radius:8px;background:#0d0d0d}
+.ev-hint.show{display:flex}
 @media(min-width:861px){.ev-hint{display:none !important}}
 .ev-row{display:grid;grid-template-columns:110px 1fr 60px 100px 80px 80px 80px;gap:10px;padding:12px 0;border-top:1px solid #1a1a1a;font-size:13px;align-items:center}
 .ev-row.head{border:0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-bottom:6px}
@@ -243,7 +243,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       </table>
     </div>
     <p style="font-size:13.5px;color:#bdbdbd;line-height:1.75;margin:14px 0 0;">
-      <strong style="color:#fff;">35 of 64 is not a hit rate and I am not going to relabel it as one.</strong> That left column counts every crossing after which Bitcoin simply rose, and the 64 mix opposing signal types &mdash; a rise after an EXIT crossing is a miss, not a hit. <strong style="color:#fff;">The directional column is the honest one: 46% at 30 and 90 days, which is indistinguishable from chance on that horizon, and 54% at 180. It is the headline on this page rather than a footnote, because a record with the losses taken out is not a record.</strong>
+      <strong style="color:#fff;">35 of 64 is not a hit rate and I am not going to relabel it as one.</strong> That left column counts every crossing after which Bitcoin simply rose, and the 64 mix opposing signal types &mdash; a rise after an EXIT crossing is a miss, not a hit. <strong style="color:#fff;">The directional column is the honest one: 46% at 30 and 90 days, 54% at 180. <strong>None of the three is distinguishable from chance.</strong> 21 and 25 out of 46 lie the same distance either side of an even split, so they carry the identical two-sided p-value of 0.66; at this sample size you would need 31 of 46 &mdash; 67% &mdash; before the result cleared the usual 5% threshold. So the 54% is not the good news it looks like next to the 46%, and I would rather say that than let the longer horizon carry an implication it has not earned. It is the headline on this page rather than a footnote, because a record with the losses taken out is not a record.</strong>
       Here is what it does and does not mean. &ldquo;Right about direction&rdquo; scores an EXIT or WARNING crossing as correct if BTC was lower
       afterwards and an ACCUMULATION crossing as correct if it was higher; the 18 NEUTRAL crossings are excluded because they point nowhere,
       which leaves 46 of the 64. A rise after an exit signal is a miss, so the raw &ldquo;BTC was higher&rdquo; column is not a scoreboard and
@@ -267,11 +267,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     64 of them &mdash; some resolve within weeks, some take a cycle to play out, and some mark a zone the market then
     re-tests. That spread is how a zone model behaves by design. Every one is dated below with what Bitcoin did next.</p>
     <p class="note">A crossing counts only after the score holds the new zone for 7 straight days &mdash; the date shown is the first day of that hold. BTC % is the change from the crossing-day price.</p>
+    <div class="ev-hint" id="evHint"><span aria-hidden="true">&#8596;</span> Swipe the table sideways for Score, BTC and the 30 / 90 / 180-day columns</div>
     <div class="ev-scroll">
     <div class="ev-row head">
       <div>Date</div><div>Event</div><div class="r">Score</div><div class="r">BTC</div><div class="r">+30d</div><div class="r">+90d</div><div class="r">+180d</div>
     </div>
-    <div class="ev-hint"><span aria-hidden="true">&#8596;</span> Swipe the table to see Score, BTC and the 30 / 90 / 180-day columns</div>
     <div class="ev-row">
       <div class="ev-date">Nov 30, 2025</div>
       <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
@@ -1022,10 +1022,16 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 </script>
 <script>
 (function(){
-  var sc=document.querySelector('.ev-scroll'); if(!sc) return;
-  function sync(){ sc.classList.toggle('is-scrollable', sc.scrollWidth > sc.clientWidth + 4); }
-  sc.addEventListener('scroll', function(){ if(sc.scrollLeft>8) sc.classList.add('scrolled'); }, {passive:true});
-  window.addEventListener('resize', sync); sync();
+  var sc = document.querySelector('.ev-scroll');
+  var hint = document.getElementById('evHint');
+  if (!sc || !hint) return;
+  function sync(){
+    var scrollable = sc.scrollWidth > sc.clientWidth + 4;
+    hint.classList.toggle('show', scrollable && sc.scrollLeft <= 8);
+  }
+  sc.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', sync);
+  sync();
 })();
 </script>
 </body>
