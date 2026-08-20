@@ -6,10 +6,14 @@
     {
       "source": "/api/founder-count",
       "destination": "/founder-count.json"
-    },
+    }
+  ],
+  "headers": [
     {
       "source": "/.well-known/apple-developer-merchantid-domain-association",
-      "destination": "https://whop.com/.well-known/apple-platform-integrator/apple-developer-merchantid-domain-association"
+      "headers": [
+        { "key": "Content-Type", "value": "application/octet-stream" }
+      ]
     }
   ],
   "crons": [
