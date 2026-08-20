@@ -133,6 +133,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   footer{text-align:center;color:var(--dim);font-size:11px;margin-top:40px;line-height:1.7}footer a{color:var(--muted)}
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px;padding:10px}
   @media(max-width:820px){.verdict,.pgrid{grid-template-columns:1fr}}
+/* The gauge and radar SVGs carry a fixed width="340" while the content box is
+   335px at a 375px viewport, so the page ran 8px wide. Let them scale. */
+#gauge, #radar, .panel svg { max-width: 100%; height: auto; }
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
 </head>
