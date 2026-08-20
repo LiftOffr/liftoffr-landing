@@ -1700,14 +1700,16 @@ function submitHomeLead(form) {
       var zoneColor = {
         'exit':            '#ef4444',
         'warning':         '#f97316',
-        'neutral':         '#fbbf24',
+        'mid-cycle':       '#fbbf24',
+        're-accumulation': '#4d8df0',
         'accumulation':    '#22c55e',
         'deep-accumulation':'#16a34a',
       }[d.zone] || '#999';
       var zoneLabel = {
         'exit':              'EXIT ZONE',
         'warning':           'WARNING',
-        'neutral':           'NEUTRAL',
+        'mid-cycle':         'MID-CYCLE',
+        're-accumulation':   'RE-ACCUMULATION',
         'accumulation':      'ACCUMULATION',
         'deep-accumulation': 'DEEP ACCUMULATION',
       }[d.zone] || d.zone.toUpperCase();

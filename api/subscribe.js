@@ -110,11 +110,11 @@ function quizHTML({ score, zone }, segKey) {
 
     <div style="background:#080808;color:#fff;border-radius:10px;padding:22px;margin:20px 0;text-align:center;">
       <div style="font-size:11px;color:#999;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">Today's Score</div>
-      <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:56px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${score.toFixed(1)}</div>
+      <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:56px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${fmtScore(score)}</div>
       <div style="margin-top:8px;font-size:13px;font-weight:700;color:#e63946;letter-spacing:1.5px;text-transform:uppercase;">${zone}</div>
     </div>
 
-    <p style="margin:0 0 16px;">Above 85 the model reads as exit territory. Below 20, accumulation. In between it's telling you to do nothing, which is where it sits most of the time and which is the part people find hardest.</p>
+    <p style="margin:0 0 16px;">Above 85 the model reads as exit territory. Below 15, accumulation. In between it has historically been least informative, which is where it sits most of the time and which is the part people find hardest.</p>
 
     <p style="margin:24px 0 10px;font-weight:700;color:#080808;">Three things, all free, no card:</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.8;color:#333;">
@@ -147,9 +147,9 @@ function quizText({ score, zone }, segKey) {
     "",
     seg.angle,
     "",
-    `Today's Score: ${score.toFixed(1)} (${zone})`,
+    `Today's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}`,
     "",
-    "Above 85 the model reads as exit territory. Below 20, accumulation. In between it's telling you to do nothing — where it sits most of the time, and the part people find hardest.",
+    "Above 85 the model reads as exit territory. Below 15, accumulation. In between it has historically been least informative — where it sits most of the time, and the part people find hardest.",
     "",
     "THREE THINGS, ALL FREE, NO CARD:",
     `  The score, updated every morning: ${L("/cycle", "e1_cycle")}`,
@@ -209,16 +209,18 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     <p style="margin:0 0 14px;">Reading the checklist yourself takes ~15 min a week. The LiftOffr Score does it for you — a single 0–100 number that weights all 9 cycle indicators into one read.</p>
 
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;color:#333;line-height:1.5;">
-      <div><strong>85+</strong> → historic top zone. Start scaling out.</div>
-      <div><strong>60–85</strong> → late-cycle / warning. Tighten exits.</div>
-      <div><strong>40–60</strong> → neutral. DCA continues.</div>
-      <div><strong>20–40</strong> → accumulation. Buy more weekly.</div>
-      <div><strong>Below 20</strong> → deep accumulation. Aggressive DCA.</div>
+      <div><strong>85+</strong> → exit zone. Every cycle top since 2013 printed in this band.</div>
+      <div><strong>70–85</strong> → warning. Has preceded exit-zone readings, though not every time.</div>
+      <div><strong>50–70</strong> → mid-cycle. Historically the least informative band.</div>
+      <div><strong>30–50</strong> → re-accumulation. Has resolved upward more often than not at 180 days.</div>
+      <div><strong>15–30</strong> → accumulation. Among the lower readings in a cycle.</div>
+      <div><strong>Below 15</strong> → deep accumulation. The lowest band the Score produces.</div>
+      <div style="margin-top:10px;color:#777;font-size:12.5px;">Descriptions of what these bands have done historically. Not instructions, and not a forecast.</div>
     </div>
 
     <div style="background:#080808;color:#fff;border-radius:10px;padding:22px;margin:20px 0;text-align:center;">
       <div style="font-size:11px;color:#999;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">This week's Score</div>
-      <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:64px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${score.toFixed(1)}</div>
+      <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:64px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${fmtScore(score)}</div>
       <div style="margin-top:8px;font-size:13px;font-weight:700;color:#e63946;letter-spacing:1.5px;text-transform:uppercase;">${zone}</div>
       <div style="margin-top:6px;font-family:'JetBrains Mono',Menlo,monospace;font-size:12px;color:#888;">${trendStr}</div>
       <p style="margin-top:14px;font-size:14px;color:#ccc;font-style:italic;line-height:1.5;">${commentary}</p>
@@ -261,13 +263,16 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     "",
     "Reading the checklist yourself takes ~15 min a week. The Score does it for you — a 0-100 number weighting all 9 cycle indicators.",
     "",
-    "  85+    → historic top zone. Start scaling out.",
-    "  60-85  → late-cycle / warning. Tighten exits.",
-    "  40-60  → neutral. DCA continues.",
-    "  20-40  → accumulation. Buy more weekly.",
-    "  <20    → deep accumulation. Aggressive DCA.",
+    "  85+    -> exit zone. Every cycle top since 2013 printed in this band.",
+    "  70-85  -> warning. Has preceded exit-zone readings, though not every time.",
+    "  50-70  -> mid-cycle. Historically the least informative band.",
+    "  30-50  -> re-accumulation. Has resolved upward more often than not at 180 days.",
+    "  15-30  -> accumulation. Among the lower readings in a cycle.",
+    "  <15    -> deep accumulation. The lowest band the Score produces.",
     "",
-    `This week's Score: ${score.toFixed(1)} (${zone}) ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} 7d`,
+    "Descriptions of what these bands have done historically. Not instructions, and not a forecast.",
+    "",
+    `This week's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}${typeof score === "number" ? ` ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} 7d` : ""}`,
     commentary,
     "",
     "You'll get a fresh read every Sunday. No fluff. Just the number, the zone, and what to do this week.",
@@ -284,13 +289,18 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
   ].join("\n");
 }
 
+// Renders the Score for an email. The upstream fetch can fail, and the fallback
+// deliberately no longer invents a reading of 50 — a fabricated number in an email
+// that says "Today's Score" is exactly the thing this site exists not to do.
+function fmtScore(v) { return typeof v === "number" ? v.toFixed(1) : "unavailable"; }
+
 async function fetchScore(baseUrl) {
   try {
     const r = await fetch(`${baseUrl}/api/cycle-score`);
     if (!r.ok) throw new Error(`upstream ${r.status}`);
     return r.json();
   } catch {
-    return { score: 50, zone: "neutral", trendDelta7d: 0, commentary: "DCA continues — see the dashboard for the live read." };
+    return { score: null, zone: null, trendDelta7d: 0, commentary: "Live Score unavailable right now — see liftoffr.com/score for the current reading." };
   }
 }
 

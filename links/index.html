@@ -598,8 +598,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       var zone = document.getElementById('lh-score-zone');
       var trend = document.getElementById('lh-score-trend');
       var locked = document.getElementById('lh-locked-text');
-      var zoneColor = {'exit':'#ef4444','warning':'#f97316','neutral':'#fbbf24','accumulation':'#22c55e','deep-accumulation':'#16a34a'}[d.zone] || '#999';
-      var zoneLabel = {'exit':'EXIT ZONE','warning':'WARNING','neutral':'NEUTRAL','accumulation':'ACCUMULATION','deep-accumulation':'DEEP ACCUMULATION'}[d.zone] || (d.zone||'').toUpperCase();
+      var zoneColor = {'exit':'#ef4444','warning':'#f97316','mid-cycle':'#fbbf24','re-accumulation':'#4d8df0','accumulation':'#22c55e','deep-accumulation':'#16a34a'}[d.zone] || '#999';
+      var zoneLabel = {'exit':'EXIT ZONE','warning':'WARNING','mid-cycle':'MID-CYCLE','re-accumulation':'RE-ACCUMULATION','accumulation':'ACCUMULATION','deep-accumulation':'DEEP ACCUMULATION'}[d.zone] || (d.zone||'').toUpperCase();
       if (num) { num.textContent = d.score.toFixed(1); num.style.color = zoneColor; }
       if (zone) { zone.textContent = zoneLabel; zone.style.color = zoneColor; }
       if (trend) {

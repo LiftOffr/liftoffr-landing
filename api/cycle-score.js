@@ -93,14 +93,16 @@ function scoreAt(data, offset) {
 const ZONE_COLORS = {
   "exit": "#ef4444",
   "warning": "#f97316",
-  "neutral": "#fbbf24",
+  "mid-cycle": "#fbbf24",
+  "re-accumulation": "#4d8df0",
   "accumulation": "#22c55e",
   "deep-accumulation": "#16a34a",
 };
 const ZONE_LABELS = {
   "exit": "EXIT ZONE",
   "warning": "WARNING",
-  "neutral": "NEUTRAL",
+  "mid-cycle": "MID-CYCLE",
+  "re-accumulation": "RE-ACCUMULATION",
   "accumulation": "ACCUMULATION",
   "deep-accumulation": "DEEP ACCUMULATION",
 };
@@ -145,10 +147,17 @@ a{margin-top:10px;font-size:10px;font-weight:800;color:#e63946;text-decoration:n
 <a href="https://liftoffr.com/?utm_source=widget&utm_medium=embed&utm_campaign=score_widget" target="_blank" rel="noopener">liftoffr.com →</a></div></body></html>`;
 }
 
+// Bands MUST match commentary() below, band for band. They did not: zone() lumped
+// 30-70 into one "neutral" while commentary() split it into mid-cycle and
+// re-accumulation, so the API returned zone "neutral" alongside commentary that
+// opened "Re-accumulation band." /cycle rendered both at once and disagreed with
+// itself. If you add a band, add it in both places and in the ZONE_* maps here,
+// index.html and links/index.html.
 function zone(score) {
   if (score >= 85) return "exit";
   if (score >= 70) return "warning";
-  if (score >= 30) return "neutral";
+  if (score >= 50) return "mid-cycle";
+  if (score >= 30) return "re-accumulation";
   if (score >= 15) return "accumulation";
   return "deep-accumulation";
 }
