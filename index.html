@@ -1217,6 +1217,101 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     HOMEPAGE EMAIL CAPTURE. Added 2026-08-20.
+
+     Before this, the homepage had NO email field anywhere -- the only two capture
+     points on the entire site were /free and /quiz, both of which a visitor has to
+     navigate to. 90 days of analytics: 2.3M views, 344 website sessions, ~8 email
+     captures. The handoff, not the offer, is where this funnel dies.
+
+     Placement is deliberate. It sits immediately after the recompute-it-yourself
+     arithmetic, which is the highest-credibility moment on the page -- the reader has
+     just been handed the formula and told to check it. Asking there converts better
+     than a generic footer form, and the ask matches what was just proven.
+
+     Posts to /api/subscribe with magnet 'buyzone' -- the same contract /free uses, and
+     the only magnet whose PDF actually exists (bear-market-buy-zone.pdf). Do NOT point
+     this at 'checklist': that PDF is no longer offered and /checklist 301s to /quiz.
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<section style="max-width:820px;margin:0 auto;padding:44px 20px 8px;">
+  <div style="background:#0d0d0d;border:1px solid #1e1e1e;border-radius:14px;padding:28px 24px;">
+    <div class="section-label" style="margin-bottom:10px;">Get the number every Sunday</div>
+    <h2 style="font-size:24px;font-weight:900;color:#fff;margin:0 0 10px;letter-spacing:-0.5px;line-height:1.2;">One email a week. The Score, what moved it, and what I'm doing about it.</h2>
+    <p style="font-size:15px;color:#a5a5a5;line-height:1.65;margin:0 0 18px;">
+      No trade calls, no tickers, no &ldquo;buy now.&rdquo; The Score, the largest weight change behind it, what that zone has
+      historically meant, and what I'm doing with my own stack &mdash; which is a disclosure, not an instruction.
+      Free, and it stays free.
+    </p>
+
+    <form id="homeLeadForm" data-medium="homepage_recompute" onsubmit="return submitHomeLead(this);"
+          style="display:flex;gap:10px;flex-wrap:wrap;">
+      <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com"
+             style="flex:1 1 260px;min-width:0;padding:14px 16px;background:#111;border:1px solid #262626;border-radius:9px;color:#fff;font-size:15px;font-family:inherit;">
+      <button type="submit"
+              style="flex:0 0 auto;padding:14px 26px;background:var(--red);border:1px solid var(--red);border-radius:9px;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;">Send me the Score</button>
+    </form>
+    <div id="homeFormError" style="display:none;margin-top:10px;font-size:13px;color:#e8b339;">Something went wrong. Try again in a moment.</div>
+    <p style="font-size:12px;color:#666;margin:12px 0 0;line-height:1.6;">
+      Unsubscribe in one click. 18+ only. Educational content, not financial advice, and nothing in it is personalised to you.
+    </p>
+  </div>
+</section>
+
+<script>
+// Mirrors submitFreeForm() on /free -- same endpoint, same magnet, same GA4 events
+// (lead_magnet_submit on attempt, lead_captured on success) so the two capture points
+// report into one funnel rather than two.
+function submitHomeLead(form) {
+  var input = form.querySelector('input[type=email]');
+  var btn   = form.querySelector('button[type=submit]');
+  var errorBox = document.getElementById('homeFormError');
+  var email = (input || {}).value || '';
+  var medium = form.getAttribute('data-medium') || 'homepage';
+  var oldLabel = btn ? btn.textContent : '';
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  if (input) { input.disabled = true; }
+  if (errorBox) errorBox.style.display = 'none';
+
+  var q;
+  try { q = new URL(location.href).searchParams; } catch (e) { q = null; }
+  var payload = {
+    email: email,
+    magnet: 'buyzone',
+    utm_source: (q && q.get('utm_source')) || 'liftoffr',
+    utm_medium: medium,
+    utm_campaign: (q && q.get('utm_campaign')) || 'homepage',
+    utm_content: (q && q.get('utm_content')) || 'recompute_block'
+  };
+
+  if (typeof window.track === 'function') {
+    window.track('lead_magnet_submit', { source: medium, page: location.pathname });
+  }
+
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    return r.json().then(function(data){ return { ok: r.ok, data: data }; });
+  }).then(function(result){
+    if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+    form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox. The Score lands every Sunday.</div>';
+    if (typeof window.track === 'function') {
+      window.track('lead_captured', { source: medium, page: location.pathname });
+    }
+  }).catch(function(err){
+    if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
+    if (input) { input.disabled = false; }
+    if (errorBox) errorBox.style.display = 'block';
+    console.error('submitHomeLead error:', err);
+  });
+
+  return false;
+}
+</script>
+
 <!-- LIVE INDICATOR STRIP -->
 <div class="live-strip" id="liveStrip">
   <div class="live-dot">Live</div>

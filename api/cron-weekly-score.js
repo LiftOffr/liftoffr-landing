@@ -63,6 +63,26 @@ function zoneLabel(zone) {
   }[zone] || zone.toUpperCase();
 }
 
+// The audit's standing template for this email asks for "what moved it". We don't get
+// per-component week-ago values from /api/cycle-score, so rather than invent a delta we
+// publish what is actually true and checkable: the three components contributing most
+// to today's number, as weight x reading. That also reinforces the one claim this
+// business owns -- that the reader can recompute the number themselves.
+const COMPONENT_LABELS = {
+  RHODL: "RHODL Ratio", Puell: "Puell Multiple", Trolololo: "Trolololo",
+  MVRV: "MVRV Z-Score", PiCycle: "Pi Cycle Top", "2YMA": "2Y MA Multiplier",
+  ReserveRisk: "Reserve Risk", Woobull: "Woobull Top Cap", RUPL: "RUPL",
+};
+
+function topContributors(components, n = 3) {
+  if (!components) return [];
+  return Object.entries(components)
+    .filter(([k, c]) => COMPONENT_LABELS[k] && c && typeof c.value === "number" && typeof c.weight === "number")
+    .map(([k, c]) => ({ label: COMPONENT_LABELS[k], value: c.value, weight: c.weight, contrib: c.value * c.weight }))
+    .sort((a, b) => b.contrib - a.contrib)
+    .slice(0, n);
+}
+
 function emailHTML({ score, zone, trend, trendDelta7d, commentary, components }) {
   const price = components?._btc_price?.value;
   const trendArrow = trend === "rising" ? "▲" : trend === "falling" ? "▼" : "◆";
@@ -86,8 +106,20 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
   </div>
 
   <div style="padding:0 28px 32px;font-size:14px;color:#444;line-height:1.6;">
-    <p style="margin:0 0 12px;color:#666;font-size:13px;">The Score is a V7-weighted composite of 9 on-chain + market indicators. Above 85 = historic top zones. Below 20 = accumulation windows.</p>
-    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score — nine buy tiers, timestamped receipts on every fire? It's $29, once.</p>
+    <p style="margin:0 0 12px;color:#666;font-size:13px;">The Score is a weighted composite of nine on-chain and market indicators. Above 85 has historically been where cycle tops occurred; below 20 is the lowest band it produces.</p>
+
+    ${(() => { const t = topContributors(components); return t.length ? `
+    <div style="margin:0 0 16px;padding:14px 16px;background:#fafafa;border:1px solid #eee;border-radius:8px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#888;margin-bottom:8px;">Carrying the number this week</div>
+      <div style="font-family:Menlo,monospace;font-size:13px;color:#444;line-height:1.9;">
+        ${t.map(c => `${c.label} &mdash; ${c.weight.toFixed(2)} &times; ${c.value.toFixed(1)}`).join("<br>")}
+      </div>
+      <div style="font-size:12px;color:#888;margin-top:10px;line-height:1.6;">All nine weights are published at <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=recompute" style="color:#e63946;">liftoffr.com/indicators</a>. Pull the same free public data, run the same weights, and you should land on the number above.</div>
+    </div>` : ""; })()}
+
+    <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64, including the ones that went the wrong way &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
+
+    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score &mdash; nine buy tiers, the exit ladder, and the whipsaw rule? It's $29, once.</p>
   </div>
 
   <div style="padding:0 28px 32px;">
@@ -119,7 +151,14 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     commentary,
     "",
-    "The Score is a V7-weighted composite of 9 on-chain + market indicators. Above 85 = historic top zones. Below 20 = accumulation windows.",
+    "The Score is a weighted composite of nine on-chain and market indicators. Above 85 has historically been where cycle tops occurred; below 20 is the lowest band it produces.",
+    "",
+    (() => { const t = topContributors(components); return t.length
+      ? "CARRYING THE NUMBER THIS WEEK\n" + t.map(c => `  ${c.label} - ${c.weight.toFixed(2)} x ${c.value.toFixed(1)}`).join("\n") +
+        "\n\nAll nine weights: https://liftoffr.com/indicators — pull the same free public data, run the same weights, and you should land on the number above."
+      : ""; })(),
+    "",
+    "Every signal this model has produced - all 64, including the ones that went the wrong way: https://liftoffr.com/receipts",
     "",
     "Want the exact plan I'm executing against this Score? $29, once:",
     "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",

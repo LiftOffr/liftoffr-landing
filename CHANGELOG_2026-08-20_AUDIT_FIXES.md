@@ -170,6 +170,52 @@ public site.
 - **"4M+ views"** removed; replaced with IG's own dated 90-day figure (2.3M).
 - Refund policy reconciled to one description (it was described four ways).
 
+## 9. Second pass — capture, newsletter and the buyer sequence
+
+**The homepage had no email field at all.** The only two capture points on the whole
+site were `/free` and `/quiz`, both of which require navigating to them. 90 days of
+data: 2.3M views, 344 sessions, ~8 captures. Added a capture immediately after the
+recompute-it-yourself arithmetic — the highest-credibility moment on the page, where
+the reader has just been handed the formula and told to check it. Posts to
+`/api/subscribe` with the `buyzone` magnet (the only one whose PDF still exists) and
+fires the same GA4 events as `/free`, so both report into one funnel.
+
+**The zone commentary was giving instructions.** One function in `api/cycle-score.js`
+feeds the weekly email, the homepage Score widget, `/cycle` and the Discord bot, and it
+was returning *"Tier-A V7 exits warranted"*, *"let it run"*, *"Continue weekly DCA"*.
+Those are advice, aimed at subscribers, in a paid-adjacent channel — the exact line the
+audit's Part 6.5 says no disclaimer cures. Rewritten to describe what each band **has
+historically meant**, in the past tense, with the unflattering cases named (the six
+crossings, the 2022 signals still underwater at 180 days). A banned-word list is in the
+comment above the function.
+
+**The Sunday Score email** now carries what the audit's standing template asks for: the
+three components actually carrying the number this week as `weight × reading`, the
+recompute link, and the receipts link. "What moved it" is rendered as top contributors
+rather than a week-over-week delta because the endpoint does not return week-ago
+component values, and inventing a delta would have been worse than publishing a true
+one. Verified by rendering both the HTML and text parts.
+
+**Buyer sequence — the audit was wrong that it doesn't exist.** `api/cron-welcome-followups.js`
+already has a six-email post-purchase sequence (D0/1/3/7/14/21), dormant until
+`RESEND_PLAN_AUDIENCE_ID` is set. It is more complete than the five-email one the audit
+proposed. Two real defects fixed instead:
+  - **D3 opened the System pitch**, which broke the rule the file's own header comment
+    states. The first mention of anything paid now sits at D7. Verified programmatically:
+    D0, D1 and D3 contain no pitch; D7 does.
+  - **The whipsaw email didn't exist.** D3 is now the six exit-threshold crossings
+    between Nov 2024 and Oct 2025, told on day three rather than left to be discovered.
+    It is the single most trust-building thing in the sequence and it costs nothing.
+
+**Eight-indicator sweep, completed.** The earlier pass missed the pillar blog post's
+title, H1, H2, OG/Twitter titles and JSON-LD headline, plus "eight-indicator framework"
+in nine cross-link blocks. All gone; verified zero remaining across every HTML, JS, txt
+and webmanifest file outside the two dead redirected pages, which are marked.
+
+Also fixed: `/terms` and `/disclaimer` were rendering a literal
+`[MONTANA REGISTERED ADDRESS — TO BE FILLED IN]` to visitors. Both now omit the line and
+carry a build-time comment, matching how the email footer already degrades.
+
 ---
 
 # Open items — deliberately not done

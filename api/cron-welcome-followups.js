@@ -46,12 +46,20 @@ const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 // the audience has to exist before anything can be sent to it, and sending the
 // free-list sequence to buyers would be worse than sending nothing.
 //
-// Shape, and the reason for it: D0 and D1 are pure delivery with zero pitch.
+// Shape, and the reason for it: D0, D1 and D3 are pure delivery with zero pitch.
 // You earn the right to pitch by making the thing work first; a buyer who gets
 // upsold in the receipt email learns the $29 was the bait.
+//
+// RESTRUCTURED 2026-08-20. D3 used to open the System pitch, which broke the rule
+// this comment states. The first mention of anything paid now sits at D7, after a
+// week of delivery. D3 became the whipsaw email -- the six exit-threshold crossings
+// between Nov 2024 and Oct 2025 -- because a buyer who discovers that on their own
+// feels misled, and a buyer who is told it on day three has been inoculated against
+// every future whipsaw. It is the single most trust-building thing in the sequence
+// and it costs nothing to send. Do not move a pitch earlier than D7.
 const PSUBJECT_0  = "You're in — your plan + the one thing to do tonight";
 const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
-const PSUBJECT_3  = "The plan is a snapshot. Here's the camera.";
+const PSUBJECT_3  = "the six times my own model flipped";
 const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
 const PSUBJECT_14 = "Where the founding window stands";
 // Review request, D+21. Deliberately AFTER the last sales email so the ask is
@@ -109,27 +117,39 @@ function plan1Text() {
 
 function plan3HTML() {
   return planShell("Plan · Day 3",
-    `<p style="margin:0 0 16px;">First time I'll mention this, and then it's in the footer where you can ignore it.</p>
-     <p style="margin:0 0 16px;">The plan you bought is a <em>snapshot</em>: nine levels, priced off where the cycle is now. It answers "what am I buying and at what price."</p>
-     <p style="margin:0 0 16px;">It doesn't answer the other two questions, and both cost more than the first one:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
-       <div><strong>Why those levels</strong> — the nine weighted indicators, how each one has failed, and how the Score turns them into one number</div>
-       <div><strong>When to sell</strong> — the exit ladder. Deliberately not in the $29, because scaling out is the half that actually made the difference in the backtest</div>
+    `<p style="margin:0 0 16px;">Something you should hear from me rather than find on your own.</p>
+     <p style="margin:0 0 16px;">Between 16 November 2024 and 21 October 2025, the Score crossed the exit threshold <strong>six separate times</strong>:</p>
+     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-family:Menlo,monospace;font-size:13px;line-height:1.9;color:#333;">
+       <div>Nov 16 2024 &nbsp;&rarr; exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$90,568</div>
+       <div>Feb 18 2025 &nbsp;&rarr; warning &nbsp;&nbsp;&nbsp;$95,444</div>
+       <div>May 08 2025 &nbsp;&rarr; exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$103,070</div>
+       <div>Jun 19 2025 &nbsp;&rarr; warning &nbsp;&nbsp;&nbsp;$104,710</div>
+       <div>Jun 27 2025 &nbsp;&rarr; exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$107,091</div>
+       <div>Oct 21 2025 &nbsp;&rarr; warning &nbsp;&nbsp;&nbsp;$108,700</div>
      </div>
-     <p style="margin:18px 0 16px;"><strong>The Cycle System is $197, one payment.</strong> Founding price <strong>$147</strong> for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.</p>
-     <p style="margin:0 0 16px;">If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.</p>
+     <p style="margin:0 0 16px;">Six. In twelve months. And the top was <strong>6 October 2025</strong> — which means the model was still inside the exit zone when it happened, and only left fifteen days later.</p>
+     <p style="margin:0 0 16px;">I'm telling you this on day three rather than letting you discover it, because a threshold model whipsawing is not a bug you found. <strong>It is how threshold models behave, and it will happen again in the next cycle.</strong></p>
+     <p style="margin:0 0 16px;">The ladder in your document is built for exactly this. You act on a fraction at each crossing rather than all of it at one. You don't reverse on the way back. That's it, it's boring, and boring is the whole point — six crossings become six small decisions instead of six chances to panic.</p>
+     <p style="margin:0 0 16px;">Every crossing above is in <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_receipts" style="color:#e63946;">the log</a>, along with the ones that went the wrong way.</p>
+     <p style="margin:0 0 16px;">No pitch in this one either.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "Claim a founding seat — $147 →", "https://whop.com/checkout/plan_3SEycpErj9Zk7");
+    "See every crossing →", "https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_cta");
 }
 function plan3Text() {
-  return ["First time I'll mention this, then it lives in the footer where you can ignore it.","",
-    "The plan you bought is a snapshot: nine levels, priced off where the cycle is now. It answers 'what am I buying and at what price.'","",
-    "It doesn't answer the other two questions, and both cost more than the first:","",
-    "  • WHY those levels — the nine weighted indicators, how each one has failed, and how the Score turns them into one number",
-    "  • WHEN TO SELL — the exit ladder. Deliberately not in the $29, because scaling out is the half that made the difference in the backtest.","",
-    "The Cycle System is $197, one payment. Founding price $147 for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.","",
-    "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
-    "https://whop.com/checkout/plan_3SEycpErj9Zk7","","— Torin"].join("\n");
+  return ["Something you should hear from me rather than find on your own.","",
+    "Between 16 November 2024 and 21 October 2025, the Score crossed the exit threshold six separate times:","",
+    "  Nov 16 2024  -> exit      $90,568",
+    "  Feb 18 2025  -> warning   $95,444",
+    "  May 08 2025  -> exit      $103,070",
+    "  Jun 19 2025  -> warning   $104,710",
+    "  Jun 27 2025  -> exit      $107,091",
+    "  Oct 21 2025  -> warning   $108,700","",
+    "Six. In twelve months. And the top was 6 October 2025 — so the model was still inside the exit zone when it happened, and only left fifteen days later.","",
+    "I'm telling you this on day three rather than letting you discover it, because a threshold model whipsawing is not a bug you found. It is how threshold models behave, and it will happen again in the next cycle.","",
+    "The ladder in your document is built for exactly this. You act on a fraction at each crossing rather than all of it at once. You don't reverse on the way back. That's it, it's boring, and boring is the point — six crossings become six small decisions instead of six chances to panic.","",
+    "Every crossing above is in the log, with the ones that went the wrong way:",
+    "  https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_receipts","",
+    "No pitch in this one either.","","— Torin"].join("\n");
 }
 
 function plan7HTML() {
@@ -139,6 +159,11 @@ function plan7HTML() {
      <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. In 2025 I laddered out into the top on a rule written months earlier — I'm not going to put a personal number on that, because it's the one thing on this site you couldn't check.</p>
      <p style="margin:0 0 16px;">What you <em>can</em> check is the model, and it is not flattering. It crossed into its exit zone on <strong>27 June 2025 at $107,091</strong>, more than three months before the $124,824 top, and it crossed that same threshold <strong>six times in twelve months</strong>. In November 2017 it called exit at $7,729 and Bitcoin rose <strong>149% in the next thirty days</strong>.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
+     <div style="border-top:1px solid #eee;margin:22px 0 0;padding-top:18px;">
+       <p style="margin:0 0 12px;font-size:13px;color:#888;">First and only time I'll mention this in a week. Then it lives in the footer where you can ignore it.</p>
+       <p style="margin:0 0 12px;">Here's the honest limit of what you bought. The plan is a <em>snapshot</em> — my levels, my ladder, this cycle. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's what <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system" style="color:#e63946;">The Cycle System</a> is: the framework rather than the snapshot, $197 once, and your $29 counts toward it.</p>
+       <p style="margin:0;font-size:13px;color:#666;">If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.</p>
+     </div>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See the receipts →", "https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_cta");
 }
@@ -150,6 +175,11 @@ function plan7Text() {
     "Public and checkable:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",
     "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
+    "---","",
+    "First and only time I'll mention this in a week, then it lives in the footer where you can ignore it.","",
+    "The honest limit of what you bought: the plan is a snapshot — my levels, my ladder, this cycle. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's The Cycle System: the framework rather than the snapshot, $197 once, and your $29 counts toward it.",
+    "  https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system","",
+    "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
     "— Torin"].join("\n");
 }
 
@@ -317,14 +347,14 @@ function email3Text() {
 // ── Day 1: Quick win (activation → live dashboard) ──
 function quickWinHTML() {
   return shell("Welcome · Day 1",
-    `<p style="margin:0 0 16px;">Yesterday you grabbed the Checklist — the 8 indicators that flag a cycle top.</p>
+    `<p style="margin:0 0 16px;">Yesterday you grabbed the buy-zone plan. Behind it sits one number, built from nine weighted indicators.</p>
      <p style="margin:0 0 16px;">Reading all 8 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 8 into <strong>one number, 0–100</strong>, updated daily.</p>
      <p style="margin:0 0 16px;">Open it and you'll see exactly where the cycle stands today — color-coded buy zone, neutral, or top zone. Ten seconds, no charts to decode.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See today's Score →", "https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
 }
 function quickWinText() {
-  return ["Yesterday you grabbed the Checklist — the 8 indicators that flag a cycle top.","",
+  return ["Yesterday you grabbed the buy-zone plan. Behind it sits one number, built from nine weighted indicators.","",
     "Reading all 8 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 8 into one number, 0–100, updated daily.","",
     "Open it and you'll see exactly where the cycle stands today — buy zone, neutral, or top zone. Ten seconds.","",
     "See today's Score: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
