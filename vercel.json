@@ -12,7 +12,10 @@
     {
       "source": "/.well-known/apple-developer-merchantid-domain-association",
       "headers": [
-        { "key": "Content-Type", "value": "application/octet-stream" }
+        {
+          "key": "Content-Type",
+          "value": "application/octet-stream"
+        }
       ]
     }
   ],
@@ -91,6 +94,21 @@
       "source": "/discord",
       "destination": "https://whop.com/liftoffr/?utm_source=shortlink&utm_medium=share&utm_campaign=evergreen&utm_content=discord",
       "permanent": true
+    },
+    {
+      "source": "/r/:id",
+      "destination": "/score?utm_source=instagram&utm_medium=reel&utm_campaign=phase_b&utm_content=:id",
+      "permanent": false
+    },
+    {
+      "source": "/p/:id",
+      "destination": "/plan?utm_source=instagram&utm_medium=reel&utm_campaign=phase_b&utm_content=:id",
+      "permanent": false
+    },
+    {
+      "source": "/w/:id",
+      "destination": "/receipts?utm_source=instagram&utm_medium=reel&utm_campaign=phase_b&utm_content=:id",
+      "permanent": false
     }
   ]
 }
