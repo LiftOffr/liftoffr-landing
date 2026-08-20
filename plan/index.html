@@ -139,14 +139,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<!-- Whop embedded checkout REMOVED 2026-08-20 — temporary reroute to Whop-hosted
-     checkout. Apple would not register liftoffr.com for Apple Pay on embedded
-     checkout (Whop-side failure, "Failed to update merchant domain with Apple"),
-     and hosted checkout pages support Apple Pay with no domain verification.
-     Every purchase CTA is already a plain https://whop.com/checkout/plan_* link;
-     removing the loader and the delegated intercept below lets them work natively.
-     The .well-known association file and its vercel.json headers block are left in
-     place so this is a one-commit revert once Whop fixes their side. -->
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -652,7 +644,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="not-course" style="margin-top:28px;">
     <h3>What this is not.</h3>
     <p style="margin-bottom:0;">
-      <strong>Not a signal service.</strong> There are no alerts and no &ldquo;I'm buying now&rdquo; messages, in the document or anywhere else.<br>
+      <strong>Not a personalised signal service.</strong> You do get a notification when the Score crosses one of the published thresholds, and the plan document is updated when a tier fires &mdash; that is what you are buying. What you never get is a recommendation aimed at you, a price target, or a ticker. Everything goes to every reader identically, and it describes what my own model did and what I intend to do with my own money.<br>
       <strong>Not a prediction.</strong> The model describes conditions, not outcomes.<br>
       <strong>Not personalised.</strong> I don't know your situation and the document doesn't ask.<br>
       <strong>Not a promise about money.</strong> I will never tell you what you'll make, because I don't know, and neither does anybody who says otherwise.

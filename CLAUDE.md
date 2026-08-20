@@ -69,6 +69,16 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   it. Never resolve `vercel.json` by taking one side wholesale — merge your entry around
   whatever the Apple Pay mechanism currently is.
 
+- **Checkout is Whop-hosted, not embedded, and that was deliberate.** On 2026-08-20 the
+  embedded-checkout loader was removed from `/` and `/plan`: Apple would not register
+  liftoffr.com for Apple Pay on embedded checkout (a Whop-side registration failure), while
+  Whop's hosted checkout pages support Apple Pay with no domain verification at all. Every
+  purchase CTA is now a plain `https://whop.com/checkout/plan_*` link, which works natively.
+  The `.well-known` file and its `vercel.json` headers block are kept regardless, so
+  restoring embedded checkout is a one-commit change if Whop ever fixes their side.
+  This note used to live in an HTML comment on both pages and shipped to production, where
+  it named the vendor's failure verbatim in View Source. Keep it here instead.
+
 ## Design language (preserve — never break)
 - Homepage/blog/links: near-black `#080808`, cards `#111111`, borders `#1e1e1e`, **brand red `#e63946`**, muted `#777`.
 - /cycle + /dashboard: navy `#060910` glass — frosted cards, backdrop-blur(14px), radial glows; green `#26d07c`, amber `#e8b339`, blue `#4d8df0`. Semicircular verdict gauge + Four Pillars.
