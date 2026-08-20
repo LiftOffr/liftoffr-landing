@@ -17,6 +17,7 @@
 //   RESEND_AUDIENCE_ID    — UUID of the "LiftOffr Free" audience
 
 import crypto from "node:crypto";
+import { disclosureHTML, disclosureText } from "./_disclosure.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -101,8 +102,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;">
-    Backtested 2017–2026. Past performance does not guarantee future results.<br/>
-    LiftOffr · Sent because you subscribed to the free Cycle Score email.<br/>
+    ${disclosureHTML("Sent because you subscribed to the free Cycle Score email.")}
     <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 
@@ -126,7 +126,7 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     "— Torin",
     "",
-    "(Backtested 2017–2026. Past performance does not guarantee future results.)",
+    disclosureText("Sent because you subscribed to the free Cycle Score email."),
   ].filter(Boolean).join("\n");
 }
 

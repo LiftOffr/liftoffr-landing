@@ -17,6 +17,7 @@
 //   RESEND_AUDIENCE_ID    — LiftOffr Free audience UUID
 
 import crypto from "node:crypto";
+import { disclosureHTML } from "./_disclosure.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -94,7 +95,7 @@ function plan1HTML() {
      <p style="margin:0 0 14px;"><strong>Place the ladder as limit orders, not reminders.</strong> A limit order at your tier price executes whether or not you're awake, calm, or looking. A note in your phone requires you to be all three on the worst day of the year.</p>
      <p style="margin:0 0 14px;"><strong>The fallback rule matters more than the tiers.</strong> If price never reaches your levels, you don't get to sit in cash for two years feeling clever. The doc has the DCA fallback — read that section twice.</p>
      <p style="margin:0 0 14px;"><strong>Every fill ends the same way.</strong> Off the exchange, onto hardware, same week. An unexecuted custody step is how a good entry becomes someone else's Bitcoin.</p>
-     <p style="margin:0 0 16px;">That's the whole mechanic. Tools I use for the alerts and the custody are listed here if you need them: <a href="https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack" style="color:#e63946;">liftoffr.com/stack</a> — commission status disclosed on every link.</p>
+     <p style="margin:0 0 16px;">That's the whole mechanic. Tools I use for the order placement and the custody are listed here if you need them: <a href="https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack" style="color:#e63946;">liftoffr.com/stack</a> — commission status disclosed on every link.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "", "");
 }
@@ -103,7 +104,7 @@ function plan1Text() {
     "1. Place the ladder as LIMIT ORDERS, not reminders. A limit order executes whether or not you're awake, calm, or looking. A note in your phone needs you to be all three on the worst day of the year.","",
     "2. The fallback rule matters more than the tiers. If price never reaches your levels you don't get to sit in cash for two years feeling clever. Read that section twice.","",
     "3. Every fill ends the same way: off the exchange, onto hardware, same week.","",
-    "Tools I use for alerts and custody: https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack — commission status disclosed on every link.","","— Torin"].join("\n");
+    "Tools I use for order placement and custody: https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack — commission status disclosed on every link.","","— Torin"].join("\n");
 }
 
 function plan3HTML() {
@@ -135,7 +136,8 @@ function plan7HTML() {
   return planShell("Plan · Day 7",
     `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
      <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
-     <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. October 6, 2025: DCA'd out at <strong>$124,824</strong>. Not because I got smarter — because it was already written down.</p>
+     <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. In 2025 I laddered out into the top on a rule written months earlier — I'm not going to put a personal number on that, because it's the one thing on this site you couldn't check.</p>
+     <p style="margin:0 0 16px;">What you <em>can</em> check is the model, and it is not flattering. It crossed into its exit zone on <strong>27 June 2025 at $107,091</strong>, more than three months before the $124,824 top, and it crossed that same threshold <strong>six times in twelve months</strong>. In November 2017 it called exit at $7,729 and Bitcoin rose <strong>149% in the next thirty days</strong>.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See the receipts →", "https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_cta");
@@ -143,7 +145,8 @@ function plan7HTML() {
 function plan7Text() {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
     "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
-    "Everything since exists so that decision gets made while I'm calm instead of euphoric. October 6, 2025: DCA'd out at $124,824. Not because I got smarter — because it was already written down.","",
+    "Everything since exists so that decision gets made while I'm calm instead of euphoric. In 2025 I laddered out into the top on a rule written months earlier — no personal number on that, because it's the one thing here you couldn't check.","",
+    "What you CAN check is the model, and it isn't flattering: it crossed into its exit zone on 27 June 2025 at $107,091, three months before the $124,824 top, and crossed that threshold six times in twelve months. In Nov 2017 it called exit at $7,729 and BTC rose 149% over the next thirty days.","",
     "Public and checkable:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",
     "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
@@ -218,8 +221,7 @@ function email2HTML() {
     <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See every indicator, live →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Every dated signal is a historical backtest, not a record of calls published at the time. Past performance does not predict future results. Educational content, not financial advice.<br/>
-    LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
+    ${disclosureHTML("")}<a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
 }
@@ -281,8 +283,7 @@ function email3HTML() {
     <a href="https://liftoffr.com/plan" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Get the plan — $29 once →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Every dated signal is a historical backtest, not a record of calls published at the time. Past performance does not predict future results. Educational content, not financial advice.<br/>
-    LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
+    ${disclosureHTML("")}<a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
 }
@@ -370,7 +371,7 @@ function stackHTML() {
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
        <div><strong>Two hardware wallets</strong> — every tier that fires ends with coins off the exchange, same week</div>
        <div><strong>Two tax tools</strong> — because a year of laddered buys is unreconstructable in April</div>
-       <div><strong>One charting app</strong> — for drawing my tier levels and setting alerts. Nothing else.</div>
+       <div><strong>One charting app</strong> — for drawing my tier levels and setting my own price notifications. Nothing else.</div>
      </div>
      <p style="margin:18px 0 16px;">What's <em>not</em> on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.</p>
      <p style="margin:0 0 16px;">Full page has what each one is for, roughly what it costs, and where I'd tell you to skip it. Some links earn me a commission and every one says so underneath it.</p>
@@ -382,7 +383,7 @@ function stackText() {
     "Five tools. That's the whole operation:",
     "  • Two hardware wallets — every tier that fires ends with coins off the exchange, same week",
     "  • Two tax tools — a year of laddered buys is unreconstructable in April",
-    "  • One charting app — for drawing tier levels and setting alerts. Nothing else.","",
+    "  • One charting app — for drawing tier levels and setting my own price notifications. Nothing else.","",
     "What's NOT on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.","",
     "Full page has what each is for, roughly what it costs, and where I'd tell you to skip it. Some links earn me a commission and every one says so underneath it:",
     "https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day9_stack","","— Torin"].join("\n");
@@ -440,8 +441,7 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
     <p style="margin:0 0 14px;">4. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Every dated signal is a historical backtest, not a record of calls published at the time. Past performance does not predict future results. Educational content, not financial advice.<br/>
-    LiftOffr · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
+    ${disclosureHTML("")}<a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
 }
