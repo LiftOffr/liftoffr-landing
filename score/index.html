@@ -186,7 +186,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li>Multiply each by its weight, add them together, then <strong style="color:#fff;">divide by the weights you actually used</strong> &mdash; that is 1.00 on a normal day, and less if CBBI published no reading for one of the nine. A missing reading is left out, never counted as a zero.</li>
     <li>You should land on the number at the top of this page.</li>
   </ol>
-  <p>Want to check my working rather than your own? <code>/api/cycle-score</code> returns every component, its weight and its reading as JSON. <a href="/api/cycle-score">Open it</a>. An outside auditor ran this in August 2026 and got <strong style="color:#fff;">34.35</strong> against a published <strong style="color:#fff;">34.4</strong> &mdash; the gap is rounding.</p>
+  <p>Want to check my working rather than your own? <code>/api/cycle-score</code> returns every component, its weight and its reading as JSON. <a href="/api/cycle-score">Open it</a>. An outside recompute in August 2026 got 34.35 against a published <strong style="color:#fff;">34.4</strong> &mdash; and both of us were wrong by about 1.8 points, because we had each treated a missing reading as a reading of zero. Two people agreeing is not two people being right. That is why the offer below matters more than the match did.</p>
   <p class="fine">If you run it and get a materially different number, tell me and I will fix it. That offer is the entire reason the weights are public.</p>
 
   <h2>The whole record, losers included</h2>

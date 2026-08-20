@@ -128,7 +128,7 @@ function plan1Text() {
 function plan3HTML() {
   return planShell("Plan · Day 3",
     `<p style="margin:0 0 16px;">Something you should hear from me rather than find on your own.</p>
-     <p style="margin:0 0 16px;">Between 16 November 2024 and 21 October 2025, the Score crossed the exit threshold <strong>six separate times</strong>:</p>
+     <p style="margin:0 0 16px;">Between 16 November 2024 and 21 October 2025, the Score crossed into elevated territory <strong>six separate times</strong> &mdash; three into the exit zone and three into the warning band below it:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-family:Menlo,monospace;font-size:13px;line-height:1.9;color:#333;">
        <div>Nov 16 2024 &nbsp;&rarr; exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$90,568</div>
        <div>Feb 18 2025 &nbsp;&rarr; warning &nbsp;&nbsp;&nbsp;$95,444</div>
@@ -147,7 +147,7 @@ function plan3HTML() {
 }
 function plan3Text() {
   return ["Something you should hear from me rather than find on your own.","",
-    "Between 16 November 2024 and 21 October 2025, the Score crossed the exit threshold six separate times:","",
+    "Between 16 November 2024 and 21 October 2025, the Score crossed into elevated territory six separate times","(three into the exit zone, three into the warning band below it):","",
     "  Nov 16 2024  -> exit      $90,568",
     "  Feb 18 2025  -> warning   $95,444",
     "  May 08 2025  -> exit      $103,070",

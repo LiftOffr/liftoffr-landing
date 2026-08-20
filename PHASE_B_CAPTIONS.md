@@ -1,3 +1,26 @@
+# ⚠️ SUPERSEDED — do not film from this document
+
+**Use `PHASE_B_SHOOT_KIT.md` instead.** It is the complete Batch Day 1 kit: the same 14
+pieces in shooting order, with prep, screen assets, tagged landing links and posting order.
+
+This file was the first pass at captions, written earlier on 20 Aug 2026. It is kept for
+the caption drafts only. **Three of its hooks are wrong and were corrected in the kit:**
+
+- **Piece 3** — `wrong 29 times out of 64`. 29 is 64 minus the 35 crossings after which
+  Bitcoin simply rose, and `/receipts` states explicitly that the 35-of-64 column *is not a
+  hit rate and will not be relabelled as one*. Because a rise after an EXIT crossing is a
+  miss, calling those 29 "wrong" scores every correct exit call as a failure. The published
+  directional figure is right 21 of 46 at 30 days, so **wrong 25 of 46** is the honest form.
+- **Piece 9** — `said sell six times`. Six crossings is right; only three entered the exit
+  zone. The other three were warning-band crossings, a lower threshold and not a sell.
+- **Piece 13** — `I deleted them`. The pages were corrected with dated notices, not deleted.
+
+Its piece 10 caption also claims *"an outside auditor recomputed my number to within 0.05."*
+That recompute (34.35 vs a published 34.4) predates the Woobull fix, which moved the
+published Score by 1.8 points. The claim is stale and is not in the kit.
+
+---
+
 # Phase B — captions and pinned comments, pre-written
 
 **Day 12 of the plan: "Pre-write the Phase B captions for the first batch so filming

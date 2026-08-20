@@ -67,7 +67,7 @@ you money", any dollar or percentage outcome for the reader, "I called the top",
 **Subject:** `the six times my own model flipped`
 
 > Between 16 November 2024 and 21 October 2025 the Score crossed the exit threshold
-> six separate times.
+> six separate times — three into the exit zone and three into the warning band below it.
 >
 > ```
 > Nov 16 2024 — exit           — $90,568
