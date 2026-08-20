@@ -210,7 +210,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "name": "What if Pi Cycle doesn't fire / what if there's no top this cycle?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Pi Cycle is one of nine inputs we track. We don't trade off any single signal — we wait for confluence between Pi Cycle, MVRV-Z, Puell, and Rainbow band before going louder. If no top fires, you'll have a complete profit-taking framework that works in every cycle."
+            "text": "Pi Cycle carries 10% of the Score — it is one of nine weighted inputs, not a trigger on its own. The Score moves on the weighted confluence of all nine. Pi Cycle has also been wrong: every signal that went the wrong way is logged at liftoffr.com/receipts. If no top fires this cycle, you still hold a written framework and the levels you set — which is the point of writing them before you need them."
           }
         },
         {
@@ -234,7 +234,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "name": "What indicators do you track?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear & Greed Index, and Google Trends. Updated weekly with plain-English commentary."
+            "text": "RHODL Ratio (20%), Puell Multiple (20%), Trolololo trend line (15%), MVRV (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull top-cap (5%) and RUPL (5%). Nine components, weights published, recomputed daily from CBBI's public data. Every weight and the full arithmetic are free at liftoffr.com/score."
           }
         },
         {
@@ -1403,13 +1403,13 @@ function submitHomeLead(form) {
               <div class="d-line"><span class="dname">Support</span><span class="dval">$101.2k</span></div>
               <div class="d-line"><span class="dname">Resistance</span><span class="dval">$106.8k</span></div>
               <br>
-              <strong>Indicator snapshot:</strong><br>
-              <div class="d-line"><span class="dname">CBBI</span><span class="dval">72</span><span class="d-badge warm">Elevated</span></div>
-              <div class="d-line"><span class="dname">MVRV-Z</span><span class="dval">4.8</span><span class="d-badge warm">Neutral-High</span></div>
-              <div class="d-line"><span class="dname">Pi Cycle</span><span class="dval">—</span><span class="d-badge green">Not fired</span></div>
-              <div class="d-line"><span class="dname">Puell</span><span class="dval">2.1</span><span class="d-badge green">Normal</span></div>
-              <div class="d-line"><span class="dname">Rainbow</span><span class="dval">Orange</span><span class="d-badge neutral">Watching</span></div>
-              <div class="d-verdict">⚡ Confluence verdict: HOLD — no top signal yet. Continue DCA, tighten stops above $115k.</div>
+              <strong>Heaviest-weighted components:</strong><br>
+              <div class="d-line"><span class="dname">RHODL <em>20%</em></span><span class="dval">31</span><span class="d-badge green">Low</span></div>
+              <div class="d-line"><span class="dname">Puell <em>20%</em></span><span class="dval">71</span><span class="d-badge warm">Elevated</span></div>
+              <div class="d-line"><span class="dname">Trolololo <em>15%</em></span><span class="dval">13</span><span class="d-badge green">Low</span></div>
+              <div class="d-line"><span class="dname">MVRV <em>15%</em></span><span class="dval">15</span><span class="d-badge green">Low</span></div>
+              <div class="d-line"><span class="dname">Pi Cycle <em>10%</em></span><span class="dval">39</span><span class="d-badge green">Not fired</span></div>
+              <div class="d-verdict">⚡ LiftOffr Score: 36 / 100 — accumulation band. Historically this band has sat closer to cycle lows than to tops. All nine components and the full arithmetic are at /score.</div>
               <div class="d-disclaimer">Educational only. Not financial advice. Do your own research.</div>
             </div>
           </div>
@@ -1424,61 +1424,67 @@ function submitHomeLead(form) {
         <div class="ind-dash-sub">Updated daily · confluence verdict at top</div>
       </div>
       <div class="ind-verdict-bar">
-        <div class="ind-verdict-label">Current verdict</div>
-        <div class="ind-verdict-val">HOLD — WATCHING</div>
+        <div class="ind-verdict-label">LiftOffr Score</div>
+        <div class="ind-verdict-val">36 / 100 — ACCUMULATION BAND</div>
       </div>
       <div class="ind-rows">
         <div class="ind-row">
-          <div class="ir-name">CBBI</div>
-          <div class="ir-track"><div class="ir-fill" style="width:72%;background:#f97316"></div></div>
-          <div class="ir-score">72</div>
+          <div class="ir-name">RHODL Ratio <em>20%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:31%;background:#22c55e"></div></div>
+          <div class="ir-score">31</div>
+          <div class="ir-badge green">Low</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Puell <em>20%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:71%;background:#f97316"></div></div>
+          <div class="ir-score">71</div>
           <div class="ir-badge orange">Elevated</div>
         </div>
         <div class="ind-row">
-          <div class="ir-name">MVRV-Z</div>
-          <div class="ir-track"><div class="ir-fill" style="width:58%;background:#f97316"></div></div>
-          <div class="ir-score">4.8</div>
-          <div class="ir-badge orange">Neutral-High</div>
+          <div class="ir-name">Trolololo <em>15%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:13%;background:#22c55e"></div></div>
+          <div class="ir-score">13</div>
+          <div class="ir-badge green">Low</div>
         </div>
         <div class="ind-row">
-          <div class="ir-name">Pi Cycle</div>
-          <div class="ir-track"><div class="ir-fill" style="width:41%;background:#22c55e"></div></div>
-          <div class="ir-score">—</div>
+          <div class="ir-name">MVRV <em>15%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:15%;background:#22c55e"></div></div>
+          <div class="ir-score">15</div>
+          <div class="ir-badge green">Low</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Pi Cycle <em>10%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:39%;background:#22c55e"></div></div>
+          <div class="ir-score">39</div>
           <div class="ir-badge green">Not fired</div>
         </div>
         <div class="ind-row">
-          <div class="ir-name">Puell</div>
-          <div class="ir-track"><div class="ir-fill" style="width:34%;background:#22c55e"></div></div>
-          <div class="ir-score">2.1</div>
-          <div class="ir-badge green">Normal</div>
+          <div class="ir-name">2Y MA Mult <em>5%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:43%;background:#fbbf24"></div></div>
+          <div class="ir-score">43</div>
+          <div class="ir-badge yellow">Mid</div>
         </div>
         <div class="ind-row">
-          <div class="ir-name">Rainbow</div>
-          <div class="ir-track"><div class="ir-fill" style="width:55%;background:#fbbf24"></div></div>
+          <div class="ir-name">Reserve Risk <em>5%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:19%;background:#22c55e"></div></div>
+          <div class="ir-score">19</div>
+          <div class="ir-badge green">Low</div>
+        </div>
+        <div class="ind-row">
+          <div class="ir-name">Woobull <em>5%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:0%;background:#64748b"></div></div>
           <div class="ir-score">—</div>
-          <div class="ir-badge yellow">Watching</div>
+          <div class="ir-badge neutral">No reading</div>
         </div>
         <div class="ind-row">
-          <div class="ir-name">Fear/Greed</div>
-          <div class="ir-track"><div class="ir-fill" style="width:67%;background:#f97316"></div></div>
-          <div class="ir-score">67</div>
-          <div class="ir-badge orange">Greed</div>
-        </div>
-        <div class="ind-row">
-          <div class="ir-name">Puell MA</div>
-          <div class="ir-track"><div class="ir-fill" style="width:29%;background:#22c55e"></div></div>
-          <div class="ir-score">0.8</div>
-          <div class="ir-badge green">Healthy</div>
-        </div>
-        <div class="ind-row">
-          <div class="ir-name">2Y MA Mult</div>
-          <div class="ir-track"><div class="ir-fill" style="width:44%;background:#22c55e"></div></div>
-          <div class="ir-score">2.2×</div>
-          <div class="ir-badge green">Below line</div>
+          <div class="ir-name">RUPL <em>5%</em></div>
+          <div class="ir-track"><div class="ir-fill" style="width:35%;background:#22c55e"></div></div>
+          <div class="ir-score">35</div>
+          <div class="ir-badge green">Low</div>
         </div>
       </div>
       <div class="ind-dash-footer">
-        Numbers are illustrative — not live data.<br>
+        Illustrative readings — the live nine, with today&rsquo;s arithmetic, are free at <a href="/score">/score</a>.<br>
         <a href="/indicator-history">See how each indicator performed 2013–2025 →</a>
       </div>
     </div>
@@ -1869,7 +1875,7 @@ function submitHomeLead(form) {
       </div>
       <div class="faq-item">
         <button class="faq-q">What if Pi Cycle doesn't fire this cycle? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">Pi Cycle is one of nine inputs. We wait for confluence between Pi Cycle, MVRV-Z, Puell, and Rainbow band before going louder. If no top fires, you still have a complete profit-taking framework that works in every future cycle.</div>
+        <div class="faq-a">Pi Cycle carries 10% of the Score &mdash; one of nine weighted inputs, not a trigger on its own. The Score moves on the weighted confluence of all nine, and Pi Cycle has been wrong before; those are logged at <a href="/receipts" style="color:var(--red);">/receipts</a>. If no top fires, you still have a complete profit-taking framework that works in every future cycle.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">Can I verify your past calls? <span class="faq-arrow">+</span></button>
