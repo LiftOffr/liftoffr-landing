@@ -100,8 +100,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<!-- Whop embedded checkout loader (on-site checkout; progressive enhancement) -->
-<script async defer src="https://js.whop.com/static/checkout/loader.js"></script>
+<!-- Whop embedded checkout REMOVED 2026-08-20 — temporary reroute to Whop-hosted
+     checkout. Apple would not register liftoffr.com for Apple Pay on embedded
+     checkout (Whop-side failure, "Failed to update merchant domain with Apple"),
+     and hosted checkout pages support Apple Pay with no domain verification.
+     Every purchase CTA is already a plain https://whop.com/checkout/plan_* link;
+     removing the loader and the delegated intercept below lets them work natively.
+     The .well-known association file and its vercel.json headers block are left in
+     place so this is a one-commit revert once Whop fixes their side. -->
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -679,89 +685,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   new IntersectionObserver(function(entries){
     bar.classList.toggle('on', !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0);
   }, { threshold: 0 }).observe(hero);
-})();
-</script>
-
-<!-- ===== Whop on-site checkout (progressive enhancement; hosted-redirect fallback) ===== -->
-<div id="wco-overlay" hidden role="dialog" aria-modal="true" aria-label="Secure checkout">
-  <div id="wco-sheet">
-    <button id="wco-close" type="button" aria-label="Close checkout">&times;</button>
-    <div id="wco-mount"><div id="wco-loading">Loading secure checkout…</div></div>
-  </div>
-</div>
-<style>
-  #wco-overlay{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;background:rgba(3,5,9,.80);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:16px;}
-  #wco-overlay[hidden]{display:none;}
-  #wco-sheet{position:relative;width:100%;max-width:460px;max-height:92vh;overflow:auto;background:#0b0f17;border:1px solid rgba(255,255,255,.10);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.6);padding:10px;}
-  #wco-close{position:absolute;top:9px;right:11px;z-index:2;background:rgba(255,255,255,.09);color:#fff;border:none;width:34px;height:34px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;font-weight:700;}
-  #wco-close:hover{background:rgba(255,255,255,.18);}
-  #wco-mount{min-height:140px;}
-  #wco-loading{color:#8aa3b0;text-align:center;font:600 14px system-ui,sans-serif;padding:48px 12px;}
-</style>
-<script>
-(function(){
-  var PLAN_SHORTLINKS = {}; // trial retired 2026-08-02 — /start and /free now route to pages, not checkout
-  var RETURN_URL = 'https://liftoffr.com/welcome-plan';
-  function isWebview(){
-    var ua = navigator.userAgent || '';
-    return /Instagram|FBAN|FBAV|FB_IAB|FBIOS|Line\/|TikTok|musical_ly|Bytedance|Snapchat|Pinterest|GSA\//i.test(ua);
-  }
-  function planFromHref(href){
-    try{
-      var u = new URL(href, location.href);
-      var path = u.pathname.replace(/\/$/,'') || '/';
-      if (PLAN_SHORTLINKS[path]) return PLAN_SHORTLINKS[path];
-      var m = u.pathname.match(/\/checkout\/(plan_[A-Za-z0-9]+)/);
-      if (m) return m[1];
-    }catch(e){}
-    return null;
-  }
-  var overlay, mount, fbTimer;
-  function ensure(){
-    if (overlay) return;
-    overlay = document.getElementById('wco-overlay');
-    mount = document.getElementById('wco-mount');
-    document.getElementById('wco-close').addEventListener('click', close);
-    overlay.addEventListener('click', function(e){ if (e.target === overlay) close(); });
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && overlay && !overlay.hidden) close(); });
-  }
-  function close(){
-    if (!overlay) return;
-    overlay.hidden = true; mount.innerHTML = ''; document.body.style.overflow = '';
-    if (fbTimer) clearTimeout(fbTimer);
-  }
-  function open(planId, fallbackUrl){
-    ensure();
-    mount.innerHTML = '<div id="wco-loading">Loading secure checkout…</div>';
-    var el = document.createElement('div');
-    el.setAttribute('data-whop-checkout-plan-id', planId);
-    el.setAttribute('data-whop-checkout-theme', 'dark');
-    el.setAttribute('data-whop-checkout-theme-accent-color', '#e63946');
-    el.setAttribute('data-whop-checkout-theme-background-color', '#0b0f17');
-    el.setAttribute('data-whop-checkout-return-url', RETURN_URL);
-    el.setAttribute('data-whop-checkout-on-complete', 'wcoComplete');
-    mount.appendChild(el);
-    overlay.hidden = false; document.body.style.overflow = 'hidden';
-    // If the embed iframe doesn't mount quickly (loader broken/blocked), use the proven hosted checkout.
-    if (fbTimer) clearTimeout(fbTimer);
-    fbTimer = setTimeout(function(){ if (!mount.querySelector('iframe')) { location.href = fallbackUrl; } }, 2000);
-  }
-  window.wcoComplete = function(data){
-    try{
-      var planId = (data && data.planId) || '';
-      if (window.dataLayer) window.dataLayer.push({ event: 'purchase', plan_id: planId, receipt_id: data && data.receiptId });
-    }catch(e){}
-    // Whop also redirects to return-url (/welcome) which fires checkout_confirmed; this is belt-and-suspenders.
-  };
-  document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href*="whop.com/checkout"]');
-    if (!a) return;
-    if (isWebview()) return;                       // in-app browsers → proven hosted flow (iframes unreliable there)
-    var planId = planFromHref(a.href);
-    if (!planId) return;                            // unknown target → let the link work normally
-    e.preventDefault();
-    open(planId, a.href);
-  }, false);
 })();
 </script>
 
