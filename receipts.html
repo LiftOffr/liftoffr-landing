@@ -164,14 +164,46 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
   <div class="stats">
     <div class="stat"><div class="stat-label">Confirmed events</div><div class="stat-value">64</div><div class="stat-sub">7-day zone confirmation</div></div>
-    <div class="stat"><div class="stat-label">History covered</div><div class="stat-value">15 yrs</div><div class="stat-sub">Jun 27, 2011 &rarr; Jul 25, 2026</div></div>
+    <div class="stat"><div class="stat-label">Signals span</div><div class="stat-value">14 yrs</div><div class="stat-sub">Sep 23, 2011 &rarr; Nov 30, 2025</div></div>
     <div class="stat"><div class="stat-label">Cycle turns covered</div><div class="stat-value">4</div><div class="stat-sub">2013 &middot; 2017 &middot; 2021 &middot; 2025</div></div>
-    <div class="stat"><div class="stat-label">Score today</div><div class="stat-value" style="color:#9ca3af">31.1</div><div class="stat-sub">NEUTRAL &middot; Jul 25, 2026</div></div>
+    <!-- Renders live from /api/cycle-score. It was previously a hardcoded 31.1 / Jul 25 2026
+         that went stale on the page while four other surfaces published different
+         "current" values on the same day. Do not hardcode a Score here again. -->
+    <div class="stat"><div class="stat-label">Score today</div><div class="stat-value" id="rc-score-now" style="color:#9ca3af">&mdash;</div><div class="stat-sub" id="rc-score-asof">loading&hellip;</div></div>
+  </div>
+
+  <!-- THE HONEST HEADLINE STAT, ABOVE THE LOG. Directional scoring per
+       CHANGELOG_2026-08-16_COMPLIANCE_FOLLOWUP.md section 6: EXIT/WARNING crossings
+       should be followed down, ACCUMULATION crossings up, NEUTRAL excluded as
+       directionless. 46 of the 64 are directional. THIS IS NOT A WIN RATE and must
+       never be relabelled as one. -->
+  <div style="max-width:900px;margin:0 auto 28px;padding:20px 22px;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:12px;">
+    <div style="font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#8a7a5a;margin-bottom:12px;">How often it was right about direction</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <tr style="color:#777;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;">
+          <td style="padding:6px 8px 6px 0;">Horizon</td>
+          <td style="padding:6px 8px;">BTC simply higher</td>
+          <td style="padding:6px 8px;">Right about direction</td>
+        </tr>
+        <tr style="border-top:1px solid #1e1e1e;"><td style="padding:8px 8px 8px 0;color:#ccc;">+30 days</td><td style="padding:8px;color:#999;">35 of 64</td><td style="padding:8px;color:#fff;font-weight:700;">21 of 46 &middot; 46%</td></tr>
+        <tr style="border-top:1px solid #1e1e1e;"><td style="padding:8px 8px 8px 0;color:#ccc;">+90 days</td><td style="padding:8px;color:#999;">35 of 64</td><td style="padding:8px;color:#fff;font-weight:700;">21 of 46 &middot; 46%</td></tr>
+        <tr style="border-top:1px solid #1e1e1e;"><td style="padding:8px 8px 8px 0;color:#ccc;">+180 days</td><td style="padding:8px;color:#999;">37 of 64</td><td style="padding:8px;color:#fff;font-weight:700;">25 of 46 &middot; 54%</td></tr>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:#bdbdbd;line-height:1.75;margin:14px 0 0;">
+      <strong style="color:#fff;">That is close to a coin flip at 30 and 90 days, and I am publishing it as the headline rather than burying it.</strong>
+      Here is what it does and does not mean. &ldquo;Right about direction&rdquo; scores an EXIT or WARNING crossing as correct if BTC was lower
+      afterwards and an ACCUMULATION crossing as correct if it was higher; the 18 NEUTRAL crossings are excluded because they point nowhere,
+      which leaves 46 of the 64. A rise after an exit signal is a miss, so the raw &ldquo;BTC was higher&rdquo; column is not a scoreboard and
+      neither number is a win rate or an accuracy claim. This is a multi-month cycle-zone tool, so a 30-day directional test is a poor proxy
+      for what it is built to do &mdash; but it is the test an outsider would run first, so it belongs at the top of the page rather than nowhere on it.
+    </p>
   </div>
 
   <section class="events">
     <h2>Zone-crossing log (newest first)</h2>
-    <p class="note" style="color:#bdbdbd;">A zone model marks the transitions, not the tops. Across fifteen years it produces
+    <p class="note" style="color:#bdbdbd;">A zone model marks the transitions, not the tops. Across fourteen years it produces
     64 of them &mdash; some resolve within weeks, some take a cycle to play out, and some mark a zone the market then
     re-tests. That spread is how a zone model behaves by design. Every one is dated below with what Bitcoin did next.</p>
     <p class="note">A crossing counts only after the score holds the new zone for 7 straight days &mdash; the date shown is the first day of that hold. BTC % is the change from the crossing-day price.</p>
@@ -892,7 +924,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   </div>
 
   <p class="disclaimer">
-    Zone events reconstructed by applying the current LiftOffr Score formula (V7-weighted CBBI components, colintalkscrypto.com data) to historical daily values from Jun 27, 2011 through Jul 25, 2026.
+    Zone events reconstructed by applying the current LiftOffr Score formula (V7-weighted CBBI components, colintalkscrypto.com data) to historical daily values. The 64 confirmed crossings below span Sep 23, 2011 through Nov 30, 2025; the Score has not crossed a zone boundary since.
     Backfilled rows are model output computed after the fact, not calls made at the time. Past performance does not guarantee future results.
     This is educational content, not financial advice. Trading carries risk &mdash; only invest what you can afford to lose.
   </p>
@@ -904,5 +936,25 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
   Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
 </div>
+<script>
+// Fills the "Score today" tile from the live endpoint so this page cannot drift out
+// of sync with /cycle, /indicators and the homepage the way it did through Aug 2026.
+(function(){
+  fetch('/api/cycle-score').then(function(r){return r.json();}).then(function(d){
+    if (!d || typeof d.score !== 'number') return;
+    var n = document.getElementById('rc-score-now');
+    var a = document.getElementById('rc-score-asof');
+    var color = {exit:'#ef4444',warning:'#f97316',neutral:'#9ca3af','accumulation':'#22c55e','deep-accumulation':'#16a34a'}[d.zone] || '#9ca3af';
+    if (n) { n.textContent = d.score.toFixed(1); n.style.color = color; }
+    if (a) {
+      var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+      a.textContent = String(d.zone || '').replace('-',' ').toUpperCase() + (when ? ' \u00b7 ' + when : '');
+    }
+  }).catch(function(){
+    var a = document.getElementById('rc-score-asof');
+    if (a) a.textContent = 'live score unavailable — see /cycle';
+  });
+})();
+</script>
 </body>
 </html>
