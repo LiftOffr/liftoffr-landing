@@ -114,7 +114,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        email footers match. One entity name, one address, one jurisdiction, on every
        surface a customer can see. A mismatch between the address on a storefront and
        the address in a legal doc is on the FTC-adjacent red-flag list. -->
-  <p style="color:#888;font-size:14px;">LiftOffr LLC &middot; [MONTANA REGISTERED ADDRESS &mdash; TO BE FILLED IN] &middot; <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a></p>
+  <!-- ══════════════════════════════════════════════════════════════════════
+       MONTANA REGISTERED ADDRESS GOES HERE — ONE LINE, THEN DELETE THIS COMMENT.
+
+       Replace the line below with:
+         <p ...>LiftOffr LLC &middot; 123 Example St, Missoula, MT 59801 &middot;
+            <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a></p>
+
+       WHY IT MATTERS: CAN-SPAM (15 U.S.C. 7704(a)(5)) requires a valid physical
+       postal address in every commercial email. LiftOffr sends the Sunday Score and
+       the nurture sequences, so this is not optional once the list is live. The same
+       string must also be set as LIFTOFFR_MAILING_ADDRESS in Vercel — that env var
+       is what api/_disclosure.js drops into every outbound email footer. Until it is
+       set, the email footer omits the address line entirely rather than shipping a
+       placeholder, which means THE EMAILS ARE NOT YET CAN-SPAM COMPLIANT.
+
+       Deliberately NOT invented here. A wrong address on a legal page is worse than
+       no address, and an address mismatch between a storefront and a legal document
+       is on the FTC-adjacent red-flag list. One entity name, one address, one
+       jurisdiction, on every surface a customer can see.
+
+       Rendering an empty bracket placeholder to visitors would look broken and read
+       as a site nobody maintains, so the line simply omits the address for now.
+       ══════════════════════════════════════════════════════════════════════ -->
+  <p style="color:#888;font-size:14px;">LiftOffr LLC &middot; <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a></p>
 
   <h2>0. Eligibility &mdash; 18+</h2>
   <p><strong>LiftOffr is for adults aged 18 or over.</strong> You may not use the site, join the Discord, subscribe to any email, or purchase any product if you are under 18. If we learn that a member is under 18 we will remove the account and refund any purchase.</p>
