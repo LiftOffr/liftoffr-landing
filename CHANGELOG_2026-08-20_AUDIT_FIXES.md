@@ -1,21 +1,30 @@
 # 2026-08-20 — Audit remediation pass
 
 Branch: `audit-fixes-2026-08-20`. **Nothing deployed, nothing pushed, nothing sent.**
-Six commits, rebased onto `main` at `c958f848` (PR #1, the Apple Pay merchant domain
-association rewrite).
+Seven commits, rebased onto `main` at `9b2f1dd` (PR #2, the Apple Pay association file).
 
-> **Rebase note, 2026-08-20.** This branch was originally cut from `ef16561`, before PR
-> #1 merged. It touches `vercel.json` (adding the `/legal` → `/disclaimer` redirect),
-> and the pre-merge version of that file contains no Apple Pay rewrite — so merging the
-> branch as it stood would have silently reverted it and broken Apple verification.
-> Rebased onto current `main` instead. The two changes live in different arrays
-> (`rewrites` vs `redirects`) and merged without conflict; the Apple Pay block is
-> byte-identical to `main` and was verified as such, and the only delta introduced by
-> the rebase is that block being gained — nothing of this branch's work was lost.
-> A guard is now in `CLAUDE.md` so a future session does not repeat the near-miss.
-
-Source: the overnight *LiftOffr 30-Day Profitability Plan* (19–20 Aug 2026), Parts 3,
-4 and 6. Where the audit and this repo's own data disagreed, the repo's data won.
+> **Rebase notes, 2026-08-20.** This branch was cut from `ef16561` and touches
+> `vercel.json` (adding the `/legal` → `/disclaimer` redirect), so it had to be rebased
+> twice as the Apple Pay work landed underneath it.
+>
+> - **PR #1 (`c958f84`)** added a `rewrites` proxy to Whop's hosted copy of the
+>   association file. Rebased onto it and preserved the block.
+> - **PR #2 (`9b2f1dd`)** then **removed that rewrite** — it failed Whop's verification.
+>   Whop's origin serves the file with no `Content-Type` at all, and Vercel's external
+>   rewrite passes the upstream response through verbatim, so liftoffr.com returned the
+>   correct 228 bytes with no content type, which Whop's verifier rejects. The fix was to
+>   commit the real file at `.well-known/apple-developer-merchantid-domain-association`
+>   and pin `Content-Type: application/octet-stream` via a `headers` block.
+>
+> Rebased again onto PR #2. The rewrite is **deliberately not carried forward** — a static
+> file takes precedence over a rewrite in Vercel's routing order, so resurrecting it
+> would be dead config contradicting the file. Verified after the rebase that the
+> `headers` block and the 228-byte file (sha256 `5d3b5ece…4def4c`) are intact, that no
+> apple-pay `rewrites` entry exists, that the `/legal` redirect survived, and that the
+> only delta between this branch pre- and post-rebase is those two upstream changes —
+> nothing here was lost. The `CLAUDE.md` guard was rewritten to describe the current
+> two-part mechanism; the earlier version of that note described the failed rewrite and
+> would have told a future session to restore it.
 
 ---
 

@@ -43,17 +43,31 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 - Whop webhook (`api/whop-webhook.js`) assigns @Plan addon role + legacy tier roles + fires GA4 purchase (item_id per plan) + adds $29 buyers to Resend "Plan Buyers" audience. Trial paths are hard-retired no-ops.
 - Email: Resend — free nurture (D1/3/5/7/18, re-aimed at the $29 plan), Sunday Score. Trial nurture RETIRED (hard-disabled in code). Crons in vercel.json (Hobby = 1/day per cron max — hourly schedules break ALL deploys).
 - DO NOT touch payment logic or pricing values without explicit founder confirmation per item.
-- **`vercel.json` — the Apple Pay rewrite is load-bearing and must not be dropped.** The
-  `rewrites` entry mapping `/.well-known/apple-developer-merchantid-domain-association`
-  to the Whop-hosted original (merged 2026-08-20, PR #1, `b365f23`) is what lets Whop
-  verify liftoffr.com with Apple. Without it Apple Pay does not appear in the embedded
-  checkout, which is the payment path effectively every Reel viewer would use. It is a
-  *rewrite*, not a redirect — Apple requires the file served from our domain with
-  unmodified contents, so a 301/302 breaks verification just as surely as a 404 does.
-  If a branch predates that merge, **rebase before committing `vercel.json`** rather
-  than committing a version built on the old file; a stale copy silently reverts it.
-  On any conflict in this file, keep the Apple Pay block verbatim and merge your own
-  entry around it. Never resolve `vercel.json` by taking one side wholesale.
+- **Apple Pay domain verification is load-bearing — two files, both must survive.** Whop
+  verifies liftoffr.com with Apple by fetching
+  `/.well-known/apple-developer-merchantid-domain-association`. Without it Apple Pay does
+  not appear in the embedded checkout, which is the payment path effectively every Reel
+  viewer would use. The current mechanism (PR #2, `a04630e`, 2026-08-20) is:
+  1. The real 228-byte file committed at `.well-known/apple-developer-merchantid-domain-association`
+     — byte-identical to Whop's source, **no trailing newline**, sha256
+     `5d3b5ece…4def4c`. Do not reformat it, do not let an editor add a newline.
+  2. A `headers` entry in `vercel.json` pinning `Content-Type: application/octet-stream`
+     on that path.
+  **Both are required.** The earlier approach (PR #1, `b365f23`) was a `rewrites` proxy to
+  Whop's copy, and it **failed verification** — Whop's origin serves that file with no
+  `Content-Type` at all and Vercel's external rewrite passes the upstream response
+  through verbatim, so the response had correct bytes and no content type, which Whop's
+  verifier rejects. **Do not reintroduce that rewrite.** A static file wins over a rewrite
+  in Vercel's routing order anyway, so re-adding it would be dead config contradicting
+  the file.
+  Also: it must be served, not redirected — Apple requires unmodified contents from our
+  own domain, so a 301/302 fails the same way a 404 does. Note `www.liftoffr.com`
+  308-redirects to the apex via `middleware.js`, so **the domain registered with Whop
+  must be the apex `liftoffr.com`**, never the www host.
+  If a branch predates a change to any of this, **rebase before committing `vercel.json`**
+  rather than committing a version built on the old file; a stale copy silently reverts
+  it. Never resolve `vercel.json` by taking one side wholesale — merge your entry around
+  whatever the Apple Pay mechanism currently is.
 
 ## Design language (preserve — never break)
 - Homepage/blog/links: near-black `#080808`, cards `#111111`, borders `#1e1e1e`, **brand red `#e63946`**, muted `#777`.
