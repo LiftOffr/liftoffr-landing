@@ -994,7 +994,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     var color = {exit:'#ef4444',warning:'#f97316',neutral:'#9ca3af','accumulation':'#22c55e','deep-accumulation':'#16a34a'}[d.zone] || '#9ca3af';
     if (n) { n.textContent = d.score.toFixed(1); n.style.color = color; }
     if (a) {
-      var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+      var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}) : '';
       a.textContent = String(d.zone || '').replace('-',' ').toUpperCase() + (when ? ' \u00b7 ' + when : '');
     }
   }).catch(function(){

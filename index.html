@@ -1724,7 +1724,7 @@ function submitHomeLead(form) {
       if (c) c.textContent = d.commentary;
       if (a && d.asOf) {
         var dt = new Date(d.asOf);
-        a.textContent = 'Updated ' + dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+        a.textContent = 'Updated ' + dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'});
       }
     })
     .catch(function(e){ console.error('cycle-score load failed', e); });
@@ -1780,7 +1780,7 @@ function submitHomeLead(form) {
       rows.innerHTML = html;
       if (total) total.innerHTML = '<span>LiftOffr Score</span><span>' + d.score.toFixed(1) + '</span>';
       if (asof) {
-        var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'today';
+        var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}) : 'today';
         var wu = (typeof d.weightUsed === 'number') ? d.weightUsed : 1;
         var txt = 'Live reading, ' + when + '. Multiply each weight by its reading, add them up, ' +
                   'then divide by ' + wu.toFixed(2) + ' \u2014 the weights actually used. ' +

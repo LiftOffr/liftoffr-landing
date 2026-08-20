@@ -226,7 +226,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     n.textContent = d.score.toFixed(1); n.style.color = c;
     z.textContent = String(d.zone || '').replace('-', ' ').toUpperCase(); z.style.color = c;
     var px = d.components && d.components._btc_price && d.components._btc_price.value;
-    var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+    var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}) : '';
     m.textContent = (px ? 'BTC $' + Math.round(px).toLocaleString() + ' \u00b7 ' : '') + (when ? 'as of ' + when : '');
 
     // Fill the weights table with today's live readings beside each weight, and

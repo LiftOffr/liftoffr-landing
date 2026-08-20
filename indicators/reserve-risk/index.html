@@ -284,7 +284,7 @@
     });
     var stamp = document.querySelectorAll('[data-live-asof]');
     if (d.asOf) {
-      var day = new Date(d.asOf).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+      var day = new Date(d.asOf).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric', timeZone:'UTC' });
       stamp.forEach(function(el){ el.textContent = day; });
     }
   }).catch(function(){});

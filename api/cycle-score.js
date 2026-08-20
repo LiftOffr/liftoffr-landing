@@ -131,7 +131,7 @@ function widgetHTML({ score, z, trend, trendDelta7d, asOf }) {
   const color = ZONE_COLORS[z] || "#999";
   const arrow = trend === "rising" ? "▲" : trend === "falling" ? "▼" : "◆";
   const sign = trendDelta7d >= 0 ? "+" : "";
-  const dt = asOf ? new Date(asOf).toLocaleDateString("en-US", { month: "short", day: "numeric" }) : "";
+  const dt = asOf ? new Date(asOf).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }) : "";
   return `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{margin:0;background:#060910;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
 .c{box-sizing:border-box;width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:linear-gradient(158deg,rgba(255,255,255,.055),rgba(255,255,255,.014))}
