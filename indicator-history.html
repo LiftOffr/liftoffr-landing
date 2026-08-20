@@ -378,6 +378,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .ind-table { min-width: 580px; }
 
+/* The nav bar overran a 375px viewport by 3px. Drop the two secondary links on
+   narrow phones and shrink the CTA; Home stays reachable via the logo. */
+@media (max-width: 480px) {
+  .nav-links a[href="/blog"], .nav-links a[href="/"] { display: none; }
+  .nav-links .btn-red { padding: 8px 12px; font-size: 12.5px; }
+}
   /* MOBILE */
   @media (max-width: 768px) {
     nav { padding: 12px 16px; }

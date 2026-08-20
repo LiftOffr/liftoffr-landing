@@ -343,6 +343,19 @@ footer {
 }
 
 /* MOBILE */
+/* Narrow phones. The result badge was white-space:nowrap at 362px wide, .case-body
+   carried 56px of horizontal padding, and the indicator/timeline labels held a
+   110px min-width with flex-shrink:0 — together they pushed the page 27px past a
+   375px viewport. */
+@media (max-width: 560px) {
+  .case-result-badge { white-space: normal; font-size: 11px; padding: 6px 10px; }
+  .case-body { padding: 18px 15px; }
+  .case-header { padding-left: 15px; padding-right: 15px; }
+  .ind-name, .tl-label { min-width: 78px; }
+  .ind-row, .tl-row { flex-wrap: wrap; }
+  .case-section-label { word-break: break-word; }
+}
+
 @media (max-width: 768px) {
   nav { padding: 12px 16px; }
   .proof-hero { padding: 56px 18px 40px; }
