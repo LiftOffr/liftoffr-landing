@@ -215,6 +215,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .site-nav-links a:hover { color: #fff; }
         .site-nav-cta { background: #e63946; color: #fff !important; padding: 9px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; }
         .site-nav-cta:hover { opacity: 0.9; }
+        /* The nav bar ran ~4px past the content box on a 375px viewport once the
+           vertical scrollbar is accounted for, so every post scrolled sideways.
+           Drop the secondary links on narrow phones; the logo still goes home. */
+        @media (max-width: 480px) {
+          .site-nav-links { gap: 12px; }
+          .site-nav-links a:not(.site-nav-cta) { display: none; }
+          .site-nav-cta { padding: 8px 12px; font-size: 12.5px; }
+        }
         .breadcrumb { font-size: 13px; color: #888; margin-bottom: 20px; }
         .breadcrumb a { color: #e63946; text-decoration: none; }
         .breadcrumb a:hover { text-decoration: underline; }
