@@ -379,6 +379,15 @@ footer {
   .case-outcome { flex-wrap: wrap; }
   .case-outcome > div { min-width: 0; }
 }
+
+/* repeat(3,1fr) has an auto minimum per track, so long unbreakable strings pushed
+   these three-up stat rows to 360px inside a 335px box. minmax(0,1fr) lets them
+   shrink; under 560px they stack outright. */
+.stat3 { min-width: 0; }
+.stat3 > div { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 560px) {
+  .stat3 { grid-template-columns: 1fr !important; }
+}
 </style>
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
@@ -463,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </p>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;">
+    <div class="stat3" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:14px;">
       <div style="background:#111;border:1px solid #2a1f1f;border-left:3px solid var(--yellow);border-radius:12px;padding:22px 20px;">
         <div style="font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;">Pi Cycle Top</div>
         <div style="font-size:26px;font-weight:900;color:#fff;letter-spacing:-0.6px;margin-bottom:6px;">No cross</div>
