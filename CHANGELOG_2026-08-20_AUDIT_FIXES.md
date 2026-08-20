@@ -1,7 +1,18 @@
 # 2026-08-20 — Audit remediation pass
 
 Branch: `audit-fixes-2026-08-20`. **Nothing deployed, nothing pushed, nothing sent.**
-Five commits off `main` at `ef16561`.
+Six commits, rebased onto `main` at `c958f848` (PR #1, the Apple Pay merchant domain
+association rewrite).
+
+> **Rebase note, 2026-08-20.** This branch was originally cut from `ef16561`, before PR
+> #1 merged. It touches `vercel.json` (adding the `/legal` → `/disclaimer` redirect),
+> and the pre-merge version of that file contains no Apple Pay rewrite — so merging the
+> branch as it stood would have silently reverted it and broken Apple verification.
+> Rebased onto current `main` instead. The two changes live in different arrays
+> (`rewrites` vs `redirects`) and merged without conflict; the Apple Pay block is
+> byte-identical to `main` and was verified as such, and the only delta introduced by
+> the rebase is that block being gained — nothing of this branch's work was lost.
+> A guard is now in `CLAUDE.md` so a future session does not repeat the near-miss.
 
 Source: the overnight *LiftOffr 30-Day Profitability Plan* (19–20 Aug 2026), Parts 3,
 4 and 6. Where the audit and this repo's own data disagreed, the repo's data won.
