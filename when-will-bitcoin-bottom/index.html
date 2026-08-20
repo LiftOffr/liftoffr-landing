@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>When will Bitcoin bottom? Live cycle data | LiftOffr</title>
-<meta name="description" content="Bitcoin is -50% below the October 2025 top, 312 days in. Past bears bottomed after 363-410 days and -84% to -76% drawdowns. Live indicator readings, updated daily.">
+<meta name="description" content="How far into this drawdown Bitcoin is, measured against the October 2025 top. Past bears bottomed after 363-410 days and -84% to -76% drawdowns. Live indicator readings, updated daily.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://liftoffr.com/when-will-bitcoin-bottom">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="LiftOffr">
 <meta property="og:url" content="https://liftoffr.com/when-will-bitcoin-bottom">
 <meta property="og:title" content="When will Bitcoin bottom? Live cycle data | LiftOffr">
-<meta property="og:description" content="Bitcoin is -50% below the October 2025 top, 312 days in. Past bears bottomed after 363-410 days and -84% to -76% drawdowns. Live indicator readings, updated daily.">
+<meta property="og:description" content="How far into this drawdown Bitcoin is, measured against the October 2025 top. Past bears bottomed after 363-410 days and -84% to -76% drawdowns. Live indicator readings, updated daily.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="When will Bitcoin bottom? Live cycle data | LiftOffr">
-<meta name="twitter:description" content="Bitcoin is -50% below the October 2025 top, 312 days in. Past bears bottomed after 363-410 days and -84% to -76% drawdowns. Live indicator readings, updated daily.">
+<meta name="twitter:description" content="How far into this drawdown Bitcoin is, measured against the October 2025 top. Past bears bottomed after 363-410 days and -84% to -76% drawdowns. Live indicator readings, updated daily.">
 <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
 <meta name="theme-color" content="#e63946">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +23,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "When will Bitcoin bottom?", "acceptedAnswer": {"@type": "Answer", "text": "Nobody knows, and anyone giving you a date is guessing. What can be measured: the three previous bear markets bottomed 363, 376 and 410 days after their cycle top, averaging 383 days. Applied to the October 6, 2025 top, that window runs October 2026 to November 2026. It is arithmetic on three data points, not a forecast."}}, {"@type": "Question", "name": "How far does Bitcoin usually fall in a bear market?", "acceptedAnswer": {"@type": "Answer", "text": "The last three drawdowns from cycle top to cycle bottom were 84%, 83%, 76%, averaging 81%. But each one has been shallower than the last, so the average overstates it. Bitcoin is currently 50% below the October 2025 top."}}, {"@type": "Question", "name": "Has Bitcoin already bottomed?", "acceptedAnswer": {"@type": "Answer", "text": "As of August 14, 2026 the LiftOffr Score reads 33.7 out of 100. Past cycle bottoms printed composite readings in the low teens. The live number and the full history are on the cycle page \u2014 it is a measurement, not a call."}}, {"@type": "Question", "name": "What should I do while waiting?", "acceptedAnswer": {"@type": "Answer", "text": "That is your decision and this page is not advice. What I do personally is published: a written ladder of buy levels set before the fear arrives, and a receipt every time one fires. The alternative \u2014 deciding while it is happening \u2014 is what cost me $30,000 in 2022."}}]}</script>
+<!-- CONSENT MODE DEFAULTS. Must run before gtag. Added 2026-08-20: GA4 and Clarity
+     previously fired unconditionally with no consent surface, and Clarity records
+     session replays. Banner UI lives in /js/consent.js; the defaults have to be inline
+     because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -31,13 +69,8 @@
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -134,6 +167,7 @@
     .wrap { padding:30px 15px 56px; }
   }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <nav>
@@ -153,8 +187,8 @@
     Updated daily from live cycle data</div>
 
   <div class="answer"><strong>Nobody knows the date, and anyone who gives you one is guessing.</strong>
-    What can be measured: Bitcoin is <strong>50% below</strong> its
-    October 6, 2025 top and <strong>312 days</strong> into this
+    What can be measured: Bitcoin is <strong data-live-dd>50%</strong> below its
+    October 6, 2025 top and <strong data-live-days>312</strong> days into this
     drawdown. The last three bear markets bottomed 363-410 days after the top, with
     drawdowns of 76% to 84%. Applied to this cycle that is a
     window of October 2026 to November 2026 — three data points of
@@ -163,7 +197,7 @@
   <div class="reading">
     <div class="reading-num cold" data-live-key="score">33.7</div>
     <div class="reading-lbl">LiftOffr Score today · 0-100</div>
-    <div class="reading-sub">Bitcoin $62,925 · -50% from the top ·
+    <div class="reading-sub">Bitcoin <span data-live-px>$62,925</span> · <span data-live-dd>-50%</span> from the top ·
       <a href="/cycle" data-dest="cycle">see the full gauge →</a></div>
   </div>
 
@@ -273,12 +307,37 @@
     }
   }).catch(function(){});
 })();
+
+/* Price, drawdown and days-since-top were hardcoded (\u201250%, 312 days, $62,925 as of
+   14 Aug 2026) while /proof published \u201246% and the homepage published \u201236% on the
+   same day. All three now derive from one endpoint and one anchor date. Failure is
+   silent: a stale-but-dated number beats an error state. */
+(function(){
+  var TOP_PRICE = 124824;                 // 6 Oct 2025 cycle top
+  var TOP_DATE  = Date.UTC(2025, 9, 6);
+  var px = document.querySelectorAll('[data-live-px]');
+  var dd = document.querySelectorAll('[data-live-dd]');
+  var dy = document.querySelectorAll('[data-live-days]');
+  if (!px.length && !dd.length && !dy.length) return;
+  fetch('/api/btc-price').then(function(r){ return r.json(); }).then(function(d){
+    var p = d && (d.usd || d.price);
+    if (typeof p !== 'number' || !isFinite(p)) return;
+    var drop = Math.round((1 - p / TOP_PRICE) * 100);
+    px.forEach(function(el){ el.textContent = '$' + Math.round(p).toLocaleString(); });
+    dd.forEach(function(el){
+      var neg = (el.textContent || '').trim().charAt(0) === '-';
+      el.textContent = (neg ? '-' : '') + drop + '%';
+    });
+    var days = Math.floor((Date.now() - TOP_DATE) / 86400000);
+    dy.forEach(function(el){ el.textContent = String(days); });
+  }).catch(function(){});
+})();
 </script>
 
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

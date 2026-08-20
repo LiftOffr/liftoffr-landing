@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -312,13 +351,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -1018,6 +1052,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1063,7 +1098,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-cta-row">
     <a href="/cycle" rel="noopener" class="btn-red-xl btn-pulse">See today's Score — free →</a>
     <div class="trust-row">
-      <span>Recomputed daily from public data · 70 in the free Discord · No card, no email</span>
+      <span>Recomputed daily from public data · 70 in the free Discord · No card, no email · <strong style="color:#888;">18+</strong></span>
     </div>
   </div>
 
@@ -1327,7 +1362,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-title">Open Discord — 8am MT</div>
-        <div class="step-desc">The daily brief is already posted. BTC price, all 8 indicator readings, key levels, and the confluence verdict. Read it like a newspaper.</div>
+        <div class="step-desc">The daily brief is already posted. BTC price, all nine weighted component readings, the Score, key levels and what the zone has historically meant. Read it like a newspaper.</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
@@ -1375,8 +1410,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="background:#111111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 22px;">
         <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Module 4 · The Indicators</div>
-        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;">Read all 8 indicators yourself</div>
-        <div style="font-size:13px;color:#999;line-height:1.55;">CBBI, Pi Cycle, MVRV-Z, Rainbow, Market Cipher and more — what each one says, when it lied, and how confluence works. The data layer where guessing stops.</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;">Read all nine weighted indicators yourself</div>
+        <div style="font-size:13px;color:#999;line-height:1.55;">RHODL, Puell, Trolololo, MVRV-Z, Pi Cycle, 2Y MA, Reserve Risk, Woobull and RUPL — the exact nine the Score weights, what each one says, when it lied, and how confluence works. The data layer where guessing stops.</div>
       </div>
       <div style="background:#111111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 22px;">
         <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Module 5 · Execution</div>
@@ -1783,7 +1818,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- THE disclosure. Site-wide, once, here. Do not scatter hedges back through the
        page body — that was the 2026-08-16 over-correction Torin flagged. -->
   <div style="max-width:680px;margin:6px auto 0;font-size:10.5px;color:#5a5a5a;line-height:1.65;">
-    Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+    Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
   </div>
   <div style="display:flex;gap:14px;justify-content:center;font-size:11px;flex-wrap:wrap;">
     <a href="/about" style="color:#666;">About</a>

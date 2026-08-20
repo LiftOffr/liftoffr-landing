@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -19,13 +58,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
   window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,6 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .footer-links a { color: #666; text-decoration: none; }
   .footer-links a:hover { color: var(--red); }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -71,7 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1>Privacy Policy</h1>
   <div class="updated">Last updated: May 22, 2026</div>
 
-  <p>LiftOffr ("we," "us") is operated by Torin Christianson. This policy explains what data we collect, how it's used, and your choices.</p>
+  <p>LiftOffr ("we," "us") is operated by <strong>LiftOffr LLC</strong>, a Montana limited liability company whose sole member is Torin Christianson. This policy explains what data we collect, how it's used, and your choices.</p>
 
   <h2>1. What we collect</h2>
   <ul>
@@ -114,7 +149,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <p>LiftOffr is not intended for users under 18. We do not knowingly collect data from minors.</p>
 
   <h2>7. International users</h2>
-  <p>LiftOffr is operated from the United States. By using the site or signing up, you consent to your data being processed in the US. EU/UK residents have rights under GDPR (access, rectification, erasure, portability) — exercise them by emailing <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a>.</p>
+  <p>LiftOffr LLC is a Montana limited liability company operating from the United States. By using the site or signing up, you consent to your data being processed in the US. EU/UK residents have rights under GDPR (access, rectification, erasure, portability) — exercise them by emailing <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a>.</p>
+
+  <h2>7a. California residents (CCPA/CPRA)</h2>
+  <!-- Added 2026-08-20. GDPR was addressed and CCPA/CPRA was not, despite GA4, GTM and
+       Microsoft Clarity all firing and Clarity recording sessions. -->
+  <p>If you are a California resident, the California Consumer Privacy Act as amended by the CPRA gives you the right to know what personal information we collect and why, to request a copy of it, to request its deletion, to correct inaccurate information, and to not be discriminated against for exercising any of these rights. Exercise any of them by emailing <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a> from the address on file; we will respond within 45 days.</p>
+  <p><strong>We do not sell your personal information and we do not share it for cross-context behavioural advertising</strong>, as those terms are defined by the CPRA. We have not done so in the preceding twelve months. The categories we collect are identifiers (email address, and IP address via analytics), internet activity (pages viewed, session recordings via Microsoft Clarity), and commerce information (purchases, which are processed and held by Whop). We do not knowingly collect the personal information of anyone under 18.</p>
+
+  <h2>7b. Cookies and session recording</h2>
+  <p>The site loads Google Analytics 4, Google Tag Manager and Microsoft Clarity. <strong>Clarity records session replays</strong>, which can include mouse movement, scrolling and clicks on this site. None of these are required for the site to work. A consent banner is shown on your first visit and you can decline non-essential analytics there; declining stops GA4, GTM and Clarity from loading. You can change your choice at any time by clearing this site's storage in your browser, which will bring the banner back.</p>
 
   <h2>8. Changes</h2>
   <p>If we update this policy, we'll change the "last updated" date above and, for material changes, notify subscribers by email.</p>
@@ -130,6 +174,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/faq">FAQ</a>
     <span>·</span>
     <a href="/terms">Terms</a>
+    <span>·</span>
+    <a href="/disclaimer">Disclaimer</a>
   </div>
 </div>
 </body>

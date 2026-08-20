@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -50,13 +89,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   },{passive:true});
 </script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <script defer src="/_vercel/insights/script.js"></script>
 
 <style>
@@ -329,6 +363,7 @@ footer {
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- PROOF NAV (action #15) — four pages, one record. /receipts is canonical;
@@ -367,7 +402,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p style="font-size:13px;color:#777;margin-top:12px;">Signal dates and prices: the LiftOffr Score log at /receipts · Indicator readings: cbbi.info, LookIntoBitcoin, Glassnode, alternative.me</p>
   <div style="max-width:660px;margin:22px auto 0;padding:16px 18px;background:#0d0d0d;border:1px solid #2a1f1f;border-left:3px solid var(--red);border-radius:10px;text-align:left;">
     <div style="font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Corrected 20 Aug 2026</div>
-    <p style="font-size:14px;color:#bdbdbd;line-height:1.7;margin:0;">This page used to claim &ldquo;four cycle tops, the composite flagged all four,&rdquo; with a table underneath that credited three of those four exits to <em>Pi Cycle alone</em> &mdash; the single indicator this page exists to argue against &mdash; and no row at all for 2025. It also argued that Fear &amp; Greed and Google Trends &ldquo;missed&rdquo; the 2025 top. Those two carry <strong style="color:#fff;">zero weight</strong> in the Score, so they could not have missed anything it relies on. All of that is rebuilt below from the signal log. Where this page and <a href="/indicator-history" style="color:#e9e9e9;">/indicator-history</a> disagreed on a reading, /indicator-history now governs and the value here is shown as the approximation it always was.</p>
+    <p style="font-size:14px;color:#bdbdbd;line-height:1.7;margin:0;">This page used to claim &ldquo;four cycle tops, the composite flagged all four,&rdquo; with a table underneath that credited three of those four exits to <em>Pi Cycle alone</em> &mdash; the single indicator this page exists to argue against &mdash; and no row at all for 2025. It also argued that Fear &amp; Greed and Google Trends &ldquo;missed&rdquo; the 2025 top. Those two carry <strong style="color:#fff;">zero weight</strong> in the Score, so they could not have missed anything it relies on. All of that is rebuilt below from the signal log. Where this page and <a href="/indicator-history" style="color:#e9e9e9;">/indicator-history</a> disagreed on a reading, /indicator-history now governs and the value here is shown as the approximation it always was. Three different 2013 peak prices were also live across the site ($1,150, ~$1,163 and $1,119); one basis is now used everywhere. <strong style="color:#fff;">Cycle peaks and bottoms on this page are intraday highs and lows. Signal prices are CBBI daily closes, because that is the series the Score runs on.</strong> The two differ and saying which is which is the difference between a rounding note and a discrepancy.</p>
   </div>
 </div>
 
@@ -456,7 +491,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div style="text-align:center;margin-bottom:52px;">
     <div class="section-label">Case files</div>
     <h2>What the data showed<br><em>at every peak.</em></h2>
-    <p style="color:#666;font-size:15px;max-width:520px;margin:0 auto;">Indicator readings at or within one week of each cycle top. Every threshold is independently documented and publicly verifiable.</p>
+    <p style="color:#666;font-size:15px;max-width:560px;margin:0 auto 16px;">Indicator readings at or within one week of each cycle top. Every threshold is independently documented and publicly verifiable.</p>
+    <p style="color:#8a8a8a;font-size:13.5px;max-width:620px;margin:0 auto;line-height:1.7;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:10px;padding:14px 16px;text-align:left;">
+      <strong style="color:#ccc;">Two things to hold while you read these.</strong> The &ldquo;confluence at N of 6&rdquo; counts in the timelines are a legacy heuristic &mdash; a hand count of how many of these six indicators were in their own top zones. <strong style="color:#ccc;">That is not the LiftOffr Score</strong>, which is a weighted average of nine components with published weights and a single 0&ndash;100 output. Where the two disagree, the Score is the product and the count is background. And the readings themselves are approximations that vary by data source and by which day you call &ldquo;the top&rdquo;; every value here now matches <a href="/indicator-history" style="color:#ff6b76;">/indicator-history</a>, which is the page that owns them.
+    </p>
   </div>
 
   <!-- 2013 -->
@@ -464,7 +502,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="case-header">
       <div class="case-year-badge">
         <span class="case-year">2013</span>
-        <span class="case-title">BTC Peak — $1,150 &nbsp;·&nbsp; Nov 29, 2013</span>
+        <span class="case-title">BTC Peak — $1,163 &nbsp;·&nbsp; Nov 30, 2013</span>
       </div>
       <span class="case-result-badge">✓ Signals hit threshold within 2 weeks of the peak</span>
     </div>
@@ -474,13 +512,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="case-section-label">Indicator readings at top</div>
           <div class="ind-row">
             <span class="ind-name">MVRV Z-Score</span>
-            <span class="ind-val">9.6</span>
+            <span class="ind-val">~9&ndash;10</span>
             <span class="ind-badge red">Top zone ≥7</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">CBBI Confidence</span>
-            <span class="ind-val">0.95</span>
-            <span class="ind-badge red">Top zone ≥0.85</span>
+            <span class="ind-val">~0.96</span>
+            <span class="ind-badge red">Top zone ≥0.85 · 0% weight, data source only</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Pi Cycle Top</span>
@@ -489,7 +527,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="ind-row">
             <span class="ind-name">Puell Multiple</span>
-            <span class="ind-val">~8×</span>
+            <span class="ind-val">~10&ndash;12×</span>
             <span class="ind-badge red">Top zone ≥4×</span>
           </div>
           <div class="ind-row">
@@ -511,11 +549,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="tl-event">
               <div class="tl-dot top"></div>
-              <div><span class="tl-label">Nov 29, 2013</span><span class="tl-val">BTC peaks at $1,150</span></div>
+              <div><span class="tl-label">Nov 29, 2013</span><span class="tl-val">BTC peaks at $1,163 (intraday high; $1,119 on the CBBI daily close)</span></div>
             </div>
             <div class="tl-event">
               <div class="tl-dot drop"></div>
-              <div><span class="tl-label">Jan 2015</span><span class="tl-val">BTC bottoms at $152 — 87% below the $1,150 top</span></div>
+              <div><span class="tl-label">Jan 2015</span><span class="tl-val">BTC bottoms at $176 on 14 Jan 2015 — 85% below the intraday top</span></div>
             </div>
           </div>
         </div>
@@ -523,7 +561,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="case-outcome">
         <div class="case-outcome-icon">📊</div>
         <div class="case-outcome-text">
-          <strong>What the Score itself did:</strong> it crossed into the exit zone on <strong>21 Nov 2013 at $721</strong>, four days before the $1,150 peak. Bitcoin was <strong>32.0% lower</strong> 180 days later. The Pi Cycle cross on 18 Nov is one 10%-weighted component of that crossing, not the signal itself &mdash; the old version of this page credited the whole exit to Pi Cycle, which is not what the model does. No &ldquo;drawdown avoided&rdquo; figure is quoted, because that number assumes a full sale at the crossing and no re-entry, which is neither the plan nor what happened.
+          <strong>What the Score itself did:</strong> it crossed into the exit zone on <strong>21 Nov 2013 at $721</strong>, nine days before the $1,163 peak. Bitcoin was <strong>32.0% lower</strong> 180 days later. The Pi Cycle cross on 18 Nov is one 10%-weighted component of that crossing, not the signal itself &mdash; the old version of this page credited the whole exit to Pi Cycle, which is not what the model does. No &ldquo;drawdown avoided&rdquo; figure is quoted, because that number assumes a full sale at the crossing and no re-entry, which is neither the plan nor what happened.
         </div>
       </div>
     </div>
@@ -544,23 +582,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="case-section-label">Indicator readings at top</div>
           <div class="ind-row">
             <span class="ind-name">MVRV Z-Score</span>
-            <span class="ind-val">9.7</span>
-            <span class="ind-badge red">Top zone ≥7 — cycle high</span>
+            <span class="ind-val">~8&ndash;9</span>
+            <span class="ind-badge red">Top zone ≥7</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">CBBI Confidence</span>
-            <span class="ind-val">0.97</span>
-            <span class="ind-badge red">Highest ever recorded</span>
+            <span class="ind-val">~0.97</span>
+            <span class="ind-badge red">Highest ever recorded · 0% weight, data source only</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Pi Cycle Top</span>
-            <span class="ind-val">Crossed Dec 14</span>
-            <span class="ind-badge red">3 days before top</span>
+            <span class="ind-val">Fired Dec 17</span>
+            <span class="ind-badge red">On the day of the top</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Puell Multiple</span>
-            <span class="ind-val">~10×</span>
-            <span class="ind-badge red">Highest ever recorded</span>
+            <span class="ind-val">~8&ndash;10×</span>
+            <span class="ind-badge red">Top zone ≥4×</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Rainbow Band</span>
@@ -568,9 +606,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="ind-badge red">Band 9 — top tier</span>
           </div>
           <div class="ind-row">
-            <span class="ind-name">Fear &amp; Greed</span>
-            <span class="ind-val">~95</span>
-            <span class="ind-badge red">Extreme Greed ≥80</span>
+            <span class="ind-name">Fear &amp; Greed <span style="font-size:10px;color:#777;">0% weight</span></span>
+            <span class="ind-val">N/A</span>
+            <span class="ind-badge">Index launched 1 Feb 2018 — no Dec 2017 reading</span>
           </div>
         </div>
         <div>
@@ -590,11 +628,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="tl-event">
               <div class="tl-dot top"></div>
-              <div><span class="tl-label">Dec 17, 2017</span><span class="tl-val">BTC peaks at $19,783</span></div>
+              <div><span class="tl-label">Dec 17, 2017</span><span class="tl-val">BTC peaks at $19,783 (intraday high; $19,250 on the CBBI daily close)</span></div>
             </div>
             <div class="tl-event">
               <div class="tl-dot drop"></div>
-              <div><span class="tl-label">Dec 2018</span><span class="tl-val">BTC bottoms at $3,122 — 84% below the $19,783 top</span></div>
+              <div><span class="tl-label">Dec 2018</span><span class="tl-val">BTC bottoms at $3,185 on 15 Dec 2018 — 84% below the intraday top</span></div>
             </div>
           </div>
         </div>
@@ -623,13 +661,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="case-section-label">Indicator readings at top</div>
           <div class="ind-row">
             <span class="ind-name">MVRV Z-Score</span>
-            <span class="ind-val">8.0</span>
+            <span class="ind-val">~7.5&ndash;8</span>
             <span class="ind-badge red">Top zone ≥7</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">CBBI Confidence</span>
-            <span class="ind-val">0.91</span>
-            <span class="ind-badge red">Top zone ≥0.85</span>
+            <span class="ind-val">~0.95</span>
+            <span class="ind-badge red">Top zone ≥0.85 · 0% weight, data source only</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Pi Cycle Top</span>
@@ -638,18 +676,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="ind-row">
             <span class="ind-name">Puell Multiple</span>
-            <span class="ind-val">3.5×</span>
+            <span class="ind-val">~5&ndash;6×</span>
             <span class="ind-badge orange">Elevated — below top threshold</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Rainbow Band</span>
-            <span class="ind-val">Sell. Seriously, SELL!</span>
-            <span class="ind-badge red">Band 8 — top zone</span>
+            <span class="ind-val">Dark orange / red</span>
+            <span class="ind-badge orange">Partial — did not reach the top band</span>
           </div>
           <div class="ind-row">
-            <span class="ind-name">Fear &amp; Greed</span>
+            <span class="ind-name">Fear &amp; Greed <span style="font-size:10px;color:#777;">0% weight</span></span>
             <span class="ind-val">~77</span>
-            <span class="ind-badge orange">Extreme Greed zone</span>
+            <span class="ind-badge">Greed, not Extreme Greed — below this page's own threshold</span>
           </div>
         </div>
         <div>
@@ -702,12 +740,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="case-section-label">Indicator readings at top</div>
           <div class="ind-row">
             <span class="ind-name">MVRV Z-Score</span>
-            <span class="ind-val">7.5</span>
+            <span class="ind-val">~5.5</span>
             <span class="ind-badge red">Top zone ≥7</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">CBBI Confidence</span>
-            <span class="ind-val">0.88</span>
+            <span class="ind-val">~0.95</span>
             <span class="ind-badge red">Top zone ≥0.85</span>
           </div>
           <div class="ind-row">
@@ -717,18 +755,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
           <div class="ind-row">
             <span class="ind-name">Puell Multiple</span>
-            <span class="ind-val">2.8×</span>
+            <span class="ind-val">~5&ndash;6× (April peak); lower into November</span>
             <span class="ind-badge orange">Elevated — below top threshold</span>
           </div>
           <div class="ind-row">
             <span class="ind-name">Rainbow Band</span>
-            <span class="ind-val">Sell. Seriously, SELL!</span>
-            <span class="ind-badge red">Band 8 — top zone</span>
+            <span class="ind-val">Dark orange / red</span>
+            <span class="ind-badge orange">Partial — did not reach the top band</span>
           </div>
           <div class="ind-row">
-            <span class="ind-name">Fear &amp; Greed</span>
+            <span class="ind-name">Fear &amp; Greed <span style="font-size:10px;color:#777;">0% weight</span></span>
             <span class="ind-val">~76</span>
-            <span class="ind-badge orange">Extreme Greed zone</span>
+            <span class="ind-badge">Greed, not Extreme Greed — below this page's own threshold</span>
           </div>
         </div>
         <div>
@@ -744,15 +782,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="tl-event">
               <div class="tl-dot signal"></div>
-              <div><span class="tl-label">Nov 8, 2021</span><span class="tl-val">Rainbow enters "Sell. Seriously, SELL!" — 3/6</span></div>
+              <div><span class="tl-label">Nov 8, 2021</span><span class="tl-val">Rainbow reaches dark orange / red — partial, not the top band</span></div>
             </div>
             <div class="tl-event">
               <div class="tl-dot top"></div>
-              <div><span class="tl-label">Nov 10, 2021</span><span class="tl-val">BTC peaks at $69,044</span></div>
+              <div><span class="tl-label">Nov 10, 2021</span><span class="tl-val">BTC peaks at $69,044 (intraday high; $64,756 on the CBBI daily close)</span></div>
             </div>
             <div class="tl-event">
               <div class="tl-dot drop"></div>
-              <div><span class="tl-label">Nov 2022</span><span class="tl-val">BTC bottoms at $15,742 (−77% from top)</span></div>
+              <div><span class="tl-label">Nov 2022</span><span class="tl-val">BTC bottoms at $15,778 on 21 Nov 2022 — 77% below the intraday top</span></div>
             </div>
           </div>
         </div>
@@ -808,7 +846,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <span class="ind-badge orange">Elevated — below maximum bubble</span>
           </div>
           <div class="ind-row">
-            <span class="ind-name">Fear &amp; Greed</span>
+            <span class="ind-name">Fear &amp; Greed <span style="font-size:10px;color:#777;">0% weight</span></span>
             <span class="ind-val">71</span>
             <span class="ind-badge orange">"Greed" — never hit Extreme Greed at peak</span>
           </div>
@@ -834,7 +872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="tl-event">
               <div class="tl-dot drop"></div>
-              <div><span class="tl-label">Feb 2026</span><span class="tl-val">BTC trades at $67,550 (−46% from top, bear phase confirmed)</span></div>
+              <div><span class="tl-label">Feb 2026</span><span class="tl-val">BTC trades at $67,550 &mdash; 46% below the Oct 2025 top, as of that date</span></div>
             </div>
           </div>
         </div>
@@ -842,11 +880,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="case-outcome">
         <div class="case-outcome-icon">📊</div>
         <div class="case-outcome-text">
-          The 2025 top is the strongest case yet for confluence. Pi Cycle never crossed. Fear &amp; Greed never hit Extreme Greed. Google Trends stayed below 2021 levels. Three of the most-cited "cycle top" indicators all individually failed to flag the top. But the composite framework — CBBI 0.94, MVRV / Puell / NUPL / 2YMA / Reserve Risk all in top zone — caught the cycle peak weeks before the October ATH.
+          <strong>What the Score itself did:</strong> it crossed into the exit zone on <strong>27 Jun 2025 at $107,091</strong> and was still above the 85 threshold when Bitcoin peaked at $124,824 on 6 October. It left the zone on <strong>21 Oct 2025 at $108,700</strong> &mdash; fifteen days after the peak. At 180 days that June crossing was <strong>&minus;18.2%</strong>.<br><br>
+          Pi Cycle, a 10% component, never crossed in this cycle; MVRV, Puell, RUPL, 2YMA and Reserve Risk were all elevated, and the weighted number stayed in the exit band regardless. <strong>That is a claim about the Score being robust to one component going quiet. It is not a claim that it called the top.</strong> Fear &amp; Greed and Google Trends are cited on this page as context only &mdash; both carry zero weight, so neither could have failed the model.
         </div>
       </div>
       <div class="case-note">
-        <strong>Why this matters:</strong> Institutional-driven cycles can top without retail euphoria. Anyone using only price-based signals (Pi Cycle) or pure sentiment (F&amp;G ≥ 90) would have missed this top entirely. The nine-indicator weighted Score is the same system tracked every day in the LiftOffr daily brief.
+        <strong>Why this matters:</strong> a cycle can top without retail euphoria, so anyone reading one price signal (Pi Cycle) or one sentiment gauge would have had nothing to act on. A weighted composite still produced a number. What it did not produce was a date &mdash; it crossed the exit threshold six times between November 2024 and October 2025, and the ladder exists because of that, not in spite of it. The same Score is published every morning in the daily brief and recomputable by anyone from <a href="/indicators" style="color:#ff6b76;">the nine published weights</a>.
       </div>
     </div>
   </div>
@@ -882,7 +921,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <td class="dd-saved">-17.2%</td>
 <td class="dd-saved">-13.5%</td>
 <td class="dd-saved">-32.0%</td>
-          <td style="font-size:12.5px;color:#8a8a8a;">4 days before the $1,150 top</td>
+          <td style="font-size:12.5px;color:#8a8a8a;">9 days before the $1,163 top</td>
         </tr>
         <tr>
           <td>2017</td>
@@ -1018,7 +1057,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- STANDARD FOOTER DISCLOSURE — identical wording on every page. This is the
        site-wide disclosure surface; body copy sells. Keep verbatim. -->
   <div style="max-width:680px;margin:6px auto 0;font-size:10.5px;color:#5a5a5a;line-height:1.65;">
-    Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+    Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
   </div>
   <div style="display:flex;gap:14px;font-size:11px;flex-wrap:wrap;">
     <a href="/" style="color:#666;">Home</a>

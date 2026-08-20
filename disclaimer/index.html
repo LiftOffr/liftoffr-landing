@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K5B4BX46');</script>
+<!-- End Google Tag Manager -->
+
+<!-- GA4 + Clarity -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
+  window.track = track;
+</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disclaimer — LiftOffr</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="LiftOffr's income, performance and advice disclaimers. Results are not typical, no outcome is guaranteed, every dated signal is a backtest, and nothing published is personalised to you.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://liftoffr.com/disclaimer">
+<meta name="theme-color" content="#e63946">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --red: #e63946; --bg: #080808; --border: #1e1e1e; --text: #fff; --muted: #777; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.7; padding: 48px 20px 80px; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .back { display: inline-block; color: var(--muted); font-size: 13px; text-decoration: none; margin-bottom: 24px; }
+  .back:hover { color: var(--red); }
+  .eyebrow { font-size: 11px; color: var(--red); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-size: 34px; font-weight: 900; letter-spacing: -1px; line-height: 1.2; margin-bottom: 10px; }
+  .updated { color: var(--muted); font-size: 13px; margin-bottom: 32px; }
+  h2 { font-size: 20px; font-weight: 800; margin-top: 36px; margin-bottom: 12px; letter-spacing: -0.3px; }
+  p, ul { color: #cfcfcf; font-size: 15.5px; margin-bottom: 14px; }
+  ul { margin-left: 22px; }
+  ul li { margin-bottom: 6px; }
+  a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+  .footer-links { margin-top: 60px; text-align: center; font-size: 12px; color: #555; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .footer-links a { color: #666; text-decoration: none; }
+  .footer-links a:hover { color: var(--red); }
+  strong { color: #fff; }
+</style>
+<script defer src="/js/consent.js?v=20260820"></script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="wrap">
+  <a href="/" class="back">&larr; LiftOffr home</a>
+  <div class="eyebrow">Legal</div>
+  <h1>Disclaimer</h1>
+  <div class="updated">Last updated: August 20, 2026</div>
+
+  <p>This page exists because <code>/disclaimer</code> and <code>/legal</code> used to return 404 while the site made performance claims on nine other pages. Everything below is stated once, plainly, and it governs every LiftOffr surface: the website, the emails, the Discord, the Whop listings and any social post.</p>
+
+  <h2>1. LiftOffr is education. It is not investment advice.</h2>
+  <p><strong>Torin Christianson is not a registered investment adviser, broker-dealer, or financial planner, and LiftOffr LLC is not a registered investment advisory firm.</strong> Nothing published by LiftOffr is a recommendation to buy or sell any asset, and <strong>nothing is personalised to you.</strong> We do not know your income, your holdings, your tax position, your time horizon or your risk tolerance, and we do not ask. If you want advice about your own situation, speak to someone licensed to give it.</p>
+  <p>LiftOffr publishes a general-circulation framework and its outputs. It is not a signal service. There are no alerts, no entries, no exits, no targets, no tickers, and no &ldquo;I&rsquo;m buying now&rdquo; messages, in any channel, free or paid.</p>
+
+  <h2>2. Results are not typical. There are no typical results.</h2>
+  <p><strong>LiftOffr does not publish an average customer result, because it does not have one.</strong> No customer outcome data has been collected, and until it has been, no figure will be presented as typical or achievable. Any testimonial that ever appears on this site will carry its own typicality label and will not be published without the result on file and the writer&rsquo;s written permission.</p>
+  <p><strong>You should assume you will not make money.</strong> Cryptocurrency carries significant risk, including total loss of principal. Most people who buy educational material about markets do not go on to profit from it.</p>
+
+  <h2>3. No guarantee of income or results</h2>
+  <p>LiftOffr makes no promise, guarantee or representation about earnings, profit, returns, or any other financial outcome. <strong>No one can guarantee you will make money in any market, and anyone who tells you otherwise is not being straight with you.</strong> We will never tell you what you will make, because we do not know.</p>
+
+  <h2>4. Past performance, and what &ldquo;the record&rdquo; actually is</h2>
+  <p><strong>Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data. It is a backtest, not a record of trades placed or calls published at the time.</strong> The formula did not exist for most of the period it is measured against. No person and no customer of LiftOffr acted on those signals when they printed, because they did not print &mdash; they were reconstructed afterwards.</p>
+  <p>Backtests are hypothetical. They exclude taxes, exchange fees, slippage, and the behaviour of a real person on a bad day. Past performance &mdash; ours, anyone&rsquo;s, or any indicator&rsquo;s &mdash; does not predict future results.</p>
+  <p>The complete record is published at <a href="/receipts">/receipts</a>: all 64 zone crossings the Score has produced between 23 September 2011 and 30 November 2025, including every one that went the wrong way. Scored directionally, the model was right about direction on 21 of 46 directional crossings at 30 days, 21 of 46 at 90 days, and 25 of 46 at 180 days. <strong>That is close to a coin flip on a short horizon and it is not published as a win rate, an accuracy figure, or a hit rate.</strong> It is a multi-month cycle-zone tool and a 30-day directional test is a poor proxy for what it is built to do.</p>
+
+  <h2>5. Forward-looking statements</h2>
+  <p>Anything on this site describing what the market might do, what a zone has historically meant, or where a cycle might be in its arc is a forward-looking statement based on assumptions that may prove wrong. Words like &ldquo;expect,&rdquo; &ldquo;historically,&rdquo; &ldquo;typically&rdquo; and &ldquo;the model reads&rdquo; describe conditions, not outcomes. Actual results will differ, possibly by a lot.</p>
+
+  <h2>6. This is an educational product, not a business opportunity</h2>
+  <p>LiftOffr sells written material and access to a discussion community. <strong>It is not a business opportunity, a franchise, an investment, a money-making system, or a path to income.</strong> There is no affiliate programme, no recruitment, no downline, and nothing you can resell. Buying a LiftOffr product does not entitle you to any share of anything.</p>
+
+  <h2>7. No third-party compensation</h2>
+  <p>LiftOffr takes no payment from exchanges, token projects, wallets, or any other third party for coverage, placement, or mention. Every outbound tool link on <a href="/stack">/stack</a> is a direct link and is labelled with its commission status. If that ever changes, the change will be disclosed on the link itself before it is disclosed anywhere else.</p>
+
+  <h2>8. 18+ only</h2>
+  <p><strong>LiftOffr is for adults aged 18 or over.</strong> Do not use the site, join the Discord, subscribe to any email, or buy any product if you are under 18.</p>
+
+  <h2>9. Corrections</h2>
+  <p>Where LiftOffr has published something that turned out to be wrong, the correction is made on the page itself and the original claim is described rather than quietly deleted. See the correction notice at the top of <a href="/proof">/proof</a> and the notes on <a href="/indicator-history">/indicator-history</a> and <a href="/track-record">/track-record</a>. If you find something on this site that does not hold up, email <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a> &mdash; that is a genuine request, not a formality.</p>
+
+  <h2>10. Contact</h2>
+  <!-- TORIN: fill in the Montana registered address here, on /terms, and in the
+       LIFTOFFR_MAILING_ADDRESS env var, all with the identical string. -->
+  <p>LiftOffr LLC, a Montana limited liability company &middot; [MONTANA REGISTERED ADDRESS &mdash; TO BE FILLED IN] &middot; <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a></p>
+
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <span>&middot;</span>
+    <a href="/about">About</a>
+    <span>&middot;</span>
+    <a href="/faq">FAQ</a>
+    <span>&middot;</span>
+    <a href="/terms">Terms</a>
+    <span>&middot;</span>
+    <a href="/privacy">Privacy</a>
+  </div>
+</div>
+</body>
+</html>

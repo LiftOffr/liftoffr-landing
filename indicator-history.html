@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -92,13 +131,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -364,6 +398,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- PROOF NAV (action #15) — four pages, one record. /receipts is canonical;
@@ -437,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cycle-header">
       <span class="cycle-year">2013</span>
       <span class="cycle-date">November–December 2013</span>
-      <span class="cycle-price">Peak: ~$1,163</span>
+      <span class="cycle-price">Peak: $1,163 &middot; Nov 30, 2013</span>
     </div>
     <p class="cycle-note">Bitcoin's first major parabolic cycle. Most modern on-chain tools use 2013 data retroactively — readings are reconstructed, not real-time. The cycle featured two peaks (April and November), with November being the final top.</p>
 
@@ -509,7 +544,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cycle-header">
       <span class="cycle-year">2017</span>
       <span class="cycle-date">December 17, 2017</span>
-      <span class="cycle-price">Peak: ~$19,783</span>
+      <span class="cycle-price">Peak: $19,783 &middot; Dec 17, 2017</span>
     </div>
     <p class="cycle-note">The first mainstream Bitcoin cycle. Pi Cycle fired on December 17, 2017 — the exact day of the top. MVRV and Puell reached historic extremes. Google Trends hit 100 (peak search interest) in the same week.</p>
 
@@ -581,7 +616,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cycle-header">
       <span class="cycle-year">2021</span>
       <span class="cycle-date">Two peaks: April 14 &amp; November 10</span>
-      <span class="cycle-price">Peak: ~$69,044</span>
+      <span class="cycle-price">Peak: $69,044 &middot; Nov 10, 2021</span>
     </div>
     <p class="cycle-note">The 2021 cycle had two distinct tops — one on-chain (April) and one price-based (November). Pi Cycle fired April 12, two days before the April peak, then never fired again before the November top. This is why the Score weights nine components rather than trusting one: no single signal had the full picture.</p>
 
@@ -852,7 +887,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

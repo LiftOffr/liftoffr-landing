@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -238,19 +277,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -402,7 +437,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <h2>4. LiftOffr Thresholds: How We Use the Index</h2>
 
-        <p>At LiftOffr, we track eight indicators in confluence to build a complete picture of where Bitcoin is in its cycle. Fear &amp; Greed is one of them — specifically as the sentiment layer. Here are the thresholds that matter to us:</p>
+        <p>At LiftOffr the Score weights nine components to build a complete picture of where Bitcoin is in its cycle. Fear &amp; Greed is one of them — specifically as the sentiment layer. Here are the thresholds that matter to us:</p>
 
         <h3>90+ — Elevated Caution Signal</h3>
 
@@ -432,7 +467,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <h2>6. How It Fits Into the 8-Indicator Confluence System</h2>
 
-        <p>LiftOffr tracks eight indicators across two categories: on-chain supply and demand metrics, and sentiment overlays. Fear &amp; Greed sits firmly in the sentiment overlay category. Its role is to tell us <em>how the crowd is positioned</em>, not <em>what the underlying Bitcoin market structure looks like</em>.</p>
+        <p>The Fear &amp; Greed Index carries <strong>zero weight</strong> in the LiftOffr Score and is written about here as context only. The Score weights nine on-chain and market components: RHODL Ratio (20%), Puell Multiple (20%), Trolololo (15%), MVRV Z-Score (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull Top Cap (5%) and RUPL (5%). Sentiment overlays. Fear &amp; Greed sits firmly in the sentiment overlay category. Its role is to tell us <em>how the crowd is positioned</em>, not <em>what the underlying Bitcoin market structure looks like</em>.</p>
 
         <p>On-chain metrics — like MVRV (which compares market value to realized value), exchange inflows and outflows, and miner behavior — tell you what holders are actually doing with their coins. These are ground-truth signals derived from immutable blockchain data. Sentiment indicators like Fear &amp; Greed tell you what the crowd is thinking and feeling, which is relevant but separable.</p>
 
@@ -478,7 +513,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         
         <div class="related-indicators" style="margin:32px 0 24px;padding:24px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;">
-            <h3 style="font-size:18px;color:#fff;margin:0 0 10px;font-weight:800;">The other 7 indicators in the LiftOffr confluence system</h3>
+            <h3 style="font-size:18px;color:#fff;margin:0 0 10px;font-weight:800;">The other weighted components in the LiftOffr Score</h3>
             <p style="color:#999;font-size:14px;margin:0 0 16px;">No single indicator is reliable on its own. When 5+ of these line up simultaneously, history says the cycle is near peak.</p>
             <ul style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;">
               <li><a href="/blog/cbbi-bitcoin-indicator"><strong>CBBI</strong> — The composite cycle-top index. Combines 11 on-chain + market metrics into one 0–100 score.</a></li>
@@ -493,7 +528,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
 
         <div class="cta-box">
-            <h3>Track All 8 Indicators in One Daily Brief</h3>
+            <h3>Track All Nine Weighted Components in One Daily Brief</h3>
             <p>Fear &amp; Greed is just one of the eight signals LiftOffr monitors every day. Each morning at 8am MT, members receive a plain-English confluence read that synthesizes sentiment, on-chain data, and cycle timing into one clear verdict.</p>
             <p><a href="/plan"><strong>My exact bear market buy plan — $29, once.</strong></a></p>
             <p>What that actually means:</p>
@@ -565,7 +600,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

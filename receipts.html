@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#e63946">
-<title>LiftOffr — Every Signal, Dated (15-Year Record)</title>
+<title>LiftOffr — Every Signal, Dated (2011–2025 Record)</title>
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Every signal the LiftOffr Score has produced across 15 years of Bitcoin — 64 dated zone crossings with the actual 30/90/180-day outcome beside each, all reproducible from public data.">
+<meta name="description" content="Every signal the LiftOffr Score has produced from Sep 2011 to Nov 2025 — 64 dated zone crossings with the actual 30/90/180-day outcome beside each, all reproducible from public data.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://liftoffr.com/receipts">
 
@@ -16,15 +16,54 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="LiftOffr">
 <meta property="og:url" content="https://liftoffr.com/receipts">
-<meta property="og:title" content="Every signal, dated. 15 years of them.">
+<meta property="og:title" content="Every signal, dated. All 64 of them.">
 <meta property="og:description" content="Every zone crossing the LiftOffr Score has produced across full BTC history, with the actual +30/90/180-day outcome next to each one — reproducible from free public data.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Every signal, dated. 15 years of them.">
+<meta name="twitter:title" content="Every signal, dated. All 64 of them.">
 <meta name="twitter:description" content="Every zone crossing across full BTC history, with the actual outcome next to each one.">
 <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
+
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -50,13 +89,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -117,6 +151,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
   .wrap{padding:18px 14px 60px}
 }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- PROOF NAV (action #15) — four pages, one record. /receipts is canonical;
@@ -149,7 +184,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <span class="tag">Every signal · 2011 &rarr; today</span>
     <h1>Most people show you their <em>wins</em>. Here are all 64.</h1>
     <p class="sub">Every zone crossing the LiftOffr Score has ever produced, with the date and what Bitcoin
-    actually did 30, 90 and 180 days later beside each one. Fifteen years, nothing omitted.</p>
+    actually did 30, 90 and 180 days later beside each one. Sep 2011 to Nov 2025, nothing omitted.</p>
   </header>
 
   <div class="notice">
@@ -934,7 +969,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 <script>
 // Fills the "Score today" tile from the live endpoint so this page cannot drift out

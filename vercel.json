@@ -58,6 +58,11 @@
       "permanent": false
     },
     {
+      "source": "/legal",
+      "destination": "/disclaimer",
+      "permanent": false
+    },
+    {
       "source": "/checklist",
       "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_checklist",
       "permanent": false

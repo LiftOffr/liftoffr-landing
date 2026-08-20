@@ -224,4 +224,10 @@
     <priority>0.85</priority>
   </url>
   <!-- END generated:indicators -->
+  <url>
+    <loc>https://liftoffr.com/disclaimer</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

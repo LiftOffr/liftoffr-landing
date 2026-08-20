@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -19,13 +58,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
   window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,6 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .footer-links a:hover { color: var(--red); }
   strong { color: #fff; }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -72,7 +107,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h1>Terms of Service</h1>
   <div class="updated">Last updated: May 22, 2026</div>
 
-  <p>By using liftoffr.com, subscribing to free emails, or buying any LiftOffr product, you agree to these terms.</p>
+  <p>liftoffr.com and the LiftOffr products are operated by <strong>LiftOffr LLC</strong>, a Montana limited liability company (the &ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;), whose sole member is Torin Christianson. By using liftoffr.com, subscribing to free emails, or buying any LiftOffr product, you agree to these terms.</p>
+
+  <!-- TORIN: replace the bracketed address below with the LLC's Montana registered
+       address, and set the same string as LIFTOFFR_MAILING_ADDRESS in Vercel so the
+       email footers match. One entity name, one address, one jurisdiction, on every
+       surface a customer can see. A mismatch between the address on a storefront and
+       the address in a legal doc is on the FTC-adjacent red-flag list. -->
+  <p style="color:#888;font-size:14px;">LiftOffr LLC &middot; [MONTANA REGISTERED ADDRESS &mdash; TO BE FILLED IN] &middot; <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a></p>
+
+  <h2>0. Eligibility &mdash; 18+</h2>
+  <p><strong>LiftOffr is for adults aged 18 or over.</strong> You may not use the site, join the Discord, subscribe to any email, or purchase any product if you are under 18. If we learn that a member is under 18 we will remove the account and refund any purchase.</p>
 
   <h2>1. Educational content only — not financial advice</h2>
   <p><strong>LiftOffr is an educational community. Nothing we publish is financial, investment, tax, or legal advice.</strong> We teach frameworks, indicator interpretation, and risk-management discipline. You're responsible for your own decisions. Always do your own research.</p>
@@ -86,7 +131,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </ul>
 
   <h2>3. Refund policy</h2>
-  <p>Full refund within 30 days of purchase — no questions, no friction. Request via your Whop account or email <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a>. After 30 days, no refunds.</p>
+  <p>Ask inside 30 days and I refund it in full &mdash; message me on Whop or email <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a>, either works, no form and no reason needed. Nothing renews, so there is nothing to cancel. After 30 days, no refunds.</p>
 
   <h2>4. Intellectual property</h2>
   <p>All course material, indicator dashboards, briefs, frameworks, and content on liftoffr.com are owned by LiftOffr. You may use them for your own personal investing decisions. You may not republish, resell, or redistribute material — including reposting Discord briefs, screen-recording the course, or sharing your login credentials.</p>
@@ -110,8 +155,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h2>8. Changes</h2>
   <p>If we update these terms, we'll change the "last updated" date above. Material changes will be communicated by email to active subscribers and members.</p>
 
-  <h2>9. Governing law</h2>
-  <p>These terms are governed by the laws of the United States. Disputes will be resolved in good faith first; failing that, in the appropriate court of jurisdiction.</p>
+  <h2>9. Governing law and venue</h2>
+  <!-- The previous wording -- "governed by the laws of the United States", resolved "in
+       the appropriate court of jurisdiction" -- named no state and no venue, which makes
+       a choice-of-law clause unenforceable as drafted. Montana is used here because that
+       is where the LLC is formed. TORIN: confirm with counsel at the $500 revenue
+       trigger; if the entity's home state changes, change it here in the same edit. -->
+  <p>These terms are governed by the laws of the State of Montana, without regard to its conflict-of-laws rules. The parties will first attempt to resolve any dispute in good faith by email. Failing that, any dispute arising out of or relating to these terms or your use of LiftOffr will be brought exclusively in the state or federal courts located in Missoula County, Montana, and you consent to personal jurisdiction and venue there. Nothing in this section limits your right to bring a claim in small-claims court where one is available to you.</p>
 
   <h2>10. Contact</h2>
   <p>Questions: <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a></p>
@@ -124,6 +174,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/faq">FAQ</a>
     <span>·</span>
     <a href="/privacy">Privacy</a>
+    <span>·</span>
+    <a href="/disclaimer">Disclaimer</a>
   </div>
 </div>
 </body>
