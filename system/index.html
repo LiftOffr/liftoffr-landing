@@ -192,6 +192,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       first. If you own the $29 plan, your $29 counts toward it either way, before
       and after the window.
     </p>
+    <p class="muted" id="foundingHow">
+      <strong style="color:#d9a441;">How to get it:</strong> buy the
+      <a href="/plan" style="color:#d9a441;">$29 plan</a> and the founding link is on the
+      thank-you page and in your first email &mdash; or
+      <a href="/free" style="color:#d9a441;">join the free list</a> and it comes to you before
+      the window closes. There is deliberately no $147 button on this page: it is not offered
+      to cold traffic, so there is nothing here to click.
+    </p>
     <p class="muted">
       <strong style="color:#d9a441;">The date is the date.</strong> There's no countdown
       timer on this page and no "spots going fast" — September 7 was written down in
@@ -278,5 +286,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 <script src="/js/reviews.js" defer></script>
+<script>
+/* The founding-seat block states a fixed date. Once that date passes it becomes a
+   false scarcity claim on a page whose whole argument is that the date is real, so
+   it retires itself rather than waiting to be edited. */
+(function(){
+  var CLOSES = Date.UTC(2026, 8, 8); // 8 Sep 2026 00:00 UTC = end of 7 Sep
+  if (Date.now() < CLOSES) return;
+  document.querySelectorAll('.founding').forEach(function(e){ e.style.display = 'none'; });
+  var how = document.getElementById('foundingHow');
+  if (how) how.innerHTML = '<strong style="color:#d9a441;">The founding window closed on 7 September 2026,</strong> ' +
+    'as written. The price is $197. If you own the $29 plan it still credits toward it.';
+  var p = document.querySelector('.pricerow');
+  if (p) p.setAttribute('data-founding','closed');
+})();
+</script>
 </body>
 </html>

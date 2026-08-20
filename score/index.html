@@ -151,11 +151,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        worse than the bug. -->
   <div style="background:#0d0d0d;border:1px solid #2a1f1f;border-left:3px solid var(--red);border-radius:10px;padding:16px 18px;margin:26px 0 0;">
     <div style="font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Corrected 20 Aug 2026</div>
-    <p style="font-size:14px;color:#bdbdbd;line-height:1.7;margin:0;">This number went up today because I fixed a bug in my own code, and you should know
+    <p style="font-size:14px;color:#bdbdbd;line-height:1.7;margin:0;">This number went up on 20 August 2026 because I fixed a bug in my own code, and you should know
     what it was. When the data source publishes no reading for one of the nine on a
     given day, my code was treating that gap as a reading of <em>zero</em> and averaging
-    it in, instead of leaving it out. Today that understated the Score by
-    <strong style="color:#fff;">1.8 points &mdash; it read 34.5 when it should have read 36.3.</strong>
+    it in, instead of leaving it out. On 19 August that understated the Score by
+    <strong style="color:#fff;">1.8 points &mdash; it read 34.5 when it should have read 36.3. (The 34.4 quoted further
+      down is the same bug one day earlier, on 18 August, which is the date that recompute was run.)</strong>
     Anyone who pulled the data and recomputed it properly would have got a different
     number from mine and would have been right. A missing reading is now excluded and
     the divisor drops to match, which is what the table above shows.
@@ -186,7 +187,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li>Multiply each by its weight, add them together, then <strong style="color:#fff;">divide by the weights you actually used</strong> &mdash; that is 1.00 on a normal day, and less if CBBI published no reading for one of the nine. A missing reading is left out, never counted as a zero.</li>
     <li>You should land on the number at the top of this page.</li>
   </ol>
-  <p>Want to check my working rather than your own? <code>/api/cycle-score</code> returns every component, its weight and its reading as JSON. <a href="/api/cycle-score">Open it</a>. An outside recompute in August 2026 got 34.35 against a published <strong style="color:#fff;">34.4</strong> &mdash; and both of us were wrong by about 1.8 points, because we had each treated a missing reading as a reading of zero. Two people agreeing is not two people being right. That is why the offer below matters more than the match did.</p>
+  <p>Want to check my working rather than your own? <code>/api/cycle-score</code> returns every component, its weight and its reading as JSON. <a href="/api/cycle-score">Open it</a>. An outside recompute on 18 August 2026 got 34.35 against a published <strong style="color:#fff;">34.4</strong> &mdash; and both of us were wrong by about 1.8 points, because we had each treated a missing reading as a reading of zero. Two people agreeing is not two people being right. That is why the offer below matters more than the match did.</p>
   <p class="fine">If you run it and get a materially different number, tell me and I will fix it. That offer is the entire reason the weights are public.</p>
 
   <h2>The whole record, losers included</h2>
