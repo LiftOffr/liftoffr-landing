@@ -139,7 +139,7 @@ function plan3HTML() {
      </div>
      <p style="margin:0 0 16px;">Six. In twelve months. And the top was <strong>6 October 2025</strong> — which means the model was still inside the exit zone when it happened, and only left fifteen days later.</p>
      <p style="margin:0 0 16px;">I'm telling you this on day three rather than letting you discover it, because a threshold model whipsawing is not a bug you found. <strong>It is how threshold models behave, and it will happen again in the next cycle.</strong></p>
-     <p style="margin:0 0 16px;">The ladder in your document is built for exactly this. You act on a fraction at each crossing rather than all of it at one. You don't reverse on the way back. That's it, it's boring, and boring is the whole point — six crossings become six small decisions instead of six chances to panic.</p>
+     <p style="margin:0 0 16px;">The ladder in your document is built for exactly this. You act on a fraction at each crossing rather than all of it at once. You don't reverse on the way back. That's it, it's boring, and boring is the whole point — six crossings become six small decisions instead of six chances to panic.</p>
      <p style="margin:0 0 16px;">Every crossing above is in <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_receipts" style="color:#e63946;">the log</a>, along with the ones that went the wrong way.</p>
      <p style="margin:0 0 16px;">No pitch in this one either.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,

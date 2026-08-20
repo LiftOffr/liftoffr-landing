@@ -128,7 +128,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
    columns for the five cells it left visible, so Score and +90d vanished, +30d was
    clipped past the viewport and +180d wrapped onto a second line with no header --
    on the page the entire pitch rests on. Scrolling the table beats hiding evidence. */
-.ev-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ev-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;position:relative}
+/* At 375px only DATE and EVENT are visible at rest and every number sits behind a
+   horizontal scroll with nothing to indicate it. The hint below shows only when the
+   table actually overflows, and disappears once the reader has scrolled. */
+.ev-hint{display:none;font-size:11px;color:#7a7a7a;letter-spacing:.4px;padding:6px 0 2px;align-items:center;gap:6px}
+.ev-scroll.is-scrollable + .ev-hint,.ev-scroll.is-scrollable ~ .ev-hint{display:flex}
+.ev-scroll.scrolled ~ .ev-hint{display:none}
+@media(min-width:861px){.ev-hint{display:none !important}}
 .ev-row{display:grid;grid-template-columns:110px 1fr 60px 100px 80px 80px 80px;gap:10px;padding:12px 0;border-top:1px solid #1a1a1a;font-size:13px;align-items:center}
 .ev-row.head{border:0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-bottom:6px}
 .ev-date{color:#888;font-family:monospace;font-size:12px}
@@ -264,6 +271,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <div class="ev-row head">
       <div>Date</div><div>Event</div><div class="r">Score</div><div class="r">BTC</div><div class="r">+30d</div><div class="r">+90d</div><div class="r">+180d</div>
     </div>
+    <div class="ev-hint"><span aria-hidden="true">&#8596;</span> Swipe the table to see Score, BTC and the 30 / 90 / 180-day columns</div>
     <div class="ev-row">
       <div class="ev-date">Nov 30, 2025</div>
       <div class="ev-what"><span class="ev-arrow" style="color:#9ca3af">&#9660;</span>
@@ -1010,6 +1018,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     var a = document.getElementById('rc-score-asof');
     if (a) a.textContent = 'live score unavailable — see /cycle';
   });
+})();
+</script>
+<script>
+(function(){
+  var sc=document.querySelector('.ev-scroll'); if(!sc) return;
+  function sync(){ sc.classList.toggle('is-scrollable', sc.scrollWidth > sc.clientWidth + 4); }
+  sc.addEventListener('scroll', function(){ if(sc.scrollLeft>8) sc.classList.add('scrolled'); }, {passive:true});
+  window.addEventListener('resize', sync); sync();
 })();
 </script>
 </body>
