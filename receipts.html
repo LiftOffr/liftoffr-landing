@@ -124,6 +124,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .events{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px}
 .events h2{font-size:18px;font-weight:800;margin-bottom:6px}
 .events p.note{font-size:13px;color:#999;margin-bottom:18px}
+/* All seven columns stay on every screen. The previous mobile rule declared four
+   columns for the five cells it left visible, so Score and +90d vanished, +30d was
+   clipped past the viewport and +180d wrapped onto a second line with no header --
+   on the page the entire pitch rests on. Scrolling the table beats hiding evidence. */
+.ev-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .ev-row{display:grid;grid-template-columns:110px 1fr 60px 100px 80px 80px 80px;gap:10px;padding:12px 0;border-top:1px solid #1a1a1a;font-size:13px;align-items:center}
 .ev-row.head{border:0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;padding-bottom:6px}
 .ev-date{color:#888;font-family:monospace;font-size:12px}
@@ -144,8 +149,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .cta-btn:hover{opacity:0.9}
 .disclaimer{font-size:11px;color:#555;text-align:center;margin-top:30px;line-height:1.5;max-width:760px;margin-left:auto;margin-right:auto}
 @media(max-width:860px){
-  .ev-row{grid-template-columns:90px 1fr 70px 70px;font-size:12px}
-  .ev-row > div:nth-child(3),.ev-row > div:nth-child(6){display:none}
+  .ev-row{grid-template-columns:96px minmax(180px,1fr) 58px 88px 70px 70px 70px;font-size:12px;min-width:660px}
   .stats{grid-template-columns:1fr 1fr;gap:8px}
   .stat{padding:14px}.stat-value{font-size:21px}
   .wrap{padding:18px 14px 60px}
@@ -247,6 +251,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     64 of them &mdash; some resolve within weeks, some take a cycle to play out, and some mark a zone the market then
     re-tests. That spread is how a zone model behaves by design. Every one is dated below with what Bitcoin did next.</p>
     <p class="note">A crossing counts only after the score holds the new zone for 7 straight days &mdash; the date shown is the first day of that hold. BTC % is the change from the crossing-day price.</p>
+    <div class="ev-scroll">
     <div class="ev-row head">
       <div>Date</div><div>Event</div><div class="r">Score</div><div class="r">BTC</div><div class="r">+30d</div><div class="r">+90d</div><div class="r">+180d</div>
     </div>
@@ -954,6 +959,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <div class="r"><span class="pct neg">-29.8%</span></div>
       <div class="r"><span class="pct neg">-13.4%</span></div>
     </div>
+    </div>
+
   </section>
 
   <div class="cta">

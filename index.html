@@ -921,6 +921,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 
   /* MOBILE STICKY CTA */
+  html, body { max-width: 100%; overflow-x: hidden; }
   .mobile-sticky-cta {
     display: none;
     position: fixed; bottom: 0; left: 0; right: 0;
@@ -994,6 +995,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     nav .nav-link { font-size: 13px; }
     nav .nav-link-tr, nav .nav-link-blog { display: none; }
     nav > div { gap: 8px !important; }
+    /* The quiz CTA is 186px on its own and was the single widest item in the bar.
+       The offer is already carried on mobile by .mobile-sticky-cta, so the nav
+       does not need to duplicate it here. Without this the nav ran to x=487 in a
+       375px viewport and took the whole document with it — the page scrolled
+       sideways and the red CTA sat entirely off-screen. */
+    nav .btn-outline { display: none; }
     .hero-wrap { padding: 40px 18px 20px; }
     .hero-wrap h1 { font-size: clamp(30px, 8vw, 44px); letter-spacing: -1.5px; }
     .hero-sub { font-size: 15.5px; margin-bottom: 18px; }
@@ -1026,9 +1033,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     footer { flex-direction: column; text-align: center; padding: 20px; }
     .mobile-sticky-cta { display: block; }
     body { padding-bottom: 80px; }
+
     .pricing-grid { grid-template-columns: 1fr; gap: 16px; max-width: 480px; margin-left: auto; margin-right: auto; }
     .ptier-featured { order: -1; }
     .founder-byline { padding: 24px 16px 0; }
+  }
+
+  /* Narrow phones. At 375px even the trimmed bar is tight, so keep only the logo,
+     the one page that delivers the recompute promise, and the offer. About and FAQ
+     stay reachable from the footer. */
+  @media (max-width: 560px) {
+    nav .nav-link:not([href="/indicators"]) { display: none; }
   }
 
   /* ═══════ V3 PREMIUM LAYER — token override (same pattern as dashboard v3) ═══════ */
