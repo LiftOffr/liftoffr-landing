@@ -127,7 +127,7 @@ function plan1Text() {
 
 function plan3HTML() {
   return planShell("Plan · Day 3",
-    `<p style="margin:0 0 16px;">Something you should hear from me rather than find on your own.</p>
+    `<p style="margin:0 0 16px;">You will find this on your own eventually. Better you hear it from me first.</p>
      <p style="margin:0 0 16px;">Between 16 November 2024 and 21 October 2025, the Score <strong>entered the exit zone three times</strong> and dropped back out of it three times &mdash; six transitions in twelve months:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-family:Menlo,monospace;font-size:13px;line-height:1.9;color:#333;">
        <div>Nov 16 2024 &nbsp;&rarr; exit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$90,568</div>
@@ -146,7 +146,7 @@ function plan3HTML() {
     "See every crossing →", "https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_cta");
 }
 function plan3Text() {
-  return ["Something you should hear from me rather than find on your own.","",
+  return ["You will find this on your own eventually. Better you hear it from me first.","",
     "Between 16 November 2024 and 21 October 2025, the Score entered the exit zone three times","and dropped back out of it three times - six transitions in twelve months:","",
     "  Nov 16 2024  -> exit      $90,568",
     "  Feb 18 2025  -> warning   $95,444",
@@ -167,7 +167,7 @@ function plan7HTML() {
     `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
      <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
      <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. In 2025 I laddered out into the top on a rule written months earlier — I'm not going to put a personal number on that, because it's the one thing on this site you couldn't check.</p>
-     <p style="margin:0 0 16px;">What you <em>can</em> check is the model, and it is not flattering. It crossed into its exit zone on <strong>27 June 2025 at $107,091</strong>, more than three months before the $124,824 top, and it entered that zone <strong>three times</strong> in twelve months, dropping back out of it three times. In November 2017 it called exit at $7,729 and Bitcoin rose <strong>149% in the next thirty days</strong>.</p>
+     <p style="margin:0 0 16px;">What you <em>can</em> check is the model, and I am giving it to you with the edges left on. It crossed into its exit zone on <strong>27 June 2025 at $107,091</strong>, more than three months before the $124,824 top, and it entered that zone <strong>three times</strong> in twelve months, dropping back out of it three times. In November 2017 it called exit at $7,729 and Bitcoin rose <strong>149% in the next thirty days</strong>.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <div style="border-top:1px solid #eee;margin:22px 0 0;padding-top:18px;">
        <p style="margin:0 0 12px;font-size:13px;color:#888;">First and only time I'll mention this in a week. Then it lives in the footer where you can ignore it.</p>
@@ -181,7 +181,7 @@ function plan7Text() {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
     "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
     "Everything since exists so that decision gets made while I'm calm instead of euphoric. In 2025 I laddered out into the top on a rule written months earlier — no personal number on that, because it's the one thing here you couldn't check.","",
-    "What you CAN check is the model, and it isn't flattering: it crossed into its exit zone on 27 June 2025 at $107,091, three months before the $124,824 top, and entered that zone three times in twelve months, dropping back out of it three times. In Nov 2017 it called exit at $7,729 and BTC rose 149% over the next thirty days.","",
+    "What you CAN check is the model, and I am giving it to you with the edges left on: it crossed into its exit zone on 27 June 2025 at $107,091, three months before the $124,824 top, and entered that zone three times in twelve months, dropping back out of it three times. In Nov 2017 it called exit at $7,729 and BTC rose 149% over the next thirty days.","",
     "Public and checkable:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",
     "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
