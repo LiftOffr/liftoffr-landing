@@ -191,7 +191,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <b>Every row here is reproducible.</b>
     The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" target="_blank" rel="noopener noreferrer">CBBI's public daily data</a>
     using the weights published on every <a href="/indicators">indicator page</a>. Pick a date, pull the same
-    free source, run the same weights &mdash; you'll get the same number.
+    free source, run the same weights &mdash; you'll get the same number, provided you divide by the weight
+    actually used rather than by 1.00. On dates where CBBI published no reading for one of the nine, that
+    component is left out and the divisor drops to match; Pi Cycle alone is missing on several hundred of the
+    dates in this log. A recompute that always divides by 1.00 will disagree with these rows, and it will be the
+    one that's wrong. <a href="/score">The worked arithmetic is on /score</a>.
     <br><br>
     <span style="color:#a89878;">These are model reconstructions run over past data rather than calls published
     at the time, and every row is labelled accordingly. Educational output, not financial advice.</span>
