@@ -111,9 +111,16 @@ funnel source and no site UTM?** If yes, they are Discover traffic and the quest
 on direct evidence. This needs no one to reply to anything.
 
 **2. GA4 — the corroborating check.**
-Count outbound checkout clicks for 8–13 Aug: event `cta_clicked` with
-`destination = whop_checkout`. Endpoint `/api/analytics?src=ga4&report=funnel` (requires the
-auth header) or read it in the GA4 UI directly.
+Count outbound checkout clicks for 8–13 Aug: the `cta_clicked` event.
+
+```
+curl -u liftoffr:<DASHBOARD_PASSWORD> \
+  "https://liftoffr.com/api/analytics?src=ga4&report=events&from=2026-08-08&to=2026-08-13"
+```
+
+Explicit `from`/`to` were added on 20 Aug — the endpoint previously only took a relative
+`days=N`, which cannot express a window that has already closed. If the call returns a
+credential error, **`GA4_CREDENTIAL_SETUP.md`** is the two-minute fix list.
 
 > **State this caveat when you use it.** In that window the click handler existed **only on
 > the homepage**, so this figure undercounts by an unknown amount and cannot prove the
@@ -138,6 +145,6 @@ is decisive alone; together with (1) they are.
 
 ---
 
-*Written 20 Aug 2026. Instrumentation verified live the same day. The `/api/analytics`
-GA4 endpoint requires an auth credential this document's author does not hold — step 2 has
-to be run by Torin.*
+*Written 20 Aug 2026. Instrumentation verified live the same day. Step 2 needs the
+`DASHBOARD_PASSWORD` and possibly the two GA4 env vars, none of which this document's
+author holds — see `GA4_CREDENTIAL_SETUP.md`. Everything else here is already done.*

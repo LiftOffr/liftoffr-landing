@@ -889,6 +889,31 @@ export default async function handler(req, res) {
     return res.status(200).send(fn());
   }
 
+  // Config check — `?check=1`. Answers one question: did the audience env vars
+  // actually take effect in this deployment? Sends nothing, fetches no contacts,
+  // and never echoes an ID back (they are secrets); it reports set/not-set only.
+  // Exists because the alternative way to find out whether RESEND_QUIZ_AUDIENCE_ID
+  // landed was to wait for the next 17:00 UTC cron and read the counts.
+  if (_url.searchParams.get("check")) {
+    if (!authed) return res.status(401).json({ error: "Unauthorized" });
+    const seen = (v) => (v ? "set" : "NOT SET");
+    const segs = ["ROUNDTRIPPED", "ACCUMULATING", "SITTING", "NEW"];
+    const perSegment = {};
+    for (const sg of segs) perSegment[sg] = seen(process.env[`RESEND_QUIZ_AUDIENCE_${sg}`]);
+    const pooled = process.env.RESEND_QUIZ_AUDIENCE_ID;
+    const anySeg = segs.some((sg) => process.env[`RESEND_QUIZ_AUDIENCE_${sg}`]);
+    return res.status(200).json({
+      resend_api_key: seen(process.env.RESEND_API_KEY),
+      free_audience: seen(process.env.RESEND_AUDIENCE_ID),
+      plan_audience: seen(process.env.RESEND_PLAN_AUDIENCE_ID),
+      quiz_pooled_audience: seen(pooled),
+      quiz_per_segment: perSegment,
+      quiz_emails_2_to_7: pooled || anySeg ? "ACTIVE" : "DORMANT — set RESEND_QUIZ_AUDIENCE_ID",
+      quiz_mode: anySeg ? "per-segment (Option B)" : pooled ? "pooled, neutral copy (Option A)" : "off",
+      mailing_address: seen(process.env.LIFTOFFR_MAILING_ADDRESS),
+    });
+  }
+
   // Auth guard
   // `?force=1` used to bypass this check entirely, which left a public endpoint
   // that sends email to the whole list callable by anyone who knew the URL.

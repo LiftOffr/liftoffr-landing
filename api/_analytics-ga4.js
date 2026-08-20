@@ -91,7 +91,14 @@ async function ga4Report(propertyId, body, token, realtime = false) {
   return data;
 }
 
-const dateRange = (days) => [{ startDate: `${Math.max(1, days)}daysAgo`, endDate: "today" }];
+// Accepts either a day count (relative window, the dashboard's usual case) or an
+// explicit {from,to} of ISO dates. The explicit form exists because the Day 7
+// attribution test needs one specific past window (8-13 Aug 2026) and a relative
+// "NdaysAgo -> today" range cannot express a window that has already closed.
+const dateRange = (d) =>
+  d && typeof d === "object" && d.from
+    ? [{ startDate: d.from, endDate: d.to || d.from }]
+    : [{ startDate: `${Math.max(1, Number(d) || 30)}daysAgo`, endDate: "today" }];
 
 const REPORTS = {
   traffic: (days) => ({
@@ -155,11 +162,19 @@ export default async function handler(req, res) {
   const report = url.searchParams.get("report") || "traffic";
   const days = Math.max(1, Math.min(365, parseInt(url.searchParams.get("days") || "30", 10)));
 
+  // Explicit window: ?from=YYYY-MM-DD[&to=YYYY-MM-DD]. Falls through to `days`.
+  const ISO = /^\d{4}-\d{2}-\d{2}$/;
+  const from = url.searchParams.get("from");
+  const to = url.searchParams.get("to");
+  if (from && !ISO.test(from)) return res.status(400).json({ error: "from must be YYYY-MM-DD" });
+  if (to && !ISO.test(to)) return res.status(400).json({ error: "to must be YYYY-MM-DD" });
+  const range = from ? { from, to: to || from } : days;
+
   if (!REPORTS[report]) return res.status(400).json({ error: `unknown report: ${report}` });
 
   try {
     const token = await getAccessToken();
-    const body = REPORTS[report](days);
+    const body = REPORTS[report](range);
     const data = await ga4Report(propertyId, body, token, report === "realtime");
     res.setHeader("Cache-Control", "private, s-maxage=300, stale-while-revalidate=900");
     return res.status(200).json({ report, days, ...data });

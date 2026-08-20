@@ -27,7 +27,8 @@ One audience, one variable. Emails 2–7 go out in **neutral copy**: every email
 correctly end to end, only the two personalised paragraphs don't render.
 
 **In Resend** (resend.com → Audiences):
-1. **Create audience** → name it `LiftOffr Quiz`.
+1. **Create audience** → name it `LiftOffr Quiz`. **The name is cosmetic — nothing in the
+   code reads it.** Only the ID matters, so a typo in the name costs you nothing.
 2. Copy the audience **ID** from the URL or the audience page. It looks like
    `78261eea-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
 
@@ -84,15 +85,35 @@ a backlog. A contact who is already 30 days old matches no band and receives not
 
 ## How to check it worked
 
-**Immediately:** preview any email without sending. Requires the `CRON_SECRET` value
-from Vercel:
+**Ten seconds after the redeploy — the one that actually answers "did my variable land?"**
+Grab `CRON_SECRET` from the same Vercel env-var screen, then:
+
+```
+curl -H "Authorization: Bearer <CRON_SECRET>" \
+  "https://liftoffr.com/api/cron-welcome-followups?check=1"
+```
+
+It sends nothing, fetches no contacts, and never echoes an ID back. You want to see:
+
+```json
+{
+  "quiz_pooled_audience": "set",
+  "quiz_emails_2_to_7": "ACTIVE",
+  "quiz_mode": "pooled, neutral copy (Option A)"
+}
+```
+
+If `quiz_emails_2_to_7` still reads `DORMANT`, the variable did not take — check you
+saved it to **Production** and redeployed. That is the whole failure mode.
+
+**Also useful:** preview any email without sending —
 
 ```
 curl -H "Authorization: Bearer <CRON_SECRET>" \
   "https://liftoffr.com/api/cron-welcome-followups?preview=q3"
 ```
 
-`q2` … `q7` all work. This returns rendered HTML and sends nothing.
+`q2` … `q7` all work. Returns rendered HTML and sends nothing.
 
 **Next day:** the cron's JSON response reports `quizSeq` with per-step counts and a
 `skipped` total. Resend's own dashboard shows the sends.
@@ -108,3 +129,18 @@ already works, so if it is wrong, fix that before enabling 2–7.
 Creating a Resend audience needs the Resend account, and setting a Production variable
 needs the Vercel account. Both are Torin's logins. Everything downstream of those two
 actions is already built, deployed and tested.
+
+---
+
+## Verified against the code on 20 Aug 2026
+
+Everything above was checked by reading the source, not assumed:
+
+- `RESEND_QUIZ_AUDIENCE_ID` is read at `api/cron-welcome-followups.js:980` and
+  `api/subscribe.js:392`.
+- Option B's per-segment lookup is real: `process.env[\`RESEND_QUIZ_AUDIENCE_${SEGMENT}\`]`
+  at both of those sites, falling back to the pooled ID. The four segment keys are exactly
+  `ROUNDTRIPPED`, `ACCUMULATING`, `SITTING`, `NEW` (`api/subscribe.js` `SEGMENTS`).
+- `?preview=` accepts `q2`–`q7` and returns 401 without the secret (confirmed live).
+- `?check=1` was added on 20 Aug specifically so this is a ten-second confirmation
+  instead of a next-day one.
