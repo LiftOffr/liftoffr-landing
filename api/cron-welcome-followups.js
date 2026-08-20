@@ -42,9 +42,19 @@ const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 
 // ── Plan-buyer sequence (LIFTOFFR_MASTER_PLAN.md §5) ──
 // Audience: Resend "LiftOffr Plan Buyers", populated by api/whop-webhook.js on
-// the $29 purchase. Dormant until RESEND_PLAN_AUDIENCE_ID is set in Vercel —
-// the audience has to exist before anything can be sent to it, and sending the
-// free-list sequence to buyers would be worse than sending nothing.
+// the $29 purchase.
+//
+// STATUS, verified against Vercel 2026-08-20: RESEND_PLAN_AUDIENCE_ID IS SET in
+// Production (added ~2 Aug 2026). This sequence is LIVE, not dormant. This comment
+// previously read "dormant until RESEND_PLAN_AUDIENCE_ID is set", which was true
+// when written and has been wrong for weeks -- it is why more than one person has
+// believed $29 buyers were getting no onboarding at all. If the flag changes,
+// change this paragraph in the same commit.
+//
+// Sending is age-banded: ageDays(contact.created_at) must fall inside one of the
+// six one-day windows below, so enabling the flag on an audience full of older
+// contacts does NOT blast them -- anyone outside a window is skipped. Sends carry
+// an idempotencyKey of plan-<step>-<contactId>, so a re-run cannot duplicate.
 //
 // Shape, and the reason for it: D0, D1 and D3 are pure delivery with zero pitch.
 // You earn the right to pitch by making the thing work first; a buyer who gets
@@ -921,7 +931,8 @@ export default async function handler(req, res) {
       results.skipped++;
     }
 
-    // ── Plan-buyer sequence (master plan §5). Dormant until the audience exists.
+    // ── Plan-buyer sequence (master plan §5). LIVE -- the audience id is set in
+    // Production. Age-banded and idempotent; see the note at the top of the file.
     const planAud = process.env.RESEND_PLAN_AUDIENCE_ID || null;
     let planSeq = null;
     if (planAud) {

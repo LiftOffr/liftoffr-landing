@@ -539,8 +539,9 @@ export default async function handler(req, res) {
       }
 
       // $29 plan buyers → Resend "Plan Buyers" audience for the D0/1/3/7/14
-      // upsell sequence. No-op unless RESEND_PLAN_AUDIENCE_ID is set (feature-flagged,
-      // same pattern as the trial audience).
+      // onboarding sequence. Gated on RESEND_PLAN_AUDIENCE_ID, which IS set in
+      // Production as of 2026-08-20, so this path is live rather than a no-op.
+      // If a $29 buyer is not landing in the sequence, check this write first.
       if (PLAN_ADDON[planId]) {
         const planAud = process.env.RESEND_PLAN_AUDIENCE_ID;
         const resendKeyP = process.env.RESEND_API_KEY;
