@@ -25,8 +25,13 @@ const WEIGHTS = {
 };
 // (Confidence is CBBI's own composite — we report alongside as reference.)
 
-// CBBI publishes a null for a component on days it has no reading for it -- Woobull
-// does this routinely, including for the newest date. Number(null) is 0 and
+// CBBI publishes a null for a component on days it has no reading for it. Measured
+// against the live series on 2026-08-20: Woobull has exactly 1 null in 5,533 points
+// and it is the NEWEST date, which is the leading-edge gap before CBBI computes that
+// day. Interior nulls are commoner than expected elsewhere -- PiCycle has 349 and
+// Puell 20 -- so this gate matters for ?history= and the zone-change cron as much as
+// for today's number. (An earlier version of this comment said Woobull nulls
+// "routinely"; that was wrong and is corrected here.) Number(null) is 0 and
 // isFinite(0) is true, so a null used to sail past the guard in scoreAt/computeAll
 // and get averaged in as a genuine reading of ZERO. On 2026-08-20 that alone
 // understated the published Score by 1.8 points: 34.5 shown against 36.3 correct.
