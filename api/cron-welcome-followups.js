@@ -112,7 +112,7 @@ function plan3HTML() {
      <p style="margin:0 0 16px;">The plan you bought is a <em>snapshot</em>: nine levels, priced off where the cycle is now. It answers "what am I buying and at what price."</p>
      <p style="margin:0 0 16px;">It doesn't answer the other two questions, and both cost more than the first one:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
-       <div><strong>Why those levels</strong> — the eight indicators, how each one has failed, and how the weighted Score turns them into one number</div>
+       <div><strong>Why those levels</strong> — the nine weighted indicators, how each one has failed, and how the Score turns them into one number</div>
        <div><strong>When to sell</strong> — the exit ladder. Deliberately not in the $29, because scaling out is the half that actually made the difference in the backtest</div>
      </div>
      <p style="margin:18px 0 16px;"><strong>The Cycle System is $197, one payment.</strong> Founding price <strong>$147</strong> for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.</p>
@@ -124,7 +124,7 @@ function plan3Text() {
   return ["First time I'll mention this, then it lives in the footer where you can ignore it.","",
     "The plan you bought is a snapshot: nine levels, priced off where the cycle is now. It answers 'what am I buying and at what price.'","",
     "It doesn't answer the other two questions, and both cost more than the first:","",
-    "  • WHY those levels — the eight indicators, how each one has failed, and how the weighted Score turns them into one number",
+    "  • WHY those levels — the nine weighted indicators, how each one has failed, and how the Score turns them into one number",
     "  • WHEN TO SELL — the exit ladder. Deliberately not in the $29, because scaling out is the half that made the difference in the backtest.","",
     "The Cycle System is $197, one payment. Founding price $147 for the first 50 seats. Your $29 counts toward it either way — during the window and after it closes.","",
     "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
@@ -211,7 +211,7 @@ function email2HTML() {
     </div>
     <p style="margin:18px 0 16px;">By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.</p>
     <p style="margin:0 0 16px;"><strong>Why this matters:</strong> the biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.</p>
-    <p style="margin:0 0 16px;">The eight indicators the Score is built from are all public, each with today's reading and what it read at every cycle top since 2013. No signup, nothing gated.</p>
+    <p style="margin:0 0 16px;">The nine indicators the Score is built from are all public, each with its weight, today's reading, and a section on where it has been wrong. No signup, nothing gated.</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
   <div style="padding:0 28px 32px;">
@@ -246,7 +246,7 @@ function email2Text() {
     "",
     "The biggest mistake of every cycle is binary thinking. The Score lets you scale — that's the difference between round-tripping and compounding.",
     "",
-    "The eight indicators behind the Score are all public — today's reading for each, plus what every one read at every cycle top since 2013:",
+    "The nine indicators behind the Score are all public — the weight, today's reading, and where each one has been wrong:",
     "https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators",
     "",
     "— Torin",

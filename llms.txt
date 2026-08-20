@@ -24,7 +24,7 @@ Founded by Torin Christianson (4M+ content views across Instagram, YouTube, TikT
 - [2-Year MA Multiplier](https://liftoffr.com/blog/bitcoin-2-year-ma-multiplier): Long-term mean reversion
 - [Fear & Greed Index](https://liftoffr.com/blog/crypto-fear-greed-index-bitcoin): Sentiment-based cycle signal
 - [Google Trends Bitcoin](https://liftoffr.com/blog/google-trends-bitcoin-indicator): Retail search interest
-- [How to Identify a Bitcoin Cycle Top](https://liftoffr.com/blog/how-to-identify-bitcoin-cycle-top): The 8-indicator confluence framework
+- [How to Identify a Bitcoin Cycle Top](https://liftoffr.com/blog/how-to-identify-bitcoin-cycle-top): The nine-indicator weighted composite framework
 
 ## Founder
 Torin Christianson — Bitcoin cycle investor and educator. Analyzing BTC on-chain metrics since 2018. Built LiftOffr to bring institutional-grade cycle intelligence to retail investors.

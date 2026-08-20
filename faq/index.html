@@ -89,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "What indicators does LiftOffr track?",
-      "acceptedAnswer": { "@type": "Answer", "text": "CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear & Greed Index, and Google Trends. The full V7 framework adds RHODL Ratio and the Trolololo trend line for confluence scoring." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Nine, and these are the exact weights the live Score uses: RHODL Ratio (20%), Puell Multiple (20%), Trolololo trend line (15%), MVRV Z-Score (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull Top Cap (5%) and RUPL (5%). CBBI is the upstream data source the component readings are pulled from, not a component itself. The Score contains no Fear & Greed Index and no Google Trends — neither carries any weight. You can verify all of this against liftoffr.com/api/cycle-score and recompute any date yourself." }
     },
     {
       "@type": "Question",
@@ -99,7 +99,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "What do I actually get, and what's free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the eight-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the nine-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System." }
     },
     {
       "@type": "Question",
@@ -235,7 +235,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
   <div class="faq-item">
     <button class="faq-q">What indicators does LiftOffr track? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear &amp; Greed Index, and Google Trends. The full V7 framework adds RHODL Ratio and the Trolololo trend line for confluence scoring. See the live dashboard and the historical breakdown at <a href="/indicator-history" style="color:var(--red);text-decoration:underline;">/indicator-history</a>.</div>
+    <div class="faq-a"><strong>Nine, and here are the exact weights the live Score uses.</strong>
+      <table style="width:100%;margin:12px 0;border-collapse:collapse;font-family:ui-monospace,Menlo,monospace;font-size:13px;">
+        <tr><td style="padding:3px 0;color:#ccc;">RHODL Ratio</td><td style="text-align:right;color:#fff;">20%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Puell Multiple</td><td style="text-align:right;color:#fff;">20%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Trolololo trend line</td><td style="text-align:right;color:#fff;">15%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">MVRV Z-Score</td><td style="text-align:right;color:#fff;">15%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Pi Cycle Top</td><td style="text-align:right;color:#fff;">10%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">2-Year MA Multiplier</td><td style="text-align:right;color:#fff;">5%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Reserve Risk</td><td style="text-align:right;color:#fff;">5%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Woobull Top Cap</td><td style="text-align:right;color:#fff;">5%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">RUPL</td><td style="text-align:right;color:#fff;">5%</td></tr>
+      </table>
+      Two things worth being explicit about, because I have described this wrongly in the past. <strong>CBBI is the public data source the component readings are pulled from &mdash; it is not itself a component.</strong> And <strong>the Score contains no Fear &amp; Greed Index and no Google Trends.</strong> I wrote about both for a long time; neither carries any weight in the number. Check it against <a href="/api/cycle-score" style="color:var(--red);text-decoration:underline;">/api/cycle-score</a>, which returns every component and its weight, and see where each one has been wrong at <a href="/indicators" style="color:var(--red);text-decoration:underline;">/indicators</a>.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">Do I need experience to start? <span class="faq-arrow">+</span></button>
@@ -243,7 +255,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
   <div class="faq-item">
     <button class="faq-q">What do I actually get, and what's free? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the eight-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System.</div>
+    <div class="faq-a">Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the nine-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">How does the 30-day refund work? <span class="faq-arrow">+</span></button>

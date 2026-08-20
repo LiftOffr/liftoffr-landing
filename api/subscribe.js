@@ -27,7 +27,7 @@ const MAGNETS = {
     itemTitle: "1. The BTC Cycle Top Checklist:",
     itemTitleText: "1. THE BTC CYCLE TOP CHECKLIST",
     pdfUrl: "https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=checklist_link",
-    howTo: "Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.",
+    howTo: "Print it. Stick it next to your screen. Run through the nine weighted indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.",
     footerLine: "You subscribed to the free Cycle Top Checklist + Weekly Score email.",
   },
   buyzone: {
