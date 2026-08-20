@@ -98,6 +98,15 @@ async function postDiscordAlert(webhookUrl, lines) {
 }
 
 // Default channel IDs (overridable via env)
+// These three are a DIFFERENT case from the webhook fallbacks in
+// cron-weekly-score.js, and were deliberately left as defaults on 2026-08-20.
+// The distinction: an unset variable here resolves to a hardcoded, named,
+// checked-in channel that is visible in this file and carries non-sensitive
+// content (a welcome message). It is a documented default, not a silent
+// redirect to an unknown destination, and requiring the env vars would break a
+// working flow to remove a risk that is not present. The rule that matters:
+// never route anything containing budget figures, order sizes or personal
+// position data through a defaulted destination. See COPY_SWEEP_NOTES.md.
 const DEFAULT_WELCOME_CHANNEL    = "1380272240150708326"; // #announcements
 const DEFAULT_HOW_TO_USE_CHANNEL = "1442207394439626802"; // #how-to-use-this-course
 const DEFAULT_ELITE_QNA_CHANNEL  = "1442207548156416020"; // #elite-qna

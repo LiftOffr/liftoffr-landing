@@ -87,6 +87,16 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   JSON-LD separately from visible copy, and re-grep afterwards rather than trusting the edit.
   `COPY_SWEEP_NOTES.md` has the failure table and the canonical sources.
 
+- **Never `||` one notification destination onto another.** A payload carrying money —
+  `BUY_PLAN.totalBudget`, tier dollar amounts, executed order sizes — must resolve to an
+  explicitly-set variable or no-op with a log line. On 2026-08-20 `sendDiscordBriefing` read
+  `DISCORD_BUY_ALERTS_WEBHOOK || DISCORD_OPS_WEBHOOK`; buy-alerts did not exist, ops did, and
+  two of the five webhooks in the Discord server point at a free-member-visible channel. The
+  same pattern let `runDailyDCA` reach for the read-only sync key when the trade key was unset,
+  defeating the key separation that stops a read-only credential placing live orders. Both are
+  now explicit-or-skip. A hardcoded, named, checked-in default for a non-sensitive destination
+  (the channel IDs in `api/whop-webhook.js`) is a different thing and is fine.
+
 ## Design language (preserve — never break)
 - Homepage/blog/links: near-black `#080808`, cards `#111111`, borders `#1e1e1e`, **brand red `#e63946`**, muted `#777`.
 - /cycle + /dashboard: navy `#060910` glass — frosted cards, backdrop-blur(14px), radial glows; green `#26d07c`, amber `#e8b339`, blue `#4d8df0`. Semicircular verdict gauge + Four Pillars.

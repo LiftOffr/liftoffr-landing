@@ -495,11 +495,20 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }
   };
 }
 
+// NO FALLBACK, DELIBERATELY. This payload carries BUY_PLAN.totalBudget, every
+// tier's dollar amount and "FIRE TODAY @ market" — Torin's personal capital
+// position. It used to read `DISCORD_BUY_ALERTS_WEBHOOK || DISCORD_OPS_WEBHOOK`,
+// so an unset variable silently redirected all of that to whatever ops pointed
+// at. On 2026-08-20 buy-alerts did not exist while ops did, and two of the five
+// webhooks in the Discord server point at #market-intel, which sits under the
+// free-member-visible "Free Market Feed" category. Nothing appears to have
+// leaked, but the fallback made it one config change away.
+// If you add a destination, add a NEW named variable. Never `||` onto this one.
 async function sendDiscordBriefing(payload) {
-  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
+  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK;
   if (!url) {
-    console.warn("No DISCORD_BUY_ALERTS_WEBHOOK or DISCORD_OPS_WEBHOOK — briefing skipped");
-    return { skipped: true, reason: "no webhook configured" };
+    console.warn("DISCORD_BUY_ALERTS_WEBHOOK not set — briefing skipped (no fallback by design; this payload contains the budget and the full dollar ladder)");
+    return { skipped: true, reason: "DISCORD_BUY_ALERTS_WEBHOOK not set" };
   }
   const r = await fetch(url, {
     method: "POST",
@@ -671,11 +680,21 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
   };
 }
 
+// NO FALLBACK TO THE SYNC KEY. This function places real market buys. The
+// header above requires a SEPARATE CDP key with Trade permission, precisely so
+// the read-only sync credential can never place an order. The previous
+// `COINBASE_TRADE_KEY_ID || COINBASE_API_KEY_ID` fallback defeated that
+// separation silently: with the trade vars unset (as they were on 2026-08-20)
+// it reached for the sync key instead. That fails today only because the sync
+// key lacks Trade permission — grant it for any reason and this would start
+// placing live orders with the wrong credential, with nothing in the logs
+// saying so. Trade keys must be set explicitly or the DCA does not run.
 async function runDailyDCA() {
-  const keyId = process.env.COINBASE_TRADE_KEY_ID || process.env.COINBASE_API_KEY_ID;
-  const secret = process.env.COINBASE_TRADE_SECRET || process.env.COINBASE_API_SECRET;
+  const keyId = process.env.COINBASE_TRADE_KEY_ID;
+  const secret = process.env.COINBASE_TRADE_SECRET;
   if (!keyId || !secret) {
-    return { skipped: true, reason: "No Coinbase key configured" };
+    console.warn("COINBASE_TRADE_KEY_ID / COINBASE_TRADE_SECRET not set — DCA skipped (no fallback to the read-only sync key by design)");
+    return { skipped: true, reason: "COINBASE_TRADE_* not set" };
   }
   const dateIso = new Date().toISOString().slice(0, 10);
   const results = [];
@@ -807,9 +826,14 @@ async function runTierWatch(baseUrl) {
   };
 }
 
+// Same rule as sendDiscordBriefing: explicit destination only. This one reports
+// real executed order sizes in dollars.
 async function sendDcaResultToDiscord(dcaResult) {
-  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK || process.env.DISCORD_OPS_WEBHOOK;
-  if (!url) return;
+  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK;
+  if (!url) {
+    console.warn("DISCORD_BUY_ALERTS_WEBHOOK not set — DCA result notice skipped (no fallback by design)");
+    return;
+  }
   if (dcaResult.skipped) return; // don't spam if not configured
 
   const allOk = dcaResult.results.every((r) => r.ok);
