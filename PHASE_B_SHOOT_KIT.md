@@ -103,19 +103,23 @@ Set B (8–14) outdoors or in a second room.** That's the only change all day.
 - **Caption:** I had the information. I didn't have a rule, so I improvised at the top and then improvised on the way down. The rule now is four thresholds and a fixed fraction sold at each — written before it matters so there's nothing to decide in the moment.
 - **Pinned comment:** `The Score those thresholds key off, free → liftoffr.com/r/8`
 
-### 9. `My model went to elevated six times in twelve months. The top came in month eleven. Here's what that actually looks like.`
+### 9. `My model told me to start selling three times in twelve months, and took it back three times. The top came in month eleven.`
 - **Screen:** S4
 - **Destination:** `liftoffr.com/w/9` → /receipts
-- **Caption:** 16 Nov 2024. 18 Feb 2025. 8 May. 19 Jun. 27 Jun. 21 Oct. Three of those went into the exit zone and three into the warning band below it. The top was 6 October — so five were early and one was late. I'm showing you the model whipsawing because a record that only contains the good crossings isn't a record.
+- **Caption:** In on 16 Nov 2024, out on 18 Feb 2025. In on 8 May, out on 19 Jun. In on 27 Jun, out on 21 Oct. Three entries into the exit zone and three retreats back out — six transitions in twelve months, all dated in the public log. The top was 6 October, fifteen days before the model left for the last time. I'm showing you it whipsawing because a record that only contains the clean crossings isn't a record.
 - **Pinned comment:** `Every crossing, dated → liftoffr.com/w/9`
 
-> **Corrected from the plan.** The plan's hook is `My model said sell six times in twelve
-> months.` Six crossings is right, and the six dates are right — but only **three** of them
-> entered the exit zone (16 Nov 2024, 8 May 2025, 27 Jun 2025). The other three
-> (18 Feb, 19 Jun, 21 Oct 2025) were warning-band crossings, which is a lower threshold and
-> is not a sell signal. Saying the model "said sell" six times describes a stronger signal
-> than the log contains. `/plan` had the same conflation and was corrected on 20 Aug; it now
-> states the three-and-three split explicitly.
+> **Corrected from the plan — twice.** The plan's hook is `My model said sell six times in
+> twelve months.` The six dates are right but the reading of them is not. Only **three** are
+> entries into the exit zone (16 Nov 2024, 8 May 2025, 27 Jun 2025). `/receipts` records the
+> other three (18 Feb, 19 Jun, 21 Oct 2025) as `ENTERED WARNING **from EXIT**` — the Score
+> falling back *out* of the exit zone, not a fresh signal. So the model said sell three
+> times and took it back three times.
+>
+> My own first correction on 20 Aug called those three "crossings into the warning band",
+> which still counted them as six escalations and was the one place the numbers were
+> inflated rather than merely inconsistent. Six *transitions*, three *entries*. Every
+> surface was corrected again on 20 Aug.
 >
 > **The same wording is in the Phase A Day 9 whipsaw post (27 Aug)** — `My model said "sell"
 > six times in twelve months.` Fix it there too before publishing, same way.

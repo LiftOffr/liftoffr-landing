@@ -38,10 +38,10 @@ at the moment it lands. All three corrections below shipped on the
 > it wouldn't have worked. That's my fault and it's fixed everywhere.
 >
 > **3. The homepage said the model "was out before the turn" in 2025.** It wasn't. It
-> crossed into elevated territory six separate times between November 2024 and
-> October 2025 — three into the exit zone, three into the warning band below it —
-> and only left the exit zone fifteen days *after* the top. Every one of those
-> six crossings is now on the page with its date and price.
+> entered the exit zone three times between November 2024 and October 2025 and
+> dropped back out of it three times — six transitions — and only left it for good
+> fifteen days *after* the top. Every one of those
+> transition is now on the page with its date and price.
 >
 > I'm sending this because the entire argument for this thing is that you can check
 > it. That argument doesn't survive me quietly editing pages.
