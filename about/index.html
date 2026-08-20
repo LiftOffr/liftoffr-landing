@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -19,13 +58,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
   window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,20 +67,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Two-cycle Bitcoin survivor who round-tripped his portfolio through 2022 and DCA'd out cleanly at the 2025 cycle top. Why I built LiftOffr.">
+<meta name="description" content="Two-cycle Bitcoin survivor who round-tripped his portfolio through 2022 and laddered out into the 2025 cycle top on a written rule. Why I built LiftOffr.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://liftoffr.com/about">
 
 <meta property="og:type" content="profile">
 <meta property="og:url" content="https://liftoffr.com/about">
 <meta property="og:title" content="About Torin Christianson — Founder of LiftOffr">
-<meta property="og:description" content="Two-cycle Bitcoin survivor. Round-tripped through 2022. DCA'd out clean at the 2025 top. Built LiftOffr because I needed the system that wasn't there.">
+<meta property="og:description" content="Two-cycle Bitcoin survivor. Round-tripped through 2022. Laddered out into the 2025 top on a written rule. Built LiftOffr because I needed the system that wasn't there.">
 <meta property="og:image" content="https://liftoffr.com/img/torin-founder.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About Torin Christianson — Founder of LiftOffr">
-<meta name="twitter:description" content="Two-cycle survivor. Round-tripped through 2022. DCA'd out clean at the 2025 top.">
+<meta name="twitter:description" content="Two-cycle survivor. Round-tripped through 2022. Laddered out into the 2025 top on a written rule.">
 <meta name="twitter:image" content="https://liftoffr.com/img/torin-founder.jpg">
 
 <meta name="theme-color" content="#e63946">
@@ -64,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "image": "https://liftoffr.com/img/torin-founder.jpg",
     "jobTitle": "Founder, LiftOffr",
     "worksFor": { "@type": "Organization", "name": "LiftOffr", "url": "https://liftoffr.com/" },
-    "description": "Two-cycle Bitcoin survivor and founder of LiftOffr — a crypto cycle education community teaching the 8-indicator confluence system that reads every BTC cycle top since 2013 in backtest.",
+    "description": "Two-cycle Bitcoin survivor and founder of LiftOffr — a crypto cycle education community teaching a nine-indicator weighted Score, scored across every BTC cycle since 2011 in backtest, with the misses published alongside the hits.",
     "sameAs": [
       "https://www.tiktok.com/@torin_christianson",
       "https://www.instagram.com/torin_christianson/",
@@ -240,6 +274,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .polaroid { transform: rotate(-1deg); margin: 32px auto; }
   }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -251,10 +286,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="hero-text">
       <div class="eyebrow">About Torin</div>
       <h1>Nine years in Bitcoin. <em>One system, published daily.</em></h1>
-      <p class="hero-lede">I was building mining rigs before I was old enough to legally use an exchange. I lost the portfolio I'd spent four years building because I had no written exit — and then spent the next three years turning that into a system with rules I'd actually follow. In October 2025 I ran it and DCA'd out clean. <strong>LiftOffr is that system, published every morning, including the readings that go the wrong way.</strong></p>
+      <p class="hero-lede">I was building mining rigs before I was old enough to legally use an exchange. I lost the portfolio I'd spent four years building because I had no written exit — and then spent the next three years turning that into a system with rules I'd actually follow. In 2025 I ran it and laddered out into the top on a rule I'd written months earlier. <strong>LiftOffr is that system, published every morning, including the readings that go the wrong way.</strong></p>
       <div class="hero-pills">
         <span class="hero-pill">Nine years, two full cycles</span>
-        <span class="hero-pill">2025 exit, executed to plan</span>
+        <span class="hero-pill">Every weight published, recomputable</span>
         <span class="hero-pill">Anti-leverage · pro-custody</span>
       </div>
       <div class="hero-meta-row">
@@ -262,9 +297,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <span class="hero-role">Founder, LiftOffr</span>
       </div>
     </div>
+    <!-- ============================================================================
+         OPEN ITEM FOR TORIN -- NOT RESOLVED IN THE 2026-08-20 PASS. NEEDS AN ASSET.
+
+         This image is /img/torin-urus.jpg, a Lamborghini, sitting directly above copy
+         about learning to time crypto cycles. The FTC's 7 Aug 2026 consumer alert on
+         investment-training scams opens by naming exactly this pairing: "people flashing
+         fancy cars and exotic trips, claiming you can have the same lifestyle just by
+         learning to trade." The action it points to (IYOVIA / IM Mastery Academy,
+         $795.8M, May 2026) was built on false earnings claims aimed at young people.
+         This account's followers are 46.7% aged 18-24. The shot also sits two screens
+         above "the brand is anti-influencer for a reason."
+
+         The car PARAGRAPH and the Corvette polaroid were removed in this pass. The
+         imagery was not, because every founder photo in /img is a Lamborghini shot --
+         torin-founder.jpg (Lambo interior) is the author photo on seven pages and both
+         OG images, and torin-hero-bg.jpg (Lambo exterior) is the homepage hero
+         background. Swapping them needs photographs that do not exist yet, and pointing
+         at files that aren't there would 404 on your highest-trust page.
+
+         WHAT TO DO: shoot a handful of non-car founder images -- desk, rig, screen,
+         uniform, anything that is you working -- and replace torin-founder.jpg,
+         torin-hero-bg.jpg and this file. That single shoot clears the exposure across
+         the whole site. Until then this is a known, documented risk, not an oversight.
+         ============================================================================ -->
     <div class="hero-img">
-      <img src="/img/torin-urus.jpg" alt="Torin in Tampa with a Lamborghini Urus" fetchpriority="high">
-      <div class="hero-img-tag"><span>Tampa ·</span> Nine years of decisions, compounding.</div>
+      <img src="/img/torin-urus.jpg" alt="Torin Christianson, founder of LiftOffr, in Tampa" fetchpriority="high">
+      <div class="hero-img-tag"><span>Tampa ·</span> Nine years of decisions, written down.</div>
     </div>
   </div>
 
@@ -274,7 +333,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <p>The wooden frame caught fire one night. NiceHash got hacked the next month. By the end of 2017 I'd learned every way to lose money in crypto, including ways the books didn't cover.</p>
 
   <h2>2018: the lawsuit summer</h2>
-  <p>Ran north of $100,000 in mining rigs the next summer. A client out in Winona stopped paying — I locked his HiveOS access for leverage and we ended up in court. The 2018 bear gutted what was left. I went into 2019 broke, but with a stack of lessons I couldn't have bought.</p>
+  <!-- The original sentence read "I locked his HiveOS access for leverage and we ended
+       up in court." Kept the dispute, cut the boast. Describing yourself using access as
+       leverage against a paying client, on the trust page of a finance-adjacent business,
+       argues against you and not for you. -->
+  <p>Ran north of $100,000 in mining rigs the next summer. A client out in Winona stopped paying, the dispute went to court, and I handled it worse than I'd handle it now. The 2018 bear gutted what was left. I went into 2019 broke, but with a stack of lessons I couldn't have bought.</p>
 
   <h2>2022: the round-trip</h2>
   <p>By 2021 I'd built up a real portfolio. The indicators topped out in November and I ignored them. Through 2022 I gave it all back. <strong>I sat in my dorm room watching $30K disappear between two college classes.</strong> No system, no exit plan, no idea what the indicators were screaming. Just hopium.</p>
@@ -284,7 +347,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <p>I DCA'd through the bear. Not because I was brave — because I'd built a system that told me when the indicators were screaming "buy" and I trusted it more than my feelings. CBBI under 0.3. MVRV negative. Puell below 0.4. Fear &amp; Greed in the single digits. The same readings that look obvious in hindsight and feel impossible in the moment.</p>
 
   <h2>2025: the apathy top</h2>
-  <p><strong>I DCA'd out cleanly through the 2025 cycle top.</strong> Started the exit ladder when the V7 confluence model crossed 0.85. Finished it within six weeks. BTC peaked at $124,824 on October 6 — and unlike last cycle, I didn't watch it round-trip.</p>
+  <!-- CORRECTED 2026-08-20. Two mutually incompatible versions of this were live:
+       this page said the ladder started at the 0.85 crossing and finished within six
+       weeks; /plan and the Whop listing said "DCA'd out Oct 6, 2025 at $124,824."
+       The model crossed 85 on 27 Jun 2025 at $107,091, so a six-week ladder from there
+       ends in early August at roughly $107-115K -- it cannot also be a single exit at
+       $124,824 on 6 October. Neither version had any evidence attached, on a site whose
+       footer says every dated signal is a backtest rather than a record of trades placed.
+       What is stated below is only what the published log supports. To put a personal
+       number back: one redacted exchange statement on file, and ONE version of the story
+       on /about, /plan and the Whop listing, word for word identical. -->
+  <p><strong>I sold into the 2025 top on a ladder, and I am not going to put a number on it here.</strong> What I can show you is the part that is on the record: the model crossed into its exit zone on <strong>27 June 2025 at $107,091</strong> and I started laddering out from there over the following weeks. Bitcoin peaked at <strong>$124,824 on 6 October</strong>. So the ladder was early, and being early cost me the last leg &mdash; which is exactly what a threshold model does and exactly what the plan is written to survive.</p>
+  <p>What I am <em>not</em> going to tell you is what I made, or show you a screenshot of a number I can't let you verify. This site's whole argument is that you can check the things I claim. A personal P&amp;L is the one thing you can't, so it doesn't get used as proof. The <a href="/receipts" class="text-link">model's record</a> is the proof, and it includes the crossings that went the wrong way.</p>
   <p>The full method is public at <a href="/track-record" class="text-link">/track-record</a> — every input, every weight, every assumption — and all 64 dated signals it has produced are at <a href="/receipts" class="text-link">/receipts</a>.</p>
 
   <h2>Why <em>LiftOffr</em></h2>
@@ -292,19 +366,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <p>And every week, hundreds of DMs ask me the same two questions: <em>When do I buy? When do I sell?</em> That's not a DM-sized answer. So I built the thing I needed in 2021:</p>
   <ul>
     <li>The daily brief at 8am MT — what the indicators read, what to do today</li>
-    <li>The live confluence dashboard — all eight signals in one place</li>
+    <li>The live dashboard — all nine weighted components in one place</li>
     <li>The full 6-module course — wallets through advanced custody and exit strategy</li>
     <li>The private Discord — the room I wish I'd had in 2021</li>
   </ul>
   <p>No leverage. No quick-money pitches. Hardware-wallet discipline is non-negotiable. The brand is anti-influencer for a reason — because the people who sold you 100x altcoins in 2021 didn't text you when it was time to exit.</p>
 
+  <!-- REMOVED 2026-08-20: the car paragraph (Civic Type R, Corvette C8, Macan S, "Lambos
+       rented in Vegas") and the Corvette polaroid. The FTC's 7 Aug 2026 consumer alert on
+       investment-training scams opens by describing exactly this - cars as implied proof
+       that the education works - and the $795.8M IYOVIA action it points to was built on
+       false earnings claims aimed at young people. This site's followers are 46.7% aged
+       18-24. The paragraph also ran two screens after "the brand is anti-influencer for a
+       reason," which readers notice. The dad callback is kept because the story is about
+       imagination, not inventory. Do not restore the cars. -->
   <h2>The dad callback</h2>
-  <p>The same dad who bought Amazon gift cards off me in 2017 has watched the whole arc since: a 2019 Civic Type R, a 2022 Corvette C8, a 2022 Macan S, Lambos rented in Vegas for friends. <strong>Not because the cars are the point</strong> — because a seventeen-year-old selling gift codes out of a basement had no frame of reference for any of it being on the table. That gap between what you can currently imagine and what's actually available is the thing I care about.</p>
-
-  <div class="polaroid">
-    <img src="/img/torin-corvette.jpg" alt="Torin with his 2022 Corvette C8" loading="lazy">
-    <div class="polaroid-caption">The kid selling gift cards for Bitcoin had no idea any of this was on the table.</div>
-  </div>
+  <p>The same dad who bought Amazon gift cards off me in 2017 has watched the whole arc since. What changed isn't a number in an account &mdash; it's that a seventeen-year-old selling gift codes out of a basement had no frame of reference for any of this being on the table at all. <strong>That gap, between what you can currently imagine and what's actually available, is the thing I care about.</strong> Not the stuff. The frame.</p>
 
   <p>If you're sitting where I was sitting at the last top — round-tripping, panicking, or just guessing — I built this for you.</p>
 
@@ -334,7 +411,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

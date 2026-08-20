@@ -23,6 +23,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which Bitcoin cycle indicator is the most accurate?", "acceptedAnswer": {"@type": "Answer", "text": "None of them alone. Pi Cycle landed within days of the 2013, 2017 and 2021 tops and then did not fire at the 2025 top. MVRV's peak reading has fallen every cycle. The honest answer is that indicators disagree at the turns, which is why LiftOffr weights nine into one score instead of picking a favourite."}}, {"@type": "Question", "name": "What are these numbers?", "acceptedAnswer": {"@type": "Answer", "text": "Each indicator is normalised to a 0-100 scale where high means late-cycle and low means early-cycle. They are derived from the public CBBI dataset and updated daily."}}, {"@type": "Question", "name": "What does the LiftOffr Score add?", "acceptedAnswer": {"@type": "Answer", "text": "It weights the nine components by how much each one has actually helped at cycle turns \u2014 RHODL and Puell carry 20% each, Pi Cycle 10%, the slower ones 5%. The full weighting and the live number are at liftoffr.com/cycle."}}, {"@type": "Question", "name": "Is this financial advice?", "acceptedAnswer": {"@type": "Answer", "text": "No. These are measurements of public on-chain and price data, published as education. Nothing here tells you what to buy or sell."}}]}</script>
+<!-- CONSENT MODE DEFAULTS. Must run before gtag. Added 2026-08-20: GA4 and Clarity
+     previously fired unconditionally with no consent surface, and Clarity records
+     session replays. Banner UI lives in /js/consent.js; the defaults have to be inline
+     because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -31,13 +69,8 @@
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -143,6 +176,7 @@
     .wrap { padding:30px 15px 56px; }
   }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <nav>
@@ -158,7 +192,7 @@
 
   <div class="crumb"><a href="/">Home</a> › Indicators</div>
   <h1>Bitcoin cycle indicators, live</h1>
-  <div class="updated">Last updated <span data-live-asof>August 14, 2026</span> · Bitcoin $62,925</div>
+  <div class="updated">Last updated <span data-live-asof>August 14, 2026</span> · Bitcoin <span data-live-px>$62,925</span></div>
 
   <div class="reading">
     <div class="reading-num cold" data-live-key="score">33.7</div>
@@ -189,7 +223,7 @@
      what it read at past turns, and where it has failed. Four of them cover signals that feed the
      Score without having a page of their own here.</p>
   <div class="reads">
-    <a href="/blog/how-to-identify-bitcoin-cycle-top" data-dest="blog_cycle_top">How to identify a Bitcoin cycle top<span>The 8-indicator confluence framework — start here.</span></a>
+    <a href="/blog/how-to-identify-bitcoin-cycle-top" data-dest="blog_cycle_top">How to identify a Bitcoin cycle top<span>The nine-indicator weighted Score — start here.</span></a>
     <a href="/blog/cbbi-bitcoin-indicator" data-dest="blog_cbbi">CBBI explained<span>The composite these nine readings are derived from.</span></a>
     <a href="/blog/pi-cycle-top-bitcoin-indicator" data-dest="blog_pi_cycle">Pi Cycle Top<span>The MA cross — and the 2025 top it did not fire on.</span></a>
     <a href="/blog/mvrv-ratio-bitcoin-indicator" data-dest="blog_mvrv">MVRV Ratio<span>Unrealised profit across the supply, and its shrinking peaks.</span></a>
@@ -265,6 +299,29 @@
       var day = new Date(d.asOf).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
       stamp.forEach(function(el){ el.textContent = day; });
     }
+    // The BTC price sits inside the same dateline. It was baked while the date beside
+    // it refreshed, so the line claimed "Last updated <today>" next to a price from
+    // days earlier -- one of the five conflicting "current" states the audit found live
+    // on the same morning. Same endpoint already returns it.
+    var px = d.components && d.components._btc_price && d.components._btc_price.value;
+    if (typeof px === 'number') {
+      document.querySelectorAll('[data-live-px]').forEach(function(el){
+        el.textContent = '$' + Math.round(px).toLocaleString();
+      });
+    }
+    // A component reading a hard 0 is a dead upstream feed, not a real reading, and it
+    // drags the weighted Score down. Label it rather than letting it average in
+    // silently -- Woobull Top Cap was doing exactly this while this page displayed 24.
+    if (d.components) {
+      document.querySelectorAll('[data-live-key]').forEach(function(el){
+        var k = el.getAttribute('data-live-key');
+        var c = d.components[k];
+        if (c && c.value === 0) {
+          el.setAttribute('title', 'Upstream feed is returning zero for this component right now.');
+          el.insertAdjacentHTML('afterend', '<span style="font-size:11px;color:#e8b339;margin-left:6px;">feed reading zero</span>');
+        }
+      });
+    }
   }).catch(function(){});
 })();
 </script>
@@ -272,7 +329,7 @@
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

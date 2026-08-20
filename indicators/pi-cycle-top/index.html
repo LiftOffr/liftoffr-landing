@@ -23,6 +23,44 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Pi Cycle Top Indicator \u2014 normalised daily reading", "description": "Daily normalised (0-100) Pi Cycle Top Indicator reading for Bitcoin, with historical values at every cycle top and bottom since 2013.", "url": "https://liftoffr.com/indicators/pi-cycle-top", "creator": {"@type": "Organization", "name": "LiftOffr", "url": "https://liftoffr.com/"}, "isBasedOn": "https://colintalkscrypto.com/cbbi/", "temporalCoverage": "2012-06-10/2026-08-14", "variableMeasured": "Pi Cycle Top Indicator", "license": "https://liftoffr.com/terms"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the Pi Cycle Top Indicator reading today?", "acceptedAnswer": {"@type": "Answer", "text": "As of August 14, 2026 the Pi Cycle Top Indicator reads 39 out of 100 on the normalised scale LiftOffr uses, with Bitcoin at $62,925. The number on this page updates daily."}}, {"@type": "Question", "name": "What did the Pi Cycle Top Indicator read at the last Bitcoin top?", "acceptedAnswer": {"@type": "Answer", "text": "At the October 2025 top it read 71. Every cycle top and bottom since 2013 is in the table on this page, taken from the same daily series."}}, {"@type": "Question", "name": "Has the Pi Cycle Top Indicator ever been wrong?", "acceptedAnswer": {"@type": "Answer", "text": "It did not cross at the 2025 top. Three hits and a miss is a small sample, and a signal that only fires at the very top gives you no information at all for the other 1,400 days of the cycle."}}, {"@type": "Question", "name": "Is the Pi Cycle Top Indicator enough on its own?", "acceptedAnswer": {"@type": "Answer", "text": "No. Every indicator on this site has a failure mode, which is why LiftOffr weights nine of them into one score rather than trusting any single one. The live composite is at liftoffr.com/cycle."}}]}</script>
+<!-- CONSENT MODE DEFAULTS. Must run before gtag. Added 2026-08-20: GA4 and Clarity
+     previously fired unconditionally with no consent surface, and Clarity records
+     session replays. Banner UI lives in /js/consent.js; the defaults have to be inline
+     because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -31,13 +69,8 @@
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -134,6 +167,7 @@
     .wrap { padding:30px 15px 56px; }
   }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <nav>
@@ -258,7 +292,7 @@
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

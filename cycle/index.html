@@ -7,11 +7,11 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="The live LiftOffr Bitcoin cycle dashboard — cycle score, the four pillars, on-chain indicators, projected bottom and macro, updated in real time. Free.">
+<meta name="description" content="The live LiftOffr Bitcoin cycle Score — nine published weights, the four pillars, on-chain indicators and macro in one view, recomputed daily from public data. Free.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://liftoffr.com/cycle">
 <meta property="og:title" content="Live Bitcoin Cycle Dashboard — LiftOffr">
-<meta property="og:description" content="Live cycle score, four pillars, on-chain indicators and macro in one view. The composite that flagged all four Bitcoin cycle tops since 2013. Free, no login.">
+<meta property="og:description" content="Live cycle Score, four pillars, on-chain indicators and macro in one view. Nine published weights, recomputable from free public data. Free, no login.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://liftoffr.com/cycle">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
@@ -23,6 +23,45 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,13 +72,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-015PKWM24J');</script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{--bg:#060910;--ink:#e9eef7;--muted:#8793a8;--dim:#54607a;--red:#e63946;--green:#26d07c;--amber:#e8b339;--blue:#4d8df0;
@@ -102,6 +136,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .loading{color:var(--dim);font-family:var(--mono);font-size:13px;padding:10px}
   @media(max-width:820px){.verdict,.pgrid{grid-template-columns:1fr}}
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -115,9 +150,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 
   <div class="hero">
-    <div class="live"><span class="d"></span>Live · updates in real time</div>
+    <div class="live"><span class="d"></span>Live · recomputed daily</div>
     <h1>The Bitcoin Cycle, in one read.</h1>
-    <p>This is the live LiftOffr Score — the same system that flags the 2013, 2017, 2021 &amp; 2025 cycle tops in backtest. No login required.</p>
+    <p>This is the live LiftOffr Score — nine weighted indicators, one number, every weight published so you can recompute it yourself. It reached its exit zone before every cycle top since 2013 in backtest, and it was also early, late and wrong at points, which is all in <a href="/receipts" style="color:inherit;text-decoration:underline;">the log</a>. No login required.</p>
   </div>
 
   <div class="wrap">
@@ -239,7 +274,7 @@ load();
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

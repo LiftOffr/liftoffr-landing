@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -19,13 +58,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
   window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +98,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "Do you make money if I lose money?",
-      "acceptedAnswer": { "@type": "Answer", "text": "No. It is a $29 one-time payment. LiftOffr takes no cut of anything you do, is not paid by exchanges or token projects, and carries no affiliate links. If you buy the plan and never come back, that is the whole transaction." }
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It is a $29 one-time payment. LiftOffr takes no cut of anything you do, is not paid by exchanges or token projects, and every outbound tool link on /stack is currently a direct link with no commission. Each link is labelled with its commission status, so if that ever changes it is disclosed on the link itself. If you buy the plan and never come back, that is the whole transaction." }
     },
     {
       "@type": "Question",
@@ -74,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "What if I'm too late — is this Bitcoin cycle already over?",
-      "acceptedAnswer": { "@type": "Answer", "text": "If the cycle isn't over yet, you have a system from day one. If it is over, you'll learn the same framework that reads 2013, 2017, 2021 and 2025 correctly in backtest — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out." }
+      "acceptedAnswer": { "@type": "Answer", "text": "If the cycle isn't over yet, you have a system from day one. If it is over, you'll learn the same framework, scored across every cycle since 2011 with the misses published alongside the hits — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out." }
     },
     {
       "@type": "Question",
@@ -89,7 +123,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "What indicators does LiftOffr track?",
-      "acceptedAnswer": { "@type": "Answer", "text": "CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear & Greed Index, and Google Trends. The full V7 framework adds RHODL Ratio and the Trolololo trend line for confluence scoring." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Nine, and these are the exact weights the live Score uses: RHODL Ratio (20%), Puell Multiple (20%), Trolololo trend line (15%), MVRV Z-Score (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull Top Cap (5%) and RUPL (5%). CBBI is the upstream data source the component readings are pulled from, not a component itself. The Score contains no Fear & Greed Index and no Google Trends — neither carries any weight. You can verify all of this against liftoffr.com/api/cycle-score and recompute any date yourself." }
     },
     {
       "@type": "Question",
@@ -99,12 +133,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "What do I actually get, and what's free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the eight-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the nine-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System." }
     },
     {
       "@type": "Question",
       "name": "How does the 30-day refund work?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Message me on Whop within 30 days of buying and I refund it in full — no questions and no form. There is nothing to cancel afterwards, because nothing renews." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Ask inside 30 days and I refund it in full - message me on Whop or email torin@liftoffr.com, either works, no form and no reason needed. Nothing renews, so there is nothing to cancel. After 30 days, no refunds. There is nothing to cancel afterwards, because nothing renews." }
     },
     {
       "@type": "Question",
@@ -211,6 +245,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .faq-q { font-size: 16px; }
   }
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -223,7 +258,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="faq-item">
     <button class="faq-q">What if I'm too late — is this cycle already over? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">If it isn't, you have a system from day one. If it is, you'll learn the same framework that reads 2013, 2017, 2021 and 2025 correctly in backtest — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out.</div>
+    <div class="faq-a">If it isn't, you have a system from day one. If it is, you'll learn the same framework, scored across every cycle since 2011 with the misses published alongside the hits — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">I can get this free on YouTube — why pay? <span class="faq-arrow">+</span></button>
@@ -235,7 +270,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
   <div class="faq-item">
     <button class="faq-q">What indicators does LiftOffr track? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">CBBI (composite of 9 sub-indicators), Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart band, 2-Year MA Multiplier, Fear &amp; Greed Index, and Google Trends. The full V7 framework adds RHODL Ratio and the Trolololo trend line for confluence scoring. See the live dashboard and the historical breakdown at <a href="/indicator-history" style="color:var(--red);text-decoration:underline;">/indicator-history</a>.</div>
+    <div class="faq-a"><strong>Nine, and here are the exact weights the live Score uses.</strong>
+      <table style="width:100%;margin:12px 0;border-collapse:collapse;font-family:ui-monospace,Menlo,monospace;font-size:13px;">
+        <tr><td style="padding:3px 0;color:#ccc;">RHODL Ratio</td><td style="text-align:right;color:#fff;">20%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Puell Multiple</td><td style="text-align:right;color:#fff;">20%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Trolololo trend line</td><td style="text-align:right;color:#fff;">15%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">MVRV Z-Score</td><td style="text-align:right;color:#fff;">15%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Pi Cycle Top</td><td style="text-align:right;color:#fff;">10%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">2-Year MA Multiplier</td><td style="text-align:right;color:#fff;">5%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Reserve Risk</td><td style="text-align:right;color:#fff;">5%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">Woobull Top Cap</td><td style="text-align:right;color:#fff;">5%</td></tr>
+        <tr><td style="padding:3px 0;color:#ccc;">RUPL</td><td style="text-align:right;color:#fff;">5%</td></tr>
+      </table>
+      Two things worth being explicit about, because I have described this wrongly in the past. <strong>CBBI is the public data source the component readings are pulled from &mdash; it is not itself a component.</strong> And <strong>the Score contains no Fear &amp; Greed Index and no Google Trends.</strong> I wrote about both for a long time; neither carries any weight in the number. Check it against <a href="/api/cycle-score" style="color:var(--red);text-decoration:underline;">/api/cycle-score</a>, which returns every component and its weight, and see where each one has been wrong at <a href="/indicators" style="color:var(--red);text-decoration:underline;">/indicators</a>.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">Do I need experience to start? <span class="faq-arrow">+</span></button>
@@ -243,11 +290,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
   <div class="faq-item">
     <button class="faq-q">What do I actually get, and what's free? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the eight-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System.</div>
+    <div class="faq-a">Free, permanently: the live Score, the daily BTC brief, all nine indicator pages with their full cycle history, the complete zone-crossing log at /receipts, and the Discord. The $29 Bear Market Buy Plan adds my exact nine buy tiers, kept current, plus the #plan-updates channel. The $197 Cycle System adds the nine-indicator framework behind those levels, the exit ladder, the full course and the signals feed. Each rung is a separate one-time purchase and your $29 credits toward the System.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">How does the 30-day refund work? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">Message me on Whop within 30 days of buying and I refund it in full — no questions and no form. There is nothing to cancel afterwards, because nothing renews.</div>
+    <div class="faq-a">Ask inside 30 days and I refund it in full &mdash; message me on Whop or email <a href="mailto:torin@liftoffr.com">torin@liftoffr.com</a>, either works, no form and no reason needed. Nothing renews, so there is nothing to cancel. After 30 days, no refunds. Nothing renews.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">Is there anything to cancel? <span class="faq-arrow">+</span></button>
@@ -279,7 +326,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
   <div class="faq-item">
     <button class="faq-q">Do you make money if I lose money? <span class="faq-arrow">+</span></button>
-    <div class="faq-a">No. It's a $29 one-time payment. I don't take a cut of anything you do, I don't get paid by exchanges or token projects, and there's no affiliate link on this site. If you buy the plan and never come back, I've made $29 and that's the whole transaction.</div>
+    <div class="faq-a">No. It's a $29 one-time payment. I don't take a cut of anything you do, I don't get paid by exchanges or token projects, and every outbound tool link on <a href="/stack" style="color:var(--red);">/stack</a> is currently a direct link with no commission &mdash; each one is labelled with its commission status, so if that ever changes you'll see it on the link itself before you see it anywhere else. If you buy the plan and never come back, I've made $29 and that's the whole transaction.</div>
   </div>
   <div class="faq-item">
     <button class="faq-q">Can I check your numbers myself? <span class="faq-arrow">+</span></button>
@@ -327,7 +374,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

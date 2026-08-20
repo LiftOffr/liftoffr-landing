@@ -118,13 +118,26 @@ function zone(score) {
   return "deep-accumulation";
 }
 
+// Rewritten 2026-08-20 for the publisher/adviser line. The previous strings were
+// instructions to the reader -- "Tier-A V7 exits warranted", "let it run", "Continue
+// weekly DCA" -- and this one function feeds the weekly email to the whole free list,
+// the homepage Score widget, /cycle, and the Discord bot. A timely, instrument-specific
+// instruction to subscribers is the thing no disclaimer cures.
+//
+// The rule, from the audit's Part 6: describe what the zone HAS historically meant, in
+// the past tense, or say what Torin is doing. Never tell the reader what to do. "What
+// I'm doing" is a disclosure; "what you should do" is advice, and the gap between those
+// two sentences is the whole compliance position.
+//
+// Do not reintroduce: "warranted", "should", "continue", "let it run", "buy", "sell",
+// "entry", "exit price", "target", or any imperative verb aimed at the reader.
 function commentary(score, trendDir) {
-  if (score >= 85) return "Cycle top zone. Historic peaks land here. Tier-A V7 exits warranted.";
-  if (score >= 70) return "Warning band. Confluence building. Watch for V7 trigger fires.";
-  if (score >= 50) return "Mid-cycle. No exit signal yet — let it run.";
-  if (score >= 30) return "Recovery / re-accumulation phase. Continue weekly DCA.";
-  if (score >= 15) return "Accumulation zone. Capitulation amplifier window may open.";
-  return "Deep accumulation. Historically the best risk-reward window in a cycle.";
+  if (score >= 85) return "Exit zone. Every cycle top since 2013 occurred with the Score in this band — and the Score has also sat here for months without a top, and crossed in and out of it six times between Nov 2024 and Oct 2025.";
+  if (score >= 70) return "Warning band. Historically this band has preceded exit-zone readings, though not every time, and some readings have fallen back to neutral without going higher.";
+  if (score >= 50) return "Mid-cycle. Historically the least informative band — the record shows roughly as many moves up from here as down.";
+  if (score >= 30) return "Re-accumulation band. Historically this band has resolved upward more often than not over a 180-day window, which is a description of the record and not a forecast.";
+  if (score >= 15) return "Accumulation zone. Historically among the lower readings in a cycle. The 2022 signals in this band were both still underwater 180 days later.";
+  return "Deep accumulation. The lowest band the Score produces. The 2018 crossing here was +102% at 180 days; that is one instance, not a pattern.";
 }
 
 // Single implementation of "what does the CBBI payload say right now", shared
@@ -316,7 +329,7 @@ function ladderEmbed() {
     fields: [
       { name: "Free — forever", value: "The live Score, the daily brief, all 9 indicator pages, every timestamped receipt, and this Discord.\n[liftoffr.com/free](https://liftoffr.com/free)" },
       { name: "$29 · My Bear Market Buy Plan", value: "The nine-tier ladder I'm actually executing. Every level, what has to be true at each one, a receipt when it fires, and the `#plan-updates` channel.\n[liftoffr.com/plan](https://liftoffr.com/plan)" },
-      { name: "$197 · The Cycle System", value: "Why those levels — all 8 indicators, the confluence method, and the exit ladder. Opens Aug 24.\n[liftoffr.com/system](https://liftoffr.com/system)" },
+      { name: "$197 · The Cycle System", value: "Why those levels — all nine weighted indicators, the method, and the exit ladder.\n[liftoffr.com/system](https://liftoffr.com/system)" },
       { name: "$497 · The Cycle Playbook", value: "A private 90-minute session where we build your ladder against your actual portfolio. 4 a month.\n[liftoffr.com/playbook](https://liftoffr.com/playbook)" },
     ],
     footer: FOOTER,

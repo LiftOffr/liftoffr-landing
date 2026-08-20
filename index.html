@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -20,7 +59,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      The .well-known association file and its vercel.json headers block are left in
      place so this is a one-commit revert once Whop fixes their side. -->
 <title>Bitcoin Cycle Intelligence & Exit Signals | LiftOffr</title>
-<meta name="description" content="The 8-indicator Bitcoin cycle framework, live. Free Score and daily brief, plus my exact nine-tier buy plan for $29, once. Educational only, not advice.">
+<meta name="description" content="The nine-indicator Bitcoin cycle Score, live — every weight published so you can recompute it yourself. Free Score and daily brief, plus my exact nine-tier buy plan for $29, once. Educational only, not advice.">
 <meta name="keywords" content="BTC cycle, bitcoin signals, CBBI, Pi Cycle Top, MVRV Z-Score, Puell Multiple, Bitcoin Rainbow Chart, bitcoin cycle top, when to sell bitcoin, crypto cycle indicators">
 <meta name="author" content="Torin Christianson">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -134,7 +173,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@id": "https://liftoffr.com/#website",
       "url": "https://liftoffr.com/",
       "name": "LiftOffr",
-      "description": "Bitcoin cycle intelligence — 8-indicator confluence system for timing Bitcoin cycle tops",
+      "description": "Bitcoin cycle intelligence — nine-indicator weighted composite Score for reading Bitcoin cycle zones, with every weight published",
       "publisher": {
         "@id": "https://liftoffr.com/#org"
       },
@@ -155,7 +194,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "name": "What if I'm too late — is this cycle already over?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "If the cycle isn't over, you have a system. If it is, you'll learn the same framework that reads 2013, 2017, 2021 and 2025 correctly in backtest — which means you're ready before everyone else for the next one. Either way, the 30-day refund means you risk zero to find out."
+            "text": "If the cycle isn't over, you have a system. If it is, you'll learn the same framework, scored across every cycle since 2011 — with the misses published alongside the hits, so you can judge it before you rely on it. Either way, the 30-day refund means you risk zero to find out."
           }
         },
         {
@@ -163,7 +202,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "name": "Are LiftOffr's past signals real-time calls or a backtest?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "A backtest. The dated signals on the site are what the LiftOffr Score produces when it is run over historical price and on-chain data — the 2018 and 2022 bottoms, the December 2024 exit at $104K, the 2021 top. They are not a log of calls published at the time, and LiftOffr did not exist for most of that window. Every figure is reproducible from public data; the full zone-crossing log, including the losing signals, is at liftoffr.com/receipts."
+            "text": "A backtest. The dated signals on the site are what the LiftOffr Score produces when it is run over historical price and on-chain data — the 2018 deep-accumulation crossing at $3,947, the two 2022 buy signals that were both underwater at 180 days, the November 2024 exit at $90,568, the 2021 top. They are not a log of calls published at the time, and LiftOffr did not exist for most of that window. Every figure is reproducible from public data; the full zone-crossing log, including the losing signals, is at liftoffr.com/receipts."
           }
         },
         {
@@ -312,13 +351,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -1018,6 +1052,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -1032,8 +1067,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div style="display:flex;align-items:center;gap:14px;">
     <a href="/about" class="nav-link">About</a>
     <a href="/cycle" class="nav-link nav-link-tr">Live Score</a>
+    <!-- /indicators is the one page where the "recompute it yourself" promise is
+         deliverable. It stays visible at every breakpoint. Track Record and Blog
+         collapse on mobile instead. -->
+    <a href="/indicators" class="nav-link">The Method</a>
     <a href="/track-record" class="nav-link nav-link-blog">Track Record</a>
-    <a href="/indicators" class="nav-link nav-link-blog">Indicators</a>
     <a href="/blog" class="nav-link nav-link-blog">Blog</a>
     <a href="/faq" class="nav-link">FAQ</a>
     <a href="/quiz?utm_source=liftoffr&utm_medium=homepage&utm_campaign=quiz&utm_content=nav" class="btn-outline">Where are you in the cycle?</a>
@@ -1060,7 +1098,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-cta-row">
     <a href="/cycle" rel="noopener" class="btn-red-xl btn-pulse">See today's Score — free →</a>
     <div class="trust-row">
-      <span>Updated this morning · 208 members reading it · No card, no email</span>
+      <span>Recomputed daily from public data · 70 in the free Discord · No card, no email · <strong style="color:#888;">18+</strong></span>
     </div>
   </div>
 
@@ -1077,8 +1115,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="hp-divider"></div>
       <div class="hp-stat">
-        <div class="hp-stat-num">15 yrs</div>
-        <div class="hp-stat-lbl">Of indicator history behind it</div>
+        <div class="hp-stat-num">14 yrs</div>
+        <div class="hp-stat-lbl">Sep 2011 to Nov 2025, the full span</div>
       </div>
       <div class="hp-divider"></div>
       <div class="hp-stat">
@@ -1090,13 +1128,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </a>
 </section>
 
-<!-- PROOF BAR — every figure here is third-party verifiable.
-     208: whop.com/liftoffr · 70: Discord API, guild 1380245793780531351
-     4M+: Torin's own IG/YT/TikTok analytics · 64: /receipts
-     Re-verify these before changing them; do not round up. -->
+<!-- PROOF BAR — every figure here is third-party verifiable and dated.
+     70: Discord API, guild 1380245793780531351 (live count)
+     2.3M: Instagram Insights, 90-day window ending 19 Aug 2026 — RE-DATE OR REMOVE when stale
+     64: /receipts · 9: api/cycle-score.js WEIGHTS
+     Re-verify these before changing them; do not round up.
+     REMOVED 2026-08-20: "208 Members On Whop" (Whop shows 350 records, all $0.00 lifetime
+     spend, joined in a 6-day clipper-application window — not members reading a brief) and
+     "4M+ Views" (unsourced; IG's own 90-day figure is 2.3M). Both replaced with numbers
+     that survive being checked. Do not restore either without a source and a date. -->
 <div class="proof-bar">
-  <a href="https://whop.com/liftoffr/" target="_blank" rel="noopener" class="proof-item" style="text-decoration:none;cursor:pointer;"><div class="proof-num">208</div><div class="proof-lbl">Members On Whop →</div></a>
-  <div class="proof-item"><div class="proof-num">4M+</div><div class="proof-lbl">Views Across IG, YT &amp; TikTok</div></div>
+  <a href="/indicators" class="proof-item" style="text-decoration:none;cursor:pointer;"><div class="proof-num">9</div><div class="proof-lbl">Weights Published — Recompute It →</div></a>
+  <div class="proof-item"><div class="proof-num">2.3M</div><div class="proof-lbl">Views, 90 Days To 19 Aug 2026</div></div>
   <a href="/receipts" class="proof-item" style="text-decoration:none;cursor:pointer;"><div class="proof-num">64</div><div class="proof-lbl">Scored Signals Since 2011 →</div></a>
   <div class="proof-item"><div class="proof-num">30-Day</div><div class="proof-lbl">Refund, No Questions</div></div>
 </div>
@@ -1132,16 +1175,142 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p style="font-size:14.5px;color:#bdbdbd;line-height:1.75;margin:0 0 14px;">
       The Score is built from <a href="https://colintalkscrypto.com/cbbi/" target="_blank" rel="noopener noreferrer" style="color:#e9e9e9;">CBBI's public daily data</a>, weighted by numbers I publish on every <a href="/indicators" style="color:#e9e9e9;">indicator page</a>. Pick any date on the receipts page, pull the same free source, run the same weights. You'll get my number.
     </p>
-    <p style="font-size:14.5px;color:#bdbdbd;line-height:1.75;margin:0;">
+    <p style="font-size:14.5px;color:#bdbdbd;line-height:1.75;margin:0 0 18px;">
       <strong style="color:#fff;">That's the whole method, published.</strong> Most people in this category hand you a chart and a subscription. This hands you the formula.
     </p>
+
+    <!-- RECOMPUTE-IT-YOURSELF TABLE. Renders live from /api/cycle-score; the nine
+         weights are the ones in api/cycle-score.js WEIGHTS and on /indicators.
+         If the fetch fails, the static fallback rows below stay visible — they are a
+         real dated snapshot (18 Aug 2026), not an illustration. Keep them honest. -->
+    <div style="border-top:1px solid #1e1e1e;padding-top:18px;">
+      <div style="font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#777;margin-bottom:12px;">Today's arithmetic, in full</div>
+      <div id="recompute-table" style="font-family:ui-monospace,Menlo,SF Mono,monospace;font-size:12.5px;color:#bdbdbd;line-height:2;">
+        <div style="display:flex;justify-content:space-between;color:#666;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;border-bottom:1px solid #1a1a1a;padding-bottom:6px;margin-bottom:6px;">
+          <span>Indicator</span><span>Weight &times; reading</span>
+        </div>
+        <div id="recompute-rows">
+          <div style="display:flex;justify-content:space-between;"><span>RHODL Ratio</span><span>0.20 &times; 30.8</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>Puell Multiple</span><span>0.20 &times; 76.0</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>Trolololo</span><span>0.15 &times; 15.0</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>MVRV Z-Score</span><span>0.15 &times; 12.8</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>Pi Cycle Top</span><span>0.10 &times; 38.7</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>2Y MA Multiplier</span><span>0.05 &times; 45.4</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>Reserve Risk</span><span>0.05 &times; 19.1</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>Woobull Top Cap</span><span>0.05 &times; 0.0</span></div>
+          <div style="display:flex;justify-content:space-between;"><span>RUPL</span><span>0.05 &times; 34.5</span></div>
+        </div>
+        <div id="recompute-total" style="display:flex;justify-content:space-between;border-top:1px solid #1a1a1a;margin-top:6px;padding-top:6px;color:#fff;font-weight:700;">
+          <span>LiftOffr Score</span><span>34.4</span>
+        </div>
+        <div id="recompute-asof" style="font-size:11px;color:#666;font-family:system-ui,-apple-system,sans-serif;margin-top:8px;line-height:1.6;">Snapshot of 18 Aug 2026. An independent auditor ran these same nine numbers and got <strong style="color:#999;">34.35</strong> against the published 34.4 &mdash; the gap is rounding. Do the same with any date you like.</div>
+      </div>
+      <div style="margin-top:16px;">
+        <a href="/indicators" style="display:inline-block;padding:12px 22px;border:1px solid #2a2a2a;color:#fff;font-size:14px;font-weight:800;border-radius:9px;text-decoration:none;">See all nine weights and where each one has been wrong &rarr;</a>
+      </div>
+    </div>
   </div>
 
   <div style="text-align:center;margin-top:20px;">
     <a href="/receipts" style="display:inline-block;padding:14px 28px;background:var(--red);color:#fff;font-size:15.5px;font-weight:800;border-radius:10px;text-decoration:none;">Open all 64 signals →</a>
-    <div style="font-size:12.5px;color:#777;margin-top:9px;">15 years of signals · Every one dated</div>
+    <div style="font-size:12.5px;color:#777;margin-top:9px;">Sep 2011 to Nov 2025 · Every one dated</div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     HOMEPAGE EMAIL CAPTURE. Added 2026-08-20.
+
+     Before this, the homepage had NO email field anywhere -- the only two capture
+     points on the entire site were /free and /quiz, both of which a visitor has to
+     navigate to. 90 days of analytics: 2.3M views, 344 website sessions, ~8 email
+     captures. The handoff, not the offer, is where this funnel dies.
+
+     Placement is deliberate. It sits immediately after the recompute-it-yourself
+     arithmetic, which is the highest-credibility moment on the page -- the reader has
+     just been handed the formula and told to check it. Asking there converts better
+     than a generic footer form, and the ask matches what was just proven.
+
+     Posts to /api/subscribe with magnet 'buyzone' -- the same contract /free uses, and
+     the only magnet whose PDF actually exists (bear-market-buy-zone.pdf). Do NOT point
+     this at 'checklist': that PDF is no longer offered and /checklist 301s to /quiz.
+     ═══════════════════════════════════════════════════════════════════════════ -->
+<section style="max-width:820px;margin:0 auto;padding:44px 20px 8px;">
+  <div style="background:#0d0d0d;border:1px solid #1e1e1e;border-radius:14px;padding:28px 24px;">
+    <div class="section-label" style="margin-bottom:10px;">Get the number every Sunday</div>
+    <h2 style="font-size:24px;font-weight:900;color:#fff;margin:0 0 10px;letter-spacing:-0.5px;line-height:1.2;">One email a week. The Score, what moved it, and what I'm doing about it.</h2>
+    <p style="font-size:15px;color:#a5a5a5;line-height:1.65;margin:0 0 18px;">
+      No trade calls, no tickers, no &ldquo;buy now.&rdquo; The Score, the largest weight change behind it, what that zone has
+      historically meant, and what I'm doing with my own stack &mdash; which is a disclosure, not an instruction.
+      Free, and it stays free.
+    </p>
+
+    <form id="homeLeadForm" data-medium="homepage_recompute" onsubmit="return submitHomeLead(this);"
+          style="display:flex;gap:10px;flex-wrap:wrap;">
+      <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com"
+             style="flex:1 1 260px;min-width:0;padding:14px 16px;background:#111;border:1px solid #262626;border-radius:9px;color:#fff;font-size:15px;font-family:inherit;">
+      <button type="submit"
+              style="flex:0 0 auto;padding:14px 26px;background:var(--red);border:1px solid var(--red);border-radius:9px;color:#fff;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;">Send me the Score</button>
+    </form>
+    <div id="homeFormError" style="display:none;margin-top:10px;font-size:13px;color:#e8b339;">Something went wrong. Try again in a moment.</div>
+    <p style="font-size:12px;color:#666;margin:12px 0 0;line-height:1.6;">
+      Unsubscribe in one click. 18+ only. Educational content, not financial advice, and nothing in it is personalised to you.
+    </p>
+  </div>
+</section>
+
+<script>
+// Mirrors submitFreeForm() on /free -- same endpoint, same magnet, same GA4 events
+// (lead_magnet_submit on attempt, lead_captured on success) so the two capture points
+// report into one funnel rather than two.
+function submitHomeLead(form) {
+  var input = form.querySelector('input[type=email]');
+  var btn   = form.querySelector('button[type=submit]');
+  var errorBox = document.getElementById('homeFormError');
+  var email = (input || {}).value || '';
+  var medium = form.getAttribute('data-medium') || 'homepage';
+  var oldLabel = btn ? btn.textContent : '';
+
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  if (input) { input.disabled = true; }
+  if (errorBox) errorBox.style.display = 'none';
+
+  var q;
+  try { q = new URL(location.href).searchParams; } catch (e) { q = null; }
+  var payload = {
+    email: email,
+    magnet: 'buyzone',
+    utm_source: (q && q.get('utm_source')) || 'liftoffr',
+    utm_medium: medium,
+    utm_campaign: (q && q.get('utm_campaign')) || 'homepage',
+    utm_content: (q && q.get('utm_content')) || 'recompute_block'
+  };
+
+  if (typeof window.track === 'function') {
+    window.track('lead_magnet_submit', { source: medium, page: location.pathname });
+  }
+
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    return r.json().then(function(data){ return { ok: r.ok, data: data }; });
+  }).then(function(result){
+    if (!result.ok) throw new Error((result.data && result.data.error) || 'Subscription failed');
+    form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">✓ Check your inbox. The Score lands every Sunday.</div>';
+    if (typeof window.track === 'function') {
+      window.track('lead_captured', { source: medium, page: location.pathname });
+    }
+  }).catch(function(err){
+    if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
+    if (input) { input.disabled = false; }
+    if (errorBox) errorBox.style.display = 'block';
+    console.error('submitHomeLead error:', err);
+  });
+
+  return false;
+}
+</script>
 
 <!-- LIVE INDICATOR STRIP -->
 <div class="live-strip" id="liveStrip">
@@ -1288,7 +1457,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-title">Open Discord — 8am MT</div>
-        <div class="step-desc">The daily brief is already posted. BTC price, all 8 indicator readings, key levels, and the confluence verdict. Read it like a newspaper.</div>
+        <div class="step-desc">The daily brief is already posted. BTC price, all nine weighted component readings, the Score, key levels and what the zone has historically meant. Read it like a newspaper.</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
@@ -1336,8 +1505,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="background:#111111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 22px;">
         <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Module 4 · The Indicators</div>
-        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;">Read all 8 indicators yourself</div>
-        <div style="font-size:13px;color:#999;line-height:1.55;">CBBI, Pi Cycle, MVRV-Z, Rainbow, Market Cipher and more — what each one says, when it lied, and how confluence works. The data layer where guessing stops.</div>
+        <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;">Read all nine weighted indicators yourself</div>
+        <div style="font-size:13px;color:#999;line-height:1.55;">RHODL, Puell, Trolololo, MVRV-Z, Pi Cycle, 2Y MA, Reserve Risk, Woobull and RUPL — the exact nine the Score weights, what each one says, when it lied, and how confluence works. The data layer where guessing stops.</div>
       </div>
       <div style="background:#111111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 22px;">
         <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Module 5 · Execution</div>
@@ -1370,24 +1539,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- PAST CALLS TIMELINE — homepage mirror of /links signal log -->
 <section class="pc-section">
   <div class="pc-wrap" style="text-align:center;">
-    <div class="section-label">Every cycle turn since 2013</div>
-    <h2 style="margin-bottom:18px;">What the framework <em>flags</em>.</h2>
-    <p style="color:#999;font-size:15px;max-width:520px;margin:0 auto 28px;">Nine indicators, one number, applied to every major turn Bitcoin has made. Each one below is dated and reproducible from public data.</p>
+    <div class="section-label">Straight from the signal log</div>
+    <h2 style="margin-bottom:18px;">What the framework <em>actually did</em>.</h2>
+    <p style="color:#999;font-size:15px;max-width:560px;margin:0 auto 28px;">Nine indicators, one number. Every row below is copied verbatim from the <a href="/receipts" style="color:#e63946;">64-row signal log</a> &mdash; same date, same Score, same price &mdash; including the ones that went the wrong way. Nothing here is rounded in my favour.</p>
 
     <div class="pc-card" style="text-align:left;">
       <div class="pc-call">
         <div class="pc-icon buy">↑</div>
         <div class="pc-body">
-          <div class="pc-date">Dec 15, 2018 <span class="tag buy">Bottom</span></div>
-          <div class="pc-text">Buy signal at $3.2K. <strong>BTC ran 21× to $69K by Nov 2021.</strong></div>
+          <div class="pc-date">Nov 25, 2018 <span class="tag buy">Deep accumulation</span></div>
+          <div class="pc-text">Score 14.6, BTC <strong>$3,947</strong>. Six months later BTC was <strong>+102.4%</strong>. Worth saying out loud: the market&rsquo;s actual low came 20 days later at $3,185, so the model was <em>early and 24% high</em>. It got the zone right, not the tick.</div>
         </div>
       </div>
 
       <div class="pc-call">
-        <div class="pc-icon buy">↑</div>
+        <div class="pc-icon" style="color:#e8b339;">↓</div>
         <div class="pc-body">
-          <div class="pc-date">Nov 26, 2022 <span class="tag buy">Bottom</span></div>
-          <div class="pc-text">Buy signal at $16.5K, days after the FTX collapse. <strong>BTC ran 7.5× to $124,824 by Oct 2025.</strong></div>
+          <div class="pc-date">May &amp; Jun 2022 <span class="tag sell" style="color:#e8b339;background:rgba(232,179,57,0.1);">Both underwater</span></div>
+          <div class="pc-text">The model&rsquo;s two 2022 buy signals fired at <strong>$29,224</strong> (May 20) and <strong>$20,572</strong> (Jun 20). At 180 days they were <strong>&minus;43.0%</strong> and <strong>&minus;18.5%</strong>. It never produced a signal at the November FTX low. The next one, Jan 14 2023 at $21,011, was <strong>+49.6%</strong> at 180 days. This is what buying a zone instead of a bottom looks like.</div>
         </div>
       </div>
 
@@ -1402,8 +1571,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pc-call">
         <div class="pc-icon sell">↓</div>
         <div class="pc-body">
-          <div class="pc-date">Dec 15, 2024 <span class="tag sell">Top — current cycle</span></div>
-          <div class="pc-text">Exit signal fired at ~$104K. BTC topped at <strong>$124,824</strong> on Oct 6, 2025 and is <strong>down 36% from that high</strong> today. The model was out before the turn.</div>
+          <div class="pc-date">Nov 16, 2024 <span class="tag sell">Exit — current cycle</span></div>
+          <div class="pc-text">Score crossed 85.0 at BTC <strong>$90,568</strong>. Then Bitcoin kept going: <strong>+16.9%</strong> at 30 days, <strong>+14.5%</strong> at 180. Exiting there meant watching it run for another six months. And the model did not stay out &mdash; it crossed the exit threshold <strong>six times in twelve months</strong>, and only left the exit zone on Oct 21, 2025, fifteen days <em>after</em> the $124,824 top.</div>
+          <div style="margin-top:10px;padding:10px 12px;background:#0d0d0d;border:1px solid #1e1e1e;border-radius:8px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#999;line-height:1.9;">
+            <div style="font-family:inherit;color:#666;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:6px;">All six exit-threshold crossings, Nov 2024 &rarr; Oct 2025</div>
+            Nov 16 2024 &nbsp;<span style="color:#ef4444;">&rarr; EXIT</span> &nbsp;$90,568<br>
+            Feb 18 2025 &nbsp;<span style="color:#e8b339;">&rarr; WARNING</span> &nbsp;$95,444<br>
+            May 08 2025 &nbsp;<span style="color:#ef4444;">&rarr; EXIT</span> &nbsp;$103,070<br>
+            Jun 19 2025 &nbsp;<span style="color:#e8b339;">&rarr; WARNING</span> &nbsp;$104,710<br>
+            Jun 27 2025 &nbsp;<span style="color:#ef4444;">&rarr; EXIT</span> &nbsp;$107,091<br>
+            Oct 21 2025 &nbsp;<span style="color:#e8b339;">&rarr; WARNING</span> &nbsp;$108,700
+          </div>
+          <div class="pc-text" style="margin-top:10px;color:#999;">A threshold model whipsaws. Anyone following this literally faced six separate exit-and-re-enter decisions in a year, which is exactly why the plan is a ladder and not a single date.</div>
         </div>
       </div>
 
@@ -1416,7 +1595,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="pc-note">Every signal the model has ever produced — all 64, dated — is at <a href="/receipts">/receipts</a>. <a href="/track-record">See the method behind them →</a></div>
+      <div class="pc-note">All 64 zone crossings since 2011 are published &mdash; winners, losers and the ones that went nowhere &mdash; at <a href="/receipts">/receipts</a>. Scored directionally, the model was right on <strong style="color:#999;">21 of 46</strong> directional crossings at 30 and 90 days and <strong style="color:#999;">25 of 46</strong> at 180. That is close to a coin flip on a short horizon, and it is published here because it is what the record says. It is a multi-month cycle tool, not a 30-day direction predictor. <a href="/indicators">Recompute the Score yourself &rarr;</a></div>
     </div>
   </div>
 </section>
@@ -1493,6 +1672,51 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     })
     .catch(function(e){ console.error('cycle-score load failed', e); });
+})();
+
+// Recompute-it-yourself table — same endpoint, shows the arithmetic rather than
+// just the answer. Static fallback rows stay if this fails.
+(function(){
+  var LABELS = {
+    RHODL:'RHODL Ratio', Puell:'Puell Multiple', Trolololo:'Trolololo',
+    MVRV:'MVRV Z-Score', PiCycle:'Pi Cycle Top', '2YMA':'2Y MA Multiplier',
+    ReserveRisk:'Reserve Risk', Woobull:'Woobull Top Cap', RUPL:'RUPL'
+  };
+  var ORDER = ['RHODL','Puell','Trolololo','MVRV','PiCycle','2YMA','ReserveRisk','Woobull','RUPL'];
+  fetch('/api/cycle-score')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d || !d.components || typeof d.score !== 'number') return;
+      var rows = document.getElementById('recompute-rows');
+      var total = document.getElementById('recompute-total');
+      var asof = document.getElementById('recompute-asof');
+      if (!rows) return;
+      var html = '';
+      var stale = [];
+      ORDER.forEach(function(k){
+        var c = d.components[k];
+        if (!c) return;
+        var dead = (c.value === 0);
+        if (dead) stale.push(LABELS[k]);
+        html += '<div style="display:flex;justify-content:space-between;' + (dead ? 'color:#e8b339;' : '') + '">' +
+                '<span>' + LABELS[k] + (dead ? ' <span style="font-size:10px;">(feed reading zero)</span>' : '') + '</span>' +
+                '<span>' + c.weight.toFixed(2) + ' \u00d7 ' + c.value.toFixed(1) + '</span></div>';
+      });
+      rows.innerHTML = html;
+      if (total) total.innerHTML = '<span>LiftOffr Score</span><span>' + d.score.toFixed(1) + '</span>';
+      if (asof) {
+        var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'today';
+        var txt = 'Live reading, ' + when + '. Multiply, add, divide by the weights used. ' +
+                  'You will get this number from the same free public source I do.';
+        if (stale.length) {
+          txt += ' Heads up: ' + stale.join(' and ') + ' ' + (stale.length > 1 ? 'are' : 'is') +
+                 ' returning zero from the upstream feed right now, which drags the Score down. ' +
+                 'It is shown rather than hidden.';
+        }
+        asof.textContent = txt;
+      }
+    })
+    .catch(function(e){ console.error('recompute table load failed', e); });
 })();
 </script>
 
@@ -1578,7 +1802,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">What if I'm too late — is this cycle already over? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">If it isn't, you have a system. If it is, you'll learn the same framework that reads 2013, 2017, 2021 and 2025 correctly in backtest — so you're ready before everyone else for the next cycle. The 30-day refund means you risk zero to find out.</div>
+        <div class="faq-a">If it isn't, you have a system. If it is, you'll learn the same framework, scored across every cycle since 2011, with the misses published alongside the hits. The 30-day refund means you risk zero to find out.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">I can get this free on YouTube — why pay? <span class="faq-arrow">+</span></button>
@@ -1590,7 +1814,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="faq-item">
         <button class="faq-q">Do you make money if I lose money? <span class="faq-arrow">+</span></button>
-        <div class="faq-a">No. It's a $29 one-time payment. I don't take a cut of anything you do, I don't get paid by exchanges or token projects, and there's no affiliate link on this site. If you buy the plan and never come back, I've made $29 and that's the whole transaction.</div>
+        <div class="faq-a">No. It's a $29 one-time payment. I don't take a cut of anything you do, I don't get paid by exchanges or token projects, and every outbound tool link on <a href="/stack" style="color:var(--red);">/stack</a> is currently a direct link with no commission &mdash; each one is labelled with its commission status, so if that ever changes you'll see it on the link itself before you see it anywhere else. If you buy the plan and never come back, I've made $29 and that's the whole transaction.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">What if Pi Cycle doesn't fire this cycle? <span class="faq-arrow">+</span></button>
@@ -1598,7 +1822,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="faq-item">
         <button class="faq-q">Can I verify your past calls? <span class="faq-arrow">+</span></button>
-        <div class="faq-a"><strong>Yes, and here's the important distinction.</strong> Everything on the <a href="/receipts" style="color:var(--red);">receipts page</a> before today is a backtest — the model run against history: the 2018 and 2022 bottoms, the Dec 2024 exit at $104K, the 2021 top. It is not a log of calls I published at the time, and LiftOffr did not exist for most of that window. All 64 are on the page and labeled. And you don't have to take my word for any of them: the Score is computed from CBBI's public daily data using weights published on every indicator page, so you can recompute any date yourself. The <a href="/track-record" style="color:var(--red);">methodology page</a> shows every input.</div>
+        <div class="faq-a"><strong>Yes, and here's the important distinction.</strong> Everything on the <a href="/receipts" style="color:var(--red);">receipts page</a> before today is a backtest — the model run against history: the 2018 deep-accumulation crossing at $3,947, the two 2022 buy signals that were both down at 180 days, the Nov 2024 exit at $90,568, the 2021 top. It is not a log of calls I published at the time, and LiftOffr did not exist for most of that window. All 64 are on the page and labeled. And you don't have to take my word for any of them: the Score is computed from CBBI's public daily data using weights published on every indicator page, so you can recompute any date yourself. The <a href="/track-record" style="color:var(--red);">methodology page</a> shows every input.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q">How much time does this take? <span class="faq-arrow">+</span></button>
@@ -1661,7 +1885,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>🛡️ 30-day refund, no questions</span><span class="dot">·</span><span>One-time payment</span><span class="dot">·</span><span>No subscription, ever</span>
   </div>
   <div style="margin-top:16px;padding:12px 16px;display:inline-block;border:1px solid rgba(217,164,65,0.4);background:rgba(217,164,65,0.08);border-radius:10px;font-size:13px;color:#d9a441;font-weight:700;">
-    Founding price on The Cycle System closes September 7, 2026 &mdash; <a href="/system" style="color:#e8c98a;text-decoration:underline;text-underline-offset:3px;">$147 until then, $197 after</a>
+    Ready for the whole framework? <a href="/system" style="color:#e8c98a;text-decoration:underline;text-underline-offset:3px;">The Cycle System &mdash; $197, once</a>
   </div>
   <div style="margin-top:12px;font-size:13px;color:#777;">
     Not ready? <a href="/quiz?utm_source=liftoffr&utm_medium=homepage&utm_campaign=quiz&utm_content=final_cta" style="color:#aaa;text-decoration:underline;text-underline-offset:3px;">Take the 60-second cycle quiz</a> — free, no card, no email needed.
@@ -1689,7 +1913,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- THE disclosure. Site-wide, once, here. Do not scatter hedges back through the
        page body — that was the 2026-08-16 over-correction Torin flagged. -->
   <div style="max-width:680px;margin:6px auto 0;font-size:10.5px;color:#5a5a5a;line-height:1.65;">
-    Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+    Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
   </div>
   <div style="display:flex;gap:14px;justify-content:center;font-size:11px;flex-wrap:wrap;">
     <a href="/about" style="color:#666;">About</a>

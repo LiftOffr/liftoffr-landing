@@ -1,7 +1,7 @@
 {
   "name": "LiftOffr",
   "short_name": "LiftOffr",
-  "description": "The 8-indicator Bitcoin cycle framework — live Score, daily brief and the receipts.",
+  "description": "The nine-indicator Bitcoin cycle Score — every weight published, live, plus the daily brief and the receipts.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#080808",

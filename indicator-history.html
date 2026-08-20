@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -92,13 +131,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -364,6 +398,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- PROOF NAV (action #15) — four pages, one record. /receipts is canonical;
@@ -400,7 +435,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="breadcrumb"><a href="/">LiftOffr</a> › Indicator History</p>
   <div class="label">On-Chain Track Record</div>
   <h1>What every indicator read<br>at every <em>Bitcoin cycle top.</em></h1>
-  <p>The claim isn't "trust us." The claim is: here's what CBBI, Pi Cycle, MVRV Z-Score, Puell Multiple, and 4 other on-chain signals read at the 2013, 2017, 2021, and 2025 peaks — and here's what that means for reading the next one.</p>
+  <p>The claim isn't "trust us." The claim is: here's what these signals read at the 2013, 2017, 2021, and 2025 peaks — and here's what that means for reading the next one.</p>
+</div>
+
+<!-- WEIGHTING CLARITY. Added 2026-08-20. This page pre-dates the V7 weights and was
+     built around a different indicator set than the one the live Score actually uses.
+     Three of the indicators tabulated below carry ZERO weight in api/cycle-score.js,
+     and four that DO carry weight (RHODL at 20% among them) have no historical rows
+     here at all. Rather than quietly deleting the context indicators or inventing
+     historical readings for the missing ones, the gap is stated. Fill it by adding
+     real rows, never by relabelling what is already here. -->
+<div class="notice" style="padding:16px 24px;border-left:3px solid #e63946;">
+  <strong>Read this table against the actual weights.</strong> The LiftOffr Score is nine weighted components:
+  <strong>RHODL Ratio 20%, Puell Multiple 20%, Trolololo 15%, MVRV Z-Score 15%, Pi Cycle Top 10%, 2-Year MA Multiplier 5%, Reserve Risk 5%, Woobull Top Cap 5%, RUPL 5%</strong>.
+  Two things follow, and both were wrong on this page until 20 Aug 2026.
+  <br><br>
+  <strong>1.</strong> <em>CBBI, Fear &amp; Greed and Google Trends are shown below for historical context and carry no weight in the Score.</em>
+  CBBI is the public data source the component readings are pulled from, not a component. Fear &amp; Greed and Google Trends are neither.
+  Nothing about the Score depends on what they read at a top.
+  <br><br>
+  <strong>2.</strong> <em>Four weighted components have no historical rows on this page yet</em> — RHODL Ratio, Reserve Risk, Woobull Top Cap and RUPL, which together carry 35% of the Score, RHODL alone carrying the joint-highest 20%.
+  Their live readings and weights are published at <a href="/indicators" style="color:#f59e0b;text-decoration:underline;">/indicators</a>; their cycle-top history is not published here yet, and this page will not pretend otherwise.
+  <br><br>
+  Where this page and <a href="/proof" style="color:#f59e0b;text-decoration:underline;">/proof</a> disagreed on a reading, the value here governs and /proof has been corrected to match.
 </div>
 
 <!-- DISCLAIMER -->
@@ -415,7 +472,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cycle-header">
       <span class="cycle-year">2013</span>
       <span class="cycle-date">November–December 2013</span>
-      <span class="cycle-price">Peak: ~$1,163</span>
+      <span class="cycle-price">Peak: $1,163 &middot; Nov 30, 2013</span>
     </div>
     <p class="cycle-note">Bitcoin's first major parabolic cycle. Most modern on-chain tools use 2013 data retroactively — readings are reconstructed, not real-time. The cycle featured two peaks (April and November), with November being the final top.</p>
 
@@ -487,7 +544,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cycle-header">
       <span class="cycle-year">2017</span>
       <span class="cycle-date">December 17, 2017</span>
-      <span class="cycle-price">Peak: ~$19,783</span>
+      <span class="cycle-price">Peak: $19,783 &middot; Dec 17, 2017</span>
     </div>
     <p class="cycle-note">The first mainstream Bitcoin cycle. Pi Cycle fired on December 17, 2017 — the exact day of the top. MVRV and Puell reached historic extremes. Google Trends hit 100 (peak search interest) in the same week.</p>
 
@@ -540,9 +597,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </tr>
         <tr>
           <td><div class="ind-name">Fear &amp; Greed Index</div><div class="ind-threshold">≥ 90 = extreme greed</div></td>
-          <td><span class="ind-reading" style="color:var(--red);">~95</span></td>
-          <td><span class="ind-detail">Extreme greed throughout December 2017</span></td>
-          <td><span class="status status-fired">✓ Fired</span></td>
+          <td><span class="ind-reading" style="color:var(--amber);">N/A</span></td>
+          <td><span class="ind-detail">The Crypto Fear &amp; Greed Index launched 1 Feb 2018. There was no reading at the December 2017 top. This row previously claimed ~95 and &ldquo;extreme greed throughout December 2017&rdquo;; corrected 20 Aug 2026.</span></td>
+          <td><span class="status status-na">— N/A</span></td>
         </tr>
         <tr>
           <td><div class="ind-name">Google Trends</div><div class="ind-threshold">≥ 80 = peak retail interest</div></td>
@@ -559,9 +616,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cycle-header">
       <span class="cycle-year">2021</span>
       <span class="cycle-date">Two peaks: April 14 &amp; November 10</span>
-      <span class="cycle-price">Peak: ~$69,044</span>
+      <span class="cycle-price">Peak: $69,044 &middot; Nov 10, 2021</span>
     </div>
-    <p class="cycle-note">The 2021 cycle had two distinct tops — one on-chain (April) and one price-based (November). Pi Cycle fired April 12, two days before the April peak, then never fired again before the November top. This is why we use 8 indicators in confluence: no single signal had the full picture.</p>
+    <p class="cycle-note">The 2021 cycle had two distinct tops — one on-chain (April) and one price-based (November). Pi Cycle fired April 12, two days before the April peak, then never fired again before the November top. This is why the Score weights nine components rather than trusting one: no single signal had the full picture.</p>
 
     <table class="ind-table">
       <thead>
@@ -772,15 +829,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <td style="text-align:center;"><span class="status status-fired" style="font-size:11px;">✓ Top zone</span></td>
       </tr>
       <tr>
-        <td><strong>Fear &amp; Greed</strong></td>
+        <td><strong>Fear &amp; Greed</strong> <span style="font-size:10px;color:#777;font-weight:600;">0% weight</span></td>
         <td style="text-align:center;"><span class="status status-na" style="font-size:11px;">— N/A</span></td>
-        <td style="text-align:center;"><span class="status status-fired" style="font-size:11px;">✓</span></td>
+        <td style="text-align:center;"><span class="status status-na" style="font-size:11px;">— N/A</span></td>
         <td style="text-align:center;"><span class="status status-fired" style="font-size:11px;">✓</span></td>
         <td style="text-align:center;"><span class="status status-early" style="font-size:11px;">⚠ Partial</span></td>
         <td style="text-align:center;"><span class="status status-miss" style="font-size:11px;">✗ Only 71</span></td>
       </tr>
       <tr>
-        <td><strong>Google Trends</strong></td>
+        <td><strong>Google Trends</strong> <span style="font-size:10px;color:#777;font-weight:600;">0% weight</span></td>
         <td style="text-align:center;"><span class="status status-early" style="font-size:11px;">⚠ Partial</span></td>
         <td style="text-align:center;"><span class="status status-fired" style="font-size:11px;">✓</span></td>
         <td style="text-align:center;"><span class="status status-early" style="font-size:11px;">⚠ Partial</span></td>
@@ -795,7 +852,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- FINAL CTA -->
 <div class="final-cta">
   <div class="label">Track the next top in real time</div>
-  <h2>We watch all 8 indicators.<br><em>Every single day.</em></h2>
+  <h2>All nine weighted components.<br><em>Every single day.</em></h2>
   <p>The daily brief tells you what each indicator is reading right now, what the confluence verdict is, and what it means for your position — in 3 minutes at 8am MT.</p>
   <a href="/plan" rel="noopener" class="btn-red-xl">Get the plan — $29 once →</a>
   <div class="trust-row">
@@ -830,7 +887,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

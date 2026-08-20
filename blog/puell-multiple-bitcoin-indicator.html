@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -14,13 +53,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <meta name="description" content="The Puell Multiple measures miner revenue vs. its yearly average. Learn the thresholds, halving effects, and why it's a key Bitcoin cycle top signal.">
     <meta name="keywords" content="Puell Multiple Bitcoin, Puell Multiple indicator, bitcoin miner profitability indicator, on-chain analysis, crypto cycle indicators">
     <meta property="og:title" content="Puell Multiple Explained: How Miner Profitability Predicts Bitcoin Cycle Tops">
-    <meta property="og:description" content="Understand the Puell Multiple: the miner profitability indicator that has flagged every major Bitcoin cycle top. Historical readings, halving effects, and confluence strategy inside.">
+    <meta property="og:description" content="Understand the Puell Multiple: the miner profitability indicator behind 20% of the LiftOffr Score. What it read at each cycle top, where it missed (November 2021), halving effects, and how it is weighted.">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://liftoffr.com/blog/puell-multiple-bitcoin-indicator">
     <meta property="og:image" content="https://liftoffr.com/og-image.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Puell Multiple Bitcoin: Miner Profitability Cycle Signal">
-    <meta name="twitter:description" content="Understand the Puell Multiple: the miner profitability indicator that has flagged every major Bitcoin cycle top. Historical readings, halving effects, and confluence strategy inside.">
+    <meta name="twitter:description" content="Understand the Puell Multiple: the miner profitability indicator behind 20% of the LiftOffr Score. What it read at each cycle top, where it missed (November 2021), halving effects, and how it is weighted.">
     <meta name="twitter:image" content="https://liftoffr.com/og-image.png">
     <title>Puell Multiple Bitcoin: Miner Profitability Cycle Signal</title>
     <link rel="canonical" href="https://liftoffr.com/blog/puell-multiple-bitcoin-indicator">
@@ -116,7 +155,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               "name": "Should I use the Puell Multiple alone to time Bitcoin trades?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No single indicator is sufficient. The November 2021 top is a clear example of Puell underperforming in isolation. LiftOffr tracks 8 indicators in confluence — including the Puell Multiple, MVRV ratio, and others — to generate a combined signal. When multiple independent metrics agree, the probability of a meaningful cycle inflection is much higher than any single reading alone."
+                "text": "No single indicator is sufficient. The November 2021 top is a clear example of Puell underperforming in isolation. The LiftOffr Score weights nine components — the Puell Multiple among them, at 20% — to generate one 0-100 number. When multiple independent metrics agree, the probability of a meaningful cycle inflection is much higher than any single reading alone."
               }
             }
           ]
@@ -229,19 +268,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -323,7 +358,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <h2>3. Reading the Signal: Key Thresholds</h2>
 
-        <p>LiftOffr uses the following zones when tracking the Puell Multiple as part of its 8-indicator confluence system:</p>
+        <p>LiftOffr uses the following zones when tracking the Puell Multiple as part of its nine-component weightedr confluence system:</p>
 
         <table class="signal-table">
             <thead>
@@ -393,7 +428,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>This is a critical lesson: <strong>Puell alone did not confirm a definitive cycle top in November 2021.</strong> Traders relying solely on Puell would have seen a moderate reading and potentially stayed long through the subsequent crash. This is precisely why confluence with other indicators is essential. Other metrics — including on-chain signals, price structure, and sentiment indicators — were flashing caution in November 2021 even when Puell was not.</p>
 
         <div class="highlight">
-            <strong>The November 2021 lesson:</strong> No indicator is infallible. The Puell Multiple is most reliable as a top signal when it exceeds 4.0, but the November 2021 cycle shows that major tops can form even when Puell is in a moderate range. This is why LiftOffr tracks 8 indicators in confluence — so that a miss on one is caught by the others.
+            <strong>The November 2021 lesson:</strong> No indicator is infallible. The Puell Multiple is most reliable as a top signal when it exceeds 4.0, but the November 2021 cycle shows that major tops can form even when Puell is in a moderate range. This is why LiftOffr tracks nine weighted components — so that a miss on one is caught by the others.
         </div>
 
         <p>See how the Puell Multiple performed at every Bitcoin cycle top in detail: <a href="/indicator-history" class="internal-link">See how Puell Multiple performed at every Bitcoin cycle top →</a></p>
@@ -414,7 +449,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <strong>How to account for halvings:</strong> When interpreting Puell Multiple readings in the 6–18 months following a halving, consider how much of the reading is driven by the halving's mathematical effect versus genuine miner overcompensation. In the first year after a halving, Puell readings should be contextualized against the new supply schedule, not just historical absolute thresholds.
         </div>
 
-        <p>This halving effect is one reason the Puell Multiple should never be used in isolation. At LiftOffr, we contextualize it against the current point in the halving cycle alongside the other 7 indicators in our confluence model.</p>
+        <p>This halving effect is one reason the Puell Multiple should never be used in isolation. At LiftOffr, we contextualize it against the current point in the halving cycle alongside the other eight weighted components in the Score.</p>
 
         <h2>6. How to Use the Puell Multiple in a Confluence Strategy</h2>
 
@@ -444,23 +479,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <li><strong>Puell 0.5–1.0:</strong> Caution — bear market or recovery. Not a buy signal on its own, but the worst forced selling pressure from miners is easing.</li>
                 <li><strong>Puell 1.0–2.0:</strong> Neutral zone. No strong signal. Monitor other indicators for direction.</li>
                 <li><strong>Puell 2.0–4.0:</strong> Elevated bull market. Miner sell pressure rising. Begin tightening risk management. Watch other indicators for confirmation of extended top.</li>
-                <li><strong>Puell above 4.0:</strong> Top alert zone. Historically, readings here have preceded major cycle corrections. This is LiftOffr's active danger threshold — but always confirm with the broader 8-indicator model before drawing conclusions.</li>
+                <li><strong>Puell above 4.0:</strong> Top alert zone. Historically, readings here have preceded major cycle corrections. This is LiftOffr's active danger threshold — but always confirm with the broader nine-component weighted model before drawing conclusions.</li>
             </ul>
         </div>
 
-        <h3>The Role of Confluence: Why 8 Indicators Matter</h3>
+        <h3>The Role of Confluence: Why Nine Weighted Components Matter</h3>
 
         <p>Bitcoin's cycle dynamics are driven by multiple overlapping forces — miner behavior, investor cost basis, price momentum, network activity, sentiment. No single indicator captures all of these simultaneously.</p>
 
         <p>The Puell Multiple captures the miner supply-side dynamic exceptionally well. But it is blind to investor cost basis (that's what <a href="/blog/mvrv-ratio-bitcoin-indicator" class="internal-link">MVRV</a> addresses), price momentum extremes, and on-chain transaction signals. A comprehensive cycle-timing approach requires all of these working in concert.</p>
 
-        <p>When 6 or 7 of your 8 indicators are flashing the same message — whether that's extreme top or deep bottom — the signal is far more reliable than any single metric. The November 2021 miss by Puell alone is a perfect illustration of why.</p>
+        <p>When most of the nine weighted components are flashing the same message — whether that's extreme top or deep bottom — the signal is far more reliable than any single metric. The November 2021 miss by Puell alone is a perfect illustration of why.</p>
 
-        <p>For a full backtest of how the eight-indicator framework — including the Puell Multiple — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr backtest methodology page</a> — every input, every weight, and the drawdown each exit sidestepped. All 64 dated signals are at <a href="/receipts" class="internal-link">/receipts</a>.</p>
+        <p>For a full backtest of how the nine-indicator weighted Score — including the Puell Multiple — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr backtest methodology page</a> — every input, every weight, and the drawdown each exit sidestepped. All 64 dated signals are at <a href="/receipts" class="internal-link">/receipts</a>.</p>
 
         
         <div class="related-indicators" style="margin:32px 0 24px;padding:24px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;">
-            <h3 style="font-size:18px;color:#fff;margin:0 0 10px;font-weight:800;">The other 7 indicators in the LiftOffr confluence system</h3>
+            <h3 style="font-size:18px;color:#fff;margin:0 0 10px;font-weight:800;">The other weighted components in the LiftOffr Score</h3>
             <p style="color:#999;font-size:14px;margin:0 0 16px;">No single indicator is reliable on its own. When 5+ of these line up simultaneously, history says the cycle is near peak.</p>
             <ul style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;">
               <li><a href="/blog/cbbi-bitcoin-indicator"><strong>CBBI</strong> — The composite cycle-top index. Combines 11 on-chain + market metrics into one 0–100 score.</a></li>
@@ -471,7 +506,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li><a href="/blog/crypto-fear-greed-index-bitcoin"><strong>Fear & Greed Index</strong> — Sentiment proxy. Extreme greed (90+) historically precedes major cycle peaks.</a></li>
               <li><a href="/blog/google-trends-bitcoin-indicator"><strong>Google Trends</strong> — Retail attention gauge. Search volume spikes near cycle peaks as new entrants pile in.</a></li>
             </ul>
-            <p style="margin-top:14px;font-size:14px;color:#bbb;">New here? Start with the pillar guide: <a href="/blog/how-to-identify-bitcoin-cycle-top" style="color:#e63946;font-weight:700;">How to identify a Bitcoin cycle top</a> — The full 8-indicator confluence framework, scoring system, and exit playbook.</p>
+            <p style="margin-top:14px;font-size:14px;color:#bbb;">New here? Start with the pillar guide: <a href="/blog/how-to-identify-bitcoin-cycle-top" style="color:#e63946;font-weight:700;">How to identify a Bitcoin cycle top</a> — The full nine-indicator weighted Score, scoring system, and exit playbook.</p>
         </div>
 
         <div class="cta-box">
@@ -479,7 +514,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p>LiftOffr synthesizes the Puell Multiple, MVRV, and 6 additional Bitcoin cycle indicators into a single daily confluence read. No fragmented dashboards. No indicator isolation errors. One clear signal every morning.</p>
             <p><a href="/plan"><strong>My exact bear market buy plan — $29, once.</strong></a></p>
             <ul>
-                <li>Daily confluence report covering all 8 indicators</li>
+                <li>Daily report covering all nine weighted components</li>
                 <li>Puell Multiple + MVRV + 6 more on-chain and technical signals</li>
                 <li>Alerts when multiple indicators align at extremes</li>
                 <li>Historical cycle context at every current reading</li>
@@ -529,7 +564,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <details>
             <div class="faq-item-blog">
               <summary>Should I use the Puell Multiple alone to time Bitcoin trades?</summary>
-              <p>No single indicator is sufficient. The November 2021 top is a clear example of Puell underperforming in isolation. LiftOffr tracks 8 indicators in confluence — including the Puell Multiple, MVRV ratio, and others — to generate a combined signal. When multiple independent metrics agree, the probability of a meaningful cycle inflection is much higher than any single reading alone.</p>
+              <p>No single indicator is sufficient. The November 2021 top is a clear example of Puell underperforming in isolation. The LiftOffr Score weights nine components — the Puell Multiple among them, at 20% — to generate one 0-100 number. When multiple independent metrics agree, the probability of a meaningful cycle inflection is much higher than any single reading alone.</p>
             </div>
           </details>
         </div>
@@ -547,7 +582,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

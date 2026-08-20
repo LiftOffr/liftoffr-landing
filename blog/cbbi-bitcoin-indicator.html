@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -233,19 +272,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })();
 </script>
 <!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 
 <link rel="stylesheet" href="/css/brand.css">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -282,7 +317,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>The CBBI takes a different approach. Instead of adding yet another single-purpose signal to your watchlist, it aggregates roughly nine of the most respected Bitcoin cycle indicators into one composite score that runs from 0 to 100. High readings flag top territory. Low readings flag bottom territory. And because the score reflects broad agreement across many signals at once, it is much harder for noise to push it to an extreme.</p>
 
-        <p>This article covers what CBBI is, what goes into it, how to read its thresholds, what it showed at the major cycle tops in 2021, and how LiftOffr incorporates it into an eight-indicator confluence framework.</p>
+        <p>This article covers what CBBI is, what goes into it, how to read its thresholds, what it showed at the major cycle tops in 2021, and how LiftOffr incorporates it into a nine-indicator weighted Score.</p>
 
         <h2>1. What Is CBBI? Origin and Purpose</h2>
 
@@ -420,13 +455,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </ul>
         </div>
 
-        <h2>6. How LiftOffr Uses CBBI in an Eight-Indicator Framework</h2>
+        <h2>6. How LiftOffr Uses CBBI as a Data Source (It Carries No Weight)</h2>
 
-        <p>At LiftOffr, CBBI is one of eight indicators tracked in confluence every day. The others include MVRV, the Pi Cycle Top, the Puell Multiple, the Bitcoin Investor Tool, on-chain exchange flows, Market Cipher B, and relative strength metrics. Each indicator adds a different dimension of information about where Bitcoin is in its cycle.</p>
+        <p>At LiftOffr, CBBI is the public data source the component readings are pulled from — it carries no weight in the LiftOffr Score itself. The Score weights nine components: RHODL Ratio (20%), Puell Multiple (20%), Trolololo (15%), MVRV Z-Score (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull Top Cap (5%) and RUPL (5%). The others include MVRV, the Pi Cycle Top, the Puell Multiple, the Bitcoin Investor Tool, on-chain exchange flows, Market Cipher B, and relative strength metrics. Each indicator adds a different dimension of information about where Bitcoin is in its cycle.</p>
 
-        <p>The reason we track eight indicators instead of just CBBI is that even a well-constructed composite like CBBI benefits from external validation. When CBBI is at 88 and MVRV is simultaneously stretched and the Pi Cycle is approaching a cross, the confluence across those independent frameworks is more compelling than any single reading alone.</p>
+        <p>The reason the Score weights nine components instead of leaning on CBBI's own composite is that even a well-constructed composite like CBBI benefits from external validation. When CBBI is at 88 and MVRV is simultaneously stretched and the Pi Cycle is approaching a cross, the confluence across those independent frameworks is more compelling than any single reading alone.</p>
 
-        <p>For a full backtest of how the eight-indicator framework — including CBBI — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr backtest methodology page</a> — every input, every weight, and the drawdown each exit sidestepped. All 64 dated signals are at <a href="/receipts" class="internal-link">/receipts</a>.</p>
+        <p>For a full backtest of how the nine-indicator weighted Score — including CBBI — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr backtest methodology page</a> — every input, every weight, and the drawdown each exit sidestepped. All 64 dated signals are at <a href="/receipts" class="internal-link">/receipts</a>.</p>
 
         <h3>LiftOffr's CBBI Thresholds</h3>
 
@@ -472,7 +507,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         
         <div class="related-indicators" style="margin:32px 0 24px;padding:24px;background:#0f0f0f;border:1px solid #1e1e1e;border-radius:10px;">
-            <h3 style="font-size:18px;color:#fff;margin:0 0 10px;font-weight:800;">The other 7 indicators in the LiftOffr confluence system</h3>
+            <h3 style="font-size:18px;color:#fff;margin:0 0 10px;font-weight:800;">The other weighted components in the LiftOffr Score</h3>
             <p style="color:#999;font-size:14px;margin:0 0 16px;">No single indicator is reliable on its own. When 5+ of these line up simultaneously, history says the cycle is near peak.</p>
             <ul style="list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;">
               <li><a href="/blog/pi-cycle-top-bitcoin-indicator"><strong>Pi Cycle Top</strong> — Crossed within 3 days of the top in 2013, 2017, and April 2021. Missed Nov 2021 and Oct 2025.</a></li>
@@ -483,7 +518,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li><a href="/blog/crypto-fear-greed-index-bitcoin"><strong>Fear & Greed Index</strong> — Sentiment proxy. Extreme greed (90+) historically precedes major cycle peaks.</a></li>
               <li><a href="/blog/google-trends-bitcoin-indicator"><strong>Google Trends</strong> — Retail attention gauge. Search volume spikes near cycle peaks as new entrants pile in.</a></li>
             </ul>
-            <p style="margin-top:14px;font-size:14px;color:#bbb;">New here? Start with the pillar guide: <a href="/blog/how-to-identify-bitcoin-cycle-top" style="color:#e63946;font-weight:700;">How to identify a Bitcoin cycle top</a> — The full 8-indicator confluence framework, scoring system, and exit playbook.</p>
+            <p style="margin-top:14px;font-size:14px;color:#bbb;">New here? Start with the pillar guide: <a href="/blog/how-to-identify-bitcoin-cycle-top" style="color:#e63946;font-weight:700;">How to identify a Bitcoin cycle top</a> — The full nine-indicator weighted Score, scoring system, and exit playbook.</p>
         </div>
 
         <div class="cta-box">
@@ -494,7 +529,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <ul>
                 <li><strong>Free, permanently:</strong> the daily brief, the live Score, and all nine indicator pages with what each one read at every cycle top since 2013</li>
                 <li><strong>$29 once — the Buy Plan:</strong> my exact nine buy tiers, the reasoning behind each level, and a timestamped receipt every time one fires</li>
-                <li><strong>$197 once — The Cycle System:</strong> the eight-indicator framework behind those levels, plus the exit ladder</li>
+                <li><strong>$197 once — The Cycle System:</strong> the nine-indicator weighted Score behind those levels, plus the exit ladder</li>
                 <li>No subscription at any rung. Your $29 credits toward the System.</li>
             </ul>
             <div style="text-align:center;margin-top:20px;"><a href="/plan" rel="noopener">Get the plan — $29 once →</a></div>
@@ -559,7 +594,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>.
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 </body>
 </html>

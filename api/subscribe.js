@@ -12,6 +12,7 @@
 // Vercel auto-routes this file to /api/subscribe (Node serverless).
 
 import crypto from "node:crypto";
+import { disclosureHTML, disclosureText } from "./_disclosure.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -27,7 +28,7 @@ const MAGNETS = {
     itemTitle: "1. The BTC Cycle Top Checklist:",
     itemTitleText: "1. THE BTC CYCLE TOP CHECKLIST",
     pdfUrl: "https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=checklist_link",
-    howTo: "Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.",
+    howTo: "Print it. Stick it next to your screen. Run through the nine weighted indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.",
     footerLine: "You subscribed to the free Cycle Top Checklist + Weekly Score email.",
   },
   buyzone: {
@@ -237,8 +238,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Backtested 2017–2026. Past performance does not guarantee future results.<br/>
-    LiftOffr · ${m.footerLine}<br/>
+    ${disclosureHTML(m.footerLine)}
     <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 
@@ -280,7 +280,7 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     "",
     "Live Score dashboard: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=dashboard_cta",
     "",
-    "Backtested 2017-2026. Past performance does not guarantee future results.",
+    disclosureText(m.footerLine),
   ].join("\n");
 }
 
