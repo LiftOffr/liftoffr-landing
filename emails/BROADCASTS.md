@@ -20,9 +20,9 @@ site's largest liability into its strongest asset, it cannot be faked, and it is
 same move the quiz sequence already makes at email 3 ("don't trust my backtest"). No
 competitor in the eleven-operator sample has sent anything like it.
 
-**Send it only after the site changes are live**, so every claim in it is checkable
-at the moment it lands. All three corrections below shipped on the
-`audit-fixes-2026-08-20` branch.
+**Every claim below is live on the site now**, so all of it is checkable the moment
+this lands. Four corrections, not three — the fourth is the one that changed the
+number on the front page.
 
 > I went through liftoffr.com line by line this week and found things that don't hold
 > up. Rather than quietly fix them, here they are.
@@ -39,15 +39,23 @@ at the moment it lands. All three corrections below shipped on the
 >
 > **2. The FAQ listed the wrong indicators.** It named eight, two of which — Fear &
 > Greed and Google Trends — carry zero weight in the actual Score. The real list is
-> nine: RHODL 20, Puell 20, Trolololo 15, MVRV-Z 15, Pi Cycle 10, 2YMA 5, Reserve
+> nine: RHODL 20, Puell 20, Trolololo 15, MVRV Z-Score 15, Pi Cycle 10, 2YMA 5, Reserve
 > Risk 5, Woobull 5, RUPL 5. If you ever tried to recompute the number from the FAQ,
 > it wouldn't have worked. That's my fault and it's fixed everywhere.
 >
 > **3. The homepage said the model "was out before the turn" in 2025.** It wasn't. It
 > entered the exit zone three times between November 2024 and October 2025 and
 > dropped back out of it three times — six transitions — and only left it for good
-> fifteen days *after* the top. Every one of those
-> transition is now on the page with its date and price.
+> fifteen days *after* the top. Every one of those transitions is now on the page with its date and price.
+>
+> **4. And the one that actually changed the number.** I found a bug in my own
+> arithmetic. When the data source publishes no reading for one of the nine on a given
+> day, my code was averaging that gap in as a reading of zero instead of leaving it
+> out. On 19 August that understated the published Score by 1.8 points — it read 34.5
+> when it should have read 36.3. Anyone who pulled the data and recomputed it properly
+> would have got a different number from mine, and they would have been right. A
+> missing reading is now excluded and the divisor drops to match. The 64-signal record
+> was never affected. The correction is dated on /score.
 >
 > I'm sending this because the entire argument for this thing is that you can check
 > it. That argument doesn't survive me quietly editing pages.

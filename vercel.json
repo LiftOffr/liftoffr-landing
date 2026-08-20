@@ -109,6 +109,16 @@
       "source": "/w/:id",
       "destination": "/receipts?utm_source=instagram&utm_medium=reel&utm_campaign=phase_b&utm_content=:id",
       "permanent": false
+    },
+    {
+      "source": "/aug/:id",
+      "destination": "/score?utm_source=instagram&utm_medium=reel&utm_campaign=remote_aug&utm_content=:id",
+      "permanent": false
+    },
+    {
+      "source": "/log/:id",
+      "destination": "/receipts?utm_source=instagram&utm_medium=reel&utm_campaign=remote_aug&utm_content=:id",
+      "permanent": false
     }
   ]
 }
