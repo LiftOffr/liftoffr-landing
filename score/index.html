@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
+     Clarity previously all fired unconditionally with no consent surface, and Clarity
+     records session replays. Banner UI lives in /js/consent.js; the defaults have to be
+     inline because Consent Mode must initialise before the Google tags load. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K5B4BX46');</script>
+<!-- End Google Tag Manager -->
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The LiftOffr Score — free, live, and you can recompute it yourself</title>
+<meta name="description" content="One number, 0-100, for where Bitcoin sits in its cycle. Nine indicators, every weight published, recomputable from free public data. All 64 signals since 2011, losers included.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://liftoffr.com/score">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LiftOffr">
+<meta property="og:url" content="https://liftoffr.com/score">
+<meta property="og:title" content="The LiftOffr Score — free, and you can check it yourself">
+<meta property="og:description" content="Nine indicators, every weight published. Recompute the number from free public data. All 64 signals since 2011, including the ones that were wrong.">
+<meta property="og:image" content="https://liftoffr.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The LiftOffr Score — free, and you can check it yourself">
+<meta name="twitter:description" content="Nine indicators, every weight published. All 64 signals since 2011, losers included.">
+<meta name="twitter:image" content="https://liftoffr.com/og-image.png">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#e63946">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#080808; --card:#111; --bd:#1e1e1e; --red:#e63946; --muted:#777; --ink:#eaeaea; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+         line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:680px; margin:0 auto; padding:34px 20px 0; }
+  a { color:var(--red); }
+  .back { display:inline-block; color:var(--muted); font-size:13.5px; text-decoration:none; margin-bottom:26px; }
+  .back:hover { color:var(--red); }
+  h1 { font-size:clamp(28px,5.4vw,40px); font-weight:900; letter-spacing:-1.1px; line-height:1.12; margin:0 0 12px; }
+  h1 em { color:var(--red); font-style:normal; }
+  .lede { font-size:16px; color:#a5a5a5; margin:0 0 28px; }
+  .eyebrow { font-size:11px; font-weight:800; letter-spacing:1.6px; text-transform:uppercase; color:var(--red); margin-bottom:12px; }
+
+  .scorecard { background:var(--card); border:1px solid var(--bd); border-radius:16px; padding:30px 24px; text-align:center; margin-bottom:14px; }
+  .score-num { font-family:ui-monospace,Menlo,monospace; font-size:88px; font-weight:700; line-height:1; letter-spacing:-3px; color:#fff; }
+  .score-zone { margin-top:8px; font-size:12px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+  .score-meta { margin-top:14px; font-size:12.5px; color:var(--muted); }
+
+  h2 { font-size:21px; font-weight:900; letter-spacing:-0.5px; margin:34px 0 10px; }
+  p  { font-size:15px; color:#bdbdbd; }
+
+  table.w { width:100%; border-collapse:collapse; font-family:ui-monospace,Menlo,monospace; font-size:13.5px; margin:14px 0 8px; }
+  table.w td { padding:7px 0; border-bottom:1px solid #161616; color:#ccc; }
+  table.w td.n { text-align:right; color:#fff; font-weight:700; }
+  table.w tr:last-child td { border-bottom:none; }
+  .dead { color:#e8b339; font-size:11px; }
+
+  ol.steps { padding-left:20px; }
+  ol.steps li { font-size:15px; color:#bdbdbd; margin-bottom:9px; }
+  code { background:#0d0d0d; border:1px solid var(--bd); border-radius:5px; padding:1px 6px; font-size:13px; color:#ddd; }
+
+  .cta { display:block; background:var(--red); color:#fff; text-align:center; padding:15px;
+         border-radius:10px; font-weight:800; font-size:15.5px; text-decoration:none; margin:10px 0 0; }
+  form.cap { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  form.cap input { flex:1 1 240px; min-width:0; padding:14px 16px; background:#111; border:1px solid #262626;
+                   border-radius:9px; color:#fff; font-size:15px; font-family:inherit; }
+  form.cap button { flex:0 0 auto; padding:14px 24px; background:var(--red); border:1px solid var(--red);
+                    border-radius:9px; color:#fff; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; }
+  .fine { font-size:12px; color:#666; margin-top:11px; }
+  .err { display:none; margin-top:10px; font-size:13px; color:#e8b339; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     /score — the free tier, built per Day 11 of the 30-day plan: "the live number,
+     the nine weights, the recompute instructions, the link to all 64 signals, one
+     email field. One page, one job."
+
+     This is the destination for every bio link and every DM reply (Part 4.6 sends
+     people to liftoffr.com/score by name). Before 2026-08-20 that URL was a 404,
+     so following the plan's Day 2 bio rewrite would have sent every click nowhere.
+
+     ONE email field and ONE outbound CTA on purpose. Do not add a second offer, a
+     second magnet, or a pricing table here. The whole point is that the free thing
+     is unconditional and the verification invitation is the hook.
+     ═══════════════════════════════════════════════════════════════════════════ -->
+
+<div class="wrap">
+  <a href="/" class="back">&larr; LiftOffr</a>
+
+  <div class="eyebrow">Free &middot; no card, no email required</div>
+  <h1>One number for where Bitcoin is in its cycle. <em>And the arithmetic behind it.</em></h1>
+  <p class="lede">Nine on-chain indicators, weighted into a single 0&ndash;100 Score, recomputed every morning from public data. Every weight is published below, so you can rebuild the number yourself and check that I am not making it up.</p>
+
+  <div class="scorecard">
+    <div class="score-num" id="s-num">&mdash;</div>
+    <div class="score-zone" id="s-zone">loading&hellip;</div>
+    <div class="score-meta" id="s-meta">&nbsp;</div>
+  </div>
+  <p class="fine">Above 85 has historically been where cycle tops occurred. Below 20 is the lowest band the Score produces. Neither is a prediction &mdash; see the record.</p>
+
+  <h2>The nine weights</h2>
+  <p>These are the exact numbers the live Score uses. Nothing is held back, and there is no tenth indicator behind a paywall.</p>
+  <table class="w" id="w-table">
+    <tr><td>RHODL Ratio</td><td class="n">20%</td></tr>
+    <tr><td>Puell Multiple</td><td class="n">20%</td></tr>
+    <tr><td>Trolololo trend line</td><td class="n">15%</td></tr>
+    <tr><td>MVRV Z-Score</td><td class="n">15%</td></tr>
+    <tr><td>Pi Cycle Top</td><td class="n">10%</td></tr>
+    <tr><td>2-Year MA Multiplier</td><td class="n">5%</td></tr>
+    <tr><td>Reserve Risk</td><td class="n">5%</td></tr>
+    <tr><td>Woobull Top Cap</td><td class="n">5%</td></tr>
+    <tr><td>RUPL</td><td class="n">5%</td></tr>
+  </table>
+  <p class="fine">Two things worth saying plainly: <strong style="color:#999;">CBBI is the data source these readings are pulled from, not a component</strong>, and <strong style="color:#999;">the Score contains no Fear &amp; Greed and no Google Trends.</strong> I wrote about both for a long time; neither carries any weight in the number.</p>
+
+  <h2>Recompute it yourself</h2>
+  <ol class="steps">
+    <li>Pull <a href="https://colintalkscrypto.com/cbbi/" target="_blank" rel="noopener noreferrer">CBBI's public daily data</a>. It is free and needs no account.</li>
+    <li>Take today's value for each of the nine components above and scale it to 0&ndash;100.</li>
+    <li>Multiply each by its weight, add them together, divide by the weights used.</li>
+    <li>You should land on the number at the top of this page.</li>
+  </ol>
+  <p>Want to check my working rather than your own? <code>/api/cycle-score</code> returns every component, its weight and its reading as JSON. <a href="/api/cycle-score">Open it</a>. An outside auditor ran this in August 2026 and got <strong style="color:#fff;">34.35</strong> against a published <strong style="color:#fff;">34.4</strong> &mdash; the gap is rounding.</p>
+  <p class="fine">If you run it and get a materially different number, tell me and I will fix it. That offer is the entire reason the weights are public.</p>
+
+  <h2>The whole record, losers included</h2>
+  <p>Every zone crossing this model has ever produced &mdash; <strong style="color:#fff;">all 64, from September 2011 to November 2025</strong> &mdash; with the date, the price, and what Bitcoin actually did over the next 30, 90 and 180 days. Including the 2017 exit signal after which Bitcoin rose 149% in a month.</p>
+  <p>Scored directionally, the model was right on 21 of 46 directional crossings at 30 days and 25 of 46 at 180. That is close to a coin flip on a short horizon, it is published rather than buried, and it is not a win rate.</p>
+  <a href="/receipts?utm_source=liftoffr&amp;utm_medium=score&amp;utm_campaign=free&amp;utm_content=receipts" class="cta">See all 64 signals &rarr;</a>
+
+  <h2>Get it every Sunday</h2>
+  <p>One email a week: where the Score sits, the largest weight change behind it, what that zone has historically meant, and what I am doing with my own stack &mdash; which is a disclosure, not an instruction. No trade calls, no tickers, no &ldquo;buy now.&rdquo;</p>
+  <form id="scoreLeadForm" data-medium="score_page" onsubmit="return submitScoreLead(this);" class="cap">
+    <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
+    <button type="submit">Send me the Score</button>
+  </form>
+  <div class="err" id="scoreFormError">Something went wrong. Try again in a moment.</div>
+  <p class="fine">Unsubscribe in one click. 18+ only. Educational content, not financial advice, and nothing in it is personalised to you.</p>
+
+  <p class="fine" style="margin:30px 0 0;">Want the levels I am personally buying and selling at, written down in advance? That is <a href="/plan?utm_source=liftoffr&amp;utm_medium=score&amp;utm_campaign=free&amp;utm_content=plan">the $29 plan</a>. The Score above stays free either way.</p>
+</div>
+
+<!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
+     the site-wide disclosure surface; body copy sells. Keep verbatim. -->
+<div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
+  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
+</div>
+
+<script>
+// Live Score. Same endpoint as the homepage and /cycle so the three cannot drift.
+(function(){
+  fetch('/api/cycle-score').then(function(r){ return r.json(); }).then(function(d){
+    if (!d || typeof d.score !== 'number') return;
+    var colors = { exit:'#ef4444', warning:'#f97316', neutral:'#fbbf24',
+                   'accumulation':'#22c55e', 'deep-accumulation':'#16a34a' };
+    var c = colors[d.zone] || '#999';
+    var n = document.getElementById('s-num');
+    var z = document.getElementById('s-zone');
+    var m = document.getElementById('s-meta');
+    n.textContent = d.score.toFixed(1); n.style.color = c;
+    z.textContent = String(d.zone || '').replace('-', ' ').toUpperCase(); z.style.color = c;
+    var px = d.components && d.components._btc_price && d.components._btc_price.value;
+    var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+    m.textContent = (px ? 'BTC $' + Math.round(px).toLocaleString() + ' \u00b7 ' : '') + (when ? 'as of ' + when : '');
+
+    // Fill the weights table with today's live readings beside each weight, and
+    // flag any component whose upstream feed is returning a hard zero rather than
+    // letting it average in silently.
+    var LABEL = { RHODL:'RHODL Ratio', Puell:'Puell Multiple', Trolololo:'Trolololo trend line',
+                  MVRV:'MVRV Z-Score', PiCycle:'Pi Cycle Top', '2YMA':'2-Year MA Multiplier',
+                  ReserveRisk:'Reserve Risk', Woobull:'Woobull Top Cap', RUPL:'RUPL' };
+    var ORDER = ['RHODL','Puell','Trolololo','MVRV','PiCycle','2YMA','ReserveRisk','Woobull','RUPL'];
+    var comp = d.components || {}, html = '';
+    ORDER.forEach(function(k){
+      var cc = comp[k]; if (!cc) return;
+      var dead = (cc.value === 0);
+      html += '<tr><td>' + LABEL[k] + (dead ? ' <span class="dead">feed reading zero</span>' : '') +
+              '</td><td class="n">' + (cc.weight*100).toFixed(0) + '% &times; ' + cc.value.toFixed(1) + '</td></tr>';
+    });
+    if (html) document.getElementById('w-table').innerHTML = html;
+  }).catch(function(){
+    var z = document.getElementById('s-zone');
+    if (z) z.textContent = 'live score unavailable';
+  });
+})();
+
+// Email capture. Mirrors /free and the homepage: same endpoint, same magnet, same
+// GA4 events, so all three capture points report into one funnel.
+function submitScoreLead(form) {
+  var input = form.querySelector('input[type=email]');
+  var btn = form.querySelector('button[type=submit]');
+  var errorBox = document.getElementById('scoreFormError');
+  var email = (input || {}).value || '';
+  var medium = form.getAttribute('data-medium') || 'score_page';
+  var oldLabel = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+  if (input) { input.disabled = true; }
+  if (errorBox) errorBox.style.display = 'none';
+  var q; try { q = new URL(location.href).searchParams; } catch (e) { q = null; }
+  var payload = {
+    email: email, magnet: 'buyzone',
+    utm_source: (q && q.get('utm_source')) || 'liftoffr',
+    utm_medium: medium,
+    utm_campaign: (q && q.get('utm_campaign')) || 'score_page',
+    utm_content: (q && q.get('utm_content')) || 'score_capture'
+  };
+  if (typeof window.track === 'function') window.track('lead_magnet_submit', { source: medium, page: location.pathname });
+  fetch('/api/subscribe', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })
+    .then(function(r){ return r.json().then(function(data){ return { ok:r.ok, data:data }; }); })
+    .then(function(res){
+      if (!res.ok) throw new Error((res.data && res.data.error) || 'Subscription failed');
+      form.innerHTML = '<div style="padding:14px;background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.35);border-radius:9px;color:#22c55e;font-weight:700;text-align:center;width:100%;">\u2713 Check your inbox. The Score lands every Sunday.</div>';
+      if (typeof window.track === 'function') window.track('lead_captured', { source: medium, page: location.pathname });
+    })
+    .catch(function(err){
+      if (btn) { btn.disabled = false; btn.textContent = oldLabel || 'Try again'; }
+      if (input) { input.disabled = false; }
+      if (errorBox) errorBox.style.display = 'block';
+      console.error('submitScoreLead error:', err);
+    });
+  return false;
+}
+</script>
+</body>
+</html>
