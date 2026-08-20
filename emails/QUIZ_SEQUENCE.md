@@ -1,3 +1,9 @@
+<!-- DRAFTING DOC — NOT SERVED, BUT THIS IS WHAT LIVE COPY GETS REWRITTEN FROM.
+     Wording here must match the live code, not precede it. Three separate rounds of
+     corrections were undone by someone re-copying from a doc like this one.
+     Canonical sources: api/cycle-score.js commentary() for bands and register,
+     /receipts for every figure. See COPY_SWEEP_NOTES.md. -->
+
 # The quiz sequence — 7 emails, segmented
 
 **Source:** `~/Documents/LiftOffr-Competitive-Intel/03-liftoffr-rebuild/04-email-sequence.md`
@@ -87,7 +93,7 @@ the same pass:
 >
 > **Today's Score: {{score}} ({{zone}})**
 >
-> Above 85 the model reads as exit territory. Below 20, accumulation. In between it's telling you to do nothing, which is where it sits most of the time and which is the part people find hardest.
+> Above 85 the model reads as exit territory. Below 15, deep accumulation. In between it has historically been least informative, which is where it sits most of the time and which is the part people find hardest.
 >
 > Three things, all free, no card:
 >

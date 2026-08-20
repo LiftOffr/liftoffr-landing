@@ -1,3 +1,9 @@
+<!-- DRAFTING DOC — NOT SERVED, BUT THIS IS WHAT LIVE COPY GETS REWRITTEN FROM.
+     Wording here must match the live code, not precede it. Three separate rounds of
+     corrections were undone by someone re-copying from a doc like this one.
+     Canonical sources: api/cycle-score.js commentary() for bands and register,
+     /receipts for every figure. See COPY_SWEEP_NOTES.md. -->
+
 # Buyer sequence — after a $29 purchase
 
 **Status: DRAFT COPY, NOT WIRED, NOT SENT.** Written 2026-08-20 from the audit's
@@ -66,8 +72,8 @@ you money", any dollar or percentage outcome for the reader, "I called the top",
 ## B3 — Day 3
 **Subject:** `the six times my own model flipped`
 
-> Between 16 November 2024 and 21 October 2025 the Score crossed the exit threshold
-> the exit zone three times and dropped back out of it three times — six transitions in twelve months.
+> Between 16 November 2024 and 21 October 2025 the Score entered the exit zone three
+> times and dropped back out of it three times — six transitions in twelve months.
 >
 > ```
 > Nov 16 2024 — exit           — $90,568

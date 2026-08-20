@@ -1,3 +1,9 @@
+<!-- DRAFTING DOC — NOT SERVED, BUT THIS IS WHAT LIVE COPY GETS REWRITTEN FROM.
+     Wording here must match the live code, not precede it. Three separate rounds of
+     corrections were undone by someone re-copying from a doc like this one.
+     Canonical sources: api/cycle-score.js commentary() for bands and register,
+     /receipts for every figure. See COPY_SWEEP_NOTES.md. -->
+
 # DM scripts — Part 4.6 of the 30-day plan
 
 **Status: reference copy. Nothing here sends, and nothing here should ever be automated.**
@@ -112,7 +118,7 @@ way you learn which within a day, and that is worth more than the messages cost.
 ## DM-4 — inbound "is this legit / does it work"
 
 > Fair question. Straight answer: the model's directional hit rate is 46% at 30 days
-> and 54% at 180. That's near a coin flip on a short view and I'm not going to sell it
+> and 54% at 180. Neither is distinguishable from chance at this sample size, and I'm not going to sell it
 > as more than it is.
 >
 > What it's actually for is the shape of a cycle — where you are in it, and having a

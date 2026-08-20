@@ -79,6 +79,14 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   This note used to live in an HTML comment on both pages and shipped to production, where
   it named the vendor's failure verbatim in View Source. Keep it here instead.
 
+- **Copy corrections must be swept by component, not by page.** The same claim lives in
+  duplicated blocks across surfaces; fixing the page you think owns it leaves the copies
+  serving the old version. Three review rounds each caught the same correction surviving
+  somewhere else. Before declaring a copy fix done, grep the phrase (and its wording
+  variants) across the whole repo including `.md`, `.js`, `.txt`, `.py` and backups, check
+  JSON-LD separately from visible copy, and re-grep afterwards rather than trusting the edit.
+  `COPY_SWEEP_NOTES.md` has the failure table and the canonical sources.
+
 ## Design language (preserve — never break)
 - Homepage/blog/links: near-black `#080808`, cards `#111111`, borders `#1e1e1e`, **brand red `#e63946`**, muted `#777`.
 - /cycle + /dashboard: navy `#060910` glass — frosted cards, backdrop-blur(14px), radial glows; green `#26d07c`, amber `#e8b339`, blue `#4d8df0`. Semicircular verdict gauge + Four Pillars.

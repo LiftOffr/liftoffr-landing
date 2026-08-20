@@ -17,3 +17,9 @@
 # Non-markdown internal files
 lead-magnet/buy-zone-plan.html
 logo-lab.html
+
+# Dated backups. dashboard/index.html.backup-v3design-20260702 still held the
+# 'buy weakness' / 'start scaling out' instruction strings removed from the live
+# dashboards on 2026-08-20 — a reinfection source sitting inside the deploy.
+*.backup-*
+**/*.backup-*

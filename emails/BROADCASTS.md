@@ -1,3 +1,9 @@
+<!-- DRAFTING DOC — NOT SERVED, BUT THIS IS WHAT LIVE COPY GETS REWRITTEN FROM.
+     Wording here must match the live code, not precede it. Three separate rounds of
+     corrections were undone by someone re-copying from a doc like this one.
+     Canonical sources: api/cycle-score.js commentary() for bands and register,
+     /receipts for every figure. See COPY_SWEEP_NOTES.md. -->
+
 # Broadcasts — drafted, not scheduled, not sent
 
 **Status: DRAFT COPY. Nothing here sends.** Written 2026-08-20.
@@ -49,7 +55,8 @@ at the moment it lands. All three corrections below shipped on the
 > Everything is at /receipts, unchanged, including the signals that went the wrong
 > way. While I was in there I also put the honest scoring at the top of that page:
 > across the 46 directional crossings the model was right about direction 21 times at
-> 30 days, 21 at 90, and 25 at 180. That's close to a coin flip on a short horizon.
+> 30 days, 21 at 90, and 25 at 180. None of the three is distinguishable from chance:
+> 21 and 25 of 46 carry the same p-value, and it would take 31 of 46 to clear significance.
 > It's a multi-month cycle tool, not a next-month predictor, and now the page says so
 > before it says anything else.
 >
