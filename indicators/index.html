@@ -192,7 +192,7 @@
 
   <div class="crumb"><a href="/">Home</a> › Indicators</div>
   <h1>Bitcoin cycle indicators, live</h1>
-  <div class="updated">Last updated <span data-live-asof>August 14, 2026</span> · Bitcoin $62,925</div>
+  <div class="updated">Last updated <span data-live-asof>August 14, 2026</span> · Bitcoin <span data-live-px>$62,925</span></div>
 
   <div class="reading">
     <div class="reading-num cold" data-live-key="score">33.7</div>
@@ -298,6 +298,29 @@
     if (d.asOf) {
       var day = new Date(d.asOf).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
       stamp.forEach(function(el){ el.textContent = day; });
+    }
+    // The BTC price sits inside the same dateline. It was baked while the date beside
+    // it refreshed, so the line claimed "Last updated <today>" next to a price from
+    // days earlier -- one of the five conflicting "current" states the audit found live
+    // on the same morning. Same endpoint already returns it.
+    var px = d.components && d.components._btc_price && d.components._btc_price.value;
+    if (typeof px === 'number') {
+      document.querySelectorAll('[data-live-px]').forEach(function(el){
+        el.textContent = '$' + Math.round(px).toLocaleString();
+      });
+    }
+    // A component reading a hard 0 is a dead upstream feed, not a real reading, and it
+    // drags the weighted Score down. Label it rather than letting it average in
+    // silently -- Woobull Top Cap was doing exactly this while this page displayed 24.
+    if (d.components) {
+      document.querySelectorAll('[data-live-key]').forEach(function(el){
+        var k = el.getAttribute('data-live-key');
+        var c = d.components[k];
+        if (c && c.value === 0) {
+          el.setAttribute('title', 'Upstream feed is returning zero for this component right now.');
+          el.insertAdjacentHTML('afterend', '<span style="font-size:11px;color:#e8b339;margin-left:6px;">feed reading zero</span>');
+        }
+      });
     }
   }).catch(function(){});
 })();
