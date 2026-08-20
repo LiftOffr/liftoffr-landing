@@ -1,3 +1,9 @@
+<!-- Bands and register must match api/cycle-score.js commentary() and
+     api/subscribe.js. The original instruction ladder here ("DCA continues",
+     "Buy more weekly", "Aggressive DCA") was removed from the live code on
+     2026-08-20 but survived in this file, which is what the live copy gets
+     rewritten from. Do not reintroduce instruction language. -->
+
 # LiftOffr Welcome Sequence — Consolidated (Checklist + Score)
 
 **Trigger:** New subscriber via "BTC Cycle Top Checklist + Weekly Score" form
@@ -29,11 +35,15 @@ Print it. Stick it next to your screen. Run through the 8 indicators every Sunda
 
 Reading the checklist yourself takes ~15 minutes a week. The LiftOffr Score does it for you. It's a single number (0–100) that weights all 9 cycle indicators into one read.
 
-- Above 85 → historic top zone. Time to start scaling out.
-- 60–85 → late-cycle / warning. Tighten exits.
-- 40–60 → neutral. DCA continues.
-- 20–40 → accumulation. Buy more weekly.
-- Below 20 → deep accumulation. Aggressive DCA.
+- Above 85 → exit zone. Every cycle top since 2013 printed in this band, and the Score has also sat here while price kept rising.
+- 70–85 → warning. Has preceded exit-zone readings, though not every time.
+- 50–70 → mid-cycle. Historically the least informative band.
+- 30–50 → re-accumulation. Has resolved upward more often than not at 180 days.
+- 15–30 → accumulation. Among the lower readings in a cycle.
+- Below 15 → deep accumulation. The lowest band the Score produces.
+
+These are descriptions of what the bands have done historically. They are not instructions,
+and nothing here is advice about your position.
 
 This week's Score is **45.6 — neutral, falling**. Recovery / re-accumulation phase. Continue weekly DCA.
 

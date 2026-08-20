@@ -51,7 +51,7 @@ This checklist is educational. Not financial advice. Always do your own research
 ### 5. BTC Rainbow Chart
 **What it is:** Logarithmic regression bands colored from blue (cheap) to red (overvalued).
 **Trigger zone:** **Red zone** ("Maximum Bubble Territory") = sell signal.
-**Plain English:** A rough but reliable visual heuristic. If price enters the top red band, take profits.
+**Plain English:** A rough visual heuristic. Historically, price entering the top red band has coincided with late-cycle readings — it is a description of where price sits, not an instruction.
 **Where to check:** blockchaincenter.net/bitcoin-rainbow-chart/
 
 ---

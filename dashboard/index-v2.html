@@ -541,7 +541,7 @@ function indBLUF(k,v,d7){
   let lean,col;
   if(band==='hi'){lean=tr==='falling'?'elevated but cooling — watch for a turn':'sell-side — caution, not a buy';col='var(--red)';}
   else if(band==='lo'){lean=tr==='rising'?'cheap & turning up — accumulation-friendly':'deep value — favors deploying tiers';col='var(--green)';}
-  else{lean='neutral — stick to the plan / keep DCAing';col='var(--amber)';}
+  else{lean='mid-cycle — least informative band historically';col='var(--amber)';}
   return `<div class="ibluf"><b style="background:rgba(255,255,255,.07);color:${col}">BLUF</b>${phrase}; <span style="color:${col}">${tr} ${arrow}</span> on the week. <b style="background:none;padding:0;margin:0;font-family:var(--sans);font-size:11.5px;letter-spacing:0;color:${col}">${lean}.</b></div>`;
 }
 function dpill(d,inv){ // inv: for cycle indicators a rising value = more toppy = "bad" colour
@@ -603,7 +603,7 @@ function pillarBLUF(name,pv,pd7){
   let lean,col;
   if(band==='hi'){lean=tr==='falling'?'high but cooling':'sell-side — caution';col='var(--red)';}
   else if(band==='lo'){lean=tr==='rising'?'cheap & turning up — accumulate':'deep value — accumulate';col='var(--green)';}
-  else{lean='neutral — stay the course';col='var(--amber)';}
+  else{lean='mid-cycle — least informative band historically';col='var(--amber)';}
   return `<div class="pbluf"><span style="color:${col}">${phrase}; ${tr} ${arrow} — ${lean}.</span></div>`;
 }
 function macroVerdict(label,color){
@@ -616,10 +616,10 @@ function renderTodayCall(){
   if(!isFinite(score)){el.style.display='none';return;}el.style.display='';
   const c=zColor(score),zone=(document.getElementById('vTag').textContent||'').trim();
   let posture;if(score>=85)posture='Top zone — scale out per the exit plan';
-  else if(score>=60)posture='Late cycle — tighten exits, hold dry powder';
-  else if(score>=40)posture='Mid-cycle — stay the course, keep DCAing';
-  else if(score>=20)posture='Accumulation — buy weakness, deploy tiers on dips';
-  else posture='Deep value — best risk/reward to accumulate';
+  else if(score>=70)posture='Warning band — has preceded exit-zone readings, not every time';
+  else if(score>=50)posture='Mid-cycle — historically the least informative band';
+  else if(score>=15)posture='Accumulation — among the lower readings in a cycle';
+  else posture='Deep accumulation — the lowest band the Score produces';
   let maStr='';if(LIVE_PRICE&&MA200W){const d=(LIVE_PRICE-MA200W)/MA200W*100;maStr=` · BTC ${FUSD(LIVE_PRICE)}, ${d>=0?'+':''}${d.toFixed(0)}% vs 200W MA`;}
   let nextStr='';try{const fills=lumpFills(),nt=buyTiers().find(t=>(fills[t.tier]||0)<(t.target||0)*0.97);
     if(nt){const px=effPrice(nt),hit=LIVE_PRICE!=null&&px!=null&&LIVE_PRICE<=px;
@@ -743,7 +743,7 @@ async function load(){
   const capText=score>=60?'SELL ZONE':score>=40?'NEUTRAL ZONE':'BUY ZONE';
   drawGauge(score,capText,zColor(score));
   document.getElementById('gDelta').innerHTML=cs.trendDelta7d!=null?`${cs.trendDelta7d>=0?'▲':'▼'} ${Math.abs(cs.trendDelta7d).toFixed(1)} (7d) &nbsp;·&nbsp; trend: ${cs.trend||'—'}`:'';
-  document.getElementById('vTitle').textContent=score>=85?'Top zone — start scaling out.':score>=60?'Late cycle — tighten exits.':score>=40?'Neutral — stay the course.':'Accumulation — buy weakness.';
+  document.getElementById('vTitle').textContent=score>=85?'Exit zone.':score>=70?'Warning band.':score>=50?'Mid-cycle.':score>=30?'Re-accumulation.':score>=15?'Accumulation.':'Deep accumulation.';
   document.getElementById('vCopy').textContent=cs.commentary||'';document.getElementById('vCopy').classList.remove('loading');
   const vt=document.getElementById('vTag');vt.textContent=(cs.zone||zLabel(score)).toUpperCase();vt.style.background=zColor(score)+'26';vt.style.color=zColor(score);
   renderTodayCall();
