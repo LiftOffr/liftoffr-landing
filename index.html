@@ -1759,6 +1759,15 @@ function submitHomeLead(form) {
                 '<span>' + LABELS[k] + '</span>' +
                 '<span>' + c.weight.toFixed(2) + ' \u00d7 ' + c.value.toFixed(1) + '</span></div>';
       });
+      // Show the two steps that turn the weighted readings into the Score, so the
+      // on-screen arithmetic reconciles by hand without the reader knowing the rule.
+      var wuRow = (typeof d.weightUsed === 'number') ? d.weightUsed : 1;
+      var sum = 0;
+      ORDER.forEach(function(k){ var c = d.components[k]; if (c) sum += c.weight * c.value; });
+      html += '<div style="display:flex;justify-content:space-between;border-top:1px dashed #1a1a1a;margin-top:6px;padding-top:6px;">' +
+              '<span>Sum of the weighted readings</span><span>' + sum.toFixed(2) + '</span></div>';
+      html += '<div style="display:flex;justify-content:space-between;">' +
+              '<span>Divide by weight used</span><span>&divide; ' + wuRow.toFixed(2) + '</span></div>';
       rows.innerHTML = html;
       if (total) total.innerHTML = '<span>LiftOffr Score</span><span>' + d.score.toFixed(1) + '</span>';
       if (asof) {
