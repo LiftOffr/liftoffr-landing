@@ -159,13 +159,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <tr><td>Woobull Top Cap</td><td class="n">5%</td></tr>
     <tr><td>RUPL</td><td class="n">5%</td></tr>
   </table>
+  <p class="fine" id="w-note" style="display:none;"></p>
   <p class="fine">Two things worth saying plainly: <strong style="color:#999;">CBBI is the data source these readings are pulled from, not a component</strong>, and <strong style="color:#999;">the Score contains no Fear &amp; Greed and no Google Trends.</strong> I wrote about both for a long time; neither carries any weight in the number.</p>
 
   <h2>Recompute it yourself</h2>
   <ol class="steps">
     <li>Pull <a href="https://colintalkscrypto.com/cbbi/" target="_blank" rel="noopener noreferrer">CBBI's public daily data</a>. It is free and needs no account.</li>
     <li>Take today's value for each of the nine components above and scale it to 0&ndash;100.</li>
-    <li>Multiply each by its weight, add them together, divide by the weights used.</li>
+    <li>Multiply each by its weight, add them together, then <strong style="color:#fff;">divide by the weights you actually used</strong> &mdash; that is 1.00 on a normal day, and less if CBBI published no reading for one of the nine. A missing reading is left out, never counted as a zero.</li>
     <li>You should land on the number at the top of this page.</li>
   </ol>
   <p>Want to check my working rather than your own? <code>/api/cycle-score</code> returns every component, its weight and its reading as JSON. <a href="/api/cycle-score">Open it</a>. An outside auditor ran this in August 2026 and got <strong style="color:#fff;">34.35</strong> against a published <strong style="color:#fff;">34.4</strong> &mdash; the gap is rounding.</p>
@@ -219,13 +220,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   ReserveRisk:'Reserve Risk', Woobull:'Woobull Top Cap', RUPL:'RUPL' };
     var ORDER = ['RHODL','Puell','Trolololo','MVRV','PiCycle','2YMA','ReserveRisk','Woobull','RUPL'];
     var comp = d.components || {}, html = '';
+    var excluded = d.excluded || [];
     ORDER.forEach(function(k){
-      var cc = comp[k]; if (!cc) return;
-      var dead = (cc.value === 0);
-      html += '<tr><td>' + LABEL[k] + (dead ? ' <span class="dead">feed reading zero</span>' : '') +
-              '</td><td class="n">' + (cc.weight*100).toFixed(0) + '% &times; ' + cc.value.toFixed(1) + '</td></tr>';
+      var cc = comp[k];
+      if (!cc) {
+        // No reading published for today. The API excludes it and shrinks the divisor
+        // rather than treating the gap as a reading of zero -- say so on the page, or
+        // anyone recomputing by hand gets a different number and is right to.
+        var ex = excluded.filter(function(x){ return x.name === k; })[0];
+        if (ex) {
+          html += '<tr><td>' + (LABEL[k] || k) + ' <span class="dead">no reading today &mdash; excluded</span>' +
+                  '</td><td class="n">' + (ex.weight*100).toFixed(0) + '% &times; &mdash;</td></tr>';
+        }
+        return;
+      }
+      html += '<tr><td>' + LABEL[k] + '</td><td class="n">' +
+              (cc.weight*100).toFixed(0) + '% &times; ' + cc.value.toFixed(1) + '</td></tr>';
     });
     if (html) document.getElementById('w-table').innerHTML = html;
+
+    var note = document.getElementById('w-note');
+    if (note) {
+      var wu = (typeof d.weightUsed === 'number') ? d.weightUsed : 1;
+      if (excluded.length) {
+        note.innerHTML = '<strong style="color:#e8b339;">Today, divide by ' + wu.toFixed(2) + ', not 1.00.</strong> ' +
+          excluded.map(function(x){ return LABEL[x.name] || x.name; }).join(' and ') +
+          ' had no reading published for this date. It is excluded and the divisor drops to match, rather than ' +
+          'being counted as a reading of zero &mdash; which would understate the Score. If you are recomputing by ' +
+          'hand, leave it out and divide by ' + wu.toFixed(2) + ' and you will match the number above.';
+        note.style.display = 'block';
+      } else {
+        note.style.display = 'none';
+      }
+    }
   }).catch(function(){
     var z = document.getElementById('s-zone');
     if (z) z.textContent = 'live score unavailable';

@@ -25,19 +25,49 @@ const WEIGHTS = {
 };
 // (Confidence is CBBI's own composite — we report alongside as reference.)
 
+// CBBI publishes a null for a component on days it has no reading for it -- Woobull
+// does this routinely, including for the newest date. Number(null) is 0 and
+// isFinite(0) is true, so a null used to sail past the guard in scoreAt/computeAll
+// and get averaged in as a genuine reading of ZERO. On 2026-08-20 that alone
+// understated the published Score by 1.8 points: 34.5 shown against 36.3 correct.
+//
+// That is the worst possible bug for this product specifically, because the entire
+// pitch is "pull the same data and recompute the number yourself" -- anyone who did
+// it correctly would skip the null, get a different answer, and conclude the site
+// was wrong. They would have been right.
+//
+// isReading() is the single gate. A component with no reading is EXCLUDED, and
+// weightUsed renormalises over the components that do have one. The published
+// weights do not change; the divisor does. That is also what an honest recomputer
+// would do by hand, which is the point.
+function isReading(v) {
+  return v !== null && v !== undefined && v !== "" && Number.isFinite(Number(v));
+}
+
+// Strictly the newest point. If the newest point has no reading this returns null
+// and the caller excludes the component -- it deliberately does NOT walk back to an
+// older reading. Carrying yesterday's value forward would silently substitute data
+// from a different date into a number we tell people to reproduce, and they would
+// have no way to know we had done it.
 function latestEntry(series) {
   if (!series || typeof series !== "object") return null;
   const keys = Object.keys(series).sort((a, b) => Number(b) - Number(a));
   if (!keys.length) return null;
-  return { ts: Number(keys[0]), value: Number(series[keys[0]]) };
+  const raw = series[keys[0]];
+  if (!isReading(raw)) return null;
+  return { ts: Number(keys[0]), value: Number(raw) };
 }
 
 // Entry at offset N days back from the newest point (0 = latest).
+// Offsets index the raw series so the 7-day trend still compares like with like;
+// a null at that offset yields null and the component drops out of that day's score.
 function entryAt(series, offset) {
   if (!series || typeof series !== "object") return null;
   const keys = Object.keys(series).sort((a, b) => Number(b) - Number(a));
   if (offset >= keys.length) return null;
-  return { ts: Number(keys[offset]), value: Number(series[keys[offset]]) };
+  const raw = series[keys[offset]];
+  if (!isReading(raw)) return null;
+  return { ts: Number(keys[offset]), value: Number(raw) };
 }
 
 // Weighted score at offset N days back. Returns null if no components parse.
@@ -145,11 +175,15 @@ function commentary(score, trendDir) {
 // how the bot and the site end up quoting different numbers on the same day.
 function computeAll(data) {
   const components = {};
+  // Components with no reading for the newest date. Surfaced in the API response and
+  // labelled on /score, /indicators and the homepage arithmetic, so a reader
+  // recomputing by hand knows which ones to leave out and what divisor to use.
+  const excluded = [];
   let weightedSum = 0, weightUsed = 0, asOfTs = 0;
 
   for (const [name, weight] of Object.entries(WEIGHTS)) {
     const e = latestEntry(data[name]);
-    if (!e || !isFinite(e.value)) continue;
+    if (!e || !isFinite(e.value)) { excluded.push({ name, weight }); continue; }
     const v100 = Math.max(0, Math.min(100, e.value * 100));
     components[name] = { value: Math.round(v100 * 10) / 10, weight, asOf: e.ts };
     weightedSum += v100 * weight;
@@ -163,6 +197,8 @@ function computeAll(data) {
   if (price) components._btc_price = { value: Math.round(price.value), asOf: price.ts };
 
   const score = weightUsed === 0 ? null : Math.round((weightedSum / weightUsed) * 10) / 10;
+  // weightUsed is the divisor and is < 1 whenever something was excluded. Publishing
+  // it means the arithmetic on the page adds up for a reader checking it by hand.
 
   let trend = "flat", trendDelta = 0;
   try {
@@ -176,7 +212,7 @@ function computeAll(data) {
   } catch (_) {}
 
   return { score, zone: score === null ? null : zone(score), trend, trendDelta,
-           components, asOfTs, weightUsed };
+           components, asOfTs, weightUsed, excluded };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -428,7 +464,7 @@ export default async function handler(req, res) {
     }
     const data = await r.json();
 
-    const { score, components, asOfTs, trend, trendDelta, weightUsed } = computeAll(data);
+    const { score, components, asOfTs, trend, trendDelta, weightUsed, excluded } = computeAll(data);
 
     if (weightUsed === 0) {
       return res.status(502).json({ error: "No CBBI components parsed" });
@@ -474,6 +510,11 @@ export default async function handler(req, res) {
       trendDelta7d: trendDelta,
       commentary: commentary(score, trend),
       components,
+      // Published so the arithmetic on the page reconciles for anyone checking it.
+      // weightUsed is the divisor; it is 1 on a normal day and less whenever a
+      // component had no reading. excluded names those components and their weight.
+      weightUsed: Math.round(weightUsed * 100) / 100,
+      excluded,
       asOf: new Date(asOfTs * 1000).toISOString(),
       source: "CBBI components, V7-weighted",
     });

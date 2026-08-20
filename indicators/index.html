@@ -309,17 +309,21 @@
         el.textContent = '$' + Math.round(px).toLocaleString();
       });
     }
-    // A component reading a hard 0 is a dead upstream feed, not a real reading, and it
-    // drags the weighted Score down. Label it rather than letting it average in
-    // silently -- Woobull Top Cap was doing exactly this while this page displayed 24.
-    if (d.components) {
+    // A component CBBI published no reading for is excluded from today's Score and
+    // the divisor shrinks to match -- it is not counted as a reading of zero. Label
+    // it as excluded rather than as a zero, because those are different claims and
+    // only one of them is true.
+    var excluded = d.excluded || [];
+    if (excluded.length) {
       document.querySelectorAll('[data-live-key]').forEach(function(el){
         var k = el.getAttribute('data-live-key');
-        var c = d.components[k];
-        if (c && c.value === 0) {
-          el.setAttribute('title', 'Upstream feed is returning zero for this component right now.');
-          el.insertAdjacentHTML('afterend', '<span style="font-size:11px;color:#e8b339;margin-left:6px;">feed reading zero</span>');
-        }
+        var ex = excluded.filter(function(x){ return x.name === k; })[0];
+        if (!ex) return;
+        el.textContent = '\u2014';
+        el.setAttribute('title', 'CBBI published no reading for this component on this date. It is excluded from today\u2019s Score and the divisor drops to ' + ((d.weightUsed || 1).toFixed(2)) + ' rather than counting it as zero.');
+        el.insertAdjacentHTML('afterend',
+          '<span style="font-size:11px;color:#e8b339;margin-left:6px;">no reading today &mdash; excluded, divisor ' +
+          ((d.weightUsed || 1).toFixed(2)) + '</span>');
       });
     }
   }).catch(function(){});

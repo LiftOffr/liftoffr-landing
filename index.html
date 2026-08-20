@@ -1730,26 +1730,39 @@ function submitHomeLead(form) {
       var asof = document.getElementById('recompute-asof');
       if (!rows) return;
       var html = '';
-      var stale = [];
+      // A component with no reading for today is EXCLUDED by the API rather than
+      // counted as zero, and the divisor drops to match. Show it as excluded, with
+      // its weight, so the arithmetic on screen still reconciles by hand.
+      var excluded = d.excluded || [];
+      var exNames = excluded.map(function(x){ return LABELS[x.name] || x.name; });
       ORDER.forEach(function(k){
         var c = d.components[k];
-        if (!c) return;
-        var dead = (c.value === 0);
-        if (dead) stale.push(LABELS[k]);
-        html += '<div style="display:flex;justify-content:space-between;' + (dead ? 'color:#e8b339;' : '') + '">' +
-                '<span>' + LABELS[k] + (dead ? ' <span style="font-size:10px;">(feed reading zero)</span>' : '') + '</span>' +
+        if (!c) {
+          var ex = excluded.filter(function(x){ return x.name === k; })[0];
+          if (ex) {
+            html += '<div style="display:flex;justify-content:space-between;color:#e8b339;">' +
+                    '<span>' + (LABELS[k] || k) + ' <span style="font-size:10px;">(no reading today &mdash; excluded)</span></span>' +
+                    '<span>' + ex.weight.toFixed(2) + ' &times; &mdash;</span></div>';
+          }
+          return;
+        }
+        html += '<div style="display:flex;justify-content:space-between;">' +
+                '<span>' + LABELS[k] + '</span>' +
                 '<span>' + c.weight.toFixed(2) + ' \u00d7 ' + c.value.toFixed(1) + '</span></div>';
       });
       rows.innerHTML = html;
       if (total) total.innerHTML = '<span>LiftOffr Score</span><span>' + d.score.toFixed(1) + '</span>';
       if (asof) {
         var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'today';
-        var txt = 'Live reading, ' + when + '. Multiply, add, divide by the weights used. ' +
+        var wu = (typeof d.weightUsed === 'number') ? d.weightUsed : 1;
+        var txt = 'Live reading, ' + when + '. Multiply each weight by its reading, add them up, ' +
+                  'then divide by ' + wu.toFixed(2) + ' \u2014 the weights actually used. ' +
                   'You will get this number from the same free public source I do.';
-        if (stale.length) {
-          txt += ' Heads up: ' + stale.join(' and ') + ' ' + (stale.length > 1 ? 'are' : 'is') +
-                 ' returning zero from the upstream feed right now, which drags the Score down. ' +
-                 'It is shown rather than hidden.';
+        if (exNames.length) {
+          txt += ' ' + exNames.join(' and ') + ' had no reading published for this date, so ' +
+                 (exNames.length > 1 ? 'they are' : 'it is') + ' left out and the divisor drops to ' +
+                 wu.toFixed(2) + ' rather than being counted as a zero. Counting a missing reading ' +
+                 'as zero would understate the Score, and it did until 20 Aug 2026.';
         }
         asof.textContent = txt;
       }
