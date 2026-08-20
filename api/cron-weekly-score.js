@@ -57,7 +57,8 @@ function zoneLabel(zone) {
   return {
     exit:                "🟥 EXIT ZONE",
     warning:             "🟧 WARNING",
-    neutral:             "🟨 NEUTRAL",
+    "mid-cycle":         "🟨 MID-CYCLE",
+    "re-accumulation":   "🟦 RE-ACCUMULATION",
     accumulation:        "🟩 ACCUMULATION",
     "deep-accumulation": "🟩 DEEP ACCUMULATION",
   }[zone] || zone.toUpperCase();
@@ -106,7 +107,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
   </div>
 
   <div style="padding:0 28px 32px;font-size:14px;color:#444;line-height:1.6;">
-    <p style="margin:0 0 12px;color:#666;font-size:13px;">The Score is a weighted composite of nine on-chain and market indicators. Above 85 has historically been where cycle tops occurred; below 20 is the lowest band it produces.</p>
+    <p style="margin:0 0 12px;color:#666;font-size:13px;">The Score is a weighted composite of nine on-chain and market indicators. Above 85 has historically been where cycle tops occurred; below 15 is the lowest band it produces.</p>
 
     ${(() => { const t = topContributors(components); return t.length ? `
     <div style="margin:0 0 16px;padding:14px 16px;background:#fafafa;border:1px solid #eee;border-radius:8px;">
@@ -151,7 +152,7 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     commentary,
     "",
-    "The Score is a weighted composite of nine on-chain and market indicators. Above 85 has historically been where cycle tops occurred; below 20 is the lowest band it produces.",
+    "The Score is a weighted composite of nine on-chain and market indicators. Above 85 has historically been where cycle tops occurred; below 15 is the lowest band it produces.",
     "",
     (() => { const t = topContributors(components); return t.length
       ? "CARRYING THE NUMBER THIS WEEK\n" + t.map(c => `  ${c.label} - ${c.weight.toFixed(2)} x ${c.value.toFixed(1)}`).join("\n") +
@@ -191,7 +192,7 @@ async function aiWeeklyRead(score) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return score.commentary;
   try {
-    const facts = `LiftOffr Score ${score.score.toFixed(1)}/100, zone "${score.zone}", trend ${score.trend} (${score.trendDelta7d >= 0 ? "+" : ""}${score.trendDelta7d} over 7d). Components: ${Object.entries(score.components || {}).map(([k, v]) => `${k}=${v.value}`).join(", ")}. Score semantics: below 20 deep accumulation, 20-40 accumulation, 40-60 neutral, 60-85 late-cycle caution, 85+ historic top zone.`;
+    const facts = `LiftOffr Score ${score.score.toFixed(1)}/100, zone "${score.zone}", trend ${score.trend} (${score.trendDelta7d >= 0 ? "+" : ""}${score.trendDelta7d} over 7d). Components: ${Object.entries(score.components || {}).map(([k, v]) => `${k}=${v.value}`).join(", ")}. Score semantics (these are the ONLY bands; they match api/cycle-score.js zone() and commentary(), and the badge on the email): 85+ exit zone, 70-85 warning, 50-70 mid-cycle, 30-50 re-accumulation, 15-30 accumulation, below 15 deep accumulation. Use the band name for the score you are given and no other. Describe what the band has done historically; never tell the reader to buy, sell, reduce, take profits, scale out or DCA.`;
     const r = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "Content-Type": "application/json" },
@@ -249,7 +250,8 @@ async function sendResend(to, subject, text, html, idempotencyKey) {
 const ZONE_HEADLINES = {
   "exit": "The Score just entered the EXIT ZONE",
   "warning": "The Score just entered the WARNING band",
-  "neutral": "The Score just crossed into NEUTRAL",
+  "mid-cycle": "The Score just crossed into MID-CYCLE",
+  "re-accumulation": "The Score just crossed into RE-ACCUMULATION",
   "accumulation": "The Score just entered ACCUMULATION",
   "deep-accumulation": "The Score just entered DEEP ACCUMULATION",
 };
@@ -272,7 +274,7 @@ function zoneChangeText({ from, to, score, date }) {
 }
 
 function zoneChangeHTML(p) {
-  const color = { "exit": "#ef4444", "warning": "#f97316", "neutral": "#fbbf24", "accumulation": "#22c55e", "deep-accumulation": "#16a34a" }[p.to] || "#999";
+  const color = { "exit": "#ef4444", "warning": "#f97316", "mid-cycle": "#fbbf24", "re-accumulation": "#4d8df0", "accumulation": "#22c55e", "deep-accumulation": "#16a34a" }[p.to] || "#999";
   return `<div style="font-family:-apple-system,Segoe UI,sans-serif;max-width:520px;margin:0 auto;padding:24px;color:#222;">
     <div style="font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:14px;">LiftOffr · Zone change alert</div>
     <h1 style="font-size:21px;margin:0 0 14px;">${ZONE_HEADLINES[p.to] || "The Score changed zones"}</h1>
@@ -289,20 +291,36 @@ function zoneChangeHTML(p) {
 }
 
 async function runZoneChangeCheck(baseUrl) {
-  const r = await fetch(`${baseUrl}/api/cycle-score?history=7`);
+  // HOLD is the same rule /receipts publishes for the 64-signal log: "a crossing
+  // counts only after the score holds the new zone for 7 straight days — the date
+  // shown is the first day of that hold". This check used to compare today against
+  // yesterday with no hold at all, so a Score touching a boundary for one day
+  // emailed the whole free list about a crossing that would never appear in the
+  // log. That matters more now: the band split at 50 sits in the middle of the
+  // range the Score normally occupies.
+  const HOLD = 7;
+  const r = await fetch(`${baseUrl}/api/cycle-score?history=${HOLD + 7}`);
   if (!r.ok) throw new Error(`history fetch ${r.status}`);
   const { history } = await r.json();
-  if (!history || history.length < 2) return { skipped: true, reason: "insufficient history" };
+  if (!history || history.length < HOLD + 1) return { skipped: true, reason: "insufficient history" };
 
-  const [today, yesterday] = history;
-  if (today.zone === yesterday.zone) return { changed: false, zone: today.zone, score: today.score };
+  const today = history[0];
+  const window = history.slice(0, HOLD);          // newest first
+  const prior = history[HOLD];                     // the day before the hold began
 
-  // Freshness guard: only alert if the crossing data point is ≤2 days old
-  // (prevents re-alerting on stale upstream data).
+  // Every day of the window must be the same zone, and the day before it must differ.
+  const held = window.every((d) => d.zone === today.zone);
+  if (!held) return { changed: false, zone: today.zone, score: today.score, reason: `zone not held ${HOLD}d` };
+  if (prior.zone === today.zone) return { changed: false, zone: today.zone, score: today.score };
+
+  // Freshness guard: judged on today's data point, not the crossing date, because
+  // the crossing is by definition HOLD-1 days old once the hold completes.
   const ageDays = (Date.now() - new Date(today.date).getTime()) / 86400000;
-  if (ageDays > 2) return { changed: true, skipped: true, reason: `stale crossing (${today.date})` };
+  if (ageDays > 2) return { changed: true, skipped: true, reason: `stale data (${today.date})` };
 
-  const payload = { from: yesterday.zone, to: today.zone, score: today.score, date: today.date };
+  // The crossing date is the first day of the hold, matching the log.
+  const crossedOn = window[window.length - 1].date;
+  const payload = { from: prior.zone, to: today.zone, score: today.score, date: crossedOn };
   const subject = `${ZONE_HEADLINES[today.zone] || "LiftOffr Score zone change"} — ${today.score.toFixed(1)}`;
   const text = zoneChangeText(payload);
   const html = zoneChangeHTML(payload);
@@ -312,7 +330,7 @@ async function runZoneChangeCheck(baseUrl) {
   for (const s of subs) {
     try {
       // Idempotency: one send per contact per crossing, even if the cron re-runs.
-      await sendResend(s.email, subject, text, html, `zonechg-${today.date}-${today.zone}-${s.id || s.email}`);
+      await sendResend(s.email, subject, text, html, `zonechg-${crossedOn}-${today.zone}-${s.id || s.email}`);
       results.sent++;
     } catch (e) {
       results.failed++;

@@ -144,7 +144,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="score-zone" id="s-zone">loading&hellip;</div>
     <div class="score-meta" id="s-meta">&nbsp;</div>
   </div>
-  <p class="fine">Above 85 has historically been where cycle tops occurred. Below 20 is the lowest band the Score produces. Neither is a prediction &mdash; see the record.</p>
+  <p class="fine">The six bands, in full &mdash; these are the only ones, and they are the same on
+      every page, in the Sunday email and in the Discord bot:</p>
+    <ul class="fine" style="margin:8px 0 10px 18px;line-height:1.75;">
+      <li><strong>85&ndash;100 &middot; exit zone</strong> &mdash; every cycle top since 2013 printed here. The Score has also sat here for months while price kept rising.</li>
+      <li><strong>70&ndash;85 &middot; warning</strong> &mdash; has preceded exit-zone readings, though not every time.</li>
+      <li><strong>50&ndash;70 &middot; mid-cycle</strong> &mdash; historically the least informative band.</li>
+      <li><strong>30&ndash;50 &middot; re-accumulation</strong> &mdash; the band after a drawdown has stopped deepening but before the next expansion. Historically it has resolved upward more often than not at 180 days.</li>
+      <li><strong>15&ndash;30 &middot; accumulation</strong> &mdash; among the lower readings in a cycle.</li>
+      <li><strong>0&ndash;15 &middot; deep accumulation</strong> &mdash; the lowest band the Score produces.</li>
+    </ul>
+    <p class="fine">Every one of those is a description of what the band has done before. Neither is a prediction &mdash; see the record.</p>
 
   <!-- Dated correction notice, same pattern as /proof. A silent fix to the headline
        number on the page whose whole pitch is "recompute this yourself" would be
@@ -225,7 +235,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var z = document.getElementById('s-zone');
     var m = document.getElementById('s-meta');
     n.textContent = d.score.toFixed(1); n.style.color = c;
-    z.textContent = String(d.zone || '').replace('-', ' ').toUpperCase(); z.style.color = c;
+    z.textContent = ({'exit':'EXIT ZONE','warning':'WARNING','mid-cycle':'MID-CYCLE','re-accumulation':'RE-ACCUMULATION','accumulation':'ACCUMULATION','deep-accumulation':'DEEP ACCUMULATION'}[d.zone]) || String(d.zone || '').toUpperCase(); z.style.color = c;
     var px = d.components && d.components._btc_price && d.components._btc_price.value;
     var when = d.asOf ? new Date(d.asOf).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}) : '';
     m.textContent = (px ? 'BTC $' + Math.round(px).toLocaleString() + ' \u00b7 ' : '') + (when ? 'as of ' + when : '');

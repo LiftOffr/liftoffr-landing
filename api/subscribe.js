@@ -114,7 +114,7 @@ function quizHTML({ score, zone }, segKey) {
       <div style="margin-top:8px;font-size:13px;font-weight:700;color:#e63946;letter-spacing:1.5px;text-transform:uppercase;">${zone}</div>
     </div>
 
-    <p style="margin:0 0 16px;">Above 85 the model reads as exit territory. Below 15, accumulation. In between it has historically been least informative, which is where it sits most of the time and which is the part people find hardest.</p>
+    <p style="margin:0 0 16px;">Above 85 the model reads as exit territory. Below 15, deep accumulation. In between it has historically been least informative, which is where it sits most of the time and which is the part people find hardest.</p>
 
     <p style="margin:24px 0 10px;font-weight:700;color:#080808;">Three things, all free, no card:</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.8;color:#333;">
@@ -149,7 +149,7 @@ function quizText({ score, zone }, segKey) {
     "",
     `Today's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}`,
     "",
-    "Above 85 the model reads as exit territory. Below 15, accumulation. In between it has historically been least informative — where it sits most of the time, and the part people find hardest.",
+    "Above 85 the model reads as exit territory. Below 15, deep accumulation. In between it has historically been least informative — where it sits most of the time, and the part people find hardest.",
     "",
     "THREE THINGS, ALL FREE, NO CARD:",
     `  The score, updated every morning: ${L("/cycle", "e1_cycle")}`,
