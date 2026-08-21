@@ -561,3 +561,27 @@ This note used to live inside the lesson file as a `[TORIN]` marker. It is here 
 mechanical paste away from being a customer-facing production note. That is exactly how page 7 of
 the 20 Aug PDF build failed. `scripts/check_course_markers.js` now fails the build if any marker
 reappears in a lesson file, so this cannot happen by accident again.
+
+
+---
+
+## Appendix 6 — the Discord reorganisation (21 Aug 2026)
+
+**Not done, and not because I judged it unwise.** `edit-channel` silently ignores the `category`
+field. I proved it three ways on the same channel — by raw ID, by name, and by name plus a topic
+change in one call. All three returned `Edited`. The topic change took effect; the move did not.
+That third test is the conclusive one: the call reaches Discord and half of it applies.
+
+**The full target tree is in `DISCORD_TARGET_TREE.md`**, ordered so it can be worked top to bottom
+by dragging. Sixteen categories become ten; twelve orphaned course channels get homes; and the
+free/paid boundary becomes visible from the sidebar alone, which today it is not — `plan-updates`
+is a $29 deliverable sitting among free channels, and three paid channels sit next to free
+announcements.
+
+**The one risk worth naming:** moving a channel changes which category it inherits permissions
+from. Four channels matter — `📈・plan-updates`, `🧰・course-resources`, `❓・elite-qna` and
+`🤔・how-to-use-this-course`. Check those after moving; a mistake there either leaks paid content
+or locks out buyers. Everything else is free either way.
+
+Nothing else breaks: every course cross-reference uses `<#id>` mentions, which do not care about
+names or categories.
