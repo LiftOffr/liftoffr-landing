@@ -104,11 +104,15 @@
     // room above the fold: at full height the banner covered the Score itself on
     // /score, which is the page the Instagram bio points at. Rather than shrink
     // legal text to fit -- the wrong instinct -- the text scrolls inside a bounded
-    // box when, and only when, it does not fit. On a 812px phone nothing scrolls.
+    // box when, and only when, it does not fit. On a 812px phone nothing scrolls --
+    // the cap is 236px because the paragraph measures 218px there, and at the old
+    // 215px it overflowed by 3px, hiding the last line of a legal disclosure behind
+    // a scroll for the sake of three pixels. If you edit the copy, re-measure
+    // scrollHeight against clientHeight; do not assume it still fits.
     // The buttons and the link to /privacy are outside the box and always visible.
     var scroller = document.createElement('div');
     if (narrow) {
-      scroller.style.cssText = 'max-height:min(30vh,215px);overflow-y:auto;' +
+      scroller.style.cssText = 'max-height:min(30vh,236px);overflow-y:auto;' +
         '-webkit-overflow-scrolling:touch;overscroll-behavior:contain;';
     }
     scroller.appendChild(p);
