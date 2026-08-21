@@ -43,16 +43,27 @@
     wrap.setAttribute('role', 'dialog');
     wrap.setAttribute('aria-live', 'polite');
     wrap.setAttribute('aria-label', 'Analytics consent');
+    // Sizing is a mobile decision. At 375px the first version stood 281px tall --
+    // 35% of the viewport -- and on /score it covered the bottom of the scorecard,
+    // which is the one thing an Instagram visitor clicked through to see. Every word
+    // of the disclosure is kept; the box is just tighter, and the two buttons sit
+    // side by side instead of stacking, which is where most of the height went.
+    // safe-area-inset-bottom keeps the buttons clear of the iPhone home indicator.
+    var narrow = Math.min(window.innerWidth || 0, window.outerWidth || Infinity) < 480;
     wrap.style.cssText = [
-      'position:fixed', 'left:12px', 'right:12px', 'bottom:12px', 'z-index:2147483000',
+      'position:fixed', 'left:12px', 'right:12px', 'z-index:2147483000',
+      'bottom:calc(12px + env(safe-area-inset-bottom, 0px))',
       'max-width:620px', 'margin:0 auto', 'background:#0d0d0d', 'border:1px solid #262626',
-      'border-radius:14px', 'padding:16px 18px', 'box-shadow:0 18px 50px rgba(0,0,0,.6)',
+      'border-radius:14px', 'box-shadow:0 18px 50px rgba(0,0,0,.6)',
+      'padding:' + (narrow ? '13px 14px' : '16px 18px'),
       'font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif',
-      'color:#bdbdbd', 'font-size:13.5px', 'line-height:1.6'
+      'color:#bdbdbd',
+      'font-size:' + (narrow ? '12.5px' : '13.5px'),
+      'line-height:' + (narrow ? '1.5' : '1.6')
     ].join(';');
 
     var p = document.createElement('p');
-    p.style.cssText = 'margin:0 0 12px;';
+    p.style.cssText = 'margin:0 0 ' + (narrow ? '10px' : '12px') + ';';
     p.innerHTML = 'This site can load Google Analytics and Microsoft Clarity. ' +
       '<strong style="color:#fff;">Clarity records session replays</strong> — mouse movement, ' +
       'scrolling and clicks on this site. None of it is needed for anything here to work, ' +
@@ -73,9 +84,14 @@
       var b = document.createElement('button');
       b.type = 'button';
       b.textContent = label;
-      b.style.cssText = 'flex:1 1 160px;padding:11px 16px;border-radius:9px;font-size:13.5px;' +
-        'font-weight:800;cursor:pointer;background:' + bg + ';border:1px solid ' + border +
-        ';color:' + color + ';font-family:inherit;';
+      // min-height 44px is the Apple HIG / WCAG target size. The previous
+      // padding produced 41px buttons, which is a miss on a phone. flex-basis
+      // 120px lets both fit on one row inside a 375px viewport (313px of content
+      // width) instead of stacking and costing another 51px of height.
+      // Decline and Allow stay identical in size, weight and hit area on purpose.
+      b.style.cssText = 'flex:1 1 120px;min-height:44px;padding:12px 14px;border-radius:9px;' +
+        'font-size:13.5px;font-weight:800;cursor:pointer;background:' + bg +
+        ';border:1px solid ' + border + ';color:' + color + ';font-family:inherit;';
       b.addEventListener('click', function () { decide(granted); });
       return b;
     }
