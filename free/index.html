@@ -384,15 +384,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     return false;
   }
 
-  // CTA click tracking (matches site-wide cta_clicked schema)
+  // CTA click tracking (matches site-wide cta_clicked schema).
+  // Selector widened 2026-08-20: bound to a[data-dest] alone it caught 2 of the 4
+  // offer links on this page. Destination prefers the attribute and derives from
+  // the href otherwise, because a hardcoded destination under a widened selector
+  // manufactures events that never happened.
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[data-dest]');
+    var a = e.target.closest(
+      'a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
+      'a[href^="/score"], a[href^="/free"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
     if (!a) return;
     if (typeof window.track === 'function') {
       window.track('cta_clicked', {
         cta_text: (a.textContent || '').trim().slice(0, 80),
-        cta_position: a.className || 'free_cta',
-        destination: a.getAttribute('data-dest'),
+        cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                      ((a.getAttribute('href') || '').split('utm_content=')[1] || '').split('&')[0] ||
+                      a.className || 'free_cta',
+      destination: a.getAttribute('data-dest') ||
+        (/whop\.com\/checkout/.test(a.getAttribute('href') || '')
+          ? 'whop_checkout'
+          : (a.getAttribute('href') || '').split('?')[0].replace(/^\//, '').replace(/\/$/, '') || 'home'),
         page: location.pathname
       });
     }

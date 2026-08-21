@@ -449,15 +449,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </footer>
 
 <script>
-  // Fire cta_clicked on every checkout/track CTA (mirrors homepage tracking)
+  // Fire cta_clicked on every offer CTA. Widened 2026-08-20: bound to a[data-cta]
+  // alone it caught 5 of the 9 offer links, missing the /free escape hatch and the
+  // /receipts links, which are the two routes a reader who is not ready for $497
+  // actually takes. 'internal' was also a useless destination label -- it said a
+  // click happened without saying where to.
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[data-cta]');
+    var a = e.target.closest(
+      'a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
+      'a[href^="/score"], a[href^="/free"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
     if(!a) return;
-    var isCheckout = /whop\.com\/checkout/.test(a.href);
+    var href = a.getAttribute('href') || '';
+    var isCheckout = /whop\.com\/checkout/.test(href);
     track('cta_clicked', {
       cta_text: (a.textContent||'').trim().slice(0,80),
-      cta_position: a.getAttribute('data-cta') || 'playbook',
-      destination: isCheckout ? 'playbook_497' : 'internal',
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    (href.split('utm_content=')[1] || '').split('&')[0] || 'playbook',
+      destination: isCheckout ? 'playbook_497'
+                              : (href.split('?')[0].replace(/^\//, '').replace(/\/$/, '') || 'home'),
       page: '/playbook'
     });
   }, true);

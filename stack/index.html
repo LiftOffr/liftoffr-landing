@@ -363,12 +363,23 @@
 </script>
 <script>
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[data-dest]');
+    var a = e.target.closest(
+      'a[data-dest], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
+      'a[href^="/score"], a[href^="/free"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
     if (!a || typeof window.track !== 'function') return;
     window.track('cta_clicked', {
       cta_text: (a.textContent || '').trim().slice(0, 80),
       cta_position: a.getAttribute('data-cta-slot') || 'stack_page',
-      destination: a.getAttribute('data-dest'),
+      // data-dest when the author set one; otherwise derive it. Deriving matters
+      // because the selector now matches anchors that carry no attribute, and a
+      // hardcoded destination under a widened selector produces FICTIONAL events:
+      // /receipts spent an hour today logging its two /score clicks as
+      // whop_checkout on a page with no Whop anchor, which would have poisoned the
+      // begin_checkout-to-purchase ratio with checkout clicks that never happened.
+      destination: a.getAttribute('data-dest') ||
+        (/whop\.com\/checkout/.test(a.getAttribute('href') || '')
+          ? 'whop_checkout'
+          : (a.getAttribute('href') || '').split('?')[0].replace(/^\//, '').replace(/\/$/, '') || 'home'),
       page: location.pathname
     });
   }, true);

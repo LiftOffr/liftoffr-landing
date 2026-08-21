@@ -88,6 +88,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('js', new Date());
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+
+  /* Offer-CTA click tracking. Until 2026-08-20 this page had no delegated listener
+     at all -- only three inline onclick handlers, so 3 of its 8 offer links were
+     tracked and the other five, including every route out to /receipts and /score,
+     were silent. The three inline handlers are gone and their labels survive as
+     data-cta-slot, so nothing double-fires and no placement name was lost. */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest(
+      'a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
+      'a[href^="/score"], a[href^="/free"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    (href.split('utm_content=')[1] || '').split('&')[0] || 'unlabelled',
+      destination: a.getAttribute('data-dest') ||
+        (/whop\.com\/checkout/.test(href)
+          ? 'whop_checkout'
+          : href.split('?')[0].replace(/^\//, '').replace(/\/$/, '') || 'home'),
+      page: location.pathname
+    });
+  }, true);
 </script>
 <!-- Microsoft Clarity -->
 <!-- Clarity is started by the consent snippet above, only after the visitor allows
@@ -210,8 +233,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       every future one is worth nothing.
     </p>
     <a href="https://whop.com/checkout/plan_WHByzwILskLsc" class="btn" rel="noopener"
-       data-dest="system_checkout" data-cta-slot="price_block"
-       onclick="track('cta_clicked',{destination:'system_checkout'})">Get The Cycle System — $197, once →</a>
+       data-dest="system_checkout" data-cta-slot="price_block">Get The Cycle System — $197, once →</a>
     <p class="muted" style="margin:10px 0 0;font-size:13px;">
       Instant access after checkout. <strong>$197 + Whop's 5% checkout fee ($9.85)</strong>,
       plus local tax where it applies — the exact total is shown before you pay. Nothing renews.
@@ -263,8 +285,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     Your $29 credits toward it whenever you decide.
   </p>
 
-  <a href="/plan?utm_source=liftoffr&utm_medium=system&utm_campaign=system_prelaunch&utm_content=plan_route" class="btn ghost" data-dest="plan" onclick="track('cta_clicked',{destination:'plan_from_system'})">Get My Bear Market Buy Plan — $29 once →</a>
-  <a href="/free?utm_source=liftoffr&utm_medium=system&utm_campaign=system_prelaunch&utm_content=free_route" class="btn ghost" data-dest="free" onclick="track('cta_clicked',{destination:'free_from_system'})">Or start free — Discord + the Sunday Score</a>
+  <a href="/plan?utm_source=liftoffr&utm_medium=system&utm_campaign=system_prelaunch&utm_content=plan_route" class="btn ghost" data-dest="plan" data-cta-slot="plan_from_system">Get My Bear Market Buy Plan — $29 once →</a>
+  <a href="/free?utm_source=liftoffr&utm_medium=system&utm_campaign=system_prelaunch&utm_content=free_route" class="btn ghost" data-dest="free" data-cta-slot="free_from_system">Or start free — Discord + the Sunday Score</a>
 
   <p class="muted" style="margin-top:26px;">
     Want me to build your ladders with you privately instead of learning the system
