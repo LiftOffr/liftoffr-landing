@@ -23,3 +23,10 @@ logo-lab.html
 # dashboards on 2026-08-20 — a reinfection source sitting inside the deploy.
 *.backup-*
 **/*.backup-*
+
+# PAID DELIVERABLES — never deploy. Anything in this repo is served publicly:
+# /lead-magnet/bear-market-buy-zone.pdf returns 200 today, which is fine because
+# that one is a free magnet. The $29 buy-plan PDF is NOT free. Committing it
+# without this rule would publish the paid product as a free download.
+product/
+*.paid.pdf

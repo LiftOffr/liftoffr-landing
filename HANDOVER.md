@@ -9,7 +9,7 @@ Work top to bottom. It is ordered by consequence, not by category.
 
 ## Part 1 — Do these, in this order
 
-### 1. Re-print the buy plan PDF and replace it in Whop · 15 min
+### 1. Replace the buy plan PDF in Whop · 3 min
 **Why it matters:** three people have paid for this document and the copy they hold says the
 System has "8 indicators" (it has nine), and it is missing three of the nine things `/plan`
 promises on the sales page. The corrected source is ready.
@@ -17,12 +17,21 @@ promises on the sales page. The corrected source is ready.
 **What breaks if you skip it:** buyers hold a document that contradicts your own site, and three
 of your nine numbered promises are undelivered.
 
+**The PDF is already built.** I generated it with headless Chrome from the corrected source —
+8 pages, same as the original. It was sent to you in chat as `My-Bear-Market-Buy-Plan.pdf`.
+
+**It is deliberately NOT in the repo.** Every file here is served publicly — the free lead-magnet
+PDF returns 200 today — so committing a paid deliverable would publish the $29 product as a free
+download. `product/` and `*.paid.pdf` are now excluded in `.vercelignore` in case anyone tries.
+
+**Verified before it was handed over:** no internal markers, review gates or `[TORIN]` notes
+leaked; it says nine weighted components, not eight; the exit paragraph says he got out early and
+it cost him the last leg; sections 5b and 5c are present; all nine trigger prices are unchanged;
+and the total budget figure does not appear anywhere in it.
+
 **Steps:**
-1. Open `PLAN_PRODUCT_DRAFT.md` in the repo. It is the source the current PDF was printed from.
-2. Render it to a page (any markdown previewer) and **Print → Save as PDF** from Chrome. That is
-   how the existing PDF was made — its metadata says Chrome print-to-PDF, 2 Aug.
-3. Go to **whop.com → your LiftOffr product → Content → "My Bear Market Buy Plan"** and replace
-   the attached PDF with the new file.
+1. Go to **whop.com → your LiftOffr product → Content → "My Bear Market Buy Plan"** and replace
+   the attached PDF with the file from chat.
 4. Post one line in `#plan-updates` saying the doc was updated and what changed.
 
 **Already corrected in the source:** the nine-component count, the exit thresholds and whipsaw
