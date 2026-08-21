@@ -8,7 +8,7 @@ Course channels are covered in `course/DELETED_2026-08-21.md`. This file is ever
 
 ---
 
-## 1. `#🔥・trade-setups` — leveraged trade signals. NOT CHANGED, awaiting Torin.
+## 1. `#🔥・trade-setups` — DELETED 21 Aug 2026 on Torin's instruction
 
 **What it publishes.** Automated LONG and SHORT setups with **Entry, Stop, Target and R:R**,
 generated from **VuManChu Cipher A & B** on the 4-hour chart — the same tool as Market Cipher,
@@ -50,10 +50,31 @@ and send-message. **There is no tool that reads permission overwrites.** What is
 that was changed after 8 Aug is not determinable from here. Checking it takes ten seconds in
 Discord: right-click the channel → Edit Channel → Permissions.
 
-**Why it matters either way.** `#the-cycle-system` sold it as a $197 deliverable
+**Why it mattered either way.** `#the-cycle-system` sold it as a $197 deliverable
 ("#trade-setups and #btc-signals — my setups with entry zones, invalidation, and reasoning").
-If members can see it, the paid product publishes trade instructions. If they cannot, the paid
-product advertises a channel nobody can open. Both need an answer; they need different answers.
+If members could see it, the paid product published trade instructions. If they could not, the
+paid product advertised a channel nobody could open.
+
+### The decision, and why not "automate it on LiftOffr mechanics"
+
+Torin's instruction: *"if we can't fully automate trade setups channel with LiftOffr's mechanics
+then we should probably get rid of it."*
+
+**Rebuilding it on the Score would have laundered the problem, not fixed it.** The Score is a
+multi-month cycle-position instrument, and `#m5-l3-why-46pct-and-54pct-are-the-same` teaches that
+its directional record is 21 of 46 at 30 days and 25 of 46 at 180 — neither distinguishable from
+chance. Generating four-hourly entry/stop/target posts from it would mean using a deliberately
+slow instrument to make fast calls and publishing them as signals, which `/disclaimer` says this
+business does not do. A signal feed built on an instrument the course proves is no better than a
+coin flip at that horizon is worse than one built on Cipher, not better: it would carry the
+model's authority without the model's evidence.
+
+**Deleted.** Content recorded above so the decision stays checkable.
+
+**Advertising copy removed in the same pass:** `blog/mvrv-ratio-bitcoin-indicator.html` listed
+"Community of traders sharing live trade setups" in its purchase box. No live page advertises
+trade setups now. The `#the-cycle-system` message that sold the channel was already superseded
+earlier today.
 
 ---
 
@@ -85,10 +106,34 @@ Milder than trade-setups — no entry, stop or target — but it is directional 
 **Fear & Greed hitting 20**, an indicator that carries zero weight, though it frames it well:
 *"This is not a buy signal — it's a sentiment data point."*
 
-## 4. `#📡・btc-signals` — active, milder still
+**One real problem: it repeats.** Between 27 June and 8 July it fired the *same* Extreme Fear
+alert **eight times in twelve days** — 15, 18, 12, 15, 11, 19, 20, 20 — with identical body text
+each time. An "urgent" channel that pings a role daily for a condition that has not changed
+trains people to ignore it, which is a cost paid on the day something actually matters.
 
-Last post 19 Aug. *"200-day SMA reclaim … Bias: Bullish while holding above."* Directional bias
-language, no levels to act on.
+## 4. `#📡・btc-signals` — active, and it whipsaws. Worth a decision.
+
+My first pass called this "milder still" on the strength of one post. Reading the full history
+changes that: it is a moving-average crossing bot that **flips its published directional bias on
+moves of ±0.0–0.1%, sometimes within the hour.**
+
+```
+11 Aug 14:56   50-day SMA lose      -0.2% below   "Bearish while below"
+11 Aug 15:56   50-day SMA reclaim   +0.1% above   "Bullish while holding above"   <- 60 minutes
+13 Aug 23:53   50-day SMA lose      -0.1% below   "Bearish while below"
+17 Aug 07:40   50-day SMA reclaim   +0.1% above   "Bullish while holding above"
+17 Aug 08:40   50-day SMA lose      -0.0% below   "Bearish while below"           <- 60 minutes
+19 Aug 19:36   200-day SMA reclaim  +0.4% above   "Structural bull signal"
+19 Aug 23:36   200-day SMA lose     -0.0% below   "Structural caution"            <- 4 hours
+```
+
+A −0.0% cross being published as *"Structural caution — major level gone"* four hours after
+*"Structural bull signal"* is the exact pathology Module 5 was written about. The course teaches
+that a threshold model flips around its threshold and is only usable if you decided in advance
+what a crossing means; this channel demonstrates that daily and presents each flip as a signal.
+
+It carries no entry, stop or target, so it is not the same class as `#trade-setups` — but it is
+the same underlying mistake at a smaller scale, and it is **currently active**. Torin's call.
 
 ## 5. `#🪙・altcoin-radar` — active, mostly fine
 
