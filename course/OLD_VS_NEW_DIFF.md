@@ -93,3 +93,21 @@ gives harm-reduction guardrails for the rest. It stays untouched.
 Ship the new curriculum, retire old Module 4 entirely, and post a short note saying the indicator
 module was rebuilt on the nine weighted components and what changed. The note costs you nothing
 and it is the same move that makes Broadcast 1 worth sending: the correction is the credibility.
+
+
+---
+
+## Delivery surface — settled 21 Aug 2026
+
+**Discord, via the bot. Not Whop Courses.** Torin confirmed he is not uploading anything, so the
+upload table that used to live in `HANDOVER.md` is deleted and Discord is where the course is.
+
+Everything in `course/` has a Discord counterpart; nothing is repo-only. The one intentional
+compression is `module-5-zero-weight.md`, whose four lessons became the single channel
+`m4-l10-context-zero-weight` — four short lessons that all conclude "this carries no weight" read
+better as one, and splitting them would have given the zero-weight material more channels than
+Pi Cycle has.
+
+**One tooling limit worth knowing before the next change:** the bot cannot set a channel's
+category and returns success when it fails to. Names and topics apply correctly. See
+`HANDOVER.md` appendix 4 for the channels this left mis-grouped and the one-minute manual fix.

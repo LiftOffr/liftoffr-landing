@@ -45,6 +45,28 @@ correction pass exists to stop a buyer asking.
 Files: `module-1-the-number.md`, `module-5-zero-weight.md`, and so on. 24 lessons plus
 `reference-phase-matrix.md`.
 
+## Where this ships
+
+**Discord, posted by the bot. Not Whop Courses — Torin confirmed on 21 Aug 2026 that he is not
+uploading anything, so Discord is the delivery surface and these files are the source of record
+for what is posted there, not a staging area.**
+
+| This file | Discord channels |
+|---|---|
+| `module-1-the-number.md` | `m4-score-1` … `m4-score-5` |
+| `module-2-the-heavy-half.md` | `m4-l1`, `m4-l2` |
+| `module-3-the-middle.md` | `m4-l3` … `m4-l5` |
+| `module-4-the-five-percents.md` | `m4-l6` … `m4-l9` |
+| `module-5-zero-weight.md` | `m4-l10-context-zero-weight` (all four condensed into one) |
+| `module-6-the-record.md` | `m5-l1` … `m5-l6` |
+| `reference-phase-matrix.md` | `#course-resources` |
+
+**The numbering here and in Discord deliberately do not match.** These files are numbered by the
+new curriculum's own logic; Discord's Module 1, 2, 3 and 6 are the original course (wallets, DCA,
+psychology, the long game) and are unchanged. The new material occupies Discord's Module 4 and
+Module 5 because those are the two the rebuild replaced. If you renumber anything, renumber it in
+both places in the same commit.
+
 The Market Cipher lesson that stood in Module 5 was deleted on 20 August 2026, not deprecated:
 it is proprietary, not reproducible from free public data, and was never a component of the
 Score. Its Discord channel is gone too.

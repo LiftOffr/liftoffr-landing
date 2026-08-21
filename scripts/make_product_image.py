@@ -26,10 +26,10 @@ they read as siblings in a store listing rather than as one template used
 twice.
 
 EVERY CLAIM IS VERIFIED, and the numbers are counted, not typed:
-  - "39 lessons" = channels matching lesson-N-* or m4-lN-* inside the six Module
+  - "44 lessons" = channels matching lesson-N-*, m4-lN-*, m4-score-N-* or m5-lN-*
     categories, counted via the Discord API on 2026-08-11. The same count
     appears in the course outline in #how-to-use-this-course. (48 is the count
-    of ALL course channels: 39 lessons + 6 overviews + 6 assessments. 55 has
+    of ALL course channels: 44 lessons + 6 overviews + 6 assessments. 55 has
     no basis and was corrected in the #the-cycle-system sales embed.)
   - Bullet copy is lifted from the canonical price map in
     #whats-locked-and-why and the product embeds.

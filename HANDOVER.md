@@ -98,76 +98,28 @@ a worse risk than leaving it writable.
 
 ---
 
-### 5. Upload the new course to Whop Courses · 30 min
-**Why it matters:** the shipped course taught eight indicators. Three of them carry no weight in
-the Score, and RHODL — tied for the heaviest at 20% — was not taught at all. Four of the nine
-weighted components, 35% of the model by weight, were missing from a course about the model.
+### 5. ~~Upload the new course to Whop Courses~~ — DONE, AND NOT VIA WHOP
+**Torin's instruction, 21 Aug 2026: the course lives in Discord, not Whop Courses. He is not
+uploading anything.** So this action is off his list entirely and the 25-row upload table that
+used to sit here is deleted — it described a delivery surface that is not being used.
 
-**What breaks if you skip it:** the $197 product teaches a different framework than the free
-Score publishes, so a buyer cannot tell which to believe.
+**Everything in `course/` is now posted in Discord by the bot.** Mapping, so nothing is assumed:
 
-> **DONE IN DISCORD, 20 Aug 2026 — not yet in Whop Courses.** Module 4 in the Discord
-> server has been rebuilt to the nine weighted components (ten channels, `m4-l1-…` to
-> `m4-l10-context-zero-weight`), the Market Cipher channel is deleted, and six old Module 4
-> lessons are in the Archive category with a note in each saying what replaced them. The
-> course map, the m4 assessment, the Phase Matrix and the false `#verification` pin all
-> have superseding messages posted — the Discord API this session has offers no
-> edit-message and no pin, so the originals are still there above the corrections.
-> **Whop Courses is a separate upload and is still outstanding.** The table below is that
-> upload.
+| `course/` file | Lessons | Discord |
+|---|---|---|
+| `module-1-the-number.md` | 5 | `m4-score-1` … `m4-score-5` |
+| `module-2-the-heavy-half.md` | 2 | `m4-l1`, `m4-l2` |
+| `module-3-the-middle.md` | 3 | `m4-l3`, `m4-l4`, `m4-l5` |
+| `module-4-the-five-percents.md` | 4 | `m4-l6` … `m4-l9` |
+| `module-5-zero-weight.md` | 4 | `m4-l10-context-zero-weight` — **condensed into one channel**, deliberately: four short lessons that all say "this carries no weight" read better as one, and splitting them would have given the zero-weight material more channels than Pi Cycle |
+| `module-6-the-record.md` | 6 | `m5-l1` … `m5-l6` |
+| `reference-phase-matrix.md` | ref | posted in `#course-resources` |
 
-**All 24 lessons are written.** Files are in `~/liftoffr-landing/course/`.
+Nothing in `course/` is repo-only. The markdown is now the source of record for what was posted,
+not a staging area for an upload that is not happening.
 
-Whop → your product → **Courses**. Create six chapters in this order, then add the lessons under
-each. Every lesson body is a copy-paste from the file named — no judgement required.
-
-| # | Chapter | Lesson title | Body from |
-|---|---|---|---|
-| 1 | The number itself | 1.1 What the Score is | `module-1-the-number.md` |
-| 2 | | 1.2 The six bands | `module-1-the-number.md` |
-| 3 | | 1.3 The arithmetic | `module-1-the-number.md` |
-| 4 | | 1.4 The divisor rule | `module-1-the-number.md` |
-| 5 | | 1.5 Reproduce it unaided | `module-1-the-number.md` |
-| 6 | The heavy half | 2.1 RHODL Ratio · 20% | `module-2-the-heavy-half.md` |
-| 7 | | 2.2 Puell Multiple · 20% | `module-2-the-heavy-half.md` |
-| 8 | The middle | 3.1 Trolololo trend line · 15% | `module-3-the-middle.md` |
-| 9 | | 3.2 MVRV Z-Score · 15% | `module-3-the-middle.md` |
-| 10 | | 3.3 Pi Cycle Top · 10% | `module-3-the-middle.md` |
-| 11 | The 5% components | 4.1 2-Year MA Multiplier | `module-4-the-five-percents.md` |
-| 12 | | 4.2 Reserve Risk | `module-4-the-five-percents.md` |
-| 13 | | 4.3 Woobull Top Cap | `module-4-the-five-percents.md` |
-| 14 | | 4.4 RUPL | `module-4-the-five-percents.md` |
-| 15 | What carries zero weight | 5.1 CBBI — the source, not a component | `module-5-zero-weight.md` |
-| 16 | | 5.2 Fear & Greed | `module-5-zero-weight.md` |
-| 17 | | 5.3 Google Trends | `module-5-zero-weight.md` |
-| 18 | | 5.4 The framework moved | `module-5-zero-weight.md` |
-| 19 | The record | 6.1 How to read /receipts | `module-6-the-record.md` |
-| 20 | | 6.2 Why 35 of 64 is not a hit rate | `module-6-the-record.md` |
-| 21 | | 6.3 Why 46% and 54% are the same number | `module-6-the-record.md` |
-| 22 | | 6.4 So what is it for? | `module-6-the-record.md` |
-| 23 | | 6.5 The whipsaw | `module-6-the-record.md` |
-| 24 | | 6.6 What the number asks of you | `module-6-the-record.md` |
-
-Plus one reference sheet: **The Phase Matrix**, from `reference-phase-matrix.md`.
-
-**This is a large, error-prone operation and half-finishing it leaves buyers with a broken
-product.** Do it in one sitting, or create all six chapters first and fill them in order so an
-interruption leaves a visible gap rather than a silent one.
-
-**Both `[TORIN]` markers are resolved — every row above is now a straight copy-paste.**
-1.5's spreadsheet note moved to the end of this handover. 6.6 was a heading with a brief to you
-as its body, which would have shipped a customer an empty lesson titled with a production note;
-it is now a complete lesson ("What the number asks of you") that answers the strongest objection
-in the course head-on. The one marker left in it is a clearly-labelled **optional** insert, and
-the lesson explicitly ships without it — if you want to add your own account on video, that is
-where it goes, but nothing is missing if you never do.
-
-**Old Modules 1, 2, 3 and 6** (wallets, DCA, psychology, custody) stay — they do not depend on
-the indicator framework. Old Module 4 is already retired in Discord. See
-`course/OLD_VS_NEW_DIFF.md` for what a buyer paid for that is gone (short answer: the Market
-Cipher lesson, deleted outright on your instruction, since nobody is mid-course).
-
----
+**The Discord course is 44 lessons**: Modules 1, 2, 3 and 6 unchanged at 7 + 6 + 5 + 5, Module 4
+rebuilt to 15, Module 5 rebuilt to 6. Plus 6 overviews and 6 assessments.
 
 ### 6. Switch on quiz emails 2–7 · 5 min
 **Why it matters:** the sequence is written, deployed and inert. Everything downstream of two
@@ -538,3 +490,44 @@ there is traffic.
 **5. The 2021 case study says you rode $25K down to about $13K; `/about` says you lost $30K in
 2022.** Same episode described twice, or two different numbers for it — I do not know which, so I
 changed neither. Tell me and I will make them agree.
+
+---
+
+## Appendix 4 — two things I reported as done that were not (21 Aug 2026)
+
+**The Discord bot cannot set a channel's category, and it reports success when it fails.**
+`edit-channel` applies `name` and `topic` correctly and silently ignores `category` — verified by
+passing the category both by name and by raw ID, getting `Edited` back both times, and re-listing
+to find `parentId` unchanged. `create-channel` accepted `category` for the first nine channels and
+silently ignored it from the tenth onward.
+
+**So two claims in my earlier reports are wrong, and here is the correction:**
+
+1. **The twelve retired lessons were never moved to the Archive category.** They were renamed
+   `retired-m4-*` / `retired-m5-*` and re-topiced, both of which did work, and each carries its
+   notice. But they still sit inside Module 4 and Module 5 in the sidebar. I said "moved to
+   Archive". They were not.
+2. **Twelve new lesson channels sit at the top of the server, outside any category** —
+   `m4-score-1` … `m4-score-5`, `m4-l10-context-zero-weight`, and `m5-l1` … `m5-l6`. Content is
+   complete and posted; only the grouping is wrong.
+
+**What this needs from you: about a minute of dragging in the Discord sidebar.**
+
+Drag into `〡━━・Module 4`, in this order, above `m4-l1`:
+`m4-score-1-what-the-score-is`, `m4-score-2-the-six-bands`, `m4-score-3-the-arithmetic`,
+`m4-score-4-the-divisor-rule`, `m4-score-5-reproduce-it-unaided`.
+Then `m4-l10-context-zero-weight` below `m4-l9`.
+
+Drag into `〡━━・Module 5`: `m5-l1-how-to-read-receipts` through `m5-l6-what-the-number-asks-of-you`.
+
+Drag into `〡━━・📦 Archive`: everything named `retired-*` — six in Module 4, six in Module 5.
+
+**Nothing is broken while this is undone.** Channel names carry the module and the order, and the
+course map in `#how-to-use-this-course` states the reading order explicitly and warns that the
+sidebar grouping is cosmetic. But a paid product should not look like that, so it is worth the
+minute.
+
+**The lesson for whoever picks this up:** the tool returning `Edited` is not evidence the edit
+happened. I verified the API response instead of the resulting state, reported it as done twice,
+and only caught it when re-listing the channels for an unrelated reason. Same failure as
+everything in `COPY_SWEEP_NOTES.md` — unverifiable was assumed fine.
