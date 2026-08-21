@@ -3,7 +3,8 @@
 Four lessons. This is the module that exists because the previous version of this course was
 wrong, and it says so.
 
-**Read this first.** The course you originally bought taught eight indicators. Several of them — CBBI, Google Trends and a proprietary charting tool — carry **no weight** in the LiftOffr Score. Meanwhile
+**Read this first.** The course you originally bought taught eight indicators. Three of them — CBBI,
+Fear & Greed and Google Trends — carry **no weight** in the LiftOffr Score. Meanwhile
 RHODL Ratio, which carries 20% and is tied for the heaviest weight in the model, was not taught
 at all. That was a real defect in a paid product and this module is the correction, not a
 footnote to it.
@@ -67,7 +68,7 @@ The 2025 cycle topped without the retail attention spike the previous cycle prod
 
 ---
 
-## 5.5 — The framework moved: what changed, and what replaced what
+## 5.4 — The framework moved: what changed, and what replaced what
 
 Plainly, so you can see the whole edit.
 

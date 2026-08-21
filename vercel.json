@@ -66,6 +66,16 @@
       "permanent": false
     },
     {
+      "source": "/lead-magnet/checklist",
+      "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_leadmagnet",
+      "permanent": false
+    },
+    {
+      "source": "/lead-magnet/checklist.html",
+      "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_leadmagnet",
+      "permanent": false
+    },
+    {
       "source": "/checklist",
       "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_checklist",
       "permanent": false

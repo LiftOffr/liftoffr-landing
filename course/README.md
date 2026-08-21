@@ -32,7 +32,12 @@ correction pass exists to stop a buyer asking.
 | 2 · The heavy half (RHODL, Puell) | 2 | ✅ drafted |
 | 3 · The middle (Trolololo, MVRV, Pi Cycle) | 3 | ✅ drafted |
 | 4 · The 5% components (2YMA, Reserve Risk, Woobull, RUPL) | 4 | ✅ drafted |
-| 5 · What carries zero weight, and why | 5 | ✅ drafted |
+| 5 · What carries zero weight, and why | 4 | ✅ drafted |
 | 6 · The record, and what this is for | 6 | ✅ drafted |
 
-Files: `module-1-the-number.md`, `module-5-zero-weight.md`, and so on.
+Files: `module-1-the-number.md`, `module-5-zero-weight.md`, and so on. 24 lessons plus
+`reference-phase-matrix.md`.
+
+The Market Cipher lesson that stood in Module 5 was deleted on 20 August 2026, not deprecated:
+it is proprietary, not reproducible from free public data, and was never a component of the
+Score. Its Discord channel is gone too.

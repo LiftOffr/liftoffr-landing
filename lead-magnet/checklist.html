@@ -159,9 +159,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <!-- ============================================================================
-     DEAD PAGE as of 2026-08-20. /checklist and /buyzone both 301 to /quiz in
-     vercel.json, so nothing here renders for a visitor. It was left in place rather
-     than deleted, but note that the copy below still describes an "8-indicator
+     DEAD PAGE as of 2026-08-20. /checklist, /buyzone, /lead-magnet/checklist and
+     /lead-magnet/checklist.html all redirect to /quiz in vercel.json.
+     NOTE ON THE EARLIER VERSION OF THIS COMMENT: it claimed nothing here rendered for
+     a visitor because /checklist redirected. That was wrong — this file's own canonical
+     tag points at /lead-magnet/checklist, which was served straight from the filesystem
+     and was indexable until the redirect above was added on 20 Aug 2026.
+     The copy below still describes an "8-indicator
      checklist" and a cycle-top-checklist PDF. The Score has nine weighted components
      (RHODL 20, Puell 20, Trolololo 15, MVRV 15, PiCycle 10, 2YMA 5, ReserveRisk 5,
      Woobull 5, RUPL 5) and none of them are Fear & Greed or Google Trends.

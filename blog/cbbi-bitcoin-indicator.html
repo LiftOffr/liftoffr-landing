@@ -331,7 +331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <p>The CBBI takes a different approach. Instead of adding yet another single-purpose signal to your watchlist, it aggregates roughly nine of the most respected Bitcoin cycle indicators into one composite score that runs from 0 to 100. High readings flag top territory. Low readings flag bottom territory. And because the score reflects broad agreement across many signals at once, it is much harder for noise to push it to an extreme.</p>
 
-        <p>This article covers what CBBI is, what goes into it, how to read its thresholds, what it showed at the major cycle tops in 2021, and how LiftOffr incorporates it into a nine-indicator weighted Score.</p>
+        <p>This article covers what CBBI is, what goes into it, how to read its thresholds, what it showed at the major cycle tops in 2021, and why LiftOffr reads its component data but gives CBBI&rsquo;s own composite no weight in the nine-component Score.</p>
 
         <h2>1. What Is CBBI? Origin and Purpose</h2>
 
@@ -471,11 +471,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <h2>6. How LiftOffr Uses CBBI as a Data Source (It Carries No Weight)</h2>
 
-        <p>At LiftOffr, CBBI is the public data source the component readings are pulled from — it carries no weight in the LiftOffr Score itself. The Score weights nine components: RHODL Ratio (20%), Puell Multiple (20%), Trolololo (15%), MVRV Z-Score (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull Top Cap (5%) and RUPL (5%). The others include MVRV, the Pi Cycle Top, the Puell Multiple, the Bitcoin Investor Tool, on-chain exchange flows, Market Cipher B, and relative strength metrics. Each indicator adds a different dimension of information about where Bitcoin is in its cycle.</p>
+        <p>At LiftOffr, CBBI is the public data source the component readings are pulled from — it carries no weight in the LiftOffr Score itself. The Score weights nine components: RHODL Ratio (20%), Puell Multiple (20%), Trolololo (15%), MVRV Z-Score (15%), Pi Cycle Top (10%), 2-Year MA Multiplier (5%), Reserve Risk (5%), Woobull Top Cap (5%) and RUPL (5%). Those nine are the whole model; nothing else feeds the number.</p>
 
-        <p>The reason the Score weights nine components instead of leaning on CBBI's own composite is that even a well-constructed composite like CBBI benefits from external validation. When CBBI is at 88 and MVRV is simultaneously stretched and the Pi Cycle is approaching a cross, the confluence across those independent frameworks is more compelling than any single reading alone.</p>
+        <p>The reason the Score weights nine components instead of leaning on CBBI&rsquo;s own composite is that CBBI averages an overlapping set of measurements into a single number; counting that average as a tenth input would count the same readings twice. When CBBI is at 88 and MVRV is simultaneously stretched and the Pi Cycle is approaching a cross, the confluence across those independent frameworks is more compelling than any single reading alone.</p>
 
-        <p>For a full backtest of how the nine-indicator weighted Score — including CBBI — performed across every Bitcoin cycle from 2017 to today, see the <a href="/track-record" class="internal-link">LiftOffr backtest methodology page</a> — every input, every weight, and the drawdown each exit sidestepped. All 64 dated signals are at <a href="/receipts" class="internal-link">/receipts</a>.</p>
+        <p>For the full method behind the nine-component weighted Score &mdash; including why CBBI carries no weight in it &mdash; see the <a href="/track-record" class="internal-link">LiftOffr methodology page</a> &mdash; every input, every weight, and every published miss. All 64 dated signals, with the 30/90/180-day outcome beside each, are at <a href="/receipts" class="internal-link">/receipts</a>.</p>
 
         <h3>LiftOffr's CBBI Thresholds</h3>
 

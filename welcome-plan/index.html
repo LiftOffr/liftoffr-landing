@@ -183,6 +183,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
   <script src="/js/attribution.js" defer></script>
+  <script src="/js/track.js" defer></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -254,6 +255,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 
 <script>
+  // The $29 success page. /welcome fires this same event and /welcome-plan did not,
+  // which meant the one client-side signal that joins a completed checkout to the
+  // visitor's GA4 web session was missing on the product that actually has buyers.
+  // The webhook fires the precise `purchase` server-side; this only ties the
+  // completion to the browsing session for funnel attribution.
+  (function(){
+    var p = new URLSearchParams(location.search);
+    var utm = {
+      source: p.get('utm_source') || '(direct)', medium: p.get('utm_medium') || '(none)',
+      campaign: p.get('utm_campaign') || '(none)', content: p.get('utm_content') || '(none)'
+    };
+    if (window.track) window.track('checkout_confirmed', { page: '/welcome-plan',
+      utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign, utm_content: utm.content });
+  })();
+
   // CTA click tracking (matches site-wide cta_clicked schema)
   document.addEventListener('click', function(e){
     var a = e.target.closest('a[data-dest]');
