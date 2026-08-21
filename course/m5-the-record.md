@@ -50,8 +50,8 @@ read like 55%.
 
 **The number you would get by inverting it is worse.** 64 − 35 = 29, and calling those 29
 "the times it was wrong" makes the same error in reverse — it counts every *correct* exit call as
-a failure. If you ever see 29 of 64 quoted anywhere as this model's error rate, it is wrong, and
-it was wrong on my own site until 20 August 2026.
+a failure. If you ever see 29 of 64 quoted anywhere as this model's error rate, it is wrong — including
+where I had it wrong myself before catching it.
 
 ---
 

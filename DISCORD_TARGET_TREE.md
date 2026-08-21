@@ -89,6 +89,12 @@ Everything a member only sees after paying. This is the change that makes the bo
 ### 6–11 · The six course modules, in numeric order
 Categories already exist and are already in order. **Twelve orphans need dragging in.**
 
+**NOTE, 21 Aug (later):** the course lesson channels were rebuilt from clean copy, so **14 more
+channels are now orphans than when this list was first written** — the five `m4-score-*`, `m4-l10`,
+all seven `m5-l*`, and `m2-l7`. `m4-l1` … `m4-l9` were left alone precisely because they are
+already correctly placed and recreating them would have orphaned nine working channels to fix a
+problem they did not have.
+
 **`〡━━・Module 1`** — no change (7 lessons + overview + assessment, already correct).
 
 **`〡━━・Module 2`** — one orphan, placed after `lesson-6-accumulation-mistakes`:
@@ -169,3 +175,32 @@ moving a paid channel into a category with different overwrites can change who s
 `📈・plan-updates` and the three `LIFTOFFR-HUB` channels after moving them into
 `🔓 YOUR PAID CHANNELS` — those are the four where a permissions mistake would either leak paid
 content or lock out buyers. The rest are free either way.
+
+---
+
+## Messages for Torin to delete (I have no delete-message tool)
+
+Six channels are correctly categorised and hold Torin's own original content alongside mine, so I
+could not rebuild them — recreating would have orphaned them and destroyed the originals. Each now
+has clean copy posted **below** older messages of mine that talk about what the course used to be.
+Those older ones need deleting by hand; the newest message in each is the keeper.
+
+| Channel | Delete | Keep |
+|---|---|---|
+| `🔍︱m4-overview` | my "Module 4 has been rebuilt" posts | the newest "Module 4 · The Score" index |
+| `🔍︱m5-overview` | my "Module 5 has been rebuilt" and "now seven lessons" posts | the newest "Module 5 · The Record" index |
+| `🔍︱m2-overview` | my "One lesson added to Module 2" post | *(nothing of mine — Torin's original stands)* |
+| `📓︱m4-assessment` | my "This assessment is out of date" post **and the original embed above it** | the newest "Module 4 assessment" |
+| `📓︱m5-assessment` | my "This assessment is out of date" post **and the original embed above it** | the newest "Module 5 assessment" |
+| `🤔・how-to-use-this-course` | every earlier map, including the original pin | the newest two-part "🗺️ The LiftOffr course — full map" |
+
+Also worth deleting, in channels that were repurposed rather than rebuilt:
+
+- `⚡・urgent-alerts` — the "What this channel is for, from 21 August 2026" notice explains what was
+  removed and why. Once the old price-move bot is stopped in the fleet, that notice is archaeology
+  too; delete it then, not before, or members will wonder why the channel went quiet.
+- `⚙️・indicator-readings` — the pinned retirement notice. Same timing rule: it is doing a job while
+  the old panel is still visible above it.
+
+**Nothing else in the course mentions a previous version.** The lesson channels were rebuilt from
+clean copy rather than corrected in place, so there is no residue in any of them.

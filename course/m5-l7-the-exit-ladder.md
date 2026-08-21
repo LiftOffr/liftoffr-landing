@@ -1,9 +1,8 @@
 # The exit ladder — `m5-l7-build-your-exit-ladder`
 
-The seventh lesson of Discord **Module 5**, posted 21 August 2026. It closes the gap left when the
-old Module 5 was deleted: that module did contain an exit ladder, but it was a list of position
-percentages keyed to zero-weight indicators, told to the reader in the second person. This is the
-method without the instruction, and a worksheet the reader fills in against their own capital.
+The seventh lesson of Discord **Module 5**. It teaches the exit method and a worksheet: the
+structure, the whipsaw rule, and blanks the reader fills in against their own capital. It
+contains no levels to copy and no fraction presented as a recommendation.
 
 It mirrors the buy-ladder worksheet in the $29 plan deliberately — same five-step shape, same
 override log — because the argument is the same argument running in the other direction.
