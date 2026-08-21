@@ -256,8 +256,14 @@ const DISCORD_PUBLIC_KEY =
   process.env.DISCORD_PUBLIC_KEY ||
   "4c5fb780547535f4cc5ade18c1fa40ed56d6a4bbd10885e88c0255b49762edb6";
 
-const ZONE_INT = { // embed colours, matching ZONE_COLORS above
-  exit: 0xef4444, warning: 0xf97316, neutral: 0xfbbf24,
+// Embed colours. MUST carry a key for every band zone() can return — see the note
+// above zone(). This map kept the retired five-band "neutral" and had no entry for
+// mid-cycle or re-accumulation, so from the moment the bands were split every
+// Discord embed for a 30-70 Score rendered with no colour at all. The Score was
+// re-accumulation when that was found, i.e. it was live and wrong.
+const ZONE_INT = {
+  exit: 0xef4444, warning: 0xf97316,
+  "mid-cycle": 0xfbbf24, "re-accumulation": 0x4d8df0,
   accumulation: 0x22c55e, "deep-accumulation": 0x16a34a,
 };
 

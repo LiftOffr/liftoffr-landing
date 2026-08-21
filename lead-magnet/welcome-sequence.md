@@ -29,7 +29,7 @@ Two things in this email — the checklist you asked for, and a quick heads-up a
 
 [👉 Download the PDF](https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf)
 
-Print it. Stick it next to your screen. Run through the 8 indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.
+Print it. Stick it next to your screen. Read the weighted Score every Sunday rather than counting indicators — the number is a weighted average of nine, not a tally. See the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.
 
 **2. The LiftOffr Score — every Sunday morning:**
 

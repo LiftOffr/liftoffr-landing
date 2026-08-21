@@ -123,7 +123,7 @@ Observed live on the top-earning storefronts in this niche (TJR Trades: 4.8★,
 > The $29 plan is a set of levels. This is the machine that produces them.
 >
 > **What you get**
-> - **All 8 indicators, one at a time** — MVRV Z-Score, Pi Cycle Top, Puell
+> - **All nine weighted components, one at a time** — MVRV Z-Score, Pi Cycle Top, Puell
 >   Multiple, 2Y MA Multiplier, RHODL, Reserve Risk, Woobull, RUPL. What each
 >   one measures, what it read at the 2013, 2017 and 2021 tops, and the
 >   specific way each one fails on its own.

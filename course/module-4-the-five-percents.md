@@ -38,9 +38,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/2-year-ma-multip
 
 **What it measures.** The ratio of holder conviction to the reward for abandoning it.
 
-**How it is calculated.** Price ÷ HODL bank (cumulative coin-days destroyed opportunity cost), normalised 0-100. No standalone write-up for Reserve Risk yet — the closest long-form read is the CBBI composite explainer , which 
-
-**Why it carries 5%.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
+**How it is calculated.** Price ÷ HODL bank (cumulative coin-days destroyed opportunity cost), normalised 0-100.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
 
 **What it read at every cycle turn** — same daily series the live number comes from:
 
@@ -64,9 +62,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/reserve-risk**
 
 **What it measures.** Price as a fraction of a long-run modelled ceiling.
 
-**How it is calculated.** Price ÷ (35 × average cap), normalised 0-100. No standalone write-up for Woobull Top Cap Ratio yet — the closest long-form read is the CBBI composite explainer , which covers how these normalised read
-
-**Why it carries 5%.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
+**How it is calculated.** Price ÷ (35 × average cap), normalised 0-100.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
 
 **What it read at every cycle turn** — same daily series the live number comes from:
 
@@ -90,9 +86,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/woobull-top-cap*
 
 **What it measures.** The proportion of circulating supply held at a paper profit.
 
-**How it is calculated.** (market cap − realised cap) ÷ market cap, normalised 0-100. No standalone write-up for RUPL / NUPL yet — the closest long-form read is the CBBI composite explainer , which covers how these normalised 
-
-**Why it carries 5%.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
+**How it is calculated.** (market cap − realised cap) ÷ market cap, normalised 0-100.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
 
 **What it read at every cycle turn** — same daily series the live number comes from:
 

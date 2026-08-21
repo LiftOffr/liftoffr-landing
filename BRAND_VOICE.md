@@ -21,7 +21,7 @@ STATUS: v1, 2026-07-01. Applies to: site, course, Discord, emails, IG captions. 
 2. ❌ "It's important to note that no single indicator is foolproof, so a diversified analytical approach is crucial."
    ✅ "No single indicator is reliable on its own. Confluence is the signal — when 5+ flash top zone together, the cycle is statistically near peak."
 3. ❌ "Join our vibrant community of like-minded crypto enthusiasts today!"
-   ✅ "58 people checking the same 8 indicators every morning. Come read today's brief — first 7 days are free."
+   ✅ "58 people reading the same number every morning. Come read today's brief — first 7 days are free."
 
 ## The one exception
 Single-slide IG "banger" proof drops get cocky, Tate-coded edge (asymmetry flex: "i deployed their yearly salary in 8 days"). That energy stays OFF the site, course, emails, and Discord.

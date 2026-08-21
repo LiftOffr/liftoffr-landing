@@ -9,6 +9,12 @@
  * Whop records utm_* params against the membership (keys must start with utm_), and
  * api/whop-webhook.js already reads data.utm_source. This is the missing middle.
  *
+ * INCLUDE THIS ON EVERY ENTRY POINT, not only pages that link to Whop. The original
+ * rollout added the tag by grepping for 'whop.com', which silently skipped /score,
+ * /free and /quiz — the three main free entry points, which link to /plan rather than
+ * to Whop directly. First touch was therefore never recorded for the traffic the whole
+ * funnel is built to receive, which is the exact problem this file exists to solve.
+ *
  * First-touch, deliberately: someone who arrives from Instagram, reads for a week and
  * returns direct is an Instagram acquisition. Last-touch would relabel them "(direct)"
  * and understate every channel that actually works.

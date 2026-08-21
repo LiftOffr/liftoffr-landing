@@ -1,6 +1,6 @@
 # THE BTC CYCLE TOP CHECKLIST
 
-**The 8 indicators serious investors watch — with current readings, trigger thresholds, and what each one means in plain English.**
+**The nine weighted components behind the LiftOffr Score — with current readings, trigger thresholds, and what each one means in plain English.**
 
 *Updated quarterly. Built by Torin Christianson — LiftOffr.*
 
@@ -8,13 +8,13 @@
 
 ## How To Use This Checklist
 
-When **5 or more** of these 8 indicators flash "TOP ZONE" simultaneously, the cycle is statistically near peak. No single indicator is reliable on its own — confluence is the signal.
+The Score is a weighted average of all nine, not a count of how many are elevated. Above 85 is the exit band; every cycle top since 2013 printed there, and the Score has also sat there for months without a top. No single indicator is reliable on its own — confluence is the signal.
 
 This checklist is educational. Not financial advice. Always do your own research.
 
 ---
 
-## ✅ The 8 Indicators
+## ✅ The nine weighted components
 
 ### 1. CBBI (Colin Talks Crypto Bull-Bear Index)
 **What it is:** Composite score of 11 on-chain + market indicators, scaled 0–100.
@@ -98,7 +98,7 @@ Print this checklist. Every Sunday, check each indicator. Count how many are in 
 This checklist is the foundation. Inside LiftOffr, you also get:
 
 - **Daily BTC market briefs** — every reading interpreted for you each morning
-- **Weekly cycle indicator dashboard** — live scoring of all 8 indicators
+- **Weekly cycle indicator dashboard** — live scoring of all nine weighted components
 - **Live signals** — entry/exit alerts when confluence hits
 - **The 6-module course** — full framework from foundations to multi-cycle wealth strategy
 

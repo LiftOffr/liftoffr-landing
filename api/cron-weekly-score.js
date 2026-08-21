@@ -48,7 +48,11 @@ async function sendOwnerDM(content) {
 }
 
 function unsubUrl(email) {
-  const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
+  // No fallback: this HMAC signs unsubscribe tokens. It previously fell back to the
+  // literal string "liftoffr", which would have made every token forgeable by anyone
+  // who guessed the brand name. Fail loudly instead of signing with a known key.
+  if (!process.env.CRON_SECRET) throw new Error("CRON_SECRET is not set — refusing to sign with a default");
+  const t = crypto.createHmac("sha256", process.env.CRON_SECRET)
     .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
   return `https://liftoffr.com/api/subscribe?u=1&e=${encodeURIComponent(email)}&t=${t}`;
 }

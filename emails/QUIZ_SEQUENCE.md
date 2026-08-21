@@ -150,7 +150,7 @@ positioning in one instruction.
 
 > I want to explain something about my own receipts page, because most people in this industry won't and it matters.
 >
-> There are **64 scored zone changes** on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.
+> There are **64 scored zone changes** on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later — but that is not a hit rate and I won't relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on 21 of 46 at 30 days and 25 of 46 at 180, and neither is distinguishable from chance. All 64 are up there with dates.
 >
 > **Every one of them is a backtest.**
 >

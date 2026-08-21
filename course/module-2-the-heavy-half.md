@@ -12,7 +12,7 @@ Every lesson below follows the same four parts: what it measures, why it carries
 
 **What it measures.** Whether the coins changing hands are new speculative money or long-held supply waking up. Tops happen when both are true at once.
 
-**How it is calculated.** The 1-week RHODL band divided by the 1-2 year band, multiplied by the age of the market and by realised-cap ratio. CBBI normalises the result to 0-100. No standalone write-up for RHODL Ratio yet — the
+**How it is calculated.** The 1-week RHODL band divided by the 1-2 year band, multiplied by the age of the market and by realised-cap ratio. CBBI normalises the result to 0-100. No standalone write-up for RHODL Ratio yet
 
 **Why it carries 20%.** The weights were set by how much each component has actually helped at past cycle turns, not by how well known it is. Read the table below and you can see the case for this one yourself — that is the point of publishing it.
 

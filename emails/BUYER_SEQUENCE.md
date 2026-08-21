@@ -27,25 +27,23 @@ you money", any dollar or percentage outcome for the reader, "I called the top",
 ---
 
 ## B1 — Day 0
-**Subject:** `your plan + the one thing to do tonight`
 
-> Hey,
+> **This draft was deleted on 20 Aug 2026. Do not resurrect it.**
 >
-> The plan's attached and it's also at [link] permanently.
+> The Day 0 email that actually sends is `plan0HTML()` / `plan0Text()` in
+> `api/cron-welcome-followups.js`. **That is the only source of truth for it.**
 >
-> One thing to do tonight while it's fresh. It takes about ten minutes.
+> The draft that used to sit here had drifted badly from what ships: it had no
+> "connect your Discord in Whop" step (the omission that left paying buyers without
+> the @Plan role), it told the reader to "open the exit ladder" — which is the $197
+> product, not the $29 one — it cited "Section 4" for the recompute sheet when that is
+> section 5c, it pointed at `/cycle` where the product points at `/score`, and it still
+> carried a `[link]` placeholder.
 >
-> Open the exit ladder. Write your four numbers in the blanks. Not mine — yours,
-> scaled to what you actually hold. Then close the file.
->
-> That's the whole product. Everything else in there is explanation.
->
-> One thing I'd ask: don't take my number on faith. Section 4 has the nine
-> indicators, their weights and the free public data source. Pull it and recompute
-> today's Score yourself. If you get something different from what's on
-> liftoffr.com/cycle, reply and tell me — I'd genuinely want to know.
->
-> — Torin
+> Nothing was wired to it, so nothing shipped wrong. But this file's own header warns
+> that three rounds of corrections were undone by someone re-copying from a doc like
+> this one, and a divergent duplicate of a live email is exactly that hazard. Edit the
+> cron; do not keep a second copy here.
 
 ---
 
@@ -91,11 +89,14 @@ you money", any dollar or percentage outcome for the reader, "I called the top",
 > threshold model whipsawing is not a bug you found. It is how threshold models
 > behave, and it will happen again in the next cycle.
 >
-> The ladder is built for exactly this. You sell a fraction at each crossing. You do
-> not re-enter on the way back. That's it, it's boring, and boring is the point.
+> The ladder in your document is built for exactly this. I act on a fraction at each
+> crossing rather than all of it at once, and I don't reverse on the way back. That's it,
+> it's boring, and boring is the point.
 >
-> Every crossing above is in the log at liftoffr.com/receipts, along with the 29 that
-> went the wrong way.
+> Every crossing above is in the log at liftoffr.com/receipts, along with the ones that
+> went the wrong way. Scored directionally, the model was right on 21 of 46 directional
+> crossings at 30 days and 25 of 46 at 180 — and neither is distinguishable from chance
+> at that sample size.
 
 ---
 

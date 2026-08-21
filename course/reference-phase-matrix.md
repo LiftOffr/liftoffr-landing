@@ -2,7 +2,7 @@
 
 **Reference sheet — the nine weighted components, and what each one actually read at every cycle turn since 2013.**
 
-Replaces the earlier eight-indicator matrix. That version treated CBBI, Google Trends and Market Cipher as inputs — none of them carries any weight in the Score — and omitted RHODL Ratio, Reserve Risk, Woobull Top Cap and RUPL, which together carry 35% of it.
+Replaces the earlier eight-indicator matrix. That version treated CBBI and Google Trends as inputs — none of them carries any weight in the Score — and omitted RHODL Ratio, Reserve Risk, Woobull Top Cap and RUPL, which together carry 35% of it.
 
 Every number below is the component's reading on the day of that cycle turn, normalised 0–100, pulled from the same daily series the live number comes from. All of it is on the site: each row's full table is at `liftoffr.com/indicators/<component>`.
 
@@ -22,7 +22,7 @@ Every number below is the component's reading on the day of that cycle turn, nor
 | Woobull Top Cap | 5% | 96 | 100 | 92 | 93 | 0 | 0 | 0 |
 | RUPL | 5% | 100 | 100 | 98 | 96 | 5 | 0 | 0 |
 
-Weights sum to 100%. **A blank means the source published no reading for that date** — see the divisor rule in Module 1.4; it is never treated as a zero.
+Weights sum to 100%. Every component reported on all seven of these dates. Where the source publishes no reading on a given day, that component is excluded and the divisor drops to match — see the divisor rule in Module 1.4. It is never treated as a zero.
 
 ---
 

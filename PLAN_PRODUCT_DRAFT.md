@@ -1,14 +1,9 @@
-# My Bear Market Buy Plan — $29 product draft
-<!-- UNTRACKED DRAFT for Torin's review. Do NOT commit. Final delivery = Whop-hosted doc/PDF, never a public site page. -->
-<!-- REVIEW GATES: (1) THE DOLLAR-FIGURES DECISION below; (2) STATUS column — verify fired tiers match your ledger; (3) disclaimer language — your sign-off item #3. -->
+<!-- PRODUCT SOURCE. Everything below this line is customer-facing. Do not add production
+     notes, review gates or bracket placeholders to this file — the renderer no longer strips
+     them, deliberately, because relying on strip regexes is how internal notes shipped to
+     page 7 of the 20 Aug build. -->
 
-## ✅ DECISION RESOLVED 2026-08-02: Option B (middle path)
-
-Fired tiers in real dollars (receipts style, consistent with what /receipts already exposes) + remaining tiers as shares of remaining deployment. The doc never states total holdings, total budget, or the BTC target. Rationale: the full-dollar version tells the internet that a publicly identifiable person holds six figures in self-custody on a hardware wallet — the exact profile wrench-attack targeting looks for. B removes the headline number that makes Torin a search result; it reduces salience and targetability, not mathematical recoverability (fired-tier receipts still let a determined reader approximate scale — that's the existing public posture). The worksheet deliberately uses coarse fractions ("a tenth, a fifth") instead of exact percentages so the fired dollars can't be back-divided into a precise total. **The Option A full-dollar table has been removed from this draft on advisor sign-off (do not re-add; the source numbers live in /dashboard's PLAN constant if ever needed).**
-
----
-
-## [COVER]
+## __COVER__
 
 **My Bear Market Buy Plan**
 The exact ladder I'm buying this bear market with. Not a course. A plan — with the receipts attached.
@@ -23,9 +18,8 @@ previous revision did not contain.*
 
 ---
 
-## [DISCLAIMER — appears here AND on /plan sales page. DRAFT FOR TORIN SIGN-OFF]
-
-**Read this first.** This document is a record of my personal Bitcoin accumulation plan — what I am doing with my own money, published as a receipt. It is not financial advice, not a recommendation, and not personalized to you. I am not a registered investment adviser, and nothing here creates an adviser relationship. I don't know your finances, your risk tolerance, or your situation, and nothing here tells you what you should do. The worksheet shows how I would think through sizing at different stack sizes; it is a thinking tool, not an allocation recommendation. Bitcoin can go down more than you think it can, stay down longer than you think it can, and can go to zero. My plan can be wrong — I've been wrong before; 2021 cost me $30K because I ignored my own indicators. Do your own research. Never invest money you can't afford to lose. Education, not advice.
+## Read this first
+This document is a record of my personal Bitcoin accumulation plan — what I am doing with my own money, published as a receipt. It is not financial advice, not a recommendation, and not personalized to you. I am not a registered investment adviser, and nothing here creates an adviser relationship. I don't know your finances, your risk tolerance, or your situation, and nothing here tells you what you should do. The worksheet shows how I would think through sizing at different stack sizes; it is a thinking tool, not an allocation recommendation. Bitcoin can go down more than you think it can, stay down longer than you think it can, and can go to zero. My plan can be wrong — I've been wrong before; 2021 cost me $30K because I ignored my own indicators. Do your own research. Never invest money you can't afford to lose. Education, not advice.
 
 ---
 
@@ -37,7 +31,7 @@ previous revision did not contain.*
 |---|---|---|---|
 | IMMEDIATE | $15,000 | Market, the day the plan was written (May 28 2026) | ✅ FIRED |
 | T1 | $15,000 | $68,000 (1.10× the 200-week MA) | ✅ FIRED |
-| T2 | $28,000 | $60,000 (0.97× the 200-week MA) | ✅ FIRED <!-- TORIN VERIFY --> |
+| T2 | $28,000 | $60,000 (0.97× the 200-week MA) | ✅ FIRED  |
 
 **What's still armed — as a share of my remaining planned deployment** (I publish the live trigger prices in #plan-updates; sizing my remaining tranches in percentages is deliberate — the plan's shape is the product, my net worth isn't):
 
@@ -51,7 +45,7 @@ previous revision did not contain.*
 | T5b | 4% | $38,000 | Waiting |
 | Weekly DCA + deep-panic reserve | 36% | Ongoing / discretionary | Running |
 
-Three phases behind the table: **Bear Grind** (now through ~Aug 31), **Capitulation** (Sep–Dec 2026, where T2/T3 live), **Post-Bottom Recovery** (early 2027, T4/T5). The deeper tiers are deliberately smaller — by T5 I'm buying insurance-priced Bitcoin, not making the core position.
+Three phases behind the table: **Bear Grind** (now through ~Aug 31), **Capitulation** (Sep–Dec 2026, where T3 lives), **Post-Bottom Recovery** (early 2027, T4/T5). The deeper tiers are deliberately smaller — by T5 I'm buying insurance-priced Bitcoin, not making the core position.
 
 When a tier fires or the ladder recalibrates, you get the updated doc and an alert in #plan-updates (Discord role comes with this purchase).
 
@@ -61,25 +55,129 @@ When a tier fires or the ladder recalibrates, you get the updated doc and an ale
 - **The 200-week moving average is the spine.** Every Bitcoin bear in history has bottomed at or below it. My mid-ladder tiers aren't static prices — they're multiples of the 200W MA (T1 at 1.10×, T2 at 0.97×), so the ladder walks down WITH the market instead of anchoring to prices I picked months ago.
 - **Front-half heavier than back-half.** More than a third of my planned deployment fires in the first two phases. If the bear is shallow, I still built most of the position. If it's deep, the back tiers buy the panic.
 - **Every tier has a fallback date.** If a price never hits by its date, the money deploys anyway (DCA'd over the following weeks). A plan that can leave you 100% in cash for an entire cycle isn't a plan — it's a hope with a spreadsheet.
-- **Why these specific multiples:** derived from how the last three bears actually bottomed against the 200-week MA. My framework owes a lot to Benjamin Cowen's work on that average; the calibration and the sizing are mine. <!-- TORIN: this is the one paragraph that should be purely your voice — rewrite these two sentences your way if they don't sound like you. Do NOT import summarized Cowen analysis here; that's the gem-radar liability shape (someone else's analysis as a paid bullet). -->
+- **Why these specific multiples:** derived from how the last three bears actually bottomed against the 200-week MA. My framework owes a lot to Benjamin Cowen's work on that average; the calibration and the sizing are mine. 
 
-## 3. BUILD YOUR OWN LADDER (30-minute worksheet)
+## 3. BUILD YOUR OWN LADDER — the 30-minute worksheet
 
-This is how I'd think it through at any stack size. It's a worksheet, not a recommendation.
+This is how I'd think it through at any stack size. It is a thinking tool, not a recommendation, and the numbers you write in it are yours. I don't know your finances and nothing here is personalised to you.
 
-1. **The number that can go to war:** cash you will not need for 3+ years. Write it down. That's your total budget — not your savings, not your emergency fund.
-2. **Split it using the same shape as mine:** roughly a tenth fires immediately, a tenth at the first MA tier, a fifth at the capitulation tier, a quarter split across the two mid-rungs, a couple of small deep-value rungs, and the rest runs as weekly DCA plus a deep-panic reserve. The worksheet table walks you through writing your own numbers into that shape.
-3. **Set your trigger prices** off the live 200W MA (I publish the current MA and my live tier prices in #plan-updates), or use mine as of this doc's date as your starting reference.
-4. **Pick your fallback dates** — one per phase-end. No open-ended waiting.
-5. **The last row of the worksheet is execution timing.** Mine went in as limit orders the same night I wrote the plan, because the whole point of a plan is deciding while you're calm.
+Set a timer for 30 minutes. It genuinely does not take longer, and the reason to do it in one sitting is that a ladder written across three weeks is a ladder you renegotiated with yourself twice.
 
-**The worksheet itself is now written** — full fill-in version at `~/liftoffr-plan-product/build-your-own-ladder-worksheet.md` (2026-08-07). Five steps: the war chest number + emergency-fund gate, the coarse-fraction split table, trigger prices as 200W MA multiples, fallback dates, and a same-night execution checklist, plus an override log. Drop it in here verbatim; it holds the Option B disclosure rule (coarse fractions only, no back-divisible percentages) and carries its own disclaimer. Adds ~1,400 words, which roughly doubles the doc and moves it toward the 25–35 page spec it currently misses by a wide margin.
+---
+
+### Step 1 — The number that can go to war
+
+```
+Cash I will not need for 3+ years:              $ ______________
+
+  Not my savings. Not my emergency fund. Not next year's tuition.
+  The amount that could go to zero and change nothing about how
+  I live. Write it down before you look at a single chart.
+
+Do I have a separate emergency fund?     ☐ yes   ☐ no
+
+  If no: stop. The first tier of any real ladder is three months
+  of expenses in cash. Everything below assumes that already exists.
+  This isn't a moral point, it's a mechanical one — people without
+  a cash buffer sell their Bitcoin at the bottom, every time,
+  because the bottom is when the boiler breaks.
+```
+
+That number is your **total budget**. Every percentage below is a share of it, never of your net worth.
+
+### Step 2 — Split it using the same shape as mine
+
+I'm giving you the *shape*, in coarse fractions rather than exact percentages, because the shape is the part that's transferable. My exact dollar amounts are a function of my situation, which isn't yours.
+
+| Rung | Roughly | Fires when | Your number |
+|---|---|---|---|
+| **Immediate** | about a tenth | The day you finish this worksheet. Market order. | $ ________ |
+| **First MA tier** | about a tenth | Price near 1.10× the 200-week MA | $ ________ |
+| **Capitulation tier** | about a fifth | Price near or just under the 200-week MA | $ ________ |
+| **Two mid rungs** | about a quarter, split | Below the MA, stepping down | $ ________ / $ ________ |
+| **Two deep rungs** | a small slice each | Deep-value territory | $ ________ / $ ________ |
+| **Weekly DCA + panic reserve** | the rest | Ongoing, plus discretionary | $ ________ |
+| | | **Total (must equal Step 1)** | **$ ________** |
+
+Three things about that shape, because they're the parts people get wrong:
+
+**The immediate tier is not optional.** Its job is not returns, it's psychology. A ladder with nothing filled is a spreadsheet you'll abandon the first time price runs away from you. Getting something on the board makes the rest executable.
+
+**The front half is heavier than the back half.** More than half the budget deploys in the first three rungs. If the bear is shallow you still built most of the position; if it's deep, the back rungs buy the panic. The alternative — back-loading, waiting for the real bottom — is the version where the bear ends 20% above your lowest rung and you own almost nothing.
+
+**The deep rungs are deliberately small.** By the bottom rungs you're buying insurance-priced Bitcoin, not building the core position. Sizing them large is how "I'll go all in at the bottom" becomes "I have 80% of my budget in cash and Bitcoin is at a new high."
+
+### Step 3 — Set your trigger prices
+
+```
+Current 200-week MA:                             $ ______________
+   (I publish the live figure in #plan-updates. It moves. That's
+    the point — see below.)
+
+  Immediate ......... market, today
+  First MA tier ..... 200W MA × 1.10  =           $ ______________
+  Capitulation ...... 200W MA × 0.97  =           $ ______________
+  Mid rung A ........ 200W MA × ____  =           $ ______________
+  Mid rung B ........ 200W MA × ____  =           $ ______________
+  Deep rung A ....... $ ______________
+  Deep rung B ....... $ ______________
+```
+
+**Why multiples of the moving average instead of round numbers.** A tier set at "$50,000" is a bet on a price I picked on a Tuesday. A tier set at "0.97× the 200-week MA" walks down with the market — as the average falls through a long bear, so does the trigger, and the ladder keeps meaning the same thing in October that it meant in June. Every previous Bitcoin bear has bottomed at or below that average. That is the entire reason it's the spine.
+
+Recalculate the multiples monthly. Ten minutes.
+
+### Step 4 — Pick your fallback dates
+
+This is the step everyone skips and it's the one that saves the plan.
+
+```
+  Phase 1 ends ......... ______________  unfilled tiers → DCA over 4 weeks
+  Phase 2 ends ......... ______________  unfilled tiers → DCA over 4 weeks
+  Phase 3 ends ......... ______________  unfilled tiers → DCA over 4 weeks
+```
+
+A plan that can leave you 100% in cash for an entire cycle isn't a plan, it's a hope with a spreadsheet. If a level never hits by its date, the money deploys anyway, spread over the following weeks. You are allowed to be wrong about the price. You are not allowed to be wrong forever.
+
+### Step 5 — Execution, tonight
+
+```
+  ☐ Limit orders placed for every tier I can pre-place
+  ☐ Fallback dates in my calendar, with alerts
+  ☐ Custody threshold decided: move to hardware wallet above $ ________
+  ☐ Hardware wallet ordered / seed backed up / recovery tested
+  ☐ Told the one other person who needs to know
+```
+
+**Place the orders the same night you write the plan.** That is the whole point of writing it — you are deciding while you're calm, and then removing your own ability to renegotiate at 2am when price is doing something dramatic. Orders sitting on an exchange execute whether you're at work, asleep, or convinced this time is different.
+
+**Test the seed phrase recovery before the wallet matters.** An untested backup is not a backup. Do it with $50 on it, once, and never think about it again.
+
+---
+
+### The override log
+
+```
+If I change or skip a tier, I write the reason here BEFORE I act:
+
+  Tier: ______  Date: __________
+  Reason: ______________________________________________
+
+  Tier: ______  Date: __________
+  Reason: ______________________________________________
+```
+
+Overriding isn't forbidden. Overriding *silently* is. Writing the reason first turns an impulse into an argument, and about half of impulses don't survive being written down.
+
+---
+
+*This worksheet is a thinking tool, not an allocation recommendation. It is not financial advice, I am not a registered investment adviser, and nothing in it is personalised to you. Bitcoin can go down further than you expect, stay down longer than you expect, and can go to zero. Do your own research. Never deploy money you can't afford to lose.*
 
 ## 4. EXECUTION MECHANICS
 
 - **Limit ladder, not market orders:** the orders sit on the exchange waiting. You don't watch charts. The plan executes whether you're at work or asleep.
 - **The fallback rule in practice:** phase date passes with the tier unfilled → cancel the limit, deploy that tranche as 4 weekly DCA buys.
-- **Custody flow (non-negotiable for me):** buys accumulate on-exchange only until they cross ~$5K, then move to hardware wallet. The bear market is exactly when exchanges die. [Module 6 custody steps condensed — 1 page]
+- **Custody flow (non-negotiable for me):** buys accumulate on-exchange only until they cross ~$5K, then move to hardware wallet. The bear market is exactly when exchanges die.
 - **What I don't do:** no leverage, ever (the liquidation math killed better traders than me in every bear). No yield on the stack during accumulation. No alts in this ladder — this plan is Bitcoin-only; alt decisions are a separate, later decision.
 
 ## 5. THE RECEIPTS
@@ -93,7 +191,7 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
   the crossing itself and every other one the model produced — liftoffr.com/receipts. Judge the
   method on that, not on this paragraph.
 - The miss that built the system: **November 2021** — indicators flagged the top, I didn't follow them, round-tripped $30K. The rules exist because I paid for them.
-- This plan's fires so far: IMMEDIATE (May 28), T1, T2 — [dates + fills from ledger. TORIN: confirm what you want shown]
+- This plan's fires so far: IMMEDIATE — 29 May 2026 at $73,425 · T1 — 2 June 2026 at $68,025 · T2 — filled 5–25 June 2026 at ~$60.4K blended.
 - Everything timestamped: liftoffr.com/receipts and /track-record.
 
 ## 5b. THE EXIT SIDE — what puts me on alert, and the whipsaw rule
@@ -139,9 +237,26 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
 - **The updated doc** every time the plan materially changes, for the rest of this bear market.
 - What this is NOT: a signals service, a chat with me, or the full LiftOffr system. This is my buy plan, kept live.
 
-*(One quiet line, last page:)* The plan tells you what I'm buying. The System — the nine weighted components behind these levels, and the exit ladder for the other side of the cycle — is at liftoffr.com/system. Your $29 always counts toward it.
-
-[Disclaimer repeats, short form]
+The plan tells you what I'm buying. The System — the nine weighted components behind these levels, and the exit ladder for the other side of the cycle — is at liftoffr.com/system. Your $29 always counts toward it.
 
 ---
-<!-- ASSEMBLY NOTES (not in product): receipts screenshots from /receipts + trade ledger; custody section condensed from liftoffr-course module6 lessons 3-5; worksheet %s derived from actual tier/total ratios; keep total length 25-35 pages incl. screenshots. -->
+
+**One more time, because it matters more than anything else in here.**
+
+This document is a record of my personal Bitcoin accumulation plan — what I am doing with my own
+money, published as a receipt. It is not financial advice, not a recommendation, and not
+personalised to you. I am not a registered investment adviser and nothing here creates an adviser
+relationship. I do not know your finances, your risk tolerance or your situation, and nothing in
+this document tells you what you should do.
+
+The worksheet shows how I would think through sizing at different stack sizes. It is a thinking
+tool, not an allocation recommendation.
+
+Bitcoin can go down further than you think it can, stay down longer than you think it can, and
+can go to zero. My plan can be wrong — I have been wrong before, and 2021 cost me $30,000 because
+I ignored my own indicators. Every dated signal referenced here is the LiftOffr Score computed
+over historical data: a backtest, not a record of trades placed at the time.
+
+Do your own research. Never invest money you can't afford to lose. Education, not advice.
+
+---

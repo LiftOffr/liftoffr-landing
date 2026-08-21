@@ -4,8 +4,7 @@
 
 ## Why this exists
 
-The course that shipped taught **eight indicators**, three of which — CBBI, Google Trends,
-Market Cipher — carry **no weight** in the Score, while RHODL Ratio, the joint-heaviest
+The course that shipped taught **eight indicators**, three of which — CBBI and Google Trends — carry **no weight** in the Score, while RHODL Ratio, the joint-heaviest
 component at 20%, was not taught at all. The site was corrected to nine weighted components on
 20 Aug 2026. The course was not. That left the $197 product teaching a different framework than
 the free Score publishes, which is the exact "which one do I believe" question this whole
@@ -30,10 +29,10 @@ correction pass exists to stop a buyer asking.
 | Module | Lessons | Status |
 |---|---|---|
 | 1 · The number itself | 5 | ✅ drafted |
-| 2 · The heavy half (RHODL, Puell) | 2 | pending |
-| 3 · The middle (Trolololo, MVRV, Pi Cycle) | 3 | pending |
-| 4 · The 5% components (2YMA, Reserve Risk, Woobull, RUPL) | 4 | pending |
+| 2 · The heavy half (RHODL, Puell) | 2 | ✅ drafted |
+| 3 · The middle (Trolololo, MVRV, Pi Cycle) | 3 | ✅ drafted |
+| 4 · The 5% components (2YMA, Reserve Risk, Woobull, RUPL) | 4 | ✅ drafted |
 | 5 · What carries zero weight, and why | 5 | ✅ drafted |
-| 6 · The record, and what this is for | 6 | pending |
+| 6 · The record, and what this is for | 6 | ✅ drafted |
 
 Files: `module-1-the-number.md`, `module-5-zero-weight.md`, and so on.

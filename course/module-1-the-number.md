@@ -151,10 +151,11 @@ different, tell me and I will fix it — that offer is the entire reason the wei
 and it has been taken up and been correct at least once.
 
 **To check a past date instead of today:** pick any row from the 64-crossing log at
-liftoffr.com/receipts and recompute that date. Same rule about the divisor applies, and it bites
-harder historically — Pi Cycle alone has no reading on several hundred of the dates in that log.
-A recompute that always divides by 1.00 will disagree with a few hundred rows, and it will be
-the one that is wrong.
+liftoffr.com/receipts and recompute that date. Same rule about the divisor applies. It matters more
+historically than it looks: Pi Cycle alone has no published reading on roughly 349 days of the
+5,533-day source series, so any date you pick has a real chance of being one where a component
+is missing. A recompute that always divides by 1.00 will disagree with those rows, and it will
+be the one that is wrong.
 
 **[TORIN]** — if you want a downloadable spreadsheet with the weights pre-filled and the divisor
 formula built in, that is a natural companion to this lesson. I have not built one because the

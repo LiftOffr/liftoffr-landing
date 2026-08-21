@@ -14,22 +14,15 @@ These are the real decisions. The subject is not moving to another module — it
 
 | Old lesson | Module | Why it goes | Decision |
 |---|---|---|---|
-| **Market Cipher A/B basics** | M4 | Proprietary paid tool. Not reproducible from public data, so it cannot be a component of a number you are told to recompute. Also a short-horizon trading tool inside a multi-month model. | **Delete or keep as a standalone "tools I don't use and why"?** |
+| **Market Cipher A/B basics** | M4 | Proprietary paid tool. Not reproducible from public data, so it cannot be a component of a number you are told to recompute. Also a short-horizon trading tool inside a multi-month model. | **DELETED** — Torin\'s call, 20 Aug. Nobody is currently working through the course, so there is no buyer mid-lesson. |
 | **Indicator confluence strategy** | M4 | Taught the "N of 6 agreeing" heuristic. The method does not use it — the Score is a weighted average, and `/proof` explicitly disowns the counting framing as legacy. | **Replaced** by Module 1.1/1.3 (weighting, not counting). Nothing lost, but the *technique* a buyer learned is gone. |
 | **Reading CBBI signals** | M4 | Framed the data source as a signal. It is the pipe the components are read from. | **Replaced** by Module 5.1, which teaches CBBI properly — as the thing you check my arithmetic against. |
 | **Google Trends and retail behaviour** | M4 | Zero weight. Retail attention follows price, and its scaling is window-relative so there is no stable level to weight. | **Replaced** by Module 5.3 as context. Shorter than the original lesson. |
 
-**My read:** three of these four are genuine upgrades — the buyer gets a correct version of the
-same territory. **Market Cipher is the one that is actually disappearing.** Someone bought a
-course listing it and will not find it. That is small, but it is real.
+**Resolved 20 Aug.** Torin confirmed nobody is currently using the course, so the Market Cipher
+lesson is deleted outright rather than deprecated — there is no buyer mid-lesson to strand. The
+new curriculum contains no Market Cipher material at all.
 
-**Options, your call:**
-- **(a)** Keep a short Module 5.4 as written — explains what it is and why it is not a component.
-  That is what the new curriculum currently does. The buyer gets an explanation, not instruction.
-- **(b)** Add a note in `#plan-updates` or the course channel saying the Market Cipher lesson has
-  been retired and why. Costs nothing and pre-empts the question.
-- **(c)** Leave the old lesson live alongside the new curriculum. **I would not** — two
-  curricula is the failure mode this whole rebuild exists to end.
 
 ---
 

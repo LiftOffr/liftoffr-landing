@@ -510,6 +510,10 @@ export default async function handler(req, res) {
         // Public welcome
         try {
           const welcomeCh = process.env.DISCORD_WELCOME_CHANNEL_ID || DEFAULT_WELCOME_CHANNEL;
+          // NOTE: this is the one defaulted destination that actually posts. It is a
+          // named, checked-in channel carrying a welcome message, not a silent redirect
+          // of anything sensitive — but if the default is ever wrong, a public message
+          // lands in the wrong room. Set DISCORD_WELCOME_CHANNEL_ID explicitly in prod.
           const pub = await postPublicWelcome(botToken, welcomeCh, discordId, username);
           console.log(`[whop-webhook] public welcome status=${pub.status} for ${username}`);
         } catch (e) {

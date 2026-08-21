@@ -1,10 +1,9 @@
 # Module 5 — What carries zero weight, and why
 
-Five lessons. This is the module that exists because the previous version of this course was
+Four lessons. This is the module that exists because the previous version of this course was
 wrong, and it says so.
 
-**Read this first.** The course you originally bought taught eight indicators. Three of them —
-CBBI, Google Trends and Market Cipher — carry **no weight** in the LiftOffr Score. Meanwhile
+**Read this first.** The course you originally bought taught eight indicators. Several of them — CBBI, Google Trends and a proprietary charting tool — carry **no weight** in the LiftOffr Score. Meanwhile
 RHODL Ratio, which carries 20% and is tied for the heaviest weight in the model, was not taught
 at all. That was a real defect in a paid product and this module is the correction, not a
 footnote to it.
@@ -68,25 +67,6 @@ The 2025 cycle topped without the retail attention spike the previous cycle prod
 
 ---
 
-## 5.4 — Market Cipher: why it left the framework
-
-**What it is.** A commercial charting toolkit (A and B) combining momentum, money-flow and
-divergence signals into a visual overlay.
-
-**Why it carries zero weight.** Two reasons, and the second is the one that matters here.
-
-1. **It is not reproducible from public data.** Every component in the Score reads from a free,
-   public source, so anyone can recompute the number. Market Cipher is proprietary and paid. A
-   component you cannot check breaks the one promise this whole product rests on.
-2. **It is a short-horizon trading tool inside a multi-month cycle model.** Its signals fire on
-   timeframes the Score is not built to speak about.
-
-**Where the old course had this wrong.** "Market Cipher A/B basics" was a Module 4 lesson,
-presented alongside genuine components. It should not have been in a module about the inputs to
-the Score, because it was never one.
-
----
-
 ## 5.5 — The framework moved: what changed, and what replaced what
 
 Plainly, so you can see the whole edit.
@@ -97,7 +77,6 @@ Plainly, so you can see the whole edit.
 |---|---|
 | CBBI | The public data source the components are read from |
 | Google Trends | Context — retail attention, follows price |
-| Market Cipher | A separate short-horizon charting tool, not reproducible from public data |
 | Fear & Greed | Context — sentiment, no weight |
 | BTC Dominance | Context — appeared in the retired indicator panel, never a component |
 

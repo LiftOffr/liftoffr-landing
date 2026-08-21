@@ -9,10 +9,10 @@ Paste the block below into the channel, then **pin it**. Optional: set your Koya
 **Welcome to LiftOffr. 👋 Your first 24 hours — four steps, ~20 minutes:**
 
 **1️⃣ Read today's brief** → <#1479911816078561503>
-Every morning at 8am MT: what the 8 indicators say and what it means, in 3 minutes. This is the habit that makes membership pay for itself.
+Every morning at 8am MT: what the nine weighted components read and what it means, in 3 minutes. This is the habit that makes membership pay for itself.
 
 **2️⃣ Check the live cycle read** → https://liftoffr.com/cycle
-One score, four pillars, all 8 indicators — always current. Bookmark it.
+One score, all nine weighted components — always current. Bookmark it.
 
 **3️⃣ Introduce yourself** → <#1383092671760957551>
 Where you're at, what you hold, what you want out of this cycle. Members who post an intro get way more out of the community.

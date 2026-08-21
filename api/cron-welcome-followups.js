@@ -25,7 +25,11 @@ const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
 
 function unsubUrl(email) {
-  const t = crypto.createHmac("sha256", process.env.CRON_SECRET || "liftoffr")
+  // No fallback: this HMAC signs unsubscribe tokens. It previously fell back to the
+  // literal string "liftoffr", which would have made every token forgeable by anyone
+  // who guessed the brand name. Fail loudly instead of signing with a known key.
+  if (!process.env.CRON_SECRET) throw new Error("CRON_SECRET is not set — refusing to sign with a default");
+  const t = crypto.createHmac("sha256", process.env.CRON_SECRET)
     .update((email || "").toLowerCase()).digest("hex").slice(0, 16);
   return `https://liftoffr.com/api/subscribe?u=1&e=${encodeURIComponent(email)}&t=${t}`;
 }
@@ -67,7 +71,7 @@ const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
 // feels misled, and a buyer who is told it on day three has been inoculated against
 // every future whipsaw. It is the single most trust-building thing in the sequence
 // and it costs nothing to send. Do not move a pitch earlier than D7.
-const PSUBJECT_0  = "You're in — your plan + the one thing to do tonight";
+const PSUBJECT_0  = "You're in — your plan, and the one thing to do tonight";
 const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
 const PSUBJECT_3  = "the six times my own model flipped";
 const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
@@ -86,25 +90,25 @@ function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
 function plan0HTML() {
   return planShell("Plan · Day 0",
     `<p style="margin:0 0 16px;">You're in. Thank you — genuinely.</p>
-     <p style="margin:0 0 16px;">Three things, then I'll leave you alone:</p>
+     <p style="margin:0 0 16px;">Four things, then I'll leave you alone:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
        <div><strong>1.</strong> <strong>Connect your Discord inside Whop first</strong> — Whop &rarr; account settings &rarr; Connect Discord. That is what grants the @Plan role. Without it you land in the server as an ordinary member and the plan channels stay invisible. Thirty seconds.</div>
        <div><strong>2.</strong> Your plan document is in Whop, under your purchases. Lifetime access, and it updates in place.</div>
        <div><strong>3.</strong> Then check <strong>#plan-updates</strong> — that's where a tier firing gets announced, with the receipt.</div>
-       <div><strong>3.</strong> Tonight, do the worksheet. Twenty minutes. Your stack size in, your own nine levels out.</div>
+       <div><strong>4.</strong> Tonight, do the worksheet in section 3 of the plan. Thirty minutes. Your stack size in, your own ladder out.</div>
      </div>
-     <p style="margin:18px 0 16px;"><strong>Do number three tonight.</strong> Not this weekend. The entire value of a written plan is that it was written before anything was happening — and right now, nothing is happening. That's the window.</p>
+     <p style="margin:18px 0 16px;"><strong>Do number four tonight.</strong> Not this weekend. The entire value of a written plan is that it was written before anything was happening — and right now, nothing is happening. That's the window.</p>
      <p style="margin:0 0 16px;">No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "Open the Discord →", "https://liftoffr.com/welcome-plan");
 }
 function plan0Text() {
-  return ["You're in. Thank you — genuinely.","","Three things, then I'll leave you alone:","",
+  return ["You're in. Thank you — genuinely.","","Four things, then I'll leave you alone:","",
     "1. CONNECT YOUR DISCORD INSIDE WHOP FIRST - Whop > account settings > Connect Discord. That grants the @Plan role. Without it you land in the server as an ordinary member and the plan channels stay invisible. Thirty seconds.",
     "2. Your plan document is in Whop, under your purchases. Lifetime access, updates in place.",
     "3. Then check #plan-updates - a tier firing gets announced there, with the receipt.",
-    "3. Tonight, do the worksheet. Twenty minutes. Your stack size in, your own nine levels out.","",
-    "Do number three tonight, not this weekend. The whole value of a written plan is that it was written before anything was happening — and right now nothing is. That's the window.","",
+    "4. Tonight, do the worksheet in section 3 of the plan. Thirty minutes. Your stack size in, your own ladder out.","",
+    "Do number four tonight, not this weekend. The whole value of a written plan is that it was written before anything was happening — and right now nothing is. That's the window.","",
     "No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.","",
     "https://liftoffr.com/welcome-plan","","— Torin"].join("\n");
 }

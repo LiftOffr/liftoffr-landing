@@ -115,6 +115,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .fine { font-size:12px; color:#666; margin-top:11px; }
   .err { display:none; margin-top:10px; font-size:13px; color:#e8b339; }
 </style>
+  <script src="/js/attribution.js" defer></script>
+<!-- GA4. This page had NO analytics at all until 2026-08-20: no gtag include, no
+     config call, and no track() definition — while its own submitScoreLead() calls
+     window.track('lead_magnet_submit') and window.track('lead_captured') behind
+     `typeof window.track === 'function'` guards, which were therefore always false.
+     Both silently no-opped. /score is the destination of the Instagram bio, every
+     pinned comment, and the /r/:id and /aug/:id Reel shortlinks, so the designated
+     top of the funnel was reporting nothing. Block is verbatim from quiz/index.html;
+     keep them identical. Consent Mode above still gates whether any of it fires. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-015PKWM24J');
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+</script>
 </head>
 <body>
 

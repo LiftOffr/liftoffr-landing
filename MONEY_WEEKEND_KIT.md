@@ -17,7 +17,7 @@ Your newest #announcements post (May 20) still sells the RETIRED $29 founder pla
 Housekeeping first: the $29 founder rate from May is retired. If you locked it, you keep it forever. Current lineup: **Core $49 / Pro $99 / Elite $249** — all start with **7 days free, no card**: https://liftoffr.com/start
 
 What shipped since the last announcement:
-• **Live cycle dashboard** — the score, four pillars, all 8 indicators, always current: https://liftoffr.com/cycle
+• **Live cycle dashboard** — the score and all nine weighted components, always current: https://liftoffr.com/cycle
 • **The score is at 30 — re-accumulation zone.** The buy window this system exists for is open right now.
 • **Bear-market buy plan** (free): https://liftoffr.com/buyzone
 • **Cycle Playbook — $497.** A private 1:1 where we build YOUR exact buy + sell plan for this cycle, together. Limited slots each month: https://liftoffr.com/playbook
