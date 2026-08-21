@@ -518,6 +518,10 @@ silently ignored it from the tenth onward.
    `m4-score-1` … `m4-score-5`, `m4-l10-context-zero-weight`, and `m5-l1` … `m5-l6`. Content is
    complete and posted; only the grouping is wrong.
 
+**Update 21 Aug, later:** the twelve `retired-*` channels are now **deleted** on Torin's
+instruction, so only the second half of this applies — the uncategorised new channels. See
+`course/DELETED_2026-08-21.md` for what went and why.
+
 **What this needs from you: about a minute of dragging in the Discord sidebar.**
 
 Drag into `〡━━・Module 4`, in this order, above `m4-l1`:
@@ -527,7 +531,8 @@ Then `m4-l10-context-zero-weight` below `m4-l9`.
 
 Drag into `〡━━・Module 5`: `m5-l1-how-to-read-receipts` through `m5-l6-what-the-number-asks-of-you`.
 
-Drag into `〡━━・📦 Archive`: everything named `retired-*` — six in Module 4, six in Module 5.
+~~Drag into Archive: everything named `retired-*`.~~ No longer applicable — deleted 21 Aug.
+Also drag `m2-l7-portfolio-rebalancing` into `〡━━・Module 2`, below `lesson-6-accumulation-mistakes`.
 
 **Nothing is broken while this is undone.** Channel names carry the module and the order, and the
 course map in `#how-to-use-this-course` states the reading order explicitly and warns that the

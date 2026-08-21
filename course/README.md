@@ -47,6 +47,10 @@ correction pass exists to stop a buyer asking.
 
 24 lessons across 21 channels, plus the reference sheet.
 
+`m2-l7-portfolio-rebalancing` is a 22nd channel with no file here: it was carried across verbatim
+from the old Module 5 before that module was deleted, so its source is the deleted channel rather
+than this directory. `DELETED_2026-08-21.md` records that.
+
 ## Where this ships
 
 **Discord, posted by the bot. Not Whop Courses — Torin confirmed on 21 Aug 2026 that he is not
