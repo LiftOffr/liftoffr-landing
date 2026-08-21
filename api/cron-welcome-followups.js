@@ -35,7 +35,7 @@ function unsubUrl(email) {
 }
 
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
-const SUBJECT_E2 = "How to actually use the Score (3-minute habit, every Sunday)";
+const SUBJECT_E2 = "the six times it crossed, and the three that meant nothing";
 const SUBJECT_PROOF = "don't trust my backtest";
 // Was: "7 days of the full system — free, no card (last welcome email)" — a
 // leftover from the 7-day trial, which was retired 2026-08-02. The body pitches
@@ -246,20 +246,20 @@ function email2HTML() {
     <div style="margin-top:14px;color:#999;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">Welcome · Day 3</div>
   </div>
   <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.65;">
-    <p style="margin:0 0 16px;">Quick one.</p>
-    <p style="margin:0 0 16px;">You've got the Checklist. You'll get the Score every Sunday. Here's the gap between <em>having information</em> and <em>running a system</em>:</p>
-    <p style="margin:0 0 22px;font-weight:700;color:#080808;">The Score tells you the zone. The framework tells you what to do in each zone.</p>
-    <p style="margin:0 0 16px;">Example: Score crosses 85.</p>
-    <p style="margin:0 0 16px;">Most people: panic-sell 100% of their stack. Or worse — convince themselves "this time is different" and hold through the top.</p>
-    <p style="margin:0 0 12px;">What works instead (this is Module 5 of the LiftOffr course):</p>
-    <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;">
-      <div>25% out when Score hits 70</div>
-      <div>25% out when Score hits 80</div>
-      <div>25% out when Score hits 85</div>
-      <div>25% out when 3+ binary triggers fire (Pi Cycle, MVRV 7+, CBBI 90+)</div>
+    <p style="margin:0 0 16px;">Quick one, and it is the least comfortable email in this sequence.</p>
+    <p style="margin:0 0 16px;">A threshold model has one failure mode, and you should hear it from me before you rely on the number for anything.</p>
+    <p style="margin:0 0 22px;font-weight:700;color:#080808;">Between 16 November 2024 and 21 October 2025, the Score crossed into the exit zone three times and retreated out of it three times. Six transitions in twelve months.</p>
+    <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:13.5px;line-height:1.8;font-family:ui-monospace,Menlo,monospace;color:#333;">
+      <div>16 Nov 2024 &nbsp;into exit zone &nbsp;&nbsp;BTC $90,568</div>
+      <div>18 Feb 2025 &nbsp;back out &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BTC $95,444</div>
+      <div>&nbsp;8 May 2025 &nbsp;into exit zone &nbsp;&nbsp;BTC $103,070</div>
+      <div>19 Jun 2025 &nbsp;back out &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BTC $104,710</div>
+      <div>27 Jun 2025 &nbsp;into exit zone &nbsp;&nbsp;BTC $107,091</div>
+      <div>21 Oct 2025 &nbsp;back out &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BTC $108,700</div>
     </div>
-    <p style="margin:18px 0 16px;">By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.</p>
-    <p style="margin:0 0 16px;"><strong>Why this matters:</strong> the biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.</p>
+    <p style="margin:18px 0 16px;">Three entries, three retreats — <strong>six transitions, not six signals</strong>. Two of the three entries did not contain a top. The top was 6 October 2025 at $124,824, and the Score left the exit zone for the last time fifteen days <em>after</em> it.</p>
+    <p style="margin:0 0 16px;">Any rule of the form "above X, do something" will flip back and forth around X. That is not a broken threshold — it is what thresholds do. Which means the number is only usable if <strong>you have decided in advance what a crossing means to you</strong>, because acting in full on each of those six would have meant six reversals in a year.</p>
+    <p style="margin:0 0 16px;">I am not going to tell you what a crossing should mean for your position. I do not know your size, your tax situation or your timeline, and anyone who hands you a percentage without knowing those is guessing at your expense. For what it is worth: I exited early, and it cost me.</p>
     <p style="margin:0 0 16px;">The nine indicators the Score is built from are all public, each with its weight, today's reading, and a section on where it has been wrong. No signup, nothing gated.</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
@@ -274,25 +274,24 @@ function email2HTML() {
 
 function email2Text() {
   return [
-    "Quick one.",
+    "Quick one, and it is the least comfortable email in this sequence.",
     "",
-    "You've got the Checklist. You'll get the Score every Sunday. Here's the gap between *having information* and *running a system*:",
+    "A threshold model has one failure mode, and you should hear it from me before you rely on the number for anything.",
     "",
-    "The Score tells you the zone. The framework tells you what to do in each zone.",
+    "Between 16 Nov 2024 and 21 Oct 2025 the Score crossed into the exit zone three times and retreated out of it three times. Six transitions in twelve months:",
     "",
-    "Example: Score crosses 85.",
+    "  16 Nov 2024  into exit zone   BTC $90,568",
+    "  18 Feb 2025  back out         BTC $95,444",
+    "   8 May 2025  into exit zone   BTC $103,070",
+    "  19 Jun 2025  back out         BTC $104,710",
+    "  27 Jun 2025  into exit zone   BTC $107,091",
+    "  21 Oct 2025  back out         BTC $108,700",
     "",
-    "Most people: panic-sell 100% of their stack. Or worse — convince themselves 'this time is different' and hold through the top.",
+    "Three entries, three retreats - six transitions, not six signals. Two of the three entries did not contain a top. The top was 6 Oct 2025 at $124,824, and the Score left the exit zone for the last time fifteen days AFTER it.",
     "",
-    "What works instead (Module 5 of the LiftOffr course):",
-    "  • 25% out when Score hits 70",
-    "  • 25% out when Score hits 80",
-    "  • 25% out when Score hits 85",
-    "  • 25% out when 3+ binary triggers fire (Pi Cycle, MVRV 7+, CBBI 90+)",
+    "Any rule of the form 'above X, do something' will flip back and forth around X. That is not a broken threshold, it is what thresholds do. Which means the number is only usable if you have decided in advance what a crossing means to you - acting in full on each of those six would have meant six reversals in a year.",
     "",
-    "By the time the top is obvious in hindsight, you're 75% in stables.",
-    "",
-    "The biggest mistake of every cycle is binary thinking. The Score lets you scale — that's the difference between round-tripping and compounding.",
+    "I am not going to tell you what a crossing should mean for your position. I do not know your size, your tax situation or your timeline. For what it is worth: I exited early, and it cost me.",
     "",
     "The nine indicators behind the Score are all public — the weight, today's reading, and where each one has been wrong:",
     "https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day3_indicators",

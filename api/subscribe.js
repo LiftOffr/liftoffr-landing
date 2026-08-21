@@ -1,5 +1,5 @@
 // Vercel serverless function: subscribe an email to Resend Audience +
-// immediately send the consolidated Checklist + Score welcome email.
+// immediately send the consolidated magnet + Score welcome email.
 //
 // Replaces the prior Beehiiv-backed signup. All subscriber storage now lives
 // in Resend Audiences; the weekly Score cron (cron-weekly-score.js) reads
@@ -21,25 +21,41 @@ const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
 const REPLY_TO     = "torin.christianson@gmail.com";
 
 // Lead magnets — keyed by the `magnet` field the landing pages POST.
+// RETIRED 20 Aug 2026 — the two old magnets, and why there is now only one.
+//
+// `cycle-top-checklist.pdf` taught "the 8 indicators I actually watch", listed
+// CBBI as indicator #1, claimed "when 5 or more of these 8 flash TOP ZONE at
+// once, the cycle is statistically near its peak", and carried the October 2025
+// top call that commit 7d0b58c removed from every other surface.
+//
+// `bear-market-buy-zone.pdf` published a four-band ladder against the 200W MA as
+// it stood in July 2026, a five-way capital split, retired Score band boundaries,
+// and a hardcoded "It's at 26 right now". Its ladder did not match the nine-tier
+// ladder the $29 plan sells, so a reader of both got two incompatible documents
+// from the same person.
+//
+// The replacement deliberately contains NO trigger prices, allocations or budget
+// figures. A free PDF with levels in it goes stale within weeks and competes with
+// the paid plan; the levels are not the asset, the method is. If a laddered free
+// magnet is ever wanted, the bands have to come from Torin — they are not mine to
+// originate. Source: lead-magnet/READ-THE-CYCLE.md, rendered by
+// scripts/render_plan_pdf.py with DOC=magnet.
+const READ_THE_CYCLE = {
+  eyebrow: "Welcome · Read the Cycle + Weekly Score",
+  subject: "Read the Bitcoin cycle yourself + the Score you'll get every Sunday",
+  itemTitle: "1. Read the Bitcoin Cycle Yourself:",
+  itemTitleText: "1. READ THE BITCOIN CYCLE YOURSELF",
+  pdfUrl: "https://liftoffr.com/lead-magnet/read-the-cycle.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=readcycle_link",
+  howTo: "It has the nine weighted components, what each one read at every cycle turn since 2013, the divisor rule, and the ten-minute exercise that ends with you computing the Score yourself from free public data. It also has the part most people leave out — 21 of 46 at 30 days, and the six exit-zone transitions in twelve months. No trigger prices, no allocations, nothing that goes stale.",
+  footerLine: "You subscribed to the free LiftOffr Score email.",
+};
+
+// Both keys resolve to the same document. `checklist` is kept as a key because it
+// is the fallback for any POST that does not name a magnet, including stale forms
+// still in the wild; it must never resolve to the retired checklist PDF again.
 const MAGNETS = {
-  checklist: {
-    eyebrow: "Welcome · Checklist + Weekly Score",
-    subject: "Your Cycle Top Checklist + the Score you'll get every Sunday",
-    itemTitle: "1. The BTC Cycle Top Checklist:",
-    itemTitleText: "1. THE BTC CYCLE TOP CHECKLIST",
-    pdfUrl: "https://liftoffr.com/lead-magnet/cycle-top-checklist.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=checklist_link",
-    howTo: "Print it. Stick it next to your screen. Run through the nine weighted indicators every Sunday and count how many are in the trigger zone. When 5+ flash at once, history says the cycle is near peak. Confluence is the signal — no single indicator is.",
-    footerLine: "You subscribed to the free Cycle Top Checklist + Weekly Score email.",
-  },
-  buyzone: {
-    eyebrow: "Welcome · Buy Zone Plan + Weekly Score",
-    subject: "Your Bear Market Buy Zone Plan + the Score you'll get every Sunday",
-    itemTitle: "1. The Bear Market Buy Zone Plan:",
-    itemTitleText: "1. THE BEAR MARKET BUY ZONE PLAN",
-    pdfUrl: "https://liftoffr.com/lead-magnet/bear-market-buy-zone.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=buyzone_link",
-    howTo: "Read the 4 bands, pick your capital split, and pre-place the orders while the zone is open. The Score below tells you whether it still is — and you'll get a fresh read every Sunday.",
-    footerLine: "You subscribed to the free Buy Zone Plan + Weekly Score email.",
-  },
+  checklist: READ_THE_CYCLE,
+  buyzone: READ_THE_CYCLE,
 };
 
 // ── QUIZ (magnet: "quiz") ────────────────────────────────────────────────────
@@ -210,7 +226,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     <p style="margin:0 0 18px;color:#555;">${m.howTo}</p>
 
     <p style="margin:32px 0 8px;font-weight:700;color:#080808;">2. The LiftOffr Score — every Sunday morning:</p>
-    <p style="margin:0 0 14px;">Reading the checklist yourself takes ~15 min a week. The LiftOffr Score does it for you — a single 0–100 number that weights all 9 cycle indicators into one read.</p>
+    <p style="margin:0 0 14px;">Reading all nine components yourself takes ~15 min a week — the PDF above shows you exactly how. The LiftOffr Score does it for you: a single 0–100 number that weights all nine into one read, published with its weights so you can check it.</p>
 
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;color:#333;line-height:1.5;">
       <div><strong>85+</strong> → exit zone. Every cycle top since 2013 printed in this band.</div>
@@ -230,10 +246,10 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
       <p style="margin-top:14px;font-size:14px;color:#ccc;font-style:italic;line-height:1.5;">${commentary}</p>
     </div>
 
-    <p style="margin:18px 0;">You'll get a fresh read every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what to do this week.</p>
+    <p style="margin:18px 0;">You'll get a fresh read every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what the record says that band has meant before. What you do with it is yours.</p>
 
     <p style="margin:28px 0 10px;color:#555;"><strong style="color:#080808;">Why I built this:</strong></p>
-    <p style="margin:0 0 18px;color:#555;">Through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. The Checklist + Score is the system I wish I'd had then.</p>
+    <p style="margin:0 0 18px;color:#555;">Through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. A number you can recompute yourself, with its misses published next to it, is the thing I wish I'd had then.</p>
 
     <p style="margin:24px 0 0;">See you Sunday.</p>
     <p style="margin:6px 0 0;color:#555;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
@@ -265,7 +281,7 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     "",
     "2. THE LIFTOFFR SCORE — EVERY SUNDAY MORNING",
     "",
-    "Reading the checklist yourself takes ~15 min a week. The Score does it for you — a 0-100 number weighting all 9 cycle indicators.",
+    "Reading all nine components yourself takes ~15 min a week - the PDF above shows you how. The Score does it for you: a 0-100 number weighting all nine, published with its weights so you can check it.",
     "",
     "  85+    -> exit zone. Every cycle top since 2013 printed in this band.",
     "  70-85  -> warning. Has preceded exit-zone readings, though not every time.",
@@ -279,9 +295,9 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     `This week's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}${typeof score === "number" ? ` ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} 7d` : ""}`,
     commentary,
     "",
-    "You'll get a fresh read every Sunday. No fluff. Just the number, the zone, and what to do this week.",
+    "You'll get a fresh read every Sunday. No fluff. Just the number, the zone, and what the record says that band has meant before. What you do with it is yours.",
     "",
-    "Why I built this: through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. The Checklist + Score is the system I wish I'd had then.",
+    "Why I built this: through 2021 and 2022 I watched friends ride BTC from $20k -> $69k -> $16k. Round trip. Zero profit. A number you can recompute yourself, with its misses published next to it, is the thing I wish I'd had then.",
     "",
     "See you Sunday.",
     "— Torin",

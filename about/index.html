@@ -57,6 +57,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
   window.track = track;
+  // /about had window.track defined and nothing calling it — no click listener at
+  // all, so all five offer links reported nothing. It is a real entry point from
+  // search and from the Instagram bio, so this is first-touch traffic that reached
+  // an offer link and was recorded as having reached nothing.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], ' +
+                             'a[href^="/playbook"], a[href^="/score"], a[href^="/free"], ' +
+                             'a[href^="/receipts"], a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var u = new URL(a.href, location.href);
+    var q = new URLSearchParams(location.search);
+    var d = u.hostname.indexOf('whop.com') > -1
+              ? 'whop_checkout'
+              : (u.pathname.replace(/^\//, '').split('/')[0] || 'home');
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    u.searchParams.get('utm_content') || d,
+      destination: a.getAttribute('data-dest') || d,
+      page: location.pathname,
+      utm_source: q.get('utm_source') || '(direct)',
+      utm_medium: q.get('utm_medium') || '(none)',
+      utm_campaign: q.get('utm_campaign') || '(none)'
+    });
+  }, true);
 </script>
 <!-- Clarity is started by the consent snippet above, only after the visitor allows
      analytics. Do not re-add an unconditional Clarity tag here. -->

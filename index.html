@@ -295,15 +295,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         page: location.pathname
       });
     }
-    var a = e.target.closest('a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]');
-    if (!a) return;
+    // This was bound to a[href*="whop.com/"], a[href$="/start"] and a[href$="/founder"].
+    // The homepage has none of those: /start and /founder are vercel.json shortlinks
+    // that nothing on this page links directly, and the only whop.com anchor is the
+    // footer attribution, which has no trailing slash and so did not even match that.
+    // Net effect: the busiest page on the site measured exactly one link, the
+    // /track-record one above, and reported nothing for 29 others — 7x /plan,
+    // 3x /system, 2x /playbook, 3x /score, 1x /free, 11x /receipts. It passed every
+    // superficial check because the listener was present, attached and firing.
+    // Counting real clicks is the only thing that finds this; reading the handler
+    // does not.
+    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], ' +
+                             'a[href^="/playbook"], a[href^="/score"], a[href^="/free"], ' +
+                             'a[href^="/receipts"], a[href*="whop.com/checkout"]');
+    if (!a || a === pr) return;   // pr already reported above; never double-count
     var u = new URL(a.href, location.href);
     var utm = getUtms();
-    var sl = u.pathname.replace(/^\//, '');
+    // Derive the destination rather than hardcoding it. Hardcoding 'whop_checkout'
+    // under a widened selector does not restore a missing event, it fabricates one:
+    // this page has zero checkout anchors, so all 29 would have arrived as phantom
+    // checkout clicks and quietly poisoned begin_checkout / purchase.
+    var d = u.hostname.indexOf('whop.com') > -1
+              ? 'whop_checkout'
+              : (u.pathname.replace(/^\//, '').split('/')[0] || 'home');
     track('cta_clicked', {
       cta_text: (a.textContent || '').trim().slice(0, 80),
-      cta_position: u.searchParams.get('utm_content') || (sl === 'start' ? 'plan_start' : sl === 'founder' ? 'founder_skip' : 'unknown'),
-      destination: sl === 'start' ? 'plan' : sl === 'founder' ? 'founder_paynow' : 'whop_checkout',
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    u.searchParams.get('utm_content') || d,
+      destination: a.getAttribute('data-dest') || d,
       page: location.pathname,
       utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign
     });

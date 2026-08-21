@@ -8,8 +8,36 @@ notes: relying on strip regexes is how internal notes reached page 7 of the
 import io, re, html, subprocess, sys, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC  = os.path.join(ROOT, 'PLAN_PRODUCT_DRAFT.md')
-OUT  = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser('~/Desktop/My-Bear-Market-Buy-Plan.pdf')
+# Two documents share this renderer: the $29 plan and the free lead magnet. They
+# differ only in source, cover text and output path, so DOC selects which.
+DOCS = {
+    'plan': {
+        'src':   'PLAN_PRODUCT_DRAFT.md',
+        'out':   '~/Desktop/My-Bear-Market-Buy-Plan.pdf',
+        'title': 'My Bear Market Buy Plan',
+        'h1':    'My Bear Market<br>Buy Plan',
+        'sub':   "The exact ladder I'm buying this bear market with.<br>"
+                 'Not a course. A plan &mdash; with the receipts attached.',
+        'upd':   'Last updated: 20 August 2026<br>'
+                 'Lifetime updates for this bear market included',
+    },
+    'magnet': {
+        'src':   'lead-magnet/READ-THE-CYCLE.md',
+        'out':   'lead-magnet/read-the-cycle.pdf',
+        'title': 'Read the Bitcoin Cycle Yourself',
+        'h1':    'Read the<br>Bitcoin Cycle<br>Yourself',
+        'sub':   'The nine weighted components behind the LiftOffr Score, what each one '
+                 'read at every cycle turn since 2013, and how to recompute the number '
+                 'without me.<br><br>No trigger prices. No allocations. No instructions.',
+        'upd':   'Last updated: 20 August 2026<br>'
+                 'Everything in here is checkable free at liftoffr.com',
+    },
+}
+DOC  = os.environ.get('DOC', 'plan')
+CFG  = DOCS[DOC]
+SRC  = os.path.join(ROOT, CFG['src'])
+OUT  = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser(CFG['out'])
+if not os.path.isabs(OUT): OUT = os.path.join(ROOT, OUT)
 
 src = re.sub(r'<!--.*?-->', '', io.open(SRC, encoding='utf-8').read(), flags=re.S)
 
@@ -81,11 +109,11 @@ body = re.sub(r'^</section>', '', ''.join(out))
 
 COVER = """<section class="cover">
   <div class="logo">lift<span>offr</span></div>
-  <h1>My Bear Market<br>Buy Plan</h1>
-  <p class="sub">The exact ladder I'm buying this bear market with.<br>Not a course. A plan &mdash; with the receipts attached.</p>
+  <h1>%(h1)s</h1>
+  <p class="sub">%(sub)s</p>
   <p class="by">by Torin &mdash; LiftOffr</p>
-  <p class="upd">Last updated: 20 August 2026<br>Lifetime updates for this bear market included</p>
-</section>"""
+  <p class="upd">%(upd)s</p>
+</section>""" % CFG
 
 CSS = """
 @page { size: Letter; margin: 18mm 17mm 20mm; }
@@ -121,10 +149,10 @@ td { border-bottom:1px solid #e7e8ea; padding:2mm; vertical-align:top; }
 """
 
 doc = ('<!doctype html><html><head><meta charset="utf-8">'
-       '<title>My Bear Market Buy Plan</title><style>%s</style></head>'
-       '<body>%s%s</section></body></html>' % (CSS, COVER, body))
+       '<title>%s</title><style>%s</style></head>'
+       '<body>%s%s</section></body></html>' % (CFG['title'], CSS, COVER, body))
 
-tmp = '/tmp/_plan_render.html'
+tmp = '/tmp/_render_%s.html' % DOC
 io.open(tmp, 'w', encoding='utf-8').write(doc)
 subprocess.run(['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
                 '--headless', '--disable-gpu', '--no-pdf-header-footer',

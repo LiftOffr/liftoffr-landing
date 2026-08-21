@@ -47,7 +47,7 @@ and nothing here is advice about your position.
 
 This week's Score is **45.6 — neutral, falling**. Recovery / re-accumulation phase. Continue weekly DCA.
 
-You'll get a fresh read in your inbox every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what to do this week.
+You'll get a fresh read in your inbox every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what the record says that band has meant before. What you do with it is yours.
 
 **Why I built this:**
 
@@ -73,30 +73,30 @@ Quick one.
 
 You've got the Checklist. You'll get the Score every Sunday. Here's the gap between *having information* and *running a system*:
 
-**The Score tells you the zone. The framework tells you what to do in each zone.**
+**The Score tells you the zone. What a zone change means for your position is yours to decide, in advance.**
 
 Example: Score crosses 85.
 
-Most people: panic-sell 100% of their stack. Or worse — convince themselves "this time is different" and hold through the top.
+> **This draft was replaced on 20 Aug 2026. Do not resurrect it.**
+>
+> The Day 3 email that actually sends is `email2HTML()` / `email2Text()` in
+> `api/cron-welcome-followups.js`. **That is the only source of truth for it.**
+>
+> What used to sit here published a four-rung sell ladder in second person —
+> "25% out when Score hits 70 / 80 / 85", plus a fourth rung keyed to "CBBI 90+",
+> which carries zero weight in the Score, and "MVRV 7+", which is the raw ratio
+> rather than the normalised Z-score the model actually uses. It was live and
+> firing to every free-list contact on day 3.
+>
+> Nothing on this site tells anyone what to do with a position, and that email
+> did. It now publishes the six exit-zone transitions of 2024-25 instead, which
+> is the honest version of the same lesson: decide in advance what a crossing
+> means to you, because the model crossed six times in twelve months and two of
+> the three entries contained no top.
+>
+> Edit the cron; do not keep a second copy here. Three rounds of corrections have
+> already been undone by someone re-copying from a doc like this one.
 
-What works instead (this is Module 5 of the LiftOffr course):
-
-- 25% out when Score hits 70
-- 25% out when Score hits 80
-- 25% out when Score hits 85
-- 25% out when 3+ binary triggers fire (Pi Cycle, MVRV 7+, CBBI 90+)
-
-By the time the top is obvious in hindsight, you're 75% in stables. You captured most of the upside without trying to time the exact peak.
-
-**Why this matters:** The biggest mistake of every cycle is binary thinking. Sell everything or hold everything. The Score lets you scale — that's the difference between round-tripping and compounding.
-
-Members of LiftOffr get this framework as part of the 6-module course, plus a daily 3-minute brief in Discord every morning at 8am MT that says "here's the read, here's what to do today." If you've been getting value from these emails, the daily brief is the same thing — every day, before market hours.
-
-[See what's inside →](https://liftoffr.com/?utm_source=beehiiv&utm_medium=email&utm_campaign=welcome_seq&utm_content=email_2)
-
-— Torin
-
----
 
 ## EMAIL 3 — Day 7
 

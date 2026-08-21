@@ -66,6 +66,21 @@
       "permanent": false
     },
     {
+      "source": "/lead-magnet/cycle-top-checklist.pdf",
+      "destination": "/lead-magnet/read-the-cycle.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/lead-magnet/bear-market-buy-zone.pdf",
+      "destination": "/lead-magnet/read-the-cycle.pdf",
+      "permanent": true
+    },
+    {
+      "source": "/LiftOffr-Score-Methodology-v1.pdf",
+      "destination": "/lead-magnet/read-the-cycle.pdf",
+      "permanent": true
+    },
+    {
       "source": "/lead-magnet/checklist",
       "destination": "/quiz?utm_source=liftoffr&utm_medium=redirect&utm_campaign=quiz&utm_content=from_leadmagnet",
       "permanent": false
