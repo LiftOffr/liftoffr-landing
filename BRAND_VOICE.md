@@ -17,7 +17,7 @@ STATUS: v1, 2026-07-01. Applies to: site, course, Discord, emails, IG captions. 
 
 ## Before/after examples
 1. ❌ "Our comprehensive suite of indicators empowers investors to navigate market cycles."
-   ✅ "8 indicators. One daily brief. Every cycle top called since 2013."
+   ✅ "Nine weighted components. One number every morning. Every signal it produced since 2011, including the ones that went the wrong way."
 2. ❌ "It's important to note that no single indicator is foolproof, so a diversified analytical approach is crucial."
    ✅ "No single indicator is reliable on its own. Confluence is the signal — when 5+ flash top zone together, the cycle is statistically near peak."
 3. ❌ "Join our vibrant community of like-minded crypto enthusiasts today!"

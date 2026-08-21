@@ -228,18 +228,14 @@ address** — it must be one that receives mail.
 
 ---
 
-## One thing needing your answer
+## Resolved
 
-**Your 2025 exit is described two different ways and they do not agree.**
+**The 2025 exit account is settled.** Torin exited *early*: he began laddering out from the
+27 June 2025 exit crossing at $107,091, Bitcoin peaked at $124,824 on 6 October, and being early
+cost him the last leg. `/about`, `/disclaimer` §4 and the buy-plan PDF now all tell that story,
+with the same carve-out — his own account, unquantified, unauditable, not evidence the model
+works, judge the method on `/receipts` instead.
 
-- The **PDF** now says, on your instruction: *"I exited at the October 2025 top."*
-- **`/about`** says: *"I sold into the 2025 top on a ladder... I laddered out over the following
-  weeks,"* and that **"the ladder was early, and being early cost me the last leg."**
-
-Early and costing you the last leg means you were out **before** the top. Exiting **at** the top
-means you were not. Both carry the same honest carve-out — your word, unquantified, unauditable,
-not evidence the model works — so neither overclaims. But a buyer who reads both sees a
-contradiction, and this is the one class of error we spent the whole day removing.
-
-**I have not changed `/about`,** because which is true is a fact about your own trading and not
-mine to decide. Tell me which, and I will make both surfaces match in one edit.
+That is also the better version. It is consistent with what the model published, it is the
+version his own record supports, and a system that got him out early and cost him money — said
+out loud — is more persuasive than a clean top call he cannot evidence.

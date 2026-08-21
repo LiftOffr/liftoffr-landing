@@ -84,11 +84,14 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
 
 ## 5. THE RECEIPTS
 
-- **I exited at the October 2025 top.** That is my account of my own conduct. I am not putting a
-  number on it, you cannot audit it, and it is not evidence the model works — it sits outside the
-  published record entirely. What *is* on the record, and what you can check, is every zone
-  crossing the model produced before and after: liftoffr.com/receipts. Judge the method on that,
-  not on this paragraph.
+- **I got out early, and it cost me.** The model crossed into its exit zone on 27 June 2025 at
+  $107,091, and I began laddering out from there over the following weeks. Bitcoin went on to peak
+  at $124,824 on 6 October. So the ladder was early, and being early cost me the last leg — which
+  is exactly what a threshold model does and exactly what this plan is written to survive. That is
+  my own account of my own conduct: I am not putting a number on it, you cannot audit it, and it
+  is not evidence the model works. It sits outside the published record. What you *can* check is
+  the crossing itself and every other one the model produced — liftoffr.com/receipts. Judge the
+  method on that, not on this paragraph.
 - The miss that built the system: **November 2021** — indicators flagged the top, I didn't follow them, round-tripped $30K. The rules exist because I paid for them.
 - This plan's fires so far: IMMEDIATE (May 28), T1, T2 — [dates + fills from ledger. TORIN: confirm what you want shown]
 - Everything timestamped: liftoffr.com/receipts and /track-record.

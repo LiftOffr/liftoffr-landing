@@ -166,7 +166,7 @@ function plan7HTML() {
   return planShell("Plan · Day 7",
     `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
      <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
-     <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. In 2025 I laddered out into the top on a rule written months earlier — I'm not going to put a personal number on that, because it's the one thing on this site you couldn't check.</p>
+     <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. In 2025 I laddered out early on a rule written months earlier, and being early cost me the last leg — I'm not going to put a personal number on that, because it's the one thing on this site you couldn't check.</p>
      <p style="margin:0 0 16px;">What you <em>can</em> check is the model, and I am giving it to you with the edges left on. It crossed into its exit zone on <strong>27 June 2025 at $107,091</strong>, more than three months before the $124,824 top, and it entered that zone <strong>three times</strong> in twelve months, dropping back out of it three times. In November 2017 it called exit at $7,729 and Bitcoin rose <strong>149% in the next thirty days</strong>.</p>
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <div style="border-top:1px solid #eee;margin:22px 0 0;padding-top:18px;">
@@ -180,7 +180,7 @@ function plan7HTML() {
 function plan7Text() {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
     "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
-    "Everything since exists so that decision gets made while I'm calm instead of euphoric. In 2025 I laddered out into the top on a rule written months earlier — no personal number on that, because it's the one thing here you couldn't check.","",
+    "Everything since exists so that decision gets made while I'm calm instead of euphoric. In 2025 I laddered out early on a rule written months earlier, and being early cost me the last leg — no personal number on that, because it's the one thing here you couldn't check.","",
     "What you CAN check is the model, and I am giving it to you with the edges left on: it crossed into its exit zone on 27 June 2025 at $107,091, three months before the $124,824 top, and entered that zone three times in twelve months, dropping back out of it three times. In Nov 2017 it called exit at $7,729 and BTC rose 149% over the next thirty days.","",
     "Public and checkable:",
     "  https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts",

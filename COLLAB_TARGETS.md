@@ -18,9 +18,9 @@ STATUS: Researched + verified 2026-07-02 (24 targets). Outreach = Torin's. Strat
 | @understandingcrypto — TikTok | ~211K | Beginner term education | Pre-hype first-cycle audience | "What 'cycle top' actually means — with receipts" |
 | Bob Loukas — YT/X | n/v | THE Bitcoin 4-year-cycle OG | Slow-money philosophy = the thesis | "Does the 4-year cycle still exist after 2025?" |
 | CryptoCon (@CryptoCon_) — X | 127K | Conservative cycle theory | Halving Cycles Theory creator | "Two cycle models, one chart: where are we now?" |
-| Rational Root — X/Substack | 212K | On-chain spiral-chart quant | Direct analog to the 8-indicator stack | "His spiral model vs the 8-indicator stack — same top call?" |
+| Rational Root — X/Substack | 212K | On-chain spiral-chart quant | Direct analog to the nine-component weighted Score | "His spiral model vs the nine-component weighted Score — same top call?" |
 | Ecoinometrics — X/Substack | 105K | Data-driven BTC macro charts | Chart-per-post converts to Reels | Co-branded "one chart" drops |
-| Matt Crosby (BM Pro) — YT/X | n/v | "Bitcoin Everything Indicator" builder | Kindred multi-metric system | "Everything Indicator vs 8-indicator: Oct 2025 replay" |
+| Matt Crosby (BM Pro) — YT/X | n/v | "Bitcoin Everything Indicator" builder | Kindred multi-metric system | "Everything Indicator vs nine-compontor: Oct 2025 replay" |
 | apsk32 — X | n/v | Power-law time-contours | Engineer-quant, widely cited | "Power law says HODL, indicators say trim — who wins?" |
 | Sminston With — X/YT | n/v | Power-law stacking/retirement math | Planning-first audience | "Stacking targets + exit discipline: the full plan" |
 | Bitcoin University (Kratter) — YT | 279K (stretch) | Bitcoin-only, self-sovereignty | Anti-altcoin, strong Shorts output | "Why I sold nothing vs why I sold the top" debate |
@@ -40,5 +40,5 @@ STATUS: Researched + verified 2026-07-02 (24 targets). Outreach = Torin's. Strat
 5. **TXMC** — smallest reach, biggest credibility payoff (ex-Glassnode co-sign).
 
 ## DM opener template (adapt per target)
-"[name] — your [specific recent post] take on [topic] is the least-hype thing on my feed. I run LiftOffr (8-indicator cycle system — publicly called the Oct 2025 top, receipts on the site). Want to do a joint reel: [their pitch from table]? Your feed + mine, ~60s, I'll handle the data graphics."
+"[name] — your [specific recent post] take on [topic] is the least-hype thing on my feed. I run LiftOffr (nine-compontor cycle system — publicly called the Oct 2025 top, receipts on the site). Want to do a joint reel: [their pitch from table]? Your feed + mine, ~60s, I'll handle the data graphics."
 Cadence: 2-3 opens/week. No mass DMs.
