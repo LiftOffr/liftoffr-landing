@@ -70,7 +70,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-K5B4BX46');</script>
 <!-- End Google Tag Manager -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-015PKWM24J');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-015PKWM24J');
+  /* window.track and the offer-CTA listener. Added 2026-08-20: this page had
+     gtag configured, so page_view fired, but no track() wrapper and no click
+     listener -- nothing a visitor DID here was ever recorded. It matters because
+     /cycle is where the homepage hero button and the nav "Live Score" link both
+     land, which makes it the most-entered internal page on the site, and it
+     carries two $29 CTAs of its own. Wrapper is byte-identical to every other
+     page's so the three cannot drift. */
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest(
+      'a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var dest = /whop\.com\/checkout/.test(href)
+      ? 'whop_checkout'
+      : href.split('?')[0].replace(/^\//, '').replace(/\/$/, '');
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      // Placement, best available: an explicit slot attribute, else the
+      // utm_content already baked into the internal href (which is what those
+      // internal utm_* values actually are -- placement labels, not sources).
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    (href.split('utm_content=')[1] || '').split('&')[0] || 'unlabelled',
+      destination: dest,
+      page: location.pathname
+    });
+  }, true);
+</script>
 <!-- Microsoft Clarity -->
 <!-- Clarity is started by the consent snippet above, only after the visitor allows
      analytics. Do not re-add an unconditional Clarity tag here. -->
@@ -148,7 +176,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="tb"><div class="l">BTC</div><div class="v" id="tbP">—</div></div>
     <div class="tb"><div class="l">24h</div><div class="v" id="tb24">—</div></div>
     <div class="tb"><div class="l">Cycle Score</div><div class="v" id="tbS">—</div></div>
-    <a class="cta" href="/plan?utm_source=cycle&utm_medium=topbar&utm_campaign=plan">Get the plan — $29 once →</a>
+    <a class="cta" href="/plan?utm_source=cycle&utm_medium=topbar&utm_campaign=plan" data-cta-slot="cycle_topbar">Get the plan — $29 once →</a>
   </div>
 
   <div class="hero">
@@ -183,7 +211,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="convert">
       <h3>This is the free look. Members get the <em>edge</em>.</h3>
       <p>The Score above is free, forever. The exact plan I'm executing against it is $29, once.</p>
-      <a href="/plan?utm_source=cycle&utm_medium=convert&utm_campaign=plan">Get the plan — $29 once →</a>
+      <a href="/plan?utm_source=cycle&utm_medium=convert&utm_campaign=plan" data-cta-slot="cycle_convert">Get the plan — $29 once →</a>
     </div>
 
     <footer>

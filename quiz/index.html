@@ -86,6 +86,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('js', new Date());
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+
+  /* Offer-CTA click tracking. Added 2026-08-20 by the tracking pass: this page
+     had no cta_clicked listener at all, so every click from here into the offer
+     produced no event and the page's whole click-through behaviour was invisible.
+     The selector matches the DESTINATION rather than the vendor, and matches
+     tagged hrefs (/plan?utm_source=...) rather than only bare ones -- the two
+     mistakes that left the same handler dead on a dozen other pages. */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest(
+      'a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var dest = /whop\.com\/checkout/.test(href)
+      ? 'whop_checkout'
+      : href.split('?')[0].replace(/^\//, '').replace(/\/$/, '');
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      // Placement, best available: an explicit slot attribute, else the
+      // utm_content already baked into the internal href (which is what those
+      // internal utm_* values actually are -- placement labels, not sources).
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    (href.split('utm_content=')[1] || '').split('&')[0] || 'unlabelled',
+      destination: dest,
+      page: location.pathname
+    });
+  }, true);
 </script>
 <!-- Microsoft Clarity -->
 <!-- Clarity is started by the consent snippet above, only after the visitor allows
