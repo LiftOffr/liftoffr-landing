@@ -52,3 +52,40 @@ No instruction verbs in customer-facing copy: buy, sell, reduce, take profits, s
 de-risk, DCA, hold. No quality claims about the product (institutional-grade, proven,
 best-in-class). No superlatives. Describe what the record did; never tell the reader what to
 do. Limitations are kept and framed as the reason to trust the rest — never deleted.
+
+---
+
+## The failure mode of 20–21 August 2026: unverifiable is not assumed fine
+
+Two sessions worked this repo overnight. Between them they wrote four verification checks and
+broke three of them, and the same shape appeared in the content, the emails and the course. It is
+one failure mode, and it is worth more than the list of instances.
+
+**Every one was a place where "I could not determine this" got written down as "this is fine",
+because a passing result has no way to say the first thing.**
+
+| Where | The check | What it actually measured |
+|---|---|---|
+| `verify_money_path.sh` | count checkout anchors | a bare grep for `whop.com/checkout` — which the `cta_clicked` selector itself contains, so counts read one high and a deleted anchor would have read as correct |
+| `cta_clicked` selectors | list the destinations | correct until someone added a destination. Three times. |
+| `check_cta_coverage.js` v1 | does the selector cover the links | skipped pages with no handler entirely — the most common way tracking breaks |
+| `check_cta_coverage.js` v2 | as above, fixed | printed "no readable selector — check by hand" and continued. A silent pass wearing a note. |
+| Course audit, three rounds | read the lessons | the Discord bot API returns empty `content` for embeds; "nothing there" was read as "nothing wrong". Old Module 5 turned out to be four lessons of instructed position sizing. |
+| PDF verification | does the document say the right things | text extraction, which cannot see a blank page, a reflowed cover, or a production note rendered as body text |
+| `HANDOVER.md` appendix 3 | count two pages | two of five cells were never measured at all — filled in from assumption, in the appendix about this exact failure |
+
+**The rules that follow, in order of how much they saved:**
+
+1. **Run the thing. Do not read about the thing.** Dispatch real clicks and count what reaches
+   `dataLayer`. Render every PDF page as an image and look at it. Open the lesson in the client
+   that renders it. Every serious defect this month was found this way and none was findable the
+   other way.
+2. **When a check cannot verify something, it fails.** Not warns, not skips. If that gets loud,
+   improve the check — never soften it to a warning.
+3. **Validate a check against the real failure it was written for**, by reproducing that failure,
+   not a hypothetical one. Both coverage-checker holes were found this way.
+4. **Re-measure the neighbours after finding one error.** Fixing one cell does not make the others
+   right; the second bad cell in appendix 3 was found only because all five were recounted.
+5. **A second pair of eyes reading your summary is worth little; a second pair running your work
+   is worth almost everything.** Every summary written overnight was in good faith and accurate
+   about what its author believed. That was not sufficient.
