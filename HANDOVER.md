@@ -263,6 +263,21 @@ address** — it must be one that receives mail.
   signals or buy-plan channel, and the `||` fallback that could have redirected the briefing has
   been removed. Nothing leaked, and the path that would have allowed it no longer exists.
 - Mobile: 29 pages clean at 375px.
+- **The buy-plan PDF is rebuilt and now actually shippable.** The 20 Aug build was not: it shipped
+  internal production notes as visible body text, had a blank page and a cover reflowed as body
+  copy, its section 3 "worksheet" was prose with no worksheet in it, and the last line of the paid
+  document read `[Disclaimer repeats, short form]` — the closing disclaimer was never written.
+  All fixed, the real 117-line worksheet is in, and it is 13 pages with zero blanks.
+- **`/score` had no analytics at all** — no GA4 tag, no `track()` — while calling `window.track`
+  twice behind guards that were always false. The Instagram bio, every pinned comment and the
+  Reel shortlinks all land there, so the top of the funnel was reporting nothing. Fixed, along
+  with the attribution include on `/score`, `/free` and `/quiz`.
+
+> **⚠ ONE THING TO KNOW BEFORE SUNDAY.** `DISCORD_BUY_ALERTS_WEBHOOK` still does not exist in
+> Vercel, and the fallback that used to send the weekly briefing to the ops webhook has been
+> removed (deliberately — it could have routed your total budget to a member-visible channel).
+> **So the weekly buy-plan briefing now silently skips.** That is correct security behaviour, not
+> a bug, but nothing will arrive until you create that webhook and set the variable. See item 12.
 - **Every entry point now has a next step at the point of conviction.** `/quiz` had *zero* route
   to anything paid despite being a designated funnel destination — that was the worst finding of
   the sweep, not the blog. Fixed, along with `/score`, `/free`, `/receipts`, `/proof` and all
