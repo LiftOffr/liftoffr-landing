@@ -134,43 +134,64 @@ offer". It does not fire everywhere. Audited 20 Aug by dispatching real clicks i
 and reading what reached `dataLayer` — not by reading the source, because the source looks
 correct on the pages where it is broken.
 
-It was badly broken on 20 Aug and is now close to complete. Where it was broken, the
-handler was bound to `closest('a[href*="whop.com/"]')` on pages containing no Whop anchor,
-or to `a[href$="/plan"]`, which matches a bare `/plan` and misses every tagged one — and the
-tagged ones are the CTAs. Repaired the same evening.
+It was badly broken on 20 Aug and is now nearly complete. Where it was broken, the handler
+was bound to `closest('a[href*="whop.com/"]')` on pages containing no Whop anchor, or to
+`a[href$="/plan"]`, which matches a bare `/plan` and misses every tagged one, or to
+`a[data-dest]` on a page where only the primary button carried the attribute. Repaired the
+same evening.
 
-**What it fired before and after, measured on the live pages:**
+**How this was audited, because the method is the point.** Reading the handlers is not
+enough: every broken one reads correctly, and one page had a listener that attaches, works,
+and is bound to a single destination nobody cares about. The reliable method is to load each
+page, enumerate every offer anchor on it, dispatch a real click at each, and count how many
+reach `dataLayer`. Do it that way or the number is a guess.
 
-| Page | before | after |
-|---|---|---|
-| `/score` | 0 of 4 | 4 of 4 |
-| `/cycle` | no `window.track` at all | 2 of 2 |
-| `/quiz` | 0 of 4 | 4 of 4 |
-| `/faq` | 0 of 4 | 4 of 4 |
-| `/proof` | 0 of 7 | 7 of 7 |
-| `/receipts` | 2 of 3 | 3 of 3 |
-| `/blog` index, all nine posts | 0 of 7 (on the post measured) | 6 of 7 — see below |
-| `/indicator-history` | 0 of 2 | fixed, same one-liner |
-| `/links` | 5 of 6 | 11 of 11 |
-| `/track-record` | partial | fixed |
+**Live coverage, measured that way after the last deploy:**
 
-**Already working throughout:** `/`, `/plan`, `/system`, `/playbook`, `/free`, `/stack`,
-`/when-will-bitcoin-bottom`, `/indicators` and its nine subpages, `/welcome-plan`.
+| Page | fired / offer anchors |
+|---|---|
+| `/system` | 8 / 8 |
+| `/playbook` | 9 / 9 |
+| `/free` | 4 / 4 |
+| `/stack` | 5 / 5 |
+| `/indicators` and each of its nine subpages | 4 / 4 |
+| `/when-will-bitcoin-bottom` | 4 / 4 |
+| `/score` | 4 / 4 |
+| `/quiz` | 5 / 5 |
+| `/receipts` | 5 / 5 |
+| `/proof` | 7 / 7 |
+| `/blog` and the nine posts | 7 / 7 |
+| `/links` | 11 / 11 |
+| `/cycle` | 4 / 4 |
+| `/faq` | 7 / 7 |
+| `/track-record` | 8 / 8 |
+| `/indicator-history` | 5 / 5 |
+| **`/`** | **0 / 29** |
+| **`/about`** | **0 / 5** |
+| `/plan` | 12 / 18 |
+| `/welcome-plan` | 3 / 4 |
 
-**One gap remains, and it is the strategically important one.** The repaired selector
-matches `/plan`, `/system`, `/playbook`, `/receipts` and Whop checkout. It does **not**
-match `/score` or `/free`. Every one of the nine blog posts carries exactly one `/score`
-link tagged `<slug>_midarticle` — the deliberate mid-article next step at 55–66% depth,
-pointing at the free Score rather than at $29 because a cold reader arriving from an MVRV
-search is not ready for a paid ask. **That is the most important CTA on each post and it is
-the one still firing nothing.** Same on `/receipts` (two `/score` links).
+**The homepage is the one that matters.** Its listener attaches and works; it is bound to
+`a[href*="whop.com/"], a[href$="/start"], a[href$="/founder"]`, none of which exist on that
+page, plus a second one for `/track-record`, which does fire. So the homepage measures
+exactly one thing: clicks on the Track Record link. All 29 offer links, 7 to `/plan`,
+3 to `/system`, 2 to `/playbook`, 3 to `/score`, 1 to `/free`, 11 to `/receipts`, are silent.
+**Do not compare pages on click volume until this is fixed.** The homepage will read as the
+worst-performing page on the site and it is simply not reporting.
 
-Fixed on `/score`, `/cycle`, `/quiz`, `/faq`, `/links` and `/track-record` by adding
-`a[href^="/score"], a[href^="/free"]` to the selector. The ten blog files, `/proof`,
-`/receipts` and `/indicator-history` need the same one-liner.
+`/plan`'s 6 misses and `/welcome-plan`'s 1 are secondary links without `data-dest`; the
+primary CTAs on both are tracked.
 
-**Until that lands:** do not read a low blog click number as "the blog does not convert".
-Its designated next step is invisible by construction.
+### A trap worth naming: a hardcoded destination under a widened selector
+
+When a selector is broadened, any `destination` that was hardcoded becomes a lie. This
+happened live for part of 20 Aug: `/receipts` widened its selector, kept
+`destination: sl==='plan' ? 'plan' : 'whop_checkout'`, and began logging its two `/score`
+clicks as **checkout clicks on a page that has no Whop anchor at all**. Fabricated events are
+worse than silence, because `begin_checkout ÷ purchase` is the checkout-abandonment ratio and
+phantom checkout clicks poison it invisibly. Every handler now derives `destination` from the
+href when no `data-dest` is set, and the sweep above confirms zero `whop_checkout` events on
+pages with no Whop anchor.
 
 ---
 
@@ -272,9 +293,11 @@ Ordered by how much they unlock per unit of work.
    `js/attribution.js` and `api/whop-webhook.js`.
 4. **Register `source`/`medium`/`campaign` as GA4 custom dimensions** so the parameters
    already on the `purchase` event become reportable. Admin-only, no code.
-5. **Add `a[href^="/score"], a[href^="/free"]`** to the `cta_clicked` selector on the ten
-   blog files, `/proof`, `/receipts` and `/indicator-history`. The rest of §5 is done; this
-   is what is left, and it is the blog's mid-article step, so it is worth more than its size.
+5. **Fix `cta_clicked` on the homepage.** 0 of 29 offer links fire; the listener is bound to
+   selectors that match nothing on that page. Every other page on the site is now at or near
+   100%, which makes the homepage's zero actively misleading rather than merely missing.
+   `/about` is 0 of 5 for the same reason. Selector change only, and it is the single
+   highest-traffic page.
 6. **Add `scroll_depth` to `/score`, `/free`, `/plan`, `/system`, `/playbook`.** Answers
    "does anyone reach the offer" on the pages where the offer is deep.
 
