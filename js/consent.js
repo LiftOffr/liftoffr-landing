@@ -80,18 +80,26 @@
     //    consent-gated. An earlier draft said Analytics sets no cookie and stopped
     //    there — true of Analytics, but a reader fairly infers nothing on the page
     //    has set one, and two have. Naming them closes that gap.
-    // 3. Length is a constraint, not a free variable. A longer, more honest draft
-    //    took the banner to 41% of a 375x812 viewport and covered the Score itself
-    //    on /score — the page the Instagram bio points at. This version says more
-    //    than that draft in half the characters. If you edit it, re-measure the
-    //    banner height and the /score number's visibility at 375x812, 390x844,
-    //    414x896 and 375x667 before you push. Do not shrink the font to make room.
-    p.innerHTML = '<strong style="color:#fff;">Clarity records session replays</strong> — mouse ' +
-      'movement, scrolling and clicks — and does not load unless you allow it. Google Analytics ' +
-      'counts ' +
-      'page views from the start without identifying you or setting a cookie; allowing it lets it ' +
-      'set one so return visits are not double-counted. Our checkout provider sets two cookies on ' +
-      'arrival so the right referrer gets credited. None of it is needed for anything here to work.';
+    // 3. Length is a constraint, not a free variable. A longer draft took the banner
+    //    to 41% of a 375x812 viewport and covered the Score itself on /score — the
+    //    page the Instagram bio points at. If you edit this, re-measure the banner
+    //    height and the /score number's visibility at 375x812, 390x844, 414x896 and
+    //    375x667 before you push. Do not shrink the font to make room.
+    // 4. Tone is also load-bearing, and it is the newest constraint. An earlier
+    //    accurate version led with "Clarity records session replays" and read as a
+    //    warning notice, which makes declining the obvious move — an honest banner
+    //    that frightens people into declining is not more honest, it just measures
+    //    less. This version leads with why it helps and keeps every disclosure:
+    //    replays named, cookieless-by-default stated, the two Whop cookies named,
+    //    and "no is a completely fine answer" said out loud. Detail lives behind
+    //    /privacy. Never trade a fact away for warmth; reorder instead.
+    p.innerHTML = '<strong style="color:#fff;">Mind if I see which pages actually help?</strong> ' +
+      'Analytics tells me what people read and what they skip, so I can write more of the first. ' +
+      'It already counts page views anonymously, with no cookie. Saying yes lets it remember you ' +
+      'across visits, and turns on a tool that records anonymous session replays &mdash; mouse ' +
+      'movement, scrolling and clicks &mdash; which stays off unless you allow it. ' +
+      '(Our checkout provider also sets two cookies on arrival, to credit the right referrer.) ' +
+      'Nothing here needs any of it to work, and no is a completely fine answer.';
 
     // The link to the full disclosure is pulled OUT of the paragraph so it sits
     // below the scroll area and can never be the part that scrolls off.

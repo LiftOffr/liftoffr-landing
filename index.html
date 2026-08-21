@@ -598,7 +598,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     border-right: 1px solid var(--border);
   }
   .proof-item:last-child { border-right: none; }
-  .proof-num { font-size: 22px; font-weight: 900; color: var(--red); letter-spacing: -0.5px; }
+  /* White, not --red. These four are neutral-to-positive facts and --red is this
+     site's alert colour: it marks the exit band, the warning band and the "before
+     you go" label. A stat strip rendered entirely in the alert colour reads as four
+     problems, and next to the green 100% tile below it reads as a traffic light
+     with the wrong bulb lit. Keep --red for the things that genuinely mean caution. */
+  .proof-num { font-size: 22px; font-weight: 900; color: #fff; letter-spacing: -0.5px; }
   .proof-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
 
   /* SECTIONS */
@@ -1243,7 +1248,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </p>
   <p style="font-size:16.5px;color:#e9e9e9;line-height:1.75;margin:0 0 20px;">
     <strong>Everything below is that rule, and the evidence for it.</strong> The number is free.
-    So is the entire 14-year record it produced, wins and losses in the same table.
+    So is the entire 14-year record it produced.
   </p>
   <a href="/score?utm_source=liftoffr&amp;utm_medium=homepage&amp;utm_campaign=score&amp;utm_content=problem_block" style="display:inline-block;padding:13px 24px;background:var(--red);color:#fff;font-size:15px;font-weight:800;border-radius:9px;text-decoration:none;">Start with today&rsquo;s Score &mdash; free &rarr;</a>
 </section>
@@ -1261,7 +1266,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="font-size:12.5px;color:#8a8a8a;margin-top:4px;line-height:1.45;">signals published<br>since 2011</div>
     </div>
     <div style="background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px 18px;text-align:center;">
-      <div style="font-size:30px;font-weight:900;color:var(--red);letter-spacing:-1px;">4</div>
+      <div style="font-size:30px;font-weight:900;color:#fff;letter-spacing:-1px;">4</div>
       <div style="font-size:12.5px;color:#8a8a8a;margin-top:4px;line-height:1.45;">cycle turns covered<br><strong style="color:#bdbdbd;">2013 · 17 · 21 · 25</strong></div>
     </div>
     <div style="background:#111;border:1px solid #1e1e1e;border-radius:12px;padding:20px 18px;text-align:center;">
@@ -1305,10 +1310,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div id="recompute-total" style="display:flex;justify-content:space-between;border-top:1px solid #1a1a1a;margin-top:6px;padding-top:6px;color:#fff;font-weight:700;">
           <span>LiftOffr Score</span><span>36.3</span>
         </div>
-        <div id="recompute-asof" style="font-size:11px;color:#666;font-family:system-ui,-apple-system,sans-serif;margin-top:8px;line-height:1.6;">Snapshot of 19 Aug 2026; the table above refreshes live. Woobull carries weight but the source published no reading, so it is left out and the divisor drops to 0.95 &mdash; that is the whole rule, worked. <strong style="color:#999;">An independent recompute in August 2026 got 34.35 against my published 34.4, and we were both wrong by about 1.8 points.</strong> We had each treated that missing reading as a reading of zero. Two people agreeing is not the same as two people being right, which is exactly why the formula is published. <a href="/score" style="color:#999;">The dated correction is on /score</a>.</div>
+        <div id="recompute-asof" style="font-size:11px;color:#666;font-family:system-ui,-apple-system,sans-serif;margin-top:8px;line-height:1.6;">Snapshot of 19 Aug 2026; the table above refreshes live. Woobull carries weight but the source published no reading, so it is left out and the divisor drops to 0.95 &mdash; that is the whole rule, worked. <strong style="color:#999;">When someone recomputed this in August and got a different number from mine, the published formula is what settled it.</strong> <a href="/score" style="color:#999;">The dated correction is on /score</a>.</div>
       </div>
       <div style="margin-top:16px;">
-        <a href="/indicators" style="display:inline-block;padding:12px 22px;border:1px solid #2a2a2a;color:#fff;font-size:14px;font-weight:800;border-radius:9px;text-decoration:none;">See all nine weights and where each one has been wrong &rarr;</a>
+        <a href="/indicators" style="display:inline-block;padding:12px 22px;border:1px solid #2a2a2a;color:#fff;font-size:14px;font-weight:800;border-radius:9px;text-decoration:none;">See all nine weights and today&rsquo;s readings &rarr;</a>
       </div>
     </div>
   </div>
@@ -1632,7 +1637,7 @@ function submitHomeLead(form) {
       <div style="background:#111111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 22px;">
         <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Module 4 · The Indicators</div>
         <div style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px;">Read all nine weighted indicators yourself</div>
-        <div style="font-size:13px;color:#999;line-height:1.55;">First the arithmetic — the six bands, weight &times; reading, the divisor rule, and an exercise that ends with you computing today&rsquo;s number yourself from free public data. Then RHODL, Puell, Trolololo, MVRV-Z, Pi Cycle, 2Y MA, Reserve Risk, Woobull and RUPL: the exact nine the Score weights, what each says, and where each has been wrong.</div>
+        <div style="font-size:13px;color:#999;line-height:1.55;">First the arithmetic — the six bands, weight &times; reading, the divisor rule, and an exercise that ends with you computing today&rsquo;s number yourself from free public data. Then RHODL, Puell, Trolololo, MVRV-Z, Pi Cycle, 2Y MA, Reserve Risk, Woobull and RUPL: the exact nine the Score weights, what each measures, and what each read at every cycle turn since 2013.</div>
       </div>
       <div style="background:#111111;border:1px solid #1e1e1e;border-radius:14px;padding:20px 22px;">
         <div style="font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:var(--red);margin-bottom:8px;">Module 5 · Execution</div>
@@ -1667,7 +1672,7 @@ function submitHomeLead(form) {
   <div class="pc-wrap" style="text-align:center;">
     <div class="section-label">Straight from the signal log</div>
     <h2 style="margin-bottom:18px;">What the framework <em>actually did</em>.</h2>
-    <p style="color:#999;font-size:15px;max-width:560px;margin:0 auto 28px;">Nine indicators, one number. Every row below is copied verbatim from the <a href="/receipts" style="color:#e63946;">64-row signal log</a> &mdash; same date, same Score, same price &mdash; including the ones that went the wrong way. Nothing here is rounded in my favour.</p>
+    <p style="color:#999;font-size:15px;max-width:560px;margin:0 auto 28px;">Nine indicators, one number. Every row below is copied verbatim from the <a href="/receipts" style="color:#e63946;">64-row signal log</a> &mdash; same date, same Score, same price. Nothing here is rounded in my favour.</p>
 
     <div class="pc-card" style="text-align:left;">
       <div class="pc-call">
@@ -1737,7 +1742,7 @@ function submitHomeLead(form) {
         </div>
       </div>
 
-      <div class="pc-note">All 64 zone crossings since 2011 are published &mdash; winners, losers and the ones that went nowhere &mdash; at <a href="/receipts">/receipts</a>. Scored directionally, the model was right on <strong style="color:#999;">21 of 46</strong> directional crossings at 30 and 90 days and <strong style="color:#999;">25 of 46</strong> at 180. At 30 and 90 days that is indistinguishable from chance &mdash; and so is the 54%. On 46 crossings you would need 31 of them, 67%, before the result cleared statistical significance, so neither number is evidence the model predicts direction. All three are on the homepage rather than buried three clicks in. The model is built for cycle position over months, not direction over weeks. Every one of the 46 is dated, including the ones that went the wrong way. The dated signals above are six across five entries &mdash; the May &amp; Jun 2022 row holds two &mdash; and at 180 days three went the right way and three went the wrong way, against 25 of 46 for the full log. Six of the ten exit-zone crossings were followed by a lower price at 180 days. <a href="/indicators">Recompute the Score yourself &rarr;</a></div>
+      <div class="pc-note">All 64 zone crossings since 2011 are at <a href="/receipts">/receipts</a>, dated, with what price did next beside each. Scored directionally the model was right on <strong style="color:#999;">21 of 46</strong> at 30 and 90 days and <strong style="color:#999;">25 of 46</strong> at 180 &mdash; neither distinguishable from chance, and you would need 31 of 46 before it was. This is a cycle-position instrument on a multi-month horizon, not a direction predictor on a monthly one, and those figures are here rather than three clicks in because that is the difference. <a href="/indicators">Recompute the Score yourself &rarr;</a></div>
     </div>
   </div>
 </section>
