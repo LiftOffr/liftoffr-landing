@@ -17,8 +17,16 @@ promises on the sales page. The corrected source is ready.
 **What breaks if you skip it:** buyers hold a document that contradicts your own site, and three
 of your nine numbered promises are undelivered.
 
-**The PDF is already built.** I generated it with headless Chrome from the corrected source —
-8 pages, same as the original. It was sent to you in chat as `My-Bear-Market-Buy-Plan.pdf`.
+**The PDF is built and sitting in two places on this Mac:**
+
+```
+~/Desktop/My-Bear-Market-Buy-Plan.pdf
+~/liftoffr-plan-product/My-Bear-Market-Buy-Plan.pdf
+```
+
+**Use either — they are identical (214 KB, 8 pages).** The old version that was at those paths is
+preserved beside each as `My-Bear-Market-Buy-Plan.SUPERSEDED-2026-08-02.pdf` (401 KB). If you are
+ever unsure which you are holding: **the correct one is 214 KB; the superseded one is 401 KB.**
 
 **It is deliberately NOT in the repo.** Every file here is served publicly — the free lead-magnet
 PDF returns 200 today — so committing a paid deliverable would publish the $29 product as a free
@@ -30,8 +38,12 @@ it cost him the last leg; sections 5b and 5c are present; all nine trigger price
 and the total budget figure does not appear anywhere in it.
 
 **Steps:**
-1. Go to **whop.com → your LiftOffr product → Content → "My Bear Market Buy Plan"** and replace
-   the attached PDF with the file from chat.
+1. **whop.com → your LiftOffr product → Content → "My Bear Market Buy Plan"** → replace the
+   attached PDF with `~/Desktop/My-Bear-Market-Buy-Plan.pdf`.
+
+> **Note:** the Whop content app would not load for us — it hung on a spinner indefinitely. If it
+> does the same for you, try a different browser or the Whop mobile app before assuming anything
+> is broken on your side.
 4. Post one line in `#plan-updates` saying the doc was updated and what changed.
 
 **Already corrected in the source:** the nine-component count, the exit thresholds and whipsaw
@@ -94,10 +106,49 @@ weighted components, 35% of the model by weight, are missing from a course about
 **What breaks if you skip it:** the $197 product teaches a different framework than the free
 Score publishes, so a buyer cannot tell which to believe.
 
-**Steps:** files are in `course/`. Whop → your product → **Courses → Add Chapter** per module,
-**Add Lesson** per lesson, paste the markdown. Modules 1 and 5 are drafted; the rest are coming.
-Old Modules 1, 2, 3 and 6 (wallets, DCA, psychology, custody) stay — they do not depend on the
-indicator framework.
+**All 25 lessons are written.** Files are in `~/liftoffr-landing/course/`.
+
+Whop → your product → **Courses**. Create six chapters in this order, then add the lessons under
+each. Every lesson body is a copy-paste from the file named — no judgement required.
+
+| # | Chapter | Lesson title | Body from |
+|---|---|---|---|
+| 1 | The number itself | 1.1 What the Score is | `module-1-the-number.md` |
+| 2 | | 1.2 The six bands | `module-1-the-number.md` |
+| 3 | | 1.3 The arithmetic | `module-1-the-number.md` |
+| 4 | | 1.4 The divisor rule | `module-1-the-number.md` |
+| 5 | | 1.5 Reproduce it unaided | `module-1-the-number.md` |
+| 6 | The heavy half | 2.1 RHODL Ratio · 20% | `module-2-the-heavy-half.md` |
+| 7 | | 2.2 Puell Multiple · 20% | `module-2-the-heavy-half.md` |
+| 8 | The middle | 3.1 Trolololo trend line · 15% | `module-3-the-middle.md` |
+| 9 | | 3.2 MVRV Z-Score · 15% | `module-3-the-middle.md` |
+| 10 | | 3.3 Pi Cycle Top · 10% | `module-3-the-middle.md` |
+| 11 | The 5% components | 4.1 2-Year MA Multiplier | `module-4-the-five-percents.md` |
+| 12 | | 4.2 Reserve Risk | `module-4-the-five-percents.md` |
+| 13 | | 4.3 Woobull Top Cap | `module-4-the-five-percents.md` |
+| 14 | | 4.4 RUPL | `module-4-the-five-percents.md` |
+| 15 | What carries zero weight | 5.1 CBBI — the source, not a component | `module-5-zero-weight.md` |
+| 16 | | 5.2 Fear & Greed | `module-5-zero-weight.md` |
+| 17 | | 5.3 Google Trends | `module-5-zero-weight.md` |
+| 18 | | 5.4 Market Cipher | `module-5-zero-weight.md` |
+| 19 | | 5.5 The framework moved | `module-5-zero-weight.md` |
+| 20 | The record | 6.1 How to read /receipts | `module-6-the-record.md` |
+| 21 | | 6.2 Why 35 of 64 is not a hit rate | `module-6-the-record.md` |
+| 22 | | 6.3 Why 46% and 54% are the same number | `module-6-the-record.md` |
+| 23 | | 6.4 So what is it for? | `module-6-the-record.md` |
+| 24 | | 6.5 The whipsaw | `module-6-the-record.md` |
+| 25 | | 6.6 Applying it | `module-6-the-record.md` — **needs your writing first** |
+
+Plus one reference sheet: **The Phase Matrix**, from `reference-phase-matrix.md`.
+
+**This is a large, error-prone operation and half-finishing it leaves buyers with a broken
+product.** Do it in one sitting, or create all six chapters first and fill them in order so an
+interruption leaves a visible gap rather than a silent one.
+
+**Retire old Module 4 entirely when this goes up.** Old Modules 1, 2, 3 and 6 (wallets, DCA,
+psychology, custody) stay — they do not depend on the indicator framework. See
+`course/OLD_VS_NEW_DIFF.md` for what a buyer paid for that is disappearing (short answer: the
+Market Cipher lesson, and it is your call what to do about it).
 
 ---
 
