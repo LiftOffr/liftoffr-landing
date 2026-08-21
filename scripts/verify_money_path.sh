@@ -22,11 +22,34 @@ done
 [ "$ok" = "1" ] && echo "CHECKOUTS: PASS" || echo "CHECKOUTS: *** FAIL ***"
 
 echo
-echo "=== Checkout links still present in the markup ==="
-for pg in "" plan system playbook welcome-plan; do
-  n=$(curl -sS "https://liftoffr.com/$pg" | grep -c "whop.com/checkout" || true)
-  printf "  /%-13s %s checkout anchors\n" "$pg" "$n"
+echo "=== Checkout anchors still present in the markup ==="
+# Count real anchors only. A bare grep for "whop.com/checkout" also matches the
+# cta_clicked selector string, which now contains that literal on every page that
+# carries the listener -- that inflated every count by one and would have masked a
+# genuinely deleted anchor by making the remaining ones add up to the old total.
+expected_pg="/:0 plan:4 system:1 playbook:4 welcome-plan:1"
+anchors_ok=1
+for pair in $expected_pg; do
+  pg="${pair%%:*}"; want="${pair##*:}"
+  url_path="$pg"; [ "$pg" = "/" ] && url_path=""
+  n=$(curl -sS "https://liftoffr.com/$url_path" \
+      | grep -o 'href="https://whop\.com/checkout/plan_[A-Za-z0-9]*' | wc -l | tr -d ' ')
+  if [ "$n" = "$want" ]; then
+    printf "  /%-13s %s anchors\n" "${pg#/}" "$n"
+  else
+    printf "  /%-13s %s anchors  *** expected %s ***\n" "${pg#/}" "$n" "$want"
+    anchors_ok=0
+  fi
 done
+[ "$anchors_ok" = "1" ] && echo "CHECKOUT ANCHORS: PASS" || echo "CHECKOUT ANCHORS: *** FAIL ***"
+
+echo
+echo "=== Consent banner renders (executes render(), not just a syntax check) ==="
+if command -v node >/dev/null 2>&1; then
+  node "$(dirname "$0")/check_consent_banner.js" || echo "CONSENT BANNER: *** FAIL ***"
+else
+  echo "node not found, skipping consent render check"
+fi
 
 echo
 echo "=== Tracking coverage on live pages ==="

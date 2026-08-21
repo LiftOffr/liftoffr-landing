@@ -317,7 +317,21 @@ Ordered by how much they unlock per unit of work.
    template.
 4. **Nothing new may fire before consent.** Route everything through `window.track()`; it is
    already gated. Do not add a transport of your own.
+4b. **`node --check` does not tell you the consent banner works.** An undeclared identifier
+   is a runtime `ReferenceError`, not a parse error. On 2026-08-21 an edit to
+   `js/consent.js` deleted a variable that `render()` still referenced; the syntax check
+   passed and the file shipped, `render()` threw on every page load, and for one deploy the
+   site had **no consent surface at all** — nobody could accept, nobody could decline. It
+   failed safe (nothing extra was collected, Clarity never started) but the choice the
+   banner exists to offer was not on the page. Run `node scripts/check_consent_banner.js`,
+   which executes `render()` against a DOM stub and asserts the banner is built, both
+   buttons exist, the text is intact, the `/privacy` link sits outside the scrollable box,
+   and both decision paths behave. It is also wired into
+   `scripts/verify_money_path.sh`. Verified to reproduce that exact failure.
 5. **Never add a client-side `purchase`.** The server-side one is authoritative.
-6. **After any deploy, re-verify the Apple Pay file and the four checkout links.** 200, 228
-   bytes, `application/octet-stream`, sha256 `5d3b5ece…4def4c`; all four `plan_*` checkouts
-   resolve 200 after the trailing-slash 308.
+6. **After any deploy, run `scripts/verify_money_path.sh`.** Apple Pay: 200, 228 bytes,
+   `application/octet-stream`, sha256 `5d3b5ece…4def4c`. All four `plan_*` checkouts resolve
+   200 after the trailing-slash 308. And the checkout **anchors** are still in the markup —
+   counted strictly by `href=`, because a loose grep for `whop.com/checkout` also matches the
+   `cta_clicked` selector string that now appears on every page, which inflated every count
+   by one and would have let a genuinely deleted anchor read as the old correct total.
