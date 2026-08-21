@@ -77,10 +77,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   document.addEventListener('click',function(e){
-    var a=e.target.closest('a[href*="whop.com/"]');
+    // Broadened 20 Aug 2026. This was bound to a[href*="whop.com/"] and /proof has no
+    // Whop anchor, so all three CTAs on the strongest proof page fired nothing.
+    var a=e.target.closest('a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
     if(!a)return;
     var u=new URL(a.href,location.href);
-    track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:u.searchParams.get('utm_content')||'unknown',destination:'whop_checkout',page:location.pathname});
+    var d=u.hostname.indexOf('whop.com')>-1?'whop_checkout':(u.pathname.replace(/^\//,'').split('/')[0]||'home');
+    track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:a.getAttribute('data-cta')||u.searchParams.get('utm_content')||d,destination:d,page:location.pathname});
   },true);
   var _sd={};
   window.addEventListener('scroll',function(){

@@ -82,7 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 (function(){
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
   function utms(){var p=new URLSearchParams(location.search);return{source:p.get('utm_source')||'(direct)',medium:p.get('utm_medium')||'(none)',campaign:p.get('utm_campaign')||'(none)',content:p.get('utm_content')||'(none)'}}
-  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href$="/plan"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='plan'?'plan_start':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='plan'?'plan':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href*="whop.com/"], a[href^="/plan"]');if(!a)return;var u=new URL(a.href,location.href);var t=utms();var sl=u.pathname.replace(/^\//,'');var pos=u.searchParams.get('utm_content')||(sl==='plan'?'plan_start':'unknown');track('cta_clicked',{cta_text:(a.textContent||'').trim().slice(0,80),cta_position:pos,destination:(sl==='plan'?'plan':'whop_checkout'),page:location.pathname,utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign})},true);
   window.addEventListener('load',function(){var t=utms();if(t.source!=='(direct)')track('utm_landing',{utm_source:t.source,utm_medium:t.medium,utm_campaign:t.campaign,utm_content:t.content,page:location.pathname})});
   var _sd={};window.addEventListener('scroll',function(){var h=document.documentElement;var pct=Math.round((h.scrollTop+h.clientHeight)/h.scrollHeight*100);[25,50,75,90].forEach(function(m){if(pct>=m&&!_sd[m]){_sd[m]=1;track('scroll_depth',{depth:m,page:location.pathname});}});},{passive:true});
 })();
@@ -156,7 +156,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .cta-btn:hover{opacity:0.9}
 .disclaimer{font-size:11px;color:#555;text-align:center;margin-top:30px;line-height:1.5;max-width:760px;margin-left:auto;margin-right:auto}
 @media(max-width:860px){
-  .ev-row{grid-template-columns:96px minmax(180px,1fr) 58px 88px 70px 70px 70px;font-size:12px;min-width:660px}
+  /* The date column is pinned on purpose. Without it, a reader who swipes right to
+     reach +30d/+90d/+180d is looking at three percentages with no idea which of the
+     64 signals they belong to. Tightening gap to 7px and the event column to 172px
+     also drops content width to 675px, so iPad portrait (675px container) fits with
+     no horizontal scroll at all; 375px still scrolls and still shows the hint. */
+  .ev-row{grid-template-columns:96px minmax(172px,1fr) 58px 88px 70px 70px 70px;font-size:12px;min-width:642px;gap:7px}
+  .ev-row>*:first-child{position:sticky;left:0;z-index:2;background:var(--card);padding-right:8px;
+                        box-shadow:8px 0 10px -8px rgba(0,0,0,.95)}
   .stats{grid-template-columns:1fr 1fr;gap:8px}
   .stat{padding:14px}.stat-value{font-size:21px}
   .wrap{padding:18px 14px 60px}
