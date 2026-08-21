@@ -64,25 +64,30 @@
 
     var p = document.createElement('p');
     p.style.cssText = 'margin:0;';
-    // WORDING IS LOAD-BEARING. This used to say "nothing loads until you choose",
-    // which was false for GA4: under Advanced Consent Mode the tag is present from
-    // first paint and sends cookieless pings (gcs=G100&npa=1, no _ga cookie, no ad
-    // personalisation) before any choice is made. Clarity genuinely does not load —
-    // it is started by the accept path only. Describe both accurately rather than
-    // promising the stricter behaviour and delivering the looser one.
-    p.innerHTML = 'This site can load Google Analytics and Microsoft Clarity. ' +
-      '<strong style="color:#fff;">Clarity records session replays</strong> — mouse movement, ' +
-      'scrolling and clicks on this site — and it does not load at all unless you allow it. ' +
-      'Analytics counts anonymous page views from the start, with no cookies and nothing that ' +
-      'identifies you; allowing it lets it use a cookie so return visits are not counted twice. ' +
-      'None of it is needed for anything here to work.';
-
-    // The link to the full disclosure is pulled OUT of the paragraph so it sits
-    // below the scroll area and can never be the part that scrolls off. Not one
-    // word of the wording above changed; only which box it lives in.
-    var more = document.createElement('div');
-    more.style.cssText = 'margin:' + (narrow ? '7px' : '9px') + ' 0 ' + (narrow ? '10px' : '12px') + ';';
-    more.innerHTML = '<a href="/privacy" style="color:#e63946;">What gets collected</a>.';
+    // WORDING IS LOAD-BEARING, AND THREE THINGS HERE ARE LOAD-BEARING SEPARATELY.
+    //
+    // 1. This used to say "nothing loads until you choose", which was false for GA4:
+    //    under Advanced Consent Mode the tag is present from first paint and sends
+    //    cookieless pings (gcs=G100&npa=1, no _ga cookie, no ad personalisation)
+    //    before any choice. Clarity genuinely does not load — accept path only.
+    // 2. The cookie sentence is not padding. Measured on production on a cleared
+    //    session, before any choice and with no _ga cookie: `_wuid` and `_wuid_link`
+    //    are already set, Whop's, arriving through the GTM container, which is not
+    //    consent-gated. An earlier draft said Analytics sets no cookie and stopped
+    //    there — true of Analytics, but a reader fairly infers nothing on the page
+    //    has set one, and two have. Naming them closes that gap.
+    // 3. Length is a constraint, not a free variable. A longer, more honest draft
+    //    took the banner to 41% of a 375x812 viewport and covered the Score itself
+    //    on /score — the page the Instagram bio points at. This version says more
+    //    than that draft in half the characters. If you edit it, re-measure the
+    //    banner height and the /score number's visibility at 375x812, 390x844,
+    //    414x896 and 375x667 before you push. Do not shrink the font to make room.
+    p.innerHTML = '<strong style="color:#fff;">Clarity records session replays</strong> — mouse ' +
+      'movement, scrolling and clicks — and does not load unless you allow it. Google Analytics ' +
+      'counts ' +
+      'page views from the start without identifying you or setting a cookie; allowing it lets it ' +
+      'set one so return visits are not double-counted. Our checkout provider sets two cookies on ' +
+      'arrival so the right referrer gets credited. None of it is needed for anything here to work.';
 
     // Height cap, narrow screens only. The disclosure got longer when it got more
     // accurate, and on a 375x667 phone an accurate one is simply taller than the
