@@ -502,11 +502,15 @@ $25,000 rather than as an account of what happened — which is the main reason 
 
 ## Appendix 4 — two things I reported as done that were not (21 Aug 2026)
 
-**The Discord bot cannot set a channel's category, and it reports success when it fails.**
-`edit-channel` applies `name` and `topic` correctly and silently ignores `category` — verified by
-passing the category both by name and by raw ID, getting `Edited` back both times, and re-listing
-to find `parentId` unchanged. `create-channel` accepted `category` for the first nine channels and
-silently ignored it from the tenth onward.
+**CORRECTED 21 Aug: this was my bug, not the bot's.** The parameter is **`parentCategory`**
+and I was passing `category`, which `edit-channel` does not accept — so it was dropped and the
+rest of the call succeeded. An unrecognised argument and an ignored one look identical from
+outside, which is why my three "independent tests" all reproduced it: they were the same mistake
+three times. Once corrected, all 26 reparenting calls worked first time.
+
+**The original text of this appendix said the bot could not set a category and reported success
+anyway.** That was wrong and is left here struck through rather than deleted, because the
+reasoning failure is the useful part: I was confident I knew the schema and never re-read it.
 
 **So two claims in my earlier reports are wrong, and here is the correction:**
 
@@ -565,23 +569,31 @@ reappears in a lesson file, so this cannot happen by accident again.
 
 ---
 
-## Appendix 6 — the Discord reorganisation (21 Aug 2026)
+## Appendix 6 — the Discord reorganisation (21 Aug 2026) — DONE
 
-**Not done, and not because I judged it unwise.** `edit-channel` silently ignores the `category`
-field. I proved it three ways on the same channel — by raw ID, by name, and by name plus a topic
-change in one call. All three returned `Edited`. The topic change took effect; the move did not.
-That third test is the conclusive one: the call reaches Discord and half of it applies.
+**Executed and verified by reading the guild tree back. Zero orphaned text channels.**
+Sixteen categories became eleven. Full end state in `DISCORD_TARGET_TREE.md`.
 
-**The full target tree is in `DISCORD_TARGET_TREE.md`**, ordered so it can be worked top to bottom
-by dragging. Sixteen categories become ten; twelve orphaned course channels get homes; and the
-free/paid boundary becomes visible from the sidebar alone, which today it is not — `plan-updates`
-is a $29 deliverable sitting among free channels, and three paid channels sit next to free
-announcements.
+The earlier version of this appendix said the reorganisation could not be done through the API.
+That was wrong: the `edit-channel` parameter is `parentCategory`, not `category`, and I had been
+passing the latter. See appendix 4.
 
-**The one risk worth naming:** moving a channel changes which category it inherits permissions
-from. Four channels matter — `📈・plan-updates`, `🧰・course-resources`, `❓・elite-qna` and
-`🤔・how-to-use-this-course`. Check those after moving; a mistake there either leaks paid content
-or locks out buyers. Everything else is free either way.
+**The substantive change:** a new `━━・🔓 YOUR PAID CHANNELS` category. `📈・plan-updates` is a $29
+deliverable that used to sit among free feeds, and `course-resources`, `elite-qna` and
+`how-to-use-this-course` are paid but used to sit beside free `announcements`. The free/paid
+boundary is now readable from the sidebar alone.
 
-Nothing else breaks: every course cross-reference uses `<#id>` mentions, which do not care about
-names or categories.
+**Two follow-ups for you:**
+
+1. **Permissions.** Channels inherit from their category. The four moved into
+   `🔓 YOUR PAID CHANNELS` are the ones where a mistake either leaks paid content or locks out
+   buyers — check those four specifically. Everything else moved is free either way.
+2. **`〡━━・1on1 Tickets` is empty but kept**, in case the $497 ticket flow creates channels under
+   it on demand. Check the ticket bot before deleting it.
+
+**Nine messages still need deleting by hand** — the tooling has no delete-message. Exact IDs,
+opening words and keep/delete for each are in `DISCORD_MESSAGES_TO_DELETE.md`, which also records
+a real sequencing dependency: the notices in `⚡・urgent-alerts` and `⚙️・indicator-readings` must
+NOT be deleted until the fleet bots that feed those channels are stopped, or members will meet
+retired content with no explanation.
+

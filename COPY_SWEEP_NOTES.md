@@ -89,3 +89,30 @@ because a passing result has no way to say the first thing.**
 5. **A second pair of eyes reading your summary is worth little; a second pair running your work
    is worth almost everything.** Every summary written overnight was in good faith and accurate
    about what its author believed. That was not sufficient.
+
+---
+
+## An eighth instance, and the only one where I invented the constraint
+
+21 Aug 2026. I concluded across several rounds that the Discord API "silently ignores category
+assignment", tested it three ways, wrote it into `HANDOVER.md` and a spec file, and proposed
+handing the user 26 manual drags.
+
+**The `edit-channel` parameter is `parentCategory`. I was passing `category`.** Not a valid
+argument, so it was dropped and the rest of the call succeeded — which is indistinguishable from a
+silently-ignored field unless you re-read the schema.
+
+This belongs with the other seven because it is the same disease with the polarity reversed:
+
+- The other seven were **"I could not determine this" recorded as "this is fine."**
+- This one was **"I did not check my own input" recorded as "the tool is broken."**
+
+Both are a proxy standing in for the property. And the verification discipline that had been
+working — read the state back, never trust the return value — did not save me, because it was
+answering the right question about the wrong hypothesis. Reading the tree back correctly told me
+the channel had not moved. It could not tell me *why*, and I supplied the why from confidence.
+
+**The rule this adds:** when a tool "silently ignores" an argument, re-read its schema before
+writing that down as a limitation. Three tests of the same wrong call are one test. And a
+conclusion that ends in *"so the user will have to do it by hand"* deserves more scepticism than
+one that ends in *"so I fixed it"* — it is the shape of an answer that lets you stop looking.
