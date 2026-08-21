@@ -211,6 +211,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
   <script src="/js/attribution.js" defer></script>
+  <script src="/js/track.js" defer></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -331,14 +332,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     if (input) { input.disabled = true; }
     if (errorBox) errorBox.style.display = 'none';
 
-    var pageUtms = getLeadUtms();
+    // First touch outranks this page's query string. getLeadUtms() alone recorded
+    // a visitor who arrived on /score from Instagram and subscribed here as
+    // source=liftoffr. See window.loLeadSource in js/track.js; the else branch is
+    // the previous behaviour, kept so a failed script load costs attribution and
+    // never a lead.
+    var src;
+    if (typeof window.loLeadSource === 'function') {
+      src = window.loLeadSource({ utm_medium: medium, utm_campaign: 'free_page', utm_content: 'free_capture' });
+    } else {
+      var pageUtms = getLeadUtms();
+      src = {
+        utm_source: pageUtms.utm_source || 'liftoffr',
+        utm_medium: medium,
+        utm_campaign: pageUtms.utm_campaign || 'free_page',
+        utm_content: pageUtms.utm_content || ''
+      };
+    }
     var payload = {
       email: email,
       magnet: 'buyzone',
-      utm_source: pageUtms.utm_source || 'liftoffr',
-      utm_medium: medium,
-      utm_campaign: pageUtms.utm_campaign || 'free_page',
-      utm_content: pageUtms.utm_content || ''
+      utm_source: src.utm_source,
+      utm_medium: src.utm_medium || medium,
+      utm_campaign: src.utm_campaign || 'free_page',
+      utm_content: src.utm_content || ''
     };
 
     if (typeof window.track === 'function') {

@@ -125,6 +125,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media (max-width:480px) { form.cap button { flex:1 1 100%; } }
 </style>
   <script src="/js/attribution.js" defer></script>
+  <script src="/js/track.js" defer></script>
 <!-- GA4. This page had NO analytics at all until 2026-08-20: no gtag include, no
      config call, and no track() definition — while its own submitScoreLead() calls
      window.track('lead_magnet_submit') and window.track('lead_captured') behind
@@ -359,13 +360,31 @@ function submitScoreLead(form) {
   if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
   if (input) { input.disabled = true; }
   if (errorBox) errorBox.style.display = 'none';
-  var q; try { q = new URL(location.href).searchParams; } catch (e) { q = null; }
+  // Source resolution: first touch, then this page's query string, then the
+  // page's own defaults. Reading only the current URL -- which is what this did
+  // until 2026-08-20 -- recorded someone who arrived on /free from Instagram and
+  // subscribed here as source=liftoffr, losing the acquisition on the page they
+  // actually converted on. See window.loLeadSource in js/track.js. The fallback
+  // branch is the old behaviour, kept so a failed script load costs attribution
+  // and never a lead.
+  var src;
+  if (typeof window.loLeadSource === 'function') {
+    src = window.loLeadSource({ utm_medium: medium, utm_campaign: 'score_page', utm_content: 'score_capture' });
+  } else {
+    var q; try { q = new URL(location.href).searchParams; } catch (e) { q = null; }
+    src = {
+      utm_source: (q && q.get('utm_source')) || 'liftoffr',
+      utm_medium: medium,
+      utm_campaign: (q && q.get('utm_campaign')) || 'score_page',
+      utm_content: (q && q.get('utm_content')) || 'score_capture'
+    };
+  }
   var payload = {
     email: email, magnet: 'buyzone',
-    utm_source: (q && q.get('utm_source')) || 'liftoffr',
-    utm_medium: medium,
-    utm_campaign: (q && q.get('utm_campaign')) || 'score_page',
-    utm_content: (q && q.get('utm_content')) || 'score_capture'
+    utm_source: src.utm_source,
+    utm_medium: src.utm_medium || medium,
+    utm_campaign: src.utm_campaign || 'score_page',
+    utm_content: src.utm_content || 'score_capture'
   };
   if (typeof window.track === 'function') window.track('lead_magnet_submit', { source: medium, page: location.pathname });
   fetch('/api/subscribe', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) })

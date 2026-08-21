@@ -230,6 +230,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
   <script src="/js/attribution.js" defer></script>
+  <script src="/js/track.js" defer></script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -471,7 +472,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   var $ = function (id) { return document.getElementById(id); };
 
+  // First touch outranks this page's query string. Reading only the URL recorded
+  // a visitor who arrived on /score from Instagram and took the quiz here as
+  // source=liftoffr. See window.loLeadSource in js/track.js; the fallback is the
+  // previous behaviour, kept so a failed script load costs attribution, never a lead.
   function utms() {
+    if (typeof window.loLeadSource === 'function') {
+      var s = window.loLeadSource({ utm_medium: 'quiz', utm_campaign: 'quiz' });
+      return {
+        utm_source: s.utm_source || 'liftoffr',
+        utm_medium: s.utm_medium || 'quiz',
+        utm_campaign: s.utm_campaign || 'quiz',
+        utm_content: s.utm_content || ''
+      };
+    }
     var p = new URLSearchParams(location.search);
     return {
       utm_source: p.get('utm_source') || 'liftoffr',

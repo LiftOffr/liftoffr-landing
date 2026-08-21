@@ -35,10 +35,14 @@
  * this event is subject to exactly the same gate as page_view. Nothing here
  * loads a vendor, sets a cookie, or reads storage.
  *
- * WHERE TO INCLUDE IT: every page that carries an `a[href*="whop.com/checkout"]`.
- * Today that is /plan, /playbook, /system and /welcome-plan -- and only those four;
- * the homepage and every other CTA route to /plan first. If you add a checkout
- * anchor to a new page, add this include with it. The last rollout of a script
+ * WHERE TO INCLUDE IT: two kinds of page.
+ *   1. Anything carrying an `a[href*="whop.com/checkout"]` -- today /plan,
+ *      /playbook, /system and /welcome-plan, and only those four; the homepage
+ *      and every other CTA route to /plan first.
+ *   2. Anything carrying an email capture form, for window.loLeadSource below --
+ *      today /, /score, /free and /quiz.
+ * If you add a checkout anchor or a capture form to a new page, add this include
+ * with it. The last rollout of a script
  * like this picked its pages by grepping for 'whop.com' and silently skipped the
  * three biggest entry points, which is why first-touch was lost for weeks. This
  * file is safe to include anywhere: with no checkout anchor on the page it
@@ -104,6 +108,45 @@
       utm_content: q.utm_content || '(none)'
     });
   }
+
+  /* ------------------------------------------------------------------
+   * Lead-capture source resolution.
+   *
+   * Every email form on the site built its /api/subscribe payload from the
+   * CURRENT page's query string, falling back to the literal string
+   * 'liftoffr'. So a visitor who landed on /free?utm_source=instagram, read
+   * for a minute, clicked through to /score and subscribed there was written
+   * into Resend as source=liftoffr -- the acquisition was recorded on the page
+   * they did not convert on and lost on the page they did. The first-touch
+   * record was sitting in localStorage the whole time; nothing read it.
+   *
+   * Field semantics after this: source/medium/campaign describe how the person
+   * reached the site, utm_content describes which capture point they used. That
+   * is what those fields are actually for, and it means the free list can be
+   * segmented by real channel for the first time.
+   *
+   * Priority per field: first touch -> current URL -> the caller's fallback.
+   * ------------------------------------------------------------------ */
+  window.loLeadSource = function (fallbacks) {
+    fallbacks = fallbacks || {};
+    var ft = (typeof window.loAttribution === 'function' && window.loAttribution()) || {};
+    var url = {};
+    try {
+      var p = new URL(location.href).searchParams;
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) {
+        var v = p.get(k); if (v) url[k] = v;
+      });
+    } catch (e) { /* no query string to read */ }
+    function pick(k) { return ft[k] || url[k] || fallbacks[k] || ''; }
+    return {
+      utm_source: pick('utm_source') || 'liftoffr',
+      utm_medium: pick('utm_medium'),
+      utm_campaign: pick('utm_campaign'),
+      // The capture point is the page's to name -- it is the one thing neither
+      // the first-touch record nor the URL knows.
+      utm_content: fallbacks.utm_content || url.utm_content || ft.utm_content || ''
+    };
+  };
 
   function onClick(e) {
     var a = e.target && e.target.closest && e.target.closest('a[href*="whop.com/checkout"]');
