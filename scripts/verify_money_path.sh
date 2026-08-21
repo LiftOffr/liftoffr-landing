@@ -68,6 +68,14 @@ else
 fi
 
 echo
+echo "=== Product/Offer schema parity, and no fabricated ratings ==="
+if command -v node >/dev/null 2>&1; then
+  node "$(dirname "$0")/check_product_schema.js" || echo "PRODUCT SCHEMA: *** FAIL ***"
+else
+  echo "node not found, skipping product schema check"
+fi
+
+echo
 echo "=== cta_clicked selector covers every offer link (static) ==="
 if command -v node >/dev/null 2>&1; then
   node "$(dirname "$0")/check_cta_coverage.js" || echo "CTA COVERAGE: *** FAIL ***"

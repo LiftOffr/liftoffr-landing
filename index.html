@@ -91,6 +91,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
          ReturnAtKiosk would all be false.
        refundType = FullRefund. /terms says "in full".
 
+     applicableCountry — DELIBERATELY ABSENT, and this is the accurate choice, not a gap.
+       Torin's policy is worldwide (confirmed 21 Aug 2026). Google caps applicableCountry
+       at 50 ISO-3166-1 alpha-2 codes and defines no "worldwide" value, so ANY list we
+       emitted would assert that the policy stops at the 50th country — understating
+       coverage and inventing restrictions Torin has not described. Google's spec offers
+       merchantReturnLink as the alternative way to satisfy the required-property rule;
+       that is what we emit, pointing at /terms#refund-policy where the real policy lives.
+       scripts/check_product_schema.js FAILS if anyone adds applicableCountry later.
+
+     returnPolicyCountry — NOT SET, because we do not know it. It is the country the
+       policy is administered from, which is the same fact as the CAN-SPAM postal address
+       Torin still owes us. Answer one and you answer both. Do not guess it from the
+       "active duty" line in the copy.
+
      NOT FIXED — review and aggregateRating. DO NOT ADD THESE.
        /api/reviews returns count:0 for plan, system and playbook. There are no
        reviews. Emitting an aggregateRating would be fabricating social proof in
@@ -183,6 +197,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         },
         "hasMerchantReturnPolicy": {
           "@type": "MerchantReturnPolicy",
+          "merchantReturnLink": "https://liftoffr.com/terms#refund-policy",
           "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
           "merchantReturnDays": 30,
           "returnFees": "https://schema.org/FreeReturn",
