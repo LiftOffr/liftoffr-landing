@@ -78,6 +78,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="theme-color" content="#e63946">
 
 <!-- Schema.org -->
+<!-- STRUCTURED DATA — what is deliberately absent, and why. 21 Aug 2026.
+     Google Search Console flags four non-critical issues on this schema. Two are
+     fixed above; two are deliberately left open, and the reasoning must survive
+     anyone who later tries to "clear the warnings".
+
+     FIXED, and both are true statements:
+       returnMethod = KeepProduct. Nothing is returned. Torin refunds and the buyer
+         keeps the material. /terms: "Ask inside 30 days and I refund it in full ...
+         no form and no reason needed." KeepProduct is the only value in
+         ReturnMethodEnumeration that describes that; ReturnByMail / ReturnInStore /
+         ReturnAtKiosk would all be false.
+       refundType = FullRefund. /terms says "in full".
+
+     NOT FIXED — review and aggregateRating. DO NOT ADD THESE.
+       /api/reviews returns count:0 for plan, system and playbook. There are no
+       reviews. Emitting an aggregateRating would be fabricating social proof in
+       machine-readable form, on a site that spent this month deleting unsubstantiated
+       claims — it would be the worst thing on the property, and it is the kind of
+       thing that gets a rich result manually penalised rather than granted.
+       The Product schema stays because the product IS a product; price and
+       availability still produce a valid rich result without stars. When real
+       reviews exist, wire them from /api/reviews rather than typing them in.
+
+     NOT FIXED — applicableCountry. Needs a fact I do not have.
+       The field takes ISO country codes, up to 50. Torin's refund policy applies to
+       every buyer; /terms states no geographic restriction and the LLC is Montana
+       with USD pricing. Listing "US" would UNDERSTATE the policy by implying
+       non-US buyers do not get it. Listing a guessed set would be invention.
+       Same reason shippingDestination.addressCountry is flagged below.
+       TO CLOSE IT: confirm from Whop which countries actually transact, then set
+       applicableCountry and shippingDestination together in one edit. Until then a
+       non-critical warning is the correct cost of not asserting geography we have
+       not checked. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -152,7 +185,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           "@type": "MerchantReturnPolicy",
           "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
           "merchantReturnDays": 30,
-          "returnFees": "https://schema.org/FreeReturn"
+          "returnFees": "https://schema.org/FreeReturn",
+          "returnMethod": "https://schema.org/KeepProduct",
+          "refundType": "https://schema.org/FullRefund"
         }
       },
       "image": [
@@ -1190,6 +1225,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
          "select count(*), sum(views), min(posted_at), max(posted_at) from reels;"
        The ledger and the rendered report at reports/reel_performance.md carry the same
        coverage line. Source of truth is the Graph API, account torin_christianson.
+
+     DECISION 21 Aug 2026: keep this as Instagram-only. A figure of "6.8M across all
+     platforms" was floated and NOT adopted, because neither of us had verified it and
+     this tile is the one line on the page a reader cannot check for themselves. If
+     TikTok and YouTube are ever pulled properly, redo the whole tile from all three
+     sources with a fresh read date -- do not add an unverified delta to this number.
 
      EXPECT A RE-RUN TO DIFFER SLIGHTLY, and that is not an error. These are lifetime
      per-reel counts on live reels, so the sum only ever goes up -- a sync 40 minutes
