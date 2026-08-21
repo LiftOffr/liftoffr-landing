@@ -509,8 +509,14 @@ like a tidiness question and is not one. Counted on production, 21 Aug 2026:
 |---|---:|---:|
 | Email capture forms | **0** | 1 |
 | Links to the other page | **0** | — |
-| Mentions of recomputing the Score yourself | 0 | 9 |
+| Mentions of recomputing the Score yourself | 3 — see below | 9 |
 | Links to `/receipts` | 1 | 2 |
+
+**The recompute row is the sharpest one and it needs its own sentence.** `/cycle`'s hero paragraph
+says *"every weight published so you can recompute it yourself"* — it makes the promise. It then
+has nowhere to send you to collect on it: the arithmetic, the weights table, the divisor rule and
+the worked example are all on `/score`, and `/cycle` links to `/score` zero times. So the page
+your biggest button points at makes the central claim of the whole product and then dead-ends.
 
 Three places on the homepage point at `/cycle`: the nav link, **the primary hero button**
 (`index.html:1136`), and **the exit-intent modal** (`:2186`). So someone who reads the hero,
