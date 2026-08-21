@@ -41,28 +41,36 @@ the live ladder exactly.
 
 ---
 
-### 2. Confirm the three $29 buyers actually have access · 10 min
-**Why it matters:** money has changed hands. The role code is correct — the $29 plan maps to the
-`@Plan` role — but nobody has verified it fired for the three real purchases.
+### 2. Your paying buyers have no Discord access · 10 min — **CONFIRMED PROBLEM**
+**Status:** filtering the member list by role returns **one holder of `@Plan`: Torin.** So of the
+active $29 memberships, the ones that are not the test purchase have **no access** to
+`#the-29-buy-plan` or `#plan-updates`.
 
-**What breaks if you skip it:** a paying customer sitting outside the channel they were promised,
-with no way for you to know.
+**It is not a bug in the role code.** That path is correct and I traced it: the $29 plan maps to
+`@Plan`, applied on `membership.activated`, with a Whop-API fallback to resolve the Discord ID.
+It has nothing to act on, because the buyers never linked Discord to Whop.
 
-**Steps:** Discord → **Server Settings → Members** → search each buyer → confirm they hold
-**@Plan**. If any is missing, they never linked Discord in Whop account settings, or the webhook
-did not fire. Add the role by hand and tell them.
+**It was an onboarding gap, and it is now fixed in the repo.** The D0 email said "Join the
+Discord", which reads as "click an invite" — and joining without linking puts you in the server
+as an ordinary member with none of the plan channels. The linking instruction existed only on
+`/welcome-plan`, in 12px grey small print. Both are corrected: connecting Discord inside Whop is
+now step 1 of the D0 email in both HTML and plaintext, and the `/welcome-plan` instruction is a
+callout rather than a footnote.
+
+**Consequence while it stands:** the PDF in the Whop library is the *only* thing those buyers
+have actually received. That raises the priority of step 1 — they are holding the old version.
+
+**Steps for you:**
+1. Discord → **Server Settings → Members** → filter by `@Plan` to confirm the current state.
+2. Message the buyers: ask them to connect Discord in Whop account settings, or add `@Plan` by
+   hand if you can match them.
 
 ---
 
-### 3. Check whether `#plan-updates` is actually gated · 5 min
-**Why it matters:** it sits under **Signals & Alerts**, not under **🔒 Locked · Paid Access**,
-while `#the-29-buy-plan` sits under Locked. If Signals & Alerts is open, the channel you sell as
-buyer-only is readable by everyone.
+### 3. ~~Check whether `#plan-updates` is gated~~ — DONE
 
-**Steps:** right-click `#plan-updates` → **Edit Channel → Permissions** → check whether
-`@everyone` can View Channel. If they can, deny it and allow `@Plan` explicitly.
-
----
+**✅ It is gated.** Discord marks it "Private Channel (locked)" despite sitting under Signals &
+Alerts rather than under Locked · Paid Access. No action needed; the category label is cosmetic.
 
 ### 4. ~~Retire the old indicator panel~~ — DONE
 **Why it matters:** it published price targets ($38k/$53k/$70k/$80k), "DCA is the recommended
@@ -204,6 +212,38 @@ address** — it must be one that receives mail.
   signals or buy-plan channel, and the `||` fallback that could have redirected the briefing has
   been removed. Nothing leaked, and the path that would have allowed it no longer exists.
 - Mobile: 29 pages clean at 375px.
+
+## Part 2b — A strategic correction, and it is the important one
+
+**Your paying customers number two, not sixty. Plan on that basis.**
+
+Whop shows **350 users**. Sorted by spend, every visible one is **$0.00**, and they joined in a
+6–12 day window. The names and emails are not ambiguous: "Aadi clips", "Crypto Clipz", "Clipper
+Master / clippingaimaster@gmail.com", "advanced.clipping01@gmail.com", plus a long tail from
+India, Nigeria, Tunisia, Algeria, Morocco, Uzbekistan and the Philippines. **That is a
+clipper-programme intake, not an audience.**
+
+Which means the 60 failed checkouts on 8–13 August were almost certainly clipper applicants
+hitting a paywall — exactly what Part 0.1 of the overnight audit suspected, and contrary to how
+the plan's Day 7 test framed it.
+
+**What follows from that:**
+
+- **DM-3 is downgraded.** The plan's reactivation script treats those 60 as recoverable buyers.
+  They are not. Sending 60 individual DMs to people who wanted a clipping gig costs an evening
+  and returns nothing. Do not run it as written.
+- **The GA4 credential work drops down the list.** It exists to answer a question we now have the
+  answer to. It is still worth doing eventually for ordinary funnel measurement — it is no longer
+  a blocker for anything.
+- **Instagram is not yet feeding the funnel.** The traffic in Whop is a clipper intake with zero
+  purchase intent. The real conversion test starts when Torin's own crypto content goes out, not
+  before.
+- **"Day 7" means something different now.** The revenue checkpoints in the plan assume a warm
+  audience arriving. There isn't one yet. Judge the next fortnight on whether content produces
+  *any* qualified traffic, not on a sales target built for a funnel that was never running.
+
+This is better to know now than after three weeks of DMing clippers. Nothing about the product is
+wrong; the audience assumption was.
 
 ## Part 3 — Open, with a decision attached
 

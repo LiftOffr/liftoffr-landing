@@ -88,8 +88,9 @@ function plan0HTML() {
     `<p style="margin:0 0 16px;">You're in. Thank you — genuinely.</p>
      <p style="margin:0 0 16px;">Three things, then I'll leave you alone:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
-       <div><strong>1.</strong> Your plan document is in Whop, under your purchases. Lifetime access, and it updates in place.</div>
-       <div><strong>2.</strong> Join the Discord and check <strong>#plan-updates</strong> — that's where a tier firing gets announced, with the receipt.</div>
+       <div><strong>1.</strong> <strong>Connect your Discord inside Whop first</strong> — Whop &rarr; account settings &rarr; Connect Discord. That is what grants the @Plan role. Without it you land in the server as an ordinary member and the plan channels stay invisible. Thirty seconds.</div>
+       <div><strong>2.</strong> Your plan document is in Whop, under your purchases. Lifetime access, and it updates in place.</div>
+       <div><strong>3.</strong> Then check <strong>#plan-updates</strong> — that's where a tier firing gets announced, with the receipt.</div>
        <div><strong>3.</strong> Tonight, do the worksheet. Twenty minutes. Your stack size in, your own nine levels out.</div>
      </div>
      <p style="margin:18px 0 16px;"><strong>Do number three tonight.</strong> Not this weekend. The entire value of a written plan is that it was written before anything was happening — and right now, nothing is happening. That's the window.</p>
@@ -99,8 +100,9 @@ function plan0HTML() {
 }
 function plan0Text() {
   return ["You're in. Thank you — genuinely.","","Three things, then I'll leave you alone:","",
-    "1. Your plan document is in Whop, under your purchases. Lifetime access, updates in place.",
-    "2. Join the Discord and check #plan-updates — a tier firing gets announced there, with the receipt.",
+    "1. CONNECT YOUR DISCORD INSIDE WHOP FIRST - Whop > account settings > Connect Discord. That grants the @Plan role. Without it you land in the server as an ordinary member and the plan channels stay invisible. Thirty seconds.",
+    "2. Your plan document is in Whop, under your purchases. Lifetime access, updates in place.",
+    "3. Then check #plan-updates - a tier firing gets announced there, with the receipt.",
     "3. Tonight, do the worksheet. Twenty minutes. Your stack size in, your own nine levels out.","",
     "Do number three tonight, not this weekend. The whole value of a written plan is that it was written before anything was happening — and right now nothing is. That's the window.","",
     "No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.","",
