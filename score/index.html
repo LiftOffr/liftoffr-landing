@@ -123,6 +123,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      own content width. Full width reads as the obvious next step and doubles the
      tap area. Matches /free. */
   @media (max-width:480px) { form.cap button { flex:1 1 100%; } }
+
+  /* Mobile hero, tightened 2026-08-20. On a 375x812 phone the eyebrow, a
+     three-line h1 and a six-line lede pushed the Score itself to y=433 and its
+     band label to y=548 -- so the number this page exists to show sat below the
+     fold before the consent banner was even considered, and once the banner
+     grew to carry a more accurate disclosure it covered the number outright.
+     Nothing is cut and nothing is reordered; the type above the scorecard is
+     just less loosely set. Measured: the number and the band label both clear
+     the banner on first load at 375px, which is the whole point of the page for
+     the traffic that arrives here from a Reel. */
+  @media (max-width:480px) {
+    .wrap { padding-top:22px; }
+    .back { margin-bottom:12px; }
+    .eyebrow { margin-bottom:8px; }
+    h1 { margin:0 0 10px; }
+    .lede { font-size:15.5px; line-height:1.5; margin:0 0 16px; }
+    .scorecard { padding:18px 18px; }
+  }
 </style>
   <script src="/js/attribution.js" defer></script>
   <script src="/js/track.js" defer></script>

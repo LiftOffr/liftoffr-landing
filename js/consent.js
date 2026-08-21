@@ -55,15 +55,15 @@
       'bottom:calc(12px + env(safe-area-inset-bottom, 0px))',
       'max-width:620px', 'margin:0 auto', 'background:#0d0d0d', 'border:1px solid #262626',
       'border-radius:14px', 'box-shadow:0 18px 50px rgba(0,0,0,.6)',
-      'padding:' + (narrow ? '13px 14px' : '16px 18px'),
+      'padding:' + (narrow ? '12px 13px' : '16px 18px'),
       'font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif',
       'color:#bdbdbd',
       'font-size:' + (narrow ? '12.5px' : '13.5px'),
-      'line-height:' + (narrow ? '1.5' : '1.6')
+      'line-height:' + (narrow ? '1.45' : '1.6')
     ].join(';');
 
     var p = document.createElement('p');
-    p.style.cssText = 'margin:0 0 ' + (narrow ? '10px' : '12px') + ';';
+    p.style.cssText = 'margin:0;';
     // WORDING IS LOAD-BEARING. This used to say "nothing loads until you choose",
     // which was false for GA4: under Advanced Consent Mode the tag is present from
     // first paint and sends cookieless pings (gcs=G100&npa=1, no _ga cookie, no ad
@@ -75,8 +75,28 @@
       'scrolling and clicks on this site — and it does not load at all unless you allow it. ' +
       'Analytics counts anonymous page views from the start, with no cookies and nothing that ' +
       'identifies you; allowing it lets it use a cookie so return visits are not counted twice. ' +
-      'None of it is needed for anything here to work. ' +
-      '<a href="/privacy" style="color:#e63946;">What gets collected</a>.';
+      'None of it is needed for anything here to work.';
+
+    // The link to the full disclosure is pulled OUT of the paragraph so it sits
+    // below the scroll area and can never be the part that scrolls off. Not one
+    // word of the wording above changed; only which box it lives in.
+    var more = document.createElement('div');
+    more.style.cssText = 'margin:' + (narrow ? '7px' : '9px') + ' 0 ' + (narrow ? '10px' : '12px') + ';';
+    more.innerHTML = '<a href="/privacy" style="color:#e63946;">What gets collected</a>.';
+
+    // Height cap, narrow screens only. The disclosure got longer when it got more
+    // accurate, and on a 375x667 phone an accurate one is simply taller than the
+    // room above the fold: at full height the banner covered the Score itself on
+    // /score, which is the page the Instagram bio points at. Rather than shrink
+    // legal text to fit -- the wrong instinct -- the text scrolls inside a bounded
+    // box when, and only when, it does not fit. On a 812px phone nothing scrolls.
+    // The buttons and the link to /privacy are outside the box and always visible.
+    var scroller = document.createElement('div');
+    if (narrow) {
+      scroller.style.cssText = 'max-height:min(30vh,215px);overflow-y:auto;' +
+        '-webkit-overflow-scrolling:touch;overscroll-behavior:contain;';
+    }
+    scroller.appendChild(p);
 
     var row = document.createElement('div');
     row.style.cssText = 'display:flex;gap:10px;flex-wrap:wrap;';
@@ -84,7 +104,8 @@
     row.appendChild(button('Decline', false, '#161616', '#2a2a2a', '#ddd'));
     row.appendChild(button('Allow analytics', true, '#e63946', '#e63946', '#fff'));
 
-    wrap.appendChild(p);
+    wrap.appendChild(scroller);
+    wrap.appendChild(more);
     wrap.appendChild(row);
     document.body.appendChild(wrap);
 
