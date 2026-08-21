@@ -97,6 +97,10 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   now explicit-or-skip. A hardcoded, named, checked-in default for a non-sensitive destination
   (the channel IDs in `api/whop-webhook.js`) is a different thing and is fine.
 
+- **`HANDOVER.md` at the repo root is the current state of play** — what is done, what is waiting
+  on Torin with exact click paths, the open decisions, and the standing hazards. Read it before
+  starting work and update it when something moves out of "waiting on Torin".
+
 ## Design language (preserve — never break)
 - Homepage/blog/links: near-black `#080808`, cards `#111111`, borders `#1e1e1e`, **brand red `#e63946`**, muted `#777`.
 - /cycle + /dashboard: navy `#060910` glass — frosted cards, backdrop-blur(14px), radial glows; green `#26d07c`, amber `#e8b339`, blue `#4d8df0`. Semicircular verdict gauge + Four Pillars.

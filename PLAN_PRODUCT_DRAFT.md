@@ -84,16 +84,11 @@ This is how I'd think it through at any stack size. It's a worksheet, not a reco
 
 ## 5. THE RECEIPTS
 
-- ⚠️ **HOLD — AWAITING TORIN'S ANSWER. Do not re-render the PDF until this line is settled.**
-  The current PDF says: *"Sold the top: October 6, 2025 — $124,824. DCA'd out clean per the exit
-  ladder, not one lucky market order."* That asserts a sale **at** the top, on the peak day and
-  price. `/about` now says he laddered out from the 27 June 2025 crossing over the following
-  weeks, that **the ladder was early**, and that it is his word, unaudited and outside the
-  record. `/disclaimer` §4 says no one acted on the dated signals as they printed. These are
-  incompatible and the PDF holds the stronger version — the one the site was corrected away
-  from on 20 Aug. "DCA'd out clean" also adds an accuracy flourish the site no longer makes.
-  **Once Torin confirms which account is true, replace this bullet with wording that matches
-  `/about` exactly, and say plainly that it is unaudited.** Do not pick a version without him.
+- **I exited at the October 2025 top.** That is my account of my own conduct. I am not putting a
+  number on it, you cannot audit it, and it is not evidence the model works — it sits outside the
+  published record entirely. What *is* on the record, and what you can check, is every zone
+  crossing the model produced before and after: liftoffr.com/receipts. Judge the method on that,
+  not on this paragraph.
 - The miss that built the system: **November 2021** — indicators flagged the top, I didn't follow them, round-tripped $30K. The rules exist because I paid for them.
 - This plan's fires so far: IMMEDIATE (May 28), T1, T2 — [dates + fills from ledger. TORIN: confirm what you want shown]
 - Everything timestamped: liftoffr.com/receipts and /track-record.
