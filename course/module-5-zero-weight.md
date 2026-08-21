@@ -118,6 +118,14 @@ Plainly, so you can see the whole edit.
 Four of the nine weighted components — 35% of the model by weight — were absent from a course
 about the model's indicators. Modules 2 through 4 of this curriculum are where they get taught.
 
+**How obvious this got, in the end.** The weekly indicator panel that ran in Discord until
+26 July 2026 listed CBBI, Fear & Greed, Rainbow Band and BTC Dominance as its inputs — and in the
+same message linked to "All 9 indicators". It contradicted itself inside a single post, week
+after week, and nobody caught it because the panel and the site were maintained separately. Its
+final edition also published price levels — "$60,000 · $62,000 · $63,000" — which is not
+something I do anywhere any more. The panel is retired and the notice explaining why is pinned
+in that channel.
+
 **Why say all this instead of quietly reshooting Module 4.** Because the argument for this
 product is that you can check it, and an argument you can check has to survive being checked.
 A course that silently swapped its own syllabus would be asking you to trust that the *new* one

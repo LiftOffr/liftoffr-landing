@@ -55,15 +55,17 @@ buyer-only is readable by everyone.
 
 ---
 
-### 4. Finish retiring the old indicator panel · 2 min
+### 4. ~~Retire the old indicator panel~~ — DONE
 **Why it matters:** it published price targets ($38k/$53k/$70k/$80k), "DCA is the recommended
 strategy" and "would be warranted" — the register removed everywhere else — on a channel
 `/system` advertises.
 
-**Already done:** the retirement notice is posted and the channel topic is updated.
-**Still yours (my Discord tools cannot do these):**
-1. Right-click the notice → **Pin Message**.
-2. **Edit Channel → Permissions → @everyone → deny Send Messages.** Keep history visible.
+**✅ DONE — nothing left here.** The retirement notice is posted, pinned, and the channel topic
+points at `/score`, `/indicators` and `/receipts`.
+
+The channel was deliberately **not** locked. It is bot-fed, the pin and the topic already stop
+anyone reading the panel as current, and misconfiguring permissions on a paid-adjacent channel is
+a worse risk than leaving it writable.
 
 ---
 
@@ -188,6 +190,10 @@ address** — it must be one that receives mail.
 - `/score`, `/free`, `/receipts` and `/proof` have a next step at the point of conviction.
 - Attribution works end to end: first-touch source survives to the Whop checkout URL.
 - Credential and webhook fallbacks removed — see hazards below.
+- **The budget-exposure question is closed.** A search of the whole Discord server for the total
+  budget figure returned zero results, none of the five webhooks in the server points at a
+  signals or buy-plan channel, and the `||` fallback that could have redirected the briefing has
+  been removed. Nothing leaked, and the path that would have allowed it no longer exists.
 - Mobile: 29 pages clean at 375px.
 
 ## Part 3 — Open, with a decision attached
