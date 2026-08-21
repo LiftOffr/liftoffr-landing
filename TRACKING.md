@@ -134,26 +134,43 @@ offer". It does not fire everywhere. Audited 20 Aug by dispatching real clicks i
 and reading what reached `dataLayer` — not by reading the source, because the source looks
 correct on the pages where it is broken.
 
-**Working:** `/`, `/plan`, `/system`, `/playbook`, `/free`, `/score`, `/quiz`, `/faq`,
-`/cycle`, `/links`, `/track-record`, `/stack`, `/when-will-bitcoin-bottom`, `/indicators`
-and its nine subpages, `/welcome-plan`.
+It was badly broken on 20 Aug and is now close to complete. Where it was broken, the
+handler was bound to `closest('a[href*="whop.com/"]')` on pages containing no Whop anchor,
+or to `a[href$="/plan"]`, which matches a bare `/plan` and misses every tagged one — and the
+tagged ones are the CTAs. Repaired the same evening.
 
-**Still dead as of this writing:**
+**What it fired before and after, measured on the live pages:**
 
-| Page | CTAs that fire / CTAs present |
-|---|---|
-| `/proof` | 0 of 3 |
-| `/receipts` | 2 of 3 |
-| `/indicator-history` | 0 of 2 |
-| `/blog` index and all nine posts | 0 of 7 on the post measured |
+| Page | before | after |
+|---|---|---|
+| `/score` | 0 of 4 | 4 of 4 |
+| `/cycle` | no `window.track` at all | 2 of 2 |
+| `/quiz` | 0 of 4 | 4 of 4 |
+| `/faq` | 0 of 4 | 4 of 4 |
+| `/proof` | 0 of 7 | 7 of 7 |
+| `/receipts` | 2 of 3 | 3 of 3 |
+| `/blog` index, all nine posts | 0 of 7 (on the post measured) | 6 of 7 — see below |
+| `/indicator-history` | 0 of 2 | fixed, same one-liner |
+| `/links` | 5 of 6 | 11 of 11 |
+| `/track-record` | partial | fixed |
 
-Cause on all of them: the listener is bound to `closest('a[href*="whop.com/"]')` on pages
-that contain no Whop anchor, or to `a[href$="/plan"]`, which matches a bare `/plan` and
-misses every tagged one — and the tagged ones are the CTAs.
+**Already working throughout:** `/`, `/plan`, `/system`, `/playbook`, `/free`, `/stack`,
+`/when-will-bitcoin-bottom`, `/indicators` and its nine subpages, `/welcome-plan`.
 
-**Consequence:** the blog is the SEO funnel and `/proof` is a primary trust surface. Their
-click-through is currently unmeasured, so any "which page drives clicks" comparison is
-biased against them by construction. Do not read a zero there as "the blog does not convert".
+**One gap remains, and it is the strategically important one.** The repaired selector
+matches `/plan`, `/system`, `/playbook`, `/receipts` and Whop checkout. It does **not**
+match `/score` or `/free`. Every one of the nine blog posts carries exactly one `/score`
+link tagged `<slug>_midarticle` — the deliberate mid-article next step at 55–66% depth,
+pointing at the free Score rather than at $29 because a cold reader arriving from an MVRV
+search is not ready for a paid ask. **That is the most important CTA on each post and it is
+the one still firing nothing.** Same on `/receipts` (two `/score` links).
+
+Fixed on `/score`, `/cycle`, `/quiz`, `/faq`, `/links` and `/track-record` by adding
+`a[href^="/score"], a[href^="/free"]` to the selector. The ten blog files, `/proof`,
+`/receipts` and `/indicator-history` need the same one-liner.
+
+**Until that lands:** do not read a low blog click number as "the blog does not convert".
+Its designated next step is invisible by construction.
 
 ---
 
@@ -255,8 +272,9 @@ Ordered by how much they unlock per unit of work.
    `js/attribution.js` and `api/whop-webhook.js`.
 4. **Register `source`/`medium`/`campaign` as GA4 custom dimensions** so the parameters
    already on the `purchase` event become reportable. Admin-only, no code.
-5. **Fix the four dead `cta_clicked` listeners** (`/proof`, `/receipts`, `/indicator-history`,
-   the ten blog files). Selector change only.
+5. **Add `a[href^="/score"], a[href^="/free"]`** to the `cta_clicked` selector on the ten
+   blog files, `/proof`, `/receipts` and `/indicator-history`. The rest of §5 is done; this
+   is what is left, and it is the blog's mid-article step, so it is worth more than its size.
 6. **Add `scroll_depth` to `/score`, `/free`, `/plan`, `/system`, `/playbook`.** Answers
    "does anyone reach the offer" on the pages where the offer is deep.
 
