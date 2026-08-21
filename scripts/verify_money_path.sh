@@ -52,6 +52,14 @@ else
 fi
 
 echo
+echo "=== cta_clicked selector covers every offer link (static) ==="
+if command -v node >/dev/null 2>&1; then
+  node "$(dirname "$0")/check_cta_coverage.js" || echo "CTA COVERAGE: *** FAIL ***"
+else
+  echo "node not found, skipping cta coverage check"
+fi
+
+echo
 echo "=== Tracking coverage on live pages ==="
 printf "%-26s %-6s %-6s %-6s %-8s %-6s\n" PAGE GA4 GTM ATTR CONSENTJS TRACKJS
 for pg in "" score free quiz plan system playbook links receipts proof cycle faq stack indicators indicators/rhodl-ratio when-will-bitcoin-bottom welcome welcome-plan track-record about privacy terms disclaimer blog; do
