@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "mnCn7NzuzKA",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Dubious Speculation",
+    "published": "2026-08-21T04:36:48+00:00",
+    "processed_at": "2026-08-21T05:37:57.669095+00:00",
+    "url": "https://www.youtube.com/watch?v=mnCn7NzuzKA",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [
+      60000,
+      70000,
+      80000,
+      90000
+    ],
+    "indicators_mentioned": [
+      "MVRV Z-score",
+      "Terminal Price",
+      "200-day moving average",
+      "Risk metric (0.3 risk)",
+      "Realized Price",
+      "Balanced Price"
+    ],
+    "key_points": [
+      "Bitcoin topped on apathy rather than euphoria this cycle, mirroring 2019, which raises the question of whether a full on-chain reset to prior lows is necessary before the bottom is in",
+      "Multiple macro and structural parallels to 2019 exist, including QT ending roughly two months after the top, three Fed rate cuts, and no rotation into altcoins after the top",
+      "The current rally above the 200-day moving average resembles the October 2019 rally, which was followed by a new low about 53 days later before the cycle bottom was set",
+      "Historical midterm-year patterns (2018, 2022) show sharp short-term rallies of 20%+ that reversed and were followed by further downside into Q4, suggesting the market sometimes has to rally before making a final low",
+      "A sustained hold above the 200-day moving average over a couple of weeks after the next retracement would meaningfully raise confidence that the cycle low is already in"
+    ],
+    "summary": "The recent rally above the 200-day moving average shows both bullish and bearish precedents, with the closest historical analog being October 2019, when a similar apathetic-top rally preceded one more leg down before the true cycle low. Structural similarities\u2014apathetic top, QT ending near the top, three Fed cuts, no altcoin rotation\u2014support caution despite the temptation to call the bottom, and confirmation would require Bitcoin holding above the 200-day moving average through a retracement in the coming weeks. Until that happens, a final Q4 flush lower remains a real possibility even as the dominant strategy remains dollar-cost averaging into weakness."
+  },
+  {
     "video_id": "-mx3UwwJ5P4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1487,36 +1521,5 @@ export default [
       "A sustained dip to 48-58K range would align with historical dislocation magnitudes from prior cycles and potentially signal a strong accumulation window"
     ],
     "summary": "Bitcoin exhibits mathematically distinct upper and lower tail curvatures that converge over time, with support levels rising while euphoric peaks diminish in magnitude each cycle. Current pricing at the 9.4th percentile with structural support near 62K suggests midterm-year weakness remains likely, consistent with the historical pattern of dislocation events occurring in every cycle at varying points. The model indicates realistic price ceilings significantly lower than hype-driven predictions, with a potential accumulation zone in the 48-58K range if historical patterns repeat."
-  },
-  {
-    "video_id": "dIa8HUYDNEY",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Window of Weakness",
-    "published": "2026-05-29T05:07:24+00:00",
-    "processed_at": "2026-05-29T07:42:38.749408+00:00",
-    "url": "https://www.youtube.com/watch?v=dIa8HUYDNEY",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "weeks",
-    "key_levels": [
-      73000,
-      58000,
-      70000,
-      80000
-    ],
-    "indicators_mentioned": [
-      "200 day moving average",
-      "6-month candles",
-      "year-to-date ROI"
-    ],
-    "key_points": [
-      "Bitcoin rejected at the 200-day moving average, matching historical resistance patterns from 2018 and 2022, indicating sustained downside pressure into June",
-      "Midterm year cycle analysis suggests window of weakness persists through mid-to-late June, with potential low formation followed by July counter-trend rally",
-      "Bank of Japan rate decision in June presents catalyst for potential low formation, with precedent from August 2024 BoJ rate hike preceding Bitcoin bottom",
-      "Historical pattern across 2014, 2018, and 2022 shows first-half midterm year drops followed by second-half lows; 2026 tracking closely to 2018 trajectory with only volatility differential",
-      "Q4 capitulation remains expected final phase; interim rallies through July-August unlikely to establish sustainable lows, making early midterm weakness continuation probable"
-    ],
-    "summary": "Bitcoin faces extended weakness into mid-to-late June as part of midterm year cycle dynamics, with potential for another low formation around Bank of Japan rate decision. July typically generates counter-trend rallies that fail to establish true lows, with final capitulation expected in Q4 following the established four-year cycle pattern seen in 2014, 2018, and 2022."
   }
 ];
