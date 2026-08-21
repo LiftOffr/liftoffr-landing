@@ -212,6 +212,14 @@ address** — it must be one that receives mail.
   signals or buy-plan channel, and the `||` fallback that could have redirected the briefing has
   been removed. Nothing leaked, and the path that would have allowed it no longer exists.
 - Mobile: 29 pages clean at 375px.
+- **Every entry point now has a next step at the point of conviction.** `/quiz` had *zero* route
+  to anything paid despite being a designated funnel destination — that was the worst finding of
+  the sweep, not the blog. Fixed, along with `/score`, `/free`, `/receipts`, `/proof` and all
+  nine blog posts (which now carry a step at 55–66% of the article rather than 80%+).
+  The blog steps point at the **free** Score and receipts, not at $29 — a cold reader arriving
+  from a search about MVRV is not ready for a paid ask, and the funnel is blog → /score → /plan.
+- Buyer onboarding fixed: connecting Discord inside Whop is now step 1 of the D0 email, and the
+  `/welcome-plan` instruction is a callout rather than 12px grey small print.
 
 ## Part 2b — A strategic correction, and it is the important one
 
@@ -252,6 +260,7 @@ wrong; the audience assumption was.
 | **The $497 Playbook** | It is a private session sold beside a $197 course that teaches independence. | Leave it. It is capacity-limited and priced honestly. |
 | **Showcase magnitudes** | The count is honest (3/3) but featured hits average larger than the log's, and the Nov 2017 +149% miss is not in the homepage showcase. | Swapping it in for a 2022 signal would fix the skew but lose the "no signal at the FTX low" admission. Your call. |
 | **Old course Modules 1/2/3/6** | Kept because they are framework-independent. Not re-read line by line. | Worth a pass for anything that assumes the eight-indicator model. |
+| **Old Module 5, lesson 3 — "Indicator-based exit signals"** | **I could not read it.** Discord lesson content is posted as embeds and the API returns them blank, so I can see the message exists but not what it says. If it teaches the eight-indicator set or the "N of 6 agreeing" heuristic, it has the same defect Module 4 had. | **Ten minutes of your reading.** Same for old Module 5's other lessons. I am not guessing at content I cannot see. |
 | **`#indicator-readings`** | Retired, history visible. | Leave retired. Resuming means committing to a weekly cadence you have not kept since 26 July. |
 | **Your exit account** | See the flag at the end of this file. | Needs you. |
 
