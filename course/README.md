@@ -1,6 +1,8 @@
 # The Cycle System — curriculum (nine-component rebuild)
 
-**Status: DRAFT for Torin's review. Not uploaded to Whop.** Written 20 Aug 2026.
+**Status: POSTED. Discord is the delivery surface — Torin confirmed on 21 Aug 2026 that he is
+not uploading to Whop Courses, so these files are the source of record for what is in Discord,
+not a staging area for an upload.** Written 20 Aug 2026, posted and reconciled 21 Aug 2026.
 
 ## Why this exists
 
@@ -12,8 +14,8 @@ component at 20%, was not taught at all. The site was corrected to nine weighted
 the free Score publishes, which is the exact "which one do I believe" question this whole
 correction pass exists to stop a buyer asking.
 
-**This curriculum replaces Module 4 and every framework lesson.** Old Modules 1, 2, 3 and 6
-(wallets, DCA mechanics, psychology, custody) are framework-independent and stay.
+**This curriculum replaced Discord Module 4 and Module 5 in full.** Old Modules 1, 2, 3 and 6
+(wallets, DCA mechanics, psychology, custody) are framework-independent and stay untouched.
 
 ## Rules every lesson here follows
 
@@ -31,19 +33,19 @@ correction pass exists to stop a buyer asking.
    build failed; the rule is that a `[TORIN]` marker may never be the body of a lesson, and may
    never be its heading.
 
-## Module map
+## What is here
 
-| Module | Lessons | Status |
-|---|---|---|
-| 1 · The number itself | 5 | ✅ drafted |
-| 2 · The heavy half (RHODL, Puell) | 2 | ✅ drafted |
-| 3 · The middle (Trolololo, MVRV, Pi Cycle) | 3 | ✅ drafted |
-| 4 · The 5% components (2YMA, Reserve Risk, Woobull, RUPL) | 4 | ✅ drafted |
-| 5 · What carries zero weight, and why | 4 | ✅ drafted |
-| 6 · The record, and what this is for | 6 | ✅ drafted |
+| File | Lessons | Discord |
+|---|---:|---|
+| `m4-score-the-number.md` | 5 | `m4-score-1` … `m4-score-5` |
+| `m4-l1-l2-the-heavy-half.md` | 2 | `m4-l1`, `m4-l2` |
+| `m4-l3-l5-the-middle.md` | 3 | `m4-l3` … `m4-l5` |
+| `m4-l6-l9-the-five-percents.md` | 4 | `m4-l6` … `m4-l9` |
+| `m4-l10-zero-weight.md` | 4 sections | `m4-l10-context-zero-weight` — one channel, deliberately |
+| `m5-the-record.md` | 6 | `m5-l1` … `m5-l6` |
+| `reference-phase-matrix.md` | ref | `#course-resources` |
 
-Files: `module-1-the-number.md`, `module-5-zero-weight.md`, and so on. 24 lessons plus
-`reference-phase-matrix.md`.
+24 lessons across 21 channels, plus the reference sheet.
 
 ## Where this ships
 
@@ -53,20 +55,28 @@ for what is posted there, not a staging area.**
 
 | This file | Discord channels |
 |---|---|
-| `module-1-the-number.md` | `m4-score-1` … `m4-score-5` |
-| `module-2-the-heavy-half.md` | `m4-l1`, `m4-l2` |
-| `module-3-the-middle.md` | `m4-l3` … `m4-l5` |
-| `module-4-the-five-percents.md` | `m4-l6` … `m4-l9` |
-| `module-5-zero-weight.md` | `m4-l10-context-zero-weight` (all four condensed into one) |
-| `module-6-the-record.md` | `m5-l1` … `m5-l6` |
+| `m4-score-the-number.md` | `m4-score-1` … `m4-score-5` |
+| `m4-l1-l2-the-heavy-half.md` | `m4-l1`, `m4-l2` |
+| `m4-l3-l5-the-middle.md` | `m4-l3` … `m4-l5` |
+| `m4-l6-l9-the-five-percents.md` | `m4-l6` … `m4-l9` |
+| `m4-l10-zero-weight.md` | `m4-l10-context-zero-weight` (all four condensed into one) |
+| `m5-the-record.md` | `m5-l1` … `m5-l6` |
 | `reference-phase-matrix.md` | `#course-resources` |
 
-**The numbering here and in Discord deliberately do not match.** These files are numbered by the
-new curriculum's own logic; Discord's Module 1, 2, 3 and 6 are the original course (wallets, DCA,
-psychology, the long game) and are unchanged. The new material occupies Discord's Module 4 and
-Module 5 because those are the two the rebuild replaced. If you renumber anything, renumber it in
-both places in the same commit.
+**The files are named for the Discord channels they populate, and every section heading is the
+channel name.** They used to carry their own "Module 1 … Module 6" numbering, which meant a
+cross-reference like *"lesson 6.5 is the proof"* pointed at nothing a reader could find, because
+in Discord that lesson is `#m5-l5-the-whipsaw`. Every such reference is now a channel name.
 
-The Market Cipher lesson that stood in Module 5 was deleted on 20 August 2026, not deprecated:
+Discord's Module 1, 2, 3 and 6 are the original course — wallets, DCA, psychology, the long game
+— and are unchanged. The rebuild replaced Discord's Module 4 and Module 5, which is why
+everything here lands in those two.
+
+**If you add a lesson: create the channel first, then name the file and the heading after it.**
+Not the other way round. The channel is the artefact a customer reads; the file is the source
+for it.
+
+The Market Cipher lesson that stood in the old Discord Module 4 was deleted on 20 August 2026,
+not deprecated:
 it is proprietary, not reproducible from free public data, and was never a component of the
 Score. Its Discord channel is gone too.

@@ -1,14 +1,12 @@
-# Module 4 — The 5% components
-Four components at 5% each — 20% of the number. Light weights, deliberately: each one adds a view the heavier components do not have, and each one has a known failure mode that would be dangerous at a heavier weight.
+# The 5% components — `m4-l6` … `m4-l9`
 
-> **Where it has been wrong** is lifted verbatim from that component's page on the site. It is
-> not softened for the course. An indicator sold as infallible is being sold, not explained.
-
-Every lesson below follows the same four parts: what it measures, why it carries the weight it does, how to read it, and where it has been wrong. Nothing here tells you what to do with a reading.
+The four that carry 5% each. Every lesson below follows the same four parts: what it measures,
+why it carries the weight it does, how to read it, and where it has been wrong. Nothing here
+tells you what to do with a reading.
 
 ---
 
-## 4.1 — 2-Year MA Multiplier · 5% of the Score
+## `#m4-l6-2y-ma-multiplier-5pct` — 2-Year MA Multiplier · 5% of the Score
 
 **What it measures.** Where price sits between its two-year mean and five times that mean.
 
@@ -34,7 +32,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/2-year-ma-multip
 
 ---
 
-## 4.2 — Reserve Risk · 5% of the Score
+## `#m4-l7-reserve-risk-5pct` — Reserve Risk · 5% of the Score
 
 **What it measures.** The ratio of holder conviction to the reward for abandoning it.
 
@@ -60,7 +58,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/reserve-risk**
 
 ---
 
-## 4.3 — Woobull Top Cap · 5% of the Score
+## `#m4-l8-woobull-top-cap-5pct` — Woobull Top Cap · 5% of the Score
 
 **What it measures.** Price as a fraction of a long-run modelled ceiling.
 
@@ -86,7 +84,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/woobull-top-cap*
 
 ---
 
-## 4.4 — RUPL · 5% of the Score
+## `#m4-l9-rupl-5pct` — RUPL · 5% of the Score
 
 **What it measures.** The proportion of circulating supply held at a paper profit.
 

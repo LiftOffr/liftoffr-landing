@@ -1,11 +1,12 @@
-# Module 6 — The record, and what this is actually for
+# The record — `m5-l1` … `m5-l6`
 
-Six lessons. This is the module that tells you what the number cannot do. If you only read one
-module of this course before deciding whether to trust any of it, read this one.
+Six lessons, posted as Discord **Module 5**. This is the module that tells you what the number
+cannot do. If you only read one module of this course before deciding whether to trust any of
+it, read this one.
 
 ---
 
-## 6.1 — How to read `/receipts`
+## `#m5-l1-how-to-read-receipts` — How to read `/receipts`
 
 Every zone crossing the model has ever produced is at **liftoffr.com/receipts** — all 64, from
 September 2011 to November 2025, winners and losers in the same table.
@@ -20,7 +21,7 @@ does not enter the log as a signal.
 **Two things to notice before you read a single row:**
 
 1. **The zone names in that log use the earlier five-band scheme,** where NEUTRAL spanned 30–70.
-   The live Score now names six bands (Module 1.2). The boundaries at 85, 70, 30 and 15 did not
+   The live Score now names six bands (`#m4-score-2-the-six-bands`). The boundaries at 85, 70, 30 and 15 did not
    move, so no crossing in the log changes — the only difference is that the old NEUTRAL interval
    is now split at 50. No crossing in the log sits between 32 and 67, so nothing lands in the
    part that was split.
@@ -30,7 +31,7 @@ does not enter the log as a signal.
 
 ---
 
-## 6.2 — Why "35 of 64" is not a hit rate
+## `#m5-l2-why-35-of-64-is-not-a-hit-rate` — Why "35 of 64" is not a hit rate
 
 The receipts page shows a column counting every crossing after which Bitcoin was simply higher.
 At 30 days that is 35 of 64. At 180 days it is 37 of 64.
@@ -54,7 +55,7 @@ it was wrong on my own site until 20 August 2026.
 
 ---
 
-## 6.3 — Why 46% and 54% are the same number
+## `#m5-l3-why-46pct-and-54pct-are-the-same` — Why 46% and 54% are the same number
 
 The honest scoring is directional. An EXIT or WARNING crossing is correct if Bitcoin was **lower**
 afterwards; an ACCUMULATION crossing is correct if it was **higher**. The 18 NEUTRAL crossings
@@ -82,7 +83,7 @@ edge would be teaching you something false about its own product.
 
 ---
 
-## 6.4 — So what is it for?
+## `#m5-l4-so-what-is-it-for` — So what is it for?
 
 A fair question after 6.3, and it deserves a straight answer rather than a rescue.
 
@@ -105,7 +106,7 @@ of every time it has been early, late or wrong. What you do with that is yours.
 
 ---
 
-## 6.5 — The whipsaw: three entries, three retreats
+## `#m5-l5-the-whipsaw` — The whipsaw: three entries, three retreats
 
 Between 16 November 2024 and 21 October 2025 the Score moved in and out of the exit zone six
 times:
@@ -133,12 +134,12 @@ in full on each of those six transitions would have meant six reversals in a yea
 
 ---
 
-## 6.6 — What the number asks of you
+## `#m5-l6-what-the-number-asks-of-you` — What the number asks of you
 
 Every lesson before this one has been about the model. This one is about the only part the model
 cannot do for you.
 
-**A threshold model is not a decision. It is an input to one.** Lesson 6.5 is the proof: three
+**A threshold model is not a decision. It is an input to one.** Lesson `#m5-l5-the-whipsaw` is the proof: three
 entries into the exit zone, three retreats, six transitions in twelve months, and the top arriving
 fifteen days before the last exit. Anyone who treated each crossing as an instruction made six
 reversals in a year. Anyone who treated none of them as anything got the same result as not
@@ -167,7 +168,7 @@ What I can give you is the shape of a decision that survives contact with a whip
 4. **Write the reason down when you override yourself.** Overriding is not forbidden. Overriding
    *silently* is how a plan quietly stops existing. Writing the reason first turns an impulse into
    an argument, and about half of impulses do not survive being written down.
-5. **Re-read 6.3 before you commit to anything.** The directional record is 21 of 46 at 30 days
+5. **Re-read `#m5-l3-why-46pct-and-54pct-are-the-same` before you commit to anything.** The directional record is 21 of 46 at 30 days
    and 25 of 46 at 180, and neither is distinguishable from chance. Whatever you decide should be
    a decision that still makes sense given that — because that is the model you actually have, not
    the one the marketing of every other service implies you are buying.
@@ -185,16 +186,3 @@ that does that.
 The buy plan is a worked example of one person answering the question above with his own money —
 the tiers, the fallback dates and the override log are all in it. It is a description of what I
 did, not an instruction for what you should do.
-
-> **[TORIN — optional insert, this lesson ships without it]**
-> If you want to record on video how you personally read the number day to day, what a band
-> change actually changes for you, and how the ladder in the buy plan connects to the Score,
-> this is where it goes. Describe what you do; never instruct the learner. The lesson above is
-> complete and shippable as written — this is an addition, not a gap.
-
-
----
-
-*Educational content only. Not financial advice, and not personalised to you. Backtested results
-are historical; past performance does not guarantee future results. Nothing in this module is an
-instruction to buy, sell or size anything.*

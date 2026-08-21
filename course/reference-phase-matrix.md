@@ -25,7 +25,7 @@ Every number below is the component's reading on the day of that cycle turn, nor
 | Woobull Top Cap | 5% | 96 | 100 | 92 | 93 | 0 | 0 | 0 |
 | RUPL | 5% | 100 | 100 | 98 | 96 | 5 | 0 | 0 |
 
-Weights sum to 100%. Every component reported on all seven of these dates. Where the source publishes no reading on a given day, that component is excluded and the divisor drops to match — see the divisor rule in Module 1.4. It is never treated as a zero.
+Weights sum to 100%. Every component reported on all seven of these dates. Where the source publishes no reading on a given day, that component is excluded and the divisor drops to match — see the divisor rule in `#m4-score-4-the-divisor-rule`. It is never treated as a zero.
 
 ---
 

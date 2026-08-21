@@ -107,12 +107,12 @@ used to sit here is deleted — it described a delivery surface that is not bein
 
 | `course/` file | Lessons | Discord |
 |---|---|---|
-| `module-1-the-number.md` | 5 | `m4-score-1` … `m4-score-5` |
-| `module-2-the-heavy-half.md` | 2 | `m4-l1`, `m4-l2` |
-| `module-3-the-middle.md` | 3 | `m4-l3`, `m4-l4`, `m4-l5` |
-| `module-4-the-five-percents.md` | 4 | `m4-l6` … `m4-l9` |
-| `module-5-zero-weight.md` | 4 | `m4-l10-context-zero-weight` — **condensed into one channel**, deliberately: four short lessons that all say "this carries no weight" read better as one, and splitting them would have given the zero-weight material more channels than Pi Cycle |
-| `module-6-the-record.md` | 6 | `m5-l1` … `m5-l6` |
+| `m4-score-the-number.md` | 5 | `m4-score-1` … `m4-score-5` |
+| `m4-l1-l2-the-heavy-half.md` | 2 | `m4-l1`, `m4-l2` |
+| `m4-l3-l5-the-middle.md` | 3 | `m4-l3`, `m4-l4`, `m4-l5` |
+| `m4-l6-l9-the-five-percents.md` | 4 | `m4-l6` … `m4-l9` |
+| `m4-l10-zero-weight.md` | 4 | `m4-l10-context-zero-weight` — **condensed into one channel**, deliberately: four short lessons that all say "this carries no weight" read better as one, and splitting them would have given the zero-weight material more channels than Pi Cycle |
+| `m5-the-record.md` | 6 | `m5-l1` … `m5-l6` |
 | `reference-phase-matrix.md` | ref | posted in `#course-resources` |
 
 Nothing in `course/` is repo-only. The markdown is now the source of record for what was posted,
@@ -358,7 +358,7 @@ Two consequences you should know about:
    carries a note naming its replacement. Deleting them is your call, with sight of the content.
 
 **Market Cipher was deleted outright**, per your instruction and because nobody is mid-course.
-Channel gone, lesson gone from `module-5-zero-weight.md`, and `course/README.md` records why.
+Channel gone, lesson gone from `m4-l10-zero-weight.md`, and `course/README.md` records why.
 
 **Module 4 is now ten channels:** `m4-l1-rhodl-ratio-20pct` through `m4-l9-rupl-5pct` in weight
 order, plus `m4-l10-context-zero-weight` for CBBI, Fear & Greed and Google Trends. Each names its
@@ -405,13 +405,13 @@ The Cycle System.
 **What I did.** All six renamed `retired-m5-*` and moved to Archive, each with a notice naming its
 own defect. **Nothing deleted** — lesson 5 is your 2021 story and lesson 4's mechanics are sound;
 both are yours to re-shoot or restore. Replaced with six new channels built from
-`module-6-the-record.md`, plus a new overview and a replacement assessment.
+`m5-the-record.md`, plus a new overview and a replacement assessment.
 
 **Two things for you:**
 
-1. **The 2021 case study says you rode $25K down to ~$13K.** `/about` says you lost $30K in 2022.
-   Those may be the same episode described two ways, or two different numbers for it. I have not
-   changed either, because I do not know which is right. Pick one and I will make them agree.
+1. **~~The $25K vs $30K figures~~ — closed 21 Aug 2026.** Same episode. The archived lesson's
+   framing (a constructed $25,000 two-investor comparison) is where the smaller numbers came
+   from; no live surface ever carried them. See appendix 3 item 5.
 2. **Modules 1, 2, 3 and 6 are spot-checked and clean.** Module 3 lesson 5 on leverage is the best
    lesson in the old course and I would not change a word of it.
 
@@ -487,9 +487,16 @@ measurable answer: `lead_captured` per session and `begin_checkout` per session,
 page. Both events now fire correctly on both pages, so the comparison is available as soon as
 there is traffic.
 
-**5. The 2021 case study says you rode $25K down to about $13K; `/about` says you lost $30K in
-2022.** Same episode described twice, or two different numbers for it — I do not know which, so I
-changed neither. Tell me and I will make them agree.
+**5. ~~The $25K / $30K discrepancy~~ — CLOSED 21 Aug 2026.** Torin confirmed it is the same
+episode, not two. No live surface ever carried the $25K or $13K figures: `/about`, the homepage,
+the $29 plan document and the buyer sequence all say ~$30,000, and a repo-wide sweep found the
+smaller numbers only in the archived `retired-m5-2021-case-study` lesson and in this file.
+
+**Nothing live was changed**, because nothing live was wrong. The archived lesson's retirement
+notice now carries a line saying its figures describe the same episode the live material puts at
+~$30,000, and that the live figure is the one to trust. The numbers differed because that lesson
+framed the story as a constructed comparison between two hypothetical investors starting with
+$25,000 rather than as an account of what happened — which is the main reason it was retired.
 
 ---
 
@@ -531,3 +538,21 @@ minute.
 happened. I verified the API response instead of the resulting state, reported it as done twice,
 and only caught it when re-listing the channels for an unrelated reason. Same failure as
 everything in `COPY_SWEEP_NOTES.md` — unverifiable was assumed fine.
+
+
+---
+
+## Appendix 5 — the one optional addition to a course lesson (21 Aug 2026)
+
+`#m5-l6-what-the-number-asks-of-you` is complete and posted. Nothing is missing from it.
+
+**If you ever want to add your own account to it**, this is where it goes: how you personally
+read the number day to day, what a band change actually changes for you, and how the ladder in
+the buy plan connects to the Score. Describe what you do; never instruct the learner. That is the
+line the whole product runs on.
+
+This note used to live inside the lesson file as a `[TORIN]` marker. It is here instead because
+`course/*.md` is now the source that gets posted to Discord, and a marker in a lesson body is one
+mechanical paste away from being a customer-facing production note. That is exactly how page 7 of
+the 20 Aug PDF build failed. `scripts/check_course_markers.js` now fails the build if any marker
+reappears in a lesson file, so this cannot happen by accident again.

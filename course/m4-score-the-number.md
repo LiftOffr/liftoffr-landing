@@ -1,12 +1,13 @@
-# Module 1 — The number itself
+# The Score itself — `m4-score-1` … `m4-score-5`
 
-Five lessons. By the end of this module you can compute the Score by hand from free public
-data and get the same number the site publishes. That is the whole point of the module: if you
-cannot reproduce it, you are trusting me, and trusting me is not the product.
+Five lessons, posted as the first five channels of Discord **Module 4**, before the nine
+component lessons. By the end you can compute the Score by hand from free public data and get
+the same number the site publishes. That is the whole point: if you cannot reproduce it, you are
+trusting me, and trusting me is not the product.
 
 ---
 
-## 1.1 — What the Score is
+## `#m4-score-1-what-the-score-is` — What the Score is
 
 One number between 0 and 100 describing where Bitcoin sits in its cycle. It is a weighted
 average of nine on-chain and market components, recomputed every morning from public data.
@@ -33,7 +34,7 @@ to anyone. It is a description of where a set of public measurements currently s
 their own history.
 
 **Why nine and not one.** Every single indicator in this course has failed at least once, and
-Module 2 through Module 4 will show you exactly where each one failed. A weighted average does
+`#m4-l1` through `#m4-l9` show you exactly where each one failed. A weighted average does
 not fix that — it spreads it. One component being wrong moves the number a little instead of a
 lot. That is the entire argument for the design, and it is worth understanding as a trade-off
 rather than a solution: the same averaging that stops one bad reading dominating also stops one
@@ -41,7 +42,7 @@ correct early warning dominating.
 
 ---
 
-## 1.2 — The six bands
+## `#m4-score-2-the-six-bands` — The six bands
 
 The Score is reported in six bands. These are the only ones, and they are identical everywhere
 the number appears.
@@ -66,13 +67,13 @@ Score spends a lot of time in: it is not "the bottom is in". It is the range the
 after the deepest part of a drawdown has passed but before the next expansion has established
 itself. Historically it has resolved upward more often than not over a 180-day window. That is a
 description of what has happened before, not a forecast, and "more often than not" is doing real
-work in that sentence — see Module 6.
+work in that sentence — see `#m5-l3-why-46pct-and-54pct-are-the-same`.
 
 Every band description above is a statement about the past. None of them is a prediction.
 
 ---
 
-## 1.3 — The arithmetic
+## `#m4-score-3-the-arithmetic` — The arithmetic
 
 Three steps.
 
@@ -91,7 +92,7 @@ MVRV Z-Score         0.15 × 12.8 =  1.92
 Pi Cycle Top         0.10 × 38.8 =  3.88
 2-Year MA Multiplier 0.05 × 50.9 =  2.545
 Reserve Risk         0.05 × 19.1 =  0.955
-Woobull Top Cap      0.05 × (no reading published — see 1.4)
+Woobull Top Cap      0.05 × (no reading published — see `#m4-score-4-the-divisor-rule`)
 RUPL                 0.05 × 34.5 =  1.725
                                    ───────
 Sum of the eight that reported     = 34.50
@@ -106,7 +107,7 @@ liftoffr.com/score, free, with no email required.
 
 ---
 
-## 1.4 — The divisor rule
+## `#m4-score-4-the-divisor-rule` — The divisor rule
 
 This is the lesson people skip and then email me about, so it gets its own page.
 
@@ -135,13 +136,13 @@ have been.
 
 ---
 
-## 1.5 — Reproduce it unaided
+## `#m4-score-5-reproduce-it-unaided` — Reproduce it unaided
 
 The exercise for this module. Do it once and you never have to take my word for a number again.
 
 1. Open **colintalkscrypto.com/cbbi** — the public daily data source. Free, no account.
 2. Read off the nine component values. They are already normalised to 0–100.
-3. Multiply each by its weight from lesson 1.1.
+3. Multiply each by its weight from `#m4-score-1-what-the-score-is`.
 4. Add the products.
 5. Divide by the weight you actually used — 1.00 if all nine reported, less if any did not.
 6. Compare against **liftoffr.com/score**.

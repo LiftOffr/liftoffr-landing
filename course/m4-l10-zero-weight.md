@@ -1,22 +1,13 @@
-# Module 5 — What carries zero weight, and why
+# What carries zero weight — `m4-l10-context-zero-weight`
 
-Four lessons. This is the module that exists because the previous version of this course was
-wrong, and it says so.
-
-**Read this first.** The course you originally bought taught eight indicators. Three of them — CBBI,
-Fear & Greed and Google Trends — carry **no weight** in the LiftOffr Score, and a fourth, Market
-Cipher, was never a component of it at all. Meanwhile
-RHODL Ratio, which carries 20% and is tied for the heaviest weight in the model, was not taught
-at all. That was a real defect in a paid product and this module is the correction, not a
-footnote to it.
-
-None of what follows means those indicators are useless. It means they are **context** — things
-worth looking at — rather than **inputs**, things the number is built from. Confusing the two is
-how you end up unable to reproduce a number you were told you could check.
+**The four sections below are posted as a SINGLE Discord channel, not four.** Four short lessons
+that all conclude "this carries no weight" read better as one, and splitting them would have
+given the zero-weight material more channels than Pi Cycle. This is the module that exists
+because the previous version of this course was wrong, and it says so.
 
 ---
 
-## 5.1 — CBBI: the source, not a component
+## `#m4-l10-context-zero-weight` — CBBI: the source, not a component
 
 **What it is.** The Colin Talks Crypto Bitcoin Bull Run Index — a composite that averages its
 own set of sub-indicators into a single 0–100 reading, published free and daily.
@@ -26,17 +17,17 @@ reads its nine component values **from** CBBI's public data. Including CBBI's ow
 tenth input would mean counting the same underlying readings twice — once as components, once
 again inside CBBI's average of them.
 
-**How to use it.** As the place you go to check my arithmetic — lesson 1.5 sends you there. If
+**How to use it.** As the place you go to check my arithmetic — `#m4-score-5-reproduce-it-unaided` sends you there. If
 CBBI's composite and the Score diverge, that is not one contradicting the other; it is two
 different weightings of an overlapping set of measurements, and the interesting question is
 which components account for the gap.
 
-**Where the old course had this wrong.** "Reading CBBI signals" was taught as Module 4's first
+**Where the old course had this wrong.** "Reading CBBI signals" was taught as the old Module 4's first
 lesson, which framed the data source as a signal. It is a source.
 
 ---
 
-## 5.2 — Fear & Greed: sentiment, not an input
+## `#m4-l10-context-zero-weight` — Fear & Greed: sentiment, not an input
 
 **What it is.** A 0–100 sentiment index built from volatility, momentum, volume, social
 activity, dominance and trends.
@@ -54,7 +45,7 @@ confirmation that never arrived. That is on liftoffr.com/indicator-history with 
 
 ---
 
-## 5.3 — Google Trends: attention, not an input
+## `#m4-l10-context-zero-weight` — Google Trends: attention, not an input
 
 **What it is.** Relative search interest in Bitcoin over time.
 
@@ -69,7 +60,7 @@ The 2025 cycle topped without the retail attention spike the previous cycle prod
 
 ---
 
-## 5.4 — The framework moved: what changed, and what replaced what
+## `#m4-l10-context-zero-weight` — The framework moved: what changed, and what replaced what
 
 Plainly, so you can see the whole edit.
 
@@ -98,7 +89,7 @@ Plainly, so you can see the whole edit.
 | RUPL | 5% | **Not taught** |
 
 Four of the nine weighted components — 35% of the model by weight — were absent from a course
-about the model's indicators. Modules 2 through 4 of this curriculum are where they get taught.
+about the model's indicators. Channels `#m4-l1` through `#m4-l9` are where they get taught.
 
 **How obvious this got, in the end.** The weekly indicator panel that ran in Discord until
 26 July 2026 listed CBBI, Fear & Greed, Rainbow Band and BTC Dominance as its inputs — and in the
@@ -108,7 +99,7 @@ final edition also published price levels — "$60,000 · $62,000 · $63,000" �
 something I do anywhere any more. The panel is retired and the notice explaining why is pinned
 in that channel.
 
-**Why say all this instead of quietly reshooting Module 4.** Because the argument for this
+**Why say all this instead of quietly reshooting the module.** Because the argument for this
 product is that you can check it, and an argument you can check has to survive being checked.
 A course that silently swapped its own syllabus would be asking you to trust that the *new* one
 is right, with no way to tell. Here is what was wrong, here is what replaced it, and here is the

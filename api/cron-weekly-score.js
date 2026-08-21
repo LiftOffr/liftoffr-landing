@@ -209,10 +209,129 @@ async function aiWeeklyRead(score) {
     if (!r.ok) return score.commentary;
     const d = await r.json();
     const text = (d.content || []).filter((b) => b.type === "text").map((b) => b.text).join(" ").trim();
-    return text.length > 80 ? text : score.commentary;
+    const verdict = validateWeeklyRead(text, score);
+    if (!verdict.ok) {
+      // Loud on purpose. A silent fallback looks identical to a good week, so a
+      // model that drifted would be invisible until someone read a sent email.
+      console.warn(`[weekly-score] AI read REJECTED (${verdict.reason}) — falling back to commentary. Text was: ${JSON.stringify(text.slice(0, 400))}`);
+      return score.commentary;
+    }
+    return text;
   } catch {
     return score.commentary;
   }
+}
+
+// ── Post-generation validator for the AI weekly read ─────────────────────────
+// WHY THIS EXISTS
+// The weekly read is written by a model at send time and goes to the entire free
+// list. The prompt forbids instruction verbs, pins the six bands, and says to use
+// the band for the given score and no other. Until 21 Aug 2026 the only check on
+// the returned text was `text.length > 80` — so the single rule this business
+// rests on ("never tell the reader what to do with a position") was enforced on a
+// weekly outbound surface by model compliance alone, with no human in the loop.
+//
+// A prompt is a request. This is the check. If the model drifts, the email still
+// goes out — with score.commentary, which is deterministic and always correct.
+// Prefer a duller true email over a livelier one that might not be.
+//
+// Deliberately conservative about numbers: the read may only contain figures that
+// were in its input. That blocks invented prices, invented percentages and
+// hallucinated hit rates in one rule, at the cost of occasionally rejecting a
+// harmless rounding. That trade is the right way round.
+const BANNED_INSTRUCTION = [
+  // Second-person or imperative position instructions. The register rule in
+  // COPY_SWEEP_NOTES.md, enforced rather than requested.
+  /\b(buy|sell|reduce|trim|accumulate|deploy|exit|enter|hold|add|short|long)\s+(now|here|today|aggressively|the\s+dip)\b/i,
+  /\byou\s+(should|ought\s+to|need\s+to|must|want\s+to)\s+(buy|sell|reduce|trim|take|scale|exit|enter|hold|add|deploy|accumulate|de-?risk)\b/i,
+  /\b(take|taking)\s+profits?\b/i,
+  /\bscal(e|ing)\s+(out|in)\b/i,
+  /\bde-?risk(ing)?\b/i,
+  /\b(start|stop|increase|decrease|pause|resume)\s+(your\s+)?dca\b/i,
+  /\bdollar-cost\s+averag/i,
+  /\b(time|timing)\s+to\s+(buy|sell|exit|enter)\b/i,
+  /\b(get|move)\s+(in|out)\s+(now|here)\b/i,
+  /\bposition\s+size|\bsize\s+(up|down)\b/i,
+];
+
+const ALL_BAND_NAMES = [
+  "exit zone", "exit", "warning", "mid-cycle", "mid cycle",
+  "re-accumulation", "re accumulation", "accumulation", "deep accumulation",
+];
+
+// The band a score actually falls in. Must stay in step with zone() in
+// api/cycle-score.js and with the table in every course lesson.
+function bandForScore(n) {
+  if (n >= 85) return "exit";
+  if (n >= 70) return "warning";
+  if (n >= 50) return "mid-cycle";
+  if (n >= 30) return "re-accumulation";
+  if (n >= 15) return "accumulation";
+  return "deep-accumulation";
+}
+
+function validateWeeklyRead(text, score) {
+  if (!text || text.length <= 80) return { ok: false, reason: "too short or empty" };
+  if (text.length > 1400) return { ok: false, reason: "implausibly long" };
+
+  for (const re of BANNED_INSTRUCTION) {
+    const m = text.match(re);
+    if (m) return { ok: false, reason: `instruction verb: ${JSON.stringify(m[0])}` };
+  }
+
+  // The correct band may appear; no other band name may.
+  const correct = bandForScore(score.score);
+  const correctAliases = correct === "deep-accumulation"
+    ? ["deep accumulation"]
+    : correct === "mid-cycle" ? ["mid-cycle", "mid cycle"]
+    : correct === "re-accumulation" ? ["re-accumulation", "re accumulation"]
+    : correct === "exit" ? ["exit zone", "exit"]
+    : [correct];
+  const lower = text.toLowerCase();
+  for (const name of ALL_BAND_NAMES) {
+    if (correctAliases.includes(name)) continue;
+    // "accumulation" is a substring of the other two; only flag it standalone.
+    const re = name === "accumulation"
+      ? /(^|[^-\w])accumulation\b/
+      : new RegExp(`(^|[^-\\w])${name.replace(/[-\s]/g, "[-\\s]")}\\b`);
+    if (re.test(lower)) {
+      if (name === "accumulation" && (lower.includes("re-accumulation") || lower.includes("deep accumulation"))) {
+        // The standalone match may be the tail of a compound we already allow.
+        const stripped = lower.replace(/re-?\s?accumulation/g, "").replace(/deep\s?accumulation/g, "");
+        if (!/(^|[^-\w])accumulation\b/.test(stripped)) continue;
+      }
+      return { ok: false, reason: `names band "${name}" but the score is ${score.score} (${correct})` };
+    }
+  }
+
+  // Every number in the output must have been in the input.
+  const allowed = new Set();
+  const addNum = (v) => {
+    if (v === null || v === undefined) return;
+    const n = Number(v);
+    if (!Number.isFinite(n)) return;
+    allowed.add(String(n));
+    allowed.add(n.toFixed(1));
+    allowed.add(String(Math.round(n)));
+  };
+  addNum(score.score);
+  addNum(score.trendDelta7d);
+  addNum(Math.abs(score.trendDelta7d));
+  Object.values(score.components || {}).forEach((c) => addNum(c && c.value));
+  [7, 30, 90, 180, 100, 0, 2013, 2015, 2017, 2018, 2021, 2022, 2025].forEach(addNum);
+  ALL_BAND_NAMES.forEach(() => {});
+  [85, 70, 50, 30, 15].forEach(addNum);   // the published band boundaries
+
+  for (const m of text.matchAll(/\$?\d[\d,]*(?:\.\d+)?%?/g)) {
+    const raw = m[0].replace(/[$,%]/g, "");
+    if (raw === "") continue;
+    const n = Number(raw);
+    if (!Number.isFinite(n)) continue;
+    if (allowed.has(String(n)) || allowed.has(n.toFixed(1)) || allowed.has(String(Math.round(n)))) continue;
+    return { ok: false, reason: `number not in input: ${JSON.stringify(m[0])}` };
+  }
+
+  return { ok: true };
 }
 
 async function sendResend(to, subject, text, html, idempotencyKey) {

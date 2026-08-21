@@ -1,14 +1,12 @@
-# Module 2 — The heavy half
-Two components carry 20% each — together, 40% of the whole number. If you only ever internalise two, make it these.
+# The heavy half — `m4-l1`, `m4-l2`
 
-> **Where it has been wrong** is lifted verbatim from that component's page on the site. It is
-> not softened for the course. An indicator sold as infallible is being sold, not explained.
-
-Every lesson below follows the same four parts: what it measures, why it carries the weight it does, how to read it, and where it has been wrong. Nothing here tells you what to do with a reading.
+The two components that carry 20% each. Every lesson below follows the same four parts: what it
+measures, why it carries the weight it does, how to read it, and where it has been wrong.
+Nothing here tells you what to do with a reading.
 
 ---
 
-## 2.1 — RHODL Ratio · 20% of the Score
+## `#m4-l1-rhodl-ratio-20pct` — RHODL Ratio · 20% of the Score
 
 **What it measures.** Whether the coins changing hands are new speculative money or long-held supply waking up. Tops happen when both are true at once.
 
@@ -34,7 +32,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/rhodl-ratio**
 
 ---
 
-## 2.2 — Puell Multiple · 20% of the Score
+## `#m4-l2-puell-multiple-20pct` — Puell Multiple · 20% of the Score
 
 **What it measures.** Miner selling pressure relative to the last year of miner revenue.
 

@@ -79,7 +79,7 @@ All six are now `retired-m5-*` in the Archive category, each with a notice namin
 defect. Nothing was deleted: the lessons contain Torin's own story and are his to re-shoot.
 
 **Replacement:** six new channels, `m5-l1-how-to-read-receipts` through
-`m5-l6-what-the-number-asks-of-you`, built from `module-6-the-record.md`. They contain no trigger
+`m5-l6-what-the-number-asks-of-you`, built from `m5-the-record.md`. They contain no trigger
 prices, no position percentages and no price targets.
 
 **Modules 1, 2, 3 and 6 spot-checked and clean.** Module 3 lesson 5 (leverage control) is the
@@ -103,7 +103,7 @@ and it is the same move that makes Broadcast 1 worth sending: the correction is 
 upload table that used to live in `HANDOVER.md` is deleted and Discord is where the course is.
 
 Everything in `course/` has a Discord counterpart; nothing is repo-only. The one intentional
-compression is `module-5-zero-weight.md`, whose four lessons became the single channel
+compression is `m4-l10-zero-weight.md`, whose four lessons became the single channel
 `m4-l10-context-zero-weight` — four short lessons that all conclude "this carries no weight" read
 better as one, and splitting them would have given the zero-weight material more channels than
 Pi Cycle has.

@@ -1,14 +1,12 @@
-# Module 3 — The middle
-Three components carrying 15%, 15% and 10% — another 40% of the number between them. This is also where two of the most-quoted indicators in Bitcoin live, and where two of the most instructive failures are.
+# The middle — `m4-l3` … `m4-l5`
 
-> **Where it has been wrong** is lifted verbatim from that component's page on the site. It is
-> not softened for the course. An indicator sold as infallible is being sold, not explained.
-
-Every lesson below follows the same four parts: what it measures, why it carries the weight it does, how to read it, and where it has been wrong. Nothing here tells you what to do with a reading.
+Trolololo and MVRV at 15% each, Pi Cycle at 10%. Every lesson below follows the same four parts:
+what it measures, why it carries the weight it does, how to read it, and where it has been wrong.
+Nothing here tells you what to do with a reading.
 
 ---
 
-## 3.1 — Trolololo trend line · 15% of the Score
+## `#m4-l3-trolololo-trend-line-15pct` — Trolololo trend line · 15% of the Score
 
 **What it measures.** How stretched price is versus its own long-run log-growth trend.
 
@@ -34,7 +32,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/rainbow-chart**
 
 ---
 
-## 3.2 — MVRV Z-Score · 15% of the Score
+## `#m4-l4-mvrv-z-score-15pct` — MVRV Z-Score · 15% of the Score
 
 **What it measures.** Aggregate unrealised profit across every coin in circulation.
 
@@ -60,7 +58,7 @@ Live reading, and this table in full: **liftoffr.com/indicators/mvrv-z-score**
 
 ---
 
-## 3.3 — Pi Cycle Top · 10% of the Score
+## `#m4-l5-pi-cycle-top-10pct` — Pi Cycle Top · 10% of the Score
 
 **What it measures.** How close short-term momentum is to a historically extreme stretch over the long trend.
 

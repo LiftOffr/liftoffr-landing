@@ -52,6 +52,22 @@ else
 fi
 
 echo
+echo "=== No production notes in files that get posted ==="
+if command -v node >/dev/null 2>&1; then
+  node "$(dirname "$0")/check_course_markers.js" || echo "COURSE MARKERS: *** FAIL ***"
+else
+  echo "node not found, skipping course marker check"
+fi
+
+echo
+echo "=== Weekly AI read validator rejects drift ==="
+if command -v node >/dev/null 2>&1; then
+  node "$(dirname "$0")/check_weekly_read_validator.js" || echo "WEEKLY READ VALIDATOR: *** FAIL ***"
+else
+  echo "node not found, skipping weekly read validator check"
+fi
+
+echo
 echo "=== cta_clicked selector covers every offer link (static) ==="
 if command -v node >/dev/null 2>&1; then
   node "$(dirname "$0")/check_cta_coverage.js" || echo "CTA COVERAGE: *** FAIL ***"
