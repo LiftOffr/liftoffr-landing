@@ -85,6 +85,12 @@
     //    page the Instagram bio points at. If you edit this, re-measure the banner
     //    height and the /score number's visibility at 375x812, 390x844, 414x896 and
     //    375x667 before you push. Do not shrink the font to make room.
+    //    MEASURED: this paragraph renders 218px at 375x812, against a 236px cap, so
+    //    it does not scroll. The warm rewrite first came in at 261px, which pushed
+    //    the banner to 42% of the viewport and left 8px between it and the Score.
+    //    218px is the budget. Candidates were measured by injecting them into the
+    //    live DOM before shipping, not by counting characters -- character count
+    //    does not predict rendered height and twice misled me here.
     // 4. Tone is also load-bearing, and it is the newest constraint. An earlier
     //    accurate version led with "Clarity records session replays" and read as a
     //    warning notice, which makes declining the obvious move — an honest banner
@@ -94,12 +100,11 @@
     //    and "no is a completely fine answer" said out loud. Detail lives behind
     //    /privacy. Never trade a fact away for warmth; reorder instead.
     p.innerHTML = '<strong style="color:#fff;">Mind if I see which pages actually help?</strong> ' +
-      'It shows me what people read and what they skip, so I can write more of the first. ' +
-      'Page views are already counted anonymously, with no cookie. Yes adds one so return ' +
-      'visits are not double-counted, and turns on anonymous session replays &mdash; mouse, ' +
-      'scrolling, clicks &mdash; which stay off unless you allow them. (Our checkout provider ' +
-      'sets two of its own on arrival, to credit referrers.) None of it is needed for anything ' +
-      'here to work, and no is a completely fine answer.';
+      'It shows me what gets read and what gets skipped, so I can write more of the first. ' +
+      'Page views are already counted anonymously, no cookie. Yes adds one so repeat visits ' +
+      'are not counted twice, and turns on session replays &mdash; clicks and scrolling, not ' +
+      'who you are. Our checkout provider sets two cookies of its own, to credit referrers. ' +
+      'Nothing here needs any of it, and no is a fine answer.';
 
     // The link to the full disclosure is pulled OUT of the paragraph so it sits
     // below the scroll area and can never be the part that scrolls off.
