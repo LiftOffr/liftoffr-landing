@@ -124,7 +124,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
     <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64, including the ones that went the wrong way &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
 
-    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score &mdash; nine buy tiers, the exit ladder, and the whipsaw rule? It's $29, once.</p>
+    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score &mdash; nine buy tiers, the exit thresholds that put me on alert, and the whipsaw rule? It's $29, once. (The full exit ladder with the fractions is in The Cycle System, and the plan says so on the page rather than after you've paid.)</p>
   </div>
 
   <div style="padding:0 28px 32px;">
@@ -439,13 +439,17 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }
   // CBBI zone label
   let cbbiStr = "";
   if (typeof cbbi === "number") {
+    // The thresholds were already right; the labels were a retired scheme
+    // ("TOP ZONE / hot / warm / mid / accum / BOTTOM") that appears nowhere else
+    // on the site. These are the six published band names, and they must stay in
+    // step with ZONE_INT in api/cycle-score.js and the table on /score.
     let zone;
-    if (cbbi >= 0.85)      zone = "🔴 TOP ZONE";
-    else if (cbbi >= 0.70) zone = "🟠 hot";
-    else if (cbbi >= 0.50) zone = "🟡 warm";
-    else if (cbbi >= 0.30) zone = "🟢 mid";
-    else if (cbbi >= 0.15) zone = "🟢 accum";
-    else                   zone = "🟢 BOTTOM";
+    if (cbbi >= 0.85)      zone = "🔴 exit";
+    else if (cbbi >= 0.70) zone = "🟠 warning";
+    else if (cbbi >= 0.50) zone = "🟡 mid-cycle";
+    else if (cbbi >= 0.30) zone = "🔵 re-accumulation";
+    else if (cbbi >= 0.15) zone = "🟢 accumulation";
+    else                   zone = "🟢 deep accumulation";
     cbbiStr = `  ·  **CBBI ${cbbi.toFixed(2)}** ${zone}`;
   }
 

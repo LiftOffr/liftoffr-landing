@@ -42,7 +42,7 @@ const SUBJECT_PROOF = "don't trust my backtest";
 // the $29 plan and has never mentioned a trial; the subject was promising a
 // product that no longer exists.
 const SUBJECT_E3 = "The shortcut, if you want it (last welcome email)";
-const SUBJECT_REENGAGE = "We're in the buy zone — here's the play";
+const SUBJECT_REENGAGE = "still here, and the number moved";
 
 // ── Plan-buyer sequence (LIFTOFFR_MASTER_PLAN.md §5) ──
 // Audience: Resend "LiftOffr Plan Buyers", populated by api/whop-webhook.js on
@@ -360,19 +360,25 @@ function email3Text() {
 }
 
 // ── Day 1: Quick win (activation → live dashboard) ──
+// Day 1. REWRITTEN 20 Aug 2026: this said "yesterday you grabbed the buy-zone
+// plan", a document that no longer exists — day 0 now delivers "Read the Bitcoin
+// Cycle Yourself" — and it said "all 8" twice, one sentence after saying nine.
+// Its band names (buy zone / neutral / top zone) were a scheme the site retired.
+// The six bands are the only ones that exist: exit 85+, warning 70-85, mid-cycle
+// 50-70, re-accumulation 30-50, accumulation 15-30, deep accumulation under 15.
 function quickWinHTML() {
   return shell("Welcome · Day 1",
-    `<p style="margin:0 0 16px;">Yesterday you grabbed the buy-zone plan. Behind it sits one number, built from nine weighted indicators.</p>
-     <p style="margin:0 0 16px;">Reading all 8 yourself takes about 15 minutes a week. Here's the shortcut: the live dashboard weights all 8 into <strong>one number, 0–100</strong>, updated daily.</p>
-     <p style="margin:0 0 16px;">Open it and you'll see exactly where the cycle stands today — color-coded buy zone, neutral, or top zone. Ten seconds, no charts to decode.</p>
+    `<p style="margin:0 0 16px;">Yesterday you got <strong>Read the Bitcoin Cycle Yourself</strong>. Behind it sits one number, built from nine weighted components.</p>
+     <p style="margin:0 0 16px;">Reading all nine yourself takes about 15 minutes a week — the PDF walks you through it, and the point is that you can. Here's the shortcut for the other six days: the live page weights all nine into <strong>one number, 0–100</strong>, recomputed daily from the same free public source.</p>
+     <p style="margin:0 0 16px;">Open it and you'll see where the cycle sits today, and which of the six bands that is. Ten seconds, no charts to decode. What the bands have meant historically is on the page; what any of it means for you is yours.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "See today's Score →", "https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
+    "See today's Score →", "https://liftoffr.com/score?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin");
 }
 function quickWinText() {
-  return ["Yesterday you grabbed the buy-zone plan. Behind it sits one number, built from nine weighted indicators.","",
-    "Reading all 8 yourself takes ~15 min a week. The shortcut: the live dashboard weights all 8 into one number, 0–100, updated daily.","",
-    "Open it and you'll see exactly where the cycle stands today — buy zone, neutral, or top zone. Ten seconds.","",
-    "See today's Score: https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
+  return ["Yesterday you got READ THE BITCOIN CYCLE YOURSELF. Behind it sits one number, built from nine weighted components.","",
+    "Reading all nine yourself takes ~15 min a week - the PDF walks you through it, and the point is that you can. The shortcut for the other six days: the live page weights all nine into one number, 0-100, recomputed daily from the same free public source.","",
+    "Open it and you'll see where the cycle sits today, and which of the six bands that is. Ten seconds. What the bands have meant historically is on the page; what any of it means for you is yours.","",
+    "See today's Score: https://liftoffr.com/score?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day1_quickwin","","— Torin"].join("\n");
 }
 
 // ── Day 5: Proof — REWRITTEN 2026-08-16 ──
@@ -386,7 +392,7 @@ function quickWinText() {
 function proofHTML() {
   return shell("Welcome · Day 5",
     `<p style="margin:0 0 16px;">I want to explain something about my own receipts page, because most people in this industry won't and it matters.</p>
-     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with the dates and the outcomes.</p>
+     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later &mdash; but that is not a hit rate and I will not relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on <strong>21 of 46</strong> at 30 days and <strong>25 of 46</strong> at 180, and neither is distinguishable from chance. All 64 are up there with the dates and the outcomes.</p>
      <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
      <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
      <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
@@ -396,7 +402,7 @@ function proofHTML() {
 }
 function proofText() {
   return ["I want to explain something about my own receipts page, because most people in this industry won't and it matters.","",
-    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with the dates and the outcomes.","",
+    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later - but that is not a hit rate and I will not relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on 21 of 46 at 30 days and 25 of 46 at 180, and neither is distinguishable from chance. All 64 are up there with the dates and the outcomes.","",
     "EVERY ONE OF THEM IS A BACKTEST.","",
     "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
     "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
@@ -435,21 +441,45 @@ function stackText() {
 }
 
 // ── Day 18: Re-engagement (timely buy-zone angle → trial) ──
-function reengageHTML() {
+// Day 18. REWRITTEN 20 Aug 2026. This hardcoded "right now the cycle's in the
+// accumulation zone" and shipped under the subject "We're in the buy zone —
+// here's the play". Three problems: "buy zone" is not one of the six bands,
+// "here's the play" is instruction framing on a site whose whole register rule
+// is that it never tells anyone what to do, and the band assertion was simply
+// false by the time anyone read it — accumulation is 15-30 and the Score was
+// 36.1, which is re-accumulation. A static claim about a number that moves every
+// morning is wrong by default; it just takes a while to notice.
+//
+// It now reads the live Score at send time. If the fetch fails, `sc` is null and
+// the band sentence does not render at all — the email still sends, minus a
+// claim. Never reinstate a hardcoded band here.
+function reengageBand(sc) {
+  if (!sc || typeof sc.score !== "number" || !sc.zone) return null;
+  return { score: sc.score.toFixed(1), zone: String(sc.zone).replace(/-/g, " ") };
+}
+function reengageHTML(sc) {
+  const b = reengageBand(sc);
+  const bandHTML = b
+    ? `<p style="margin:0 0 16px;">As I write this the Score is <strong>${b.score}</strong> — the <strong>${b.zone}</strong> band. What that band has meant historically is on the page, with every date. What it means for you is yours to decide, and I am not going to pretend I know your position.</p>`
+    : "";
   return shell("LiftOffr · checking in",
     `<p style="margin:0 0 16px;">I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.</p>
-     <p style="margin:0 0 16px;">Right now the cycle's in the <strong>accumulation zone</strong> — the boring, scary part that quietly decides how the next bull plays out. It's the easy part to ignore and the expensive part to get wrong.</p>
-     <p style="margin:0 0 16px;">If you'd rather not freelance it, the exact buy-ladder I'm running — nine tiers, timestamped receipts on every fire — is $29, once. No subscription.</p>
+     ${bandHTML}
+     <p style="margin:0 0 16px;">If you'd rather not freelance the accumulation side of it, the buy ladder I'm running with my own money — nine tiers, timestamped receipts on every fire, and a worksheet for building your own at whatever size you're actually working with — is $29, once. No subscription. It's a description of what I did, not an instruction for what you should.</p>
      <p style="margin:0 0 16px;">If now's not the time, no worries — you'll still get the Score every Sunday.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "Get the plan — $29 once →", "https://liftoffr.com/plan");
+    "See the plan — $29 once →", "https://liftoffr.com/plan");
 }
-function reengageText() {
+function reengageText(sc) {
+  const b = reengageBand(sc);
+  const band = b
+    ? [`As I write this the Score is ${b.score} - the ${b.zone} band. What that band has meant historically is on the page, with every date. What it means for you is yours to decide.`, ""]
+    : [];
   return ["I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.","",
-    "Right now the cycle's in the accumulation zone — the boring, scary part that decides how the next bull plays out. Easy to ignore, expensive to get wrong.","",
-    "If you'd rather not freelance it, the exact buy-ladder I'm running — nine tiers, timestamped receipts — is $29, once. No subscription.","",
+    ...band,
+    "If you'd rather not freelance the accumulation side of it, the buy ladder I'm running with my own money - nine tiers, timestamped receipts, and a worksheet for building your own - is $29, once. No subscription. It's a description of what I did, not an instruction for what you should.","",
     "If now's not the time, no worries — you'll still get the Score every Sunday.","",
-    "Get the plan ($29, once): https://liftoffr.com/plan","","— Torin"].join("\n");
+    "See the plan ($29, once): https://liftoffr.com/plan","","— Torin"].join("\n");
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -670,7 +700,7 @@ function quiz2Text(seg, sc) {
 function quiz3HTML(seg, sc) {
   return shell("Day 3",
     `<p style="margin:0 0 16px;">I want to explain something about my own receipts page, because most people in this industry won't and it matters.</p>
-     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.</p>
+     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later &mdash; but that is not a hit rate and I will not relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on <strong>21 of 46</strong> at 30 days and <strong>25 of 46</strong> at 180, and neither is distinguishable from chance. All 64 are up there with the dates and the outcomes.</p>
      <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
      <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
      <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
@@ -680,7 +710,7 @@ function quiz3HTML(seg, sc) {
 }
 function quiz3Text() {
   return tjoin(["I want to explain something about my own receipts page, because most people in this industry won't and it matters.","",
-    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later. Twenty-nine were not. All 64 are up there with dates.","",
+    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later - but that is not a hit rate and I will not relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on 21 of 46 at 30 days and 25 of 46 at 180, and neither is distinguishable from chance. All 64 are up there with the dates and the outcomes.","",
     "EVERY ONE OF THEM IS A BACKTEST.","",
     "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them, and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
     "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
@@ -930,6 +960,9 @@ export default async function handler(req, res) {
 
   try {
     const contacts = await fetchContacts();
+    // One fetch for the whole run. reengageHTML/Text are the only templates that
+    // reference the live number; they render without the band claim if this is null.
+    const liveScore = await fetchScoreSafe();
     const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, stack_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, stack_failed: 0, reengage_failed: 0, skipped: 0, errors: [] };
 
     // Fire one email for a contact, dedupe via idempotency key, then pace 600ms.
@@ -957,7 +990,7 @@ export default async function handler(req, res) {
       // Day 9 — the stack (goodwill + affiliate layer) (9.0–10.0)
       if (age >= 9.0 && age < 10.0) { await fire(c, SUBJECT_STACK, stackText(), stackHTML(), "welcome-stack", "day9", "stack_sent", "stack_failed"); continue; }
       // Day 18 — re-engagement (18.0–19.0)
-      if (age >= 18.0 && age < 19.0) { await fire(c, SUBJECT_REENGAGE, reengageText(), reengageHTML(), "welcome-reengage", "day18", "reengage_sent", "reengage_failed"); continue; }
+      if (age >= 18.0 && age < 19.0) { await fire(c, SUBJECT_REENGAGE, reengageText(liveScore), reengageHTML(liveScore), "welcome-reengage", "day18", "reengage_sent", "reengage_failed"); continue; }
       results.skipped++;
     }
 

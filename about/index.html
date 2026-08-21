@@ -65,7 +65,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], ' +
                              'a[href^="/playbook"], a[href^="/score"], a[href^="/free"], ' +
                              'a[href^="/receipts"], a[href^="/proof"], a[href^="/track-record"], ' +
-                             'a[href*="whop.com/checkout"]');
+                             'a[href^="/quiz"], a[href^="/track-record"], a[href^="/proof"], a[href*="whop.com/checkout"]');
     if (!a) return;
     var u = new URL(a.href, location.href);
     var q = new URLSearchParams(location.search);

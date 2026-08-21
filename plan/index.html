@@ -804,13 +804,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   // CTA click tracking (matches site-wide cta_clicked schema)
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[data-dest]');
+    // Was a[data-dest] only, so the upsell path off this page — /system and
+    // /playbook — and the /quiz links reported nothing, because those anchors
+    // carry no data-dest. Widened; data-dest still wins where it is present.
+    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], ' +
+                             'a[href^="/playbook"], a[href^="/score"], a[href^="/free"], ' +
+                             'a[href^="/receipts"], a[href^="/quiz"], a[href^="/track-record"], ' +
+                             'a[href^="/proof"], a[href*="whop.com/checkout"]');
     if (!a) return;
     if (typeof window.track === 'function') {
+      // Derive when data-dest is absent. Without this the widened selector would
+      // send destination:null for every newly-covered anchor, which is the same
+      // class of bug as hardcoding it: an event that reports nothing useful.
+      var u = new URL(a.href, location.href);
+      var d = u.hostname.indexOf('whop.com') > -1
+                ? 'whop_checkout'
+                : (u.pathname.replace(/^\//, '').split('/')[0] || 'home');
       window.track('cta_clicked', {
         cta_text: (a.textContent || '').trim().slice(0, 80),
-        cta_position: a.getAttribute('data-cta-slot') || a.className || 'plan_cta',
-        destination: a.getAttribute('data-dest'),
+        cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                      u.searchParams.get('utm_content') || a.className || d,
+        destination: a.getAttribute('data-dest') || d,
         page: location.pathname
       });
     }

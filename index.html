@@ -307,7 +307,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     // does not.
     var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], ' +
                              'a[href^="/playbook"], a[href^="/score"], a[href^="/free"], ' +
-                             'a[href^="/receipts"], a[href*="whop.com/checkout"]');
+                             'a[href^="/receipts"], a[href^="/quiz"], a[href^="/track-record"], a[href^="/proof"], a[href*="whop.com/checkout"]');
     if (!a || a === pr) return;   // pr already reported above; never double-count
     var u = new URL(a.href, location.href);
     var utm = getUtms();

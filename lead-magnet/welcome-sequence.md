@@ -147,4 +147,4 @@ P.S. No card to start the trial — use it for a week and decide. Plans and deta
 
 **Critical:** after Email 3 the subscriber is now in the "weekly Score" cadence. The Vercel cron at `/api/cron-weekly-score` pulls every active Beehiiv subscriber every Sunday and sends them the Score via Resend. No additional setup needed — they're already on the list.
 
-**Why 3 emails not 5:** the old sequence was a pure sales funnel ending at "buy LiftOffr." The new sequence positions the Score as the ongoing value, so the welcome only needs to: (a) deliver the Checklist, (b) set the Sunday expectation, (c) make one Founder pitch. After that, the Score does the selling every week by demonstrating value.
+**Why 3 emails not 5:** the old sequence was a pure sales funnel ending at "buy LiftOffr." The new sequence positions the Score as the ongoing value, so the welcome only needs to: (a) deliver the free PDF — Read the Bitcoin Cycle Yourself since 20 Aug 2026, not the retired Checklist — (b) set the Sunday expectation, (c) make one Founder pitch. After that, the Score does the selling every week by demonstrating value.

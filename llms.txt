@@ -15,7 +15,7 @@ Founded by Torin Christianson. No subscriptions. Offers: My Bear Market Buy Plan
 - [Track Record](https://liftoffr.com/track-record): Full backtest dashboard of $50/wk DCA + cycle signals across every BTC cycle 2017–today
 - [Blog](https://liftoffr.com/blog/): Indicator deep dives
 - [Bio Links](https://liftoffr.com/links/): Instagram bio link page (highest-traffic landing)
-- [Free Checklist](https://liftoffr.com/lead-magnet/checklist.html): BTC Cycle Top Checklist (lead magnet PDF)
+- [Read the Bitcoin Cycle Yourself](https://liftoffr.com/lead-magnet/read-the-cycle.pdf): the free PDF — the nine weighted components, the Phase Matrix, the six bands, the divisor rule, and a ten-minute exercise for recomputing the Score from free public data. Contains no trigger prices, allocations or budget figures, by design.
 
 ## Indicator guides
 - [CBBI Explained](https://liftoffr.com/blog/cbbi-bitcoin-indicator): Composite 0–100 cycle score from 9 on-chain signals
@@ -37,8 +37,8 @@ Torin Christianson — Bitcoin cycle investor and educator. Analyzing BTC on-cha
 - [TikTok @torin_christianson](https://www.tiktok.com/@torin_christianson)
 
 ## Public APIs
-- [/api/subscribe](https://liftoffr.com/api/subscribe): POST — adds email to LiftOffr free list and immediately sends the welcome email (Cycle Top Checklist PDF + current LiftOffr Score)
-- [/api/cycle-score](https://liftoffr.com/api/cycle-score): GET — returns the live LiftOffr Score (0-100 composite of the 8 BTC cycle indicators), zone, trend, and component readings
+- [/api/subscribe](https://liftoffr.com/api/subscribe): POST — adds email to LiftOffr free list and immediately sends the welcome email (Read the Bitcoin Cycle Yourself PDF + current LiftOffr Score)
+- [/api/cycle-score](https://liftoffr.com/api/cycle-score): GET — returns the live LiftOffr Score (0-100 weighted composite of nine BTC cycle components), zone, trend, and component readings
 
 ## Disclaimer
 All content is educational only and not financial advice. Cryptocurrency markets are highly volatile. Past indicator behavior does not guarantee future results.
