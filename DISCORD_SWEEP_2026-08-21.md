@@ -95,45 +95,76 @@ the retired framework directly beneath a pinned notice saying it is retired.
 
 ---
 
-## 3. `#⚡・urgent-alerts` — active, mild, but pings a role on price moves
+## 3. `#⚡・urgent-alerts` — KEPT and REPURPOSED, 21 Aug 2026
 
-Firing now (20 and 21 Aug). Content is a 24-hour price-move alert: *"BTC +8.2% IN 24H … at these
-magnitudes, breakout continuation is possible but confirmation on a 4h close matters."* Carries
-"Not financial advice" and pings role `1535457642288390205`.
+**Removed from it:** the 24-hour price-move alerts, and the Fear & Greed pings. Between 27 June
+and 8 July it fired the *same* Extreme Fear alert **eight times in twelve days** — readings of 15,
+18, 12, 15, 11, 19, 20, 20 with identical body text. Fear & Greed carries zero weight in the
+Score, and an urgent channel that repeats daily trains people to ignore it.
 
-Milder than trade-setups — no entry, stop or target — but it is directional commentary
-("breakout continuation is possible") pushed as an urgent notification. An earlier post alerts on
-**Fear & Greed hitting 20**, an indicator that carries zero weight, though it frames it well:
-*"This is not a buy signal — it's a sentiment data point."*
+**Not deleted, because unlike `#btc-signals` the channel had a legitimate job it was not doing.**
+The honest LiftOffr-native urgent alert is a **Score band change**, and the code for it already
+existed in `api/cron-weekly-score.js` — `runZoneChangeCheck()`, with a seven-day hold matching the
+64-signal log, a freshness guard and per-contact idempotency. It emailed the free list and posted
+nowhere.
 
-**One real problem: it repeats.** Between 27 June and 8 July it fired the *same* Extreme Fear
-alert **eight times in twelve days** — 15, 18, 12, 15, 11, 19, 20, 20 — with identical body text
-each time. An "urgent" channel that pings a role daily for a condition that has not changed
-trains people to ignore it, which is a cost paid on the day something actually matters.
+**It now posts to Discord as well.** `postZoneChangeToDiscord()` states the band, what the record
+says that band has meant, and that a crossing needs the seven-day hold. It explicitly does not say
+what to do. No fallback destination, consistent with every other webhook in that file.
 
-## 4. `#📡・btc-signals` — active, and it whipsaws. Worth a decision.
+**Torin has two things to do for this to fire:**
 
-My first pass called this "milder still" on the strength of one post. Reading the full history
-changes that: it is a moving-average crossing bot that **flips its published directional bias on
-moves of ±0.0–0.1%, sometimes within the hour.**
+1. **Create the webhook** on `#⚡・urgent-alerts` and set `DISCORD_ZONE_ALERTS_WEBHOOK` in Vercel.
+   Until then the post is skipped with a logged warning and the email still sends.
+2. **Stop the price-move / Fear & Greed bot in the fleet.** It is outside this repo, so deleting
+   its output was not possible from here — the channel notice tells members what the channel is
+   now, but the old bot will keep posting alongside it until the fleet is changed.
+
+## 4. `#📡・btc-signals` — DELETED 21 Aug 2026
+
+Full history read before deletion: **68 messages, 8 March to 20 August 2026.** My first pass
+called this "milder still" on the strength of one post. That was wrong, and the full read is why.
+
+**It is a moving-average and round-number crossing bot that flips its published directional bias
+on moves of ±0.0–0.1%.** On **4 May 2026** it flipped seven times in about 21 hours around $80k:
 
 ```
-11 Aug 14:56   50-day SMA lose      -0.2% below   "Bearish while below"
-11 Aug 15:56   50-day SMA reclaim   +0.1% above   "Bullish while holding above"   <- 60 minutes
-13 Aug 23:53   50-day SMA lose      -0.1% below   "Bearish while below"
-17 Aug 07:40   50-day SMA reclaim   +0.1% above   "Bullish while holding above"
-17 Aug 08:40   50-day SMA lose      -0.0% below   "Bearish while below"           <- 60 minutes
-19 Aug 19:36   200-day SMA reclaim  +0.4% above   "Structural bull signal"
-19 Aug 23:36   200-day SMA lose     -0.0% below   "Structural caution"            <- 4 hours
+02:56  BREAKOUT — $80k CLEARED   $80,227
+06:56  BREAKDOWN — $80k LOST     $79,925
+14:56  BREAKOUT — $80k CLEARED   $80,421
+14:56  BREAKOUT — 7-day high     $80,421   (same second, duplicate)
+15:56  BREAKDOWN — $80k LOST     $79,784
+22:03  BREAKOUT — $80k CLEARED   $80,330
+23:03  BREAKDOWN — $80k LOST     $79,985
 ```
 
-A −0.0% cross being published as *"Structural caution — major level gone"* four hours after
-*"Structural bull signal"* is the exact pathology Module 5 was written about. The course teaches
-that a threshold model flips around its threshold and is only usable if you decided in advance
-what a crossing means; this channel demonstrates that daily and presents each flip as a signal.
+On 10 March it posted the identical "$70k CLEARED" message **twice in the same second**
+(02:38:00.381 and 02:38:00.446). On 19 August it went from *"Structural bull signal"* to
+*"Structural caution — major level gone"* in four hours on a −0.0% cross.
 
-It carries no entry, stop or target, so it is not the same class as `#trade-setups` — but it is
-the same underlying mistake at a smaller scale, and it is **currently active**. Torin's call.
+**It also gave instructions**, which the register rule forbids outright:
+
+- *"Wait for a 4hr close above before **sizing in**."*
+- *"Watch for a retest of the breakout level on the next pullback **before adding size**."*
+- *"**Stick to your DCA plan.** Bear market breakdowns are noise."*
+- *"have your **exits ready** (Module 5)"* — pointing at a module deleted on 21 Aug.
+
+**And one post was a forward-looking multiple claim on a zero-weight indicator:**
+*"BTC DOMINANCE ALERT — BTC dominance dropped below 50.0% — altcoin season may be starting …
+Historically this phase sees altcoins **2x-10x** vs BTC."* BTC Dominance carries no weight in the
+Score. That post is also internally broken — its headline reads "6.0%" while its body reads
+"below 50.0%" — and it points at `🪙・altcoin-watch`, a channel that does not exist.
+
+**Why it could not be rehabilitated onto the LiftOffr framework.** The channel's whole premise is
+that a price crossing a line is an event worth announcing. The Score is a multi-month
+cycle-position instrument whose own course teaches that a threshold model flips around its
+threshold and is only usable if you decided in advance what a crossing means. Rebuilding this on
+the Score would produce the same whipsaw with better branding. The honest LiftOffr version of
+"alert me when something changes" is a **Score band change with a seven-day hold**, which already
+exists in `api/cron-weekly-score.js` — and that now feeds `#urgent-alerts` instead. See below.
+
+**Deleted.** The generating bot (`price-alerts`, per the 8 Aug changelog) lives outside this repo
+and will now error against a missing channel; that is Torin's fleet to clean up.
 
 ## 5. `#🪙・altcoin-radar` — active, mostly fine
 

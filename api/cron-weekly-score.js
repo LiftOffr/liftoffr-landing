@@ -460,8 +460,63 @@ async function runZoneChangeCheck(baseUrl) {
     }
     await new Promise((rr) => setTimeout(rr, 600));
   }
+  const discord = await postZoneChangeToDiscord(payload).catch((e) => ({ error: String(e).slice(0, 120) }));
   await sendOwnerDM(`🚨 Zone change: ${zoneLabel(payload.from)} → ${zoneLabel(payload.to)} at ${payload.score.toFixed(1)}. Alert emailed to ${results.sent}/${results.total} free subscribers.`).catch(() => {});
-  return { changed: true, ...payload, results };
+  return { changed: true, ...payload, results, discord };
+}
+
+// ── The only alert this business can honestly push ───────────────────────────
+// #urgent-alerts used to carry a price-move feed and daily Fear & Greed pings,
+// both from a bot outside this repo. Fear & Greed carries ZERO weight in the
+// Score, and a 24h price move is not an event this model has a view on — it is
+// built for cycle position over months. #btc-signals was deleted on 21 Aug for
+// the same reason at a larger scale: it flipped published bias on ±0.0% crosses.
+//
+// A Score band change is the one thing that is genuinely urgent AND genuinely
+// ours: it is the model's own output, it uses the same seven-day hold rule as
+// the 64-signal log so a one-day boundary touch never fires, and it is already
+// computed above for the email. This just sends it to Discord as well.
+//
+// Register: it states the band and what the record says that band has meant.
+// It does not tell anyone what to do, and it must never start.
+//
+// No fallback destination, by design and consistent with every other webhook in
+// this file. If DISCORD_ZONE_ALERTS_WEBHOOK is unset the post is skipped and the
+// email still sends — a band change is not worth guessing a room for.
+const ZONE_MEANING = {
+  exit: "Every cycle top since 2013 printed with the Score in this band. It has also sat here for months with no top following. Both are true.",
+  warning: "This band has preceded exit-zone readings, though not every time.",
+  "mid-cycle": "Historically the least informative band.",
+  "re-accumulation": "After a drawdown stops deepening, before the next expansion. Has resolved upward more often than not at 180 days.",
+  accumulation: "Among the lower readings in a cycle.",
+  "deep-accumulation": "The lowest band the Score produces.",
+};
+
+async function postZoneChangeToDiscord({ from, to, score, date }) {
+  const url = process.env.DISCORD_ZONE_ALERTS_WEBHOOK;
+  if (!url) {
+    console.warn("DISCORD_ZONE_ALERTS_WEBHOOK not set — zone-change Discord post skipped (no fallback by design)");
+    return { skipped: true, reason: "DISCORD_ZONE_ALERTS_WEBHOOK not set" };
+  }
+  const content = [
+    `**THE SCORE CHANGED BANDS — ${zoneLabel(from)} → ${zoneLabel(to)}**`,
+    "",
+    `Score **${score.toFixed(1)}** · crossing dated **${date}**`,
+    "",
+    `${ZONE_MEANING[to] || "See the band table on liftoffr.com/score."}`,
+    "",
+    "A crossing counts only after the Score holds the new band for seven straight days, which is the same rule the 64-signal log uses — so this is not a one-day touch of a boundary.",
+    "",
+    "**This is a description of where the number is, not a suggestion about what to do with a position.** What a band change means for yours is yours to decide, ideally before it happens.",
+    "",
+    "Live number and all nine weights: <https://liftoffr.com/score> · The full record: <https://liftoffr.com/receipts>",
+  ].join("\n");
+  const r = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content, allowed_mentions: { parse: [] } }),
+  });
+  return { status: r.status, ok: r.ok };
 }
 
 // ═══════════════════════════════════════════════════════════════════
