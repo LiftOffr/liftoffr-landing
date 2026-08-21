@@ -31,6 +31,29 @@
  * /disclaimer, /blog, ...). Those are not offers and firing cta_clicked on them
  * would be noise, which is its own kind of wrong number.
  *
+ * THE RULE THIS FILE IS BUILT ON
+ * ------------------------------
+ * UNVERIFIABLE IS NOT ASSUMED FINE.
+ *
+ * Every failure this script exists to catch was, underneath, the same decision:
+ * "I could not determine this" got written down as "this is fine", because a
+ * passing exit code has no way to say the first thing. Four instances in one
+ * night, 20-21 Aug 2026:
+ *
+ *   - verify_money_path.sh counted checkout anchors with a bare grep for
+ *     "whop.com/checkout" -- which the cta_clicked selector itself contains, so
+ *     every count read one high and a deleted anchor would have read as correct.
+ *   - A selector enumerating destinations was correct until someone added a
+ *     destination. Three times.
+ *   - This script's first version measured "does the selector cover the links"
+ *     instead of "is this page measured", so a page with no handler was skipped.
+ *   - This script's second version printed "no readable selector -- check by
+ *     hand" and then continued. A silent pass wearing a note.
+ *
+ * So: when this script cannot verify a page that has offer links, it FAILS.
+ * Not warns, not skips. If that is ever loud, make the parser better or add the
+ * page to NO_HANDLER_EXPECTED with a reason -- do not soften it to a warning.
+ *
  * WHAT IT CANNOT CHECK
  * --------------------
  * That the handler actually fires. A selector can be correct and the handler

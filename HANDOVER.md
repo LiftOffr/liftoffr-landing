@@ -462,3 +462,36 @@ both are yours to re-shoot or restore. Replaced with six new channels built from
    changed either, because I do not know which is right. Pick one and I will make them agree.
 2. **Modules 1, 2, 3 and 6 are spot-checked and clean.** Module 3 lesson 5 on leverage is the best
    lesson in the old course and I would not change a word of it.
+
+---
+
+## Appendix 3 — five decisions that are yours, not ours (21 Aug 2026)
+
+Two sessions worked this repo overnight. Everything below was found, verified and
+deliberately **not** changed, because each is a judgement call about your business rather than a
+defect with a correct answer.
+
+**1. Two cookies land before anyone answers the consent banner.** `_wuid` and `_wuid_link`,
+Whop's, arriving through the GTM container, which is not consent-gated. Measured on a cleared
+session with no `_ga` cookie and Clarity not started. The banner is now accurate about it
+("our checkout provider sets two cookies on arrival so the right referrer gets credited"), so
+this is not a disclosure problem any more. It becomes a real compliance question the moment the
+site takes EU traffic. Fixing it means changing the tag container, which neither of us touched.
+
+**2. 55 internal links carry `utm_source=liftoffr`**, plus five `vercel.json` redirects. In GA4 a
+utm on an internal link overwrites the session's acquisition source, so effectively every session
+that reaches checkout is reported as coming from "liftoffr". **This is why the Day 7 attribution
+question was unanswerable even with GA4 working**, and why the localStorage first-touch layer had
+to be built at all. The fix is renaming them to a parameter GA4 ignores (`?from=…`), touching
+about 20 files. Written up in `TRACKING.md` §6.
+
+**3. The Whop webhook sends a Whop user id as GA4's `client_id`.** GA4 expects its own client id;
+a foreign one means the server-side `purchase` may not join to the visitor's web session, which is
+the join the whole funnel depends on.
+
+**4. The homepage hero points at `/cycle`, not `/score`.** Both are live and current. `/score` is
+the page the product is built around and the one every email now points at. Worth picking one.
+
+**5. The 2021 case study says you rode $25K down to about $13K; `/about` says you lost $30K in
+2022.** Same episode described twice, or two different numbers for it — I do not know which, so I
+changed neither. Tell me and I will make them agree.
