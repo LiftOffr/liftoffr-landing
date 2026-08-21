@@ -16,8 +16,12 @@
  * which is what /privacy tells people to do to change their mind.
  *
  * Deliberately: no third-party CMP, no cookie set by this file (localStorage only),
- * no dark pattern -- Decline is the same size and weight as Accept, and nothing is
- * loaded until a choice is made.
+ * no dark pattern -- Decline is the same size and weight as Accept.
+ *
+ * NOT "nothing is loaded until a choice is made" -- that is what this comment used
+ * to say and it was never true of GA4. Under Advanced Consent Mode the tag is live
+ * from first paint, consent-denied, cookieless. Clarity is the one that is fully
+ * gated. The banner copy says exactly this; keep the two in agreement.
  */
 (function () {
   var C = window.__loConsent;
@@ -88,6 +92,12 @@
       'page views from the start without identifying you or setting a cookie; allowing it lets it ' +
       'set one so return visits are not double-counted. Our checkout provider sets two cookies on ' +
       'arrival so the right referrer gets credited. None of it is needed for anything here to work.';
+
+    // The link to the full disclosure is pulled OUT of the paragraph so it sits
+    // below the scroll area and can never be the part that scrolls off.
+    var more = document.createElement('div');
+    more.style.cssText = 'margin:' + (narrow ? '7px' : '9px') + ' 0 ' + (narrow ? '10px' : '12px') + ';';
+    more.innerHTML = '<a href="/privacy" style="color:#e63946;">What gets collected</a>.';
 
     // Height cap, narrow screens only. The disclosure got longer when it got more
     // accurate, and on a 375x667 phone an accurate one is simply taller than the
