@@ -107,9 +107,12 @@ async function postDiscordAlert(webhookUrl, lines) {
 // working flow to remove a risk that is not present. The rule that matters:
 // never route anything containing budget figures, order sizes or personal
 // position data through a defaulted destination. See COPY_SWEEP_NOTES.md.
-const DEFAULT_WELCOME_CHANNEL    = "1380272240150708326"; // #announcements
-const DEFAULT_HOW_TO_USE_CHANNEL = "1442207394439626802"; // #how-to-use-this-course
-const DEFAULT_ELITE_QNA_CHANNEL  = "1442207548156416020"; // #elite-qna
+// All three ids re-verified against the live channel list on 20 Aug 2026 and all
+// three still resolve to the channel named beside them. That check is the thing
+// that makes these defaults acceptable; redo it if the server is reorganised.
+const DEFAULT_WELCOME_CHANNEL    = "1380272240150708326"; // 📢・announcements
+const DEFAULT_HOW_TO_USE_CHANNEL = "1442207394439626802"; // 🤔・how-to-use-this-course
+const DEFAULT_ELITE_QNA_CHANNEL  = "1442207548156416020"; // ❓・elite-qna
 
 // --- Discord tier-role assignment (Core/Pro/Elite) ---
 // We assign roles in code (not via Whop's native Discord role mapping) so each
@@ -254,7 +257,8 @@ async function postPublicWelcome(botToken, channelId, discordId, username) {
   const content =
     `🎉  Welcome to LiftOffr, ${mention}!\n\n` +
     `Start here → <#${howTo}>\n\n` +
-    `Read the 3 pinned messages, then work through Module 1 in order. ` +
+    `Read the most recent map message there — the pinned one predates the ` +
+    `20 Aug 2026 Module 4 rebuild — then work through Module 1 in order. ` +
     `Questions? Drop them in <#${qna}> or DM me anytime.\n\n` +
     `Glad you're in. — Torin`;
 
@@ -292,8 +296,13 @@ async function sendWelcomeDM(botToken, discordId, username) {
   const content =
     `Hey ${username} — welcome to LiftOffr.\n\n` +
     `Torin here. This DM is automated but I personally read every reply.\n\n` +
-    `The course lives in the **ELITE-HUB** category. Start with **#how-to-use-this-course** — ` +
-    `the 3 pinned messages walk you through the whole thing.\n\n` +
+    `**If your channels look locked, this is why.** Joining the server does not grant ` +
+    `your paid role on its own — your Discord account has to be connected to your Whop ` +
+    `purchase. Open your order on whop.com, connect Discord there, and the role lands ` +
+    `within a minute. If it doesn't, reply here and I'll set it manually.\n\n` +
+    `The course lives in the **LIFTOFFR-HUB** category. Start with ` +
+    `**#how-to-use-this-course** and read the most recent map message in it — the ` +
+    `pinned one is out of date and says so.\n\n` +
     `If you have a question about a lesson, an indicator, or anything crypto-related — ` +
     `reply here or ping me in **#elite-qna**. I'll get back to you fast.\n\n` +
     `Glad you're in.`;
