@@ -591,9 +591,21 @@ boundary is now readable from the sidebar alone.
 2. **`〡━━・1on1 Tickets` is empty but kept**, in case the $497 ticket flow creates channels under
    it on demand. Check the ticket bot before deleting it.
 
-**Nine messages still need deleting by hand** — the tooling has no delete-message. Exact IDs,
-opening words and keep/delete for each are in `DISCORD_MESSAGES_TO_DELETE.md`, which also records
-a real sequencing dependency: the notices in `⚡・urgent-alerts` and `⚙️・indicator-readings` must
-NOT be deleted until the fleet bots that feed those channels are stopped, or members will meet
-retired content with no explanation.
+**50 messages across 11 channels still need deleting by hand** — the MCP exposes seven tools and
+none of them is delete-message, so this is a browser job. `DISCORD_MESSAGES_TO_DELETE.md` has the
+per-channel list with author, UTC timestamp and opening words, and one rule that covers ten of the
+eleven: **keep only the bottom-most message, delete everything above it.** `m4-l9` is the single
+exception (the lesson itself is the oldest message there) and is called out separately.
+
+Those eleven channels are the ones that could not be rebuilt from scratch, because inbound `<#id>`
+mentions from across the server point at them and recreating a channel changes its ID.
+
+All eleven now end in clean, self-contained, first-publication copy — including `✅・verification`,
+`🚀・start-here`, `🧭・whats-locked-and-why` and `🎓・the-cycle-system`, which until 21 Aug carried
+corrections stacked *underneath* stale pins. That pattern is gone: no live message anywhere in the
+server now refers to another message above it.
+
+It also records a real sequencing dependency: the notices in `⚡・urgent-alerts` and
+`⚙️・indicator-readings` must NOT be deleted until the fleet bots that feed those channels are
+stopped, or members will meet retired content with no explanation.
 
