@@ -13,6 +13,47 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/brand.css">
+<!-- CONSENT MODE DEFAULTS. Must run before gtag. Added 2026-08-20: this page was
+     the one public surface still loading GA4 with no consent gate and no banner —
+     every other page had both. Consent Mode was never initialised here, so the
+     default was effectively "granted", which is the opposite of what the rest of
+     the site does and of what /privacy tells people. A 404 is a real entry point
+     (dead inbound links, old URLs in Reels captions), not an internal page.
+     Identical to the snippet on every other page; keep it that way. -->
+<script>
+(function(w,d){
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){ w.dataLayer.push(arguments); }
+  var stored = null;
+  try { stored = localStorage.getItem('liftoffr_consent_v1'); } catch(e) {}
+  var granted = stored === 'granted';
+  gtag('consent','default',{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  });
+  function startClarity(){
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(w, d, "clarity", "script", "wl50cvbc1c");
+  }
+  w.__loConsent = {
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){
+      gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
+      if (ok) startClarity();
+    }
+  };
+  if (granted) startClarity();
+})(window, document);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -23,6 +64,11 @@
   // instead of silently bleeding traffic.
   gtag('event', 'page_not_found', { missing_path: location.pathname, referrer: document.referrer || '(none)' });
 </script>
+<script defer src="/js/consent.js?v=20260820"></script>
+<!-- First-touch attribution. A 404 IS an entry point: a stale link in an old Reel
+     caption or a mistyped shortlink lands here with its utm_* intact, and without
+     this the source is lost before the visitor reaches anything that converts. -->
+<script defer src="/js/attribution.js"></script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   :root{--red:#e63946;--bg:#080808;--card:#111;--line:#1e1e1e;--ink:#e9e9e9;--muted:#8a8a8a}

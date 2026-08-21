@@ -132,6 +132,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
 </script>
+<!-- Consent BANNER. Separate from the Consent Mode snippet at the top of this file,
+     and it was the other half of the /score analytics gap. The inline snippet sets
+     the defaults (analytics_storage denied until the visitor chooses); THIS file is
+     what renders the Accept/Decline surface so a visitor can choose at all. It was
+     missing here while every other public page had it, so anyone whose first and
+     only page was /score — which is most of the Instagram traffic, since /score is
+     the bio link and where /r/:id and /aug/:id land — was never offered the choice.
+     The defaults stayed denied indefinitely and /privacy's "clear site storage to
+     change your mind" instruction had nothing to bring back. Adding GA4 to this page
+     without this line would have left it still under-reporting, for a different
+     reason. -->
+<script defer src="/js/consent.js?v=20260820"></script>
 </head>
 <body>
 

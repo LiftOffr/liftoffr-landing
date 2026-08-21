@@ -177,6 +177,12 @@
   }
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
+<!-- First-touch attribution. These pages rank on informational queries, so a
+     visitor's FIRST landing is often /indicators/* rather than a funnel page.
+     Without this, that search or social acquisition is recorded as nothing, and
+     by the time they reach /plan the referrer is internal and capture() stores
+     nothing. See js/attribution.js. -->
+<script defer src="/js/attribution.js"></script>
 </head>
 <body>
 <nav>

@@ -342,6 +342,51 @@ def head(title: str, desc: str, canonical: str, extra_ld: str = "") -> str:
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 {extra_ld}
+<!-- CONSENT MODE DEFAULTS. Must run before gtag. Added 2026-08-20: GA4 and Clarity
+     previously fired unconditionally with no consent surface, and Clarity records
+     session replays. Banner UI lives in /js/consent.js; the defaults have to be inline
+     because Consent Mode must initialise before the Google tags load.
+
+     THIS BLOCK LIVES IN THE GENERATOR ON PURPOSE (added 2026-08-20 by the tracking
+     pass). It was hand-patched into the ten generated pages and NOT into this
+     template, so the next `refresh_indicator_pages.sh` run at 07:20 MT would have
+     regenerated all ten without a consent gate and restarted Clarity session replay
+     for visitors who had declined it. Anything that must survive a regeneration
+     belongs here, not in the output. -->
+<script>
+(function(w,d){{
+  w.dataLayer = w.dataLayer || [];
+  function gtag(){{ w.dataLayer.push(arguments); }}
+  var stored = null;
+  try {{ stored = localStorage.getItem('liftoffr_consent_v1'); }} catch(e) {{}}
+  var granted = stored === 'granted';
+  gtag('consent','default',{{
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: granted ? 'granted' : 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  }});
+  function startClarity(){{
+    if (w.__loClarityStarted) return;
+    w.__loClarityStarted = true;
+    (function(c,l,a,r,i,t,y){{
+      c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    }})(w, d, "clarity", "script", "wl50cvbc1c");
+  }}
+  w.__loConsent = {{
+    state: stored === 'granted' || stored === 'denied' ? stored : null,
+    apply: function(ok){{
+      gtag('consent','update',{{ analytics_storage: ok ? 'granted' : 'denied' }});
+      if (ok) startClarity();
+    }}
+  }};
+  if (granted) startClarity();
+}})(window, document);
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-015PKWM24J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -350,13 +395,8 @@ def head(title: str, desc: str, canonical: str, extra_ld: str = "") -> str:
   gtag('config', 'G-015PKWM24J');
   function track(n,p){{if(typeof gtag==='function')gtag('event',n,p||{{}});if(window.clarity)try{{window.clarity('event',n)}}catch(e){{}}}} window.track = track;
 </script>
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){{
-    c[a]=c[a]||function(){{(c[a].q=c[a].q||[]).push(arguments)}};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  }})(window, document, "clarity", "script", "wl50cvbc1c");
-</script>
+<!-- Clarity is started by the consent snippet above, only after the visitor allows
+     analytics. Do not re-add an unconditional Clarity tag here. -->
 <style>
   *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
   :root {{
@@ -453,6 +493,13 @@ def head(title: str, desc: str, canonical: str, extra_ld: str = "") -> str:
     .wrap {{ padding:30px 15px 56px; }}
   }}
 </style>
+<script defer src="/js/consent.js?v=20260820"></script>
+<!-- First-touch attribution. These pages rank on informational queries, so a
+     visitor's FIRST landing is often /indicators/* rather than a funnel page.
+     Without this, that search or social acquisition is recorded as nothing, and
+     by the time they reach /plan the referrer is internal and capture() stores
+     nothing. See js/attribution.js. -->
+<script defer src="/js/attribution.js"></script>
 </head>
 <body>
 <nav>
