@@ -58,11 +58,33 @@ No decision needed; the buyer gets the same territory, corrected.
 Modules 1, 2, 3 and 6 (wallets, exchanges, DCA mechanics, psychology, custody, bear survival) are
 framework-independent and stay.
 
-**One flag.** Old Module 5 is "The Exit" — profit-taking frameworks, indicator-based exit signals,
-rebalancing. I have not read those lessons; they are not in the course map beyond their titles.
-**"Indicator-based exit signals" is the one to check**: if it teaches the old eight-indicator set
-or a counting heuristic, it has the same defect Module 4 had. Worth reading before the new
-curriculum goes up.
+**RESOLVED 21 Aug 2026 — and it was worse than the flag anticipated.** I read all six old
+Module 5 lessons through the Discord web client, which renders app-posted embeds that the bot API
+returns as empty `content`. That is the only reason they had gone unread through three audits.
+
+The flag guessed "the old eight-indicator set or a counting heuristic". Both were present, but
+the real defect was larger: **four of the six lessons instructed the reader on what to do with
+their own position, in the second person, with numbers.**
+
+| Lesson | What it published |
+|---|---|
+| 1 · Spotting cycle phases | "What you should do" per phase: *maximum DCA*, *deploy cash reserves*, *sell aggressively — 50-70% of position minimum*, *do not re-enter on dips*. Phase ID via CBBI, Rainbow, F&G, Google Trends and **Market Cipher**. |
+| 2 · Profit-taking frameworks | A six-rung sell ladder by price ($50K→$100K) and a second by CBBI (70/80/90). Forward price targets from a "cycles 2-3x from previous top" heuristic: *potential target zone $120K–$200K*. Three named risk profiles telling the reader what fraction to sell. |
+| 3 · Indicator-driven exit signals | The worst one. Sell ladders on CBBI, Rainbow, Pi Cycle, MVRV, F&G and 2Y MA, plus a buy-side set. **"This signal has never given a false top in BTC history"** (Pi Cycle — false; it read 58 in 2021, 71 in 2025). **"Every previous cycle peaked here"** (MVRV Z 8 — false). *"When 4+ indicators are screaming sell … sell aggressively now."* |
+| 4 · Portfolio rebalancing | Sound and framework-independent. Retired for tidiness; only its "rebalancing during euphoria" section is contaminated. |
+| 5 · 2021 case study | Illustrated dollar returns: *Investor A +$13,750 vs Investor B −$11,750*, then *"could easily be at $100K+"*. The last surviving instance of the claim class removed from the site in the $1.88M sweep. |
+| 6 · Execution errors | Mostly good. But *"the indicators have been right four cycles in a row"* and *"you can't lose by booking gains"* — neither is what the record shows. |
+
+All six are now `retired-m5-*` in the Archive category, each with a notice naming its specific
+defect. Nothing was deleted: the lessons contain Torin's own story and are his to re-shoot.
+
+**Replacement:** six new channels, `m5-l1-how-to-read-receipts` through
+`m5-l6-what-the-number-asks-of-you`, built from `module-6-the-record.md`. They contain no trigger
+prices, no position percentages and no price targets.
+
+**Modules 1, 2, 3 and 6 spot-checked and clean.** Module 3 lesson 5 (leverage control) is the
+strongest lesson in the old course — it argues the right leverage is zero for 95% of readers and
+gives harm-reduction guardrails for the rest. It stays untouched.
 
 ---
 

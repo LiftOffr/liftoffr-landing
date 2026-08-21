@@ -428,3 +428,37 @@ built in would be a natural companion, and it is the kind of thing that gets sha
 built one because the column layout and how much is pre-filled are your call. This note used to
 sit inside the lesson file as a `[TORIN]` marker, where it would have shipped to a customer as
 body text; it lives here now instead.
+
+---
+
+## Appendix 2 — old Module 5, read at last, and retired (21 Aug 2026)
+
+**The Discord bot API returns empty `content` for app-posted embeds, which is every legacy
+lesson.** That is why old Module 5 survived three audits unread. The Discord *web client* renders
+them fine. If you ever need to audit posted course content again, read it there, not through the
+bot.
+
+**What was in it.** Four of the six lessons told the reader what to do with their own position,
+in the second person, with numbers: sell 10% at CBBI 70, another 20% at 80, another 30% at 90;
+sell 10% at $50K through to $100K; "sell aggressively — 50-70% of position minimum"; "deploy cash
+reserves"; "buy aggressively". Keyed to CBBI, the Rainbow Chart and Fear & Greed — all zero-weight
+— and to Market Cipher, which was never a component. Plus three false claims and one illustrated
+P&L comparison (+$13,750 vs −$11,750) of exactly the kind removed from the site in the $1.88M
+sweep.
+
+**Nobody was mid-course, so nobody was harmed.** But this was the single largest gap between what
+the site says and what the paid product taught, and it would have shipped to the first buyer of
+The Cycle System.
+
+**What I did.** All six renamed `retired-m5-*` and moved to Archive, each with a notice naming its
+own defect. **Nothing deleted** — lesson 5 is your 2021 story and lesson 4's mechanics are sound;
+both are yours to re-shoot or restore. Replaced with six new channels built from
+`module-6-the-record.md`, plus a new overview and a replacement assessment.
+
+**Two things for you:**
+
+1. **The 2021 case study says you rode $25K down to ~$13K.** `/about` says you lost $30K in 2022.
+   Those may be the same episode described two ways, or two different numbers for it. I have not
+   changed either, because I do not know which is right. Pick one and I will make them agree.
+2. **Modules 1, 2, 3 and 6 are spot-checked and clean.** Module 3 lesson 5 on leverage is the best
+   lesson in the old course and I would not change a word of it.
