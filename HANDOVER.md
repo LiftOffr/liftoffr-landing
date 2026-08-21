@@ -485,12 +485,45 @@ question was unanswerable even with GA4 working**, and why the localStorage firs
 to be built at all. The fix is renaming them to a parameter GA4 ignores (`?from=…`), touching
 about 20 files. Written up in `TRACKING.md` §6.
 
-**3. The Whop webhook sends a Whop user id as GA4's `client_id`.** GA4 expects its own client id;
-a foreign one means the server-side `purchase` may not join to the visitor's web session, which is
-the join the whole funnel depends on.
+**3. The Whop webhook sends a Whop user id as GA4's `client_id`, and every purchase therefore
+lands as a brand-new Direct user.** Not "may not join" — will not. `api/whop-webhook.js:613` and
+`:656` pass `data.user_id || data.user?.id` straight in. GA4's `client_id` is the `_ga` cookie
+value, format `\d+\.\d+`; a Whop `user_…` id is a well-formed string that GA4 accepts and treats
+as a person it has never seen. So every sale appears with no browsing history in front of it, and
+the join the entire funnel depends on never happens. The random fallback on those lines only fires
+when Whop sends no id at all, which is rare, so this is the normal path rather than an edge case.
 
-**4. The homepage hero points at `/cycle`, not `/score`.** Both are live and current. `/score` is
-the page the product is built around and the one every email now points at. Worth picking one.
+The fix is small: carry the real `_ga` value through the checkout URL in the `utm_term` slot,
+which nothing currently reads, and parse it back in the webhook.
+
+**3b. Five minutes, no code, cheapest item on this list.** That same `purchase` event sends
+`source`, `medium`, `campaign` and `content` as **custom parameters, not GA4's reserved
+traffic-source fields**. Unless they are registered as custom dimensions in GA4 Admin they appear
+in no standard report at all — the data is arriving and is simply invisible. Register the four in
+Admin → Custom definitions and they show up retroactively for events already collected.
+
+**4. The homepage sends its warmest traffic to the thinner of the two free pages.** This reads
+like a tidiness question and is not one. Counted on production, 21 Aug 2026:
+
+| | `/cycle` | `/score` |
+|---|---:|---:|
+| Email capture forms | **0** | 1 |
+| Links to the other page | **0** | — |
+| Mentions of recomputing the Score yourself | 0 | 9 |
+| Links to `/receipts` | 1 | 2 |
+
+Three places on the homepage point at `/cycle`: the nav link, **the primary hero button**
+(`index.html:1136`), and **the exit-intent modal** (`:2186`). So someone who reads the hero,
+clicks the biggest red button on the site, and is not ready to buy has no way to stay in touch —
+and no link onward to the page that would have invited them to check the arithmetic. The
+exit-intent modal is the sharpest version: its entire purpose is to catch someone who is leaving,
+and it sends them to the one free page with no form on it.
+
+`/score` is also the page every email, every retired-magnet redirect and the new free PDF now
+point at. I have not changed it because which page is the front door is your call, but there is a
+measurable answer: `lead_captured` per session and `begin_checkout` per session, split by landing
+page. Both events now fire correctly on both pages, so the comparison is available as soon as
+there is traffic.
 
 **5. The 2021 case study says you rode $25K down to about $13K; `/about` says you lost $30K in
 2022.** Same episode described twice, or two different numbers for it — I do not know which, so I
