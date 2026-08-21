@@ -94,12 +94,12 @@
     //    and "no is a completely fine answer" said out loud. Detail lives behind
     //    /privacy. Never trade a fact away for warmth; reorder instead.
     p.innerHTML = '<strong style="color:#fff;">Mind if I see which pages actually help?</strong> ' +
-      'Analytics tells me what people read and what they skip, so I can write more of the first. ' +
-      'It already counts page views anonymously, with no cookie. Saying yes lets it remember you ' +
-      'across visits, and turns on a tool that records anonymous session replays &mdash; mouse ' +
-      'movement, scrolling and clicks &mdash; which stays off unless you allow it. ' +
-      '(Our checkout provider also sets two cookies on arrival, to credit the right referrer.) ' +
-      'Nothing here needs any of it to work, and no is a completely fine answer.';
+      'It shows me what people read and what they skip, so I can write more of the first. ' +
+      'Page views are already counted anonymously, with no cookie. Yes adds one so return ' +
+      'visits are not double-counted, and turns on anonymous session replays &mdash; mouse, ' +
+      'scrolling, clicks &mdash; which stay off unless you allow them. (Our checkout provider ' +
+      'sets two of its own on arrival, to credit referrers.) None of it is needed for anything ' +
+      'here to work, and no is a completely fine answer.';
 
     // The link to the full disclosure is pulled OUT of the paragraph so it sits
     // below the scroll area and can never be the part that scrolls off.
