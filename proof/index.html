@@ -79,7 +79,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   document.addEventListener('click',function(e){
     // Broadened 20 Aug 2026. This was bound to a[href*="whop.com/"] and /proof has no
     // Whop anchor, so all three CTAs on the strongest proof page fired nothing.
-    var a=e.target.closest('a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
+    var a=e.target.closest('a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], a[href^="/score"], a[href^="/free"], a[href*="whop.com/checkout"]');
     if(!a)return;
     var u=new URL(a.href,location.href);
     var d=u.hostname.indexOf('whop.com')>-1?'whop_checkout':(u.pathname.replace(/^\//,'').split('/')[0]||'home');
