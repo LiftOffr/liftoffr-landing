@@ -116,3 +116,38 @@ the channel had not moved. It could not tell me *why*, and I supplied the why fr
 writing that down as a limitation. Three tests of the same wrong call are one test. And a
 conclusion that ends in *"so the user will have to do it by hand"* deserves more scepticism than
 one that ends in *"so I fixed it"* — it is the shape of an answer that lets you stop looking.
+
+---
+
+## A ninth instance — the interim state that was never acceptable
+
+21 Aug 2026. Across this engagement I repeatedly fixed a wrong message by **posting a correction
+underneath it** — in the course overviews, the assessments, the course map, `#verification`,
+`#start-here`, `#whats-locked-and-why` and `#the-cycle-system`. Each time the reasoning was the
+same: the tooling has no edit-message and no delete-message, so superseding was the only move
+available.
+
+**That reasoning was wrong, and it was wrong in a way worth naming.** A tool limitation explains
+why I could not edit a message. It does not make a stack of corrections an acceptable resting
+state for a paid course. The brief was always "remove the bad information and replace it with good
+information" — and "post the good information below the bad information" is not that. It is the
+same defect as a site that argues with itself, which is the exact thing this engagement exists to
+remove. I had been eliminating that pattern everywhere else while creating it in Discord.
+
+**What I had not noticed:** by the end, the *newest* message in four channels was itself
+archaeology — "the message above this one describes a product that no longer exists", "I cannot
+edit that post", "corrected 21 August". Deleting the stale copy would have orphaned the correction
+that referenced it. The workaround had become load-bearing.
+
+**What was actually available.** `delete-channel` + `create-channel` reach the same end state as
+delete-message for any channel whose content I can reproduce. I had considered and rejected it on
+the grounds that recreating a channel changes its ID and breaks inbound `<#id>` mentions — true,
+but it made the wrong trade: I protected link integrity at the cost of correctness, when the
+channels in question were ones **I had created hours earlier**, so nothing predating them could
+possibly link to them. The cascade I feared was bounded and I never checked its bounds.
+
+**The rule this adds:** when a tool limitation forces a workaround, state what the workaround costs
+and whether that cost is acceptable as a *final* state — not just as a step. "This is the best I
+can do with these tools" is a claim about the tools. It is not a claim that the result is good
+enough, and the two get conflated exactly when the work is nearly finished and nobody wants to
+reopen it.

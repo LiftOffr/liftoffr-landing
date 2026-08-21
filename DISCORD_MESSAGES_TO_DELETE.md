@@ -1,229 +1,161 @@
 # Messages to delete in the Discord web client — 21 August 2026
 
-**50 messages across 11 channels.** Every one is authored by **Mission Control#3685** — there is no
-human-authored content anywhere in this list, so nothing of Torin's own writing is at risk.
+**54 messages across 10 channels.** All authored by **Mission Control#3685** — no human-written
+content is at risk.
 
-## Why this is a browser job
-
-The Discord MCP available here exposes exactly seven tools: create-channel, delete-channel,
-edit-channel, list-channels, list-servers, read-messages, send-message. **There is no
-delete-message and no edit-message.** This is not a permissions problem — a bot can delete its own
-messages with no Manage Messages permission at all, and almost all of this residue is the bot's
-own. The endpoint simply is not reachable from here. Verified by enumerating the tool list, not by
-inferring it from a failure.
-
-**Delete-and-recreate was considered and rejected.** It is how every lesson channel was cleaned,
-and it works — but each of these eleven channels is linked to by `<#id>` mentions from elsewhere.
-Recreating one changes its ID and breaks every mention pointing at it, and repairing those means
-posting *new* messages into channels that also cannot be cleaned. The dependency graph only closes
-at "recreate all 50 course channels", which would churn every ID a third time and destroy the pins.
-Deleting 50 messages by hand is the smaller, safer operation.
+**In every channel the rule is the same: keep the bottom-most message, delete everything above it.**
+The one exception (`how-to-use-this-course`) keeps the bottom **two**, and is marked.
 
 ---
 
-## The rule that covers 10 of the 11 channels
+## What was fixed without you, and how
 
-> **Keep only the newest message. Delete everything above it.**
+Every **course lesson channel** now holds its lesson and nothing else. That was done by deleting
+each channel and recreating it — the only destructive operation this tooling exposes — then
+posting the lesson as a single message with its navigation footer merged in.
 
-In every channel below except `m4-l9`, the bottom-most message is clean, self-contained,
-first-publication copy with working links. Everything above it is superseded. The one exception is
-called out explicitly and comes last.
+All fifteen Module 4 channels were rebuilt this way. Two genuine defects went with them:
 
-**Deleting a pinned message also removes it from the pin list** — no need to unpin first.
+- **`m4-l9`** carried a second navigation footer whose "Next" link pointed at a deleted channel.
+- **`m4-l8`** told readers the divisor rule was in "Module 1, lesson 4" — a channel that has never
+  existed under that name. It now links to `m4-score-4-the-divisor-rule`.
 
-Timestamps below are **UTC**; Discord shows your local time. Use them as a cross-check, not as the
-primary key — position in the channel is unambiguous and the timestamps are not.
+## Why these ten channels were not fixed the same way
+
+They are **original channels from May**, and unlike the lesson channels they are pointed at by
+`<#id>` mentions from content I cannot read or repair — the Module 1, 3 and 6 lesson embeds, which
+the bot API returns as empty. Recreating them changes their IDs. If any of those original embeds
+links to a module overview or the course map, recreating it breaks that link **permanently**, with
+no way for me to detect or repair the damage.
+
+`how-to-use-this-course` is also hardcoded in `api/whop-webhook.js` as the channel every new buyer
+is pointed to in their welcome DM.
+
+Deleting 54 messages carries none of that risk. That is the only reason this list exists.
 
 ---
 
-## 1 · `🤔・how-to-use-this-course` — delete 14, keep the bottom 2
+## Course channels — 36 messages
 
-⚠️ **This is the only channel with two keepers.** The course map is a two-part message.
+### 1 · `🤔・how-to-use-this-course` — delete 16, **keep the bottom two**
 
-| Keep | UTC | Opens with |
-|---|---|---|
-| ❌ **KEEP** | 11:02:30 | "## Module 4 · The Score — …" *(part 2 of the map)* |
-| ❌ **KEEP** | 11:02:11 | "# 🗺️ The LiftOffr course — full map … **46 lessons**" *(part 1 — pin this one)* |
+The course map is a two-part message. Keep both parts at the very bottom and **pin the first of
+them**. Everything above goes, including the earlier 46-lesson map — its Module 4 links now point
+at deleted channels.
 
-Delete all fourteen above those:
+⚠️ **Four messages here open "🗺️ The LiftOffr course — full map".** Only the bottom pair survives.
 
-| UTC / date | Opens with |
-|---|---|
-| 10:16:53 | "## Map update — 21 August 2026, later" |
-| 10:00:52 | "## Module 4 · The Score — … Fifteen lessons, rebuilt 20–21 Aug" |
-| 10:00:32 | "# 🗺️ The LiftOffr course — full map … **45 lessons**" |
-| 09:39:25 | "**Module 5 · The Record** — read this before deciding whether to trust any of it" |
-| 09:39:10 | "## Course map — updated 21 August 2026. This replaces every earlier map…" |
-| 02:54:13 | "Six old Module 4 lessons are in the **📦 Archive** category…" |
-| 02:54:04 | "## Course map — updated 20 August 2026. This supersedes the pinned map above." |
-| 7 Aug 22:03:17 | *(embed, no text)* |
-| 7 Aug 22:03:16 | "One module a week beats one weekend of everything…" |
-| 7 Aug 22:03:14 | "…Sentiment case studies 2017 2021" *(old Module 3–6 index, lists Market Cipher)* |
-| 7 Aug 22:03:13 | "# The Cycle System — course map … Thirty-six lessons" |
-| 12 May 18:21:30 | *(embed, no text)* |
-| 12 May 18:21:29 | *(embed, no text)* |
-| 12 May 18:21:28 | *(embed, no text)* |
+Also delete: "Map update — 21 August 2026, later" · "Course map — updated 21 August 2026" ·
+"Course map — updated 20 August 2026" · "Six old Module 4 lessons are in the 📦 Archive category" ·
+"**Module 5 · The Record** — read this before deciding whether to trust any of it" ·
+"One module a week beats one weekend of everything" · "# The Cycle System — course map …
+Thirty-six lessons" · and five embeds with no text (7 Aug and 12 May).
 
-⚠️ **Three messages here open "🗺️ The LiftOffr course — full map".** Keep the pair at the very
-bottom — the one saying **46 lessons**. The 45-lesson one and the 09:39:10 one both go.
+⚠️ **Highest priority in the server.** The "Module 5 · The Record" message (21 Aug, 09:39 UTC)
+tells members the bot "cannot set a channel's category, and it reports success when it silently
+fails to." That was my diagnosis and it was wrong — the parameter was `parentCategory`. It also
+tells members to skip channels named `retired-*`, which no longer exist.
 
-⚠️ **The 09:39:25 message is the highest priority deletion in the server.** It publicly states
-that the bot "cannot set a channel's category, and it reports success when it silently fails to."
-That was my diagnosis and it was wrong — the parameter was `parentCategory`, not `category`. It
-also tells members to skip channels named `retired-*`, which no longer exist.
+### 2 · `🔍︱m4-overview` — delete 7, keep the bottom 1
 
-## 2 · `🔍︱m4-overview` — delete 6, keep the bottom 1
+Keep the newest: "# Module 4 · The Score / **Fifteen lessons.**"
 
-Keep: **11:01:42** — "# Module 4 · The Score / **Fifteen lessons.**" (links to `m4-l10` work)
+⚠️ **Three messages here open "Module 4 · The Score".** Only the bottom one has working links —
+the other two point at channels deleted in the rebuild. Everything above the newest goes,
+including "Module 4 now starts five lessons earlier", "Module 4 has been rebuilt", "Every lesson
+publishes the same four things", and two 1 July embeds.
 
-| UTC / date | Opens with |
-|---|---|
-| 09:59:50 | "# Module 4 · The Score / **Fifteen lessons.** …" ⚠️ *near-identical to the keeper; its `m4-l10` link is dead* |
-| 09:39:40 | "## Module 4 now starts five lessons earlier — 21 August 2026" |
-| 02:46:31 | "Every lesson publishes the same four things…" |
-| 02:46:26 | "## Module 4 has been rebuilt — read this instead of the pinned overview above" |
-| 1 Jul 21:38:49 | *(embed, no text)* |
-| 1 Jul 21:38:48 | *(embed, no text)* |
+### 3 · `🔍︱m5-overview` — delete 5, keep the bottom 1
 
-⚠️ **The top two look almost the same.** Keep the bottom one. Tell them apart by the last line of
-the "What carries no weight" block — the keeper reads *"CBBI, Fear & Greed, Google Trends,
-proprietary tools"*; the one to delete reads *"CBBI, Fear & Greed, Google Trends"*.
+Keep: "# Module 5 · The Record / **Seven lessons.**"
+⚠️ Delete the near-identical one that says **Six lessons**, plus "Module 5 is now seven lessons",
+"Module 5 has been rebuilt", and two 1 July embeds.
 
-## 3 · `🔍︱m5-overview` — delete 5, keep the bottom 1
+### 4 · `🔍︱m2-overview` — delete 3, keep the bottom 1
 
-Keep: **11:01:54** — "# Module 5 · The Record / **Seven lessons.**"
+Keep: "# Module 2 · The Wealth Engine / **Seven lessons.**"
+Delete "One lesson added to Module 2" and two 12 May embeds.
 
-| UTC / date | Opens with |
-|---|---|
-| 10:16:43 | "## Module 5 is now seven lessons — updated 21 August 2026" |
-| 10:00:02 | "# Module 5 · The Record / **Six lessons.**" ⚠️ *says Six* |
-| 04:19:42 | "## Module 5 has been rebuilt — read this instead of the pinned overview above" |
-| 1 Jul 21:38:52.9 | *(embed, no text)* |
-| 1 Jul 21:38:52.0 | *(embed, no text)* |
+### 5 · `📓︱m4-assessment` — delete 2, keep the bottom 1
 
-⚠️ Keep the one that says **Seven lessons**. Delete the one that says **Six**.
+Keep: "# Module 4 assessment" (nine questions).
+Delete "This assessment is out of date" and the 12 May embed (the old eight-indicator assessment).
 
-## 4 · `🔍︱m2-overview` — delete 3, keep the bottom 1
+### 6 · `📓︱m5-assessment` — delete 3, keep the bottom 1
 
-Keep: **11:16:47** — "# Module 2 · The Wealth Engine / **Seven lessons.**"
+Keep: "# Module 5 assessment" (ten questions).
+Delete "This assessment is out of date" and two 12 May embeds.
 
-| UTC / date | Opens with |
-|---|---|
-| 10:00:16 | "## One lesson added to Module 2 — 21 August 2026" |
-| 12 May 02:54:38 | *(embed, no text — the old 6-lesson "Accumulation" overview)* |
-| 12 May 00:56:28 | *(embed, no text)* |
+---
 
-## 5 · `📓︱m4-assessment` — delete 2, keep the bottom 1
+## Entry and sales channels — 18 messages
 
-Keep: **11:02:43** — "# Module 4 assessment" (nine questions)
+Each of these now ends with clean standalone copy. Everything above it is either stale or a
+correction referring to a message that is about to be deleted.
 
-| UTC / date | Opens with |
-|---|---|
-| 02:46:42 | "## This assessment is out of date — 20 August 2026" |
-| 12 May 00:58:24 | *(embed, no text — the old 8-indicator assessment)* |
+### 7 · `✅・verification` — delete 2, keep the bottom 1
 
-## 6 · `📓︱m5-assessment` — delete 3, keep the bottom 1
+Keep: "# Getting your paid access". **Pin it.**
+Delete "Correction to the pinned message above" and the 12 May embed.
 
-Keep: **11:02:57** — "# Module 5 assessment" (ten questions)
+⚠️ **Highest operational priority.** The old pin says verification is automatic. It is not, and
+that has cost people access they paid for.
 
-| UTC / date | Opens with |
-|---|---|
-| 04:19:57 | "## This assessment is out of date — 21 August 2026" |
-| 12 May 01:06:16 | *(embed, no text)* |
-| 12 May 01:06:15 | *(embed, no text)* |
+### 8 · `🚀・start-here` — delete 6, keep the bottom 1
 
-## 7 · `✅・verification` — delete 2, keep the bottom 1
+Keep: "# Start here / This server is built around one number…"
+Delete "The free layer — all of it", "Start here — corrected 21 August 2026", and four embeds
+(7 Aug ×2, 21 Jul, 1 Jul). One of the 7 Aug embeds contains the false claim *"I called the top on
+Oct 6 2025"*.
 
-Keep: **the newest** — "# Getting your paid access"
+### 9 · `🧭・whats-locked-and-why` — delete 5, keep the bottom 1
 
-| UTC / date | Opens with |
-|---|---|
-| 02:47:05 | "## Correction to the pinned message above — 20 August 2026" |
-| 12 May 18:24:11 | *(embed, no text — the pin claiming verification is automatic)* |
+Keep the newest: "# What's locked, and why".
+⚠️ **Two messages here open "# What's locked, and why".** The older one links to a deleted channel.
+Also delete "$197 — The Cycle System / Not an 8-indicator framework", "corrected 21 August 2026",
+and two 7 Aug embeds.
 
-⚠️ **Highest operational priority after the tree.** The old pin tells buyers nothing is required,
-which is false and has cost people access they paid for. **Pin the new message** once the old
-one is gone.
+### 10 · `🎓・the-cycle-system` — delete 5, keep the bottom 1
 
-## 8 · `🚀・start-here` — delete 6, keep the bottom 1
-
-Keep: **the newest** — "# Start here / This server is built around one number…"
-
-| UTC / date | Opens with |
-|---|---|
-| 10:07:43 | "## The free layer — all of it, no card, no catch" |
-| 10:07:28 | "# Start here — corrected 21 August 2026" |
-| 7 Aug 21:51:23 | *(embed — contains "I called the top on Oct 6 2025")* |
-| 7 Aug 21:51:22 | *(embed, no text)* |
-| 21 Jul 19:58:51 | *(embed, no text)* |
-| 1 Jul 21:50:19 | *(embed, no text)* |
-
-## 9 · `🧭・whats-locked-and-why` — delete 4, keep the bottom 1
-
-Keep: **the newest** — "# What's locked, and why / **The free layer tells you where the cycle is…**"
-
-| UTC / date | Opens with |
-|---|---|
-| 10:07:14 | "## $197 — The Cycle System / **Not an \"8-indicator framework\"**" ⚠️ *says 45 lessons; links to a deleted channel* |
-| 10:07:02 | "# What's locked, and why · corrected 21 August 2026" |
-| 7 Aug 21:48:18 | *(embed, no text)* |
-| 7 Aug 21:48:17 | *(embed, no text)* |
-
-## 10 · `🎓・the-cycle-system` — delete 4, keep the bottom 1
-
-Keep: **the newest** — "# The Cycle System — $197 / **46 lessons across six modules**"
-
-| UTC / date | Opens with |
-|---|---|
-| 10:06:47 | "## Two things the old message claimed that I want to correct directly" |
-| 10:06:34 | "# The Cycle System — $197 · rewritten 21 August 2026" ⚠️ *says 45 lessons* |
-| 7 Aug 21:48:23 | *(embed — the "8-indicator phase matrix" / "36 lessons" sales copy)* |
-| 7 Aug 21:48:21 | *(embed, no text)* |
-
-## 11 · `m4-l9-rupl-5pct` — ⚠️ THE ONE EXCEPTION — delete only the middle message
-
-**Do not apply the rule here.** This channel has three messages and the *lesson itself* is the
-oldest one. Keep the top and bottom; delete only the middle.
-
-| | UTC | Opens with |
-|---|---|---|
-| ❌ **KEEP** | 11:01:24 | "◀ **Previous:** … **Next:** …" — the footer whose Next link works |
-| ✅ **DELETE** | 09:58:25 | "◀ **Previous:** … **Next:** …" — identical-looking; its Next link is dead |
-| ❌ **KEEP** | 02:40:42 | "# Lesson 9 — RUPL / NUPL · 5% of the Score" — **the lesson. Do not delete.** |
-
-The two footers are visually near-identical. The one to delete is **the upper of the two**, and
-its **Next** link renders as a broken/unknown channel rather than `#m4-l10-context-zero-weight`.
-If you hover both and one resolves to a real channel, that is the keeper.
+Keep the newest: "# The Cycle System — $197 / **46 lessons across six modules**".
+⚠️ **Two messages open "# The Cycle System — $197".** The older says 45 lessons and links to a
+deleted channel. Also delete "Two things the old message claimed", and two 7 Aug embeds — one is
+the "8-indicator phase matrix / 36 lessons" sales copy.
 
 ---
 
 ## Do NOT delete yet — a real sequencing dependency
 
-Two notices are archaeology **and are currently doing a job.** Removing them early leaves members
-staring at retired content with no explanation. Both wait on a bot outside this repo.
-
 ### `⚡・urgent-alerts` → "What this channel is for, from 21 August 2026"
 
-Delete **only after** the old price-move / Fear & Greed bot is stopped in the agent fleet. Until it
-stops, this notice is the only thing telling members why the channel's character changed, and it
-explains the eight-in-twelve-days Extreme Fear run still visible above it.
+Delete **only after** the old price-move / Fear & Greed bot is stopped in the agent fleet. Until
+then this notice is the only thing explaining why the channel changed character, and it accounts
+for the eight-in-twelve-days Extreme Fear run still visible above it.
 
-**Order: stop the fleet bot → confirm no new price-move posts for a few days → delete the notice.**
+**Order: stop the fleet bot → confirm no new posts for a few days → delete the notice.**
 
 ### `⚙️・indicator-readings` → the pinned retirement notice
 
-Delete **only after** the weekly indicator-panel generator is stopped and the remaining panels are
-gone. The panel dated **16 August** still sits above the notice, and both panels landed on a
-**Sunday around 17:00 UTC** — if that generator is still scheduled it will post again, and the
-notice will be needed again.
+Delete **only after** the weekly panel generator is stopped and the remaining panels are gone. The
+**16 August** panel still sits above the notice, and both panels landed on a **Sunday near 17:00
+UTC** — if that generator is still scheduled it will post again.
 
-**Order: stop the panel generator → delete the remaining panels → delete the notice.**
+**Order: stop the generator → delete the panels → delete the notice.**
 
 ---
 
-## Nothing else
+## Where a lesson is more than one message
 
-Every course *lesson* channel was rebuilt from clean copy rather than corrected in place, so no
-lesson references a previous version. The eleven channels above are the only ones that could not be
-rebuilt, because rebuilding them would have broken inbound `<#id>` links from across the server.
-Verified by reading every one of them back through the API, not by trusting the send calls.
+Three lessons exceed Discord's 2,000-character limit and are published as contiguous parts. This
+is a platform limit, not leftover material — there is no correction, no supersession and no
+archaeology in any of them, and each part follows directly from the one above it.
+
+| Channel | Parts | Why |
+|---|---|---|
+| `m4-l10-context-zero-weight` | 2 | 2,252 chars after tight editing. Cutting further would remove one of the four indicators' reasoning or the October 2025 evidence. |
+| `m5-l5-the-whipsaw` | 2 | The transition table plus the 2021 counterpart account. |
+| `m5-l6-what-the-number-asks-of-you` | 2 | The argument plus the five-point checklist. |
+| `m5-l7-build-your-exit-ladder` | 5 | The method plus a six-step worksheet and override log. |
+| `m2-l7-portfolio-rebalancing` | 2 | The method plus the worked arithmetic and tax treatment. |
+
+Every other course lesson is exactly one message.

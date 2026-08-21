@@ -61,6 +61,10 @@ tree back rather than by the return value — that part of the method was right 
     🧰・course-resources        ← was LIFTOFFR-HUB
     ❓・elite-qna               ← was LIFTOFFR-HUB
 
+Module 4's fifteen channels were deleted and recreated on 21 Aug so each holds its lesson and
+nothing else. New IDs; the module overview, the course map, #whats-locked-and-why and
+#the-cycle-system were all re-pointed at them in the same pass.
+
 〡━━・Module 1     7 lessons + overview + assessment
 〡━━・Module 2     7 lessons + overview + assessment   (m2-l7 added)
 〡━━・Module 3     5 lessons + overview + assessment
