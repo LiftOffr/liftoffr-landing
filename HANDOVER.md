@@ -98,15 +98,25 @@ a worse risk than leaving it writable.
 
 ---
 
-### 5. Upload the new course to Whop Courses · 30 min once written
-**Why it matters:** the shipped course teaches eight indicators. Three of them carry no weight in
-the Score, and RHODL — tied for the heaviest at 20% — is not taught at all. Four of the nine
-weighted components, 35% of the model by weight, are missing from a course about the model.
+### 5. Upload the new course to Whop Courses · 30 min
+**Why it matters:** the shipped course taught eight indicators. Three of them carry no weight in
+the Score, and RHODL — tied for the heaviest at 20% — was not taught at all. Four of the nine
+weighted components, 35% of the model by weight, were missing from a course about the model.
 
 **What breaks if you skip it:** the $197 product teaches a different framework than the free
 Score publishes, so a buyer cannot tell which to believe.
 
-**All 25 lessons are written.** Files are in `~/liftoffr-landing/course/`.
+> **DONE IN DISCORD, 20 Aug 2026 — not yet in Whop Courses.** Module 4 in the Discord
+> server has been rebuilt to the nine weighted components (ten channels, `m4-l1-…` to
+> `m4-l10-context-zero-weight`), the Market Cipher channel is deleted, and six old Module 4
+> lessons are in the Archive category with a note in each saying what replaced them. The
+> course map, the m4 assessment, the Phase Matrix and the false `#verification` pin all
+> have superseding messages posted — the Discord API this session has offers no
+> edit-message and no pin, so the originals are still there above the corrections.
+> **Whop Courses is a separate upload and is still outstanding.** The table below is that
+> upload.
+
+**All 24 lessons are written.** Files are in `~/liftoffr-landing/course/`.
 
 Whop → your product → **Courses**. Create six chapters in this order, then add the lessons under
 each. Every lesson body is a copy-paste from the file named — no judgement required.
@@ -130,14 +140,13 @@ each. Every lesson body is a copy-paste from the file named — no judgement req
 | 15 | What carries zero weight | 5.1 CBBI — the source, not a component | `module-5-zero-weight.md` |
 | 16 | | 5.2 Fear & Greed | `module-5-zero-weight.md` |
 | 17 | | 5.3 Google Trends | `module-5-zero-weight.md` |
-| 18 | | 5.4 Market Cipher | `module-5-zero-weight.md` |
-| 19 | | 5.5 The framework moved | `module-5-zero-weight.md` |
-| 20 | The record | 6.1 How to read /receipts | `module-6-the-record.md` |
-| 21 | | 6.2 Why 35 of 64 is not a hit rate | `module-6-the-record.md` |
-| 22 | | 6.3 Why 46% and 54% are the same number | `module-6-the-record.md` |
-| 23 | | 6.4 So what is it for? | `module-6-the-record.md` |
-| 24 | | 6.5 The whipsaw | `module-6-the-record.md` |
-| 25 | | 6.6 Applying it | `module-6-the-record.md` — **needs your writing first** |
+| 18 | | 5.4 The framework moved | `module-5-zero-weight.md` |
+| 19 | The record | 6.1 How to read /receipts | `module-6-the-record.md` |
+| 20 | | 6.2 Why 35 of 64 is not a hit rate | `module-6-the-record.md` |
+| 21 | | 6.3 Why 46% and 54% are the same number | `module-6-the-record.md` |
+| 22 | | 6.4 So what is it for? | `module-6-the-record.md` |
+| 23 | | 6.5 The whipsaw | `module-6-the-record.md` |
+| 24 | | 6.6 Applying it | `module-6-the-record.md` — **needs your writing first** |
 
 Plus one reference sheet: **The Phase Matrix**, from `reference-phase-matrix.md`.
 
@@ -145,10 +154,16 @@ Plus one reference sheet: **The Phase Matrix**, from `reference-phase-matrix.md`
 product.** Do it in one sitting, or create all six chapters first and fill them in order so an
 interruption leaves a visible gap rather than a silent one.
 
-**Retire old Module 4 entirely when this goes up.** Old Modules 1, 2, 3 and 6 (wallets, DCA,
-psychology, custody) stay — they do not depend on the indicator framework. See
-`course/OLD_VS_NEW_DIFF.md` for what a buyer paid for that is disappearing (short answer: the
-Market Cipher lesson, and it is your call what to do about it).
+**Two lessons carry a `[TORIN]` marker and must not be pasted as they stand:**
+`module-1-the-number.md` (a note about a spreadsheet companion, at the end of 1.5) and
+`module-6-the-record.md` 6.6, which is a frame with your judgement missing from the middle
+of it. Delete the marked paragraph or write the content — do not upload the marker. Internal
+notes reaching a customer's page is exactly how the 20 Aug PDF build failed.
+
+**Old Modules 1, 2, 3 and 6** (wallets, DCA, psychology, custody) stay — they do not depend on
+the indicator framework. Old Module 4 is already retired in Discord. See
+`course/OLD_VS_NEW_DIFF.md` for what a buyer paid for that is gone (short answer: the Market
+Cipher lesson, deleted outright on your instruction, since nobody is mid-course).
 
 ---
 
@@ -363,3 +378,44 @@ works, judge the method on `/receipts` instead.
 That is also the better version. It is consistent with what the model published, it is the
 version his own record supports, and a system that got him out early and cost him money — said
 out loud — is more persuasive than a clean top call he cannot evidence.
+
+---
+
+## Appendix — the Discord restructure, 20 August 2026
+
+**What I could not do, and what it means for you.** The Discord tooling in this session has
+`create-channel`, `delete-channel`, `edit-channel` (name, topic, category only), `list-channels`,
+`read-messages` and `send-message`. There is **no edit-message and no pin**, and `read-messages`
+returns empty content for anything posted as an embed — which is every legacy course lesson,
+every module overview, every assessment, and the `#✅・verification` pin.
+
+Two consequences you should know about:
+
+1. **Three wrong messages are still visible, with corrections posted underneath them rather than
+   replacing them.** The pinned course map in `#🤔・how-to-use-this-course`, the old Module 4
+   assessment in `#📓︱m4-assessment`, and the `#✅・verification` pin. Each correction says
+   plainly that it supersedes the message above it. **If you can edit or unpin those three
+   originals from the app, do it** — a correction underneath a wrong pin is second best.
+   The verification one matters most: its pin says *"Verification is automatic here — no buttons
+   to click"*, which is false and is why buyers have no role.
+
+2. **I did not delete the six superseded Module 4 lessons**, because I have never been able to
+   read what is in them. They are renamed `retired-m4-*`, moved to the Archive category, and each
+   carries a note naming its replacement. Deleting them is your call, with sight of the content.
+
+**Market Cipher was deleted outright**, per your instruction and because nobody is mid-course.
+Channel gone, lesson gone from `module-5-zero-weight.md`, and `course/README.md` records why.
+
+**Module 4 is now ten channels:** `m4-l1-rhodl-ratio-20pct` through `m4-l9-rupl-5pct` in weight
+order, plus `m4-l10-context-zero-weight` for CBBI, Fear & Greed and Google Trends. Each names its
+weight in the channel topic. Each lesson publishes what the component measures, how it is
+calculated, why it carries its weight, what it read at all seven cycle turns, and where it has
+been wrong.
+
+**The course is 39 lessons now, not 36.** 7 + 6 + 5 + **10** + 6 + 5. The homepage says 39.
+
+**Also posted:** the rebuilt Phase Matrix and the six bands in `#🧰・course-resources`, a
+calibration note in `#🔍︱m3-overview` (Fear & Greed carries zero weight, and never reached
+Extreme Greed at the October 2025 top), and the actual exit-band record in Module 5's
+`lesson-3-indicator-based-exit-signals` — three entries, three retreats, six transitions, top on
+6 Oct 2025, model left the zone fifteen days after it.
