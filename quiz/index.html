@@ -95,7 +95,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      mistakes that left the same handler dead on a dozen other pages. */
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest && e.target.closest(
-      'a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], ' +
+      'a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], a[href^="/receipts"], a[href^="/indicator-history"], a[href^="/proof"], a[href^="/track-record"], a[href^="/quiz"], ' +
       'a[href^="/score"], a[href^="/free"], a[href*="whop.com/checkout"]');
     if (!a) return;
     var href = a.getAttribute('href') || '';

@@ -267,7 +267,7 @@
   document.addEventListener('click', function(e){
     var a = e.target.closest(
       'a[data-dest], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
-      'a[href^="/score"], a[href^="/free"], a[href^="/receipts"], a[href*="whop.com/checkout"]');
+      'a[href^="/score"], a[href^="/free"], a[href^="/receipts"], a[href^="/indicator-history"], a[href^="/proof"], a[href^="/track-record"], a[href^="/quiz"], a[href*="whop.com/checkout"]');
     if (!a || typeof window.track !== 'function') return;
     window.track('cta_clicked', {
       cta_text: (a.textContent || '').trim().slice(0, 80),
