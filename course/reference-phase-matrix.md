@@ -2,7 +2,10 @@
 
 **Reference sheet — the nine weighted components, and what each one actually read at every cycle turn since 2013.**
 
-Replaces the earlier eight-indicator matrix. That version treated CBBI and Google Trends as inputs — none of them carries any weight in the Score — and omitted RHODL Ratio, Reserve Risk, Woobull Top Cap and RUPL, which together carry 35% of it.
+Replaces the earlier eight-indicator matrix. That version treated CBBI, Fear & Greed and Google
+Trends as inputs — none of the three carries any weight in the Score — and carried Market Cipher,
+which was never a component of it. It omitted RHODL Ratio, Reserve Risk, Woobull Top Cap and
+RUPL, which together carry 35% of the model.
 
 Every number below is the component's reading on the day of that cycle turn, normalised 0–100, pulled from the same daily series the live number comes from. All of it is on the site: each row's full table is at `liftoffr.com/indicators/<component>`.
 

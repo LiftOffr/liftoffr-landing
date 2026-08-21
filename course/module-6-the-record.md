@@ -133,23 +133,65 @@ in full on each of those six transitions would have meant six reversals in a yea
 
 ---
 
-## 6.6 — Applying it — **[TORIN: your judgement, not mine]**
+## 6.6 — What the number asks of you
 
-The frame is here; the content is yours, because it is a description of what you do with your own
-capital and I am not going to invent that.
+Every lesson before this one has been about the model. This one is about the only part the model
+cannot do for you.
 
-What this lesson should cover, in your words:
+**A threshold model is not a decision. It is an input to one.** Lesson 6.5 is the proof: three
+entries into the exit zone, three retreats, six transitions in twelve months, and the top arriving
+fifteen days before the last exit. Anyone who treated each crossing as an instruction made six
+reversals in a year. Anyone who treated none of them as anything got the same result as not
+having the number at all.
 
-- **How you personally read the number day to day** — what you look at first, and what you ignore.
-- **What a band change actually changes for you**, given 6.5 — the answer that makes a threshold
-  model survivable rather than a source of six decisions a year.
-- **How the ladder in the buy plan relates to the Score** — the plan document has the tiers; this
-  is where a learner sees how the number and the ladder connect.
-- **What you would tell someone who finished 6.3 and concluded the model is worthless.** That is
-  the strongest objection in the course and it deserves your answer, not a deflection.
+So the question the Score puts to you is narrow and unavoidable: **what does a band change mean
+for you, decided before it happens?**
 
-Whatever goes here: describe what you do, never instruct the learner. That is the line the whole
-product runs on.
+I am not going to answer that for you, and you should be suspicious of anyone who does. The
+answer depends on your position size, your timeline, your tax situation and your tolerance for
+being early — and nobody publishing a percentage on the internet knows any of those. A rule
+handed to you by someone who does not know your circumstances is a guess made at your expense.
+
+What I can give you is the shape of a decision that survives contact with a whipsaw:
+
+1. **Write it down before the crossing, not during.** A decision made mid-move is made by someone
+   who is either frightened or euphoric. The same decision made in advance is made by someone who
+   is neither. That difference is most of the value of having a number at all.
+2. **Decide what a *retreat* means too.** Most people write down what they will do if the Score
+   enters the exit zone and nothing at all about what they will do when it leaves again. Two of
+   the three entries in 6.5 retreated without a top. A rule with no answer for that is a rule that
+   will be abandoned the first time it happens.
+3. **Decide how much a single crossing is allowed to change.** If the honest answer is "all of
+   it", the model will whipsaw you. If the honest answer is "nothing", you did not need the model.
+   The usable answers are in between, and they are yours to pick.
+4. **Write the reason down when you override yourself.** Overriding is not forbidden. Overriding
+   *silently* is how a plan quietly stops existing. Writing the reason first turns an impulse into
+   an argument, and about half of impulses do not survive being written down.
+5. **Re-read 6.3 before you commit to anything.** The directional record is 21 of 46 at 30 days
+   and 25 of 46 at 180, and neither is distinguishable from chance. Whatever you decide should be
+   a decision that still makes sense given that — because that is the model you actually have, not
+   the one the marketing of every other service implies you are buying.
+
+**If you finished 6.3 and concluded the model is worthless, that is a serious objection and it
+deserves a straight answer rather than a deflection.** Here it is: the Score is not a direction
+predictor and the record says so plainly, which is exactly why it is published that way. What it
+does is put a consistent, reproducible number on cycle position — the same number every morning,
+computed the same way, from public data you can check — so that the decision you already have to
+make is made against a stable reference instead of against how the last week felt. If you want a
+tool that tells you which way price goes next, this is not it and no honest version of it exists.
+If you want to stop re-deciding your entire thesis every time the market moves, this is the thing
+that does that.
+
+The buy plan is a worked example of one person answering the question above with his own money —
+the tiers, the fallback dates and the override log are all in it. It is a description of what I
+did, not an instruction for what you should do.
+
+> **[TORIN — optional insert, this lesson ships without it]**
+> If you want to record on video how you personally read the number day to day, what a band
+> change actually changes for you, and how the ladder in the buy plan connects to the Score,
+> this is where it goes. Describe what you do; never instruct the learner. The lesson above is
+> complete and shippable as written — this is an addition, not a gap.
+
 
 ---
 

@@ -103,7 +103,7 @@ Three things about that shape, because they're the parts people get wrong:
 
 **The immediate tier is not optional.** Its job is not returns, it's psychology. A ladder with nothing filled is a spreadsheet you'll abandon the first time price runs away from you. Getting something on the board makes the rest executable.
 
-**The front half is heavier than the back half.** More than half the budget deploys in the first three rungs. If the bear is shallow you still built most of the position; if it's deep, the back rungs buy the panic. The alternative — back-loading, waiting for the real bottom — is the version where the bear ends 20% above your lowest rung and you own almost nothing.
+**The front half is heavier than the back half.** Roughly two fifths of the budget deploys in the first three rungs, and more than a third of mine fired in the first two phases. If the bear is shallow you still built most of the position; if it's deep, the back rungs buy the panic. The alternative — back-loading, waiting for the real bottom — is the version where the bear ends 20% above your lowest rung and you own almost nothing.
 
 **The deep rungs are deliberately small.** By the bottom rungs you're buying insurance-priced Bitcoin, not building the core position. Sizing them large is how "I'll go all in at the bottom" becomes "I have 80% of my budget in cash and Bitcoin is at a new high."
 

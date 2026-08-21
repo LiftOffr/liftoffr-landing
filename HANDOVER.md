@@ -146,7 +146,7 @@ each. Every lesson body is a copy-paste from the file named — no judgement req
 | 21 | | 6.3 Why 46% and 54% are the same number | `module-6-the-record.md` |
 | 22 | | 6.4 So what is it for? | `module-6-the-record.md` |
 | 23 | | 6.5 The whipsaw | `module-6-the-record.md` |
-| 24 | | 6.6 Applying it | `module-6-the-record.md` — **needs your writing first** |
+| 24 | | 6.6 What the number asks of you | `module-6-the-record.md` |
 
 Plus one reference sheet: **The Phase Matrix**, from `reference-phase-matrix.md`.
 
@@ -154,11 +154,13 @@ Plus one reference sheet: **The Phase Matrix**, from `reference-phase-matrix.md`
 product.** Do it in one sitting, or create all six chapters first and fill them in order so an
 interruption leaves a visible gap rather than a silent one.
 
-**Two lessons carry a `[TORIN]` marker and must not be pasted as they stand:**
-`module-1-the-number.md` (a note about a spreadsheet companion, at the end of 1.5) and
-`module-6-the-record.md` 6.6, which is a frame with your judgement missing from the middle
-of it. Delete the marked paragraph or write the content — do not upload the marker. Internal
-notes reaching a customer's page is exactly how the 20 Aug PDF build failed.
+**Both `[TORIN]` markers are resolved — every row above is now a straight copy-paste.**
+1.5's spreadsheet note moved to the end of this handover. 6.6 was a heading with a brief to you
+as its body, which would have shipped a customer an empty lesson titled with a production note;
+it is now a complete lesson ("What the number asks of you") that answers the strongest objection
+in the course head-on. The one marker left in it is a clearly-labelled **optional** insert, and
+the lesson explicitly ships without it — if you want to add your own account on video, that is
+where it goes, but nothing is missing if you never do.
 
 **Old Modules 1, 2, 3 and 6** (wallets, DCA, psychology, custody) stay — they do not depend on
 the indicator framework. Old Module 4 is already retired in Discord. See
@@ -419,3 +421,10 @@ calibration note in `#🔍︱m3-overview` (Fear & Greed carries zero weight, and
 Extreme Greed at the October 2025 top), and the actual exit-band record in Module 5's
 `lesson-3-indicator-based-exit-signals` — three entries, three retreats, six transitions, top on
 6 Oct 2025, model left the zone fifteen days after it.
+
+**Optional, not a blocker — the recompute spreadsheet.** Module 1.5 teaches the six-step
+recompute by hand. A downloadable sheet with the nine weights pre-filled and the divisor formula
+built in would be a natural companion, and it is the kind of thing that gets shared. I have not
+built one because the column layout and how much is pre-filled are your call. This note used to
+sit inside the lesson file as a `[TORIN]` marker, where it would have shipped to a customer as
+body text; it lives here now instead.

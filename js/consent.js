@@ -64,10 +64,18 @@
 
     var p = document.createElement('p');
     p.style.cssText = 'margin:0 0 ' + (narrow ? '10px' : '12px') + ';';
+    // WORDING IS LOAD-BEARING. This used to say "nothing loads until you choose",
+    // which was false for GA4: under Advanced Consent Mode the tag is present from
+    // first paint and sends cookieless pings (gcs=G100&npa=1, no _ga cookie, no ad
+    // personalisation) before any choice is made. Clarity genuinely does not load —
+    // it is started by the accept path only. Describe both accurately rather than
+    // promising the stricter behaviour and delivering the looser one.
     p.innerHTML = 'This site can load Google Analytics and Microsoft Clarity. ' +
       '<strong style="color:#fff;">Clarity records session replays</strong> — mouse movement, ' +
-      'scrolling and clicks on this site. None of it is needed for anything here to work, ' +
-      'and nothing loads until you choose. ' +
+      'scrolling and clicks on this site — and it does not load at all unless you allow it. ' +
+      'Analytics counts anonymous page views from the start, with no cookies and nothing that ' +
+      'identifies you; allowing it lets it use a cookie so return visits are not counted twice. ' +
+      'None of it is needed for anything here to work. ' +
       '<a href="/privacy" style="color:#e63946;">What gets collected</a>.';
 
     var row = document.createElement('div');

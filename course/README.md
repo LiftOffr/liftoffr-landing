@@ -4,7 +4,9 @@
 
 ## Why this exists
 
-The course that shipped taught **eight indicators**, three of which — CBBI and Google Trends — carry **no weight** in the Score, while RHODL Ratio, the joint-heaviest
+The course that shipped taught **eight indicators**. Three of them — CBBI, Fear & Greed and
+Google Trends — carry **no weight** in the Score, and a fourth, Market Cipher, was never a
+component of it at all. Meanwhile RHODL Ratio, the joint-heaviest
 component at 20%, was not taught at all. The site was corrected to nine weighted components on
 20 Aug 2026. The course was not. That left the $197 product teaching a different framework than
 the free Score publishes, which is the exact "which one do I believe" question this whole
@@ -21,8 +23,13 @@ correction pass exists to stop a buyer asking.
    reads. What a learner does with that is theirs.
 3. No accuracy claim the record does not support, and no forward-looking prediction.
 4. Limits are taught as the reason to trust the rest, not as disclaimers bolted on the end.
-5. Where a lesson needs Torin's own judgement or capital decisions, the frame is written and
-   the judgement is marked **[TORIN]**. It is not invented.
+5. Where a lesson would benefit from Torin's own judgement or capital decisions, **the lesson
+   still ships complete without it** and the addition is marked as optional. Nothing customer-
+   facing is left as a production note to be filled in later. Exactly one such marker remains,
+   in 6.6, and it is explicitly labelled as an optional insert rather than a gap — the lesson
+   above it stands on its own. Internal notes reaching a customer's page is how the 20 Aug PDF
+   build failed; the rule is that a `[TORIN]` marker may never be the body of a lesson, and may
+   never be its heading.
 
 ## Module map
 

@@ -4,7 +4,8 @@ Four lessons. This is the module that exists because the previous version of thi
 wrong, and it says so.
 
 **Read this first.** The course you originally bought taught eight indicators. Three of them — CBBI,
-Fear & Greed and Google Trends — carry **no weight** in the LiftOffr Score. Meanwhile
+Fear & Greed and Google Trends — carry **no weight** in the LiftOffr Score, and a fourth, Market
+Cipher, was never a component of it at all. Meanwhile
 RHODL Ratio, which carries 20% and is tied for the heaviest weight in the model, was not taught
 at all. That was a real defect in a paid product and this module is the correction, not a
 footnote to it.
@@ -79,6 +80,7 @@ Plainly, so you can see the whole edit.
 | CBBI | The public data source the components are read from |
 | Google Trends | Context — retail attention, follows price |
 | Fear & Greed | Context — sentiment, no weight |
+| Market Cipher | Never a component. Proprietary and paid, so not reproducible from public data — which breaks the one promise this product rests on — and a short-horizon trading tool inside a multi-month model. Its lesson has been **deleted**, not archived. |
 | BTC Dominance | Context — appeared in the retired indicator panel, never a component |
 
 **Are inputs, and were under-taught or missing:**
