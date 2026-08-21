@@ -57,6 +57,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'G-015PKWM24J');
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}}
   window.track = track;
+  // /disclaimer defined window.track and nothing called it — no click listener at
+  // all, so its links to /receipts, /proof and /track-record reported nothing.
+  // This page matters more for that than it looks: someone who lands here is
+  // checking whether the claims are real, and where they go next is the single
+  // most informative thing they do. Same shape as /cycle, /about, /404 and
+  // /welcome: not a wrong selector, no listener.
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], ' +
+                             'a[href^="/playbook"], a[href^="/score"], a[href^="/free"], ' +
+                             'a[href^="/quiz"], a[href^="/receipts"], a[href^="/proof"], ' +
+                             'a[href^="/track-record"], a[href^="/indicator-history"], ' +
+                             'a[href^="/indicators"], a[href^="/cycle"], ' +
+                             'a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var u = new URL(a.href, location.href);
+    var q = new URLSearchParams(location.search);
+    var d = u.hostname.indexOf('whop.com') > -1
+              ? 'whop_checkout'
+              : (u.pathname.replace(/^\//, '').split('/')[0] || 'home');
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    u.searchParams.get('utm_content') || 'disclaimer',
+      destination: a.getAttribute('data-dest') || d,
+      page: location.pathname,
+      utm_source: q.get('utm_source') || '(direct)',
+      utm_medium: q.get('utm_medium') || '(none)',
+      utm_campaign: q.get('utm_campaign') || '(none)'
+    });
+  }, true);
 </script>
 <!-- Clarity is started by the consent snippet above, only after the visitor allows
      analytics. Do not re-add an unconditional Clarity tag here. -->

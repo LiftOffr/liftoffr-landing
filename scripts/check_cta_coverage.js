@@ -96,6 +96,23 @@ function extractSelector(src) {
     .join(' , ');
 }
 
+// Pages that legitimately have no handler: not public, or not HTML anyone loads.
+const NO_HANDLER_EXPECTED = new Set(['dashboard', 'logo-lab']);
+
+function offerLinksIn(src, rel) {
+  const out = [];
+  for (const m of src.matchAll(/href="(\/[^"#]*)"/g)) {
+    const href = m[1];
+    const seg = href.replace(/^\//, '').split(/[/?]/)[0];
+    if (!seg || NAVIGATION.has(seg)) continue;
+    const advisory = ADVISORY_DESTINATIONS.includes(seg);
+    if (!OFFER_DESTINATIONS.includes(seg) && !advisory) continue;
+    if (rel.replace(/(index)?\.html$/, '').replace(/\/$/, '') === seg) continue;
+    out.push({ href, seg, advisory });
+  }
+  return out;
+}
+
 function selectorCovers(selector, dest, href) {
   if (/\[data-dest\]/.test(selector) || /\[data-cta\]/.test(selector)) {
     // Can't statically know which anchors carry the attribute; treated below.
@@ -132,26 +149,55 @@ for (const file of walk(ROOT)) {
   if (redirected.has(route)) continue;
   if (rel.startsWith('lead-magnet/')) continue;   // retired, redirected
   const src = fs.readFileSync(file, 'utf8');
-  if (!src.includes('cta_clicked')) continue;
 
+  // A page with offer links and NO handler at all must FAIL, not be skipped.
+  // The first version of this script only examined files containing the string
+  // 'cta_clicked', so the most common way tracking breaks -- no listener,
+  // which is what silenced /cycle, /about, /404 and /welcome -- was invisible
+  // to the check written to catch it. documents-e6 proved it by deleting the
+  // whole handler from faq/index.html: PASS, exit 0, page count quietly 38->37.
+  // Same disease as everything else: the check matched a proxy for the property
+  // (does a selector cover its links?) instead of the property (is this page's
+  // click-through measured?), and the proxy did not hold when the handler left.
+  if (!src.includes('cta_clicked')) {
+    const orphanLinks = offerLinksIn(src, rel).filter((l) => !l.advisory);
+    if (orphanLinks.length && !NO_HANDLER_EXPECTED.has(route)) {
+      failures++;
+      const by = {};
+      orphanLinks.forEach((l) => { by[l.seg] = (by[l.seg] || 0) + 1; });
+      const parts = Object.entries(by).map(([d, n]) => `/${d} x${n}`).join(', ');
+      console.log(`  FAIL ${rel}: NO cta_clicked handler at all, but links to ${parts}`);
+    }
+    continue;
+  }
+
+  // Second hole, same shape as the first, found by running documents-e6's own
+  // regression against the fix for the first one. A page whose selector this
+  // script cannot parse was printed as "check by hand" and then skipped --
+  // which is a silent pass wearing a note. If the page has offer links and the
+  // selector is unreadable, the honest result is FAIL: we could not verify it,
+  // so we must not report it as covered. "I could not check this" and "this is
+  // fine" are different answers and only one of them was being given.
   const selector = extractSelector(src);
   if (!selector) {
-    console.log(`  ${rel}: has cta_clicked but no readable selector — check by hand`);
+    const orphan = offerLinksIn(src, rel).filter((l) => !l.advisory);
+    if (orphan.length && !NO_HANDLER_EXPECTED.has(route)) {
+      failures++;
+      const by = {};
+      orphan.forEach((l) => { by[l.seg] = (by[l.seg] || 0) + 1; });
+      const parts = Object.entries(by).map(([d, n]) => `/${d} x${n}`).join(', ');
+      console.log(`  FAIL ${rel}: cta_clicked present but its selector could not be parsed, ` +
+                  `and the page links to ${parts}. Unverifiable, not assumed fine.`);
+    } else {
+      console.log(`  ${rel}: cta_clicked present, selector unparseable, no offer links — ignored`);
+    }
     continue;
   }
   pagesChecked++;
 
-  // Every internal link on the page, with its first path segment.
-  const links = [...src.matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1]);
   const silent = new Map();
   const advise = new Map();
-  for (const href of links) {
-    const seg = href.replace(/^\//, '').split(/[/?]/)[0];
-    if (!seg || NAVIGATION.has(seg)) continue;
-    const advisory = ADVISORY_DESTINATIONS.includes(seg);
-    if (!OFFER_DESTINATIONS.includes(seg) && !advisory) continue;
-    // A page linking to itself is not a CTA.
-    if (rel.replace(/(index)?\.html$/, '').replace(/\/$/, '') === seg) continue;
+  for (const { href, seg, advisory } of offerLinksIn(src, rel)) {
     if (!selectorCovers(selector, seg, href)) {
       const bucket = advisory ? advise : silent;
       bucket.set(seg, (bucket.get(seg) || 0) + 1);
