@@ -510,7 +510,11 @@ like a tidiness question and is not one. Counted on production, 21 Aug 2026:
 | Email capture forms | **0** | 1 |
 | Links to the other page | **0** | — |
 | Mentions of recomputing the Score yourself | 3 — see below | 9 |
-| Links to `/receipts` | 1 | 2 |
+| Links to `/receipts` | 2 | 2 |
+
+Every figure above was counted against the live pages on 21 August 2026 — including the two I
+originally filled in from assumption and had corrected for me. The `/receipts` row is a tie and
+is listed only so the table is not quietly stacked; the first three rows are the argument.
 
 **The recompute row is the sharpest one and it needs its own sentence.** `/cycle`'s hero paragraph
 says *"every weight published so you can recompute it yourself"* — it makes the promise. It then
