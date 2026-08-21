@@ -67,6 +67,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   gtag('config', 'G-015PKWM24J');
 (function(){
   function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+
+  /* Offer-CTA click tracking. Added 2026-08-21: this page fired checkout_confirmed
+     and nothing else, so where a buyer went next from the success page was not
+     recorded. It carries a /receipts link, and "did the new buyer go and read the
+     record" is a question worth being able to answer. */
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest(
+      'a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
+      'a[href^="/score"], a[href^="/free"], a[href^="/quiz"], a[href^="/receipts"], ' +
+      'a[href^="/proof"], a[href^="/track-record"], a[href^="/indicator-history"], ' +
+      'a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    (href.split('utm_content=')[1] || '').split('&')[0] || 'welcome',
+      destination: a.getAttribute('data-dest') ||
+        (/whop\.com\/checkout/.test(href)
+          ? 'whop_checkout'
+          : href.split('?')[0].replace(/^\//, '').replace(/\/$/, '') || 'home'),
+      page: location.pathname
+    });
+  }, true);
 })();
 </script>
 

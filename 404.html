@@ -63,6 +63,33 @@
   // Log what was actually missing, so dead inbound links are findable in GA4
   // instead of silently bleeding traffic.
   gtag('event', 'page_not_found', { missing_path: location.pathname, referrer: document.referrer || '(none)' });
+
+  /* window.track and the offer-CTA listener. Added 2026-08-21: this page fired
+     page_not_found and nothing else -- it had no track() wrapper and no click
+     listener, so the three links that are the whole point of a 404 (get the reader
+     back to /free, /plan or /receipts) were silent. A 404 is a real entry point: a
+     stale link in an old Reel caption lands here, and whether the recovery links
+     work is exactly the question this page exists to answer. */
+  function track(n,p){if(typeof gtag==='function')gtag('event',n,p||{});if(window.clarity)try{window.clarity('event',n)}catch(e){}} window.track = track;
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest(
+      'a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/playbook"], ' +
+      'a[href^="/score"], a[href^="/free"], a[href^="/quiz"], a[href^="/receipts"], ' +
+      'a[href^="/proof"], a[href^="/track-record"], a[href^="/indicator-history"], ' +
+      'a[href*="whop.com/checkout"]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    track('cta_clicked', {
+      cta_text: (a.textContent || '').trim().slice(0, 80),
+      cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
+                    (href.split('utm_content=')[1] || '').split('&')[0] || 'not_found',
+      destination: a.getAttribute('data-dest') ||
+        (/whop\.com\/checkout/.test(href)
+          ? 'whop_checkout'
+          : href.split('?')[0].replace(/^\//, '').replace(/\/$/, '') || 'home'),
+      page: location.pathname
+    });
+  }, true);
 </script>
 <script defer src="/js/consent.js?v=20260820"></script>
 <!-- First-touch attribution. A 404 IS an entry point: a stale link in an old Reel
