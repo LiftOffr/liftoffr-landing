@@ -131,8 +131,6 @@ const PLAN_TIER = {
   plan_yi7i0rC444Ssk: "core",  plan_kBe5idN105Ipc: "core",   // Core monthly / annual
   plan_JnWiKWtwzlTVR: "pro",   plan_nFxTZFYUqmMkx: "pro",     // Pro monthly / annual
   plan_dMb9YIKbWN7ck: "elite", plan_b0whXHoSzqDL1: "elite",   // Elite monthly / annual
-  plan_uIpPdsPTSHdTp: "pro",   // Cycle Playbook (one-time) → full (Pro) access
-  plan_zNprCbJjAquZ6: "pro",   // cardless 7-day trial → Pro taste
 };
 
 // Addon roles: additive, never part of the tier-swap strip logic. A member can
@@ -141,6 +139,7 @@ const PLAN_TIER = {
 const ADDON_ROLES = {
   plan:   "1533475043110293715", // @Plan   — $29 buy plan
   system: "1535404459407048714", // @System — The Cycle System
+  playbook: "1540544862808576050", // @Playbook — Cycle Playbook 1:1 ($497)
 };
 const PLAN_ADDON = {
   plan_MntgjXJaQnGsW: "plan",   // My Bear Market Buy Plan, $29 one-time
@@ -149,7 +148,11 @@ const PLAN_ADDON = {
   // Addon, not a tier: a System buyer who also owns the $29 plan must keep @Plan,
   // and grandfathered members already hold @System without either purchase.
   plan_WHByzwILskLsc: "system", // $197 standard
-  plan_3SEycpErj9Zk7: "system", // $147 founding, 50 seats, hidden from store
+  plan_3SEycpErj9Zk7: "system", // $147 founding, closes 7 Sep 2026, hidden from store
+  // The Playbook is a separate 1:1 product, not a tier: it does NOT include the
+  // course, so it must not ride the retired Pro role. Grants @Playbook, which
+  // opens #book-your-1-on-1 and nothing else.
+  plan_uIpPdsPTSHdTp: "playbook", // $497 Cycle Playbook 1:1
 };
 
 async function applyAddonRole(botToken, discordId, planId, add = true) {
@@ -300,11 +303,11 @@ async function sendWelcomeDM(botToken, discordId, username) {
     `your paid role on its own — your Discord account has to be connected to your Whop ` +
     `purchase. Open your order on whop.com, connect Discord there, and the role lands ` +
     `within a minute. If it doesn't, reply here and I'll set it manually.\n\n` +
-    `The course lives in the **LIFTOFFR-HUB** category. Start with ` +
-    `**#how-to-use-this-course** and read the most recent map message in it — the ` +
-    `pinned one is out of date and says so.\n\n` +
+    `Start in **#start-here**, then **#whats-locked-and-why** for the free-versus-paid ` +
+    `map. If you bought the $29 plan, your channel is **#plan-updates**. If you bought ` +
+    `the System, the course map is pinned in **#how-to-use-this-course**.\n\n` +
     `If you have a question about a lesson, an indicator, or anything crypto-related — ` +
-    `reply here or ping me in **#elite-qna**. I'll get back to you fast.\n\n` +
+    `reply here or ping me in **#course-questions**. I'll get back to you fast.\n\n` +
     `Glad you're in.`;
 
   const sendRes = await fetch(`https://discord.com/api/v10/channels/${dm.id}/messages`, {

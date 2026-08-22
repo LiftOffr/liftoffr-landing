@@ -6,3 +6,9 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# Discord audit — the message archive is a full export of a live private server.
+# whop-logs carries customer names, emails, Discord IDs and license keys; all-logs
+# carries invite codes; sheets/ carries the Phase Matrix, a $197 paid deliverable.
+# This repo is PUBLIC. The full audit lives at ~/.openclaw/workspace/discord_audit/.
+discord_audit/
