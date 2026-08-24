@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "w1lRJhw37h4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Ethereum: Dubious Speculation",
+    "published": "2026-08-24T04:08:49+00:00",
+    "processed_at": "2026-08-24T05:02:53.667160+00:00",
+    "url": "https://www.youtube.com/watch?v=w1lRJhw37h4",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "regression band",
+      "20-month moving average",
+      "ETH/BTC ratio",
+      "200-week moving average",
+      "USDT dominance",
+      "ETH/gold valuation",
+      "ETH/silver valuation",
+      "bull market support band",
+      "ROI charts"
+    ],
+    "key_points": [
+      "Ethereum's recent rally has brought it back to the 'fair value' area of its long-term regression band, and price action against Bitcoin shows early signs of a potential breakout after a false attempt in September 2025",
+      "Historical seasonality suggests stock market corrections in the back half of midterm years (2014, 2018, 2022) have coincided with sharp ETH drawdowns, with a 20% S&P drop historically producing roughly 50% ETH declines while a 10% drop tends to produce milder pullbacks and higher lows",
+      "Whether the cycle low is already in for Ethereum depends heavily on the depth of any upcoming stock market correction, with no correction implying high odds the low is in and a 20% correction risking a marginally lower low",
+      "Despite ETH's rally, its valuation against gold and silver remains historically weak, continuing a multi-year bleed since 2021 that undermines the strength of the recovery narrative",
+      "Short-term follow-through in Bitcoin's weekly/two-week candle and a breakdown in stablecoin dominance are key confirming signals for whether the broader crypto low is truly in, with parallels drawn to the 2022 cycle bottom"
+    ],
+    "summary": "Ethereum has rallied back to fair value on its long-term regression model and is showing tentative signs of strength against Bitcoin, but the sustainability of this move hinges on whether the stock market undergoes a seasonal correction in the back half of the year. A mild 10% equity pullback would likely confirm the low is already in, while a deeper 20% correction could produce one more leg down before a durable bull market resumes into 2027-2028; underlying weakness against gold and silver still tempers the bullish case near-term."
+  },
+  {
     "video_id": "mnCn7NzuzKA",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1484,42 +1516,5 @@ export default [
       "Counter-trend rallies in bare markets are designed to trap bulls and create psychological conviction in false bottoms; accumulation should begin after June low capitulation, likely followed by July-August strength into Q4 when final cycle bottom forms"
     ],
     "summary": "Bitcoin faces a structural bare market pattern where the current pullback to the 200-week moving average represents a normal phase of the cycle rather than a reversal signal. Historical four-year cycle analysis and onchain metrics suggest the market cycle bottom is most probable in October, with June potentially marking a capitulation low followed by temporary relief rallies. Accumulation is recommended to begin after confirmed capitulation events, not during counter-trend bounces that have consistently trapped bullish traders throughout this bare market."
-  },
-  {
-    "video_id": "uFn3KUE-VTI",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Asymmetric Tail Curvature in Bitcoin Price Quantiles",
-    "published": "2026-05-30T03:12:44+00:00",
-    "processed_at": "2026-05-30T03:43:10.856702+00:00",
-    "url": "https://www.youtube.com/watch?v=uFn3KUE-VTI",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      62000,
-      57000,
-      58000,
-      51000,
-      48000,
-      40000
-    ],
-    "indicators_mentioned": [
-      "Asymmetric Tail Curvature",
-      "Power Law Model",
-      "Rainbow Chart",
-      "Regression Bands",
-      "Quantile Framework",
-      "MVRV",
-      "Stock-to-Flow"
-    ],
-    "key_points": [
-      "Upper and lower price tails exhibit different curvature patterns, with support converging toward resistance as cycles progress rather than remaining statically apart",
-      "Bitcoin currently trades at the 9.4th percentile, historically spending minimal time below this level; the 1% quantile sits near 62K support",
-      "Midterm years typically reset markets with Bitcoin often dipping below the 1st percentile; every cycle has experienced such a dislocation event at different points",
-      "Recent non-euphoric rallies have topped near the 75th quantile (October 2025, June 2019) rather than euphoric extremes at 95-99th percentiles, correlating with quantitative tightening cycles",
-      "A sustained dip to 48-58K range would align with historical dislocation magnitudes from prior cycles and potentially signal a strong accumulation window"
-    ],
-    "summary": "Bitcoin exhibits mathematically distinct upper and lower tail curvatures that converge over time, with support levels rising while euphoric peaks diminish in magnitude each cycle. Current pricing at the 9.4th percentile with structural support near 62K suggests midterm-year weakness remains likely, consistent with the historical pattern of dislocation events occurring in every cycle at varying points. The model indicates realistic price ceilings significantly lower than hype-driven predictions, with a potential accumulation zone in the 48-58K range if historical patterns repeat."
   }
 ];
