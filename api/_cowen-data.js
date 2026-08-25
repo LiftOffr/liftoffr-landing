@@ -3,6 +3,41 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "b9eeSm_z4fw",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "US Real Estate Cycles: Dubious Speculation with Jason Pizzino",
+    "published": "2026-08-25T12:20:26+00:00",
+    "processed_at": "2026-08-25T12:34:17.737588+00:00",
+    "url": "https://www.youtube.com/watch?v=b9eeSm_z4fw",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [
+      57000,
+      100000,
+      120000,
+      150000,
+      180000,
+      126000
+    ],
+    "indicators_mentioned": [
+      "18-year real estate cycle",
+      "Schmita cycle (7-year cycle)",
+      "diminishing returns model",
+      "DCA strategy",
+      "Fibonacci 50% retracement"
+    ],
+    "key_points": [
+      "Bitcoin can still rally from current lows but diminishing returns make a repeat of prior cycles' multi-hundred percent gains unlikely",
+      "A doubling from a ~57k low would only reach roughly a new all-time high near 120k, a much smaller move than past cycles",
+      "The broader real estate and business cycle appears to be topping now, with real estate historically peaking before stocks, metals, and commodities, suggesting the current macro backdrop is closer to the end than the beginning of the cycle",
+      "This cycle is expected to be left-translated, with a potential top earlier than the typical Q4 post-halving pattern, possibly around 2026-2028 as credit and liquidity conditions deteriorate",
+      "Bitcoin already showed early relative topping behavior against gold in 2024, which could be a warning sign that a similar early top plays out against the dollar in the next cycle"
+    ],
+    "summary": "Bitcoin is likely to see a further rally off a 2025 low, but diminishing returns and a maturing macro cycle suggest the move higher will be far smaller than prior bull runs, potentially just reaching modest new highs. The broader real estate and credit cycle appears to be topping, historically leading stock and commodity market peaks by months to years, implying Bitcoin's next cycle could top earlier (left-translated) than the typical post-halving pattern before broader economic contraction sets in around 2027-2029."
+  },
+  {
     "video_id": "w1lRJhw37h4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1469,52 +1504,5 @@ export default [
       "If 200-week MA holds through end of June, expect rally in July; if breached, sweep of February lows and further downside through Q4 becomes more probable before final cycle bottom in October"
     ],
     "summary": "Bitcoin is in a cyclical window of weakness after tagging the 200-week moving average in early June, a pattern that repeats every four years. A June low around 60K is likely, followed by a counter-trend rally in July-August, but the true market cycle bottom may not occur until Q4 as the historical pattern suggests declines to 50-54K. Current drawdown matches typical midterm year performance, though the risk of breaking below key moving average support exists if external catalysts such as Bank of Japan rate hikes trigger broader capitulation."
-  },
-  {
-    "video_id": "QMn7cm4nfYU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Cliff Dwellers",
-    "published": "2026-06-04T03:00:48+00:00",
-    "processed_at": "2026-06-04T07:35:51.427667+00:00",
-    "url": "https://www.youtube.com/watch?v=QMn7cm4nfYU",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [
-      61800,
-      60000,
-      58000,
-      52000,
-      48000,
-      40000,
-      38650
-    ],
-    "indicators_mentioned": [
-      "200-week moving average",
-      "200-day moving average",
-      "50-week moving average",
-      "100-week moving average",
-      "Supply in profit or loss",
-      "MVRV Z-Score",
-      "Onchain risk indicator",
-      "Running one-year ROI",
-      "RSI",
-      "Asymmetric quantile regression",
-      "Realized price",
-      "Balance price",
-      "Bull market support band",
-      "Bare market resistance band",
-      "Bitcoin dominance",
-      "Stablecoin dominance"
-    ],
-    "key_points": [
-      "Bitcoin is testing the 200-week moving average around 61.8K after a counter-trend rally that gave false bullish signals; historical pattern shows bare markets require 19-21 weeks to establish new lows, currently at 17 weeks",
-      "June typically marks capitulation lows in bare market cycles (2018, 2022); a market cycle bottom is most likely in October based on four-year cycle distribution, though earlier lows are possible with sufficient capitalization below 60K",
-      "Onchain metrics including MVRV Z-Score, supply in profit/loss, and running one-year ROI have not yet reached historical confirmation levels for bare market bottoms, indicating further downside potential to test support levels around 52-58K",
-      "Bitcoin's valuation against gold and the S&P 500 shows rejection of bare market resistance bands; price-to-balance-price ratio suggests possible downside to realized price levels (53.8K) or balance price levels (38.65K) before capitulation reversal",
-      "Counter-trend rallies in bare markets are designed to trap bulls and create psychological conviction in false bottoms; accumulation should begin after June low capitulation, likely followed by July-August strength into Q4 when final cycle bottom forms"
-    ],
-    "summary": "Bitcoin faces a structural bare market pattern where the current pullback to the 200-week moving average represents a normal phase of the cycle rather than a reversal signal. Historical four-year cycle analysis and onchain metrics suggest the market cycle bottom is most probable in October, with June potentially marking a capitulation low followed by temporary relief rallies. Accumulation is recommended to begin after confirmed capitulation events, not during counter-trend bounces that have consistently trapped bullish traders throughout this bare market."
   }
 ];
