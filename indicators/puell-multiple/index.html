@@ -55,7 +55,26 @@
     state: stored === 'granted' || stored === 'denied' ? stored : null,
     apply: function(ok){
       gtag('consent','update',{ analytics_storage: ok ? 'granted' : 'denied' });
-      if (ok) startClarity();
+      if (!ok) return;
+      startClarity();
+      // Re-send the landing page_view. By the time anyone can click Accept, the
+      // page_view has ALREADY gone out cookieless (gcs=G100), and GA4 does not
+      // re-send it on a consent update -- measured 2026-08-26, the only hit that
+      // follows the update is user_engagement. A G100 hit is excluded from GA4's
+      // standard reports, so without this an accepting visitor's session_start and
+      // their utm_source/medium/campaign are thrown away and the session lands
+      // unattributed. page_location still carries the UTMs, so re-sending restores
+      // attribution rather than inventing it.
+      // This runs ONLY on an explicit Accept click -- apply() has exactly one caller,
+      // decide() in js/consent.js -- so a declining or undecided visitor still has
+      // nothing stored on their device and nothing re-sent. It is not a second hit
+      // for a returning granted visitor either: for them the tag boots granted and
+      // apply() is never called.
+      gtag('event','page_view',{
+        page_location: w.location.href,
+        page_title: d.title,
+        page_referrer: d.referrer || undefined
+      });
     }
   };
   if (granted) startClarity();
