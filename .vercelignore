@@ -32,3 +32,6 @@ logo-lab.html
 # the paid product as a free download.
 product/
 *.paid.pdf
+
+# Test harnesses for js/attribution.js — never deploy.
+js/*.test.js
