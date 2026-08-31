@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "xCF8xZQcVfc",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Stalls at the 50 Week Moving Average",
+    "published": "2026-08-30T23:32:40+00:00",
+    "processed_at": "2026-08-31T00:18:02.702643+00:00",
+    "url": "https://www.youtube.com/watch?v=xCF8xZQcVfc",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      57000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "200-day moving average"
+    ],
+    "key_points": [
+      "Bitcoin has stalled at the 50-week moving average, historically the key line separating bull and bear markets",
+      "The current rally closely mirrors 2018's structure, including matching low levels, a similar 40% counter-trend rally off the summer low, and an identical 51 four-hour-candle move from breakout to rejection at the 50-week MA",
+      "Prior cycles show 40% summer rallies have occurred before within bear markets without ending them, contradicting claims this move is unprecedented",
+      "In the last three cycles the actual market cycle low did not form until after the midterm election, suggesting a possible bottom in Q4 (October or later) rather than an immediate bull resumption",
+      "Historically the correct approach has been to begin accumulating after the summer low regardless of further downside, since waiting for the exact bottom has proven costly in prior cycles"
+    ],
+    "summary": "Bitcoin's rally to the 50-week moving average closely resembles the 2018 bear market pattern, both in price structure and time-based symmetry, suggesting the current bounce may stall and lead to a lower low later in the year, likely after the midterm elections. While a decisive weekly close above the 50-week MA would flip the outlook bullish, the historical precedent of summer rallies failing before eventual capitulation supports continued caution and gradual accumulation rather than assuming the bear market has ended."
+  },
+  {
     "video_id": "b9eeSm_z4fw",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1468,41 +1495,5 @@ export default [
       "Most probable scenario is a June low followed by a counter-trend rally and a lower October low, unless massive capitulation occurs sooner"
     ],
     "summary": "Bitcoin is likely in a midterm bear market that will not bottom until October 2026, with a June low followed by further deterioration. Current levels around 60K represent a critical juncture; support holding suggests an October bottom, while breakdown into the low 50s or below realized price (~53-54K) could accelerate the timeline. The current structure mirrors elements of both 2018 and 2019 cycles, but likely settles between those two scenarios rather than replicating either exactly."
-  },
-  {
-    "video_id": "ulDJeCNJo3Y",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Falls to the 200W Moving Average",
-    "published": "2026-06-05T05:09:52+00:00",
-    "processed_at": "2026-06-05T06:13:56.365019+00:00",
-    "url": "https://www.youtube.com/watch?v=ulDJeCNJo3Y",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      61800,
-      60000,
-      57000,
-      58000,
-      54000,
-      50000
-    ],
-    "indicators_mentioned": [
-      "200-week moving average",
-      "50-week moving average",
-      "100-week moving average",
-      "300-week moving average",
-      "realized price",
-      "balance price"
-    ],
-    "key_points": [
-      "Bitcoin has tagged the 200-week moving average, a cyclical pattern occurring every four years at the end of mid-cycle years; historically this has been a critical juncture with mixed outcomes for support",
-      "June weakness is expected with probable low formation around mid-June, followed by counter-trend rally into July-August before potential final capitulation in Q4",
-      "Current year-to-date performance (-29-30%) matches historical midterm year averages (-32%), suggesting cyclical weakness rather than structural breakdown, with Q4 lows typically occurring in the 50-54K range",
-      "Risk of breaking below the 200-week MA (61.8K) to test 54K (300-week MA and realized price level) exists given that last cycle fell below both; capitulation-like moves could occur if Bank of Japan raises rates in mid-June",
-      "If 200-week MA holds through end of June, expect rally in July; if breached, sweep of February lows and further downside through Q4 becomes more probable before final cycle bottom in October"
-    ],
-    "summary": "Bitcoin is in a cyclical window of weakness after tagging the 200-week moving average in early June, a pattern that repeats every four years. A June low around 60K is likely, followed by a counter-trend rally in July-August, but the true market cycle bottom may not occur until Q4 as the historical pattern suggests declines to 50-54K. Current drawdown matches typical midterm year performance, though the risk of breaking below key moving average support exists if external catalysts such as Bank of Japan rate hikes trigger broader capitulation."
   }
 ];
