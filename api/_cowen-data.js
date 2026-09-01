@@ -3,6 +3,32 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "PZyIdKwJmog",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold: The Next Big Move",
+    "published": "2026-09-01T11:04:17+00:00",
+    "processed_at": "2026-09-01T11:58:29.924624+00:00",
+    "url": "https://www.youtube.com/watch?v=PZyIdKwJmog",
+    "outlook": "bullish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Bull Market Support Band",
+      "DXY (US Dollar Index)",
+      "Year-to-date ROI seasonality"
+    ],
+    "key_points": [
+      "Gold's roughly 30% drop from highs is consistent with normal bull market corrections seen in the 1970s and 2000s bull runs, not a sign of trend reversal",
+      "Seasonal midterm-year patterns suggest gold typically bottoms in early summer, rallies, then has one final pullback before resuming higher into year-end",
+      "A brief resurgence in the US dollar, driven by expected rate hikes before year-end, is the likely catalyst for short-term gold weakness into mid-September to mid-October",
+      "Historical analog to the 1974 bull market suggests gold could form a higher low soon and push to new all-time highs by the end of the year",
+      "Pre-election year seasonality has historically been bullish for gold, supporting expectations for a strong 2027 if the current pattern plays out"
+    ],
+    "summary": "Gold is viewed as being in a temporary consolidation and pullback phase within an ongoing secular bull market, with the actual top still ahead. Short-term weakness driven by a dollar resurgence is expected to persist into mid-September or mid-October before gold forms a higher low (assigned a 65% probability) and resumes its upward trend into year-end and 2027."
+  },
+  {
     "video_id": "xCF8xZQcVfc",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1463,37 +1489,5 @@ export default [
       "If June produces a low with continued support holding around 57,000-58,000, a rally setup in July becomes possible; deeper drops now could allow October to be less severe"
     ],
     "summary": "Bitcoin is in the third and final stage of a bear market that began in October 2025, with the first two 4-month stages confirmed by lows in November and June. Stage three is expected to run through October 2026, with a potential low around 57,000-60,000 in June; the bear market will likely conclude once universal bearish sentiment is achieved, as historical cycles show the majority is typically correct only when positioned 60-65% in one direction."
-  },
-  {
-    "video_id": "LuiJ6uK_qh0",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Sweeps The February 2026 Low",
-    "published": "2026-06-06T04:58:38+00:00",
-    "processed_at": "2026-06-06T05:34:44.793771+00:00",
-    "url": "https://www.youtube.com/watch?v=LuiJ6uK_qh0",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000,
-      50000,
-      53000,
-      54000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "realized price",
-      "year-to-date ROI",
-      "social sentiment"
-    ],
-    "key_points": [
-      "Bitcoin has swept the February 2026 low and structural similarities to 2018 suggest further downside likely before recovery",
-      "Historical midterm year patterns show Bitcoin typically declines 45% from yearly open (~50K) by mid-June, with the cycle low occurring in October rather than June",
-      "Realized price at 53-54K represents a historical support level that bare markets typically break below, though timing remains uncertain",
-      "The apathetic top (unlike euphoric 2017) prevented retail participation and the typical altcoin rotation, making this cycle feel different but align with 2019 structure",
-      "Most probable scenario is a June low followed by a counter-trend rally and a lower October low, unless massive capitulation occurs sooner"
-    ],
-    "summary": "Bitcoin is likely in a midterm bear market that will not bottom until October 2026, with a June low followed by further deterioration. Current levels around 60K represent a critical juncture; support holding suggests an October bottom, while breakdown into the low 50s or below realized price (~53-54K) could accelerate the timeline. The current structure mirrors elements of both 2018 and 2019 cycles, but likely settles between those two scenarios rather than replicating either exactly."
   }
 ];
