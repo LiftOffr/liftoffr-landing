@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "nDp00KRoosU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Liquidity Paradox",
+    "published": "2026-09-02T20:28:56+00:00",
+    "processed_at": "2026-09-02T20:39:13.733895+00:00",
+    "url": "https://www.youtube.com/watch?v=nDp00KRoosU",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "M2 money supply",
+      "Global net liquidity",
+      "Central bank balance sheets",
+      "Bitcoin/S&P 500 valuation ratio"
+    ],
+    "key_points": [
+      "Bitcoin's price behavior is driven by global net liquidity (central bank balance sheets minus reverse repo and TGA), not by total money supply (M2)",
+      "M2 and stocks are at all-time highs, but global net liquidity is around $25 trillion versus $30 trillion in 2021-2022, explaining Bitcoin's underperformance",
+      "Narrow AI-driven mega-cap leadership keeps the broader stock market propped up without forcing the Fed to expand liquidity, keeping net liquidity suppressed",
+      "This mirrors the 2019 dynamic where Bitcoin stalled during quantitative tightening despite rising money supply, until liquidity conditions reversed sharply",
+      "Bitcoin topped this cycle on apathy rather than euphoria, with no altcoin rotation and a shallower drawdown, consistent with a low-liquidity regime rather than a broken cycle"
+    ],
+    "summary": "Bitcoin's underperformance relative to all-time-high stock markets and money supply is explained by stagnant global net liquidity, not a breakdown in its relationship with monetary conditions. Until central bank balance sheets meaningfully expand again, Bitcoin is likely to continue underperforming broader risk assets, similar to the 2019 quantitative tightening period. A future shift toward liquidity expansion would likely mark the point where Bitcoin resumes outperformance."
+  },
+  {
     "video_id": "PZyIdKwJmog",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1463,31 +1490,5 @@ export default [
       "DCA strategy post-June low historically more successful than timing exact bottom; exact low formation too early in June to determine with certainty"
     ],
     "summary": "Bitcoin likely forms a June low but confirmation requires holding above the 200E moving average for multiple weeks; structure mirrors prior bear market cycles with reduced summer volatility followed by counter-trend rallies toward bare market resistance before probable Q4 decline. Final capitulation expected in Q4, making DCA post-June low a higher-probability strategy than attempting to catch the exact bottom."
-  },
-  {
-    "video_id": "gkDqbvMnMHI",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Enters the 3rd Stage of the Bear Market",
-    "published": "2026-06-07T03:32:13+00:00",
-    "processed_at": "2026-06-07T04:31:38.047412+00:00",
-    "url": "https://www.youtube.com/watch?v=gkDqbvMnMHI",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000,
-      57000,
-      58000
-    ],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Bitcoin has completed stage two of the bear market (February to June 2026) and is now in stage three, characterized by majority belief in the downturn",
-      "Stage three is expected to last approximately 4 months (June to October 2026), with a low anticipated in June, potentially between 57,000 and 60,000",
-      "Historical bear market patterns show deeper lows occur when support levels are broken; 2014 saw 15-18% drops between stages while 2018 saw only sweeps of prior lows",
-      "Market psychology indicates the bear market will end once universal belief in the downturn is achieved; current sentiment shows 60-65% bearish, suggesting room for more conviction building",
-      "If June produces a low with continued support holding around 57,000-58,000, a rally setup in July becomes possible; deeper drops now could allow October to be less severe"
-    ],
-    "summary": "Bitcoin is in the third and final stage of a bear market that began in October 2025, with the first two 4-month stages confirmed by lows in November and June. Stage three is expected to run through October 2026, with a potential low around 57,000-60,000 in June; the bear market will likely conclude once universal bearish sentiment is achieved, as historical cycles show the majority is typically correct only when positioned 60-65% in one direction."
   }
 ];
