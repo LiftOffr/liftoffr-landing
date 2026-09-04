@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "xFxtbyNM3RI",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Labor Market Remains Hot",
+    "published": "2026-09-04T15:29:48+00:00",
+    "processed_at": "2026-09-04T22:16:39.069595+00:00",
+    "url": "https://www.youtube.com/watch?v=xFxtbyNM3RI",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Unemployment rate",
+      "Non-farm payroll",
+      "Initial claims",
+      "Average hourly earnings",
+      "10-year Treasury yield",
+      "30-year yield",
+      "20-year yield",
+      "2-year yield (Japan)",
+      "CPI/Inflation rate",
+      "Atlanta Fed GDPNow",
+      "Job openings rate",
+      "Job quits rate",
+      "Labor force participation rate",
+      "ADP non-farm private payroll"
+    ],
+    "key_points": [
+      "A hotter-than-expected jobs report pushed rate hike odds back up to around 60% for the September Fed meeting, reversing dovish comments made by a Fed official the day before",
+      "Elevated oil prices near $90/barrel and ongoing Middle East conflict are expected to keep inflation sticky in the short term, raising the odds of a rate hike rather than a cut",
+      "The long end of the yield curve (10-year, 20-year, 30-year Treasury yields) is expected to keep climbing unless the Fed raises rates, since bond markets are losing patience with persistent above-target inflation",
+      "Labor market data (unemployment rate, initial claims, job openings, ADP payrolls) shows resilience rather than recession risk, with weakness concentrated in specific states and age groups (especially teens and young workers) rather than economy-wide",
+      "Strong GDP growth estimates (Atlanta Fed GDPNow at 4.7%) alongside firming inflation argue for a rate hike rather than cuts, despite political pressure from the administration to lower rates"
+    ],
+    "summary": "The macro backdrop is shifting toward higher rate-hike odds as labor market data comes in stronger than expected and inflation risks re-accelerate due to elevated oil prices and geopolitical tensions. The long end of the yield curve is likely to continue rising unless the Fed hikes rates, creating tension between a resilient, strong economy and political pressure for cuts. This report is primarily a macro/rates analysis with no direct Bitcoin price commentary or levels provided."
+  },
+  {
     "video_id": "nDp00KRoosU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1463,32 +1500,5 @@ export default [
       "Long-term industry thesis targets $10 trillion market capitalization (plus or minus a few trillion) despite current near-term weakness"
     ],
     "summary": "Bitcoin is expected to trade below its logarithmic fair value regression through the end of the year, with June as a potential local low point. Midterm year weakness and persistent tight monetary policy create headwinds for near-term price action. The long-term structural case remains intact with an ultimate market cap target of approximately $10 trillion for the asset class."
-  },
-  {
-    "video_id": "SG3tuA8zqs8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Dubious Speculation",
-    "published": "2026-06-08T04:15:35+00:00",
-    "processed_at": "2026-06-08T05:02:49.420555+00:00",
-    "url": "https://www.youtube.com/watch?v=SG3tuA8zqs8",
-    "outlook": "mixed",
-    "confidence": "low",
-    "timeframe": "weeks",
-    "key_levels": [
-      59000
-    ],
-    "indicators_mentioned": [
-      "200E moving average",
-      "bare market resistance band"
-    ],
-    "key_points": [
-      "Bitcoin swept the February low and closed the week above the 200E moving average, suggesting bulls have not given up yet, but structural parallels to 2018 suggest further weakness remains",
-      "June low likely forms, but likely to be followed by reduced volatility through summer and counter-trend rallies potentially returning to bare market resistance band in July",
-      "Final capitulation likely occurs in Q4; mid-June structure similar to prior bear market cycles with June lows followed by modest July rallies before autumn declines",
-      "Holding above the 200E moving average for a second consecutive week would significantly increase odds that the June low is already set; failure to hold increases risk of mid-June drop",
-      "DCA strategy post-June low historically more successful than timing exact bottom; exact low formation too early in June to determine with certainty"
-    ],
-    "summary": "Bitcoin likely forms a June low but confirmation requires holding above the 200E moving average for multiple weeks; structure mirrors prior bear market cycles with reduced summer volatility followed by counter-trend rallies toward bare market resistance before probable Q4 decline. Final capitulation expected in Q4, making DCA post-June low a higher-probability strategy than attempting to catch the exact bottom."
   }
 ];
