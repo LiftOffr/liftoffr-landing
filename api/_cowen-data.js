@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "YHsAbpRoB-A",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Golden Cross",
+    "published": "2026-09-08T18:07:00+00:00",
+    "processed_at": "2026-09-08T18:57:16.799179+00:00",
+    "url": "https://www.youtube.com/watch?v=YHsAbpRoB-A",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      70000,
+      72000
+    ],
+    "indicators_mentioned": [
+      "50-day moving average",
+      "200-day moving average",
+      "Golden Cross",
+      "50-week moving average"
+    ],
+    "key_points": [
+      "Golden crosses historically trigger short-term dumps of roughly 8-15% from the local high before the ultimate trend direction is revealed",
+      "In prior pre-halving years like 2019 and 2023, the post-golden-cross dump was followed by a higher high, invalidating bearish scenarios",
+      "In 2014 and 2015, the rally after the golden cross dump produced a lower high, which preceded further declines into Q4",
+      "The critical signal is not the initial dump but whether the subsequent rally breaks above the prior high or gets rejected at the 50-week moving average",
+      "A break above the 50-week moving average with a higher high would strengthen the case that a market low is already in, while rejection would support a drop into the fourth quarter"
+    ],
+    "summary": "Bitcoin's recent golden cross is following a well-worn historical pattern of a short-term drop of roughly 10-15% immediately after the crossover, consistent with prior cycles. The decisive factor is not this initial dump but whether the following rally sets a higher high (bullish, as in 2019 and 2023) or a lower high with rejection at the 50-week moving average (bearish, as in 2014 and 2015), which will determine whether a Q4 decline follows."
+  },
+  {
     "video_id": "xFxtbyNM3RI",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1475,30 +1505,5 @@ export default [
       "The 4-year cycle pattern has remained consistent and predictive across multiple market cycles, with bottoms occurring months after the crossover event"
     ],
     "summary": "The supply in profit/loss crossover has occurred, signaling that a market cycle bottom will likely form within the next 1-4 months rather than immediately. Historical precedent across multiple cycles suggests the optimal strategy is to begin dollar-cost averaging Bitcoin now through the anticipated bottom window, positioning for the multi-year bull market that typically follows this pattern."
-  },
-  {
-    "video_id": "IOFwbuyDC78",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Beauty of Mathematics (Part 71) - 1 Million Subscriber Milestone!",
-    "published": "2026-06-09T01:15:14+00:00",
-    "processed_at": "2026-06-09T02:03:50.112726+00:00",
-    "url": "https://www.youtube.com/watch?v=IOFwbuyDC78",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "logarithmic regression trend line",
-      "fair value price"
-    ],
-    "key_points": [
-      "Bitcoin expected to remain below the logarithmic fair value trend line for the remainder of the year due to midterm year weakness in crypto",
-      "June is identified as a candidate month for a local bottom, with uncertainty acknowledged about exact bottom location",
-      "Macro conditions including tight monetary policy and inflation concerns have kept prices below fair value for multiple years",
-      "Model requires full midterm year data for completion and will be refitted at year-end to improve accuracy for 2027-2028 cycle top predictions",
-      "Long-term industry thesis targets $10 trillion market capitalization (plus or minus a few trillion) despite current near-term weakness"
-    ],
-    "summary": "Bitcoin is expected to trade below its logarithmic fair value regression through the end of the year, with June as a potential local low point. Midterm year weakness and persistent tight monetary policy create headwinds for near-term price action. The long-term structural case remains intact with an ultimate market cap target of approximately $10 trillion for the asset class."
   }
 ];
