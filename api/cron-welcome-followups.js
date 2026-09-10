@@ -927,12 +927,18 @@ async function dcaWatchdog(baseUrl) {
   }
 
   const cutoff = new Date(Date.now() - DCA_SILENT_DAYS * 864e5).toISOString().slice(0, 10);
+  // Size gate: only a fill consistent with the actual daily DCA counts as "the
+  // DCA cleared". A one-off manual test buy (e.g. $10 against a $110 schedule)
+  // is a real BTC-USDC fill but must NOT reassure the watchdog that the daily
+  // leg is alive — that would be a false negative on the exact thing this checks.
+  const minFillUsd = Math.max(1, sched.usdc * 0.5);
   const recent = trades.filter((t) =>
     (t.type || "buy") === "buy" &&
     String(t.notes || "").includes("BTC-USDC") &&
+    Number(t.usd || 0) >= minFillUsd &&
     String(t.date || "").slice(0, 10) >= cutoff
   );
-  if (recent.length > 0) return { ok: true, recentUsdcFills: recent.length, since: cutoff };
+  if (recent.length > 0) return { ok: true, recentUsdcFills: recent.length, since: cutoff, minFillUsd };
 
   // Absence — the exact signature of the original outage.
   const msg =

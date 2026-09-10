@@ -720,7 +720,7 @@ async function runDailyBriefing(baseUrl, day) {
 const COINBASE_HOST = "api.coinbase.com";
 const DCA_ALLOWED_PRODUCTS = new Set(["BTC-USDC", "BTC-USD"]);
 
-function tradeJWT(method, path, keyId, secretB64) {
+export function tradeJWT(method, path, keyId, secretB64) {
   const secretBytes = Buffer.from(secretB64, "base64");
   if (secretBytes.length < 32) throw new Error("Coinbase trade secret too short (expected base64 Ed25519 private key)");
   const seed = secretBytes.subarray(0, 32);
@@ -738,7 +738,7 @@ function tradeJWT(method, path, keyId, secretB64) {
   return `${signingInput}.${signature.toString("base64url")}`;
 }
 
-async function cbApi(method, path, keyId, secret, body) {
+export async function cbApi(method, path, keyId, secret, body) {
   // Shared helper for Coinbase v2 + v3 requests using CDP/Ed25519 JWT.
   const jwt = tradeJWT(method, path, keyId, secret);
   const opts = {
@@ -810,7 +810,7 @@ async function placeV2Buy({ amount, dateIso, keyId, secret, btcAccountId, paymen
   };
 }
 
-async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) {
+export async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret, clientOrderId }) {
   if (!DCA_ALLOWED_PRODUCTS.has(productId)) {
     throw new Error(`product ${productId} not in DCA allowlist`);
   }
@@ -820,7 +820,9 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
   }
   const path = "/api/v3/brokerage/orders";
   const body = {
-    client_order_id: `liftoffr-dca-${productId}-${dateIso}`,
+    // A caller may override the idempotency key (the manual test does, so a $10
+    // test never collides with — or masquerades as — the real daily order).
+    client_order_id: clientOrderId || `liftoffr-dca-${productId}-${dateIso}`,
     product_id: productId,
     side: "BUY",
     order_configuration: {
@@ -873,24 +875,31 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
 // LOUD, NOT SILENT. Any exit path that does not place the order MUST return
 // notify:true, and Coinbase's actual rejection reason MUST be surfaced (it is,
 // via results[].error → the Discord payload). That silence is what hid this.
-async function runDailyDCA() {
-  const dateIso = new Date().toISOString().slice(0, 10);
-  // Prefer a dedicated trade key; fall back to the account's main CDP key
-  // (which has Trade permission here). Require the pair to be coherent — never
-  // mix a key id from one pair with a secret from the other.
+// Credential resolution for the DCA order path — the ONE place that decides
+// which key signs a live buy. Prefer a dedicated trade key (both COINBASE_TRADE_*
+// set); otherwise fall back to COINBASE_API_* (the account's CDP key, which has
+// Trade permission here). Never mix a key id from one pair with a secret from the
+// other. Exported so the manual test proves the SAME resolution the cron uses.
+export function resolveDcaCredential() {
   const hasTradePair = Boolean(process.env.COINBASE_TRADE_KEY_ID && process.env.COINBASE_TRADE_SECRET);
   const keyId = hasTradePair ? process.env.COINBASE_TRADE_KEY_ID : process.env.COINBASE_API_KEY_ID;
   const secret = hasTradePair ? process.env.COINBASE_TRADE_SECRET : process.env.COINBASE_API_SECRET;
   const credentialSource = hasTradePair ? "trade" : "api-fallback";
+  // When neither pair is usable, name the primary credential (COINBASE_API_*),
+  // not the optional trade override.
+  const missing = [
+    !keyId && "COINBASE_API_KEY_ID",
+    !secret && "COINBASE_API_SECRET",
+  ].filter(Boolean);
+  return { keyId, secret, credentialSource, missing };
+}
+
+async function runDailyDCA() {
+  const dateIso = new Date().toISOString().slice(0, 10);
+  const { keyId, secret, credentialSource, missing } = resolveDcaCredential();
   const { usdc: usdcAmount } = dcaForToday(dateIso);
 
   if (!keyId || !secret) {
-    // Neither pair is usable. Name the vars that are actually the primary
-    // credential now (COINBASE_API_*), not the optional trade override.
-    const missing = [
-      !process.env.COINBASE_API_KEY_ID && "COINBASE_API_KEY_ID",
-      !process.env.COINBASE_API_SECRET && "COINBASE_API_SECRET",
-    ].filter(Boolean);
     console.error(`DCA NOT PLACED — ${missing.join(" and ")} unset.`);
     return {
       ts: new Date().toISOString(),
@@ -1353,7 +1362,7 @@ export function buildDcaDiscordPayload(dcaResult) {
   return {
     username: "LiftOffr DCA Bot",
     embeds: [{
-      title: allOk ? "Daily DCA fired" : "🚨 Daily DCA FAILED — no BTC bought",
+      title: (dcaResult.test ? "🧪 TEST — " : "") + (allOk ? "Daily DCA fired" : "🚨 Daily DCA FAILED — no BTC bought"),
       description: lines.join("\n") || "No orders were attempted.",
       color: allOk ? 0x34c759 : 0xff453a,
       footer: { text: "Coinbase Advanced Trade · liftoffr.com/dashboard" },
@@ -1362,7 +1371,7 @@ export function buildDcaDiscordPayload(dcaResult) {
   };
 }
 
-async function sendDcaResultToDiscord(dcaResult) {
+export async function sendDcaResultToDiscord(dcaResult) {
   // HEARTBEAT: every run reports here — placed, duplicate, skip, or rejection —
   // so #auto-buy-log is an external, bot-readable record of whether the cron
   // fired and what it decided. Silence in that channel is now itself the signal

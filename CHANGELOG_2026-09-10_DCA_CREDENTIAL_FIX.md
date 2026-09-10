@@ -110,3 +110,37 @@ Bank leg is exempt (it is a Coinbase-UI recurring buy, not placed by this code).
 
 Dollar amounts in `dcaSchedule` unchanged. No Coinbase write calls. New file:
 `api/_alerts.js` (shared bot-post + owner-DM helpers).
+
+---
+
+## Follow-up: human-triggered $10 test buy (Torin presses the button)
+
+`scripts/test-dca-buy.js` places a small BTC-USDC buy through the EXACT
+production path so the test proves the real chain, not a lookalike. To make that
+faithful, these were exported from `cron-weekly-score.js` (no behavior change):
+`resolveDcaCredential` (the one credential resolver, now used by both the cron
+and the test), `placeMarketBuy` (gained an optional `clientOrderId`), `cbApi`,
+`tradeJWT`, `sendDcaResultToDiscord`. The alert path is identical; a test post is
+labelled "🧪 TEST" via a `test:true` flag on the result.
+
+Safety: dry-run by default (prints the plan, places nothing); `--live` + a typed
+amount confirmation to actually buy; hard $25 ceiling in the script (order cap is
+$250); Coinbase's real per-product minimum is fetched and enforced (fails clearly
+if the amount is below it). Credentials are read from env or prompted with echo
+OFF — never written to disk (they are not on disk; only in Vercel, sensitive).
+
+**State-pollution review of a $10 buy — checked all three:**
+- **Ladder / tier fill:** safe. A lump fire needs `usd > dcaFillCeiling` (≈$220
+  at the $110 schedule) in `runTierWatch`, and `>= $100` in the dashboard's
+  `lumpFills()`. $10 is under both — it can never be read as a tier fill.
+- **Absence watchdog:** FIXED. The watchdog now counts a day as "DCA cleared"
+  only for a BTC-USDC fill ≥ 50% of the scheduled daily size (≥$55 at $110). A
+  $10 test no longer falsely reassures it; a real $110 buy still does.
+- **Idempotency:** FIXED. The test uses `liftoffr-dcatest-<product>-<ms>`, never
+  the daily `liftoffr-dca-<product>-<date>`, so it cannot collide with the real
+  daily order or dedupe against it.
+- **Reconciliation:** FLAGGED (not corruption). The $10 is a real fill and
+  reconciliation counts it as real USDC actual — impact is <1% of the 30-day
+  window and rolls off. It could shorten a "leg-silent" streak by the one test
+  day, but the size-gated watchdog (independent cron) is the authoritative
+  absence alarm and is not fooled. Left reconcileDca (fixture-tested) unchanged.
