@@ -84,6 +84,14 @@ else
 fi
 
 echo
+echo "=== Buy plan: tier keys, resistance filter, DCA reconciliation ==="
+if command -v node >/dev/null 2>&1; then
+  node "$(dirname "$0")/check_buy_plan.js" || echo "BUY PLAN: *** FAIL ***"
+else
+  echo "node not found, skipping buy plan checks"
+fi
+
+echo
 echo "=== Tracking coverage on live pages ==="
 printf "%-26s %-6s %-6s %-6s %-8s %-6s\n" PAGE GA4 GTM ATTR CONSENTJS TRACKJS
 for pg in "" score free quiz plan system playbook links receipts proof cycle faq stack indicators indicators/rhodl-ratio when-will-bitcoin-bottom welcome welcome-plan track-record about privacy terms disclaimer blog; do

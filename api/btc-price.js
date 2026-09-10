@@ -7,6 +7,7 @@
 //   With ?ids=: { prices: { BTC: {usd, change24h}, ETH: {...}, ... }, ts: <iso> }
 
 import cowenData from "./_cowen-data.js";
+import { BUY_PLAN, COWEN_SLOT_TIERS } from "./_buy-plan.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -84,10 +85,36 @@ async function fetch200WeekMA() {
 // Cowen knowledge base now imported as a JS module so Vercel bundles it
 // cleanly with the function. Updated by youtube_intel.py via auto-commit.
 
-function parseCowenTargets(currentPrice = 70000) {
+// A level is only usable as a DOWNSIDE BUY TRIGGER if it sits meaningfully below
+// spot. Cowen's transcripts quote support and resistance in the same breath and
+// the extractor does not label which is which, so classification has to be done
+// here, on price. The old rule was `v >= currentPrice * 1.10 → skip`, which let
+// through anything up to 10% ABOVE spot. On 2026-09-09, with BTC at $78,196,
+// that admitted his $80,000 level — the 50-week moving average, the thing price
+// was being REJECTED at — and mapped it onto T2, a $28,000 rung. It did not fire
+// only because the separate ±10% agreement check downstream happened to reject
+// it. Two independent guards, one of them wrong, and the survivor was luck.
+//
+// The 2% buffer keeps a level that is essentially at spot from becoming a
+// trigger that is "hit" the moment it is published.
+export const SUPPORT_MAX_RATIO = 0.98;
+
+export function classifyLevel(price, spot) {
+  if (!Number.isFinite(price) || price <= 0 || !Number.isFinite(spot) || spot <= 0) return "invalid";
+  return price <= spot * SUPPORT_MAX_RATIO ? "support" : "resistance";
+}
+
+// Tier trigger price BEFORE any Cowen override — the number a Cowen cluster has
+// to agree with to be allowed to override it. Mirrors effPrice()/runTierWatch.
+function baseTriggerPrice(tier, ma200w) {
+  if (tier.maMultiple && Number.isFinite(ma200w)) return ma200w * tier.maMultiple;
+  return tier.targetPrice ?? null;
+}
+
+export function parseCowenTargets(currentPrice = 70000, ma200w = null, entriesInput = null) {
   const now = Date.now();
   const cutoff30d = now - 30 * 24 * 3600 * 1000;
-  const entries = (cowenData || [])
+  const entries = (entriesInput || cowenData || [])
     .filter((e) => {
       const t = (e.title || "").toLowerCase();
       if (!t.includes("bitcoin") && !t.includes("btc")) return false;
@@ -95,14 +122,22 @@ function parseCowenTargets(currentPrice = 70000) {
       return pub >= cutoff30d;
     });
 
-  // Extract all key_levels mentions (filter to BELOW current price as downside targets)
+  // Split every extracted level into support (usable) and resistance (reported,
+  // never actionable). Resistance is kept in the payload deliberately: it is
+  // genuinely useful context on the dashboard, and surfacing it is what stops
+  // someone "helpfully" widening the filter again later to get it back.
   const mentions = [];
+  const resistance = [];
   for (const e of entries) {
     const pub = e.published ? Date.parse(e.published) : 0;
     for (const lvl of (e.key_levels || [])) {
       const v = Number(lvl);
-      if (!Number.isFinite(v) || v <= 0) continue;
-      if (v >= currentPrice * 1.10) continue; // skip resistance levels
+      const kind = classifyLevel(v, currentPrice);
+      if (kind === "invalid") continue;
+      if (kind === "resistance") {
+        resistance.push({ price: v, ts: pub, title: e.title });
+        continue;
+      }
       mentions.push({ price: v, ts: pub, title: e.title, outlook: e.outlook });
     }
   }
@@ -121,24 +156,49 @@ function parseCowenTargets(currentPrice = 70000) {
     bucket.latestTs = Math.max(bucket.latestTs, m.ts);
   }
 
-  // Sort by mentions DESC, then by latestTs DESC
+  // Rank by conviction: mentions DESC, then recency DESC.
   buckets.sort((a, b) => b.mentions.length - a.mentions.length || b.latestTs - a.latestTs);
 
-  // Map top 4 to tier slots T2/T3/T4/T5 in DESCENDING price order
-  const top = buckets.slice(0, 4).sort((a, b) => b.centroid - a.centroid);
+  // Assign each bucket to the tier its price is NEAREST to, not to a positional
+  // slot. Positional mapping ("top 4, descending, into T2/T3/T4/T5") is what
+  // produced the T3/T3a mismatch, and it also put the highest surviving cluster
+  // on T2 regardless of whether the two numbers had anything to do with each
+  // other. Tier names come from _buy-plan.js so they cannot drift again.
+  const eligible = BUY_PLAN.tiers.filter((t) => COWEN_SLOT_TIERS.includes(t.tier));
+  const taken = new Set();
   const tiers = {};
-  const slots = ["T2", "T3", "T4", "T5"];
-  for (let i = 0; i < top.length && i < slots.length; i++) {
-    tiers[slots[i]] = {
-      price: Math.round(top[i].centroid / 100) * 100,
-      mentions: top[i].mentions.length,
-      latestDate: new Date(top[i].latestTs).toISOString().slice(0, 10),
+  for (const b of buckets) {
+    const price = Math.round(b.centroid / 100) * 100;
+    let best = null, bestDist = Infinity;
+    for (const t of eligible) {
+      if (taken.has(t.tier)) continue;
+      const base = baseTriggerPrice(t, ma200w);
+      if (!Number.isFinite(base) || base <= 0) continue;
+      const dist = Math.abs(price - base) / base;
+      if (dist < bestDist) { bestDist = dist; best = t; }
+    }
+    if (!best) break;
+    taken.add(best.tier);
+    tiers[best.tier] = {
+      price,
+      mentions: b.mentions.length,
+      latestDate: new Date(b.latestTs).toISOString().slice(0, 10),
+      // How far this cluster sits from the tier's own trigger. Consumers apply
+      // the ±10% agreement rule; publishing the number makes that auditable.
+      distFromBase: Math.round(bestDist * 1000) / 1000,
     };
   }
+
   return {
     tiers,
+    resistance: resistance
+      .sort((a, b) => a.price - b.price)
+      .map((r) => ({ price: r.price, latestDate: new Date(r.ts).toISOString().slice(0, 10) })),
+    spot: currentPrice,
+    supportCeiling: Math.round(currentPrice * SUPPORT_MAX_RATIO),
     sourceEntries: entries.length,
     sourceMentions: mentions.length,
+    sourceResistance: resistance.length,
     windowDays: 30,
     asOf: new Date().toISOString().slice(0, 10),
   };
@@ -339,7 +399,7 @@ export default async function handler(req, res) {
         }
         // Cowen aggregated targets (parsed from bundled knowledge base)
         try {
-          payload.cowen = parseCowenTargets(payload.usd || 70000);
+          payload.cowen = parseCowenTargets(payload.usd || 70000, payload.ma200w ?? null);
         } catch (e) {
           console.error("cowen parse failed", e);
         }

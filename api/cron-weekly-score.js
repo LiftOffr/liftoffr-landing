@@ -18,6 +18,7 @@
 
 import crypto from "node:crypto";
 import { disclosureHTML, disclosureText } from "./_disclosure.js";
+import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice } from "./_buy-plan.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -525,36 +526,10 @@ async function postZoneChangeToDiscord({ from, to, score, date }) {
 // On Mondays, appends a DCA reminder.
 // ═══════════════════════════════════════════════════════════════════
 
-// Mirror of dashboard PLAN config — keep in sync.
-const BUY_PLAN = {
-  totalBudget: 165182,
-  // DCA leg amounts are date-tilted, not flat — see dcaSchedule + dcaForToday().
-  // Only the USDC leg (v3 Advanced Trade) is API-automated; the bank leg is a
-  // Coinbase-UI recurring buy Torin has to update by hand at each tilt date.
-  dcaSchedule: [
-    { start: "2026-05-28", end: "2026-08-31", usdc: 50,  bank: 40 },  // Phase 1 remainder — Cowen's flagged rally-trap, taper down
-    { start: "2026-09-01", end: "2026-12-31", usdc: 110, bank: 60 },  // Phase 2 — capitulation window, ramp up (USDC carries it, bank stays light)
-    { start: "2027-01-01", end: "2027-03-31", usdc: 50,  bank: 40 },  // Phase 3 — post-bottom, taper back down
-  ],
-  tiers: [
-    { tier: "IMMEDIATE", target: 15000, maMultiple: null, targetPrice: 73000, fallbackDate: "2026-05-28", trigger: "Market today — Cowen-wrong hedge" },
-    { tier: "T1",        target: 15000, maMultiple: 1.10, fallbackDate: "2026-07-31", trigger: "Bear-band fail follow-through" },
-    { tier: "T2",        target: 28000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
-    // T3-T5 sub-laddered into upper/lower tranches per the bottom-projection probability bands
-    // (realized-price band 40%, wick-below band 25%, balance-price tail 12%) instead of one lump per tier.
-    { tier: "T3a", target: 20600, targetPrice: 55000, fallbackDate: "2026-11-30", trigger: "Realized-price band, upper half ~$55K (40% bottom-odds band)" },
-    { tier: "T3b", target: 20600, targetPrice: 52500, fallbackDate: "2026-11-30", trigger: "Realized-price band, lower half ~$52.5K (40% bottom-odds band)" },
-    { tier: "T4a", target: 10000, targetPrice: 50500, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, upper half ~$50.5K (25% band)" },
-    { tier: "T4b", target: 10000, targetPrice: 48000, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, lower half ~$48K (25% band)" },
-    { tier: "T5a", target: 4000,  targetPrice: 40000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, upper half ~$40K (12% tail band)" },
-    { tier: "T5b", target: 4000,  targetPrice: 38000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, lower half ~$38K (12% tail band)" },
-  ],
-};
-
-function dcaForToday() {
-  const iso = new Date().toISOString().slice(0, 10);
-  return BUY_PLAN.dcaSchedule.find((s) => iso >= s.start && iso <= s.end) || BUY_PLAN.dcaSchedule[BUY_PLAN.dcaSchedule.length - 1];
-}
+// BUY_PLAN now lives in ./_buy-plan.js and is imported at the top of this file.
+// It used to be a hand-maintained copy here labelled "Mirror of dashboard PLAN
+// config — keep in sync", which is how api/btc-price.js ended up hardcoding tier
+// names that no longer existed.
 
 async function fetchBtcAnd200wMA(baseUrl) {
   const r = await fetch(`${baseUrl}/api/btc-price?ma200w=1`);
@@ -584,7 +559,11 @@ function tierLine(t, btcPrice, ma200w) {
     else                 { badge = "⚪"; action = `${delta.toFixed(1)}% above ${fmtUsd(triggerPx)}`; }
   }
   const fbDays = t.fallbackDate ? daysUntil(t.fallbackDate) : null;
-  const fbStr = fbDays !== null ? (fbDays < 0 ? `⚠ overdue` : `${fbDays}d fallback`) : "";
+  // Was a bare `⚠ overdue`, which read identically on day 1 and day 100 — the
+  // reason T1's 2026-07-31 lapse sat unnoticed. Overdue states must carry a number.
+  const fbStr = fbDays !== null
+    ? (fbDays < 0 ? `${overdueSeverity(-fbDays).icon} ${-fbDays}d OVERDUE` : `${fbDays}d fallback`)
+    : "";
   return `${badge} **${t.tier}** · ${fmtUsd(t.target)} · ${action}${fbStr ? ` · ${fbStr}` : ""}`;
 }
 
@@ -720,8 +699,14 @@ async function runDailyBriefing(baseUrl, day) {
 // DAILY DCA EXECUTION — places two market buys per day via Coinbase
 // Advanced Trade API (lower fees than Simple Buy).
 //
-// Requires a SEPARATE CDP key with Trade permission (not the read-only
-// sync key). Env: COINBASE_TRADE_KEY_ID / COINBASE_TRADE_SECRET.
+// Uses a CDP key with Trade permission. Prefers COINBASE_TRADE_KEY_ID /
+// COINBASE_TRADE_SECRET if both are set (reserved for a future dedicated
+// trade key); otherwise falls back to COINBASE_API_KEY_ID / COINBASE_API_SECRET.
+// In this account there is exactly one CDP key (LiftOffrDCA, verified in the
+// CDP portal 2026-09-10) and it carries View + Trade + Transfer, so the
+// COINBASE_API_* pair IS a trading credential. There is no separate read-only
+// sync key — the read/trade split the 2026-08-20 audit tried to preserve does
+// not exist in this account.
 //
 // Safety:
 //  - Hardcoded product allowlist (BTC-USDC / BTC-USD only, BUY only)
@@ -737,7 +722,7 @@ const DCA_MAX_QUOTE_SIZE = 250; // per-order USD/USDC cap
 
 function tradeJWT(method, path, keyId, secretB64) {
   const secretBytes = Buffer.from(secretB64, "base64");
-  if (secretBytes.length < 32) throw new Error("COINBASE_TRADE_SECRET too short");
+  if (secretBytes.length < 32) throw new Error("Coinbase trade secret too short (expected base64 Ed25519 private key)");
   const seed = secretBytes.subarray(0, 32);
   const pkcs8 = Buffer.concat([
     Buffer.from("302e020100300506032b657004220420", "hex"),
@@ -862,25 +847,61 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
   };
 }
 
-// NO FALLBACK TO THE SYNC KEY. This function places real market buys. The
-// header above requires a SEPARATE CDP key with Trade permission, precisely so
-// the read-only sync credential can never place an order. The previous
-// `COINBASE_TRADE_KEY_ID || COINBASE_API_KEY_ID` fallback defeated that
-// separation silently: with the trade vars unset (as they were on 2026-08-20)
-// it reached for the sync key instead. That fails today only because the sync
-// key lacks Trade permission — grant it for any reason and this would start
-// placing live orders with the wrong credential, with nothing in the logs
-// saying so. Trade keys must be set explicitly or the DCA does not run.
+// CREDENTIAL SELECTION. This function places real market buys. It prefers a
+// dedicated trade key (COINBASE_TRADE_*) if BOTH of those vars are set, and
+// otherwise uses COINBASE_API_* — which in this account (verified in the CDP
+// portal 2026-09-10) is the one and only CDP key, LiftOffrDCA, carrying Trade
+// permission. The fallback is safe here because there is no read-only key to
+// fall back ONTO; the "sync key" the earlier audit guarded against is fictional
+// in this account. If a dedicated trade key is ever added, set COINBASE_TRADE_*
+// and it takes precedence automatically. The fallback is announced on every
+// fire (credentialSource: "api-fallback") so the switchover is never silent.
+//
+// WHAT ACTUALLY HAPPENED (corrected 2026-09-10):
+//   - 2026-05-29 → 2026-08-20: the code fell back to COINBASE_API_* and DID
+//     submit a real BTC-USDC order every day. Coinbase REJECTED them (the most
+//     likely reason is an unfunded USDC wallet). The throw was swallowed, so the
+//     rejection reason was never seen by anyone. It did NOT silently skip.
+//   - 2026-08-20 (f846878) → 2026-09-10: the fallback was removed on the belief
+//     that COINBASE_API_* was read-only. With COINBASE_TRADE_* unset, the guard
+//     returned { skipped: true } and it genuinely placed nothing for ~3 weeks.
+//   The old "silent for 103 days" note conflated these two different failures
+//   and was wrong on both counts (rejection vs skip; and the key is not
+//   read-only). Zero BTC was bought on this leg across the whole span.
+//
+// LOUD, NOT SILENT. Any exit path that does not place the order MUST return
+// notify:true, and Coinbase's actual rejection reason MUST be surfaced (it is,
+// via results[].error → the Discord payload). That silence is what hid this.
 async function runDailyDCA() {
-  const keyId = process.env.COINBASE_TRADE_KEY_ID;
-  const secret = process.env.COINBASE_TRADE_SECRET;
-  if (!keyId || !secret) {
-    console.warn("COINBASE_TRADE_KEY_ID / COINBASE_TRADE_SECRET not set — DCA skipped (no fallback to the read-only sync key by design)");
-    return { skipped: true, reason: "COINBASE_TRADE_* not set" };
-  }
   const dateIso = new Date().toISOString().slice(0, 10);
+  // Prefer a dedicated trade key; fall back to the account's main CDP key
+  // (which has Trade permission here). Require the pair to be coherent — never
+  // mix a key id from one pair with a secret from the other.
+  const hasTradePair = Boolean(process.env.COINBASE_TRADE_KEY_ID && process.env.COINBASE_TRADE_SECRET);
+  const keyId = hasTradePair ? process.env.COINBASE_TRADE_KEY_ID : process.env.COINBASE_API_KEY_ID;
+  const secret = hasTradePair ? process.env.COINBASE_TRADE_SECRET : process.env.COINBASE_API_SECRET;
+  const credentialSource = hasTradePair ? "trade" : "api-fallback";
+  const { usdc: usdcAmount } = dcaForToday(dateIso);
+
+  if (!keyId || !secret) {
+    // Neither pair is usable. Name the vars that are actually the primary
+    // credential now (COINBASE_API_*), not the optional trade override.
+    const missing = [
+      !process.env.COINBASE_API_KEY_ID && "COINBASE_API_KEY_ID",
+      !process.env.COINBASE_API_SECRET && "COINBASE_API_SECRET",
+    ].filter(Boolean);
+    console.error(`DCA NOT PLACED — ${missing.join(" and ")} unset.`);
+    return {
+      ts: new Date().toISOString(),
+      notify: true,
+      fatal: true,
+      reason: "credentials-missing",
+      missing,
+      intendedUsdc: usdcAmount,
+      results: [],
+    };
+  }
   const results = [];
-  const { usdc: usdcAmount } = dcaForToday();
 
   // DCA #1 — v3 Advanced Trade BTC-USDC from USDC wallet.
   // DCA #2 (bank-funded) runs as a Coinbase UI recurring buy — v2 buys API
@@ -898,7 +919,17 @@ async function runDailyDCA() {
     results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: usdcAmount, error: err.message, dup });
   }
 
-  return { ts: new Date().toISOString(), results };
+  const failed = results.filter((r) => !r.ok);
+  return {
+    ts: new Date().toISOString(),
+    // Successes are worth one line a day; failures must never be swallowed.
+    notify: true,
+    fatal: failed.length > 0,
+    reason: failed.length > 0 ? "order-failed" : "ok",
+    intendedUsdc: usdcAmount,
+    credentialSource,
+    results,
+  };
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -908,7 +939,26 @@ async function runDailyDCA() {
 // the alert stops firing.
 // ═══════════════════════════════════════════════════════════════════
 
-async function runTierWatch(baseUrl) {
+// Escalation cadence for a lapsed fallback date, in days-overdue. Deliberately
+// stateless — there is no store to remember "did we already ping day 14?", so
+// the schedule is a pure function of how overdue the tier is, evaluated once a
+// day. Dense at first, then monthly forever: the point is that it never stops
+// and never settles into background noise you can scroll past.
+export function shouldEscalateOverdue(days) {
+  if (!Number.isFinite(days) || days <= 0) return false;
+  if (days <= 7) return true;              // first week: daily
+  if (days <= 30) return days % 7 === 0;   // first month: weekly
+  return days % 30 === 0;                  // thereafter: monthly, indefinitely
+}
+
+export function overdueSeverity(days) {
+  if (days > 90) return { icon: "🟥", word: "THREE MONTHS OVERDUE" };
+  if (days > 30) return { icon: "🟧", word: "OVER A MONTH OVERDUE" };
+  if (days > 7)  return { icon: "🟨", word: "OVERDUE" };
+  return { icon: "⏰", word: "fallback date passed" };
+}
+
+async function runTierWatch(baseUrl, { isDailySendHour = false } = {}) {
   const data = await fetchBtcAnd200wMA(baseUrl);
   if (!data || !Number.isFinite(data.usd) || !Number.isFinite(data.ma200w)) {
     return { skipped: true, reason: "no price/MA" };
@@ -922,38 +972,69 @@ async function runTierWatch(baseUrl) {
   });
   const syncData = await sync.json().catch(() => ({}));
   const trades = syncData.trades || [];
-  const PLAN_START = "2026-05-28";
+  // The filter here used to be `usd >= 100`. The Phase 2 USDC DCA leg is
+  // $110/day, so once the DCA starts placing orders again every daily buy would
+  // waterfall into IMMEDIATE/T1/T2 as if it were a lump tier fire — marking
+  // tiers "done" with DCA money and silencing the alerts for them. Same
+  // plan-relative test as reconciliation: above this leg's plausible daily DCA
+  // size, it is a lump. (dashboard/index.html lumpFills() still uses the old
+  // >= 100 rule and needs the same change — flagged for Torin, not done here,
+  // because it changes what the dashboard displays.)
   const lumpBuys = trades
-    .filter((t) => (t.type || "buy") === "buy" && (t.usd || 0) >= 100 && (t.date || "") >= PLAN_START)
+    .filter((t) => {
+      if ((t.type || "buy") !== "buy") return false;
+      const usd = Number(t.usd || 0);
+      const date = String(t.date || "");
+      if (date < PLAN_START) return false;
+      return usd > dcaFillCeiling(dcaForDate(date.slice(0, 10))[legOf(t)]);
+    })
     .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
 
   // Waterfall fill into the lump tiers — single source of truth is BUY_PLAN.tiers.
-  // Trigger = same rule as the dashboard's effPrice(): Cowen transcript aggregate
-  // overrides the MA-derived trigger when the two agree within ±10%.
+  // Trigger resolution is shared with the dashboard via effectiveTriggerPrice().
   const cowenTiers = (data.cowen && data.cowen.tiers) || {};
-  const TIERS = BUY_PLAN.tiers.map((t) => {
-    const maPx = t.maMultiple && data.ma200w ? data.ma200w * t.maMultiple : null;
-    const cow = cowenTiers[t.tier] ? cowenTiers[t.tier].price : null;
-    let triggerPx = maPx || t.targetPrice;
-    if (cow && maPx && Math.abs(cow - maPx) / maPx <= 0.10) triggerPx = cow;
-    else if (cow && !maPx) triggerPx = cow;
-    return { name: t.tier, target: t.target, label: t.trigger, triggerPx };
-  });
+  const TIERS = BUY_PLAN.tiers.map((t) => ({
+    name: t.tier,
+    target: t.target,
+    label: t.trigger,
+    fallbackDate: t.fallbackDate || null,
+    triggerPx: effectiveTriggerPrice(t, {
+      ma200w: data.ma200w,
+      cowenPrice: cowenTiers[t.tier] ? cowenTiers[t.tier].price : null,
+      spot: data.usd,
+    }),
+  }));
 
   let remaining = lumpBuys.reduce((s, t) => s + (t.usd || 0), 0);
   const tierStates = TIERS.map((t) => {
     const fillAmount = Math.min(t.target, Math.max(0, remaining));
     remaining = Math.max(0, remaining - fillAmount);
+    const overdueDays = t.fallbackDate ? -daysUntil(t.fallbackDate) : null;
     return {
       ...t,
       filled: fillAmount,
       remaining: t.target - fillAmount,
-      hit: data.usd <= t.triggerPx,
+      hit: Number.isFinite(t.triggerPx) && data.usd <= t.triggerPx,
       done: fillAmount >= t.target * 0.97,
+      overdueDays: overdueDays !== null && overdueDays > 0 ? overdueDays : 0,
     };
   });
 
   const actionable = tierStates.filter((t) => t.hit && !t.done);
+
+  // ── Overdue fallback escalation ──────────────────────────────────────────
+  // A fallback date is the plan's own admission that "wait for the price" can
+  // fail. Before this, runTierWatch ignored fallbackDate entirely and the only
+  // trace of a lapsed one was the string "⚠ overdue" in the daily briefing —
+  // static, undated, and identical on day 1 and day 100. T1's date passed on
+  // 2026-07-31 and said exactly the same thing every day since.
+  //
+  // This escalates and it does NOT execute. Nothing in this file may place an
+  // order for a lump tier; these are manual-execution pings by design, and an
+  // overdue date is a prompt to make a decision (fire it, move the date, or
+  // strike the tier), never an instruction to the machine to act.
+  const overdue = tierStates.filter((t) => t.overdueDays > 0 && !t.done);
+  const dueEscalation = overdue.filter((t) => shouldEscalateOverdue(t.overdueDays) && isDailySendHour);
 
   // On-chain bottom confluence (from btc-price ?ma200w=1 onchain block)
   const oc = data.onchain || {};
@@ -970,8 +1051,16 @@ async function runTierWatch(baseUrl) {
   ].filter(Boolean).length;
   const ocLine = `📡 realized ${Number.isFinite(oc.realizedPrice) ? fmtUsd(oc.realizedPrice) : "—"} · MVRV-Z ${Number.isFinite(oc.mvrvZ) ? oc.mvrvZ.toFixed(2) : "—"} · Puell ${Number.isFinite(oc.puell) ? oc.puell.toFixed(2) : "—"} · vol ${Number.isFinite(oc.volRatio) ? oc.volRatio.toFixed(1) + "×" : "—"} · wk ${bearWk.toFixed(0)}/50–60 · **${lit}/7 bottom signals lit**`;
 
-  if (actionable.length === 0 && !volCap) {
-    return { skipped: true, reason: "no tier actionable", btcPrice: data.usd, bottomSignalsLit: lit };
+  if (actionable.length === 0 && !volCap && dueEscalation.length === 0) {
+    return {
+      skipped: true,
+      reason: "no tier actionable",
+      btcPrice: data.usd,
+      bottomSignalsLit: lit,
+      // Reported even when nothing is sent, so the cron response itself shows
+      // the overdue state rather than only the Discord message showing it.
+      overdue: overdue.map((t) => ({ name: t.name, days: t.overdueDays, remaining: t.remaining })),
+    };
   }
 
   const lines = actionable.map((t) => {
@@ -989,9 +1078,22 @@ async function runTierWatch(baseUrl) {
     );
   }
 
-  const header = volCap && actionable.length === 0
+  for (const t of dueEscalation) {
+    const sev = overdueSeverity(t.overdueDays);
+    lines.push(
+      `${sev.icon} **${t.name} — ${sev.word}** (${t.overdueDays}d past ${t.fallbackDate})\n` +
+      `${fmtUsd(t.remaining)} of this tier is still unfilled and the date the plan set for deploying it anyway has passed. ` +
+      `Trigger ${Number.isFinite(t.triggerPx) ? fmtUsd(t.triggerPx) : "—"} · BTC now ${fmtUsd(data.usd)}.\n` +
+      `**Decide, don't ignore:** fire it manually, move the fallback date in \`api/_buy-plan.js\`, or strike the tier. ` +
+      `Nothing is automated here — this alert repeats until the tier is filled or the date changes.`
+    );
+  }
+
+  const header = actionable.length === 0 && volCap
     ? "🔻 **VOLUME CAPITULATION DETECTED** 🔻"
-    : actionable.length === 1 ? "🚨 **BUY TIER HIT** 🚨" : `🚨 **${actionable.length} BUY TIERS HIT** 🚨`;
+    : actionable.length === 0 && dueEscalation.length > 0
+      ? `⏰ **${dueEscalation.length} TIER FALLBACK DATE${dueEscalation.length > 1 ? "S" : ""} OVERDUE** ⏰`
+      : actionable.length === 1 ? "🚨 **BUY TIER HIT** 🚨" : `🚨 **${actionable.length} BUY TIERS HIT** 🚨`;
 
   const dmResult = await sendOwnerDM(
     `${header}\n\n${lines.join("\n\n")}\n\n${ocLine}\n\n` +
@@ -1004,42 +1106,283 @@ async function runTierWatch(baseUrl) {
     volCap,
     bottomSignalsLit: lit,
     actionable: actionable.map((t) => ({ name: t.name, remaining: t.remaining, triggerPx: t.triggerPx })),
+    overdue: overdue.map((t) => ({ name: t.name, days: t.overdueDays, remaining: t.remaining })),
+    escalated: dueEscalation.map((t) => t.name),
     dm: dmResult,
   };
 }
 
-// Same rule as sendDiscordBriefing: explicit destination only. This one reports
-// real executed order sizes in dollars.
-async function sendDcaResultToDiscord(dcaResult) {
+// ═══════════════════════════════════════════════════════════════════
+// DCA RECONCILIATION — intended vs actually cleared.
+//
+// Nothing in this system ever compared the two. The dashboard's cadence() is
+// the closest thing, and it is an *observation*, not a check: it infers the
+// schedule from a 45-day median of fills, so it cannot notice a phase change
+// for roughly six weeks, and because it takes the median of all fill SIZES it
+// reads "$50/day" whether the bank leg is set to $40 or $60.
+//
+// The consequence was that a USDC leg placing exactly $0/day for 103 days
+// looked, from every surface Torin actually reads, like a running DCA.
+//
+// This function is deliberately dumb and absolute: the plan says N dollars on
+// day D; the exchange says M dollars cleared on day D; if N and M disagree,
+// say so. It reads. It never places, modifies or cancels anything.
+// ═══════════════════════════════════════════════════════════════════
+
+// Separating a DCA fill from a lump tier fire cannot be done with a flat dollar
+// threshold. The codebase used `>= $100 means lump` in two places — and the
+// Phase 2 USDC DCA leg is $110/day. From 2026-09-01 every single daily DCA buy
+// would have been counted as a lump tier fill, silently filling IMMEDIATE/T1/T2
+// with dollar-cost-averaging money and switching off the tier alerts that
+// depend on those tiers being unfilled. That never bit only because the DCA has
+// not placed an order since it was written.
+//
+// So classify against the PLAN instead of against a magic number: a fill is DCA
+// if it is plausibly this leg's scheduled daily amount for that date. Lump tiers
+// in this ladder start at $4,000, so there is no overlap.
+export function dcaFillCeiling(scheduledForLeg) {
+  // Outside the plan window the schedule is zero. Falling through to a ceiling of
+  // zero would classify every small buy as a lump tier fire, so a recurring buy
+  // left running past 2027-03-31 would start filling tiers on its own. Hold the
+  // old $100 floor there instead.
+  if (!(scheduledForLeg > 0)) return 100;
+  return Math.min(DCA_MAX_QUOTE_SIZE, Math.max(scheduledForLeg * 2, 100));
+}
+const RECON_LOOKBACK_DAYS = 30;
+const RECON_TOLERANCE = 0.10;   // cumulative drift before it is called divergence
+const RECON_SILENT_DAYS = 3;    // consecutive dry days on a leg before alarm
+
+function isoAddDays(iso, n) {
+  const d = new Date(iso + "T00:00:00Z");
+  d.setUTCDate(d.getUTCDate() + n);
+  return d.toISOString().slice(0, 10);
+}
+
+function legOf(trade) {
+  // v3 fills carry the product id in `notes`; v2 simple buys carry "simple-buy".
+  const n = String(trade.notes || "");
+  if (n.includes("BTC-USDC")) return "usdc";
+  return "bank";
+}
+
+function median(xs) {
+  if (!xs.length) return 0;
+  const s = [...xs].sort((a, b) => a - b);
+  return s[Math.floor(s.length / 2)];
+}
+
+// Pure, so it can be tested against fixtures without a network or a clock.
+export function reconcileDca({
+  trades = [],
+  todayIso,
+  lookbackDays = RECON_LOOKBACK_DAYS,
+  tolerance = RECON_TOLERANCE,
+  silentDays = RECON_SILENT_DAYS,
+} = {}) {
+  // Yesterday is the last fully-settled day; today's buy may not have cleared.
+  const end = isoAddDays(todayIso, -1);
+  let start = isoAddDays(todayIso, -lookbackDays);
+  if (start < PLAN_START) start = PLAN_START;
+  if (end < start) return { skipped: true, reason: "window before plan start" };
+
+  const days = [];
+  for (let d = start; d <= end; d = isoAddDays(d, 1)) days.push(d);
+
+  const intended = { usdc: 0, bank: 0 };
+  for (const d of days) {
+    const s = dcaForDate(d);
+    intended.usdc += s.usdc;
+    intended.bank += s.bank;
+  }
+
+  const byDay = { usdc: {}, bank: {} };
+  const actual = { usdc: 0, bank: 0 };
+  for (const t of trades) {
+    if ((t.type || "buy") !== "buy") continue;
+    const usd = Number(t.usd || 0);
+    if (!(usd > 0)) continue;
+    const date = String(t.date || "").slice(0, 10);
+    if (date < start || date > end) continue;
+    const leg = legOf(t);
+    if (usd > dcaFillCeiling(dcaForDate(date)[leg])) continue;  // lump tier fire
+    actual[leg] += usd;
+    byDay[leg][date] = (byDay[leg][date] || 0) + usd;
+  }
+
+  const legs = ["usdc", "bank"].map((leg) => {
+    const int = Math.round(intended[leg] * 100) / 100;
+    const act = Math.round(actual[leg] * 100) / 100;
+    const diff = Math.round((act - int) * 100) / 100;
+    const pct = int > 0 ? diff / int : (act > 0 ? 1 : 0);
+
+    // Trailing dry run: how many consecutive settled days had zero fills.
+    let dry = 0;
+    for (let i = days.length - 1; i >= 0; i--) {
+      if ((byDay[leg][days[i]] || 0) > 0) break;
+      dry++;
+    }
+
+    // Observed rate over the last 7 settled days vs what today's phase says it
+    // should be. This is the part cadence() structurally cannot do: it compares
+    // against the SCHEDULE, not against the recent past, so a phase change shows
+    // up the day after it takes effect instead of half a median-window later.
+    const recent = days.slice(-7);
+    const observedRate = median(recent.map((d) => byDay[leg][d] || 0));
+    const scheduledRate = dcaForDate(end)[leg];
+
+    const flags = [];
+    if (int > 0 && dry >= silentDays) flags.push("leg-silent");
+    if (int > 0 && Math.abs(pct) > tolerance) flags.push("cumulative-divergence");
+    if (scheduledRate > 0 && Math.abs(observedRate - scheduledRate) >= 1) flags.push("rate-mismatch");
+
+    return { leg, intended: int, actual: act, diff, pct, dryDays: dry, observedRate, scheduledRate, flags };
+  });
+
+  const combined = {
+    intended: Math.round((intended.usdc + intended.bank) * 100) / 100,
+    actual: Math.round((actual.usdc + actual.bank) * 100) / 100,
+  };
+  combined.diff = Math.round((combined.actual - combined.intended) * 100) / 100;
+
+  return {
+    window: { start, end, days: days.length },
+    legs,
+    combined,
+    ok: legs.every((l) => l.flags.length === 0),
+  };
+}
+
+export function buildReconciliationPayload(rec) {
+  const legName = { usdc: "USDC leg (API, automated)", bank: "Bank leg (Coinbase recurring buy)" };
+  const explain = {
+    "leg-silent": (l) => `**${l.dryDays} consecutive days with no fills at all.** The plan expected money to move on every one of them.`,
+    "cumulative-divergence": (l) => `Cleared **${fmtUsd(l.actual)}** against an intended **${fmtUsd(l.intended)}** — **${l.diff < 0 ? "short by" : "over by"} ${fmtUsd(Math.abs(l.diff))}** (${(l.pct * 100).toFixed(1)}%).`,
+    "rate-mismatch": (l) => `Running at **$${l.observedRate}/day**, schedule says **$${l.scheduledRate}/day**.` +
+      (l.leg === "bank" ? " The bank leg is a recurring buy inside the Coinbase app — only you can change it." : ""),
+  };
+
+  const bad = rec.legs.filter((l) => l.flags.length);
+  const lines = bad.map((l) =>
+    `**${legName[l.leg]}**\n` + l.flags.map((f) => `• ${explain[f](l)}`).join("\n")
+  );
+
+  return {
+    username: "LiftOffr DCA Bot",
+    embeds: [{
+      title: "🔎 DCA reconciliation — intent and reality disagree",
+      description:
+        `Window **${rec.window.start} → ${rec.window.end}** (${rec.window.days}d)\n` +
+        `Intended **${fmtUsd(rec.combined.intended)}** · cleared **${fmtUsd(rec.combined.actual)}** · ` +
+        `**${rec.combined.diff < 0 ? "short" : "over"} ${fmtUsd(Math.abs(rec.combined.diff))}**\n\n` +
+        lines.join("\n\n"),
+      color: 0xff9f0a,
+      footer: { text: "Read-only check. Nothing was bought, changed or cancelled." },
+      timestamp: new Date().toISOString(),
+    }],
+  };
+}
+
+async function runReconciliation(baseUrl) {
+  const sync = await fetch(`${baseUrl}/api/coinbase-sync`, {
+    headers: { Authorization: `Basic ${Buffer.from(`cron:${process.env.DASHBOARD_PASSWORD}`).toString("base64")}` },
+  });
+  const syncData = await sync.json().catch(() => ({}));
+  if (!sync.ok || !Array.isArray(syncData.trades)) {
+    // Cannot verify is not the same as verified-fine, and must not read as fine.
+    return { error: true, reason: `coinbase-sync unavailable (${sync.status})`, notify: true };
+  }
+
+  const rec = reconcileDca({ trades: syncData.trades, todayIso: new Date().toISOString().slice(0, 10) });
+  if (rec.skipped || rec.ok) return { ...rec, notify: false };
+
   const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK;
   if (!url) {
-    console.warn("DISCORD_BUY_ALERTS_WEBHOOK not set — DCA result notice skipped (no fallback by design)");
-    return;
+    console.error("DISCORD_BUY_ALERTS_WEBHOOK not set — reconciliation divergence not posted");
+    return { ...rec, notify: true, sent: false };
   }
-  if (dcaResult.skipped) return; // don't spam if not configured
+  const r = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(buildReconciliationPayload(rec)),
+  });
+  return { ...rec, notify: true, sent: r.ok };
+}
 
-  const allOk = dcaResult.results.every((r) => r.ok);
-  const color = allOk ? 0x34c759 : 0xff453a;
+// Same rule as sendDiscordBriefing: explicit destination only. This one reports
+// real executed order sizes in dollars.
+// The old version of this function opened with `if (dcaResult.skipped) return;`
+// and the comment "don't spam if not configured". That single line is the root
+// bug behind the whole 103-day outage: the one condition most worth shouting
+// about was the one condition guaranteed to stay quiet. A DCA that cannot place
+// an order alerts. Every day. There is no such thing as spam here — if the
+// message is annoying, the fix is to make the DCA work, not to mute it.
+export function buildDcaDiscordPayload(dcaResult) {
+  if (dcaResult.reason === "credentials-missing") {
+    return {
+      username: "LiftOffr DCA Bot",
+      embeds: [{
+        title: "🚨 DAILY DCA DID NOT RUN — no trade credentials",
+        description:
+          `**No BTC was bought on the USDC leg today.** Intended: **$${dcaResult.intendedUsdc}** BTC-USDC.\n\n` +
+          `Missing env var${dcaResult.missing.length > 1 ? "s" : ""}: ${dcaResult.missing.map((m) => `\`${m}\``).join(" · ")}\n\n` +
+          "This is not a transient error and it will not fix itself. The primary credential " +
+          "is `COINBASE_API_KEY_ID` / `COINBASE_API_SECRET` (the account's CDP key, which has Trade " +
+          "permission); set those in Vercel Production, or set `COINBASE_TRADE_*` for a dedicated key.\n\n" +
+          "_The bank-leg recurring buy is unaffected; it runs inside Coinbase, not here._",
+        color: 0xff453a,
+        footer: { text: "This alert repeats daily until the DCA can place an order." },
+        timestamp: dcaResult.ts,
+      }],
+    };
+  }
+
+  const allOk = dcaResult.results.length > 0 && dcaResult.results.every((r) => r.ok);
   const lines = dcaResult.results.map((r) => {
     if (r.ok && !r.dup) return `✅ ${r.productId} — placed $${r.quoteSize} buy (order ${(r.orderId || "").slice(0, 8)})`;
     if (r.ok && r.dup)  return `⚠ ${r.productId} — already placed today (duplicate idempotency key)`;
-    return `❌ ${r.productId} — FAILED $${r.quoteSize}: ${(r.error || "").slice(0, 140)}`;
+    return `❌ ${r.productId} — FAILED $${r.quoteSize}: ${(r.error || "").slice(0, 300)}`;
   });
-  const payload = {
+  if (dcaResult.reason === "threw") {
+    lines.push(`❌ DCA threw before placing anything: ${(dcaResult.error || "").slice(0, 200)}`);
+  }
+  if (dcaResult.credentialSource === "api-fallback") {
+    lines.push("_credential: COINBASE_API_* (account CDP key, has Trade) — no dedicated COINBASE_TRADE_* key set_");
+  }
+  return {
     username: "LiftOffr DCA Bot",
     embeds: [{
-      title: allOk ? "Daily DCA fired" : "Daily DCA — partial failure",
-      description: lines.join("\n"),
-      color,
+      title: allOk ? "Daily DCA fired" : "🚨 Daily DCA FAILED — no BTC bought",
+      description: lines.join("\n") || "No orders were attempted.",
+      color: allOk ? 0x34c759 : 0xff453a,
       footer: { text: "Coinbase Advanced Trade · liftoffr.com/dashboard" },
       timestamp: dcaResult.ts,
     }],
   };
-  await fetch(url, {
+}
+
+async function sendDcaResultToDiscord(dcaResult) {
+  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK;
+  if (!url) {
+    // Still no `||` fallback onto another webhook — see sendDiscordBriefing.
+    // But an unreachable alert channel on a failed DCA is itself an incident,
+    // so escalate to the owner DM, which uses a different credential entirely.
+    console.error("DISCORD_BUY_ALERTS_WEBHOOK not set — cannot post DCA result");
+    if (dcaResult.fatal) {
+      await sendOwnerDM(
+        "🚨 **Daily DCA failed and the buy-alerts webhook is not configured.**\n" +
+        `Reason: \`${dcaResult.reason}\`. Check the Vercel logs for /api/cron-weekly-score.`
+      ).catch(() => {});
+    }
+    return { sent: false, reason: "DISCORD_BUY_ALERTS_WEBHOOK not set" };
+  }
+  if (!dcaResult.notify) return { sent: false, reason: "nothing to report" };
+
+  const r = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify(buildDcaDiscordPayload(dcaResult)),
   });
+  return { sent: r.ok, status: r.status };
 }
 
 export default async function handler(req, res) {
@@ -1076,7 +1419,7 @@ export default async function handler(req, res) {
   const runWatch = !tasksParam || tasksParam.includes("watch");
   if (runWatch) {
     try {
-      out.tasks.tierWatch = await runTierWatch(baseUrl);
+      out.tasks.tierWatch = await runTierWatch(baseUrl, { isDailySendHour });
     } catch (err) {
       console.error("tier watch error", err);
       out.tasks.tierWatch = { error: err.message };
@@ -1088,13 +1431,40 @@ export default async function handler(req, res) {
   // we gate explicitly so we don't spam logs with rejection noise.
   const runDCA = (!tasksParam || tasksParam.includes("dca")) && isDailySendHour;
   if (runDCA) {
+    // Every path out of here reports. A throw used to land in out.tasks.dca and
+    // nowhere else, so a DCA that crashed looked identical to one that never ran.
+    let dcaResult;
     try {
-      const dcaResult = await runDailyDCA();
-      out.tasks.dca = dcaResult;
-      await sendDcaResultToDiscord(dcaResult).catch((e) => console.warn("dca discord post", e.message));
+      dcaResult = await runDailyDCA();
     } catch (err) {
       console.error("dca error", err);
-      out.tasks.dca = { error: err.message };
+      dcaResult = {
+        ts: new Date().toISOString(),
+        notify: true, fatal: true, reason: "threw",
+        error: err.message, results: [],
+      };
+    }
+    out.tasks.dca = dcaResult;
+    try {
+      out.tasks.dcaNotice = await sendDcaResultToDiscord(dcaResult);
+    } catch (e) {
+      console.error("dca discord post failed", e.message);
+      out.tasks.dcaNotice = { sent: false, error: e.message };
+    }
+    // Surface the failure in the HTTP response too, so Vercel's cron log shows a
+    // non-200 instead of a cheerful 200 with a buried error field.
+    if (dcaResult.fatal) out.dcaFatal = dcaResult.reason;
+  }
+
+  // TASK 2.5 — DCA reconciliation. Daily, and deliberately AFTER the DCA task so
+  // today's fire is in the ledger before we compare. Read-only.
+  const runRecon = (!tasksParam || tasksParam.includes("recon")) && isDailySendHour;
+  if (runRecon) {
+    try {
+      out.tasks.reconciliation = await runReconciliation(baseUrl);
+    } catch (err) {
+      console.error("reconciliation error", err);
+      out.tasks.reconciliation = { error: err.message };
     }
   }
 

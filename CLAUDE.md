@@ -91,11 +91,14 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   `BUY_PLAN.totalBudget`, tier dollar amounts, executed order sizes — must resolve to an
   explicitly-set variable or no-op with a log line. On 2026-08-20 `sendDiscordBriefing` read
   `DISCORD_BUY_ALERTS_WEBHOOK || DISCORD_OPS_WEBHOOK`; buy-alerts did not exist, ops did, and
-  two of the five webhooks in the Discord server point at a free-member-visible channel. The
-  same pattern let `runDailyDCA` reach for the read-only sync key when the trade key was unset,
-  defeating the key separation that stops a read-only credential placing live orders. Both are
-  now explicit-or-skip. A hardcoded, named, checked-in default for a non-sensitive destination
-  (the channel IDs in `api/whop-webhook.js`) is a different thing and is fine.
+  two of the five webhooks in the Discord server point at a free-member-visible channel. That
+  webhook fallback is now explicit-or-skip. (Note: the credential fallback in `runDailyDCA` is
+  NOT an instance of this rule — the 2026-08-20 commit removed it believing `COINBASE_API_*` was
+  a read-only sync key, but the CDP portal shows a single key (LiftOffrDCA) with Trade permission
+  and no separate read-only key exists in this account. As of 2026-09-10 `runDailyDCA` falls back
+  to `COINBASE_API_*` when `COINBASE_TRADE_*` is unset, and announces the fallback on every fire.)
+  A hardcoded, named, checked-in default for a non-sensitive destination (the channel IDs in
+  `api/whop-webhook.js`) is a different thing and is fine.
 
 - **`HANDOVER.md` at the repo root is the current state of play** — what is done, what is waiting
   on Torin with exact click paths, the open decisions, and the standing hazards. Read it before

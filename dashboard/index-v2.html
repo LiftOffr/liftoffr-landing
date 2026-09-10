@@ -652,8 +652,16 @@ let MA200W=null,COWEN=null,LIVE_PRICE=null,CB=null,TRADES=[],LIVE_PF={btcVal:0,c
 let CBBI_HIST=null,CBBI_CHART=null,CBBI_CUT='all';
 const FUSD=n=>'$'+Math.round(n).toLocaleString();
 const buyTiers=()=>{const a=[];PLAN.phases.forEach(p=>(p.lumpTiers||[]).forEach(t=>{if(!t.tier.startsWith('DCA')&&!t.sellPct)a.push(t)}));return a};
-function effPrice(t){const ma=(t.maMultiple&&MA200W)?MA200W*t.maMultiple:null;const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier]?COWEN.tiers[t.tier].price:null;
-  if(cow&&ma){if(Math.abs(cow-ma)/ma<=0.10)return cow}else if(cow)return cow;return ma||t.targetPrice}
+/* Mirror of effectiveTriggerPrice() in api/_buy-plan.js — see dashboard/index.html
+   for why the unguarded `else if(cow) return cow` branch had to go. */
+function effPrice(t){
+  const base=(t.maMultiple&&MA200W)?MA200W*t.maMultiple:(t.targetPrice!=null?t.targetPrice:null);
+  if(!(base>0))return null;
+  const cow=COWEN&&COWEN.tiers&&COWEN.tiers[t.tier]?COWEN.tiers[t.tier].price:null;
+  const agrees=cow>0&&Math.abs(cow-base)/base<=0.10;
+  const belowSpot=!(LIVE_PRICE>0)||cow<LIVE_PRICE;
+  return agrees&&belowSpot?cow:base;
+}
 function lumpFills(){const buys=TRADES.filter(b=>(b.type||'buy')==='buy'&&(b.usd||0)>=100).slice().sort((a,b)=>(a.date||'').localeCompare(b.date||''));
   let rem=buys.reduce((s,b)=>s+(b.usd||0),0);const f={};buyTiers().forEach(t=>{const a=Math.min(t.target||0,Math.max(0,rem));f[t.tier]=a;rem=Math.max(0,rem-a)});return f}
 function tStatus(t,dep){if(dep>=t.target*0.97)return'done';const px=effPrice(t);if(LIVE_PRICE&&px){if(LIVE_PRICE<=px)return'hit';if((LIVE_PRICE-px)/px<0.05)return'near'}return'open'}
