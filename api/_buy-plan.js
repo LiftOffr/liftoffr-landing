@@ -61,6 +61,30 @@ export const BUY_PLAN = {
   }
 }
 
+// Per-order quote-size ceiling. The v3 order path (placeMarketBuy) hard-REJECTS
+// any quote_size above this — it throws and buys nothing; it does NOT clamp down
+// to the cap. Single source of truth; cron-weekly-score imports this.
+export const DCA_MAX_QUOTE_SIZE = 250;
+
+// Guard: refuse a schedule the order path cannot execute. Only the USDC leg is
+// placed via the API (the bank leg is a Coinbase-UI recurring buy, executed
+// outside this code, so it is not bound by the cap). If a USDC rate is set above
+// DCA_MAX_QUOTE_SIZE, every 15:00 run would throw and buy zero — silently, until
+// someone read the logs. Fail here, at import/deploy time, with the fix spelled
+// out, instead of at 15:00 every day.
+{
+  for (const s of BUY_PLAN.dcaSchedule) {
+    if (!Number.isFinite(s.usdc) || s.usdc <= 0 || s.usdc > DCA_MAX_QUOTE_SIZE) {
+      throw new Error(
+        `_buy-plan.js: dcaSchedule ${s.start}..${s.end} usdc=$${s.usdc} is outside the placeable ` +
+        `range (0, ${DCA_MAX_QUOTE_SIZE}]. The v3 order path rejects it, so the USDC DCA would buy ` +
+        `nothing every day. Either lower the rate, or raise DCA_MAX_QUOTE_SIZE AND split the daily ` +
+        `buy into multiple sub-cap orders in runDailyDCA — a single order above the cap cannot execute.`
+      );
+    }
+  }
+}
+
 export function dcaForToday(nowIso) {
   const iso = nowIso || new Date().toISOString().slice(0, 10);
   return (

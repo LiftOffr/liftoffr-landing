@@ -66,3 +66,47 @@ blast radius of a bug is one small BTC buy.
   09-01. Lives in the Coinbase app; only Torin can change it.
 - **Key "last updated 2026-08-27"** — if Torin didn't touch it, worth
   understanding what changed. Not blocking.
+
+---
+
+## Follow-up (same day): make the automation observable and self-checking
+
+The credential was fixed but the automation still wasn't trustworthy — it ran
+103 days without anyone able to tell. Vercel Hobby exposes no cron-run or
+runtime-log history, so "did it fire" was genuinely unanswerable. Closed that.
+
+**Discord alerting via the bot (Option A, approved).** `sendDcaResultToDiscord`
+no longer needs `DISCORD_BUY_ALERTS_WEBHOOK` (which was never set). It posts
+through the existing `DISCORD_BOT_TOKEN` to **#auto-buy-log** (private Staff
+channel, id in `api/_alerts.js`), matching how the rest of the stack posts.
+Owner-DM stays as the fallback when a fatal result's channel post doesn't land.
+Reconciliation divergences route to the same channel.
+
+**1. Heartbeat.** Every DCA run now posts to #auto-buy-log — placed, duplicate,
+skip, or rejection, with the amount and Coinbase's verbatim response. That
+channel is bot-readable from outside the function, so "did the cron fire and
+what did it decide" is now answerable without Vercel. Silence in that channel is
+itself the signal.
+
+**2. Absence alarm.** New watchdog in `cron-welcome-followups` (17:00 UTC —
+a DIFFERENT cron from the 15:00 DCA). If the plan expects a daily USDC buy but no
+BTC-USDC fill has cleared in `DCA_SILENT_DAYS` (3) days, it alerts to #auto-buy-log
+and the owner DM. Because it lives in a separate cron, it fires even if
+`cron-weekly-score` stops entirely — the exact failure mode that hid for 103 days.
+Read-only; places nothing.
+
+**3. Earlier session's fixes confirmed DEPLOYED**, not just committed: production
+serves commit 2125568, which contains `reconcileDca` (intended-vs-cleared),
+`classifyLevel`/support-resistance before the Cowen key mapping, and
+`shouldEscalateOverdue` (overdue-tier escalation). Verified against the live HEAD.
+
+**4. Config-time cap guard.** `DCA_MAX_QUOTE_SIZE` ($250) now lives in
+`api/_buy-plan.js` (single source; `cron-weekly-score` imports it). A new
+import-time guard throws if any scheduled USDC rate exceeds the cap — because the
+v3 order path REJECTS an over-cap order (throws, buys nothing; no clamp). So an
+unexecutable rate now fails loudly at deploy, not silently at 15:00. Verified the
+guard throws on a simulated $300/day rate; `check_buy_plan.js` asserts it too.
+Bank leg is exempt (it is a Coinbase-UI recurring buy, not placed by this code).
+
+Dollar amounts in `dcaSchedule` unchanged. No Coinbase write calls. New file:
+`api/_alerts.js` (shared bot-post + owner-DM helpers).

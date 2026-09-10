@@ -18,6 +18,8 @@
 
 import crypto from "node:crypto";
 import { disclosureHTML } from "./_disclosure.js";
+import { dcaForDate } from "./_buy-plan.js";
+import { postToChannel, sendOwnerDM, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -895,6 +897,55 @@ function ageDays(createdAt) {
   return (Date.now() - t) / 86400000;
 }
 
+// ── DCA absence watchdog ─────────────────────────────────────────────────────
+// This cron runs at 17:00 UTC — INDEPENDENT of the DCA cron at 15:00. Its job is
+// to catch the failure mode that hid for 103 days: silence, which until now
+// looked identical to success. If the plan expects a daily USDC buy but no
+// BTC-USDC fill has cleared in DCA_SILENT_DAYS days, it says so — whether the DCA
+// cron is erroring, getting rejected, or not firing at all. Living in a separate
+// cron means it still fires even if cron-weekly-score stops entirely. Read-only:
+// it reads fills and posts an alert; it places nothing.
+const DCA_SILENT_DAYS = 3;
+async function dcaWatchdog(baseUrl) {
+  const pw = process.env.DASHBOARD_PASSWORD;
+  if (!pw) return { skipped: true, reason: "no DASHBOARD_PASSWORD" };
+
+  const todayIso = new Date().toISOString().slice(0, 10);
+  const sched = dcaForDate(todayIso);
+  if (!sched.usdc) return { ok: true, reason: "no USDC leg scheduled in this window" };
+
+  let trades;
+  try {
+    const r = await fetch(`${baseUrl}/api/coinbase-sync`, {
+      headers: { Authorization: `Basic ${Buffer.from(`cron:${pw}`).toString("base64")}` },
+    });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !Array.isArray(d.trades)) return { skipped: true, reason: `coinbase-sync ${r.status}` };
+    trades = d.trades;
+  } catch (e) {
+    return { skipped: true, reason: String(e).slice(0, 200) };
+  }
+
+  const cutoff = new Date(Date.now() - DCA_SILENT_DAYS * 864e5).toISOString().slice(0, 10);
+  const recent = trades.filter((t) =>
+    (t.type || "buy") === "buy" &&
+    String(t.notes || "").includes("BTC-USDC") &&
+    String(t.date || "").slice(0, 10) >= cutoff
+  );
+  if (recent.length > 0) return { ok: true, recentUsdcFills: recent.length, since: cutoff };
+
+  // Absence — the exact signature of the original outage.
+  const msg =
+    `\u26a0\ufe0f **DCA WATCHDOG \u2014 no BTC-USDC fill in ${DCA_SILENT_DAYS} days.**\n` +
+    `The USDC DCA leg is scheduled at **$${sched.usdc}/day** but nothing has cleared since **${cutoff}**.\n` +
+    "That means the 15:00 UTC cron is not firing, or its orders are being rejected. " +
+    "Check #auto-buy-log for today's heartbeat and the Vercel logs for /api/cron-weekly-score.\n\n" +
+    "_This watchdog runs from the 17:00 cron, independently of the DCA, and is read-only._";
+  await postToChannel(AUTO_BUY_LOG_CHANNEL, msg).catch(() => {});
+  await sendOwnerDM(msg).catch(() => {});
+  return { alerted: true, since: cutoff, scheduledUsdc: sched.usdc };
+}
+
 export default async function handler(req, res) {
   const expected = process.env.CRON_SECRET;
   const got = req.headers["authorization"] || "";
@@ -1125,6 +1176,16 @@ export default async function handler(req, res) {
       }
     }
 
+    // Independent DCA absence check (read-only). Never let it break the email run.
+    let dcaWatch = null;
+    try {
+      const host = req.headers["x-forwarded-host"] || req.headers["host"];
+      const proto = req.headers["x-forwarded-proto"] || "https";
+      dcaWatch = await dcaWatchdog(`${proto}://${host}`);
+    } catch (e) {
+      dcaWatch = { error: String(e).slice(0, 200) };
+    }
+
     return res.status(200).json({
       ts: new Date().toISOString(),
       total_contacts: contacts.length,
@@ -1132,6 +1193,7 @@ export default async function handler(req, res) {
       plan: planSeq,
       quiz: quizSeq,
       trial,
+      dca_watchdog: dcaWatch,
     });
   } catch (err) {
     console.error("cron-welcome-followups error", err);

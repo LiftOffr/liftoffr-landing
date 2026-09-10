@@ -18,7 +18,8 @@
 
 import crypto from "node:crypto";
 import { disclosureHTML, disclosureText } from "./_disclosure.js";
-import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice } from "./_buy-plan.js";
+import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE } from "./_buy-plan.js";
+import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -718,7 +719,6 @@ async function runDailyBriefing(baseUrl, day) {
 
 const COINBASE_HOST = "api.coinbase.com";
 const DCA_ALLOWED_PRODUCTS = new Set(["BTC-USDC", "BTC-USD"]);
-const DCA_MAX_QUOTE_SIZE = 250; // per-order USD/USDC cap
 
 function tradeJWT(method, path, keyId, secretB64) {
   const secretBytes = Buffer.from(secretB64, "base64");
@@ -1305,17 +1305,9 @@ async function runReconciliation(baseUrl) {
   const rec = reconcileDca({ trades: syncData.trades, todayIso: new Date().toISOString().slice(0, 10) });
   if (rec.skipped || rec.ok) return { ...rec, notify: false };
 
-  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK;
-  if (!url) {
-    console.error("DISCORD_BUY_ALERTS_WEBHOOK not set — reconciliation divergence not posted");
-    return { ...rec, notify: true, sent: false };
-  }
-  const r = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(buildReconciliationPayload(rec)),
-  });
-  return { ...rec, notify: true, sent: r.ok };
+  const post = await postToChannel(AUTO_BUY_LOG_CHANNEL, { embeds: buildReconciliationPayload(rec).embeds })
+    .catch((e) => ({ ok: false, error: e.message }));
+  return { ...rec, notify: true, sent: post.ok };
 }
 
 // Same rule as sendDiscordBriefing: explicit destination only. This one reports
@@ -1371,35 +1363,34 @@ export function buildDcaDiscordPayload(dcaResult) {
 }
 
 async function sendDcaResultToDiscord(dcaResult) {
-  const url = process.env.DISCORD_BUY_ALERTS_WEBHOOK;
-  if (!url) {
-    // Still no `||` fallback onto another webhook — see sendDiscordBriefing.
-    // But an unreachable alert channel on a failed DCA is itself an incident,
-    // so escalate to the owner DM, which uses a different credential entirely.
-    console.error("DISCORD_BUY_ALERTS_WEBHOOK not set — cannot post DCA result");
-    if (dcaResult.fatal) {
-      const detail =
-        (dcaResult.results || []).filter((r) => !r.ok)
-          .map((r) => `• ${r.productId} $${r.quoteSize}: ${r.error || "no detail"}`).join("\n")
-        || (dcaResult.reason === "credentials-missing"
-              ? `Missing: ${(dcaResult.missing || []).join(", ")}`
-              : (dcaResult.error || dcaResult.reason));
-      await sendOwnerDM(
-        "🚨 **Daily DCA failed and the buy-alerts webhook is not configured.**\n" +
-        `Reason: \`${dcaResult.reason}\`\n${detail}\n\n` +
-        "_(Set DISCORD_BUY_ALERTS_WEBHOOK for the full alert. The line above is Coinbase's verbatim response.)_"
-      ).catch(() => {});
-    }
-    return { sent: false, reason: "DISCORD_BUY_ALERTS_WEBHOOK not set" };
-  }
+  // HEARTBEAT: every run reports here — placed, duplicate, skip, or rejection —
+  // so #auto-buy-log is an external, bot-readable record of whether the cron
+  // fired and what it decided. Silence in that channel is now itself the signal
+  // (see the watchdog in cron-welcome-followups). Posts via the bot to a private
+  // Staff channel, matching the rest of the stack; no webhook required.
   if (!dcaResult.notify) return { sent: false, reason: "nothing to report" };
 
-  const r = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(buildDcaDiscordPayload(dcaResult)),
-  });
-  return { sent: r.ok, status: r.status };
+  const payload = buildDcaDiscordPayload(dcaResult);
+  const post = await postToChannel(AUTO_BUY_LOG_CHANNEL, { embeds: payload.embeds })
+    .catch((e) => ({ ok: false, error: e.message }));
+
+  // FALLBACK: on a fatal result whose channel post did not land, DM the owner so
+  // a failed DCA can never go fully unseen. The DM carries Coinbase's verbatim
+  // response, not just the reason code.
+  if (dcaResult.fatal && !post.ok) {
+    const detail =
+      (dcaResult.results || []).filter((r) => !r.ok)
+        .map((r) => `• ${r.productId} $${r.quoteSize}: ${r.error || "no detail"}`).join("\n")
+      || (dcaResult.reason === "credentials-missing"
+            ? `Missing: ${(dcaResult.missing || []).join(", ")}`
+            : (dcaResult.error || dcaResult.reason));
+    await sendOwnerDM(
+      "🚨 **Daily DCA failed and the #auto-buy-log post did not land.**\n" +
+      `Reason: \`${dcaResult.reason}\`\n${detail}\n\n` +
+      "_(The line above is Coinbase's verbatim response.)_"
+    ).catch(() => {});
+  }
+  return { sent: post.ok, channel: "auto-buy-log", status: post.status };
 }
 
 export default async function handler(req, res) {

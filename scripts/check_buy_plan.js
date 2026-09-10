@@ -7,7 +7,7 @@
 //
 // Every case in here is a bug that actually shipped, not a hypothetical.
 
-import { BUY_PLAN, COWEN_SLOT_TIERS, effectiveTriggerPrice, dcaForDate } from "../api/_buy-plan.js";
+import { BUY_PLAN, COWEN_SLOT_TIERS, effectiveTriggerPrice, dcaForDate, DCA_MAX_QUOTE_SIZE } from "../api/_buy-plan.js";
 import { parseCowenTargets, classifyLevel, SUPPORT_MAX_RATIO } from "../api/btc-price.js";
 import { reconcileDca, shouldEscalateOverdue } from "../api/cron-weekly-score.js";
 
@@ -200,6 +200,18 @@ section("6. DCA schedule integrity");
     dcaForDate("2025-01-01").usdc === 0 && dcaForDate("2030-01-01").bank === 0);
   check("dcaForDate matches the Sept 2026 phase",
     dcaForDate("2026-09-09").usdc === 110 && dcaForDate("2026-09-09").bank === 60);
+}
+
+// ── 7. The order path can actually execute every scheduled USDC rate ────────
+// The v3 order path hard-rejects any quote_size above DCA_MAX_QUOTE_SIZE (throws,
+// buys nothing — no clamp). A USDC rate above the cap would silently buy zero
+// every day. _buy-plan.js throws at import if that is ever true; this asserts it
+// in the suite too, so an over-cap rate fails a test run, not just a deploy.
+section("7. Every scheduled USDC rate is placeable");
+{
+  check("no USDC leg rate exceeds the per-order cap",
+    BUY_PLAN.dcaSchedule.every((s) => s.usdc > 0 && s.usdc <= DCA_MAX_QUOTE_SIZE),
+    `cap ${DCA_MAX_QUOTE_SIZE}; rates ${BUY_PLAN.dcaSchedule.map((s) => s.usdc).join(", ")}`);
 }
 
 console.log(`\n${failures === 0 ? "BUY PLAN CHECKS: PASS" : `BUY PLAN CHECKS: *** ${failures} FAILED ***`}`);
