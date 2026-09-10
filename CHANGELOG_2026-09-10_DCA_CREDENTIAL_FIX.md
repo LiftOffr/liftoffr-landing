@@ -21,8 +21,10 @@ protecting is fictional — there is nothing to keep separate from.
 - **2026-05-29 → 2026-08-20:** the code fell back to `COINBASE_API_*` and
   submitted a real BTC-USDC order every day. Coinbase **rejected** them. The
   throw was swallowed (`.catch` with no notify), so the reason was never read.
-  Most likely an unfunded USDC wallet — unverified, because the credential is
-  `sensitive` in Vercel and can't be read from here to check the balance.
+  The cause is **unknown** — and specifically *not* an unfunded wallet: Torin
+  read the USDC balance from the Coinbase app on 2026-09-10 and it was
+  **$74,498.31**. The rejection reason is the last real unknown; the fix below
+  makes Coinbase's verbatim error visible on the next fire.
 - **2026-08-20 (f846878) → 2026-09-10:** the fallback was removed on the belief
   that `COINBASE_API_*` was read-only. With `COINBASE_TRADE_*` unset, the DCA
   returned `{ skipped: true }` and genuinely placed nothing for ~3 weeks.

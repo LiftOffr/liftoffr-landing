@@ -4,8 +4,9 @@
 > `CHANGELOG_2026-09-10_DCA_CREDENTIAL_FIX.md` for the verified account.
 > (1) It did **not** silently skip for 103 days. From 2026-05-29 to 2026-08-20
 > the code fell back to `COINBASE_API_*` and submitted a real order every day;
-> Coinbase **rejected** them (reason never surfaced — likely an unfunded USDC
-> wallet). Only after 2026-08-20 (when the fallback was removed) did it truly
+> Coinbase **rejected** them (reason never surfaced, and still unknown; it was
+> not an unfunded wallet — USDC balance was $74,498 on 2026-09-10). Only after
+> 2026-08-20 (when the fallback was removed) did it truly
 > skip, for ~3 weeks. (2) `COINBASE_API_*` is **not** a read-only key. The CDP
 > portal shows one key, LiftOffrDCA, with View+Trade+Transfer; there is no
 > separate read-only sync key. The "create a new Trade key" instruction below

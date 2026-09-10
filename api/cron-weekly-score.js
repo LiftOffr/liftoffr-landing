@@ -859,9 +859,10 @@ async function placeMarketBuy({ productId, quoteSize, dateIso, keyId, secret }) 
 //
 // WHAT ACTUALLY HAPPENED (corrected 2026-09-10):
 //   - 2026-05-29 → 2026-08-20: the code fell back to COINBASE_API_* and DID
-//     submit a real BTC-USDC order every day. Coinbase REJECTED them (the most
-//     likely reason is an unfunded USDC wallet). The throw was swallowed, so the
-//     rejection reason was never seen by anyone. It did NOT silently skip.
+//     submit a real BTC-USDC order every day. Coinbase REJECTED them. The reason
+//     is UNKNOWN — the throw was swallowed, so nobody ever read it. (It was not
+//     an unfunded wallet: the USDC balance was $74,498 on 2026-09-10.) It did
+//     NOT silently skip.
 //   - 2026-08-20 (f846878) → 2026-09-10: the fallback was removed on the belief
 //     that COINBASE_API_* was read-only. With COINBASE_TRADE_* unset, the guard
 //     returned { skipped: true } and it genuinely placed nothing for ~3 weeks.
@@ -917,6 +918,15 @@ async function runDailyDCA() {
   } catch (err) {
     const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
     results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: usdcAmount, error: err.message, dup });
+  }
+
+  // Log every outcome verbatim. With no buy-alerts webhook set, this console
+  // line is the only place Coinbase's raw response is captured — and reading
+  // that response is the entire point of this fix.
+  for (const r of results) {
+    if (r.ok && !r.dup) console.log(`DCA PLACED :: ${r.productId} $${r.quoteSize} order=${r.orderId} (credential=${credentialSource})`);
+    else if (r.ok && r.dup) console.log(`DCA DUPLICATE (already placed today) :: ${r.productId} $${r.quoteSize}`);
+    else console.error(`DCA REJECTED (verbatim Coinbase response) :: ${r.productId} $${r.quoteSize} :: ${r.error}`);
   }
 
   const failed = results.filter((r) => !r.ok);
@@ -1368,9 +1378,16 @@ async function sendDcaResultToDiscord(dcaResult) {
     // so escalate to the owner DM, which uses a different credential entirely.
     console.error("DISCORD_BUY_ALERTS_WEBHOOK not set — cannot post DCA result");
     if (dcaResult.fatal) {
+      const detail =
+        (dcaResult.results || []).filter((r) => !r.ok)
+          .map((r) => `• ${r.productId} $${r.quoteSize}: ${r.error || "no detail"}`).join("\n")
+        || (dcaResult.reason === "credentials-missing"
+              ? `Missing: ${(dcaResult.missing || []).join(", ")}`
+              : (dcaResult.error || dcaResult.reason));
       await sendOwnerDM(
         "🚨 **Daily DCA failed and the buy-alerts webhook is not configured.**\n" +
-        `Reason: \`${dcaResult.reason}\`. Check the Vercel logs for /api/cron-weekly-score.`
+        `Reason: \`${dcaResult.reason}\`\n${detail}\n\n` +
+        "_(Set DISCORD_BUY_ALERTS_WEBHOOK for the full alert. The line above is Coinbase's verbatim response.)_"
       ).catch(() => {});
     }
     return { sent: false, reason: "DISCORD_BUY_ALERTS_WEBHOOK not set" };
