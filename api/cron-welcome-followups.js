@@ -18,7 +18,7 @@
 
 import crypto from "node:crypto";
 import { disclosureHTML } from "./_disclosure.js";
-import { dcaForDate } from "./_buy-plan.js";
+import { dcaForDate, DCA_MODE, DCA_HORIZON_END } from "./_buy-plan.js";
 import { postToChannel, sendOwnerDM, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 
 export const config = { runtime: "nodejs" };
@@ -911,6 +911,8 @@ async function dcaWatchdog(baseUrl) {
   if (!pw) return { skipped: true, reason: "no DASHBOARD_PASSWORD" };
 
   const todayIso = new Date().toISOString().slice(0, 10);
+  if (DCA_MODE === "risk-weighted" && todayIso > DCA_HORIZON_END)
+    return { ok: true, reason: "past DCA horizon — daily leg intentionally complete" };
   const sched = dcaForDate(todayIso);
   if (!sched.usdc) return { ok: true, reason: "no USDC leg scheduled in this window" };
 
@@ -927,18 +929,25 @@ async function dcaWatchdog(baseUrl) {
   }
 
   const cutoff = new Date(Date.now() - DCA_SILENT_DAYS * 864e5).toISOString().slice(0, 10);
-  // Size gate: only a fill consistent with the actual daily DCA counts as "the
-  // DCA cleared". A one-off manual test buy (e.g. $10 against a $110 schedule)
-  // is a real BTC-USDC fill but must NOT reassure the watchdog that the daily
-  // leg is alive — that would be a false negative on the exact thing this checks.
-  const minFillUsd = Math.max(1, sched.usdc * 0.5);
-  const recent = trades.filter((t) =>
+  // Window-SUM gate (updated 2026-09-12 for split orders). A day may now be
+  // placed as several sub-$250 orders, so each fill is a fraction of the daily
+  // amount — a per-fill size gate would reject every split-order fill and go
+  // blind, the exact failure this watchdog exists to catch. Instead sum all
+  // BTC-USDC BUY fills in the window and require at least half a single day's
+  // base to have cleared. That is split-order-proof (it sums), ignores a $10
+  // test buy (far below half a day), and does not false-alarm when risk
+  // weighting throttles the rate (a healthy window is many days x base, well
+  // above the floor).
+  const usdcBuys = trades.filter((t) =>
     (t.type || "buy") === "buy" &&
     String(t.notes || "").includes("BTC-USDC") &&
-    Number(t.usd || 0) >= minFillUsd &&
     String(t.date || "").slice(0, 10) >= cutoff
   );
-  if (recent.length > 0) return { ok: true, recentUsdcFills: recent.length, since: cutoff, minFillUsd };
+  const windowUsd = usdcBuys.reduce((s, t) => s + Number(t.usd || 0), 0);
+  const aliveFloor = Math.max(1, sched.usdc * 0.5);   // half of one day's base
+  if (windowUsd >= aliveFloor) {
+    return { ok: true, windowUsd: Math.round(windowUsd), fills: usdcBuys.length, since: cutoff, aliveFloor };
+  }
 
   // Absence — the exact signature of the original outage.
   const msg =

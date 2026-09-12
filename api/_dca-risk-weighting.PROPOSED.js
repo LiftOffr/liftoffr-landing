@@ -95,3 +95,59 @@ export function riskWeightedDca(iso, { risk = null, riskAsOf = null } = {}) {
 // 2.00x weight is $220, which fits — but only just. Raise the schedule above
 // $125/day and the cap starts silently clipping the weighting. If this is
 // adopted, that cap needs to move with it, deliberately.
+
+// ═══════════════════════════════════════════════════════════════════════════
+// SPLIT-ORDER + HORIZON NORMALISATION (added 2026-09-12) — still inert.
+//
+// Two things the calendar version could not do, now expressible because the
+// daily buy may be placed as several sub-$250 orders:
+//   1. splitIntoOrders() — turn a daily USDC amount into N orders each <= the
+//      per-order cap, summing EXACTLY to the amount (last order takes rounding).
+//   2. horizonRiskWeightedDca() — size the daily buy from what is LEFT of the
+//      stack over the days LEFT to the horizon, then tilt by the risk metric.
+//      Because the base is (stack - spent) / remaining-days recomputed daily, the
+//      stack lands on the horizon date whatever path risk takes — it changes WHEN
+//      inside the window, not WHETHER it finishes on time. This is the
+//      "average to the implied rate / don't drift" property, made exact.
+// ═══════════════════════════════════════════════════════════════════════════
+
+export const PER_ORDER_CAP = 250;      // must match DCA_MAX_QUOTE_SIZE in _buy-plan.js
+export const MAX_ORDERS_PER_DAY = 6;   // sanity ceiling; config assertion enforces it
+
+// Split an amount into whole orders each <= cap, summing to the amount to the cent.
+export function splitIntoOrders(amountUsdc, cap = PER_ORDER_CAP) {
+  const amt = Math.round(Number(amountUsdc) * 100) / 100;
+  if (!Number.isFinite(amt) || amt <= 0) return [];
+  const n = Math.ceil(amt / cap);
+  const base = Math.floor((amt / n) * 100) / 100;   // even split, floored to cents
+  const orders = Array(n).fill(base);
+  // put the rounding remainder on the last order; it stays <= cap because base<=cap
+  orders[n - 1] = Math.round((amt - base * (n - 1)) * 100) / 100;
+  return orders;
+}
+
+// Horizon/stack-normalised, risk-weighted daily buy.
+//   stackUsdc     total USDC earmarked for the daily leg (Torin's figure)
+//   spentUsdc     cumulative USDC the daily leg has already placed
+//   todayIso      YYYY-MM-DD
+//   horizonEnd    YYYY-MM-DD (inclusive) — the "land it by" date
+//   risk/riskAsOf CBBI Confidence and the date it was read (staleness guard)
+export function horizonRiskWeightedDca(todayIso, {
+  stackUsdc, spentUsdc = 0, horizonEnd, risk = null, riskAsOf = null,
+} = {}) {
+  const remaining = Math.max(0, Number(stackUsdc) - Number(spentUsdc));
+  const dayMs = 864e5;
+  const daysLeft = Math.max(1, Math.round((Date.parse(horizonEnd + "T00:00:00Z") - Date.parse(todayIso + "T00:00:00Z")) / dayMs) + 1);
+  const base = remaining / daysLeft;
+
+  let weight = NEUTRAL_FALLBACK, reason = "no risk reading — using flat remaining/day";
+  if (Number.isFinite(risk)) {
+    const ageDays = riskAsOf ? Math.round((Date.parse(todayIso + "T00:00:00Z") - Date.parse(riskAsOf + "T00:00:00Z")) / dayMs) : 0;
+    if (ageDays > MAX_RISK_AGE_DAYS) reason = `risk ${ageDays}d stale — using flat remaining/day`;
+    else { weight = riskWeight(risk); reason = `risk ${risk.toFixed(3)} x weight ${weight.toFixed(2)} on $${base.toFixed(0)} base`; }
+  }
+  // Never let one day spend more than what is left.
+  const daily = Math.min(remaining, Math.round(base * weight * 100) / 100);
+  const orders = splitIntoOrders(daily);
+  return { usdc: daily, orders, orderCount: orders.length, base: Math.round(base * 100) / 100, weight, reason, remaining, daysLeft };
+}

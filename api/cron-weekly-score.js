@@ -18,7 +18,8 @@
 
 import crypto from "node:crypto";
 import { disclosureHTML, disclosureText } from "./_disclosure.js";
-import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE } from "./_buy-plan.js";
+import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE,
+  DCA_MODE, DCA_STACK_USDC, DCA_START, DCA_HORIZON_END, DCA_DAILY_FILL_MAX } from "./_buy-plan.js";
 import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 
 export const config = { runtime: "nodejs" };
@@ -894,10 +895,133 @@ export function resolveDcaCredential() {
   return { keyId, secret, credentialSource, missing };
 }
 
-async function runDailyDCA() {
+// ═══════════════════════════════════════════════════════════════════════════
+// SPLIT-ORDER DCA (added 2026-09-12) — inert unless DCA_MODE="risk-weighted".
+// The $250 per-order cap is a HARD THROW, not a clip, so a daily amount above
+// $250 must be placed as several sub-$250 orders. This is what lets the stack
+// deploy faster than $250/day and lets the risk weighting exceed $125/day base.
+// ═══════════════════════════════════════════════════════════════════════════
+const MAX_ORDERS_PER_DAY = 6;   // sanity ceiling; assertDcaSplitConfig enforces
+
+// Config-time guard: fail at deploy if the chosen stack+horizon could ever need
+// an order over the cap or more than MAX_ORDERS_PER_DAY.
+if (DCA_MODE === "risk-weighted") assertDcaSplitConfig(DCA_STACK_USDC, DCA_HORIZON_END, DCA_START);
+
+// Split a daily USDC amount into whole orders each <= the cap, summing exactly.
+export function splitDcaIntoOrders(amountUsdc, cap = DCA_MAX_QUOTE_SIZE) {
+  const amt = Math.round(Number(amountUsdc) * 100) / 100;
+  if (!Number.isFinite(amt) || amt <= 0) return [];
+  const n = Math.ceil(amt / cap);
+  const base = Math.floor((amt / n) * 100) / 100;
+  const orders = Array(n).fill(base);
+  orders[n - 1] = Math.round((amt - base * (n - 1)) * 100) / 100;
+  return orders;
+}
+
+// Risk weight: buy more when CBBI is low, less when high. weight(0.5)=1.0,
+// clamped [0.25, 2.0]. (Mirrors _dca-risk-weighting.PROPOSED.js.)
+export function dcaRiskWeight(risk) {
+  if (!Number.isFinite(risk) || risk < 0 || risk > 1) return 1.0;
+  return Math.min(2.0, Math.max(0.25, 1 + (0.5 - risk) * 2));
+}
+
+// Config-time assertion: fail at deploy, not at 15:00, if the chosen stack +
+// horizon could ever demand an order over the cap or more than MAX_ORDERS_PER_DAY.
+// Worst case is day one (whole stack over the fewest days) at max weight (2x).
+export function assertDcaSplitConfig(stackUsdc, horizonEnd, todayIso) {
+  const daysLeft = Math.max(1, Math.round((Date.parse(horizonEnd + "T00:00:00Z") - Date.parse(todayIso + "T00:00:00Z")) / 864e5) + 1);
+  const worstDaily = (Number(stackUsdc) / daysLeft) * 2.0;      // day 1, 2x weight
+  const orders = splitDcaIntoOrders(worstDaily);
+  if (orders.length > MAX_ORDERS_PER_DAY) {
+    throw new Error(`DCA split config: $${stackUsdc} over ${daysLeft}d at 2x = $${worstDaily.toFixed(0)}/day = ${orders.length} orders > MAX_ORDERS_PER_DAY (${MAX_ORDERS_PER_DAY}). Extend the horizon, lower the stack, or raise the ceiling deliberately.`);
+  }
+  if (orders.some((o) => o > DCA_MAX_QUOTE_SIZE)) {
+    throw new Error(`DCA split config: an order exceeds the $${DCA_MAX_QUOTE_SIZE} cap — split math is wrong.`);
+  }
+  return { daysLeft, worstDaily: Math.round(worstDaily), worstOrders: orders.length };
+}
+
+// Place N sub-cap orders for one day. Indexed idempotency key so same-day orders
+// do not collide (the old per-day key allowed exactly one). Sums ACTUAL filled
+// sizes rather than assuming full fills. Returns ONE aggregate result so the
+// heartbeat is a single line, not N Discord posts.
+async function placeDcaOrders(orders, { dateIso, keyId, secret }) {
+  const single = orders.length === 1;
+  const placed = [];
+  let filledUsd = 0, anyFail = null, dupAll = true;
+  for (let i = 0; i < orders.length; i++) {
+    const clientOrderId = single
+      ? `liftoffr-dca-BTC-USDC-${dateIso}`               // preserve the historical single-order key
+      : `liftoffr-dca-BTC-USDC-${dateIso}-${i}`;
+    try {
+      const r = await placeMarketBuy({ productId: "BTC-USDC", quoteSize: orders[i], dateIso, keyId, secret, clientOrderId });
+      // Sum the real filled quote size when Coinbase reports it; fall back to the requested size.
+      const got = Number(r?.raw?.success_response?.filled_value ?? r?.quoteSize ?? orders[i]);
+      filledUsd += Number.isFinite(got) ? got : orders[i];
+      placed.push({ i, ok: true, quoteSize: orders[i], orderId: r.orderId });
+      dupAll = false;
+    } catch (err) {
+      const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
+      if (!dup) { anyFail = err.message; dupAll = false; }
+      placed.push({ i, ok: dup, quoteSize: orders[i], error: err.message, dup });
+    }
+  }
+  const ok = placed.every((p) => p.ok);
+  return {
+    dca: "USDC", ok, productId: "BTC-USDC",
+    quoteSize: Math.round(orders.reduce((s, o) => s + o, 0) * 100) / 100,
+    orderCount: orders.length, filledUsd: Math.round(filledUsd * 100) / 100,
+    orderId: placed.find((p) => p.orderId)?.orderId, error: anyFail || undefined,
+    dup: dupAll && placed.length > 0,
+  };
+}
+
+// Daily-DCA spend since the remap start, derived from Coinbase fills — the only
+// stateless source on Vercel. ISOLATION: counts ONLY small BTC-USDC buys
+// (usd < DCA_DAILY_FILL_MAX); a tier/manual fill ($4k+) is never counted as
+// daily spend, and the cron never places anything but these small daily orders,
+// so the daily leg cannot draw down the reserved ladder capital.
+export function computeDcaSpentUsd(trades, startIso = DCA_START, fillMax = DCA_DAILY_FILL_MAX) {
+  if (!Array.isArray(trades)) return 0;
+  let sum = 0;
+  for (const t of trades) {
+    if ((t.type || "buy") !== "buy") continue;
+    if (!String(t.notes || "").includes("BTC-USDC")) continue;
+    const usd = Number(t.usd || 0);
+    if (!(usd > 0) || usd >= fillMax) continue;           // exclude ladder/manual buys
+    if (String(t.date || "").slice(0, 10) < startIso) continue;
+    sum += usd;
+  }
+  return Math.round(sum * 100) / 100;
+}
+
+// Risk-weighted daily USDC amount, self-correcting on remaining stack so it lands
+// on the horizon and can never exceed DCA_STACK_USDC. Degrades cleanly at the
+// edges: after the horizon or once the stack is spent it returns usdc:0 with a
+// stop reason (never negative, never divides by zero — daysLeft is floored at 1).
+export function riskWeightedDailyUsdc({ trades, todayIso, cbbi = null, cbbiAsOf = null } = {}) {
+  const spent = computeDcaSpentUsd(trades);
+  const remaining = Math.max(0, Math.round((DCA_STACK_USDC - spent) * 100) / 100);
+  if (todayIso > DCA_HORIZON_END) return { usdc: 0, orders: [], stop: "horizon-reached", spent, remaining };
+  if (remaining <= 0)             return { usdc: 0, orders: [], stop: "stack-deployed", spent, remaining };
+
+  const daysLeft = Math.max(1, Math.round((Date.parse(DCA_HORIZON_END + "T00:00:00Z") - Date.parse(todayIso + "T00:00:00Z")) / 864e5) + 1);
+  const base = remaining / daysLeft;
+
+  let weight = 1.0, reason = "no CBBI — flat remaining/day";
+  if (Number.isFinite(cbbi)) {
+    const age = cbbiAsOf ? Math.round((Date.parse(todayIso + "T00:00:00Z") - Date.parse(cbbiAsOf + "T00:00:00Z")) / 864e5) : 0;
+    if (age > 3) reason = `CBBI ${age}d stale — flat remaining/day`;
+    else { weight = dcaRiskWeight(cbbi); reason = `CBBI ${cbbi.toFixed(3)} x${weight.toFixed(2)} on $${base.toFixed(0)} base`; }
+  }
+  const daily = Math.min(remaining, Math.round(base * weight * 100) / 100);
+  return { usdc: daily, orders: splitDcaIntoOrders(daily), base: Math.round(base * 100) / 100, weight, reason, spent, remaining, daysLeft };
+}
+
+async function runDailyDCA(baseUrl) {
   const dateIso = new Date().toISOString().slice(0, 10);
   const { keyId, secret, credentialSource, missing } = resolveDcaCredential();
-  const { usdc: usdcAmount } = dcaForToday(dateIso);
+  let usdcAmount = dcaForToday(dateIso).usdc;
 
   if (!keyId || !secret) {
     console.error(`DCA NOT PLACED — ${missing.join(" and ")} unset.`);
@@ -913,21 +1037,55 @@ async function runDailyDCA() {
   }
   const results = [];
 
+  // Risk-weighted sizing (Cowen method, approved 2026-09-12). Self-corrects on
+  // the remaining non-ladder stack so it lands on DCA_HORIZON_END and can never
+  // exceed DCA_STACK_USDC. Spend is read from Coinbase (stateless on Vercel).
+  let dcaMeta = null;
+  if (DCA_MODE === "risk-weighted") {
+    let trades = null, cbbi = null, cbbiAsOf = null, syncOk = false;
+    try {
+      const r = await fetch(`${baseUrl}/api/coinbase-sync`, {
+        headers: { Authorization: `Basic ${Buffer.from(`cron:${process.env.DASHBOARD_PASSWORD}`).toString("base64")}` },
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.ok && Array.isArray(d.trades)) { trades = d.trades; syncOk = true; }
+    } catch (e) { console.error("dca: coinbase-sync fetch failed", e.message); }
+    try {
+      const r = await fetch(`${baseUrl}/api/btc-price`);
+      const d = await r.json().catch(() => ({}));
+      if (Number.isFinite(d.cbbi)) { cbbi = d.cbbi; cbbiAsOf = d.cbbiTs ? new Date(d.cbbiTs * 1000).toISOString().slice(0, 10) : dateIso; }
+    } catch (e) { console.error("dca: btc-price/cbbi fetch failed", e.message); }
+
+    if (syncOk) {
+      const w = riskWeightedDailyUsdc({ trades, todayIso: dateIso, cbbi, cbbiAsOf });
+      if (w.stop) {
+        console.log(`DCA ${w.stop} — spent $${w.spent} of $${DCA_STACK_USDC}; nothing placed`);
+        return { ts: new Date().toISOString(), notify: true, fatal: false, reason: w.stop, credentialSource, intendedUsdc: 0, results: [], dcaMeta: w };
+      }
+      usdcAmount = w.usdc; dcaMeta = w;
+    } else {
+      // Sync unavailable: we cannot read spend, so we must NOT assume zero (that
+      // would over-buy into the reserve). Fall back to the flat horizon rate x
+      // weight — bounded by design, and warn.
+      const totalDays = Math.max(1, Math.round((Date.parse(DCA_HORIZON_END + "T00:00:00Z") - Date.parse(DCA_START + "T00:00:00Z")) / 864e5) + 1);
+      const base = DCA_STACK_USDC / totalDays;
+      const weight = Number.isFinite(cbbi) ? dcaRiskWeight(cbbi) : 1.0;
+      usdcAmount = Math.round(base * weight * 100) / 100;
+      dcaMeta = { reason: `sync down — flat $${base.toFixed(0)} base x${weight.toFixed(2)}`, weight, fallback: true };
+      console.warn("dca: coinbase-sync down — using flat fallback base");
+    }
+  }
+
   // DCA #1 — v3 Advanced Trade BTC-USDC from USDC wallet.
   // DCA #2 (bank-funded) runs as a Coinbase UI recurring buy — v2 buys API
   // returns 404 under CDP/JWT auth (appears deprecated). Sync picks up its
   // fills automatically via the v2 transactions endpoint.
-  try {
-    const r = await placeMarketBuy({
-      productId: "BTC-USDC",
-      quoteSize: usdcAmount,
-      dateIso, keyId, secret,
-    });
-    results.push({ dca: "USDC", ok: true, productId: r.productId, quoteSize: r.quoteSize, orderId: r.orderId });
-  } catch (err) {
-    const dup = /duplicate/i.test(err.message) || /already exists/i.test(err.message);
-    results.push({ dca: "USDC", ok: dup, productId: "BTC-USDC", quoteSize: usdcAmount, error: err.message, dup });
-  }
+  // Place the daily USDC buy, splitting into sub-$250 orders when the amount
+  // exceeds the per-order cap. For the current calendar amount ($110) this is a
+  // single un-suffixed order — behaviour identical to before. Amounts above
+  // $250 (e.g. a risk-weighted or full-stack rate) fan out into indexed orders.
+  const orders = splitDcaIntoOrders(usdcAmount);
+  results.push(await placeDcaOrders(orders, { dateIso, keyId, secret }));
 
   // Log every outcome verbatim. With no buy-alerts webhook set, this console
   // line is the only place Coinbase's raw response is captured — and reading
@@ -947,6 +1105,7 @@ async function runDailyDCA() {
     reason: failed.length > 0 ? "order-failed" : "ok",
     intendedUsdc: usdcAmount,
     credentialSource,
+    dcaMeta,
     results,
   };
 }
@@ -1349,7 +1508,9 @@ export function buildDcaDiscordPayload(dcaResult) {
 
   const allOk = dcaResult.results.length > 0 && dcaResult.results.every((r) => r.ok);
   const lines = dcaResult.results.map((r) => {
-    if (r.ok && !r.dup) return `✅ ${r.productId} — placed $${r.quoteSize} buy (order ${(r.orderId || "").slice(0, 8)})`;
+    if (r.ok && !r.dup) return r.orderCount > 1
+      ? `✅ ${r.productId} — placed $${r.quoteSize} across ${r.orderCount} orders${r.filledUsd ? ` (filled $${r.filledUsd})` : ""}`
+      : `✅ ${r.productId} — placed $${r.quoteSize} buy (order ${(r.orderId || "").slice(0, 8)})`;
     if (r.ok && r.dup)  return `⚠ ${r.productId} — already placed today (duplicate idempotency key)`;
     return `❌ ${r.productId} — FAILED $${r.quoteSize}: ${(r.error || "").slice(0, 300)}`;
   });
@@ -1452,7 +1613,7 @@ export default async function handler(req, res) {
     // nowhere else, so a DCA that crashed looked identical to one that never ran.
     let dcaResult;
     try {
-      dcaResult = await runDailyDCA();
+      dcaResult = await runDailyDCA(baseUrl);
     } catch (err) {
       console.error("dca error", err);
       dcaResult = {

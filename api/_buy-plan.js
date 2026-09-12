@@ -136,3 +136,16 @@ export function effectiveTriggerPrice(tier, { ma200w = null, cowenPrice = null, 
 
   return agrees && belowSpot ? cowenPrice : base;
 }
+
+// ── RISK-WEIGHTED DCA CONFIG (approved 2026-09-12) ───────────────────────────
+// Cowen-method dynamic DCA on the NON-LADDER portion of the USDC stack.
+//   Total USDC 2026-09-11: $74,332.90.  Ladder reserve (untouched): $46,332.90.
+//   Non-ladder daily stack: $28,000.00  -> over 142 days to the horizon = ~$197/day.
+// The ladder is entirely separate and manual; the cron never places a tier order
+// and its spend counter ignores any fill >= DCA_DAILY_FILL_MAX, so it can never
+// draw down the reserve.
+export const DCA_MODE          = "risk-weighted";   // "calendar" | "risk-weighted"
+export const DCA_STACK_USDC    = 28000;             // non-ladder daily stack
+export const DCA_START         = "2026-09-12";      // remap start (spend counted from here)
+export const DCA_HORIZON_END   = "2027-01-31";      // land the stack by this date
+export const DCA_DAILY_FILL_MAX = 1000;             // a fill >= this is a ladder/manual buy, not daily DCA
