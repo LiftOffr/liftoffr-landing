@@ -19,7 +19,7 @@
 import crypto from "node:crypto";
 import { disclosureHTML, disclosureText } from "./_disclosure.js";
 import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE,
-  DCA_MODE, DCA_STACK_USDC, DCA_START, DCA_HORIZON_END, DCA_DAILY_FILL_MAX } from "./_buy-plan.js";
+  DCA_MODE, DCA_STACK_USDC, DCA_START, DCA_HORIZON_END, DCA_DAILY_FILL_MAX, ladderFunding } from "./_buy-plan.js";
 import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 
 export const config = { runtime: "nodejs" };
@@ -549,7 +549,7 @@ function fmtUsd(n) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 }
 
-function tierLine(t, btcPrice, ma200w) {
+function tierLine(t, btcPrice, ma200w, funding = null) {
   const triggerPx = t.maMultiple && ma200w ? ma200w * t.maMultiple : t.targetPrice;
   let badge = "⚪"; let action = "";
   if (t.tier === "IMMEDIATE") {
@@ -566,7 +566,11 @@ function tierLine(t, btcPrice, ma200w) {
   const fbStr = fbDays !== null
     ? (fbDays < 0 ? `${overdueSeverity(-fbDays).icon} ${-fbDays}d OVERDUE` : `${fbDays}d fallback`)
     : "";
-  return `${badge} **${t.tier}** · ${fmtUsd(t.target)} · ${action}${fbStr ? ` · ${fbStr}` : ""}`;
+  const fund = funding && funding[t.tier];
+  const fundStr = fund && fund.status !== "funded"
+    ? (fund.status === "unfunded" ? " · ⚠ UNFUNDED" : ` · ⚠ only ${fmtUsd(fund.funded)} funded`)
+    : "";
+  return `${badge} **${t.tier}** · ${fmtUsd(t.target)} · ${action}${fbStr ? ` · ${fbStr}` : ""}${fundStr}`;
 }
 
 function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }, day) {
@@ -574,8 +578,9 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }
   const isMonday = day === 1;
   const date = new Date().toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric", year: "numeric", timeZone: "America/Denver" });
 
-  // Tier breakdown
-  const lines = BUY_PLAN.tiers.map((t) => tierLine(t, btcPrice, ma200w));
+  // Tier breakdown. Reserve does not fund the whole ladder — mark what's covered.
+  const funding = ladderFunding();
+  const lines = BUY_PLAN.tiers.map((t) => tierLine(t, btcPrice, ma200w, funding));
 
   // Anything actionable today?
   const actionable = BUY_PLAN.tiers.filter((t) => {
@@ -616,11 +621,15 @@ function buildBriefingPayload({ btcPrice, change24h, ma200w, ma200wDelta, cbbi }
   if (actionable.length > 0) {
     actionBlock = `\n\n🎯 **Action today**\n` + actionable.map((t) => {
       const triggerPx = t.maMultiple && ma200w ? ma200w * t.maMultiple : t.targetPrice;
+      const fund = funding[t.tier];
+      if (fund && fund.status === "unfunded")
+        return `• ⚠ **${t.tier}** would trigger but is UNFUNDED — no reserve behind this rung (reserve covers ~through T2). Nothing to fire unless you fund it.`;
+      const cap = fund && fund.status === "partial" ? fund.funded : t.target;
       if (t.tier === "IMMEDIATE")
-        return `• Fire ${fmtUsd(t.target)} at market — Coinbase Advanced Trade BTC-USD`;
+        return `• Fire ${fmtUsd(cap)} at market — Coinbase Advanced Trade BTC-USD`;
       if (btcPrice <= triggerPx)
-        return `• 🟢 **${t.tier} HIT** — Fire ${fmtUsd(t.target)} at market now (BTC at ${fmtUsd(btcPrice)}, trigger ${fmtUsd(triggerPx)})`;
-      return `• 🟡 ${t.tier} within 5% — Ready ${fmtUsd(t.target)} (trigger ${fmtUsd(triggerPx)})`;
+        return `• 🟢 **${t.tier} HIT** — Fire ${fmtUsd(cap)} at market now (BTC at ${fmtUsd(btcPrice)}, trigger ${fmtUsd(triggerPx)})${fund && fund.status === "partial" ? " (only this much is funded)" : ""}`;
+      return `• 🟡 ${t.tier} within 5% — Ready ${fmtUsd(cap)} (trigger ${fmtUsd(triggerPx)})`;
     }).join("\n");
   }
 

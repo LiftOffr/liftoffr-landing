@@ -39,12 +39,12 @@ export const BUY_PLAN = {
     { tier: "T2",        target: 28000, maMultiple: 0.97, fallbackDate: "2026-09-30", trigger: "2015-style touch + reclaim (Cowen base case)" },
     // T3-T5 sub-laddered into upper/lower tranches per the bottom-projection probability bands
     // (realized-price band 40%, wick-below band 25%, balance-price tail 12%) instead of one lump per tier.
-    { tier: "T3a", target: 20600, targetPrice: 55000, fallbackDate: "2026-11-30", trigger: "Realized-price band, upper half ~$55K (40% bottom-odds band)" },
-    { tier: "T3b", target: 20600, targetPrice: 52500, fallbackDate: "2026-11-30", trigger: "Realized-price band, lower half ~$52.5K (40% bottom-odds band)" },
-    { tier: "T4a", target: 10000, targetPrice: 50500, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, upper half ~$50.5K (25% band)" },
-    { tier: "T4b", target: 10000, targetPrice: 48000, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, lower half ~$48K (25% band)" },
-    { tier: "T5a", target: 4000,  targetPrice: 40000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, upper half ~$40K (12% tail band)" },
-    { tier: "T5b", target: 4000,  targetPrice: 38000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, lower half ~$38K (12% tail band)" },
+    { tier: "T3a", target: 20600, maMultiple: 0.8464, targetPrice: 55000, fallbackDate: "2026-11-30", trigger: "Realized-price band, upper half ~$55K (40% bottom-odds band)" },
+    { tier: "T3b", target: 20600, maMultiple: 0.8079, targetPrice: 52500, fallbackDate: "2026-11-30", trigger: "Realized-price band, lower half ~$52.5K (40% bottom-odds band)" },
+    { tier: "T4a", target: 10000, maMultiple: 0.7772, targetPrice: 50500, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, upper half ~$50.5K (25% band)" },
+    { tier: "T4b", target: 10000, maMultiple: 0.7387, targetPrice: 48000, fallbackDate: "2027-01-31", trigger: "Wick-below-realized, lower half ~$48K (25% band)" },
+    { tier: "T5a", target: 4000,  maMultiple: 0.6156, targetPrice: 40000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, upper half ~$40K (12% tail band)" },
+    { tier: "T5b", target: 4000,  maMultiple: 0.5848, targetPrice: 38000, fallbackDate: "2027-03-31", trigger: "Balance-price flush, lower half ~$38K (12% tail band)" },
   ],
 };
 
@@ -149,3 +149,26 @@ export const DCA_STACK_USDC    = 28000;             // non-ladder daily stack
 export const DCA_START         = "2026-09-12";      // remap start (spend counted from here)
 export const DCA_HORIZON_END   = "2027-01-31";      // land the stack by this date
 export const DCA_DAILY_FILL_MAX = 1000;             // a fill >= this is a ladder/manual buy, not daily DCA
+
+// ── Ladder funding (added 2026-09-12) ────────────────────────────────────────
+// The tiers total far more than the reserved capital, so some rungs have no
+// money behind them. This makes the funded/unfunded boundary explicit instead of
+// presenting the whole ladder as live. It is an ANNOTATION, not an allocation:
+// it fills tiers top-down (the order price would hit them) until the reserve is
+// spent, and marks the rest unfunded. It does NOT re-weight any tier's target.
+export const LADDER_RESERVE_USD = 46332.90;   // non-ladder daily stack is separate ($28,000)
+
+export function ladderFunding(reserve = LADDER_RESERVE_USD) {
+  let rem = reserve;
+  const out = {};
+  for (const t of BUY_PLAN.tiers) {
+    const need = t.target || 0;
+    const funded = Math.min(need, Math.max(0, rem));
+    rem -= funded;
+    out[t.tier] = {
+      funded,
+      status: funded >= need ? "funded" : funded > 0 ? "partial" : "unfunded",
+    };
+  }
+  return out;
+}
