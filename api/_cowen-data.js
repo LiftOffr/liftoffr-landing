@@ -3,6 +3,37 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "3BL-YrZxTZI",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Has the Fed Been Making A Mistake?",
+    "published": "2026-09-11T19:22:54+00:00",
+    "processed_at": "2026-09-14T14:09:51.147810+00:00",
+    "url": "https://www.youtube.com/watch?v=3BL-YrZxTZI",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      78000
+    ],
+    "indicators_mentioned": [
+      "Golden Cross",
+      "10-year yield",
+      "2-year yield",
+      "Fed funds rate",
+      "30-year yield"
+    ],
+    "key_points": [
+      "The Fed has refused to raise rates despite the 2-year yield rising since February, and historically the Fed funds rate follows the 2-year yield, creating a growing disconnect",
+      "Rising oil prices and a declining unemployment rate suggest inflation risk is building, yet the Fed is holding rates due to political pressure rather than data",
+      "Because the Fed refuses to act, the long end of the yield curve (10-year, 30-year) is being pushed higher by bond market vigilantes, which pressures risk assets like Bitcoin",
+      "Treasury intervention via bond buybacks is being tested and overwhelmed by the market, showing artificial suppression of long yields is not working while yields keep climbing",
+      "Extremely elevated uncertainty around the September rate decision (near 50/50 odds just over a week out) historically leads to more violent market reactions once resolved",
+      "A rate hike, while painful for long-duration risk assets in the short term, reflects economic strength and is necessary to prevent a renewed inflationary spiral"
+    ],
+    "summary": "Rising long-end yields, driven by the Fed's refusal to hike despite resurgent inflation signals and a tightening labor market, are creating headwinds for risk assets including Bitcoin. Elevated uncertainty into the near-term Fed decision raises the odds of a sharp market reaction once resolved, with continued Fed inaction likely to keep pressuring yields higher and weighing on Bitcoin's price in the interim."
+  },
+  {
     "video_id": "sQHlGfz7A24",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1474,37 +1505,5 @@ export default [
       "If current dynamics match 2019-2020 pattern, subsequent bull market could produce more euphoric highs than recent cycle"
     ],
     "summary": "Onchain risk metrics indicate Bitcoin is in the final stage of bear market consolidation with bottom likely occurring by end of year. Current risk levels at 0.198 are historically low and typically precede major bull market initiation. The 2019 cycle parallel suggests an extended accumulation window is forming before the next significant uptrend begins."
-  },
-  {
-    "video_id": "R9vEpIpyj2s",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Cost Basis of the Network",
-    "published": "2026-06-11T03:48:06+00:00",
-    "processed_at": "2026-06-11T04:13:07.593996+00:00",
-    "url": "https://www.youtube.com/watch?v=R9vEpIpyj2s",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      53000,
-      54000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "realized price",
-      "realized cap",
-      "balanced price",
-      "Bitcoin supply in profit and loss",
-      "terminal price"
-    ],
-    "key_points": [
-      "Realized price currently around 53-54k; historically Bitcoin falls below this level near bear market bottoms before recoveries",
-      "Ratio of Bitcoin price to realized price approaching critical threshold where overshoots below realized price have preceded cycle lows by 1-4 months",
-      "Mid-term year cycle patterns suggest if a bottom occurs later in the year, it could align with historical precedent of prior mid-term cycles",
-      "Conflicting models create uncertainty: some models argue the 60k low is already in while others (terminal price) suggest further downside possible",
-      "Supply in profit/loss crossing signals lows are near historically, with minimal time typically spent below realized price once breached"
-    ],
-    "summary": "Bitcoin faces competing signals as it approaches historically significant realized price support around 53-54k. Mid-term year cycles and on-chain metrics suggest a potential bottom could occur within months if historical patterns hold, though models disagree on whether the low has already been established or further downside to realized price levels remains possible."
   }
 ];
