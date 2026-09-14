@@ -3,6 +3,32 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "sQHlGfz7A24",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "DXY to Move Higher?",
+    "published": "2026-09-14T00:36:31+00:00",
+    "processed_at": "2026-09-14T14:09:28.517045+00:00",
+    "url": "https://www.youtube.com/watch?v=sQHlGfz7A24",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Fed funds rate",
+      "US Dollar Currency Index",
+      "Bitcoin dominance"
+    ],
+    "key_points": [
+      "The Fed is expected to raise rates again before year-end, possibly as early as September, which should support a dollar bounce",
+      "Historical pattern shows the dollar setting a low, rallying, pulling back, then moving higher in repeated cycles",
+      "The 1990s rate hike following a hiking-pause-cutting cycle is a more accurate analog than 2018, and in that case the dollar surged sharply around the hike",
+      "Comparing to Trump's first term, the dollar followed a similar path of declining, consolidating, then rising later in the year",
+      "Excluding stablecoins from Bitcoin dominance reveals a higher-low pattern rather than a lower low, paralleling the expected dollar structure, while gold weakness may already be reflecting anticipated dollar strength"
+    ],
+    "summary": "The dollar is expected to find a low soon and then climb into and beyond an anticipated Fed rate hike, mirroring both the 1990s hike-after-pause cycle and the pattern seen during the prior presidential term. This upward path is projected to continue until the Fed eventually cuts rates again, with the dollar potentially tagging a longer-term trend line near 104-105 by 2027-2028, while gold's recent weakness may be foreshadowing this dollar strength."
+  },
+  {
     "video_id": "YHsAbpRoB-A",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1480,30 +1506,5 @@ export default [
       "Supply in profit/loss crossing signals lows are near historically, with minimal time typically spent below realized price once breached"
     ],
     "summary": "Bitcoin faces competing signals as it approaches historically significant realized price support around 53-54k. Mid-term year cycles and on-chain metrics suggest a potential bottom could occur within months if historical patterns hold, though models disagree on whether the low has already been established or further downside to realized price levels remains possible."
-  },
-  {
-    "video_id": "vxnpP3EOl-8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: A Beautiful Chart",
-    "published": "2026-06-10T04:39:46+00:00",
-    "processed_at": "2026-06-10T07:12:29.622148+00:00",
-    "url": "https://www.youtube.com/watch?v=vxnpP3EOl-8",
-    "outlook": "neutral",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "supply in profit",
-      "supply in loss",
-      "4-year cycle"
-    ],
-    "key_points": [
-      "Supply in profit and supply in loss have crossed, historically preceding market cycle bottoms by 1-4 months",
-      "Market cycle bottom likely occurs between June and October 2024, based on pattern analysis across 2011, 2014, 2018, and 2022 cycles",
-      "Dollar-cost averaging Bitcoin after the crossover signal through the anticipated bottom period has historically led to strong returns during subsequent bull markets",
-      "The 4-year cycle pattern has remained consistent and predictive across multiple market cycles, with bottoms occurring months after the crossover event"
-    ],
-    "summary": "The supply in profit/loss crossover has occurred, signaling that a market cycle bottom will likely form within the next 1-4 months rather than immediately. Historical precedent across multiple cycles suggests the optimal strategy is to begin dollar-cost averaging Bitcoin now through the anticipated bottom window, positioning for the multi-year bull market that typically follows this pattern."
   }
 ];
