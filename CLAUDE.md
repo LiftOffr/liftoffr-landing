@@ -73,7 +73,11 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   embedded-checkout loader was removed from `/` and `/plan`: Apple would not register
   liftoffr.com for Apple Pay on embedded checkout (a Whop-side registration failure), while
   Whop's hosted checkout pages support Apple Pay with no domain verification at all. Every
-  purchase CTA is now a plain `https://whop.com/checkout/plan_*` link, which works natively.
+  purchase CTA is now a plain `https://whop.com/checkout/plan_*` link.
+  **Unproven that Apple Pay works on hosted checkout either** (checked 2026-09-14): Whop's API shows
+  0 completed Apple Pay payments ever, 63 attempts all `open`/`incomplete` (2 of them after this
+  change), none with a card token returned. Card payments complete. Only an iPhone Apple Pay purchase
+  proves it; a card purchase does not.
   The `.well-known` file and its `vercel.json` headers block are kept regardless, so
   restoring embedded checkout is a one-commit change if Whop ever fixes their side.
   This note used to live in an HTML comment on both pages and shipped to production, where

@@ -121,7 +121,7 @@ Ongoing/untouched: receipts-daily logger, Sunday Score email, daily brief, /rece
 - `whop-webhook.js` on the $29 purchase event: assign Discord **@Plan** role, add buyer to Resend **"Plan Buyers"** audience, fire GA4 `purchase` (value 29, item plan).
 
 **Live IDs (created 2026-08-02, staged on branch `plan-launch` — nothing public until Torin's skim + merge):**
-- Whop $29 plan: `plan_MntgjXJaQnGsW` (one-time, HIDDEN, on prod_qkbRaW1vFT2cM; checkout https://whop.com/checkout/plan_MntgjXJaQnGsW — product creation is dashboard-only for this API key, so it lives on the main product like the Playbook plan does; Torin can move it to a dedicated product later if the checkout branding matters).
+- Whop $29 plan: `plan_MntgjXJaQnGsW` (one-time, VISIBLE and purchasable per Whop API 2026-09-14, on prod_qkbRaW1vFT2cM; checkout https://whop.com/checkout/plan_MntgjXJaQnGsW — product creation is dashboard-only for this API key, so it lives on the main product like the Playbook plan does; Torin can move it to a dedicated product later if the checkout branding matters).
 - Discord @Plan role: `1533475043110293715` (additive addon role in webhook — never stripped by tier swaps; removed only on $29 refund).
 - Branch `plan-launch`: /plan, /free, /welcome-plan pages (noindex, buyzone design) + webhook addon wiring. Known: /free is shadowed by the vercel.json trial redirect until that line is removed at launch; /welcome-plan bridge block ships hidden (`#system-bridge`) until the System soft-open.
 - Product doc draft: `PLAN_PRODUCT_DRAFT.md` (untracked) — Torin's skim gate, includes disclaimer draft for sign-off.

@@ -212,8 +212,10 @@ address** — it must be one that receives mail.
 
 ## Part 2 — Done and live
 
-- Apple Pay works. `.well-known` file serving 200, correct bytes, correct content type. Real $29
-  purchase confirmed.
+- ~~Apple Pay works.~~ **Wrong (corrected 2026-09-14).** The `.well-known` file does serve 200 with
+  correct bytes and content type, but the "real $29 purchase" was paid by **card (Amex)**, not Apple Pay.
+  Whop API: Apple Pay has **0 completions ever** on this account (63 attempts, all `open`). See
+  `~/jarvis/os/artifacts/checkout-apple-pay-2026-09-14.md`.
 - All four checkout links intact and verified after every deploy.
 - **The Score arithmetic bug is fixed** — missing readings were averaged in as zeros,
   understating the published number by 1.8 points. Corrected, dated publicly on `/score`.

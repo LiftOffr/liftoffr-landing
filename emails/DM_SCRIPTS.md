@@ -98,8 +98,10 @@ segment, and it is the cheapest credibility available.*
 ## DM-3 — the 60 failed checkouts
 
 > **Do not send until you have personally completed a test purchase from an iPhone.**
-> As of 2026-08-20 that condition is met: Apple Pay verification is live and a real $29
-> purchase has completed. Send individually. Do not bulk-send.
+> **NOT MET (corrected 2026-09-14).** The 2026-08-20 test purchase was paid by card, not Apple Pay,
+> and Apple Pay has never completed a payment on this Whop account (0 of 63). Do not tell anyone
+> "It's fixed now" until an Apple Pay purchase from an iPhone has actually gone through.
+> Send individually. Do not bulk-send.
 
 > Hey — you started a checkout on LiftOffr a couple of weeks back and it didn't go
 > through. That was on me: Apple Pay wasn't configured on my checkout, so the payment
