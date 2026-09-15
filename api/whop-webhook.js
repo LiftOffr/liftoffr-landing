@@ -494,8 +494,9 @@ export default async function handler(req, res) {
     if (isPaid) {
       // Fallback values only matter when Whop reports $0 collected on a paid event.
       // Keep in sync with the live Whop plan prices — a stale value here reports
-      // phantom revenue to GA4. Verified against the Whop API 2026-08-07.
-      const value = collected || ({ plan_MntgjXJaQnGsW: 29, plan_WHByzwILskLsc: 197,
+      // phantom revenue to GA4. Verified against the Whop API 2026-08-07; $29 plan set to
+      // 27.62 on branch fee-option-b so Whop's 5% service fee brings checkout to $29.00.
+      const value = collected || ({ plan_MntgjXJaQnGsW: 27.62, plan_WHByzwILskLsc: 197,
                                    plan_3SEycpErj9Zk7: 147, plan_uIpPdsPTSHdTp: 497 }[planId] ?? 0);
       const currency = (data.currency || "USD").toUpperCase();
 
