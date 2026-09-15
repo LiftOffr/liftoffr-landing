@@ -1,3 +1,43 @@
+## Revenue and delivery release: 2026-09-14 late night
+
+Current operating notes supersede the historical task list below. Release proof and
+operator instructions are private in ~/Documents/liftoffr-overnight-2026-09-14/.
+
+- The bio hub now leads with the actual $29 Plan preview, then the public method.
+- Revenue uses supported Whop v1 paid-payment IDs and actual decimal subtotals.
+  Memberships and public welcome-page views are not purchases. Browser sessions
+  and Whop payments remain unjoined; source-level sales attribution is unverified.
+- Plan payment eligibility is checked against current Whop payment and membership
+  records. Native Whop grants the dedicated Plan role after account connection.
+- The supplementary access email runs in the local durable delivery worker every
+  five minutes while this Mac and user session are available. Whop itself gives
+  document access immediately. Local email cannot run while the host is offline.
+- Access is sent before the separate private $29 System credit. Each email step
+  persists intent and the provider result, with stable retry keys. Ambiguous sends
+  older than the provider's 24-hour deduplication window stop for review. Refunds
+  deactivate unused credits unless another verified Plan purchase supports them.
+- The old age-window D0 email is removed after worker activation. Existing nurture
+  schedules remain; the business mailing-address setting is still missing.
+- The current Whop paid PDF is verified: 13 pages, 261617 bytes, dated 20 August,
+  SHA256 3a77b1f5c2f35cafbe1e6c5c7e21be03f87567a2ecb09490a0ce977b4327e9a8.
+  The historical request to replace an 8-page PDF is stale. Only its cover is public.
+- All 46 course lessons were verified in Discord. Course buyers can now post in
+  course-questions. The paid Score-band relay is active. Tier execution receipts
+  and PDF revisions still require verified manual fulfillment.
+- Instagram's opt-in PLAN comment preview and exact PLAN inbox flow are live in
+  ManyChat. New inbox delivery has not yet been tested by an outside account.
+- Five reviewed queued clips remain eligible. Two require corrected footage or
+  rerendering because their overlays assert false biography/wealth claims.
+
+The delivery worker source is ~/.openclaw/workspace/discord-rebuild/src/plan_delivery/;
+its private state is ~/.openclaw/state/liftoffr-plan-delivery/. Preserve the journal
+and ~/.openclaw/secrets/liftoffr-plan-credit.env across updates. Do not rebaseline
+lost state or rotate the credit key as a routine repair. See worker README for
+pause/recovery instructions. No paid test charge, customer broadcast or advertising
+spend was made during this release.
+
+---
+
 ## Revenue-path release: 2026-09-14 night
 
 Torin authorized website, caption, Instagram automation and buyer-value improvements.
@@ -16,8 +56,8 @@ payment attempts or a joined browser-to-purchase funnel.
 Private evidence: ~/Documents/liftoffr-overnight-2026-09-14/.
 Verified mobile390/desktop1440: no horizontal overflow or JS errors, preview loads,
 source/content preserved, one outbound checkout event and no browser purchase event.
-Payment reporting, immediate access email and private upgrade credit are a separate
-pending release until their tests and production configuration are complete.
+Payment reporting, supplementary access email and private upgrade credit are
+covered by the coordinated release described above.
 
 ---
 

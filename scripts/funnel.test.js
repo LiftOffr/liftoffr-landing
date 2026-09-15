@@ -82,13 +82,10 @@ function signedRequest(type,plan,extra={}){
  const signature=crypto.createHmac('sha256','webhook-test').update(id+'.'+timestamp+'.'+raw.toString()).digest('base64');
  return Object.assign(Readable.from([raw]),{method:'POST',headers:{'webhook-id':id,'webhook-timestamp':timestamp,'webhook-signature':'v1,'+signature}});
 }
-test('only buy-plan purchases enter Plan Buyers; enrollment failures are retryable',async()=>{
- for(const plan of ['plan_MntgjXJaQnGsW','plan_WHByzwILskLsc','plan_3SEycpErj9Zk7','plan_uIpPdsPTSHdTp']){
-  let writes=0;
-  await fixture({...env,WHOP_WEBHOOK_SECRET:'webhook-test'},async(url,opts)=>{if(opts.method==='POST')writes++;return response(opts.method==='POST'?200:404);},async()=>{const res=sink();await webhook(signedRequest('payment.succeeded',plan),res);assert.equal(res.code,200);});
-  assert.equal(writes,plan==='plan_MntgjXJaQnGsW'?1:0);
- }
- await fixture({...env,WHOP_WEBHOOK_SECRET:'webhook-test'},async()=>response(503),async()=>{const res=sink();await webhook(signedRequest('payment.succeeded','plan_MntgjXJaQnGsW'),res);assert.equal(res.code,500);});
+test('unversioned Plan events cannot enroll a buyer or fabricate revenue',async()=>{
+ await fixture({...env,WHOP_WEBHOOK_SECRET:'webhook-test'},async()=>{throw new Error('No network for unsupported payment schema');},async()=>{
+  const res=sink();await webhook(signedRequest('payment.succeeded','plan_MntgjXJaQnGsW'),res);assert.equal(res.code,200);assert.equal(res.body.revenue,'unsupported_payment_schema');
+ });
 });
 test('followup cron rejects missing secret before network or watchdog',async()=>{
  const source=readFileSync(new URL('../api/cron-welcome-followups.js',import.meta.url),'utf8');

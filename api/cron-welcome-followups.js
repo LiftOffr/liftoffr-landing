@@ -1,3 +1,4 @@
+import { planAccessEmail } from "./_plan-fulfillment.js";
 import { unsubscribeHeaders } from "./_email-preferences.js";
 // Welcome sequence follow-up cron — Day 3 and Day 7 emails.
 //
@@ -61,7 +62,8 @@ const SUBJECT_REENGAGE = "still here, and the number moved";
 // Sending is age-banded: ageDays(contact.created_at) must fall inside one of the
 // six one-day windows below, so enabling the flag on an audience full of older
 // contacts does NOT blast them -- anyone outside a window is skipped. Sends carry
-// an idempotencyKey of plan-<step>-<contactId>, so a re-run cannot duplicate.
+// an idempotencyKey of plan-<step>-<contactId>. Resend retains keys for 24 hours;
+// this is retry protection within that window, not permanent delivery storage.
 //
 // Shape, and the reason for it: D0, D1 and D3 are pure delivery with zero pitch.
 // You earn the right to pitch by making the thing work first; a buyer who gets
@@ -74,8 +76,8 @@ const SUBJECT_REENGAGE = "still here, and the number moved";
 // feels misled, and a buyer who is told it on day three has been inoculated against
 // every future whipsaw. It is the single most trust-building thing in the sequence
 // and it costs nothing to send. Do not move a pitch earlier than D7.
-const PSUBJECT_0  = "You're in — your plan, and the one thing to do tonight";
-const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
+const PSUBJECT_0  = "Your LiftOffr Plan is ready";
+const PSUBJECT_1  = "Start with one level and its reasoning";
 const PSUBJECT_3  = "the six times my own model flipped";
 const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
 const PSUBJECT_14 = "Two things before I stop";
@@ -90,48 +92,28 @@ function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   return trialShell(eyebrow, bodyHTML, ctaText, ctaHref);
 }
 
-function plan0HTML() {
-  return planShell("Plan · Day 0",
-    `<p style="margin:0 0 16px;">You're in. Thank you — genuinely.</p>
-     <p style="margin:0 0 16px;">Four things, then I'll leave you alone:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
-       <div><strong>1.</strong> <strong>Connect your Discord inside Whop first</strong> — Whop &rarr; account settings &rarr; Connect Discord. That is what grants the @Plan role. Without it you land in the server as an ordinary member and the plan channels stay invisible. Thirty seconds.</div>
-       <div><strong>2.</strong> Your plan document is in Whop, under your purchases. Lifetime access, and it updates in place.</div>
-       <div><strong>3.</strong> Then check <strong>#plan-updates</strong> — that's where a tier firing gets announced, with the receipt.</div>
-       <div><strong>4.</strong> Tonight, do the worksheet in section 3 of the plan. Thirty minutes. Your stack size in, your own ladder out.</div>
-     </div>
-     <p style="margin:18px 0 16px;"><strong>Do number four tonight.</strong> Not this weekend. The entire value of a written plan is that it was written before anything was happening — and right now, nothing is happening. That's the window.</p>
-     <p style="margin:0 0 16px;">No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.</p>
-     <p style="margin:24px 0 0;">— Torin</p>`,
-    "Open the Discord →", "https://liftoffr.com/welcome-plan");
-}
-function plan0Text() {
-  return ["You're in. Thank you — genuinely.","","Four things, then I'll leave you alone:","",
-    "1. CONNECT YOUR DISCORD INSIDE WHOP FIRST - Whop > account settings > Connect Discord. That grants the @Plan role. Without it you land in the server as an ordinary member and the plan channels stay invisible. Thirty seconds.",
-    "2. Your plan document is in Whop, under your purchases. Lifetime access, updates in place.",
-    "3. Then check #plan-updates - a tier firing gets announced there, with the receipt.",
-    "4. Tonight, do the worksheet in section 3 of the plan. Thirty minutes. Your stack size in, your own ladder out.","",
-    "Do number four tonight, not this weekend. The whole value of a written plan is that it was written before anything was happening — and right now nothing is. That's the window.","",
-    "No pitch in this email and none in the next one. Reply if anything's unclear; I read all of them.","",
-    "https://liftoffr.com/welcome-plan","","— Torin"].join("\n");
-}
+// Kept for the authenticated email preview; delivery runs in the durable worker.
+function plan0HTML() { return planAccessEmail().html; }
+function plan0Text() { return planAccessEmail().text; }
 
 function plan1HTML() {
   return planShell("Plan · Day 1",
-    `<p style="margin:0 0 16px;">Execution, since that's where written plans die.</p>
-     <p style="margin:0 0 14px;"><strong>Place the ladder as limit orders, not reminders.</strong> A limit order at your tier price executes whether or not you're awake, calm, or looking. A note in your phone requires you to be all three on the worst day of the year.</p>
-     <p style="margin:0 0 14px;"><strong>The fallback rule matters more than the tiers.</strong> If price never reaches your levels, you don't get to sit in cash for two years feeling clever. The doc has the DCA fallback — read that section twice.</p>
-     <p style="margin:0 0 14px;"><strong>Every fill ends the same way.</strong> Off the exchange, onto hardware, same week. An unexecuted custody step is how a good entry becomes someone else's Bitcoin.</p>
-     <p style="margin:0 0 16px;">That's the whole mechanic. Tools I use for the order placement and the custody are listed here if you need them: <a href="https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack" style="color:#e63946;">liftoffr.com/stack</a> — commission status disclosed on every link.</p>
-     <p style="margin:24px 0 0;">— Torin</p>`,
-    "", "");
+    `<p style="margin:0 0 16px;">One useful way to work through the document: choose a single level and follow the reasoning all the way through.</p>
+     <p style="margin:0 0 16px;"><strong>The trigger:</strong> what condition does that level describe, and why did I include it?</p>
+     <p style="margin:0 0 16px;"><strong>The fallback:</strong> what does my plan say if that condition never arrives?</p>
+     <p style="margin:0 0 16px;"><strong>The execution and custody sections:</strong> how do the order mechanics and storage process fit the written rule?</p>
+     <p style="margin:0 0 16px;">Use the worksheet to note any assumption you would want to check. You do not need to place a trade or share your balances to use this exercise.</p>
+     <p style="margin:0 0 16px;">Reply with the section heading if something is unclear. If you cannot open the document or see the paid Plan channels, include your Whop order ID so I can help with access.</p>
+     <p>Torin</p>`, "Open your Plan", "https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/");
 }
 function plan1Text() {
-  return ["Execution, since that's where written plans die.","",
-    "1. Place the ladder as LIMIT ORDERS, not reminders. A limit order executes whether or not you're awake, calm, or looking. A note in your phone needs you to be all three on the worst day of the year.","",
-    "2. The fallback rule matters more than the tiers. If price never reaches your levels you don't get to sit in cash for two years feeling clever. Read that section twice.","",
-    "3. Every fill ends the same way: off the exchange, onto hardware, same week.","",
-    "Tools I use for order placement and custody: https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d1_stack — commission status disclosed on every link.","","— Torin"].join("\n");
+  return ["Choose one level in the document and follow its reasoning.", "",
+    "1. The trigger: what condition does it describe, and why did I include it?",
+    "2. The fallback: what does my plan say if that condition never arrives?",
+    "3. Execution and custody: how do the order mechanics and storage process fit the written rule?", "",
+    "Use the worksheet to note any assumption you would want to check. You do not need to place a trade or share your balances to use this exercise.", "",
+    "Reply with the section heading if something is unclear. For access problems, include your Whop order ID.", "",
+    "Open your Plan: https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/", "", "Torin"].join("\n");
 }
 
 function plan3HTML() {
@@ -787,7 +769,7 @@ function quiz6HTML(seg, sc) {
      <p style="margin:0 0 8px;"><strong>"How do I know this isn't a scam?"</strong></p>
      <p style="margin:0 0 16px;color:#555;">You don't, yet, and that's the correct default for a faceless crypto account asking you for money. So check before you pay. The score is public. The receipts are public and the losses are on them. The Discord is free to read. And I'll never tell you what you'll make, because I don't know and neither does anyone who says otherwise.</p>
      <p style="margin:0 0 8px;"><strong>"What if the levels never get hit?"</strong></p>
-     <p style="margin:0 0 16px;color:#555;">Then I don't buy, and neither do you, and we both keep our money. A level that doesn't fire is a level doing its job. There's a fallback rule in the document for exactly this, because the most common way a ladder fails isn't being wrong — it's price running away while you have no rule for it.</p>
+     <p style="margin:0 0 16px;color:#555;">A level in my plan may never be reached. The document explains how I interpret that scenario and the fallback rule I use, because the most common way a ladder fails isn't being wrong — it's price running away while you have no rule for it.</p>
      ${scoreLine(sc)}
      <p style="margin:24px 0 0;">— Torin</p>`,
     "", "");
@@ -799,7 +781,7 @@ function quiz6Text(seg, sc) {
     "\"HOW DO I KNOW THIS ISN'T A SCAM?\"",
     "You don't, yet, and that's the correct default for a faceless crypto account asking you for money. So check before you pay. The score is public. The receipts are public and the losses are on them. The Discord is free to read. And I'll never tell you what you'll make, because I don't know and neither does anyone who says otherwise.","",
     "\"WHAT IF THE LEVELS NEVER GET HIT?\"",
-    "Then I don't buy, and neither do you, and we both keep our money. A level that doesn't fire is a level doing its job. There's a fallback rule in the document for exactly this.","",
+    "A level in my plan may never be reached. The document explains how I interpret that scenario and the fallback rule I use.","",
     scoreLineText(sc) || null, "— Torin"]);
 }
 
@@ -1012,6 +994,8 @@ export default async function handler(req, res) {
       resend_api_key: seen(process.env.RESEND_API_KEY),
       free_audience: seen(process.env.RESEND_AUDIENCE_ID),
       plan_audience: seen(process.env.RESEND_PLAN_AUDIENCE_ID),
+      plan_access_delivery: "durable_worker",
+      plan_credit_key: seen(process.env.PLAN_CREDIT_SECRET),
       quiz_pooled_audience: seen(pooled),
       quiz_per_segment: perSegment,
       quiz_emails_2_to_7: pooled || anySeg ? "ACTIVE" : "DORMANT — set RESEND_QUIZ_AUDIENCE_ID",
@@ -1074,7 +1058,8 @@ export default async function handler(req, res) {
       const buyers = await fetchAudience(planAud);
       planSeq.total = buyers.length;
       const steps = [
-        { lo: 0.0,  hi: 1.0,  subj: PSUBJECT_0,  html: plan0HTML,  text: plan0Text,  key: "p0",  k: "p0_sent" },
+        // Purchased access is delivered by the durable payment worker, normally
+        // within its five-minute polling interval while the host is running.
         { lo: 1.0,  hi: 2.0,  subj: PSUBJECT_1,  html: plan1HTML,  text: plan1Text,  key: "p1",  k: "p1_sent" },
         { lo: 3.0,  hi: 4.0,  subj: PSUBJECT_3,  html: plan3HTML,  text: plan3Text,  key: "p3",  k: "p3_sent" },
         { lo: 7.0,  hi: 8.0,  subj: PSUBJECT_7,  html: plan7HTML,  text: plan7Text,  key: "p7",  k: "p7_sent" },

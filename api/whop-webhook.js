@@ -1,9 +1,11 @@
+import { verifyPlanPayment } from "./_plan-credit.js";
+import { purchaseFromWhopEvent, verifyAddonPurchase } from "./_whop-revenue.js";
 import { ensureAudienceContact } from "./_email-preferences.js";
 // Whop webhook → GA4 Measurement Protocol bridge + churn ops alerts.
 //
 // Handles:
-//   payment.succeeded / membership.activated / membership.went_valid
-//     → fires GA4 `purchase` event with UTM attribution
+//   payment.succeeded (verified v1 positive payment) -> GA4 purchase
+//   membership.activated / membership.went_valid -> access, never revenue
 //   payment.failed / membership.went_invalid / membership.cancel_at_period_end_changed
 //     → fires GA4 `subscription_event` event + posts ops alert to Discord
 //
@@ -76,7 +78,7 @@ async function sendGa4Event({ measurementId, apiSecret, name, clientId, userId, 
   const payload = {
     client_id: clientId || `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`,
     user_id: userId || undefined,
-    non_personalized_ads: false,
+    non_personalized_ads: true,
     events: [{ name, params: params || {} }],
   };
   const r = await fetch(url, {
@@ -376,8 +378,8 @@ async function postNewMemberAlert(webhookUrl, eventType, data) {
   const email = data.user?.email || data.email || "(no email)";
   const username = data.user?.username || data.user?.name || "(unknown user)";
   const plan = planLabel(data);
-  const value = data.amount_after_fees ?? data.subtotal ?? data.amount;
-  const valueStr = value ? `$${(value / 100).toFixed(2)}` : "";
+  // Membership activation is not a payment receipt. Do not attach revenue.
+  const valueStr = "";
   const utmSource = data.utm_source || data.referral?.utm_source || data.metadata?.utm_source;
 
   await postDiscordAlert(webhookUrl, [
@@ -406,8 +408,9 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data, roleResult) 
   const memberId = data.membership_id || data.id || "?";
   const plan = planLabel(data);
   const reason = data.cancel_reason || data.reason || "";
-  const value = data.amount_after_fees ?? data.amount;
-  const valueStr = value ? `$${(value / 100).toFixed(2)}` : "";
+  const value = data.subtotal;
+  const valueStr = eventType === "payment.failed" && typeof value === "number" && Number.isFinite(value)
+    ? `${String(data.currency || "").toUpperCase()} ${value.toFixed(2)} attempted` : "";
   const utmSource = data.utm_source || data.referral?.utm_source || data.metadata?.utm_source;
 
   await postDiscordAlert(webhookUrl, [
@@ -437,7 +440,7 @@ async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, tra
   const payload = {
     client_id: clientId || `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`,
     user_id: userId || undefined,
-    non_personalized_ads: false,
+    non_personalized_ads: true,
     events: [
       {
         name: "purchase",
@@ -445,10 +448,12 @@ async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, tra
           transaction_id: transactionId,
           value,
           currency,
-          source: utm.source || "(direct)",
+          source: utm.source || "(unknown)",
           medium: utm.medium || "(none)",
           campaign: utm.campaign || "(none)",
           content: utm.content || "(none)",
+          payment_evidence: "whop_v1_paid",
+          attribution_status: "browser_session_unlinked",
           items: [
             {
               item_id: GA4_ITEM_IDS[planId] || "liftoffr-legacy",
@@ -512,7 +517,7 @@ export default async function handler(req, res) {
     const TRIAL_PLAN_IDS = [CARD_TRIAL_PLAN_ID, CARDLESS_TRIAL_PLAN_ID];
     const planId = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
     const isTrialPlan = TRIAL_PLAN_IDS.includes(planId);
-    const collected = (data.amount_after_fees ?? data.subtotal ?? data.amount ?? 0) / 100;
+    const collected = data.subtotal ?? 0;
     // Trial starts arrive as membership.activated OR membership.went_valid @ $0
     // (went_valid at $0 on a trial plan must never fall through to `purchase`).
     const isTrialStart =
@@ -531,13 +536,32 @@ export default async function handler(req, res) {
       type === "membership.cancel_at_period_end_changed";
 
     if (isPaid) {
-      // Fallback values only matter when Whop reports $0 collected on a paid event.
-      // Keep in sync with the live Whop plan prices — a stale value here reports
-      // phantom revenue to GA4. Verified against the Whop API 2026-08-07; $29 plan set to
-      // 27.62 on branch fee-option-b so Whop's 5% service fee brings checkout to $29.00.
-      const value = collected || ({ plan_MntgjXJaQnGsW: 27.62, plan_WHByzwILskLsc: 197,
-                                   plan_3SEycpErj9Zk7: 147, plan_uIpPdsPTSHdTp: 497 }[planId] ?? 0);
-      const currency = (data.currency || "USD").toUpperCase();
+      let purchase = purchaseFromWhopEvent({ ...event, type });
+      let verifiedPlanBuyer = null;
+      if (PLAN_ADDON[planId] === "plan" && type === "payment.succeeded") {
+        if (purchase.skip) {
+          res.status(200).json({ok:true,type,revenue:purchase.skip});
+          return;
+        }
+        verifiedPlanBuyer = await verifyPlanPayment({paymentId:purchase.transactionId});
+        if (verifiedPlanBuyer.status !== "verified") {
+          // A delayed/replayed payment must not restore access after a refund.
+          res.status(200).json({ok:true,type,revenue:"plan_payment_no_longer_eligible"});
+          return;
+        }
+        purchase = {transactionId: verifiedPlanBuyer.paymentId, value: verifiedPlanBuyer.subtotal, currency: verifiedPlanBuyer.currency};
+      }
+
+      if (["system", "playbook"].includes(PLAN_ADDON[planId]) && type === "payment.succeeded") {
+        // A delayed payment event must not restore a refunded addon's role or
+        // report stale revenue. Unsupported schemas also stop before access.
+        purchase = await verifyAddonPurchase({ ...event, type });
+        if (purchase.skip) {
+          res.status(200).json({ ok: true, type, revenue: purchase.skip });
+          return;
+        }
+      }
+
 
       // Discord new-member alert to ops channel (private notification for Torin).
       // Skip payment.succeeded: Whop sends it ALONGSIDE membership.went_valid on
@@ -555,7 +579,7 @@ export default async function handler(req, res) {
       // Only fires on membership.activated (the actual "they joined" event) —
       // payment.succeeded fires on every renewal too and we don't want to spam.
       const botToken = process.env.DISCORD_BOT_TOKEN;
-      if (botToken && type === "membership.activated") {
+      if (botToken && type === "membership.activated" && !PLAN_ADDON[planId]) {
         const discordId = extractDiscordId(data);
         const username  = extractUsername(data);
 
@@ -590,13 +614,20 @@ export default async function handler(req, res) {
       // swaps cleanly on upgrade/downgrade. No-op for legacy/unmapped plans.
       if (botToken) {
         try {
-          const tierRes = await applyTierRole(botToken, await resolveDiscordId(data), planId);
+          const tierRes = PLAN_TIER[planId]
+            ? await applyTierRole(botToken, await resolveDiscordId(data), planId)
+            : {skipped:"not_legacy_tier"};
           console.log(`[whop-webhook] tier role: ${JSON.stringify(tierRes)}`);
         } catch (e) {
           console.warn("[whop-webhook] tier role assignment failed:", e?.message || e);
         }
         try {
-          const addonRes = await applyAddonRole(botToken, await resolveDiscordId(data), planId, true);
+          // The dedicated native Plan experience grants only @Plan, including
+          // when Discord is connected after checkout. A stale webhook cannot
+          // override its entitlement decision by restoring a refunded Plan role.
+          const addonRes = PLAN_ADDON[planId] === "plan"
+            ? {skipped:"native_whop_plan_entitlement"}
+            : await applyAddonRole(botToken, await resolveDiscordId(data), planId, true);
           if (addonRes) console.log(`[whop-webhook] addon role: ${JSON.stringify(addonRes)}`);
         } catch (e) {
           console.warn("[whop-webhook] addon role assignment failed:", e?.message || e);
@@ -605,10 +636,10 @@ export default async function handler(req, res) {
 
       // Only the buy-plan purchase enters Plan Buyers. Existing preferences
       // survive duplicate payment/membership events; failures remain retryable.
-      if (PLAN_ADDON[planId] === "plan") {
+      if (PLAN_ADDON[planId] === "plan" && verifiedPlanBuyer) {
         const planAud = process.env.RESEND_PLAN_AUDIENCE_ID;
         const resendKeyP = process.env.RESEND_API_KEY;
-        const buyerEmail = data.user?.email || data.email;
+        const buyerEmail = verifiedPlanBuyer.email;
         if (planAud && resendKeyP && buyerEmail) {
           await ensureAudienceContact(planAud, {
             email: buyerEmail,
@@ -633,13 +664,14 @@ export default async function handler(req, res) {
         return;
       }
 
-      // Prefer the membership id so payment.succeeded and membership.went_valid
-      // (Whop sends BOTH per purchase) carry the SAME transaction_id — GA4 then
-      // dedupes them into one purchase instead of double-counting revenue.
-      const membershipRef =
-        data.membership_id ||
-        (typeof data.membership === "string" ? data.membership : data.membership?.id);
-      const transactionId = membershipRef || data.id || data.payment_id || `whop-${Date.now()}`;
+      if (purchase.skip) {
+        console.log(`[whop-webhook] revenue skipped type=${type} reason=${purchase.skip}`);
+        res.status(200).json({ ok: true, type, revenue: purchase.skip });
+        return;
+      }
+      const { transactionId, value, currency } = purchase;
+      // The Whop identity is not the browser GA client ID. Source parameters
+      // are diagnostic only until checkout metadata links a consented session.
       const ga = await sendGa4Purchase({
         measurementId,
         apiSecret,
@@ -652,6 +684,8 @@ export default async function handler(req, res) {
         productName: data.plan?.product?.name || data.product?.name || data.plan_name || "LiftOffr",
         planId,
       });
+
+      if (!ga.ok) throw new Error(`GA4 purchase transport failed: ${ga.status}`);
 
       // trial_converted RETIRED 2026-08-02 — the trial is dead; renewals on
       // grandfathered subs just log the purchase above, nothing extra.
@@ -676,12 +710,12 @@ export default async function handler(req, res) {
           userId: data.user?.id,
           params: {
             whop_event: type,
-            value: (data.amount_after_fees ?? data.amount ?? 0) / 100,
+            // No revenue value on a subscription/access event.
             currency: (data.currency || "USD").toUpperCase(),
             cancel_reason: data.cancel_reason || data.reason || "unknown",
             membership_id: data.membership_id || data.id,
             plan_id: data.plan?.id || data.plan_id,
-            source: utm.source || "(direct)",
+            source: utm.source || "(unknown)",
             medium: utm.medium || "(none)",
           },
         });

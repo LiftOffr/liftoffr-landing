@@ -237,7 +237,7 @@ number of $29 sales and buys the thing this whole business runs on.
 > You don't, yet, and that's the correct default for a faceless crypto account asking you for money. So check before you pay. The score is public. The receipts are public and the losses are on them. The Discord is free to read. And I'll never tell you what you'll make, because I don't know and neither does anyone who says otherwise.
 >
 > **"What if the levels never get hit?"**
-> Then I don't buy, and neither do you, and we both keep our money. A level that doesn't fire is a level doing its job. There's a fallback rule in the document for exactly this, because the most common way a ladder fails isn't being wrong — it's price running away while you have no rule for it.
+> A level in my plan may never be reached. The document explains how I interpret that scenario and the fallback rule I use, because the most common way a ladder fails isn't being wrong — it's price running away while you have no rule for it.
 >
 > Today's score: **{{score}}** — {{zone}}.
 >

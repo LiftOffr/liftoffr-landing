@@ -230,6 +230,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <h2>Get the plan</h2>
     <p>The full document lives in your Whop library: the ladder, the logic, the worksheet, the receipts. Open it now while this is fresh.</p>
     <a href="https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/" class="cta-btn" data-dest="plan_doc" rel="noopener">Open the plan</a>
+    <p style="margin:18px 0 0;"><a href="https://whop.com/liftoffr/exp_vmJ3ZoiPDUZLNO/app/" data-dest="plan_discord_connect" rel="noopener" style="color:#f27d86;text-underline-offset:4px;">Connect Discord for your Plan access &rarr;</a></p>
   </div>
 
   <!-- STEP 2 -->
@@ -259,16 +260,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script>
   // The $29 success page. /welcome fires this same event and /welcome-plan did not,
   // which meant the one client-side signal that joins a completed checkout to the
-  // visitor's GA4 web session was missing on the product that actually has buyers.
-  // The webhook fires the precise `purchase` server-side; this only ties the
-  // completion to the browsing session for funnel attribution.
+  // This public page can be revisited or opened from an access email.
+  // Viewing it proves neither a payment nor a new purchase.
   (function(){
     var p = new URLSearchParams(location.search);
     var utm = {
       source: p.get('utm_source') || '(direct)', medium: p.get('utm_medium') || '(none)',
       campaign: p.get('utm_campaign') || '(none)', content: p.get('utm_content') || '(none)'
     };
-    if (window.track) window.track('checkout_confirmed', { page: '/welcome-plan',
+    if (window.track) window.track('plan_access_page_viewed', { page: '/welcome-plan',
       utm_source: utm.source, utm_medium: utm.medium, utm_campaign: utm.campaign, utm_content: utm.content });
   })();
 
@@ -280,6 +280,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                              'a[href^="/proof"], a[href*="whop.com/checkout"]');
     if (!a) return;
     if (typeof window.track === 'function') {
+      if (a.getAttribute('data-dest') === 'plan_doc') window.track('plan_document_opened', {page:'/welcome-plan', action:'outbound_document_link'});
       var u = new URL(a.href, location.href);
       var d = u.hostname.indexOf('whop.com') > -1
                 ? 'whop_checkout'

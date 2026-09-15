@@ -1,20 +1,10 @@
-/* LiftOffr — the missing funnel step between "clicked a CTA" and "paid".
+/* LiftOffr checkout-link and product-preview observations.
  *
- * WHY THIS EXISTS
- * ---------------
- * The funnel had a hole exactly one step wide. On-site behaviour is measured
- * (page_view, scroll_depth, cta_clicked, lead_captured) and revenue is measured
- * (`purchase`, fired server-side from api/whop-webhook.js off the Whop webhook).
- * Between them, nothing. `cta_clicked` fires for internal navigation and for
- * outbound checkout links alike, so "how many people actually reached a Whop
- * checkout page" was not a number anyone could get, and therefore neither was
- * "how many of them abandoned it".
- *
- * That is the question the 8-13 August failed-checkout episode needed and could
- * not answer. `begin_checkout` is GA4's standard event for this position in an
- * ecommerce funnel, so the funnel reads: page_view -> cta_clicked ->
- * begin_checkout -> purchase, and checkout abandonment is the ratio of the last
- * two.
+ * begin_checkout records an outbound checkout-link activation. It does not
+ * prove that Whop loaded or that a payment attempt occurred. Payment events
+ * come from verified Whop payment records, using their actual subtotal.
+ * Browser and payment identities are not currently joined, so do not calculate
+ * user-level abandonment or claim purchase attribution from these counts.
  *
  * DELIBERATE OMISSION: no `value`, no price.
  * ------------------------------------------
@@ -51,7 +41,7 @@
  * ORDER: the listener is on the bubble phase on purpose. js/attribution.js
  * rewrites the outbound href during the CAPTURE phase to append the visitor's
  * first-touch utm_*; running after it means the source recorded here is the
- * same one that will reach the Whop order record, not the pre-decoration one.
+ * same one appended to the checkout URL. Whop order persistence is unverified.
  */
 (function () {
   if (window.__loTrackStarted) return;      // idempotent if included twice
@@ -159,7 +149,7 @@
   var preview = document.getElementById('product-preview');
   if (preview && 'IntersectionObserver' in window) {
     var previewObserver = new IntersectionObserver(function (entries) {
-      if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+      if (!entries.some(function (entry) { return entry.isIntersecting && entry.intersectionRatio >= 0.25; })) return;
       if (typeof window.track === 'function') {
         var ft = (typeof window.loAttribution === 'function' && window.loAttribution()) || {};
         window.track('plan_preview_viewed', {

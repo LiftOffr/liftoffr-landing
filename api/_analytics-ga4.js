@@ -140,6 +140,7 @@ const REPORTS = {
         "lead_magnet_submit", "lead_captured",
         "exit_intent_shown", "exit_intent_dismissed",
         "begin_checkout", "checkout_confirmed", "purchase",
+        "plan_preview_viewed", "plan_access_page_viewed", "plan_document_opened",
       ]}},
     },
   }),
