@@ -9,9 +9,9 @@
 The exact ladder I'm buying this bear market with. Not a course. A plan — with the receipts attached.
 
 by Torin — LiftOffr
-Last updated: 20 August 2026 · Lifetime updates for this bear market included
+Plan reference: 20 August 2026 · Corrections: 15 September 2026 · Lifetime updates for this bear market included
 
-*What changed in this revision: corrected the component count to nine (the Score has always
+*20 August 2026 revision: corrected the component count to nine (the Score has always
 used nine weighted components; an earlier draft said eight), and added the exit thresholds,
 the whipsaw rule and the recompute sheet — three things the sales page commits to that the
 previous revision did not contain.*
@@ -103,7 +103,7 @@ Three things about that shape, because they're the parts people get wrong:
 
 **The immediate tier is not optional.** Its job is not returns, it's psychology. A ladder with nothing filled is a spreadsheet you'll abandon the first time price runs away from you. Getting something on the board makes the rest executable.
 
-**The front half is heavier than the back half.** Roughly two fifths of the budget deploys in the first three rungs, and more than a third of mine fired in the first two phases. If the bear is shallow you still built most of the position; if it's deep, the back rungs buy the panic. The alternative — back-loading, waiting for the real bottom — is the version where the bear ends 20% above your lowest rung and you own almost nothing.
+**The front half is heavier than the back half.** Roughly two fifths of the budget deploys in the first three rungs. If the bear is shallow you still built part of the position; if it's deep, the back rungs buy the panic. The alternative — back-loading, waiting for the real bottom — is the version where the bear ends 20% above your lowest rung and you own almost nothing.
 
 **The deep rungs are deliberately small.** By the bottom rungs you're buying insurance-priced Bitcoin, not building the core position. Sizing them large is how "I'll go all in at the bottom" becomes "I have 80% of my budget in cash and Bitcoin is at a new high."
 
@@ -212,7 +212,9 @@ Overriding isn't forbidden. Overriding *silently* is. Writing the reason first t
   full on each of those six transitions would have meant six reversals in a year. Acting on a
   fraction at each, and not reversing on the way back, is what makes a threshold model
   survivable. That is why the plan is a ladder and not a date.
-- The full four-tranche exit ladder, with the fractions and the reasoning, is in The Cycle System.
+- The Cycle System explains how to build your own exit ladder, including the whipsaw rule and a worksheet for choosing your own fractions.
+
+**Corrections: 15 September 2026.** The first three worksheet fractions on page 6 add to roughly two fifths, not more than half. The explanatory wording has been corrected; the worksheet fractions are unchanged. An earlier version also said the System supplied a full four-tranche ladder with numerical fractions. The current lesson teaches the method and provides blank rungs for your own fractions. These corrections change the arithmetic wording and cross-reference; the Plan's strategy, levels, allocations and execution record are unchanged.
 
 ## 5c. THE RECOMPUTE SHEET — rebuild my number yourself
 

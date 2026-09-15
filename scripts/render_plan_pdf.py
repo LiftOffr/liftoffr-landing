@@ -18,7 +18,8 @@ DOCS = {
         'h1':    'My Bear Market<br>Buy Plan',
         'sub':   "The exact ladder I'm buying this bear market with.<br>"
                  'Not a course. A plan &mdash; with the receipts attached.',
-        'upd':   'Last updated: 20 August 2026<br>'
+        'upd':   'Plan reference: 20 August 2026<br>'
+                 'Corrections: 15 September 2026<br>'
                  'Lifetime updates for this bear market included',
     },
     'magnet': {

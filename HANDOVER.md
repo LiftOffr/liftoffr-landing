@@ -1,3 +1,31 @@
+## Plan document correction prepared: 2026-09-15
+
+The Plan source now corrects two descriptions: its first three unchanged worksheet
+fractions add to roughly two fifths, and the System teaches an exit method with a
+worksheet for the buyer's own fractions. It does not deliver the previously claimed
+numerical four-tranche ladder. A dated note explains both corrections. Strategy
+inputs, tables, levels, allocations and the execution record were preserved.
+
+Root reviewed the rendered correction: 13 pages, 264704 bytes, SHA256
+540d278aee50bfa863882e0eabda74cb3de28d05c3947f0ed556af68eff52c11.
+Only pages 1, 6 and 11 differ in text and raster output. The public-safe preview is
+the revised cover only. The paid PDF remains outside this repository at
+~/Documents/liftoffr-next-pass-2026-09-15/buyer-value/My-Bear-Market-Buy-Plan-2026-09-15.paid.pdf.
+
+**Delivery remains pending at this checkpoint.** The browser file chooser rejected
+the upload before any file was transferred; the existing Whop attachment is intact.
+Do not claim this revision reached buyers until the existing gated Content item is
+published and an independent download matches the approved hash. Its buyer URL is
+https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/.
+The existing Plan-updates introduction's corresponding cross-reference was corrected
+and read back with all other fields preserved; no new message was sent.
+
+Private evidence and current upload status:
+~/Documents/liftoffr-next-pass-2026-09-15/buyer-value/paid-pdf-verification.json
+and WHOP-UPDATE-PATH.md in that directory.
+
+---
+
 ## Consented checkout context release: 2026-09-15
 
 Plan and System ordinary purchase clicks can now create a Whop-hosted checkout
@@ -739,4 +767,3 @@ server now refers to another message above it.
 It also records a real sequencing dependency: the notices in `⚡・urgent-alerts` and
 `⚙️・indicator-readings` must NOT be deleted until the fleet bots that feed those channels are
 stopped, or members will meet retired content with no explanation.
-
