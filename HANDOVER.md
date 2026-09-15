@@ -1,3 +1,26 @@
+## Revenue-path release: 2026-09-14 night
+
+Torin authorized website, caption, Instagram automation and buyer-value improvements.
+The Plan landing page now shows the actual 20 Aug document cover and a small,
+labeled worksheet excerpt. Whop's current paid PDF was downloaded and verified
+byte-identical to the local 13-page PDF. Only the cover is public.
+
+The mobile hero explains the offer and shows the purchase button earlier. The
+fallback links to the working public Score instead of the dormant quiz nurture.
+Nine weights are distinguished from 64 historical crossings; invented dorm-room
+and weekly-DM-volume claims were corrected. Checkout acquisition content survives
+placement labels; CTA placement remains separate. The preview records one observed
+view event. Checkout clicks are explicitly outbound-link events, not verified
+payment attempts or a joined browser-to-purchase funnel.
+
+Private evidence: ~/Documents/liftoffr-overnight-2026-09-14/.
+Verified mobile390/desktop1440: no horizontal overflow or JS errors, preview loads,
+source/content preserved, one outbound checkout event and no browser purchase event.
+Payment reporting, immediate access email and private upgrade credit are a separate
+pending release until their tests and production configuration are complete.
+
+---
+
 ## Release update: 2026-09-14 evening
 
 Torin approved the system improvement rollout ("Just auto approve everything").

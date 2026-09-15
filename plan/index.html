@@ -462,6 +462,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .price-num { font-size: 46px; }
     .wrap { padding: 36px 16px 60px; }
   }
+
+  .preview-jump { display:inline-block;margin:2px 0 14px;color:#eee;font-size:14px;text-underline-offset:5px; }
+  .product-preview { margin:38px 0 30px;padding:28px;background:#111;border:1px solid #292929;border-radius:18px;scroll-margin-top:100px; }
+  .preview-heading { margin:0 0 10px;font-size:clamp(25px,4.5vw,34px);line-height:1.16;letter-spacing:-.7px; }
+  .preview-lede { margin:0 0 24px;color:#bdbdbd;font-size:15px;line-height:1.7;max-width:660px; }
+  .preview-grid { display:grid;grid-template-columns:minmax(150px, .7fr) minmax(0,1.3fr);gap:26px;align-items:start; }
+  .preview-cover { margin:0; }
+  .preview-cover img { display:block;width:100%;height:auto;border-radius:5px; }
+  .preview-cover figcaption { margin-top:10px;color:#aaa;font-size:12px;line-height:1.6; }
+  .preview-sample { padding:22px;background:#080808;border:1px solid #292929;border-radius:12px; }
+  .preview-kicker { margin:0 0 10px;color:#f27d86;font-size:11px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase; }
+  .preview-sample h3 { font-size:21px;margin:0 0 14px; }
+  .preview-sample blockquote { margin:0 0 20px;border-left:2px solid #e63946;padding-left:15px;font-size:16px;line-height:1.65;color:#eee; }
+  .preview-log { display:grid;gap:10px;font-size:13px;line-height:1.6;color:#bbb; }
+  .preview-log p { margin:0;padding-bottom:10px;border-bottom:1px solid #242424; }
+  .preview-log strong { color:#eee; }
+  .preview-sample small { display:block;margin-top:14px;font-size:12px;line-height:1.6;color:#aaa; }
+  .preview-access { margin-top:22px;padding-top:20px;border-top:1px solid #292929;color:#bdbdbd;font-size:14px;line-height:1.8; }
+  .preview-access strong { color:#fff; }
+  .preview-access a { color:#f27d86; }
+  @media(max-width:600px) { .product-preview {padding:21px 17px;} .preview-grid {grid-template-columns:1fr;} .preview-cover {max-width:230px;margin:0 auto;} .preview-sample {padding:18px;} }
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
   <script src="/js/attribution.js?v=20260825" defer></script>
@@ -481,23 +502,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="wrap">
 
-  <!-- QUALIFIER — names who this is for before the product does -->
-  <div style="text-align:center;font-size:12.5px;color:var(--muted);margin-bottom:18px;">
-    For people who own Bitcoin and want the buying decision made before the moment arrives.
-  </div>
-
   <!-- HERO — variant A, "The Document". Leads with the emotional job the product does
        rather than its specification; "nine buy tiers" is a noun a cold reader has to
        decode, not a benefit. -->
   <section class="hero">
-    <span class="eyebrow">LIFTOFFR · FOR PEOPLE WHO OWN BITCOIN, HAVE A JOB, AND DO NOT WATCH CHARTS ALL DAY</span>
-    <h1>Stop deciding what to do with your Bitcoin <em>on the day it matters.</em></h1>
-    <p class="lede">The prices are written down before the moment arrives, so there is nothing left to
-    decide when everyone around you is euphoric or terrified. Nine buy levels, four sell thresholds,
-    and the rule for what I do when the model flips back and forth &mdash; which it did six times
-    between November 2024 and October 2025.</p>
-    <p class="lede" style="color:#9a9a9a;">I wrote them down because I have been wrong about the top before, and
-    the only version of me I trust with that decision is the calm one. <strong style="color:#fff;">$29, once.</strong></p>
+    <span class="eyebrow">MY BEAR MARKET BUY PLAN · $29 ONCE</span>
+    <h1>My Bitcoin buy plan.<br><em>Written before the pressure.</em></h1>
+    <p class="lede">Nine documented buy levels, the reasoning behind them, and the fallback rule I use when price never reaches a level. A PDF and worksheet I can return to when the market gets loud.</p>
+    <a class="preview-jump" href="#product-preview" data-dest="plan_preview">See inside the document &darr;</a>
     <div class="hero-cta">
       <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="hero" rel="noopener">Get the plan — $29, once</a>
       <!-- Fee figure verified against the live Whop checkout to the cent. If the SKU
@@ -505,6 +517,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="hero-cta-fine" style="font-size:14px;color:#ddd;margin-bottom:4px;"><strong style="color:#fff;">Read it for 30 days. If it isn&rsquo;t worth $29, I refund it &mdash; no form, no reason needed.</strong></div>
       <div class="hero-cta-fine">$29 at checkout, plus tax where it applies. 30-day refund, no questions.<br><span style="opacity:.8;">One-time payment. Nothing renews. No upsell on the thank-you page. 18+ only.</span></div>
     </div>
+  </section>
+
+  <section class="product-preview" id="product-preview" aria-labelledby="preview-heading">
+    <p class="preview-kicker">A look inside</p>
+    <h2 class="preview-heading" id="preview-heading">See the document before you decide.</h2>
+    <p class="preview-lede">My written plan, the reasoning behind the levels, and a worksheet for thinking through decisions before the pressure arrives. Here is one small part of it.</p>
+    <div class="preview-grid">
+      <figure class="preview-cover">
+        <img src="/img/product/plan-cover-preview.png" alt="Actual cover of My Bear Market Buy Plan, dated 20 August 2026" width="773" height="1000" loading="lazy">
+        <figcaption>The document cover. Edition dated 20 August 2026.</figcaption>
+      </figure>
+      <div class="preview-sample">
+        <p class="preview-kicker">From the worksheet</p>
+        <h3>The override log</h3>
+        <blockquote>“If I change or skip a tier, I write the reason here BEFORE I act.”</blockquote>
+        <div class="preview-log">
+          <p><strong>Tier:</strong> Example tier</p>
+          <p><strong>Date:</strong> Date of review</p>
+          <p><strong>Reason:</strong> I am checking whether the original assumption still holds before changing the plan.</p>
+        </div>
+        <small>Illustrative entry in the worksheet's fields. The quotation is from the document. This example is not a trade or a recommendation.</small>
+      </div>
+    </div>
+    <div class="preview-access"><strong>After checkout:</strong> open the document in your Whop library. Connect Discord inside Whop to access the paid Plan area and <strong>#plan-updates</strong>. Start by reading the reasoning behind one level and the fallback rule.<br><a href="/score?from=plan_preview" data-dest="score_from_preview">Inspect the public method first &rarr;</a></div>
   </section>
 
   <!-- PROOF STRIP. Rebuilt 2026-08-20. Two cells were removed and why matters:
@@ -618,7 +654,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
        removers attached. This is repetition #2 of 4 (hero, here, price box, sticky bar). -->
   <div style="text-align:center;margin:34px 0 8px;">
     <a href="https://whop.com/checkout/plan_MntgjXJaQnGsW" class="cta-btn" data-dest="plan_checkout" data-cta-slot="midpage" rel="noopener">Get my plan — $29, once</a>
-    <div style="font-size:12.5px;color:var(--muted);margin-top:9px;">Instant access · Nine levels ready to place today · 30-day refund</div>
+    <div style="font-size:12.5px;color:var(--muted);margin-top:9px;">Instant access · My documented levels, with the reasoning included · 30-day refund</div>
   </div>
 
   <!-- NOT A COURSE -->
@@ -671,11 +707,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <div class="obj">
       <div class="obj-q">"What if the levels never get hit?"</div>
-      <div class="obj-a">Then I don't buy, and neither do you, and we both keep our money. That's not
-        the plan failing — a level that doesn't fire is a level doing its job. There's a fallback rule
-        in the document for exactly this, because the most common way a ladder fails isn't being wrong,
-        it's price running away and you having no rule for it. That rule is the part I'd have paid $29
-        for in 2019.</div>
+      <div class="obj-a">A level in my plan may never be reached. The document explains how I interpret that
+        scenario and the fallback rule I use. Writing that rule down in advance gives me something
+        to refer to when price moves away from my original plan.</div>
     </div>
     <div class="obj">
       <div class="obj-q">"Why is it only $29? What's the catch?"</div>
@@ -687,7 +721,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="obj">
       <div class="obj-q">"Why should I trust your model?"</div>
       <div class="obj-a">You shouldn't, on my say-so. You should check it &mdash; that's why the weights
-        are published, all 64 of them. And read this row before you decide:
+        are published: nine weights, with the dated model record available too. Read this row before you decide:
         <a href="/receipts" data-dest="receipts_2017">/receipts</a>, <strong>Nov 17, 2017</strong>. The model
         crossed into its exit zone at $7,729 and Bitcoin rose <strong>149% over the next thirty days</strong>.
         That row is on my own site because it happened. The November 2024 exit at $90,568 was followed by
@@ -789,9 +823,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="capture">
     <h3>Not buying today?</h3>
-    <p>Take the 60-second cycle-position quiz. You'll get where you sit right now, what the current score means for someone in your position, and the Sunday email if you want it. Free, no card.</p>
-    <a href="/quiz?from=plan_escape" style="display:inline-block;margin-top:6px;padding:14px 24px;background:var(--red);color:#fff;text-decoration:none;border-radius:10px;font-weight:800;font-size:15px;">Start — 60 seconds, free &rarr;</a>
-    <p class="form-fine">No email needed to see your result.</p>
+    <p>Start with the public method: today's Score, all nine weights and the calculation. Read it before deciding whether you want my plan.</p>
+    <a href="/score?from=plan_escape" data-dest="score_from_plan" style="display:inline-block;margin-top:6px;padding:14px 24px;background:var(--red);color:#fff;text-decoration:none;border-radius:10px;font-weight:800;font-size:15px;">Read the public method &rarr;</a>
+    <p class="form-fine">Free to read. No email needed. The Sunday email is optional.</p>
   </div>
 
   <!-- FREE DOOR -->

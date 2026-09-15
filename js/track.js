@@ -87,7 +87,8 @@
 
     // Read the utm actually on the outbound URL. After attribution.js has run,
     // this is the first-touch source that Whop will record against the order,
-    // which is what makes this event joinable to the server-side purchase.
+    // but a browser-session join still requires matching checkout metadata.
+    // A link click alone does not prove Whop loaded or that payment was attempted.
     var q = {};
     try {
       var u = new URL(href, location.href);
@@ -102,6 +103,7 @@
       plan_id: planId,
       page: location.pathname,
       cta_position: slot(a),
+      checkout_step: 'outbound_link',
       utm_source: q.utm_source || '(direct)',
       utm_medium: q.utm_medium || '(none)',
       utm_campaign: q.utm_campaign || '(none)',
@@ -150,7 +152,25 @@
 
   function onClick(e) {
     var a = e.target && e.target.closest && e.target.closest('a[href*="whop.com/checkout"]');
-    if (a) fire(a);
+    if (a && (e.type !== 'auxclick' || e.button === 1)) fire(a);
+  }
+
+  // Preview exposure is an observed page interaction, not proof of purchase intent.
+  var preview = document.getElementById('product-preview');
+  if (preview && 'IntersectionObserver' in window) {
+    var previewObserver = new IntersectionObserver(function (entries) {
+      if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+      if (typeof window.track === 'function') {
+        var ft = (typeof window.loAttribution === 'function' && window.loAttribution()) || {};
+        window.track('plan_preview_viewed', {
+          page: location.pathname,
+          content_id: ft.utm_content || '(unknown)',
+          campaign: ft.utm_campaign || '(none)'
+        });
+      }
+      previewObserver.disconnect();
+    }, { threshold: 0.25 });
+    previewObserver.observe(preview);
   }
 
   // click covers primary activation and keyboard Enter; auxclick covers the

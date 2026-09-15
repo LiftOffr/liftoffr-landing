@@ -211,10 +211,10 @@ test('decorate appends utm_term=ft_<first_seen>', () => {
   eq(q(href, 'utm_term'), 'ft_2026-08-01', 'utm_term');
 });
 
-test('decorate preserves a utm_content already baked into the markup', () => {
+test('acquired content survives a checkout placement baked into markup', () => {
   const s = newSession({ utm_source: 'instagram', utm_content: 'ig_bio', first_seen: '2026-08-01' });
   const href = s.visit({ pathname: '/plan' }).click(WHOP + '?utm_content=hero');
-  eq(q(href, 'utm_content'), 'hero', 'utm_content');
+  eq(q(href, 'utm_content'), 'ig_bio', 'utm_content');
 });
 
 test('decorate supplies utm_content from the record when the link has none', () => {

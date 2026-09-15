@@ -1,5 +1,7 @@
-/* LiftOffr first-touch attribution. v5 - 2026-09-14
+/* LiftOffr first-touch attribution. v6 - 2026-09-15
  *
+ * v6: an acquired content ID survives checkout placement labels. CTA placement
+ * remains in the begin_checkout event, separately from acquisition content.
  * v5: internal navigation uses ?from=, never acquisition UTMs. Legacy internal
  * records remain upgradeable; malformed/unavailable storage cannot block checkout
  * attribution on the current page. The v4 history below describes the earlier fix.
@@ -172,9 +174,9 @@
   }
 
   // Decorate outbound Whop links at click time, so the source reaches the order record.
-  // Placement (utm_content) already hardcoded on a link is preserved; the visitor's real
-  // acquisition source outranks any utm_source baked into the markup, which is only ever
-  // an internal placement label and would otherwise overwrite the truth.
+  // The acquired content ID and source outrank placement labels in markup.
+  // Placement has its own cta_position field in track.js; replacing an asset ID
+  // with 'hero' would erase which content brought the buyer here.
   //
   // The field list below is an explicit allow-list, not a loop over the record. That is
   // what keeps local bookkeeping (upgraded_from, landing, first_seen) out of the URL.
@@ -188,7 +190,7 @@
       if (legacyInternal) u.searchParams.delete(f);
       else if (rec[f]) u.searchParams.set(f, rec[f]);
     });
-    if (!u.searchParams.get('utm_content') && rec.utm_content) {
+    if (!legacyInternal && rec.utm_content) {
       u.searchParams.set('utm_content', rec.utm_content);
     }
     if (rec.first_seen) u.searchParams.set('utm_term', 'ft_' + rec.first_seen);
