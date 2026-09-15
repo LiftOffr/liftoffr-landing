@@ -1,4 +1,4 @@
-## Plan document correction prepared: 2026-09-15
+## Plan document correction delivered: 2026-09-15
 
 The Plan source now corrects two descriptions: its first three unchanged worksheet
 fractions add to roughly two fifths, and the System teaches an exit method with a
@@ -12,17 +12,25 @@ Only pages 1, 6 and 11 differ in text and raster output. The public-safe preview
 the revised cover only. The paid PDF remains outside this repository at
 ~/Documents/liftoffr-next-pass-2026-09-15/buyer-value/My-Bear-Market-Buy-Plan-2026-09-15.paid.pdf.
 
-**Delivery remains pending at this checkpoint.** The browser file chooser rejected
-the upload before any file was transferred; the existing Whop attachment is intact.
-Do not claim this revision reached buyers until the existing gated Content item is
-published and an independent download matches the approved hash. Its buyer URL is
-https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/.
+**Delivered and independently verified.** After the user enabled the browser
+extension's file-URL permission, the corrected file was uploaded and the old
+attachment was removed from the existing item. Publish completed by 14:04:47 UTC;
+the buyer page showed the single corrected PDF at 14:05:10 UTC. The original title
+and all four description paragraphs match the saved baseline. Its existing buyer
+URL remains https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/.
+An independent buyer-page download matches the release hash, 264704 bytes and
+13 pages. Whop saved it under a hidden temporary filename in Downloads; the
+verified copy is preserved privately. All six product-experience lists and the
+Content app's private status and metadata match the pre-change API baseline.
+The public cover and caption now distinguish the August 20 Plan reference from
+the September 15 corrections. The private update ledger records this document
+revision with Codex as reviewer; no execution or new customer message is claimed.
 The existing Plan-updates introduction's corresponding cross-reference was corrected
 and read back with all other fields preserved; no new message was sent.
 
-Private evidence and current upload status:
-~/Documents/liftoffr-next-pass-2026-09-15/buyer-value/paid-pdf-verification.json
-and WHOP-UPDATE-PATH.md in that directory.
+Private delivery and source evidence:
+~/Documents/liftoffr-next-pass-2026-09-15/buyer-value/whop-published-pdf-verification.json,
+whop-content-entitlements-comparison.json and paid-pdf-verification.json.
 
 ---
 
