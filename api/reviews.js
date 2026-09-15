@@ -21,6 +21,8 @@
 // A failed fetch and "no reviews yet" must look identical to the page, so a
 // Whop outage can never paint a broken or empty ratings widget on a sales page.
 
+import { handleCheckoutAttribution } from './_checkout-attribution.js';
+
 export const config = { runtime: "nodejs" };
 
 // Whop product IDs, mapped from the repo (LIFTOFFR_MASTER_PLAN.md,
@@ -68,6 +70,9 @@ async function fetchProduct(productId, key) {
 
 export default async function handler(req, res) {
   const q = new URL(req.url, "http://localhost").searchParams;
+  // Keep read-only review behavior intact; only this exact POST action can
+  // create an optional hosted checkout configuration.
+  if (req.method === "POST" && q.get("action") === "checkout") return handleCheckoutAttribution(req, res);
   const which = (q.get("product") || "").toLowerCase();
   const productId = PRODUCTS[which];
 

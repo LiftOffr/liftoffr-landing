@@ -51,5 +51,6 @@ export async function verifyAddonPurchase(event, { apiKey = process.env.WHOP_API
       (Array.isArray(current.refunds) && current.refunds.length) || (Array.isArray(current.disputes) && current.disputes.length)) {
     return { skip: 'addon_payment_refunded_disputed_or_unknown' };
   }
-  return purchaseFromWhopEvent({ type: 'payment.succeeded', api_version: 'v1', data: current });
+  return { ...purchaseFromWhopEvent({ type: 'payment.succeeded', api_version: 'v1', data: current }),
+    checkoutMetadata: current.metadata, paidAt: current.paid_at };
 }

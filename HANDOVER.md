@@ -1,3 +1,33 @@
+## Consented checkout context release: 2026-09-15
+
+Plan and System ordinary purchase clicks can now create a Whop-hosted checkout
+configuration carrying signed, consented GA browser/session IDs and bounded
+campaign labels. Existing plans, prices, payment methods and native access remain.
+The original checkout link stays available; declined consent, modified/new-tab
+clicks, coupon/affiliate parameters, blocked tags and API failures use that link.
+Creation is gated by CHECKOUT_ATTRIBUTION_ENABLED=true and a dedicated
+CHECKOUT_ATTRIBUTION_SECRET (production-only, private, at least 32 characters).
+The existing reviews function handles only the exact POST action=checkout route;
+GET reviews and private dashboard authentication remain unchanged.
+
+GA purchase events now require valid signed metadata from the freshly retrieved
+canonical Whop payment. Whop IDs are never substituted for GA browser IDs.
+Whop remains the complete revenue ledger; GA purchases are a consented subset.
+Metadata is eligible for use within 24 hours of its GA session start. This is
+not a deletion promise: Whop retains checkout metadata under its own policy.
+Configuration/readback and GA debug validation passed; an actual paid browser
+session join still needs the first real consented sale before it can be claimed.
+
+The exit-ladder course source also now matches two reviewed live corrections:
+Torin's personal 2025 exits began after June 27 and remain an unaudited account;
+Plan section 5b states the general rule without numerical exit fractions.
+
+Evidence, limits and exact QA commands:
+~/Documents/liftoffr-next-pass-2026-09-15/attribution/HANDOFF.md.
+Root owns deployment and production verification; this note describes the code.
+
+---
+
 ## Broader seller research and learning-path release: 2026-09-14
 
 Ten additional crypto, community and education sellers were profiled from current

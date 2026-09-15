@@ -80,9 +80,7 @@ answer three questions that a list of levels does not:
    out, because in the moment it will feel like it does.
 
 **Torin's own answer, as a worked example rather than a recommendation:** a fraction per crossing
-rather than a decision per crossing, and no reversal on the way back out. It is stated in section
-5b of the $29 plan document alongside the six transitions above. It is what he does. It is not a
-prescription, and the fractions in it are his, chosen against his own position and timeline.
+rather than a decision per crossing, and no reversal on the way back out. That general rule is stated in **section 5b of the $29 Plan document** alongside these same six transitions. Section 5b does not publish numerical exit fractions; it points readers to the full exit method in the Cycle System. This lesson provides a worksheet for choosing your own fractions.
 
 ### 4. Why you decide it in the calm
 
@@ -94,8 +92,7 @@ ego, because being right had become an identity rather than a position; no writt
 day was a fresh decision made while looking at the price; and "it's going to a million, I'm not
 selling here", which cost more than the other two combined.
 
-**And the other direction, October 2025.** He had a rule that time, acted on an early crossing,
-and **exited before the top. Being early cost him the last leg of the move.**
+**After the 27 June 2025 crossing**, he began laddering out over the following weeks. **Being early cost him the last leg of the move.** This is his own unaudited account, separate from the historical model record.
 
 Both failures share a root and neither is the model's. In 2021 there was no decision made in
 advance. In 2025 there was one, but it had no answer for question 2 above — what a *retreat*

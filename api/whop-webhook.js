@@ -1,3 +1,4 @@
+import { verifiedCheckoutAttribution } from './_checkout-attribution.js';
 import { verifyPlanPayment } from "./_plan-credit.js";
 import { purchaseFromWhopEvent, verifyAddonPurchase } from "./_whop-revenue.js";
 import { ensureAudienceContact } from "./_email-preferences.js";
@@ -436,11 +437,11 @@ const GA4_ITEM_IDS = {
   plan_uIpPdsPTSHdTp: "cycle-playbook",
 };
 
-async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, transactionId, value, currency, utm, productName, planId }) {
+async function sendGa4Purchase({ measurementId, apiSecret, attribution, transactionId, value, currency, productName, planId }) {
   const url = `https://www.google-analytics.com/mp/collect?measurement_id=${encodeURIComponent(measurementId)}&api_secret=${encodeURIComponent(apiSecret)}`;
   const payload = {
-    client_id: clientId || `${Math.floor(Math.random() * 1e10)}.${Math.floor(Date.now() / 1000)}`,
-    user_id: userId || undefined,
+    client_id: attribution.clientId,
+    consent: { ad_user_data: "DENIED", ad_personalization: "DENIED" },
     non_personalized_ads: true,
     events: [
       {
@@ -449,12 +450,14 @@ async function sendGa4Purchase({ measurementId, apiSecret, clientId, userId, tra
           transaction_id: transactionId,
           value,
           currency,
-          source: utm.source || "(unknown)",
-          medium: utm.medium || "(none)",
-          campaign: utm.campaign || "(none)",
-          content: utm.content || "(none)",
+          session_id: attribution.sessionId,
+          acquisition_source: attribution.utm.utm_source || "(unknown)",
+          acquisition_medium: attribution.utm.utm_medium || "(none)",
+          acquisition_campaign: attribution.utm.utm_campaign || "(none)",
+          acquisition_content: attribution.utm.utm_content || "(none)",
+          cta_position: attribution.position,
           payment_evidence: "whop_v1_paid",
-          attribution_status: "browser_session_unlinked",
+          attribution_status: attribution.status,
           items: [
             {
               item_id: GA4_ITEM_IDS[planId] || "liftoffr-legacy",
@@ -550,7 +553,8 @@ export default async function handler(req, res) {
           res.status(200).json({ok:true,type,revenue:"plan_payment_no_longer_eligible"});
           return;
         }
-        purchase = {transactionId: verifiedPlanBuyer.paymentId, value: verifiedPlanBuyer.subtotal, currency: verifiedPlanBuyer.currency};
+        purchase = {transactionId: verifiedPlanBuyer.paymentId, value: verifiedPlanBuyer.subtotal, currency: verifiedPlanBuyer.currency,
+          checkoutMetadata: verifiedPlanBuyer.checkoutMetadata, paidAt: verifiedPlanBuyer.paidAt};
       }
 
       if (["system", "playbook"].includes(PLAN_ADDON[planId]) && type === "payment.succeeded") {
@@ -671,17 +675,21 @@ export default async function handler(req, res) {
         return;
       }
       const { transactionId, value, currency } = purchase;
-      // The Whop identity is not the browser GA client ID. Source parameters
-      // are diagnostic only until checkout metadata links a consented session.
+      // Only fresh canonical payment metadata may link a consented browser.
+      // A Whop user ID is never a GA client ID. All revenue remains in Whop;
+      // GA purchases are explicitly a consented subset, not the sales ledger.
+      const attribution = verifiedCheckoutAttribution(purchase.checkoutMetadata, {planId, paidAt: purchase.paidAt});
+      if (attribution.skip) {
+        res.status(200).json({ok:true,type,revenue:"verified_whop_payment",ga4:attribution.skip});
+        return;
+      }
       const ga = await sendGa4Purchase({
         measurementId,
         apiSecret,
-        clientId: data.user_id || data.user?.id || undefined,
-        userId: data.user?.id,
+        attribution,
         transactionId,
         value,
         currency,
-        utm,
         productName: data.plan?.product?.name || data.product?.name || data.plan_name || "LiftOffr",
         planId,
       });
@@ -691,7 +699,7 @@ export default async function handler(req, res) {
       // trial_converted RETIRED 2026-08-02 — the trial is dead; renewals on
       // grandfathered subs just log the purchase above, nothing extra.
 
-      console.log(`[whop-webhook] purchase forwarded type=${type} ga4=${ga.status} value=${value} ${currency} utm=${JSON.stringify(utm)}`);
+      console.log(`[whop-webhook] purchase forwarded type=${type} ga4=${ga.status} value=${value} ${currency} attribution=${attribution.status}`);
       res.status(200).json({ ok: true, type, ga4_status: ga.status });
       return;
     }

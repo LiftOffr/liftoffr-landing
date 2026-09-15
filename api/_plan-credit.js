@@ -92,7 +92,8 @@ export async function verifyPlanPayment({ paymentId, apiKey = process.env.WHOP_A
   const eligibility = creditEligibility(payment, await read(`memberships/${membershipId}`));
   if (!eligibility.eligible) return { status: "ineligible", reason: eligibility.reason };
   return { status: "verified", email: eligibility.email, userId: eligibility.userId, paymentId, membershipId,
-    subtotal: payment.subtotal, currency: payment.currency.toUpperCase() };
+    subtotal: payment.subtotal, currency: payment.currency.toUpperCase(),
+    checkoutMetadata: payment.metadata, paidAt: payment.paid_at };
 }
 
 async function listComplete(read, resource) {

@@ -12,8 +12,9 @@
  * from /ig and buying on /plan produced a Whop order with no source on it at all, which is
  * why "did those checkouts come from Instagram or Whop Discover" was unanswerable.
  *
- * Whop records utm_* params against the membership (keys must start with utm_), and
- * api/whop-webhook.js already reads data.utm_source. This is the missing middle.
+ * Ordinary checkout URL UTM persistence has not been verified in a paid order.
+ * The optional consented checkout-context bridge stores signed metadata through
+ * Whop's documented configuration API; this helper alone does not join sales.
  *
  * INCLUDE THIS ON EVERY ENTRY POINT, not only pages that link to Whop. The original
  * rollout added the tag by grepping for 'whop.com', which silently skipped /score,
@@ -173,7 +174,7 @@
     store(rec);
   }
 
-  // Decorate outbound Whop links at click time, so the source reaches the order record.
+  // Decorate outbound Whop links at click time, preserving acquisition tags.
   // The acquired content ID and source outrank placement labels in markup.
   // Placement has its own cta_position field in track.js; replacing an asset ID
   // with 'hero' would erase which content brought the buyer here.

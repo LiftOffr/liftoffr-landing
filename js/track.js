@@ -3,8 +3,9 @@
  * begin_checkout records an outbound checkout-link activation. It does not
  * prove that Whop loaded or that a payment attempt occurred. Payment events
  * come from verified Whop payment records, using their actual subtotal.
- * Browser and payment identities are not currently joined, so do not calculate
- * user-level abandonment or claim purchase attribution from these counts.
+ * Eligible consented checkout clicks can carry verified browser metadata.
+ * These click counts include unjoined visitors, so do not calculate user-level
+ * abandonment or treat all purchases as attributed.
  *
  * DELIBERATE OMISSION: no `value`, no price.
  * ------------------------------------------
@@ -76,8 +77,8 @@
     if (typeof window.track !== 'function') return;   // page has no GA4: say nothing
 
     // Read the utm actually on the outbound URL. After attribution.js has run,
-    // this is the first-touch source that Whop will record against the order,
-    // but a browser-session join still requires matching checkout metadata.
+    // these are acquisition tags on the outbound link. Ordinary query-string
+    // persistence is unverified; a join requires signed checkout metadata.
     // A link click alone does not prove Whop loaded or that payment was attempted.
     var q = {};
     try {

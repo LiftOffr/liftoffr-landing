@@ -3,14 +3,16 @@ import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { Readable } from 'node:stream';
 import webhook from '../api/whop-webhook.js';
+import {createCheckoutMetadata} from '../api/_checkout-attribution.js';
 
-const config = {WHOP_WEBHOOK_SECRET:'fixture-secret',WHOP_API_KEY:'fixture',DISCORD_BOT_TOKEN:'fixture',GA4_MEASUREMENT_ID:'G-FIXTURE',GA4_API_SECRET:'fixture'};
+const config = {WHOP_WEBHOOK_SECRET:'fixture-secret',WHOP_API_KEY:'fixture',DISCORD_BOT_TOKEN:'fixture',GA4_MEASUREMENT_ID:'G-FIXTURE',GA4_API_SECRET:'fixture',CHECKOUT_ATTRIBUTION_SECRET:'fixture-checkout-key-longer-than32-chars'};
 const offers = [
   ['System','plan_WHByzwILskLsc','prod_b4DoR00YHuysT',197],
   ['Playbook','plan_uIpPdsPTSHdTp','prod_qkbRaW1vFT2cM',497],
 ];
 function payment([,plan,product,subtotal]) {
-  return {id:'pay_fixture',status:'paid',subtotal,currency:'usd',refunded_amount:0,refunded_at:null,auto_refunded:false,
+  const metadata = plan === 'plan_WHByzwILskLsc' ? createCheckoutMetadata({planId:plan,consent:'granted',clientId:'123456789.1234567890',sessionId:String(Math.floor(Date.now()/1000)-60),utm:{utm_source:'instagram'},position:'hero'},config.CHECKOUT_ATTRIBUTION_SECRET) : {};
+  return {metadata,paid_at:new Date().toISOString(),id:'pay_fixture',status:'paid',subtotal,currency:'usd',refunded_amount:0,refunded_at:null,auto_refunded:false,
     company:{id:'biz_1PHI81i7fkqRUZ'},plan:{id:plan},product:{id:product},membership:{id:'mem_fixture'},
     user:{id:'user_fixture',discord:{id:'111111111111111111'}}};
 }
@@ -44,10 +46,12 @@ for (const offer of offers) {
     const {res,calls}=await run(offer,{refunded_amount:offer[3],refunded_at:'2026-09-14T00:00:00Z',substatus:'refunded'});
     assert.equal(res.code,200);assert.equal(res.body.revenue,'addon_payment_refunded_disputed_or_unknown');assertNoSideEffects(calls);assert.equal(calls.length,1);
   });
-  test(offer[0]+': fresh verified subtotal supplies GA evidence after verification',async()=>{
+  test(offer[0]+': fresh verification preserves access and only eligible consent metadata reaches GA',async()=>{
     const {res,calls}=await run(offer,{subtotal:offer[3]-10});assert.equal(res.code,200);
-    assert.equal(grants(calls).length,1);assert.equal(purchases(calls).length,1);assert.equal(purchases(calls)[0].params.value,offer[3]-10);
-    assert.ok(calls[0].url.includes('/payments/pay_fixture'));assert.equal(purchases(calls)[0].params.transaction_id,'pay_fixture');
+    assert.equal(grants(calls).length,1);assert.equal(purchases(calls).length,offer[0]==='System'?1:0);
+    if(offer[0]==='System'){assert.equal(purchases(calls)[0].params.value,offer[3]-10);assert.equal(purchases(calls)[0].params.transaction_id,'pay_fixture');}
+    else assert.equal(res.body.ga4,'no_consented_checkout_metadata');
+    assert.ok(calls[0].url.includes('/payments/pay_fixture'));
   });
   test(offer[0]+': unsupported schema never grants from payload alone',async()=>{
     const {res,calls}=await run(offer,{}, {api_version:'v2'});assert.equal(res.code,200);assertNoSideEffects(calls);assert.equal(calls.length,0);
@@ -79,4 +83,8 @@ test('membership activation retains native/addon access behavior without inventi
     const {res,calls}=await run(offer,{}, {type:'membership.activated',data:member});
     assert.equal(res.code,200);assert.equal(grants(calls).length,1);assert.equal(purchases(calls).length,0);assert.ok(!calls.some(c=>c.url.includes('api.whop.com')));
   }
+});
+
+test('System uses only canonical consent metadata, independent of valid access',async()=>{
+ const {res,calls}=await run(offers[0],{metadata:{}});assert.equal(res.code,200);assert.equal(grants(calls).length,1);assert.equal(purchases(calls).length,0);assert.equal(res.body.ga4,'no_consented_checkout_metadata');
 });
