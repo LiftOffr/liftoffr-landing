@@ -77,7 +77,7 @@ const PSUBJECT_0  = "You're in — your plan, and the one thing to do tonight";
 const PSUBJECT_1  = "How to actually place the ladder (10 minutes)";
 const PSUBJECT_3  = "the six times my own model flipped";
 const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
-const PSUBJECT_14 = "Where the founding window stands";
+const PSUBJECT_14 = "Two things before I stop";
 // Review request, D+21. Deliberately AFTER the last sales email so the ask is
 // never bundled with a pitch. Asked of EVERY buyer, not a filtered happy subset
 // — selectively soliciting positive reviews is the 16 CFR 255 problem that took
@@ -205,19 +205,20 @@ function plan14HTML() {
   return planShell("Plan · Day 14 · last dedicated email",
     `<p style="margin:0 0 16px;">Last email in this sequence. After today you're just on the Sunday Score with everyone else.</p>
      <p style="margin:0 0 16px;">Two things worth knowing before I stop:</p>
-     <p style="margin:0 0 14px;"><strong>1. The founding window on The Cycle System.</strong> 50 seats at $147, and a written close date — no timer, no countdown, no "spots going fast" theatre. After it closes the price is $197 and your $29 still credits, permanently. That is the entire offer.</p>
+     <p style="margin:0 0 14px;"><strong>1. The Cycle System.</strong> The framework behind the plan: how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and your $29 still credits toward it, permanently. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system" style="color:#e63946;">What's in it.</a></p>
      <p style="margin:0 0 14px;"><strong>2. If you'd rather I just do it with you.</strong> The Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio, and you leave with the document and the recording. Four a month, because it's my calendar. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook" style="color:#e63946;">Details here.</a></p>
      <p style="margin:0 0 16px;">And if the answer to both is no — that's a normal outcome and the plan you already have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
-    "Claim a founding seat — $147 →", "https://whop.com/checkout/plan_3SEycpErj9Zk7");
+    "See The Cycle System &rarr;", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_button");
 }
 function plan14Text() {
   return ["Last email in this sequence. After today you're on the Sunday Score with everyone else.","",
-    "1. THE FOUNDING WINDOW on The Cycle System: 50 seats at $147 and a written close date — no timer, no countdown, no 'spots going fast' theatre. After it closes the price is $197 and your $29 still credits, permanently.","",
+    "1. THE CYCLE SYSTEM: the framework behind the plan, how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and your $29 still credits toward it, permanently.",
+    "   https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system","",
     "2. IF YOU'D RATHER I DID IT WITH YOU: the Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio. You leave with the doc and the recording. Four a month.",
     "   https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook","",
     "If the answer to both is no, that's a normal outcome — the plan you have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.","",
-    "https://whop.com/checkout/plan_3SEycpErj9Zk7","","— Torin"].join("\n");
+    "— Torin"].join("\n");
 }
 
 function plan21HTML() {

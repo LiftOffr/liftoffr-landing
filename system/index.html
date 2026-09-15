@@ -180,7 +180,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .pricerow .big { font-size: 40px; font-weight: 900; letter-spacing: -1.6px; line-height: 1; }
   .pricerow .sub { color: var(--muted); font-size: 14px; }
-  .founding { color: var(--gold); font-weight: 800; }
   .btn {
     display: block; text-align: center; background: var(--red); color: #fff;
     text-decoration: none; padding: 15px; border-radius: 9px;
@@ -204,7 +203,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <header><a href="/" class="logo">lift<span>offr</span></a></header>
 
-  <div class="status">$197 one-time · $147 founding seat for $29 plan buyers and the email list, closes September 7, 2026</div>
+  <div class="status">$197 one-time · Your $29 plan credits toward it</div>
 
   <h1>The plan tells you what I'm buying. The System is why, and when I'll sell.</h1>
   <p class="lede">One payment. Lifetime updates. The nine components behind every level I publish, where each one has been wrong, and the exit method &mdash; including the part where being early cost me the last leg of 2025.</p>
@@ -230,30 +229,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="card">
     <div class="pricerow">
       <div><div class="big">$197</div><div class="sub">one-time · open now</div><div class="sub" style="color:#d9a441;margin-top:4px;">Read it for 30 days — if it isn&rsquo;t worth it, I refund it</div></div>
-      <div><div class="big founding">$147</div><div class="sub founding">for $29 plan buyers and the email list · closes Sep 7</div></div>
     </div>
     <p class="muted">
-      The founding price is for people who already bought the $29 plan and for the
-      email list — and it closes <strong>September 7, 2026</strong>. The date is the whole
-      constraint. There is no seat cap on it, because nothing here counts seats and I am not
-      going to publish a number I cannot show you. If you own the $29 plan, your $29 counts toward it either way, before
-      and after the window.
-    </p>
-    <p class="muted" id="foundingHow">
-      <strong style="color:#d9a441;">How to get it:</strong> buy the
-      <a href="/plan" style="color:#d9a441;">$29 plan</a> and the founding link is on the
-      thank-you page and in your first email &mdash; or
-      <a href="/free" style="color:#d9a441;">join the free list</a> and it comes to you before
-      the window closes. There is deliberately no $147 button on this page — the founding
-      link lives on the post-purchase page and in the plan-buyer emails. That page is
-      <code>noindex</code> and is not linked from anywhere public, but it is not
-      password-protected, so read this as where I point people rather than as a lock.
-    </p>
-    <p class="muted">
-      <strong style="color:#d9a441;">The date is the date.</strong> There's no countdown
-      timer on this page and no "spots going fast" — September 7 was written down in
-      advance and it will not move. If a deadline slides once, it was never real, and
-      every future one is worth nothing.
+      If you own the <a href="/plan" style="color:#d9a441;">$29 plan</a>, your $29 counts toward it, whenever you decide.
     </p>
     <a href="https://whop.com/checkout/plan_WHByzwILskLsc" class="btn" rel="noopener"
        data-dest="system_checkout" data-cta-slot="price_block">Get The Cycle System — $197, once →</a>
@@ -321,20 +299,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
 </div>
 <script src="/js/reviews.js" defer></script>
-<script>
-/* The founding-seat block states a fixed date. Once that date passes it becomes a
-   false scarcity claim on a page whose whole argument is that the date is real, so
-   it retires itself rather than waiting to be edited. */
-(function(){
-  var CLOSES = Date.UTC(2026, 8, 8); // 8 Sep 2026 00:00 UTC = end of 7 Sep
-  if (Date.now() < CLOSES) return;
-  document.querySelectorAll('.founding').forEach(function(e){ e.style.display = 'none'; });
-  var how = document.getElementById('foundingHow');
-  if (how) how.innerHTML = '<strong style="color:#d9a441;">The founding window closed on 7 September 2026,</strong> ' +
-    'as written. The price is $197. If you own the $29 plan it still credits toward it.';
-  var p = document.querySelector('.pricerow');
-  if (p) p.setAttribute('data-founding','closed');
-})();
-</script>
 </body>
 </html>
