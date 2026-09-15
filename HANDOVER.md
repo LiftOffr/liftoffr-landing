@@ -1,3 +1,14 @@
+## Public offer descriptions reconciled: 2026-09-15
+
+The Plan page's two System cross-references and the weekly email template now
+describe the delivered exit method and blank worksheet for the buyer's own
+fractions. They no longer promise supplied four-tranche percentages. The Plan
+refund section suggests trying the worksheet and reviewing the fallback rule,
+which buyers can do within the review window without waiting for a market event.
+No email was triggered. Checkout links, prices, access and refund terms are unchanged.
+
+---
+
 ## Plan document correction delivered: 2026-09-15
 
 The Plan source now corrects two descriptions: its first three unchanged worksheet

@@ -128,7 +128,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
     <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64, including the ones that went the wrong way &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
 
-    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score &mdash; nine buy tiers, the exit thresholds that put me on alert, and the whipsaw rule? It's $29, once. (The full exit ladder with the fractions is in The Cycle System, and the plan says so on the page rather than after you've paid.)</p>
+    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score &mdash; nine buy tiers, the exit thresholds that put me on alert, and the whipsaw rule? It's $29, once. The Cycle System separately explains how to build your own exit ladder, with a worksheet for choosing your own fractions.</p>
   </div>
 
   <div style="padding:0 28px 32px;">
