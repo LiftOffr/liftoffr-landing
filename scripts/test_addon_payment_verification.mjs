@@ -23,6 +23,7 @@ async function run(offer, changes = {}, eventChanges = {}, apiStatus = 200) {
   globalThis.fetch = async(url, opts = {}) => {
     calls.push({url,method:opts.method || 'GET',body:opts.body ? JSON.parse(opts.body) : undefined});
     if (url === 'https://api.whop.com/api/v1/payments/pay_fixture') return {ok:apiStatus===200,status:apiStatus,json:async()=>canonical};
+    if (url === 'https://api.whop.com/api/v2/memberships/mem_fixture') return {ok:true,status:200,json:async()=>({discord:{id:'111111111111111111'}})};
     if (url.startsWith('https://discord.com/api/v10/guilds/') || url.startsWith('https://www.google-analytics.com/')) return {ok:true,status:204,json:async()=>({})};
     throw new Error('Unexpected test network');
   };
@@ -64,6 +65,13 @@ test('canonical disputed, unknown refund, zero and nonpaid payments do not grant
 });
 test('canonical API outage remains retryable without granting',async()=>{
   const {res,calls}=await run(offers[0],{},{},503);assert.equal(res.code,500);assertNoSideEffects(calls);
+});
+test('v1 payment resolves linked Discord using its nested membership, never its payment id',async()=>{
+  const data={...payment(offers[1]),user:{id:'user_fixture'}};
+  const {res,calls}=await run(offers[1],{}, {data});
+  assert.equal(res.code,200);assert.equal(grants(calls).length,1);
+  assert.equal(calls.filter(c=>c.url.includes('/api/v2/memberships/mem_fixture')).length,1);
+  assert.ok(!calls.some(c=>c.url.includes('/memberships/pay_')));
 });
 test('membership activation retains native/addon access behavior without inventing revenue',async()=>{
   for(const offer of offers) {

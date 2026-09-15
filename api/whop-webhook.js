@@ -195,7 +195,7 @@ function extractDiscordId(data) {
 // from Whop's API (which returns discord.id, as verified 2026-06-09).
 async function fetchDiscordIdFromWhop(membershipId) {
   const key = process.env.WHOP_API_KEY;
-  if (!key || !membershipId) return null;
+  if (!key || !/^mem_[A-Za-z0-9]+$/.test(membershipId || "")) return null;
   try {
     const r = await fetch(`https://api.whop.com/api/v2/memberships/${membershipId}`, {
       headers: { Authorization: `Bearer ${key}` },
@@ -208,7 +208,8 @@ async function fetchDiscordIdFromWhop(membershipId) {
 
 // Resolve the buyer's Discord id from payload, then Whop API as fallback.
 async function resolveDiscordId(data) {
-  return extractDiscordId(data) || (await fetchDiscordIdFromWhop(data.membership_id || data.id));
+  const membershipId = data.membership?.id || (typeof data.membership === "string" ? data.membership : null) || data.membership_id || data.id;
+  return extractDiscordId(data) || (await fetchDiscordIdFromWhop(membershipId));
 }
 
 function extractUsername(data) {
