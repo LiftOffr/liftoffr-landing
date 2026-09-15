@@ -36,6 +36,7 @@ test('verified buyer receives access first and a separate private credit',async(
  assert.equal(sent[1].headers['Idempotency-Key'],'plan-credit-v1-pay_fixture');
  assert.deepEqual(sent[0].body.to,['buyer@example.test']);assert.ok(sent[0].body.html.includes('<a href="https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/"'));
  assert.ok(!sent[0].body.text.includes(promo.code));assert.ok(sent[1].body.text.includes(promo.code));
+ assert.ok(sent[1].body.html.includes('<a href="https://whop.com/checkout/plan_WHByzwILskLsc"'));
  assert.ok(calls.indexOf(sent[0])<calls.findIndex(c=>c.url.includes('/promo_codes?')));
 }));
 test('coupon outage cannot block access; failure remains retryable',async()=>fixture({couponStatus:503},async({request,calls})=>{
