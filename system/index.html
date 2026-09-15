@@ -174,6 +174,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .card ul { list-style: none; }
   .card li { padding: 7px 0 7px 26px; position: relative; color: #d2d2d2; font-size: 15px; }
   .card li::before { content: "→"; position: absolute; left: 0; color: var(--red); font-weight: 800; }
+  .card .learning-path { padding-left: 22px; }
+  .card .learning-path li { padding: 0 0 16px 5px; }
+  .card .learning-path li:last-child { padding-bottom: 0; }
+  .card .learning-path li::before { content: none; }
+  .learning-path strong { display: block; color: #eee; margin-bottom: 3px; }
+  .learning-path span { display: block; color: #aaa; font-size: 13px; }
   .pricerow {
     display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: baseline;
     padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line);
@@ -246,20 +252,45 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="card" style="border-color:rgba(38,208,124,0.35);">
     <h2 style="margin-top:0;">Read it for 30 days. If it isn't worth it, I refund it.</h2>
     <p style="margin-bottom:0;">
-      No form, no reason needed — email me and it's done. That's the whole guarantee, and
-      it's worth saying plainly because most of this category won't offer one: the two
-      biggest paid communities in Bitcoin research are expressly non-refundable. Take the
-      full month, run the ladders against your own numbers, and decide after you've used it.
+      No form, no reason needed. Email me within 30 days and I'll refund it.
+      Use the month to read the lessons, try the exercises and decide whether the material
+      is useful to you. You don't need to place a trade to evaluate the course.
     </p>
   </div>
 
   <h2>What happens after you buy</h2>
   <p>
-    Instant. Your Whop account links to Discord and the <strong>@System</strong> role
-    lands on it — that opens the full course, the resources and Q&amp;A channels, and the Phase
-    Matrix reference sheet. Nothing is drip-fed and nothing is
-    held back for a second purchase.
+    Open The Cycle System in the Whop account you used at checkout, then connect Discord
+    through its Discord app. That connection opens the full course, resources, course
+    questions and Phase Matrix reference sheet. All lessons are available from the start.
   </p>
+
+  <h2 id="learning-path">A clear path through the course</h2>
+  <p>Start with <strong>how-to-use-this-course</strong>. Then use the modules in order,
+    or return to the topic you need. Each stage has something specific to work through.</p>
+  <div class="card">
+    <ol class="learning-path">
+      <li><strong>Understand the foundations and risks</strong>
+        Work through custody, accumulation and market behavior. Identify the assumptions
+        and risks behind a strategy before considering its numbers.
+        <span>Modules 1&ndash;3</span></li>
+      <li><strong>Reproduce the Score</strong>
+        Follow the nine components, weights, arithmetic and divisor rule. Use the
+        reproduce-it-unaided exercise to calculate the number yourself.
+        <span>Module 4</span></li>
+      <li><strong>Read the record and examine the exit method</strong>
+        Work through the historical receipts, whipsaws and exit-ladder worksheet.
+        Distinguish what the backtest shows from what it cannot tell you.
+        <span>Module 5</span></li>
+      <li><strong>Review the longer-term questions</strong>
+        Return to the lessons on multiple cycles, diversification and custody.
+        Bring questions about the material to course-questions.
+        <span>Module 6</span></li>
+    </ol>
+  </div>
+  <p class="muted"><strong style="color:#ddd;">Your first session:</strong> open the course guide,
+    read one lesson, and write down one idea you can explain and one question to revisit.
+    Understanding the material is the first task; buying or selling is not required.</p>
 
   <h2>Should you buy this or the $29 plan?</h2>
   <p>

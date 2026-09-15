@@ -1,3 +1,18 @@
+## Broader seller research and learning-path release: 2026-09-14
+
+Ten additional crypto, community and education sellers were profiled from current
+primary public sources. Research and original filming scripts are private at
+~/Documents/liftoffr-seller-research-2026-09-14/START-HERE.md.
+
+The System page now maps verified Modules 1–6 into four learning stages, gives a
+small first-session task, and accurately explains connecting Discord in Whop.
+Unsupported competitor-size/refund comparisons were removed from System and
+Playbook. Offer prices, checkout destinations, entitlements and refund terms remain.
+Mobile/desktop visual checks, 41-page CTA coverage and product schema checks passed.
+No competitor conversion or revenue result was independently established.
+
+---
+
 ## Revenue and delivery release: 2026-09-14 late night
 
 Current operating notes supersede the historical task list below. Release proof and
