@@ -74,12 +74,14 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   liftoffr.com for Apple Pay on embedded checkout (a Whop-side registration failure), while
   Whop's hosted checkout pages support Apple Pay with no domain verification at all. Every
   purchase CTA is now a plain `https://whop.com/checkout/plan_*` link.
-  **Unproven that Apple Pay works on hosted checkout either** (checked 2026-09-14): Whop's API shows
-  0 completed Apple Pay payments ever, 63 attempts all `open`/`incomplete` (2 of them after this
-  change), none with a card token returned. Card payments complete. Only an iPhone Apple Pay purchase
-  proves it; a card purchase does not.
-  **Apple Pay is switched OFF in Whop** (2026-09-14) on the $29 and $197 plans: plan pricing option >
-  Customize payment methods. Do not list Apple Pay in site copy until it is re-enabled and proven.
+  **Apple Pay is ENABLED** in Whop on the $29 and $197 plans and listed on /plan's payment line
+  (state as of 2026-09-14; toggle: plan pricing option > Customize payment methods). Torin reports
+  Apple Pay working from his own testing.
+  **Open question, unresolved:** Whop's payment records show 0 completed Apple Pay payments ever on
+  the account and 63 Apple Pay attempts left `open`/`incomplete` (2026-08-08..09-01, 2 of them after
+  the hosted-checkout change), none with a card token returned; card payments complete normally. The
+  discrepancy between Torin's test and those records is unexplained. Evidence:
+  `~/jarvis/os/artifacts/checkout-apple-pay-2026-09-14.md`.
 - **$29 plan pricing is fee-adjusted.** Whop adds a 5% buyer service fee, so the Whop price is 27.62 and
   checkout totals $29.00 before tax. Site copy says "$29 at checkout, plus tax where it applies". Changing
   the Whop price means changing that copy and the `api/whop-webhook.js` fallback value in the same deploy.
