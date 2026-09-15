@@ -78,6 +78,11 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   0 completed Apple Pay payments ever, 63 attempts all `open`/`incomplete` (2 of them after this
   change), none with a card token returned. Card payments complete. Only an iPhone Apple Pay purchase
   proves it; a card purchase does not.
+  **Apple Pay is switched OFF in Whop** (2026-09-14) on the $29 and $197 plans: plan pricing option >
+  Customize payment methods. Do not list Apple Pay in site copy until it is re-enabled and proven.
+- **$29 plan pricing is fee-adjusted.** Whop adds a 5% buyer service fee, so the Whop price is 27.62 and
+  checkout totals $29.00 before tax. Site copy says "$29 at checkout, plus tax where it applies". Changing
+  the Whop price means changing that copy and the `api/whop-webhook.js` fallback value in the same deploy.
   The `.well-known` file and its `vercel.json` headers block are kept regardless, so
   restoring embedded checkout is a one-commit change if Whop ever fixes their side.
   This note used to live in an HTML comment on both pages and shipped to production, where
