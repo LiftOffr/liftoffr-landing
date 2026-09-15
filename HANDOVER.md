@@ -1,3 +1,24 @@
+## Product demonstration asset and buyer workbook: 2026-09-15
+
+`/media/plan-override-log-20260915.mp4` is an original 20-second vertical product
+preview, built solely from the public cover and public override-log excerpt.
+Its worksheet entry is explicitly illustrative. No paid interior or private
+execution data is included. The 1080x1920 H.264 export has 600 decoded frames;
+source, captions, transcript and visual QA are in the private today-product-demo
+folder under ~/Documents/liftoffr-next-pass-2026-09-15/. Hosting the asset does not
+establish that any social post was published; consult that folder's current status.
+
+System buyers now have a two-page fillable exit worksheet attached to the existing
+course-resources message 1540551985168650251. Its 27 fields are blank, and its
+independent download matches the reviewed PDF. The Phase Matrix remains attached;
+course access and all unrelated message fields were preserved. No new message
+or mention was sent. The Whop System description also now lists all nine
+components, including Trolololo, with price and experience access unchanged.
+Private evidence: today-buyer-value/publication-verification.json and
+operations/whop-system-publication-verification.json in the follow-up folder.
+
+---
+
 ## Public offer descriptions reconciled: 2026-09-15
 
 The Plan page's two System cross-references and the weekly email template now
