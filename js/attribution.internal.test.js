@@ -195,18 +195,16 @@ test('[guard] www referrer counts as same-host', () => {
   eq(r.utm_source, 'google.com', 'utm_source');
 });
 
-test('[guard] internal arrival still sets first touch when there is no record yet', () => {
-  // Nothing stored means we genuinely have no better information; a typed /checklist
-  // really is the first thing we know about this person. This is live behaviour and
-  // the guard must not regress it.
+test('[guard] typed internal redirect creates a placeholder, not a campaign', () => {
+  // A placement label says where a click happened, not who acquired the visitor.
   const s = newSession();
   const r = s.visit({
     pathname: '/quiz',
     search: '?utm_source=liftoffr&utm_medium=redirect&utm_content=from_checklist',
     referrer: ''
   }).record();
-  eq(r.utm_source, 'liftoffr', 'utm_source');
-  eq(r.utm_medium, 'redirect', 'utm_medium');
+  eq(r.utm_source, 'direct', 'utm_source');
+  eq(r.utm_medium, 'none', 'utm_medium');
 });
 
 test('[guard] a blocked internal arrival records no upgraded_from', () => {

@@ -1,3 +1,22 @@
+## Release update: 2026-09-14 evening
+
+Torin approved the system improvement rollout ("Just auto approve everything").
+The release fixes internal attribution, signed unsubscribe handling and email headers,
+buy-plan enrollment, conservative Discord access revocation, and buyer welcome copy.
+It excludes development utilities from public deployment. Pricing, payment methods,
+cron schedules, Apple domain verification and personal DCA behavior are unchanged.
+
+Private release evidence and remaining work:
+~/Documents/liftoffr-improvements-2026-09-14/README.md
+~/Documents/liftoffr-improvements-2026-09-14/reports/release-status.json
+
+The older notes below are historical. Current live checks show Free and Plan Buyers
+audiences exist, while Quiz audience variables are unset. Apple payment-record
+discrepancy, PLANCREDIT fulfillment, webhook-wide deduplication and course source
+reconciliation remain open. Do not use earlier statements as current configuration.
+
+---
+
 # LiftOffr — what to do next
 
 Written 20 Aug 2026. Everything below is either **yours to do** (needs your accounts or your

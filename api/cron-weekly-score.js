@@ -1,3 +1,4 @@
+import { unsubscribeHeaders } from "./_email-preferences.js";
 // Weekly LiftOffr Score email cron.
 //
 // Vercel cron config (vercel.json) calls this DAILY. We bail early on non-Sundays
@@ -345,8 +346,6 @@ async function sendResend(to, subject, text, html, idempotencyKey) {
     Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
     "Content-Type": "application/json",
     "User-Agent": "liftoffr-weekly-score/1.0",
-    "List-Unsubscribe": `<${uu}>`,
-    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
   };
   if (idempotencyKey) headers["Idempotency-Key"] = idempotencyKey;
   const r = await fetch("https://api.resend.com/emails", {
@@ -354,6 +353,7 @@ async function sendResend(to, subject, text, html, idempotencyKey) {
     headers,
     body: JSON.stringify({
       from: FROM_ADDRESS,
+      headers: unsubscribeHeaders(uu),
       to: [to],
       reply_to: REPLY_TO,
       subject,

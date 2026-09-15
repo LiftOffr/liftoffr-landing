@@ -1,3 +1,4 @@
+import { unsubscribeHeaders } from "./_email-preferences.js";
 // Welcome sequence follow-up cron — Day 3 and Day 7 emails.
 //
 // Vercel cron config (vercel.json) calls this DAILY (Hobby plan: 1 run/day). We compute each contact's
@@ -845,8 +846,10 @@ async function fetchContacts() {
   const r = await fetch(`https://api.resend.com/audiences/${aud}/contacts`, {
     headers: { Authorization: `Bearer ${key}`, Accept: "application/json" },
   });
+  if (!r.ok) throw new Error(`Resend contact list failed (${r.status})`);
   const data = await r.json();
-  return (data.data || []).filter((c) => c.email && !c.unsubscribed);
+  if (!Array.isArray(data.data)) throw new Error("Resend returned an invalid contact list");
+  return data.data.filter((c) => c.email && !c.unsubscribed);
 }
 
 async function fetchAudience(aud) {
@@ -854,8 +857,10 @@ async function fetchAudience(aud) {
   const r = await fetch(`https://api.resend.com/audiences/${aud}/contacts`, {
     headers: { Authorization: `Bearer ${key}`, Accept: "application/json" },
   });
+  if (!r.ok) throw new Error(`Resend contact list failed (${r.status})`);
   const data = await r.json();
-  return (data.data || []).filter((c) => c.email && !c.unsubscribed);
+  if (!Array.isArray(data.data)) throw new Error("Resend returned an invalid contact list");
+  return data.data.filter((c) => c.email && !c.unsubscribed);
 }
 
 async function sendResend({ to, subject, text, html, idempotencyKey, tag, campaign = "welcome" }) {
@@ -872,11 +877,10 @@ async function sendResend({ to, subject, text, html, idempotencyKey, tag, campai
       "Content-Type": "application/json",
       "Idempotency-Key": idempotencyKey,
       "User-Agent": "liftoffr-welcome-followup/1.0",
-      "List-Unsubscribe": `<${uu}>`,
-      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
     },
     body: JSON.stringify({
       from: FROM_ADDRESS,
+      headers: unsubscribeHeaders(uu),
       to: [to],
       reply_to: REPLY_TO,
       subject,
@@ -965,7 +969,7 @@ async function dcaWatchdog(baseUrl) {
 export default async function handler(req, res) {
   const expected = process.env.CRON_SECRET;
   const got = req.headers["authorization"] || "";
-  const authed = !expected || got === `Bearer ${expected}`;
+  const authed = Boolean(expected) && got === `Bearer ${expected}`;
 
   // Preview mode — render any email as HTML (no send). For QA/review.
   // Was unauthenticated, which published every template — including the retired

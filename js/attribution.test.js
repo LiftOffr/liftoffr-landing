@@ -50,8 +50,8 @@ function newSession(seedRecord) {
 
     const sandbox = {
       localStorage: {
-        getItem(k) { return Object.prototype.hasOwnProperty.call(storage, k) ? storage[k] : null; },
-        setItem(k, v) { storage[k] = String(v); },
+        getItem(k) { if (opts.storageBlocked) throw new Error('storage blocked'); return Object.prototype.hasOwnProperty.call(storage, k) ? storage[k] : null; },
+        setItem(k, v) { if (opts.storageBlocked) throw new Error('storage blocked'); storage[k] = String(v); },
         removeItem(k) { delete storage[k]; }
       },
       location: location,
@@ -355,6 +355,68 @@ test('[upgrade] end-to-end: direct visit then Instagram DM click reaches Whop as
   eq(q(href, 'utm_source'), 'instagram', 'utm_source');
   eq(q(href, 'utm_medium'), 'dm', 'utm_medium');
   ok(href.indexOf('plan_MntgjXJaQnGsW') !== -1, 'plan id preserved');
+});
+
+
+test('[v5] blocked storage still decorates a checkout on the landing page', () => {
+  const p = newSession().visit({ search: '?utm_source=instagram&utm_medium=bio', storageBlocked: true });
+  eq(q(p.click(WHOP), 'utm_source'), 'instagram');
+});
+
+test('[v5] internal first landing does not trap a later tagged acquisition', () => {
+  const s = newSession();
+  s.visit({ search: '?utm_source=liftoffr&utm_medium=redirect' });
+  const p = s.visit({ search: '?utm_source=instagram&utm_medium=dm' });
+  eq(q(p.click(WHOP), 'utm_source'), 'instagram');
+});
+
+test('[v5] legacy internal records can be repaired by a real acquisition', () => {
+  const s = newSession({ utm_source: 'liftoffr', utm_medium: 'homepage', first_seen: '2026-08-01' });
+  const p = s.visit({ search: '?utm_source=instagram&utm_medium=bio' });
+  eq(q(p.click(WHOP), 'utm_source'), 'instagram');
+  eq(p.record().first_seen, '2026-08-01');
+});
+
+test('[v5] an unrepaired legacy internal record is not sent as an acquisition', () => {
+  const s = newSession({ utm_source: 'cycle', utm_medium: 'topbar', first_seen: '2026-08-01' });
+  const p = s.visit({});
+  const href = p.click(WHOP + '?utm_source=liftoffr&utm_medium=playbook&utm_content=hero');
+  eq(q(href, 'utm_source'), null);
+  eq(q(href, 'utm_medium'), null);
+  eq(q(href, 'utm_content'), 'hero');
+});
+
+test('[v5] source-less first arrival does not trap a later acquisition', () => {
+  const s = newSession();
+  s.visit({ search: '?utm_campaign=orphan' });
+  const p = s.visit({ search: '?utm_source=youtube&utm_medium=bio' });
+  eq(q(p.click(WHOP), 'utm_source'), 'youtube');
+});
+
+test('[v5] malformed storage is replaced with valid landing attribution', () => {
+  for (const seed of ['oops', 9, true, []]) {
+    const s = newSession(seed);
+    const p = s.visit({ search: '?utm_source=instagram&utm_medium=bio' });
+    eq(q(p.click(WHOP), 'utm_source'), 'instagram');
+  }
+});
+
+test('[v5] a referrer containing our domain in its query is still external', () => {
+  const p = newSession().visit({ referrer: 'https://google.com/search?q=liftoffr.com' });
+  eq(p.record().utm_source, 'google.com');
+});
+
+test('[v5] www navigation is internal even with legacy placement tags', () => {
+  const p = newSession().visit({ referrer: 'https://www.liftoffr.com/', search: '?utm_source=liftoffr&utm_medium=nav' });
+  eq(p.record(), null);
+});
+
+test('[v5] from placement does not overwrite an Instagram acquisition', () => {
+  const s = newSession();
+  s.visit({ search: '?utm_source=instagram&utm_medium=bio' });
+  const p = s.visit({ pathname: '/plan', search: '?from=nav', referrer: 'https://liftoffr.com/' });
+  eq(q(p.click(WHOP), 'utm_source'), 'instagram');
+  eq(q(p.click(WHOP), 'from'), null);
 });
 
 /* ------------------------------------------------------------------ report -- */

@@ -1,4 +1,8 @@
-/* LiftOffr first-touch attribution.  v4 — 2026-08-25
+/* LiftOffr first-touch attribution. v5 - 2026-09-14
+ *
+ * v5: internal navigation uses ?from=, never acquisition UTMs. Legacy internal
+ * records remain upgradeable; malformed/unavailable storage cannot block checkout
+ * attribution on the current page. The v4 history below describes the earlier fix.
  *
  * Why this exists: the site had a shortlink layer (/ig, /yt, /clip -> /links?utm_source=...)
  * and a click tracker that fired a GA4 event, but nothing carried the source across an
@@ -76,9 +80,17 @@
   // it moved somebody we already had from one page to another. Compared lower-case.
   var INTERNAL_SOURCES = ['liftoffr', 'cycle'];
 
-  function store(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} }
+  var pageRecord = null;
+  function store(o) {
+    pageRecord = o;
+    try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {}
+  }
   function load() {
-    try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; }
+    if (pageRecord) return pageRecord;
+    try {
+      var rec = JSON.parse(localStorage.getItem(KEY) || 'null');
+      return rec && typeof rec === 'object' && !Array.isArray(rec) ? rec : null;
+    } catch (e) { return null; }
   }
 
   function host(u) {
@@ -91,7 +103,8 @@
   // first touch and is permanent.
   function isPlaceholder(rec) {
     if (!rec) return false;
-    return rec.utm_source === 'direct' || rec.utm_medium === 'referral';
+    return !rec.utm_source || rec.utm_source === 'direct' || rec.utm_medium === 'referral' ||
+      INTERNAL_SOURCES.indexOf(String(rec.utm_source).toLowerCase()) !== -1;
   }
 
   // Did this click start off-site? Two independent tests, either of which is enough to
@@ -138,14 +151,14 @@
       return;
     }
 
-    // No record yet: original first-touch behaviour, unchanged.
+    // Internal placements and orphan tags cannot identify an acquisition.
+    if (tagged && (!tagged.utm_source || isInternalArrival(tagged))) tagged = null;
     var rec = tagged || {};
     if (!tagged) {
       // No tags. Derive what we honestly can from the referrer; anything else is direct.
       var r = document.referrer || '';
-      if (r && r.indexOf(location.hostname) === -1) {
-        var h = host(r);
-        if (!h) return;
+      var h = host(r);
+      if (r && h && h !== String(location.hostname || '').replace(/^www\./, '').toLowerCase()) {
         rec.utm_source = h; rec.utm_medium = 'referral';
       } else if (r) {
         return; // internal navigation with no tags: leave unset, a later landing may tag it
@@ -170,8 +183,10 @@
     var u;
     try { u = new URL(a.getAttribute('href'), location.href); } catch (e) { return; }
     if (!/(^|\.)whop\.com$/.test(u.hostname)) return;
+    var legacyInternal = INTERNAL_SOURCES.indexOf(String(rec.utm_source || '').toLowerCase()) !== -1;
     ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (f) {
-      if (rec[f]) u.searchParams.set(f, rec[f]);
+      if (legacyInternal) u.searchParams.delete(f);
+      else if (rec[f]) u.searchParams.set(f, rec[f]);
     });
     if (!u.searchParams.get('utm_content') && rec.utm_content) {
       u.searchParams.set('utm_content', rec.utm_content);

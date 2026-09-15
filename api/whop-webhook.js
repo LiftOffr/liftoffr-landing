@@ -1,3 +1,4 @@
+import { ensureAudienceContact } from "./_email-preferences.js";
 // Whop webhook → GA4 Measurement Protocol bridge + churn ops alerts.
 //
 // Handles:
@@ -19,6 +20,7 @@
 // Vercel auto-routes this file to /api/whop-webhook (Node serverless).
 
 import crypto from "node:crypto";
+import { isFinalAccessEvent, roleRevocationDecision, fetchMembershipSnapshot } from "./_whop-access.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -155,6 +157,11 @@ const PLAN_ADDON = {
   plan_uIpPdsPTSHdTp: "playbook", // $497 Cycle Playbook 1:1
 };
 
+const ROLE_BY_PLAN = Object.fromEntries([
+  ...Object.entries(PLAN_TIER).map(([id, tier]) => [id, TIER_ROLES[tier]]),
+  ...Object.entries(PLAN_ADDON).map(([id, addon]) => [id, ADDON_ROLES[addon]]),
+]);
+
 async function applyAddonRole(botToken, discordId, planId, add = true) {
   if (!botToken || !discordId) return { skipped: "no bot token or discord id" };
   const addon = PLAN_ADDON[planId];
@@ -241,15 +248,46 @@ async function applyTierRole(botToken, discordId, planId) {
   return out;
 }
 
-// On churn/expiry (incl. cardless-trial day-7 expiry), remove all tier roles.
-async function clearTierRoles(botToken, discordId) {
-  if (!botToken || !discordId) return { skipped: "no bot token or discord id" };
-  const out = {};
-  for (const [name, rid] of Object.entries(TIER_ROLES)) {
-    try { out[name] = await setDiscordRole(botToken, discordId, rid, false); }
-    catch (e) { out[name] = e?.message || String(e); }
+// A payment attempt or scheduled cancellation is not an access revocation.
+// Verify remaining Whop entitlements and preserve independent Discord grants.
+async function reconcileRoleRevocation(type, data, event) {
+  const planId = data.plan?.id || data.plan_id || (typeof data.plan === "string" ? data.plan : null);
+  const roleId = ROLE_BY_PLAN[planId];
+  if (!isFinalAccessEvent(type) || !roleId) {
+    return roleRevocationDecision({ eventType: type, planId, roleByPlan: ROLE_BY_PLAN });
   }
-  return out;
+  // Manually granted System access is documented but has no grant provenance.
+  if (roleId === ADDON_ROLES.system) return { action: "review", reason: "manual_system_grants", roleId };
+  const botToken = process.env.DISCORD_BOT_TOKEN;
+  if (!botToken) throw new Error("Discord credentials are required before role revocation");
+  const discordId = await resolveDiscordId(data);
+  if (!discordId) throw new Error("Discord identity is unavailable for access verification");
+  const discordHeaders = { Authorization: `Bot ${botToken}`, "User-Agent": "DiscordBot (liftoffr.com, 1.0)" };
+  const memberResponse = await fetch(`https://discord.com/api/v10/guilds/${DISCORD_GUILD_ID}/members/${discordId}`, { headers: discordHeaders });
+  if (memberResponse.status === 404) return { action: "keep", reason: "member_absent" };
+  if (!memberResponse.ok) throw new Error(`Discord membership lookup failed (${memberResponse.status})`);
+  const member = await memberResponse.json();
+  if (!Array.isArray(member.roles)) throw new Error("Discord member roles are unavailable");
+  if (!member.roles.includes(roleId)) return { action: "keep", reason: "role_already_absent" };
+  const rolesResponse = await fetch(`https://discord.com/api/v10/guilds/${DISCORD_GUILD_ID}/roles`, { headers: discordHeaders });
+  if (!rolesResponse.ok) throw new Error(`Discord role inventory failed (${rolesResponse.status})`);
+  const roles = await rolesResponse.json();
+  if (!Array.isArray(roles)) throw new Error("Discord role inventory is invalid");
+  const founding = roles.filter(role => role.name === "Founding Circle");
+  if (founding.length !== 1) throw new Error("Grandfathered Discord role could not be uniquely verified");
+  if (member.roles.includes(founding[0].id)) return { action: "review", reason: "grandfathered_discord_grant", roleId };
+  const userId = data.user?.id || data.user_id;
+  const membershipId = data.membership_id || (typeof data.membership === "string" ? data.membership : data.membership?.id) || data.id;
+  const snapshot = await fetchMembershipSnapshot({
+    companyId: data.company?.id || data.company_id || event.company_id || process.env.WHOP_COMPANY_ID || "biz_1PHI81i7fkqRUZ",
+    userId, apiKey: process.env.WHOP_API_KEY,
+  });
+  const decision = roleRevocationDecision({ eventType: type, planId, userId, membershipId, roleByPlan: ROLE_BY_PLAN, snapshot });
+  if (decision.action === "remove") {
+    const status = await setDiscordRole(botToken, discordId, decision.roleId, false);
+    if (status !== 204 && status !== 404) throw new Error(`Discord role removal failed (${status})`);
+  }
+  return decision;
 }
 
 async function postPublicWelcome(botToken, channelId, discordId, username) {
@@ -355,7 +393,7 @@ async function postNewMemberAlert(webhookUrl, eventType, data) {
 
 // Post a churn-event alert to a Discord webhook so the operator can act fast
 // (eg failed-payment recovery DM, save-offer outreach).
-async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
+async function postChurnAlertToDiscord(webhookUrl, eventType, data, roleResult) {
   const labels = {
     "payment.failed": "🔴 Payment failed",
     "membership.went_invalid": "⚠️ Membership invalid (cancel or failed payment)",
@@ -381,6 +419,7 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data) {
     reason ? `• Reason: ${reason}` : null,
     utmSource ? `• Original source: ${utmSource}` : null,
     ``,
+    roleResult ? `**Discord access:** ${roleResult.action} (${roleResult.reason})` : "",
     `[View in Whop](https://dash.whop.com/memberships)`,
   ]);
 }
@@ -564,28 +603,18 @@ export default async function handler(req, res) {
         }
       }
 
-      // $29 plan buyers → Resend "Plan Buyers" audience for the D0/1/3/7/14
-      // onboarding sequence. Gated on RESEND_PLAN_AUDIENCE_ID, which IS set in
-      // Production as of 2026-08-20, so this path is live rather than a no-op.
-      // If a $29 buyer is not landing in the sequence, check this write first.
-      if (PLAN_ADDON[planId]) {
+      // Only the buy-plan purchase enters Plan Buyers. Existing preferences
+      // survive duplicate payment/membership events; failures remain retryable.
+      if (PLAN_ADDON[planId] === "plan") {
         const planAud = process.env.RESEND_PLAN_AUDIENCE_ID;
         const resendKeyP = process.env.RESEND_API_KEY;
         const buyerEmail = data.user?.email || data.email;
         if (planAud && resendKeyP && buyerEmail) {
-          try {
-            await fetch(`https://api.resend.com/audiences/${planAud}/contacts`, {
-              method: "POST",
-              headers: { Authorization: `Bearer ${resendKeyP}`, "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: buyerEmail,
-                first_name: (data.user?.username || data.user?.name || "").split(" ")[0] || undefined,
-                unsubscribed: false,
-              }),
-            });
-          } catch (e) {
-            console.warn("[whop-webhook] plan audience add failed:", e?.message || e);
-          }
+          await ensureAudienceContact(planAud, {
+            email: buyerEmail,
+            first_name: (data.user?.username || data.user?.name || "").split(" ")[0] || undefined,
+            unsubscribed: false,
+          }, resendKeyP);
         }
       }
 
@@ -633,23 +662,9 @@ export default async function handler(req, res) {
     }
 
     if (isChurn) {
-      // Strip tier roles on churn/expiry (cardless-trial day-7 expiry lands here too)
-      const churnBot = process.env.DISCORD_BOT_TOKEN;
-      if (churnBot) {
-        try {
-          if (PLAN_ADDON[planId]) {
-            // Addon plan (e.g. $29 buy plan) refunded/invalidated: remove ONLY the
-            // addon role. The member's tier subscription, if any, is untouched.
-            const rm = await applyAddonRole(churnBot, await resolveDiscordId(data), planId, false);
-            console.log(`[whop-webhook] addon churn: ${JSON.stringify(rm)}`);
-          } else {
-            const clr = await clearTierRoles(churnBot, await resolveDiscordId(data));
-            console.log(`[whop-webhook] cleared tier roles: ${JSON.stringify(clr)}`);
-          }
-        } catch (e) {
-          console.warn("[whop-webhook] clear/addon roles on churn failed:", e?.message || e);
-        }
-      }
+      // An unverifiable removal remains retryable, with access preserved.
+      const roleResult = await reconcileRoleRevocation(type, data, event);
+      console.log(`[whop-webhook] access reconciliation: ${JSON.stringify(roleResult)}`);
 
       // Send GA4 event so we can build retention reports
       if (measurementId && apiSecret) {
@@ -676,7 +691,7 @@ export default async function handler(req, res) {
       const opsWebhook = process.env.DISCORD_OPS_WEBHOOK;
       if (opsWebhook) {
         try {
-          await postChurnAlertToDiscord(opsWebhook, type, data);
+          await postChurnAlertToDiscord(opsWebhook, type, data, roleResult);
         } catch (e) {
           console.warn("[whop-webhook] discord ops alert failed:", e?.message || e);
         }

@@ -36,5 +36,5 @@ product/
 # Test harnesses for js/attribution.js — never deploy.
 js/*.test.js
 
-# Dev utilities, not part of the site.
-scripts/*.js
+# Dev utilities and offline tests, not part of the public site.
+scripts/
