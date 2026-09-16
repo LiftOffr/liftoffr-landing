@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "gc93viz0-7c",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Dubious Speculation",
+    "published": "2026-09-16T09:37:09+00:00",
+    "processed_at": "2026-09-16T10:20:50.535256+00:00",
+    "url": "https://www.youtube.com/watch?v=gc93viz0-7c",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      79000,
+      74000,
+      73000,
+      70000
+    ],
+    "indicators_mentioned": [
+      "Golden Cross",
+      "Death Cross",
+      "Bull Market Support Band",
+      "ISM"
+    ],
+    "key_points": [
+      "Golden crosses historically precede corrections of 10-15% even when the cycle low is already in, as seen in 2019 and 2023",
+      "In bear-market continuation cases like 2014 and 2015, golden crosses marked local tops followed by 50-60% declines",
+      "A drop to the 70-75K range would be consistent with a healthy bull market correction similar to 2019 and 2023",
+      "The key signal is whether a bounce from the 70-75K zone forms a higher high (bullish, similar to 2019/2023) or a lower high (bearish, similar to 2014/2015)",
+      "The comparison to 2014 is reinforced by the prior correct call that rising ISM would coincide with falling Bitcoin, mirroring 2014 conditions"
+    ],
+    "summary": "Bitcoin's recent golden cross historically precedes a correction, with 10-15% pullbacks common even in ongoing bull markets, pointing to a likely drop into the 70-75K range. The critical distinction going forward is whether the subsequent bounce establishes a higher high, supporting the bull case, or a lower high, which would echo the 2014-2015 bear market pattern and suggest the cycle low is still ahead."
+  },
+  {
     "video_id": "3BL-YrZxTZI",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1471,39 +1503,5 @@ export default [
     "indicators_mentioned": [],
     "key_points": [],
     "summary": "This transcript contains no Bitcoin market analysis. The content focuses exclusively on gold price dynamics, seasonality patterns, and historical corrections within gold bull markets."
-  },
-  {
-    "video_id": "Di8YR9nX8Q8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Using On-Chain Metrics To Identify Market Cycle Bottoms",
-    "published": "2026-06-12T03:21:52+00:00",
-    "processed_at": "2026-06-12T04:39:07.297534+00:00",
-    "url": "https://www.youtube.com/watch?v=Di8YR9nX8Q8",
-    "outlook": "bullish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Percentage of Supply in Profit and Loss",
-      "MVRV Z-score",
-      "Risk Metric",
-      "Appeal Multiple",
-      "MVRV Score",
-      "Miner Cap to Thermal Cap Ratio",
-      "Transaction Fees",
-      "Market Cap to Thermal Cap Ratio",
-      "Terminal Price",
-      "R Huddle Ratio",
-      "Onchain Risk Metric"
-    ],
-    "key_points": [
-      "Onchain risk metric currently at 0.198, historically low levels occur in midterm years and precede major accumulation opportunities and bull markets",
-      "Bitcoin is entering the third and final stage of the bear market with expected bottom likely in 2024, particularly October, based on percentage of supply in profit/loss crossing patterns",
-      "Current cycle mirrors 2019 dynamics: apathetic top with no altcoin rotation, Bitcoin dominance increase, and top occurring before quantitative tightening ended\u2014suggesting post-top digestion phase underway",
-      "Onchain risk metrics are expected to carve out a low lasting several months before the next bull market begins, providing accumulation windows independent of news and macro events",
-      "If current dynamics match 2019-2020 pattern, subsequent bull market could produce more euphoric highs than recent cycle"
-    ],
-    "summary": "Onchain risk metrics indicate Bitcoin is in the final stage of bear market consolidation with bottom likely occurring by end of year. Current risk levels at 0.198 are historically low and typically precede major bull market initiation. The 2019 cycle parallel suggests an extended accumulation window is forming before the next significant uptrend begins."
   }
 ];
