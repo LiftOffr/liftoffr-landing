@@ -29,7 +29,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 | `/cycle` | PUBLIC live cycle dashboard (gauge, Four Pillars, indicators) |
 | `/track-record` | backtest proof: $50/wk → $1.88M vs $217K DCA, +7,602%, 417 start dates |
 | `/playbook` | $497 Cycle Playbook 1:1 sales page (indexed since 2026-08-16, 4 spots/month; linked from home footer + ladder, /plan, /faq, /links, /system, /welcome-plan) |
-| `/system` | $197 "The Cycle System" sales page (noindex — warm list only; $147 founding, 50 seats) |
+| `/system` | $197 "The Cycle System" sales page (noindex — warm list only; founding offer retired; stock 0) |
 | `/blog/*` | 9 indicator SEO posts |
 | `/welcome` | generic post-checkout success → Discord |
 | `/plan` | $29 one-time "My Bear Market Buy Plan" sales page (plan_MntgjXJaQnGsW) |
@@ -38,7 +38,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 | `/dashboard` | PRIVATE (basic-auth) founder dashboard |
 
 ## Funnel wiring (post-pivot 2026-08-02 — truth: LIFTOFFR_MASTER_PLAN.md)
-- Offer ladder: FREE (/free: open Discord + Sunday Score) → $29 one-time "My Bear Market Buy Plan" `plan_MntgjXJaQnGsW` (/plan) → $197 one-time "The Cycle System" `plan_WHByzwILskLsc` (/system; $147 founding = `plan_3SEycpErj9Zk7`, hidden, 50 seats, closes Sep 7) → $497 "The Cycle Playbook" 1:1 `plan_uIpPdsPTSHdTp` (/playbook). All four verified live against the Whop API 2026-08-11.
+- Offer ladder: FREE (/free: open Discord + Sunday Score) → $29 one-time "My Bear Market Buy Plan" `plan_MntgjXJaQnGsW` (/plan) → $197 one-time "The Cycle System" `plan_WHByzwILskLsc` (/system; $147 founding = `plan_3SEycpErj9Zk7`, retired with stock 0 September 14) → $497 "The Cycle Playbook" 1:1 `plan_uIpPdsPTSHdTp` (/playbook). All four verified live against the Whop API 2026-08-11.
 - DEAD (grandfathered only, hidden in Whop): Core/Pro/Elite subs, 7-day trial, annual plans. `/start` and `/join` now redirect to `/plan`.
 - Whop webhook (`api/whop-webhook.js`) assigns @Plan addon role + legacy tier roles + fires GA4 purchase (item_id per plan) + adds $29 buyers to Resend "Plan Buyers" audience. Trial paths are hard-retired no-ops.
 - Email: Resend — free nurture (D1/3/5/7/18, re-aimed at the $29 plan), Sunday Score. Trial nurture RETIRED (hard-disabled in code). Crons in vercel.json (Hobby = 1/day per cron max — hourly schedules break ALL deploys).
@@ -126,7 +126,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 - Loud CTAs = solid red. Proof accents = green. Apple-level hierarchy: big numbers, generous whitespace.
 
 ## Brand voice (see BRAND_VOICE.md if present)
-- First-person "I" (Torin). Story-driven: 2017 mining rig (Minnesota, caught fire) → $30K round-trip loss 2022 "between two college classes" → DCA'd out clean at the Oct 6 2025 top ($124,824 — canonical anchor).
+- First-person "I" (Torin). Story-driven: 2017 mining rig (Minnesota, caught fire) → $30K round-trip loss 2022 "between two college classes" → personal exits began after June 27, 2025; unaudited and not a claim of selling the October top.
 - Anti-influencer, anti-leverage, anti-hype. Data + receipts, not lambos-and-hopium. Hardware-wallet custody discipline non-negotiable.
 - No AI filler ("moreover", "furthermore"). No fabricated testimonials/results. No "guaranteed returns" or price predictions as certainty — education framing, "not financial advice."
 - Exception: single-slide IG "banger" proof drops get cocky Tate-coded edge (asymmetry flex). Site/course/email copy stays grounded.

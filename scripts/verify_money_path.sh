@@ -27,7 +27,7 @@ echo "=== Checkout anchors still present in the markup ==="
 # cta_clicked selector string, which now contains that literal on every page that
 # carries the listener -- that inflated every count by one and would have masked a
 # genuinely deleted anchor by making the remaining ones add up to the old total.
-expected_pg="/:0 plan:4 system:1 playbook:4 welcome-plan:1"
+expected_pg="/:0 plan:4 system:1 playbook:4 welcome-plan:0"
 anchors_ok=1
 for pair in $expected_pg; do
   pg="${pair%%:*}"; want="${pair##*:}"
@@ -41,6 +41,11 @@ for pair in $expected_pg; do
     anchors_ok=0
   fi
 done
+# The access guide deliberately has no upsell; verify its actual document link instead.
+if ! curl -fsS "https://liftoffr.com/welcome-plan" | grep -q 'href="https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/"'; then
+  echo "  /welcome-plan document access link missing"
+  anchors_ok=0
+fi
 [ "$anchors_ok" = "1" ] && echo "CHECKOUT ANCHORS: PASS" || echo "CHECKOUT ANCHORS: *** FAIL ***"
 
 echo

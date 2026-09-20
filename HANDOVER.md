@@ -1,3 +1,16 @@
+## Website content reconciliation: September 20, 2026
+
+Authorized by Torin: correct offer descriptions and publish. The homepage now has an early
+Free / Plan / System comparison. Plan has a user-controlled, silent worksheet demo trimmed
+from the already-public September 15 asset; text equivalent included. No paid interior is exposed.
+FAQ, System, link hub and onboarding describe the delivered document/course/workbook distinctly.
+Removed unsupported timing/readership claims and clarified historical model provenance.
+Playbook disclosure distinguishes public research from the private educational session.
+Checkout links, payment settings, prices, entitlement logic and refund policies are unchanged.
+Private review and release evidence: ~/Documents/liftoffr-site-review-2026-09-20/.
+
+---
+
 ## Product demonstration asset and buyer workbook: 2026-09-15
 
 `/media/plan-override-log-20260915.mp4` is an original 20-second vertical product
