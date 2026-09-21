@@ -1,5 +1,9 @@
 #!/bin/bash
-# Post-deploy money-path + tracking verification. Never let these regress.
+# Post-deploy HTTP/markup checks; HTTP 200 does not prove a payment works.
+# Bound network waits and propagate failures instead of printing a false success.
+failures=0
+curl() { command curl --connect-timeout 8 --max-time 25 "$@"; }
+fail() { echo "$1: *** FAIL ***"; failures=$((failures + 1)); }
 echo "=== Apple Pay domain association ==="
 curl -sS -o /tmp/ap.bin -D /tmp/ap.hdr "https://liftoffr.com/.well-known/apple-developer-merchantid-domain-association"
 code=$(head -1 /tmp/ap.hdr | awk '{print $2}')
@@ -10,16 +14,16 @@ echo "status=$code bytes=$bytes content-type=$ct"
 echo "sha256=$sha"
 [ "$code" = "200" ] && [ "$bytes" = "228" ] && [ "$ct" = "application/octet-stream" ] \
   && [ "$sha" = "5d3b5ecee0a3778d40f056bf81bb80dbd36f47e83435a5b41b963f5d414def4c" ] \
-  && echo "APPLE PAY: PASS" || echo "APPLE PAY: *** FAIL ***"
+  && echo "APPLE PAY: PASS" || fail "APPLE PAY"
 
 echo
-echo "=== Four Whop checkout links ==="
+echo "=== Four Whop checkout HTTP responses (not payment tests) ==="
 ok=1
 for p in plan_MntgjXJaQnGsW plan_WHByzwILskLsc plan_3SEycpErj9Zk7 plan_uIpPdsPTSHdTp; do
   c=$(curl -sSL -o /dev/null -w "%{http_code}" "https://whop.com/checkout/$p")
   echo "  $p -> $c"; [ "$c" = "200" ] || ok=0
 done
-[ "$ok" = "1" ] && echo "CHECKOUTS: PASS" || echo "CHECKOUTS: *** FAIL ***"
+[ "$ok" = "1" ] && echo "CHECKOUTS: PASS" || fail "CHECKOUTS"
 
 echo
 echo "=== Checkout anchors still present in the markup ==="
@@ -46,54 +50,54 @@ if ! curl -fsS "https://liftoffr.com/welcome-plan" | grep -q 'href="https://whop
   echo "  /welcome-plan document access link missing"
   anchors_ok=0
 fi
-[ "$anchors_ok" = "1" ] && echo "CHECKOUT ANCHORS: PASS" || echo "CHECKOUT ANCHORS: *** FAIL ***"
+[ "$anchors_ok" = "1" ] && echo "CHECKOUT ANCHORS: PASS" || fail "CHECKOUT ANCHORS"
 
 echo
 echo "=== Consent banner renders (executes render(), not just a syntax check) ==="
 if command -v node >/dev/null 2>&1; then
-  node "$(dirname "$0")/check_consent_banner.js" || echo "CONSENT BANNER: *** FAIL ***"
+  node "$(dirname "$0")/check_consent_banner.js" || fail "CONSENT BANNER"
 else
-  echo "node not found, skipping consent render check"
+  fail "node not found, skipping consent render check"
 fi
 
 echo
 echo "=== No production notes in files that get posted ==="
 if command -v node >/dev/null 2>&1; then
-  node "$(dirname "$0")/check_course_markers.js" || echo "COURSE MARKERS: *** FAIL ***"
+  node "$(dirname "$0")/check_course_markers.js" || fail "COURSE MARKERS"
 else
-  echo "node not found, skipping course marker check"
+  fail "node not found, skipping course marker check"
 fi
 
 echo
 echo "=== Weekly AI read validator rejects drift ==="
 if command -v node >/dev/null 2>&1; then
-  node "$(dirname "$0")/check_weekly_read_validator.js" || echo "WEEKLY READ VALIDATOR: *** FAIL ***"
+  node "$(dirname "$0")/check_weekly_read_validator.js" || fail "WEEKLY READ VALIDATOR"
 else
-  echo "node not found, skipping weekly read validator check"
+  fail "node not found, skipping weekly read validator check"
 fi
 
 echo
 echo "=== Product/Offer schema parity, and no fabricated ratings ==="
 if command -v node >/dev/null 2>&1; then
-  node "$(dirname "$0")/check_product_schema.js" || echo "PRODUCT SCHEMA: *** FAIL ***"
+  node "$(dirname "$0")/check_product_schema.js" || fail "PRODUCT SCHEMA"
 else
-  echo "node not found, skipping product schema check"
+  fail "node not found, skipping product schema check"
 fi
 
 echo
 echo "=== cta_clicked selector covers every offer link (static) ==="
 if command -v node >/dev/null 2>&1; then
-  node "$(dirname "$0")/check_cta_coverage.js" || echo "CTA COVERAGE: *** FAIL ***"
+  node "$(dirname "$0")/check_cta_coverage.js" || fail "CTA COVERAGE"
 else
-  echo "node not found, skipping cta coverage check"
+  fail "node not found, skipping cta coverage check"
 fi
 
 echo
 echo "=== Buy plan: tier keys, resistance filter, DCA reconciliation ==="
 if command -v node >/dev/null 2>&1; then
-  node "$(dirname "$0")/check_buy_plan.js" || echo "BUY PLAN: *** FAIL ***"
+  node "$(dirname "$0")/check_buy_plan.js" || fail "BUY PLAN"
 else
-  echo "node not found, skipping buy plan checks"
+  fail "node not found, skipping buy plan checks"
 fi
 
 echo
@@ -108,3 +112,5 @@ for pg in "" score free quiz plan system playbook links receipts proof cycle faq
     "$(echo "$b" | grep -c 'src=\"/js/consent.js')" \
     "$(echo "$b" | grep -c 'src=\"/js/track.js\"')"
 done
+
+if [ "$failures" -gt 0 ]; then echo "$failures verification groups failed"; exit 1; fi

@@ -1,3 +1,5 @@
+> September 21 qualification: the 46-observation coin-flip calculation is illustrative, not a valid independence test for overlapping market signals. Use the current /receipts explanation, not an unqualified “31 proves significance” claim below.
+
 <!-- DRAFTING DOC — NOT SERVED, BUT THIS IS WHAT LIVE COPY GETS REWRITTEN FROM.
      Wording here must match the live code, not precede it. Three separate rounds of
      corrections were undone by someone re-copying from a doc like this one.

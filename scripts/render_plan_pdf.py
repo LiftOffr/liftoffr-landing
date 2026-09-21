@@ -30,7 +30,7 @@ DOCS = {
         'sub':   'The nine weighted components behind the LiftOffr Score, what each one '
                  'read at every cycle turn since 2013, and how to recompute the number '
                  'without me.<br><br>No trigger prices. No allocations. No instructions.',
-        'upd':   'Last updated: 20 August 2026<br>'
+        'upd':   'Last updated: 21 September 2026<br>'
                  'Everything in here is checkable free at liftoffr.com',
     },
 }

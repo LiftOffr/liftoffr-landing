@@ -1,24 +1,18 @@
 ## __COVER__
 
-## Before anything else: what this is not
+## Your first cycle review
 
-This is not a buy plan. There are no trigger prices in it, no tranche sizes, and no budget
-figures, and that is deliberate rather than a gap I ran out of time to fill.
+Use this guide to check the LiftOffr Score yourself: identify the data date, inspect the nine
+inputs, reproduce the weighted average, and examine historical outcomes. No signup or paid
+software is required. The five-step checklist is at **liftoffr.com/checklist**.
 
-The document this replaces had all three, and it had them wrong. It published four buy bands
-anchored to a 200-week moving average as it stood in July 2026, a five-way capital split, and a
-line reading "It's at 26 right now" about a number that changes every morning. Every one of
-those went stale within weeks, and the ladder in it did not match the ladder in the paid plan
-that the same person sells. Someone who read both got two incompatible documents from me. That
-is the exact problem this whole body of work exists to stop, so the fix is not a fresher set of
-levels — it is not putting levels in a free PDF at all.
+Start with one dated reading. Write down its source date, which components are available, and
+the total weight used. Then compare your calculation with **liftoffr.com/score**. If they differ,
+check dates, normalization and missing inputs before drawing a conclusion.
 
-What you get instead is the thing the levels were supposed to rest on: **the number itself, in
-full, with the arithmetic exposed and the failures published.** Read it and you can compute the
-LiftOffr Score yourself, from free public data, without me. That is not a teaser for something
-paid. It is the whole method.
-
-Nothing in this document tells you to buy, sell, size or time anything.
+The Score describes a set of measurements. It does not establish the next top or bottom, an
+appropriate allocation, or a guaranteed investment result. This guide supplies the method;
+it contains no buy levels or instructions to place an order.
 
 ## The nine components, and what each one is worth
 
@@ -35,14 +29,13 @@ fixed, published, and the only thing that turns nine readings into one number.
 | 2-Year MA Multiplier | 5% | Price between its two-year mean and five times that mean |
 | Reserve Risk | 5% | Holder conviction against the reward for abandoning it |
 | Woobull Top Cap | 5% | Price as a fraction of a modelled long-run ceiling |
-| RUPL / NUPL | 5% | The share of supply held at a paper profit |
+| RUPL / NUPL | 5% | Aggregate net unrealized profit/loss relative to market cap |
 
 They sum to 100%. Nothing else feeds the number — not sentiment, not search interest, not
 anything proprietary.
 
-The weights were set by how much each component has actually helped at past cycle turns, not by
-how well known it is. You do not have to take that on trust; the next page is the evidence, and
-you can check every cell of it against free public sources.
+The weights are design choices informed by historical observations. The selected turning dates
+on the next page are known with hindsight; they do not establish an out-of-sample predictive edge.
 
 ## The Phase Matrix
 
@@ -77,12 +70,12 @@ going.
 
 | Band | Range | What the record shows |
 |---|---|---|
-| Exit zone | 85-100 | Every cycle top since 2013 printed here. The Score has **also** sat here for months while price kept rising. |
-| Warning | 70-85 | Has preceded exit-zone readings, though not every time. |
-| Mid-cycle | 50-70 | Historically the least informative band. |
-| Re-accumulation | 30-50 | After a drawdown stops deepening, before the next expansion. Has resolved upward more often than not at 180 days. |
-| Accumulation | 15-30 | Among the lower readings in a cycle. |
-| Deep accumulation | 0-15 | The lowest band the Score produces. |
+| Exit zone | 85–100 | Selected historical tops printed here; the band also persisted while price rose. |
+| Warning | 70–below 85 | A higher model reading, not a forecast. |
+| Mid-cycle | 50–below 70 | The middle range of this scale. |
+| Re-accumulation | 30–below 50 | A band label; it does not establish that a bottom has passed. |
+| Accumulation | 15–below 30 | A lower model reading, not an instruction to buy. |
+| Deep accumulation | 0–below 15 | The lowest band this model produces. |
 
 Every one of those descriptions is a statement about the past. None is a prediction, and none of
 them tells you what to do at any reading.
@@ -99,11 +92,9 @@ being one where something is missing.
 **A missing reading is excluded. It is never counted as a zero.** When a 5% component does not
 report, you divide by 0.95, not by 1.00.
 
-This is not pedantry. Treating a missing reading as a zero drags the number down for a reason
-that has nothing to do with the market, and a recompute that always divides by 1.00 will
-disagree with the published history on exactly those dates — and it will be the one that is
-wrong. Getting this rule wrong understated the published Score by 1.8 points until it was
-caught and fixed on 20 August 2026, and that correction is dated on the site.
+For example, eight weighted readings sum to 34.5 and the available weights sum to 0.95.
+The Score is 34.5 ÷ 0.95 = 36.3, rounded to one decimal place. Dividing by 1.00 would
+incorrectly treat the missing component as zero. Match the data date as well as the formula.
 
 ## Recompute it yourself, in about ten minutes
 
@@ -157,10 +148,15 @@ A model you can check has to survive being checked, so here is the part most peo
 | 90 days | 21 of 46 | 46% |
 | 180 days | 25 of 46 | 54% |
 
-Forty-six, not sixty-four, because 18 of the crossings point nowhere directionally and are
-excluded rather than quietly counted. On 46 crossings you would need **31 of them — 67%** before
-the result cleared statistical significance. Neither 46% nor 54% is distinguishable from a coin
-flip, and I do not publish either as a win rate.
+Eighteen neutral crossings are excluded, leaving 46 directional observations. Under an
+illustrative model of independent outcomes with a 50% success probability, 21 and 25 successes
+have the same two-sided exact-binomial p-value, approximately 0.659. In that simplified model,
+31 of 46 would be the first result above half to pass a 5% threshold.
+
+Those assumptions are not established for this record. Overlapping forward-return windows,
+shared market moves and historical model design complicate inference. The counts do not prove
+equivalence to chance, and 31 successes would not by itself validate a trading edge. They are
+not realized trading returns or a forecast.
 
 **The whipsaw.** Between 16 November 2024 and 21 October 2025 the Score moved in and out of the
 exit zone six times:
@@ -202,7 +198,7 @@ not an instruction for what you should.
 If you never buy it, you still have everything in this document, and the live number, and the
 full record. That was the point.
 
-## The part the lawyers care about, and so should you
+## Using this guide
 
 Educational content only. **This is not financial advice, I am not a registered investment
 adviser, and nothing here is personalised to you.** Nothing in this document is an instruction

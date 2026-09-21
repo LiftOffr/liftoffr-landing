@@ -1,3 +1,5 @@
+> September 21 qualification: the 46-observation coin-flip calculation is illustrative, not a valid independence test for overlapping market signals. Use the current /receipts explanation, not an unqualified “31 proves significance” claim below.
+
 # Remote content kit — 20 to 30 Aug
 
 Eleven pieces, one a day, in posting order. **No face, no filming, made from anywhere.**

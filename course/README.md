@@ -1,3 +1,5 @@
+> **21 September 2026:** Current reconciled course text is `~/liftoffr-course/current/lessons/`, with exact channel/message mapping in `current/manifest.json`. Older compilation files here are historical and must not be bulk-deployed. See the full audit release for verified publication state.
+
 # The Cycle System — curriculum (nine-component rebuild)
 
 **Status: POSTED. Discord is the delivery surface — Torin confirmed on 21 Aug 2026 that he is

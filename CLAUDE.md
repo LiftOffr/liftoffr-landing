@@ -25,7 +25,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 |---|---|
 | `/` (index.html) | homepage: hero → proof bar → how-it-works → testimonials → offer ($29 plan + free door) → FAQ. CTAs → `/plan` |
 | `/links` | link-in-bio hub |
-| `/checklist` | lead-capture landing (current bio-link destination for IG/TikTok/YT/X via /ig /tt /yt /x) |
+| `/checklist` | free, ungated five-step checklist; IG bio `/ig` points here. Other bio shortlinks retain `/links`. |
 | `/cycle` | PUBLIC live cycle dashboard (gauge, Four Pillars, indicators) |
 | `/track-record` | backtest proof: $50/wk → $1.88M vs $217K DCA, +7,602%, 417 start dates |
 | `/playbook` | $497 Cycle Playbook 1:1 sales page (indexed since 2026-08-16, 4 spots/month; linked from home footer + ladder, /plan, /faq, /links, /system, /welcome-plan) |

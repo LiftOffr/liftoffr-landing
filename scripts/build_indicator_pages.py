@@ -1069,4 +1069,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    raise SystemExit("Retired generator: current indicator pages use js/indicator-live.js and September 21 source corrections. Migrate this generator before rebuilding; do not overwrite the reviewed pages.")
     sys.exit(main())

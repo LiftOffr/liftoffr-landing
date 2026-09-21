@@ -32,7 +32,7 @@
   "redirects": [
     {
       "source": "/ig",
-      "destination": "/links?utm_source=instagram&utm_medium=bio&utm_campaign=links&utm_content=ig_bio",
+      "destination": "/checklist?utm_source=instagram&utm_medium=bio&utm_campaign=checklist&utm_content=ig_bio",
       "permanent": false
     },
     {
@@ -82,17 +82,12 @@
     },
     {
       "source": "/lead-magnet/checklist",
-      "destination": "/quiz?from=from_leadmagnet",
+      "destination": "/checklist?from=legacy_checklist",
       "permanent": false
     },
     {
       "source": "/lead-magnet/checklist.html",
-      "destination": "/quiz?from=from_leadmagnet",
-      "permanent": false
-    },
-    {
-      "source": "/checklist",
-      "destination": "/quiz?from=from_checklist",
+      "destination": "/checklist?from=legacy_checklist",
       "permanent": false
     },
     {

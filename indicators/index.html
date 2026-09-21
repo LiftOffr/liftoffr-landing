@@ -204,6 +204,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .reading-num { font-size:48px; }
     .wrap { padding:30px 15px 56px; }
   }
+.is-unavailable{font-size:24px!important;overflow-wrap:anywhere}
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
 <!-- First-touch attribution. These pages rank on informational queries, so a
@@ -228,7 +229,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <div class="crumb"><a href="/">Home</a> › Indicators</div>
   <h1>Bitcoin cycle indicators, live</h1>
-  <div class="updated">Last updated <span data-live-asof>August 14, 2026</span> · Bitcoin <span data-live-px>$62,925</span></div>
+  <div class="updated">Last updated <span data-live-asof>Loading source date</span> · Bitcoin <span data-live-px>Loading</span></div>
 
   <div class="reading">
     <div class="reading-num cold" data-live-key="score">&mdash;</div>
@@ -328,54 +329,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     });
   }, true);
 </script>
-<script>
-/* Live refresh: the baked number is the crawler's copy and is honest as of the
-   dateline above; this replaces it with today's reading for humans. Failure is
-   silent on purpose — a stale-but-dated number beats an error state. */
-(function(){
-  var els = document.querySelectorAll('[data-live-key]');
-  if (!els.length) return;
-  fetch('/api/cycle-score').then(function(r){ return r.json(); }).then(function(d){
-    els.forEach(function(el){
-      var k = el.getAttribute('data-live-key');
-      var v = k === 'score' ? d.score : (d.components && d.components[k] && d.components[k].value);
-      if (typeof v === 'number') el.textContent = v.toFixed(k === 'score' ? 1 : 0);
-    });
-    var stamp = document.querySelectorAll('[data-live-asof]');
-    if (d.asOf) {
-      var day = new Date(d.asOf).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric', timeZone:'UTC' });
-      stamp.forEach(function(el){ el.textContent = day; });
-    }
-    // The BTC price sits inside the same dateline. It was baked while the date beside
-    // it refreshed, so the line claimed "Last updated <today>" next to a price from
-    // days earlier -- one of the five conflicting "current" states the audit found live
-    // on the same morning. Same endpoint already returns it.
-    var px = d.components && d.components._btc_price && d.components._btc_price.value;
-    if (typeof px === 'number') {
-      document.querySelectorAll('[data-live-px]').forEach(function(el){
-        el.textContent = '$' + Math.round(px).toLocaleString();
-      });
-    }
-    // A component CBBI published no reading for is excluded from today's Score and
-    // the divisor shrinks to match -- it is not counted as a reading of zero. Label
-    // it as excluded rather than as a zero, because those are different claims and
-    // only one of them is true.
-    var excluded = d.excluded || [];
-    if (excluded.length) {
-      document.querySelectorAll('[data-live-key]').forEach(function(el){
-        var k = el.getAttribute('data-live-key');
-        var ex = excluded.filter(function(x){ return x.name === k; })[0];
-        if (!ex) return;
-        el.textContent = '\u2014';
-        el.setAttribute('title', 'CBBI published no reading for this component on this date. It is excluded from today\u2019s Score and the divisor drops to ' + ((d.weightUsed || 1).toFixed(2)) + ' rather than counting it as zero.');
-        el.insertAdjacentHTML('afterend',
-          '<span style="font-size:11px;color:#e8b339;margin-left:6px;">no reading today &mdash; excluded, divisor ' +
-          ((d.weightUsed || 1).toFixed(2)) + '</span>');
-      });
-    }
-  }).catch(function(){});
-})();
-</script>
+<script src="/js/indicator-live.js"></script>
 
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
