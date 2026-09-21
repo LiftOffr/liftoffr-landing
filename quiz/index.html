@@ -129,7 +129,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       // internal utm_* values actually are -- placement labels, not sources).
       cta_position: a.getAttribute('data-cta-slot') || a.getAttribute('data-cta') ||
                     (href.split('utm_content=')[1] || '').split('&')[0] || 'unlabelled',
-      destination: dest,
+      destination: dest.split('#')[0],
+      segment: a.getAttribute('data-segment') || undefined,
       page: location.pathname
     });
   }, true);
@@ -335,23 +336,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
 
-    <!-- Offer preview follows the result, before optional email capture. -->
-    <div style="max-width:640px;margin:26px auto 0;padding:22px 20px;background:#0d0d0d;border:1px solid #1e1e1e;border-left:3px solid var(--red);border-radius:12px;text-align:left;">
-      <div style="font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#777;margin-bottom:10px;">Knowing where you sit isn&rsquo;t the same as knowing what you&rsquo;ll do</div>
-      <p style="font-size:15px;color:#ddd;line-height:1.7;margin:0 0 12px;">
-        The expensive part of a cycle isn&rsquo;t missing information &mdash; it&rsquo;s deciding in the
-        moment, with everyone around you either euphoric or terrified. The people who come out of a
-        cycle better off wrote the rule down while nothing was happening.
-      </p>
-      <p style="font-size:15px;color:#ddd;line-height:1.7;margin:0 0 16px;">
-        The $29 plan is the nine levels I&rsquo;ve written for my own position, the reasoning behind
-        each one, and a worksheet that turns your stack size into your own ladder.
-        <strong style="color:#fff;">30 days to read it &mdash; if it isn&rsquo;t worth $29, I refund it,
-        no form and no reason needed.</strong>
-      </p>
-      <a href="/plan?from=quiz_result" data-cta-slot="quiz_result" data-dest="plan_preview" style="display:inline-block;padding:13px 24px;background:var(--red);color:#fff;font-size:15px;font-weight:800;border-radius:9px;text-decoration:none;">See what&rsquo;s in the plan &mdash; $29, once &rarr;</a>
-      <div style="font-size:12.5px;color:#777;margin-top:10px;">The Score, the daily brief and the full record stay free either way.</div>
-    </div>
+    <section aria-labelledby="nextStepTitle" style="max-width:640px;margin:26px auto 0;padding:22px 20px;background:#111111;border:1px solid #1e1e1e;border-left:3px solid #e63946;border-radius:12px;text-align:left;">
+      <h3 id="nextStepTitle" style="margin:0 0 12px;font-size:21px;">Your next step</h3>
+      <p id="nextStepBody" style="font-size:15px;color:#ddd;line-height:1.7;margin:0 0 16px;"></p>
+      <a id="nextStepLink" href="/score?from=quiz_result" data-cta-slot="quiz_result" style="display:inline-block;padding:13px 20px;background:#e63946;color:#fff;font-size:15px;font-weight:800;border-radius:9px;text-decoration:none;">Explore the free Score &rarr;</a>
+      <p id="nextStepFine" style="font-size:13px;color:#9ca3af;margin:12px 0 0;line-height:1.6;"></p>
+    </section>
 
     <div class="next-links">
       <a href="/receipts?from=result_receipts">
@@ -458,56 +448,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   ];
 
-  // Result copy per segment. Angle shifts match the sequence's segment table.
+  // Broad educational routes, not individualized investment recommendations.
   var RESULTS = {
-    ROUNDTRIPPED: {
-      tag: "Round-tripped",
-      h: "You've been through this once, and it cost you.",
-      oneLine: "you've held through a full cycle and given most of it back",
-      body:
-        "<p>You already know the part most people have to learn expensively: <strong>the problem was never the information.</strong> " +
-        "You could see it. You had a number in your head, or close to one. The moment arrived and there was a reason it was different this time, " +
-        "and the reason was convincing, and you held.</p>" +
-        "<p>That's what happened to me. I had every indicator I now publish sitting on a screen in front of me at the 2021 top, and I did nothing, " +
-        "and through 2022 about $30,000 went up and came all the way back down while I watched.</p>" +
-        "<p><strong>The fix isn't more data.</strong> It's writing the decision down before the moment arrives, while you're calm and " +
-        "nothing is happening — which is exactly what today is.</p>"
-    },
-    ACCUMULATING: {
-      tag: "Accumulating",
-      h: "You've got the easy half handled.",
-      oneLine: "you're buying consistently, with no written rule for getting out",
-      body:
-        "<p>Buying on a schedule is genuinely the hard-to-start, easy-to-continue half, and most people never manage it. " +
-        "You have. That puts you ahead of nearly everyone reading this.</p>" +
-        "<p><strong>The other half is the one nobody writes down.</strong> There's an enormous amount of content telling you when to buy " +
-        "and almost none telling you when to stop, because \"buy\" is easy to publish and nobody can prove you wrong for years, " +
-        "while \"here's the price where I sell\" is a number people can hold you to next month.</p>" +
-        "<p>So people arrive at the top of a cycle with a lot of conviction and no exit. You'll need that rule sooner than it currently feels necessary.</p>"
-    },
-    SITTING: {
-      tag: "Sitting",
-      h: "You're holding, and it doesn't feel like a decision.",
-      oneLine: "you're holding without a written rule in either direction",
-      body:
-        "<p>That's the dangerous part, and it's worth saying plainly: <strong>doing nothing is a position.</strong> " +
-        "It just doesn't feel like one, because you never had to actively choose it.</p>" +
-        "<p>You're carrying the same exposure as someone who deliberately decided to hold — you're carrying it without having decided anything, " +
-        "which means when the moment comes there's no rule to fall back on. That's exactly where I was in 2021.</p>" +
-        "<p>The useful move here isn't to buy or sell. It's to make the decision in advance, in writing, on a boring day when nothing is happening.</p>"
-    },
-    NEW: {
-      tag: "Early",
-      h: "You're early — which is the best time to hear any of this.",
-      oneLine: "you're early enough to build the rule before you have anything at stake in it",
-      body:
-        "<p>Everyone else reading this has to unlearn a habit. You don't. You can build the rule <strong>before</strong> you have " +
-        "enough at stake for the rule to be hard to follow, and that's an advantage that doesn't come back.</p>" +
-        "<p>Genuinely: don't spend money on any of this yet. The score is free, the daily brief is free, and the record — " +
-        "including the 29 signals that went the wrong way — is public. Use the free side for a while first. It'll still be free in six months.</p>" +
-        "<p>The one thing worth doing today, and it costs nothing: write down what you'd do if the price halved. Then you'll know whether you meant it.</p>"
-    }
-  };
+  "ROUNDTRIPPED": {
+    "tag": "Round-tripped",
+    "h": "Write the rule you wish you had last time.",
+    "oneLine": "you have experienced a cycle round trip",
+    "body": "<p>Your answers point to a familiar problem: seeing a gain and then giving much of it back.</p><p><strong>Try this before looking at another chart:</strong> write down what evidence would make you review a decision, and what would not. Keep that note so you can compare your reasoning later.</p>",
+    "nextTitle": "See how a written rule handles changing conditions",
+    "nextBody": "The Plan shows my nine buy levels, fallback rule and override log. Preview the worksheet first. The full exit-method course is separate, in The Cycle System.",
+    "href": "/plan?from=quiz_roundtripped#product-preview",
+    "link": "Preview the Plan worksheet →",
+    "fine": "$29 at checkout, plus tax where it applies. One payment. 30-day refund."
+  },
+  "ACCUMULATING": {
+    "tag": "Accumulating",
+    "h": "Give your buying routine a written fallback.",
+    "oneLine": "you are building a Bitcoin position",
+    "body": "<p>Your answers suggest you are building a position. A routine is easier to review when its assumptions are written down.</p><p><strong>Try this:</strong> finish the sentence “If the price never reaches the level I expected, I will review…” Name the assumption you would check before changing anything.</p>",
+    "nextTitle": "Inspect the fallback rule before you buy",
+    "nextBody": "The Plan contains my documented buy levels, their reasoning and what I do when a level is never reached. Start with the public document preview to see the format.",
+    "href": "/plan?from=quiz_accumulating#product-preview",
+    "link": "See inside the buy plan →",
+    "fine": "$29 at checkout, plus tax where it applies. One payment. 30-day refund."
+  },
+  "SITTING": {
+    "tag": "Holding",
+    "h": "Make your reason for holding explicit.",
+    "oneLine": "you are holding and considering your next step",
+    "body": "<p>Your answers suggest you are holding while deciding what comes next. This quiz cannot tell you whether to buy, hold or sell.</p><p><strong>Try this:</strong> write one reason for your current decision and one piece of evidence that would make you review it. A price move and a changed assumption are not always the same thing.</p>",
+    "nextTitle": "Start with the worksheet example",
+    "nextBody": "See how the Plan records a reason before a tier is changed or skipped. The preview lets you judge whether that structure would help you organize your own thinking.",
+    "href": "/plan?from=quiz_holding#product-preview",
+    "link": "Read the worksheet example →",
+    "fine": "The preview is free. The full Plan is $29 at checkout, plus tax where it applies."
+  },
+  "NEW": {
+    "tag": "Early",
+    "h": "Start with the free method.",
+    "oneLine": "you are getting familiar with Bitcoin cycle data",
+    "body": "<p>You can explore the method before spending money. Start with the public Score, its explanation and the historical record.</p><p><strong>Try this:</strong> compare a model reading with what happened afterward. Read the limitations as carefully as the examples that worked. A historical result is not a forecast.</p>",
+    "nextTitle": "Learn what the Score can and cannot tell you",
+    "nextBody": "The reading and its methodology are free. No purchase or email is needed to inspect them. Get familiar with the framework before deciding whether a paid document is useful.",
+    "href": "/score?from=quiz_new",
+    "link": "Explore the free Score →",
+    "fine": "Free. No account or card required."
+  }
+};
 
   var idx = 0;
   var answers = [];
@@ -595,6 +582,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     $('resTag').textContent = r.tag;
     $('resH').textContent = r.h;
     $('resBody').innerHTML = r.body;
+    $('nextStepTitle').textContent = r.nextTitle;
+    $('nextStepBody').textContent = r.nextBody;
+    $('nextStepLink').textContent = r.link;
+    $('nextStepLink').href = r.href;
+    $('nextStepLink').setAttribute('data-segment', segment);
+    $('nextStepFine').textContent = r.fine;
 
     $('quiz').classList.add('hidden');
     $('result').classList.remove('hidden');

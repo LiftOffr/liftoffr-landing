@@ -1,3 +1,13 @@
+# September 21, 2026 refresh: read before using historical notes
+
+Current primary-source review: `/Users/torin/Documents/liftoffr-competitor-research-2026-09-21/RESEARCH.md`.
+
+Look Into Bitcoin is active under its own name at https://www.lookintobitcoin.com/ with charts, subscription offers and reports. The historical “dead; absorbed” note below is stale. Historical revenue, conversion and traffic assertions below were not revalidated and must not be treated as benchmarks. Do not revive trials or subscriptions from this older research; current LiftOffr offers remain one-time purchases.
+
+Applied this pass: segment-relevant quiz next steps, beginner free-method route, immediate practical educational exercises, and explicit first-use steps / free-versus-paid distinction on /plan. These are hypotheses, not evidence of conversion uplift.
+
+---
+
 # COMPETITOR_INTEL.md
 STATUS: Phase 1 COMPLETE (2026-07-01, 3 subagents). Feeds OPTIMIZATION_PLAN.md.
 

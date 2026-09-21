@@ -1,3 +1,7 @@
+## September 21 UTC: competitor-informed funnel refinement
+
+Current research and release evidence: `/Users/torin/Documents/liftoffr-competitor-research-2026-09-21/RESEARCH.md`. Look Into Bitcoin, Checkonchain and Lyn Alden inspected directly. No competitor revenue/conversion claim verified. Quiz results and immediate email copy now teach a useful exercise and offer a relevant next step; beginners stay on the free method. Plan page clarifies first use and the free/paid boundary. Prices and payment settings preserved. Revenue uplift is unproven; observe this revision before further copy churn.
+
 ## September 20, 2026: friction fixes
 
 Quiz result now places the Plan preview before optional email capture. Tracks question views and explicitly marked operator sessions (`?qa=1`; `?qa=0` clears within the tab). Five event-scoped GA4 dimensions registered: destination, cta_position, question, segment, qa_mode. Exclude qa_mode=operator_test in analysis; historical visits cannot be repaired retroactively.

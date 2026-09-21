@@ -72,35 +72,26 @@ const MAGNETS = {
 // by the daily follow-up cron off the contact's age, same as every other
 // sequence in this repo.
 const SEGMENTS = {
-  ROUNDTRIPPED: {
-    label: "Round-tripped",
-    oneLine: "you've held through a full cycle and given most of it back",
-    angle:
-      "You already know the part most people learn expensively: the problem was never the information. " +
-      "You could see it, the moment arrived, and there was a convincing reason it was different this time. " +
-      "That's exactly what happened to me: the indicators topped out in 2021, I did nothing, and it cost me through 2022.",
+  "ROUNDTRIPPED": {
+    "label": "Round-tripped",
+    "oneLine": "you have experienced a cycle round trip",
+    "angle": "Your answers point to a familiar problem: seeing a gain and then giving much of it back.   Try this before looking at another chart:  write down what evidence would make you review a decision, and what would not. Keep that note so you can compare your reasoning later."
   },
-  ACCUMULATING: {
-    label: "Accumulating",
-    oneLine: "you're buying consistently, with no written rule for getting out",
-    angle:
-      "Buying on a schedule is the half most people never manage, and you have. The other half is the one nobody " +
-      "writes down — and you'll need it sooner than it currently feels necessary.",
+  "ACCUMULATING": {
+    "label": "Accumulating",
+    "oneLine": "you are building a Bitcoin position",
+    "angle": "Your answers suggest you are building a position. A routine is easier to review when its assumptions are written down.   Try this:  finish the sentence “If the price never reaches the level I expected, I will review…” Name the assumption you would check before changing anything."
   },
-  SITTING: {
-    label: "Sitting",
-    oneLine: "you're holding without a written rule in either direction",
-    angle:
-      "Worth saying plainly: doing nothing is a position. It just doesn't feel like one, because you never had to " +
-      "actively choose it — which means when the moment comes there's no rule to fall back on.",
+  "SITTING": {
+    "label": "Holding",
+    "oneLine": "you are holding and considering your next step",
+    "angle": "Your answers suggest you are holding while deciding what comes next. This quiz cannot tell you whether to buy, hold or sell.   Try this:  write one reason for your current decision and one piece of evidence that would make you review it. A price move and a changed assumption are not always the same thing."
   },
-  NEW: {
-    label: "Early",
-    oneLine: "you're early enough to build the rule before you have anything at stake in it",
-    angle:
-      "Everyone else reading this has to unlearn a habit. You don't. And genuinely — don't spend money on any of " +
-      "this yet. The free side has the score, the brief and the record, and it'll still be free in six months.",
-  },
+  "NEW": {
+    "label": "Early",
+    "oneLine": "you are getting familiar with Bitcoin cycle data",
+    "angle": "You can explore the method before spending money. Start with the public Score, its explanation and the historical record.   Try this:  compare a model reading with what happened afterward. Read the limitations as carefully as the examples that worked. A historical result is not a forecast."
+  }
 };
 
 function normaliseSegment(raw) {
