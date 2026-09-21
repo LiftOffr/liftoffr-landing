@@ -386,8 +386,9 @@ export default async function handler(req, res) {
 
   try {
     // Step 1 — add to Resend audience (idempotent: returns existing on dupe)
+    let contactData;
     try {
-      await enrollAudience(audId, email, apiKey);
+      contactData = await enrollAudience(audId, email, apiKey);
     } catch {
       return res.status(502).json({ error: "Subscription failed. Please try again." });
     }

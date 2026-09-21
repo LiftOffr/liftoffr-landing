@@ -37,3 +37,17 @@ test('QA marking persists only in the tab session, clears explicitly, never gran
   assert.equal(run('').length,0);assert.equal(run('?qa=1')[0][1].qa_mode,'operator_test');assert.equal(run('')[0][0],'set');assert.equal(run('?qa=0').length,0);assert.equal(run('').length,0);
   assert.equal(run('?qa=1',{setItem(){throw Error('denied')}})[0][1].qa_mode,'operator_test');
 });
+
+import subscribe from '../api/subscribe.js';
+test('quiz signup returns success after confirmed enrollment and exactly one mocked result send',async()=>{
+  const oldEnv=process.env,oldFetch=global.fetch;
+  process.env={...oldEnv,CRON_SECRET:'fixture',RESEND_API_KEY:'fixture',RESEND_AUDIENCE_ID:'free',RESEND_QUIZ_AUDIENCE_ID:'quiz'};
+  for(const seg of ['ROUNDTRIPPED','ACCUMULATING','SITTING','NEW'])delete process.env['RESEND_QUIZ_AUDIENCE_'+seg];
+  const calls=[];
+  global.fetch=async(url,opts)=>{calls.push({url,method:opts?.method||'GET'});return{ok:true,status:200,json:async()=>url.includes('/contacts')?{id:'fixture-contact'}:url.endsWith('/emails')?{id:'fixture-email'}:{score:50,zone:'NEUTRAL'}};};
+  const response={status(n){this.code=n;return this;},json(body){this.body=body;return this;},setHeader(){}};
+  try {
+    await subscribe({method:'POST',url:'/api/subscribe',headers:{host:'localhost'},body:{email:'reader@example.test',magnet:'quiz',segment:'NEW'}},response);
+    assert.equal(response.code,200);assert.equal(response.body.ok,true);assert.equal(response.body.contact_id,'fixture-contact');assert.equal(response.body.email_id,'fixture-email');assert.equal(calls.filter(c=>c.url.endsWith('/emails')).length,1);assert.equal(calls.filter(c=>c.url.endsWith('/contacts')).length,2);
+  }finally{global.fetch=oldFetch;process.env=oldEnv;}
+});

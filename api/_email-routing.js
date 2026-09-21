@@ -21,12 +21,12 @@ export async function enrollAudience(audience, email, key, request = resendReque
   const base = `https://api.resend.com/audiences/${audience}/contacts`;
   const headers = {Authorization: `Bearer ${key}`, 'Content-Type': 'application/json'};
   const response = await request(base, {method:'POST', headers, body:JSON.stringify({email, unsubscribed:false})});
-  if (response.ok) return;
+  if (response.ok) return response.json();
   if (response.status === 409 || response.status === 422) {
     const existing = await request(`${base}/${encodeURIComponent(email)}`, {headers});
     if (existing.ok) {
       const contact = await existing.json();
-      if (!contact.unsubscribed) return;
+      if (!contact.unsubscribed) return contact;
     }
   }
   throw new Error(`Audience enrollment failed (${response.status})`);
