@@ -20,14 +20,14 @@ import { unsubscribeHeaders } from "./_email-preferences.js";
 //   RESEND_AUDIENCE_ID    — LiftOffr Free audience UUID
 
 import crypto from "node:crypto";
-import { disclosureHTML } from "./_disclosure.js";
+import { disclosureHTML, disclosureText } from "./_disclosure.js";
 import { dcaForDate, DCA_MODE, DCA_HORIZON_END } from "./_buy-plan.js";
 import { postToChannel, sendOwnerDM, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 
 export const config = { runtime: "nodejs" };
 
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
-const REPLY_TO     = "torin.christianson@gmail.com";
+const REPLY_TO     = "contact.liftoffr@gmail.com";
 
 function unsubUrl(email) {
   // No fallback: this HMAC signs unsubscribe tokens. It previously fell back to the
@@ -836,7 +836,7 @@ async function sendResend({ to, subject, text, html, idempotencyKey, tag, campai
   // and set List-Unsubscribe headers (RFC 8058).
   const uu = unsubUrl(to);
   html = (html || "").replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu);
-  text = (text || "") + `\n\nUnsubscribe: ${uu}`;
+  text = (text || "") + `\n\n${disclosureText("")}\n\nUnsubscribe: ${uu}`;
   const r = await resendRequest("https://api.resend.com/emails", {
     method: "POST",
     headers: {

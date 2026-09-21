@@ -44,7 +44,7 @@ async function sendTransactional(email, message, paymentId, step, request) {
     headers:{Authorization:`Bearer ${process.env.RESEND_API_KEY}`,'Content-Type':'application/json',
       'Idempotency-Key':`plan-${step}-v1-${paymentId}`},
     body:JSON.stringify({from:'Torin from LiftOffr <torin@liftoffr.com>',
-      reply_to:'torin.christianson@gmail.com',to:[email],...message,
+      reply_to:'contact.liftoffr@gmail.com',to:[email],...message,
       tags:[{name:'campaign',value:'plan_access'},{name:'step',value:step}]}),
   });
   if (!response.ok) throw new Error(`Plan access delivery failed (${response.status})`);

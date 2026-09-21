@@ -19,7 +19,7 @@ test('enrollment accepts a duplicate only after confirming active membership',as
 });
 test('authenticated dry run performs audience GETs only and suppresses quiz opt-outs and buyers',async()=>{
   const oldEnv=process.env,oldFetch=global.fetch;
-  process.env={...oldEnv,...env,CRON_SECRET:'fixture',RESEND_API_KEY:'fixture',RESEND_AUDIENCE_ID:'free',RESEND_PLAN_AUDIENCE_ID:'buyers',RESEND_QUIZ_AUDIENCE_ID:'quiz'};
+  process.env={...oldEnv,...env,CRON_SECRET:'fixture',RESEND_API_KEY:'fixture',RESEND_AUDIENCE_ID:'free',RESEND_PLAN_AUDIENCE_ID:'buyers',RESEND_QUIZ_AUDIENCE_ID:'quiz',LIFTOFFR_MAILING_ADDRESS:'Example Business Mailbox'};
   for(const seg of ['ROUNDTRIPPED','ACCUMULATING','SITTING','NEW'])delete process.env['RESEND_QUIZ_AUDIENCE_'+seg];
   const buyer={...c,email:'buyer@example.test'},free={...c,email:'free@example.test'};
   const calls=[];
@@ -41,13 +41,14 @@ test('QA marking persists only in the tab session, clears explicitly, never gran
 import subscribe from '../api/subscribe.js';
 test('quiz signup returns success after confirmed enrollment and exactly one mocked result send',async()=>{
   const oldEnv=process.env,oldFetch=global.fetch;
-  process.env={...oldEnv,CRON_SECRET:'fixture',RESEND_API_KEY:'fixture',RESEND_AUDIENCE_ID:'free',RESEND_QUIZ_AUDIENCE_ID:'quiz'};
+  process.env={...oldEnv,CRON_SECRET:'fixture',RESEND_API_KEY:'fixture',RESEND_AUDIENCE_ID:'free',RESEND_QUIZ_AUDIENCE_ID:'quiz',LIFTOFFR_MAILING_ADDRESS:'Example Business Mailbox'};
   for(const seg of ['ROUNDTRIPPED','ACCUMULATING','SITTING','NEW'])delete process.env['RESEND_QUIZ_AUDIENCE_'+seg];
   const calls=[];
-  global.fetch=async(url,opts)=>{calls.push({url,method:opts?.method||'GET'});return{ok:true,status:200,json:async()=>url.includes('/contacts')?{id:'fixture-contact'}:url.endsWith('/emails')?{id:'fixture-email'}:{score:50,zone:'NEUTRAL'}};};
+  global.fetch=async(url,opts)=>{calls.push({url,method:opts?.method||'GET',body:opts?.body});return{ok:true,status:200,json:async()=>url.includes('/contacts')?{id:'fixture-contact'}:url.endsWith('/emails')?{id:'fixture-email'}:{score:50,zone:'NEUTRAL'}};};
   const response={status(n){this.code=n;return this;},json(body){this.body=body;return this;},setHeader(){}};
   try {
     await subscribe({method:'POST',url:'/api/subscribe',headers:{host:'localhost'},body:{email:'reader@example.test',magnet:'quiz',segment:'NEW'}},response);
     assert.equal(response.code,200);assert.equal(response.body.ok,true);assert.equal(response.body.contact_id,'fixture-contact');assert.equal(response.body.email_id,'fixture-email');assert.equal(calls.filter(c=>c.url.endsWith('/emails')).length,1);assert.equal(calls.filter(c=>c.url.endsWith('/contacts')).length,2);
+    const sent=JSON.parse(calls.find(c=>c.url.endsWith('/emails')).body);assert.equal(sent.reply_to,'contact.liftoffr@gmail.com');for(const part of [sent.text,sent.html]){assert.ok(part.includes('Example Business Mailbox'));assert.ok(part.includes('contact.liftoffr@gmail.com'));assert.ok(part.includes('Unsubscribe'));}
   }finally{global.fetch=oldFetch;process.env=oldEnv;}
 });

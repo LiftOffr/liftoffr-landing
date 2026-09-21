@@ -26,7 +26,7 @@ import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
 export const config = { runtime: "nodejs" };
 
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
-const REPLY_TO     = "torin.christianson@gmail.com";
+const REPLY_TO     = "contact.liftoffr@gmail.com";
 const SUBJECT_BASE = "The LiftOffr Score this week";
 // OWNER_DISCORD_ID env var — Torin's Discord user ID, kept out of source since
 // this repo may be public. Tier-watch DMs go straight to him, not a channel.

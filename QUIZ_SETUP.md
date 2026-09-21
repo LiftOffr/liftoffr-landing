@@ -1,14 +1,14 @@
-# Current operational status: September 20, 2026
+# Current operational status: September 21, 2026
 
 This section supersedes the historical setup instructions below. Verify the authenticated runtime `?check=1` before activating.
 
 - Resend now has three groups: LiftOffr Free, LiftOffr Plan Buyers, LiftOffr Quiz. The current account permits three segments, so four additional segment groups cannot be created without an upgrade. Use pooled neutral follow-up copy; the immediate result email remains personalized by quiz result.
 - `RESEND_QUIZ_AUDIENCE_ID` routes new quiz opt-ins into the pooled group. No old contacts were imported and no customer email was sent during setup.
-- Follow-ups 2–7 stay HELD until Torin supplies `LIFTOFFR_MAILING_ADDRESS` and a fresh prospective `QUIZ_SEQUENCE_START_AT` is set. Set the latter to the activation timestamp. Do not reset old opt-in dates or bulk replay a sequence.
+- Torin supplied and authorized the footer mailing address on September 21 UTC. Production `LIFTOFFR_MAILING_ADDRESS` and a prospective `QUIZ_SEQUENCE_START_AT` are configured. Follow-ups 2–7 apply only to qualifying contacts created on/after that timestamp. Do not reset old opt-in dates or bulk replay a sequence. Confirm deployed status with authenticated `?check=1`; release evidence is in `~/Documents/liftoffr-email-activation-2026-09-21/`.
 - Quiz membership, including unsubscribed membership, suppresses the generic welcome sequence. Plan buyer membership suppresses free and quiz sales nurture. Complete paginated audience reads must succeed before sending; errors abort the run.
 - Authenticated `?dry_run=1` reads audience membership and returns aggregate routing counts only. It sends nothing and does not invoke the DCA watchdog. Counts labelled eligible are routing eligibility, not emails due today.
 - The daily sender retains narrow age windows and Resend idempotency. It is not a durable catch-up queue; an outage can miss a window. Do not describe it as guaranteed delivery.
-- Public quiz copy now promises the immediate result and Sunday Score, not an inactive seven-email series. Revisit copy/consent before activating the expanded series.
+- Public quiz signup now states the immediate result, six follow-ups over two weeks including paid Buy Plan information, and the Sunday Score. Reply-to and footer contact: `contact.liftoffr@gmail.com`. Address value stays in production configuration, not git.
 - Evidence: `/Users/torin/Documents/liftoffr-friction-fixes-2026-09-20/RELEASE.md`.
 
 ---

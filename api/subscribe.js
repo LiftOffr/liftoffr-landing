@@ -20,7 +20,7 @@ export const config = { runtime: "nodejs" };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FROM_ADDRESS = "Torin from LiftOffr <torin@liftoffr.com>";
-const REPLY_TO     = "torin.christianson@gmail.com";
+const REPLY_TO     = "contact.liftoffr@gmail.com";
 
 // Lead magnets — keyed by the `magnet` field the landing pages POST.
 // RETIRED 20 Aug 2026 — the two old magnets, and why there is now only one.
@@ -139,8 +139,7 @@ function quizHTML({ score, zone }, segKey) {
     <a href="${L("/receipts", "e1_cta")}" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Read the receipts →</a>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
-    Educational content only. Not financial advice. Every dated signal on the site is a historical backtest, not a record of calls published at the time. Past performance does not predict future results.<br/>
-    LiftOffr · You took the cycle-position quiz at liftoffr.com/quiz.<br/>
+    ${disclosureHTML("You took the cycle-position quiz at liftoffr.com/quiz.")}
     <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
   </div>
 </div></body></html>`;
@@ -169,7 +168,7 @@ function quizText({ score, zone }, segKey) {
     "",
     "— Torin",
     "",
-    "Educational content only. Not financial advice. Every dated signal on the site is a historical backtest, not a record of calls published at the time.",
+    disclosureText("You took the cycle-position quiz at liftoffr.com/quiz."),
   ].join("\n");
 }
 

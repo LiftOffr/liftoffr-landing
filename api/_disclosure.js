@@ -13,13 +13,11 @@
 //   3. The not-an-adviser / not-personalised language.
 //   4. An 18+ statement, on a list built from an audience that is 46.7% aged 18-24.
 //
-// TORIN: set LIFTOFFR_MAILING_ADDRESS in Vercel to the LLC's Montana registered
-// address, e.g. "LiftOffr LLC, 123 Example St, Missoula, MT 59801". Until it is set,
-// the address line is omitted rather than shipping a placeholder -- which means the
-// emails are still not CAN-SPAM compliant until you set it. This is the single
-// smallest item on the whole list and it is a one-line env var.
+// Set LIFTOFFR_MAILING_ADDRESS in Production to the mailing address explicitly
+// supplied by Torin. Keep its value out of source control.
 
 export const ENTITY = "LiftOffr LLC";
+export const CONTACT_EMAIL = "contact.liftoffr@gmail.com";
 
 export function mailingAddress() {
   const a = (process.env.LIFTOFFR_MAILING_ADDRESS || "").trim();
@@ -37,6 +35,7 @@ export function disclosureText(listReason) {
   ];
   const addr = mailingAddress();
   if (addr) lines.push(addr);
+  lines.push(`Contact: ${CONTACT_EMAIL}`);
   return lines.join("\n");
 }
 
@@ -47,5 +46,6 @@ export function disclosureHTML(listReason) {
     Every dated signal from LiftOffr is the LiftOffr Score computed over public historical price and on-chain data &mdash; a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="https://liftoffr.com/receipts" style="color:#999;">liftoffr.com/receipts</a>.<br/><br/>
     <strong style="color:#888;">18+ only.</strong> Educational content, not financial advice.<br/>
     ${ENTITY}${listReason ? " &middot; " + listReason : ""}<br/>
-    ${addr ? addr + "<br/>" : ""}`;
+    ${addr ? addr + "<br/>" : ""}
+    <a href="mailto:${CONTACT_EMAIL}" style="color:#999;">${CONTACT_EMAIL}</a>`;
 }
