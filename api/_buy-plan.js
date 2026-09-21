@@ -144,7 +144,7 @@ export function effectiveTriggerPrice(tier, { ma200w = null, cowenPrice = null, 
 // The ladder is entirely separate and manual; the cron never places a tier order
 // and its spend counter ignores any fill >= DCA_DAILY_FILL_MAX, so it can never
 // draw down the reserve.
-export const DCA_MODE          = "risk-weighted";   // "calendar" | "risk-weighted"
+export const DCA_MODE          = "fixed-cash"; // Prepared replacement; preview-only until DCA_FIXED_CASH_LIVE=true
 export const DCA_STACK_USDC    = 28000;             // non-ladder daily stack
 export const DCA_START         = "2026-09-12";      // remap start (spend counted from here)
 export const DCA_HORIZON_END   = "2027-01-31";      // land the stack by this date

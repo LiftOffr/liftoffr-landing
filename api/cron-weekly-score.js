@@ -1,3 +1,4 @@
+import { runFixedCashDca, FIXED_CASH_PLAN } from "./_fixed-cash-dca.js";
 import { unsubscribeHeaders } from "./_email-preferences.js";
 // Weekly LiftOffr Score email cron.
 //
@@ -1030,6 +1031,21 @@ export function riskWeightedDailyUsdc({ trades, todayIso, cbbi = null, cbbiAsOf 
 async function runDailyDCA(baseUrl) {
   const dateIso = new Date().toISOString().slice(0, 10);
   const { keyId, secret, credentialSource, missing } = resolveDcaCredential();
+  if (DCA_MODE === "fixed-cash") {
+    const request = async (method, path, body) => {
+      if (missing.length) throw new Error("DCA credentials missing");
+      const token = tradeJWT(method, path.split("?")[0], keyId, secret);
+      const response = await fetch(`https://${COINBASE_HOST}${path}`, {
+        method, headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        ...(body ? { body: JSON.stringify(body) } : {}), signal: AbortSignal.timeout(15000),
+      });
+      if (!response.ok) throw new Error(`Coinbase HTTP ${response.status}; reconcile before retry`);
+      return response.json();
+    };
+    const fixed = await runFixedCashDca({ day: dateIso, request,
+      live: process.env.DCA_FIXED_CASH_LIVE === "true" });
+    return { ...fixed, ts: new Date().toISOString(), credentialSource };
+  }
   let usdcAmount = dcaForToday(dateIso).usdc;
 
   if (!keyId || !secret) {
@@ -1496,6 +1512,15 @@ async function runReconciliation(baseUrl) {
 // an order alerts. Every day. There is no such thing as spam here — if the
 // message is annoying, the fix is to make the DCA work, not to mute it.
 export function buildDcaDiscordPayload(dcaResult) {
+  if (dcaResult.mode === "fixed-cash") return {
+    username: "LiftOffr DCA Bot",
+    embeds: [{ title: dcaResult.ok ? "Fixed $600 cash DCA status" : "Fixed cash DCA paused; reconcile orders",
+      description: [dcaResult.reason, dcaResult.error,
+        ...dcaResult.results.map(r => r.skipped ? "Existing daily slot retained; no replacement sent"
+          : `Submitted BTC-USDC quote $${r.quoteSize}; execution and fees require fill confirmation`)
+      ].filter(Boolean).join("\n"), color: dcaResult.ok ? 0x34c759 : 0xff453a,
+      timestamp: dcaResult.ts }],
+  };
   if (dcaResult.reason === "credentials-missing") {
     return {
       username: "LiftOffr DCA Bot",
@@ -1603,7 +1628,8 @@ export default async function handler(req, res) {
   // TASK 1 — Tier watch. Runs EVERY hour. Pings Discord with manual order
   // details whenever a buy tier is hit but not yet filled. Auto-dedups via
   // Coinbase sync (once you fire the lump buy, alert stops).
-  const runWatch = !tasksParam || tasksParam.includes("watch");
+  const runWatch = DCA_MODE !== "fixed-cash" && (!tasksParam || tasksParam.includes("watch"));
+  if (DCA_MODE === "fixed-cash") out.tasks.tierWatch = { reason: "manual-only", levels: FIXED_CASH_PLAN.manualLevels };
   if (runWatch) {
     try {
       out.tasks.tierWatch = await runTierWatch(baseUrl, { isDailySendHour });
@@ -1645,7 +1671,8 @@ export default async function handler(req, res) {
 
   // TASK 2.5 — DCA reconciliation. Daily, and deliberately AFTER the DCA task so
   // today's fire is in the ledger before we compare. Read-only.
-  const runRecon = (!tasksParam || tasksParam.includes("recon")) && isDailySendHour;
+  const runRecon = DCA_MODE !== "fixed-cash" && (!tasksParam || tasksParam.includes("recon")) && isDailySendHour;
+  if (DCA_MODE === "fixed-cash") out.tasks.reconciliation = { reason: "legacy-calendar-comparison-disabled", note: "Fixed mode checks daily order IDs; actual fills and fees require Coinbase readback." };
   if (runRecon) {
     try {
       out.tasks.reconciliation = await runReconciliation(baseUrl);
