@@ -3,6 +3,7 @@
   var nodes = document.querySelectorAll('[data-live-key]');
   if (!nodes.length) return;
   function date(value) {
+    if (value === null || value === undefined || value === '') return null;
     var parsed = new Date(typeof value === 'number' ? value * 1000 : value);
     return Number.isFinite(parsed.getTime()) ? parsed.toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric',timeZone:'UTC'}) : null;
   }
