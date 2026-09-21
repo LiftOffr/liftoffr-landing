@@ -5,8 +5,8 @@
 > **`DRAFTS_FOR_TORIN.md`** (copy to paste). Full record in
 > `CHANGELOG_2026-08-16_RESEARCH_FINDINGS.md`.
 > Live now: the `/quiz` funnel, income claims removed sitewide and from the nurture
-> emails, proof pages cross-linked. Dormant: quiz emails 2–7, pending four Resend
-> audiences + four Vercel env vars (checklist step 1).
+> emails, proof pages cross-linked. Quiz follow-up status was revised September 20;
+> see QUIZ_SETUP.md. One pooled audience fits the current three-segment account limit.
 
 LiftOffr: Bitcoin cycle-indicator education + paid Discord community. Solo founder (Torin). This file orients any session — read it before scanning the repo.
 

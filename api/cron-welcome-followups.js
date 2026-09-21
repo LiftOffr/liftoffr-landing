@@ -1,3 +1,4 @@
+import { listAudienceContacts, quizBuckets, quizEligible, emailKey, resendRequest } from "./_email-routing.js";
 import { planAccessEmail } from "./_plan-fulfillment.js";
 import { unsubscribeHeaders } from "./_email-preferences.js";
 // Welcome sequence follow-up cron — Day 3 and Day 7 emails.
@@ -665,7 +666,7 @@ function scoreLineText(sc) {
 
 function quiz2HTML(seg, sc) {
   return shell("Day 1",
-    `<p style="margin:0 0 16px;">In 2021 I had every indicator I now publish sitting on a screen in front of me. They were flashing. I knew what they meant.</p>
+    `<p style="margin:0 0 16px;">The $30,000 round trip in 2022 is what made me take a written plan seriously.</p>
      <p style="margin:0 0 16px;">I did nothing. Then I did nothing for a while longer. Then it was 2022 and about <strong>$30,000</strong> had gone up and come all the way back down, and the only thing I'd actually done was watch.</p>
      <p style="margin:0 0 16px;">Here's what I got wrong, and it isn't the part people expect. <strong>I wasn't wrong about the data. I was wrong about myself.</strong> I assumed that when the moment came I'd act on what I knew, and it turns out that's not how anyone works. In the moment there's always a reason it's different this time, and the reason is always available, and it's always convincing.</p>
      ${QSEG_E2[seg] ? `<p style="margin:0 0 16px;color:#555;font-style:italic;">${QSEG_E2[seg]}</p>` : ""}
@@ -675,7 +676,7 @@ function quiz2HTML(seg, sc) {
     "", "");
 }
 function quiz2Text(seg, sc) {
-  return tjoin(["In 2021 I had every indicator I now publish sitting on a screen in front of me. They were flashing. I knew what they meant.","",
+  return tjoin(["The $30,000 round trip in 2022 is what made me take a written plan seriously.","",
     "I did nothing. Then I did nothing for a while longer. Then it was 2022 and about $30,000 had gone up and come all the way back down, and the only thing I'd actually done was watch.","",
     "Here's what I got wrong, and it isn't the part people expect. I wasn't wrong about the data. I was wrong about myself. I assumed that when the moment came I'd act on what I knew, and it turns out that's not how anyone works. In the moment there's always a reason it's different this time, and the reason is always available, and it's always convincing.","",
     QSEG_E2[seg] || null, QSEG_E2[seg] ? "" : null,
@@ -708,7 +709,7 @@ function quiz4HTML(seg, sc) {
   return shell("Day 5",
     `<p style="margin:0 0 16px;">There's an enormous amount of content telling you when to buy. There's almost none telling you when to stop.</p>
      <p style="margin:0 0 16px;">That's not an accident. <em>"Buy"</em> is easy to publish — it's shareable, it's optimistic, and nobody can prove you wrong for years. <em>"Here's the price where I sell"</em> is a number people can hold you to next month.</p>
-     <p style="margin:0 0 16px;">So most people arrive at the top of a cycle with a lot of conviction and no exit, and they give it back. That's what happened in 2017. It's what happened to me in 2021. It'll happen again, because the mechanism that causes it isn't information, it's the absence of a written rule.</p>
+     <p style="margin:0 0 16px;">So most people arrive at the top of a cycle with a lot of conviction and no exit, and they give it back. That's what happened in 2017. It's what happened to me through 2022. It'll happen again, because the mechanism that causes it isn't information, it's the absence of a written rule.</p>
      <p style="margin:0 0 10px;">What I actually do about it, in three parts:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.8;color:#333;">
        <div><strong>One number.</strong> Nine indicators, weighted, 0 to 100. Not nine charts to interpret — one number and a verdict.</div>
@@ -722,7 +723,7 @@ function quiz4HTML(seg, sc) {
 function quiz4Text(seg, sc) {
   return tjoin(["There's an enormous amount of content telling you when to buy. There's almost none telling you when to stop.","",
     "That's not an accident. 'Buy' is easy to publish — shareable, optimistic, and nobody can prove you wrong for years. 'Here's the price where I sell' is a number people can hold you to next month.","",
-    "So most people arrive at the top of a cycle with a lot of conviction and no exit, and they give it back. That's what happened in 2017. It's what happened to me in 2021. The mechanism isn't information, it's the absence of a written rule.","",
+    "So most people arrive at the top of a cycle with a lot of conviction and no exit, and they give it back. That's what happened in 2017. It's what happened to me through 2022. The mechanism isn't information, it's the absence of a written rule.","",
     "What I actually do about it, in three parts:",
     "  ONE NUMBER. Nine indicators, weighted, 0 to 100. Not nine charts to interpret — one number and a verdict.",
     "  WRITTEN LEVELS. Prices decided in advance, in writing, when nothing is happening.",
@@ -733,11 +734,11 @@ function quiz4Text(seg, sc) {
 function quiz5HTML(seg, sc) {
   return shell("Day 7",
     `<p style="margin:0 0 16px;">Everything I've sent you so far is free and stays free. <strong>This is the one email where I tell you about the thing that isn't.</strong></p>
-     <p style="margin:0 0 16px;">I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When a level fires you get the alert and the updated document.</p>
-     <p style="margin:0 0 16px;">It's <strong>$29, once.</strong> Not a subscription. Nothing renews.</p>
+     <p style="margin:0 0 16px;">I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When the plan changes, you get the revised document and its reasoning.</p>
+     <p style="margin:0 0 16px;">It's <strong>$29 at checkout, plus tax where it applies.</strong> One payment. Nothing renews.</p>
      <p style="margin:0 0 10px;"><strong>What it isn't</strong>, because this matters more than what it is:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.75;color:#333;">
-       <div style="margin-bottom:10px;">It isn't a course. There are 54,000 words of education behind it and this is not that — this is the output. What my money does, at what price, and what happens next.</div>
+       <div style="margin-bottom:10px;">It isn't a course. The full course is available separately in The Cycle System. This document shows what my money does, at what price, and what happens next.</div>
        <div style="margin-bottom:10px;">It isn't a prediction that those levels get hit. It's a decision I made while I was calm instead of while I was scared. That's the part that survives being wrong.</div>
        <div>It isn't advice for you. It's a record of what I'm doing, published with timestamps. You decide what to do with your own money.</div>
      </div>
@@ -749,10 +750,10 @@ function quiz5HTML(seg, sc) {
 }
 function quiz5Text(seg, sc) {
   return tjoin(["Everything I've sent you so far is free and stays free. This is the one email where I tell you about the thing that isn't.","",
-    "I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When a level fires you get the alert and the updated document.","",
-    "It's $29, once. Not a subscription. Nothing renews.","",
+    "I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When the plan changes, you get the revised document and its reasoning.","",
+    "It's $29 at checkout, plus tax where it applies. One payment. Nothing renews.","",
     "WHAT IT ISN'T, because this matters more than what it is:",
-    "  It isn't a course. There are 54,000 words of education behind it and this is not that — this is the output.",
+    "  It isn't a course. The full course is available separately in The Cycle System. This document shows what my money does, at what price, and what happens next.",
     "  It isn't a prediction that those levels get hit. It's a decision I made while calm instead of scared.",
     "  It isn't advice for you. It's a record of what I'm doing, published with timestamps.","",
     QSEG_E5[seg] || null, QSEG_E5[seg] ? "" : null,
@@ -823,26 +824,10 @@ async function fetchScoreSafe() {
 }
 
 async function fetchContacts() {
-  const key = process.env.RESEND_API_KEY;
-  const aud = process.env.RESEND_AUDIENCE_ID;
-  const r = await fetch(`https://api.resend.com/audiences/${aud}/contacts`, {
-    headers: { Authorization: `Bearer ${key}`, Accept: "application/json" },
-  });
-  if (!r.ok) throw new Error(`Resend contact list failed (${r.status})`);
-  const data = await r.json();
-  if (!Array.isArray(data.data)) throw new Error("Resend returned an invalid contact list");
-  return data.data.filter((c) => c.email && !c.unsubscribed);
+  return (await listAudienceContacts(process.env.RESEND_AUDIENCE_ID, process.env.RESEND_API_KEY)).filter(c=>c.email&&!c.unsubscribed);
 }
-
 async function fetchAudience(aud) {
-  const key = process.env.RESEND_API_KEY;
-  const r = await fetch(`https://api.resend.com/audiences/${aud}/contacts`, {
-    headers: { Authorization: `Bearer ${key}`, Accept: "application/json" },
-  });
-  if (!r.ok) throw new Error(`Resend contact list failed (${r.status})`);
-  const data = await r.json();
-  if (!Array.isArray(data.data)) throw new Error("Resend returned an invalid contact list");
-  return data.data.filter((c) => c.email && !c.unsubscribed);
+  return (await listAudienceContacts(aud, process.env.RESEND_API_KEY)).filter(c=>c.email&&!c.unsubscribed);
 }
 
 async function sendResend({ to, subject, text, html, idempotencyKey, tag, campaign = "welcome" }) {
@@ -852,7 +837,7 @@ async function sendResend({ to, subject, text, html, idempotencyKey, tag, campai
   const uu = unsubUrl(to);
   html = (html || "").replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu);
   text = (text || "") + `\n\nUnsubscribe: ${uu}`;
-  const r = await fetch("https://api.resend.com/emails", {
+  const r = await resendRequest("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
@@ -998,7 +983,9 @@ export default async function handler(req, res) {
       plan_credit_key: seen(process.env.PLAN_CREDIT_SECRET),
       quiz_pooled_audience: seen(pooled),
       quiz_per_segment: perSegment,
-      quiz_emails_2_to_7: pooled || anySeg ? "ACTIVE" : "DORMANT — set RESEND_QUIZ_AUDIENCE_ID",
+      quiz_emails_2_to_7: !(pooled || anySeg) ? "DORMANT: audience missing" : !process.env.LIFTOFFR_MAILING_ADDRESS?.trim() ? "HELD: mailing address missing" : !Number.isFinite(Date.parse(process.env.QUIZ_SEQUENCE_START_AT || "")) ? "HELD: cutover missing" : "ACTIVE for new opt-ins",
+      quiz_start_at: process.env.QUIZ_SEQUENCE_START_AT || null,
+      quiz_send_ready: Boolean((pooled || anySeg) && process.env.LIFTOFFR_MAILING_ADDRESS?.trim() && Number.isFinite(Date.parse(process.env.QUIZ_SEQUENCE_START_AT || ""))),
       quiz_mode: anySeg ? "per-segment (Option B)" : pooled ? "pooled, neutral copy (Option A)" : "off",
       mailing_address: seen(process.env.LIFTOFFR_MAILING_ADDRESS),
     });
@@ -1014,7 +1001,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const contacts = await fetchContacts();
+    const allContacts = await fetchContacts();
+    const routingBuckets = [];
+    // Include opted-out quiz membership in suppression of the generic sequence.
+    for (const b of quizBuckets(process.env)) routingBuckets.push({...b, people: await listAudienceContacts(b.aud, process.env.RESEND_API_KEY)});
+    const quizEmails = new Set(routingBuckets.flatMap(b=>b.people.map(emailKey)));
+    const buyerContacts = process.env.RESEND_PLAN_AUDIENCE_ID ? await listAudienceContacts(process.env.RESEND_PLAN_AUDIENCE_ID, process.env.RESEND_API_KEY) : [];
+    const buyerEmails = new Set(buyerContacts.map(emailKey));
+    const contacts = allContacts.filter(c=>!quizEmails.has(emailKey(c))&&!buyerEmails.has(emailKey(c)));
+    if (_url.searchParams.get("dry_run") === "1") {
+      return res.status(200).json({dry_run:true, sends:0, free_contacts:allContacts.length,
+        generic_eligible:contacts.length, quiz_contacts:routingBuckets.reduce((n,b)=>n+b.people.length,0),
+        quiz_eligible:routingBuckets.reduce((n,b)=>n+b.people.filter(c=>quizEligible(c,process.env,buyerEmails)).length,0),
+        buyer_contacts:buyerContacts.length, duplicate_generic_suppressed:allContacts.length-contacts.length});
+    }
     // One fetch for the whole run. reengageHTML/Text are the only templates that
     // reference the live number; they render without the band claim if this is null.
     const liveScore = await fetchScoreSafe();
@@ -1100,7 +1100,7 @@ export default async function handler(req, res) {
     const quizPerSeg = QUIZ_SEGMENTS
       .map((s) => ({ seg: s, aud: process.env[`RESEND_QUIZ_AUDIENCE_${s}`] || null }))
       .filter((x) => x.aud);
-    if (quizPooled || quizPerSeg.length) {
+    if ((quizPooled || quizPerSeg.length) && process.env.LIFTOFFR_MAILING_ADDRESS?.trim() && Number.isFinite(Date.parse(process.env.QUIZ_SEQUENCE_START_AT || ""))) {
       quizSeq = { q2_sent: 0, q3_sent: 0, q4_sent: 0, q5_sent: 0, q6_sent: 0, q7_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
       const sc = await fetchScoreSafe();
       const steps = [
@@ -1117,13 +1117,15 @@ export default async function handler(req, res) {
         ? quizPerSeg
         : [{ seg: null, aud: quizPooled }];
 
+      const seenQuizEmails = new Set();
       for (const b of buckets) {
-        const people = await fetchAudience(b.aud);
+        const people = routingBuckets.find(x=>x.aud===b.aud).people.filter(c=>quizEligible(c,process.env,buyerEmails));
         quizSeq.total += people.length;
         for (const c of people) {
           const age = ageDays(c.created_at);
           const step = steps.find((s) => age >= s.lo && age < s.hi);
-          if (!step) { quizSeq.skipped++; continue; }
+          if (!step || seenQuizEmails.has(emailKey(c))) { quizSeq.skipped++; continue; }
+          seenQuizEmails.add(emailKey(c));
           try {
             await sendResend({
               to: c.email,

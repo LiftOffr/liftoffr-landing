@@ -1,3 +1,4 @@
+import { enrollAudience, resendRequest } from "./_email-routing.js";
 // Vercel serverless function: subscribe an email to Resend Audience +
 // immediately send the consolidated magnet + Score welcome email.
 //
@@ -385,19 +386,10 @@ export default async function handler(req, res) {
 
   try {
     // Step 1 — add to Resend audience (idempotent: returns existing on dupe)
-    const contactRes = await fetch(`https://api.resend.com/audiences/${audId}/contacts`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "User-Agent": "liftoffr-subscribe/1.0",
-      },
-      body: JSON.stringify({ email, unsubscribed: false }),
-    });
-    const contactData = await contactRes.json().catch(() => ({}));
-    if (!contactRes.ok && contactRes.status !== 422) {
-      console.error("subscribe: resend contact error", contactRes.status, contactData);
-      return res.status(502).json({ error: "Subscription failed" });
+    try {
+      await enrollAudience(audId, email, apiKey);
+    } catch {
+      return res.status(502).json({ error: "Subscription failed. Please try again." });
     }
 
     // Step 2 — fetch current Score for personalization
@@ -426,23 +418,13 @@ export default async function handler(req, res) {
       const segAud = process.env[`RESEND_QUIZ_AUDIENCE_${segmentKey}`] || process.env.RESEND_QUIZ_AUDIENCE_ID;
       if (segAud) {
         try {
-          await fetch(`https://api.resend.com/audiences/${segAud}/contacts`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-              "Content-Type": "application/json",
-              "User-Agent": "liftoffr-subscribe/1.0",
-            },
-            body: JSON.stringify({ email, unsubscribed: false }),
-          });
+          await enrollAudience(segAud, email, apiKey);
         } catch (e) {
-          // Non-fatal: the welcome email still sends and the contact is already
-          // in the main audience. Segment routing degrading must never cost a lead.
-          console.error("subscribe: quiz segment audience add failed", segmentKey, String(e).slice(0, 200));
+          return res.status(502).json({error:"We could not finish enrolling you. Please try again.", subscribed:true});
         }
       }
     }
-    const sendRes = await fetch("https://api.resend.com/emails", {
+    const sendRes = await resendRequest("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,

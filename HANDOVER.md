@@ -1,3 +1,11 @@
+## September 20, 2026: friction fixes
+
+Quiz result now places the Plan preview before optional email capture. Tracks question views and explicitly marked operator sessions (`?qa=1`; `?qa=0` clears within the tab). Five event-scoped GA4 dimensions registered: destination, cta_position, question, segment, qa_mode. Exclude qa_mode=operator_test in analysis; historical visits cannot be repaired retroactively.
+
+Email routing uses one pooled Quiz group under the current three-group account limit, excludes quiz members and buyers from generic nurture, preserves opt-outs, paginates before sending, and has authenticated no-send preview. New quiz series remains held pending Torin's business mailing address and a fresh activation cutover. Read QUIZ_SETUP.md before enabling it. No backfill or full send cron was run.
+
+Checkout rendered $29.00 before tax in desktop Brave. That is not a successful payment test or a test in Instagram's Android WebView. Missing recent Whop payments remain unresolved. Private evidence: `/Users/torin/Documents/liftoffr-friction-fixes-2026-09-20/RELEASE.md`.
+
 ## Website content reconciliation: September 20, 2026
 
 Authorized by Torin: correct offer descriptions and publish. The homepage now has an early

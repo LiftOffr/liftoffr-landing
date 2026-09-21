@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="/js/qa.js"></script>
 <!-- CONSENT MODE DEFAULTS. Must run before GTM/gtag. Added 2026-08-20: GA4, GTM and
      Clarity previously all fired unconditionally with no consent surface, and Clarity
      records session replays. Banner UI lives in /js/consent.js; the defaults have to be
@@ -334,27 +335,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </div>
     </div>
 
-    <div class="cap" id="capCard">
-      <h3>Want the rest of it?</h3>
-      <p>
-        Seven emails over two weeks, written for the position you just came out as — the story behind this,
-        the honest version of what my backtest is and isn't, and what I actually do about it. Then it's just
-        the Sunday score. Unsubscribe in one click, any time.
-      </p>
-      <form class="email-form" id="capForm" onsubmit="return submitQuizForm(this);">
-        <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
-        <button type="submit" id="capBtn">Send it to me</button>
-      </form>
-      <div class="form-error" id="formError">Something went wrong. Try again in a moment.</div>
-      <p class="form-fine">Free. No card. One click to unsubscribe.</p>
-      <div class="cap-done" id="capDone">✓ Check your inbox — your result is on its way.</div>
-    </div>
-
-    <!-- NEXT STEP. /quiz is a designated funnel entry — /checklist and /buyzone both
-         redirect here, /plan sends its "not buying today" traffic here, and DM-1 points
-         here — and it had ZERO route to anything paid anywhere on the page. This sits
-         after the result and the email capture, where the reader has just been told
-         where they sit. Outcome first, and the free tier stays free. -->
+    <!-- Offer preview follows the result, before optional email capture. -->
     <div style="max-width:640px;margin:26px auto 0;padding:22px 20px;background:#0d0d0d;border:1px solid #1e1e1e;border-left:3px solid var(--red);border-radius:12px;text-align:left;">
       <div style="font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#777;margin-bottom:10px;">Knowing where you sit isn&rsquo;t the same as knowing what you&rsquo;ll do</div>
       <p style="font-size:15px;color:#ddd;line-height:1.7;margin:0 0 12px;">
@@ -368,7 +349,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <strong style="color:#fff;">30 days to read it &mdash; if it isn&rsquo;t worth $29, I refund it,
         no form and no reason needed.</strong>
       </p>
-      <a href="/plan?from=quiz_result" style="display:inline-block;padding:13px 24px;background:var(--red);color:#fff;font-size:15px;font-weight:800;border-radius:9px;text-decoration:none;">See what&rsquo;s in the plan &mdash; $29, once &rarr;</a>
+      <a href="/plan?from=quiz_result" data-cta-slot="quiz_result" data-dest="plan_preview" style="display:inline-block;padding:13px 24px;background:var(--red);color:#fff;font-size:15px;font-weight:800;border-radius:9px;text-decoration:none;">See what&rsquo;s in the plan &mdash; $29, once &rarr;</a>
       <div style="font-size:12.5px;color:#777;margin-top:10px;">The Score, the daily brief and the full record stay free either way.</div>
     </div>
 
@@ -383,6 +364,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         The open Discord and the 8am daily brief <span>→</span>
       </a>
     </div>
+
+    <div class="cap" id="capCard">
+      <h3>Keep your result</h3>
+      <p>
+        Get your quiz result by email, plus the free Sunday Score. See the current reading and
+        what it means for the cycle framework. Unsubscribe in one click, any time.
+      </p>
+      <form class="email-form" id="capForm" onsubmit="return submitQuizForm(this);">
+        <input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="your@email.com">
+        <button type="submit" id="capBtn">Send it to me</button>
+      </form>
+      <div class="form-error" id="formError">Something went wrong. Try again in a moment.</div>
+      <p class="form-fine">Free. No card. One click to unsubscribe.</p>
+      <div class="cap-done" id="capDone">✓ Check your inbox — your result is on its way.</div>
+    </div>
+
 
     <p class="disclaimer">
       Educational content only. Not financial advice, and nothing here is personalised to you — this quiz sorts
@@ -543,6 +540,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   function render() {
     var q = QUESTIONS[idx];
+    if (typeof window.track === 'function') window.track('quiz_question_viewed', {question:idx+1});
     $('qText').textContent = q.q;
     var help = $('qHelp');
     if (q.help) { help.textContent = q.help; help.classList.remove('hidden'); }
