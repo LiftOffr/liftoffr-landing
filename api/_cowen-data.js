@@ -3,6 +3,39 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "iWBLplyqhl4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Where I Went Wrong",
+    "published": "2026-09-23T01:33:42+00:00",
+    "processed_at": "2026-09-23T13:53:16.164875+00:00",
+    "url": "https://www.youtube.com/watch?v=iWBLplyqhl4",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [
+      86000
+    ],
+    "indicators_mentioned": [
+      "10-year yield",
+      "30-year yield",
+      "Fed funds rate",
+      "golden cross",
+      "risk metric",
+      "realized price",
+      "USDT dominance",
+      "XLE"
+    ],
+    "key_points": [
+      "A prior bearish thesis based on rising energy prices leading to higher yields, rate hikes, and a stronger dollar failed because Bitcoin decoupled and rose alongside the dollar instead of falling",
+      "Historical data on prior rate-hiking cycles (Dec 2015, March 2022) shows Bitcoin did not immediately drop after rate hikes, undermining the assumption that this hike would be immediately bearish",
+      "Bitcoin has formed a higher high after the summer low with a larger rally (50%) than in prior midterm-year cycles (2018, 2022), shifting the burden of proof from bulls to bears",
+      "Historically, the final macro weakness in midterm years has occurred after the midterm elections rather than before, suggesting any correction may be delayed and could form a higher low rather than a new low",
+      "Any future Bitcoin weakness would likely need to coincide with a significant stock market correction (more than 10%), since past cycle lows were driven by broader equity selloffs"
+    ],
+    "summary": "The prior bearish framework tying rising energy prices, higher yields, and a Fed rate hike to a Bitcoin selloff has been invalidated, as Bitcoin instead broke out to a higher high alongside dollar strength. Market structure now favors the bulls, with historical precedent suggesting any future weakness would likely be a higher low occurring after the midterms rather than a new low, contingent on a larger stock market correction."
+  },
+  {
     "video_id": "gc93viz0-7c",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1487,21 +1520,5 @@ export default [
       "Bitcoin has spent only 14.73% of historical time in current 0.2-0.3 risk band and 2.34% below 0.1 risk; these extreme lows are rare but present opportunities for disciplined capital deployment"
     ],
     "summary": "The current 0.296 risk level suggests Bitcoin is entering an accumulation phase in the second half of the midterm year, with market cycle bottom likely occurring within 1-4 months. Dynamic dollar-cost averaging weighted toward lower risk bands substantially outperforms equal-weight DCA by deploying more capital during extreme lows while restraining buys at elevated prices. Exact bottom timing is impossible and irrelevant; the strategy is to execute predetermined buying plans when risk metrics trigger, allowing patience and discipline to generate superior long-term returns across multiple market cycles."
-  },
-  {
-    "video_id": "DoteyQFNfnE",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Gold Outlook for the Rest of 2026",
-    "published": "2026-06-13T04:50:12+00:00",
-    "processed_at": "2026-06-13T05:16:01.769407+00:00",
-    "url": "https://www.youtube.com/watch?v=DoteyQFNfnE",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "This transcript is about gold, not Bitcoin. No valid Bitcoin analysis is present.",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [],
-    "summary": "This transcript contains no Bitcoin market analysis. The content focuses exclusively on gold price dynamics, seasonality patterns, and historical corrections within gold bull markets."
   }
 ];
