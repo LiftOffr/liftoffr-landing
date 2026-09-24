@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "orda-VyV2rU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Upside Down",
+    "published": "2026-09-24T04:02:50+00:00",
+    "processed_at": "2026-09-24T07:19:04.390746+00:00",
+    "url": "https://www.youtube.com/watch?v=orda-VyV2rU",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "Golden Cross",
+      "2-year yield",
+      "10-year yield",
+      "Fed funds rate"
+    ],
+    "key_points": [
+      "Rising energy prices are pushing the long end of the yield curve higher, with the 10-year yield near 5.1%, while the Fed is raising rates too slowly to keep pace with the neutral rate implied by the 2-year yield",
+      "This yield/dollar/energy dynamic has stalled the S&P 500 and pressured gold and silver as expected, consistent with seasonal midterm-year weakness from mid-September to mid-October",
+      "Bitcoin has defied this macro thesis by breaking out above its prior range high and reclaiming the 50-week moving average following a golden cross, a pattern that historically preceded major rallies rather than renewed downside",
+      "Historically, bear markets have not produced a false breakout above the 50-week MA followed by a new low, except arguably in 2015, which increases the odds that the recent low is already in",
+      "A weekly close back below 83,000 would reintroduce the risk of a Q4 decline, though not necessarily to a new lower low, while continued closes above the range high add validation that the low is in"
+    ],
+    "summary": "Macro conditions\u2014rising energy prices, rising yields, and a strengthening dollar\u2014continue to pressure equities and commodities as anticipated, but Bitcoin has broken out above key resistance and its 50-week moving average in a pattern historically associated with bear-market lows being confirmed rather than false breakouts. The divergence between macro deterioration and Bitcoin's strength creates significant uncertainty, with a close back below 83,000 needed to reopen the case for a Q4 pullback, while continued strength further validates that the cycle low is already in place."
+  },
+  {
     "video_id": "iWBLplyqhl4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1483,42 +1513,5 @@ export default [
       "Price-based capitulation (onchain indicators fully resetting, potential move to 54K or below) would justify exiting the bearish stance early; without such capitulation, the market should be expected to extend through Q4"
     ],
     "summary": "Bitcoin is in a time-based bear market structure expected to last until Q4 2025, with a probable low in October-November based on historical 50-60 week bear market cycles. The current setup mirrors 2019 with an apathetic top rather than euphoric conditions; timebased capitulation with a volume-driven final drop is the base case unless price-based capitulation resets onchain indicators earlier. Accumulation should begin after the June low, with positioning adjusted if major downside or unexpected strength develops."
-  },
-  {
-    "video_id": "hx_neha7BVQ",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Dynamic DCA: How I Navigate Crypto",
-    "published": "2026-06-14T01:25:19+00:00",
-    "processed_at": "2026-06-14T02:04:45.893658+00:00",
-    "url": "https://www.youtube.com/watch?v=hx_neha7BVQ",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      50000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "Bitcoin Risk Metric",
-      "MVRV",
-      "Market Value to Realized Value",
-      "Supply and Profit/Loss crossing",
-      "Realized Price",
-      "Fear and Greed Index",
-      "Price Risk",
-      "Onchain Risk",
-      "Social Risk",
-      "Summary Risk Metric",
-      "7-day Simple Moving Average"
-    ],
-    "key_points": [
-      "Current risk metric at 0.296 suggests accumulation phase is beginning in second half of midterm year; market cycle bottom historically occurs within 1-4 months at low risk levels",
-      "Dynamic DCA strategy weighted toward lower prices outperforms equal-weight DCA by 3x over long periods; position cash reserves during peaks to deploy aggressively when risk drops below 0.3",
-      "Timing exact bottoms is irrelevant\u2014focus is on action during low-risk periods; even buying at 0.3 risk proves profitable within months as demonstrated across 2018, 2020, and 2022 cycles",
-      "Bitcoin topped on apathy in 2025 similar to 2019, not euphoria; post-apathetic digestion phase aligns with midterm year cycle dynamics; no guarantee of euphoric rallies",
-      "Bitcoin has spent only 14.73% of historical time in current 0.2-0.3 risk band and 2.34% below 0.1 risk; these extreme lows are rare but present opportunities for disciplined capital deployment"
-    ],
-    "summary": "The current 0.296 risk level suggests Bitcoin is entering an accumulation phase in the second half of the midterm year, with market cycle bottom likely occurring within 1-4 months. Dynamic dollar-cost averaging weighted toward lower risk bands substantially outperforms equal-weight DCA by deploying more capital during extreme lows while restraining buys at elevated prices. Exact bottom timing is impossible and irrelevant; the strategy is to execute predetermined buying plans when risk metrics trigger, allowing patience and discipline to generate superior long-term returns across multiple market cycles."
   }
 ];
