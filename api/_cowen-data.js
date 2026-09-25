@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "F888T3SIBhU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bond Vigilantes Revolt",
+    "published": "2026-09-25T04:43:09+00:00",
+    "processed_at": "2026-09-25T07:20:14.716720+00:00",
+    "url": "https://www.youtube.com/watch?v=F888T3SIBhU",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      84000
+    ],
+    "indicators_mentioned": [
+      "10-year yield",
+      "30-year yield",
+      "2-year yield",
+      "Fed funds rate",
+      "neutral rate",
+      "unemployment rate",
+      "global net liquidity",
+      "liquidity risk metric",
+      "Bitcoin/S&P 500 ratio",
+      "Total 3/S&P 500 ratio",
+      "golden cross",
+      "200-week MA (implied via technicals)"
+    ],
+    "key_points": [
+      "Soaring long-end yields (10-year near 5.2%, 30-year near 5.1%) signal the market believes Fed policy is too accommodative given persistent inflation from tariffs, Middle East conflict, and AI buildout demand",
+      "Rising yields historically pressure long-duration risk assets like Bitcoin and altcoins the most, yet Bitcoin has held up near highs, defying that expectation and prompting a reassessment of short-term conviction",
+      "Bitcoin's valuation against the S&P 500 has been flat since 2021, showing crypto has underperformed simple index investing despite still posting bull market gains",
+      "Durable altcoin/crypto outperformance requires looser monetary policy and expanding liquidity, which historically only follows a genuine crisis; current tight liquidity (~25T vs ~30T in 2021) explains multi-year underperformance versus 2017/2021 cycles",
+      "A close back below the May high within the next week or two would represent a significant bearish technical reversal, likely triggered by continued yield spikes and Fed inaction, though this is not the base case currently"
+    ],
+    "summary": "Surging long-term yields reflect the bond market's demand for tighter policy amid sticky inflation from tariffs, Middle East oil disruptions, and AI-driven capex, with monetary policy currently too accommodative relative to the neutral rate. This dynamic typically pressures long-duration risk assets and has kept crypto underperforming equities for years due to tight global liquidity, though Bitcoin's continued strength near all-time highs has confounded that expectation in the near term. A durable altcoin/crypto rotation likely requires a genuine crisis and subsequent liquidity expansion, which has not yet materialized while stocks remain near record highs."
+  },
+  {
     "video_id": "orda-VyV2rU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1481,37 +1518,5 @@ export default [
       "No cryptocurrency price levels, technical indicators, or Bitcoin analysis present"
     ],
     "summary": "This transcript contains no Bitcoin market analysis. It discusses SpaceX IPO performance, historical equity IPO patterns, and midterm year market seasonality."
-  },
-  {
-    "video_id": "psz9FwqWGns",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Time-Based Capitulation",
-    "published": "2026-06-14T22:21:02+00:00",
-    "processed_at": "2026-06-14T23:05:21.423074+00:00",
-    "url": "https://www.youtube.com/watch?v=psz9FwqWGns",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000,
-      54000
-    ],
-    "indicators_mentioned": [
-      "realized price",
-      "terminal price",
-      "Bitcoin supply in profit or loss",
-      "MVRV score",
-      "risk metric",
-      "volume"
-    ],
-    "key_points": [
-      "Time-based capitulation is more important than price-based capitulation in this cycle; historical bear markets last 50-60 weeks, with the current market at week 35, suggesting a potential low around October-November",
-      "The market structure mirrors 2019 with an apathetic top followed by post-top digestion phase, not euphoric rally conditions; Bitcoin topped before QE ended and the Fed cut rates three times, matching 2019 patterns",
-      "A final capitulation event in Q4 on surging volume is likely based on historical precedent; every prior bear market bottom coincided with a significant volume spike, which has not yet occurred at a comparable magnitude",
-      "Price support at 60K may hold similarly to 2018, creating a sweep of the February low in June followed by another decline; accumulation should begin after the June low through year-end despite ongoing price weakness",
-      "Price-based capitulation (onchain indicators fully resetting, potential move to 54K or below) would justify exiting the bearish stance early; without such capitulation, the market should be expected to extend through Q4"
-    ],
-    "summary": "Bitcoin is in a time-based bear market structure expected to last until Q4 2025, with a probable low in October-November based on historical 50-60 week bear market cycles. The current setup mirrors 2019 with an apathetic top rather than euphoric conditions; timebased capitulation with a volume-driven final drop is the base case unless price-based capitulation resets onchain indicators earlier. Accumulation should begin after the June low, with positioning adjusted if major downside or unexpected strength develops."
   }
 ];
