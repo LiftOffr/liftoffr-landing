@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "gvvMvW7AGE4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: A Critical Moment",
+    "published": "2026-09-26T04:27:02+00:00",
+    "processed_at": "2026-09-26T07:20:51.341677+00:00",
+    "url": "https://www.youtube.com/watch?v=gvvMvW7AGE4",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      82800
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "golden cross",
+      "realized price",
+      "ROI after rate hike"
+    ],
+    "key_points": [
+      "A weekly close below the prior May range high (~83K) would suggest a massive fake-out breakout, historically similar to silver's 2012 pattern, opening the door to renewed Q4 weakness",
+      "A weekly close and acceptance above that level would further validate the bull market and weaken the bearish case",
+      "Rising long-end bond yields, a strengthening dollar, and climbing energy prices represent macro headwinds that could still trigger a debasement-trade unwind similar to silver's 2012 collapse",
+      "Because Bitcoin already made a higher high, any renewed downside does not have to make a new cycle low \u2014 the bearish thesis must be adjusted rather than assumed to repeat exactly",
+      "Historical post-rate-hike patterns in midterm years suggest that if weakness materializes, it typically emerges 50-90 days after the September rate hike, with an average drawdown near 29% from the hike level"
+    ],
+    "summary": "The upcoming weekly close is being treated as a pivotal signal: acceptance above the prior May high would validate the bull market and undercut the bearish Q4 case, while a close back below it would echo a historical fake-out pattern seen in silver's 2012 breakdown. Persistent macro pressure from rising yields, a strengthening dollar, and rising energy costs keeps the weakness scenario alive, though a confirmed higher high means any downside move would not necessarily need to reach new lows.  The stance is explicitly reactive rather than predictive, reflecting acknowledged uncertainty after being wrong about the market's ability to break above the prior high."
+  },
+  {
     "video_id": "F888T3SIBhU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1498,25 +1528,5 @@ export default [
       "Energy sector historically tops after stock market peaks; current elevated energy prices may persist until market correction occurs over 6-12 month period"
     ],
     "summary": "Elevated rate hike expectations and rising 2-year yields present significant headwinds for Bitcoin and risk assets over coming months. The Fed's shift away from forward guidance under new leadership creates uncertainty, but inflation persistence and potential dollar strength breakout suggest monetary conditions will remain challenging for crypto. Long-duration yields are likely to continue higher absent a meaningful economic downturn."
-  },
-  {
-    "video_id": "gFiKyyPXMFo",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "The SpaceX IPO",
-    "published": "2026-06-16T16:47:46+00:00",
-    "processed_at": "2026-06-16T18:06:08.125107+00:00",
-    "url": "https://www.youtube.com/watch?v=gFiKyyPXMFo",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "N/A",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "This transcript discusses SpaceX IPO dynamics, not Bitcoin market analysis",
-      "Content focuses on equity markets, IPO patterns, and midterm year seasonality",
-      "No cryptocurrency price levels, technical indicators, or Bitcoin analysis present"
-    ],
-    "summary": "This transcript contains no Bitcoin market analysis. It discusses SpaceX IPO performance, historical equity IPO patterns, and midterm year market seasonality."
   }
 ];
