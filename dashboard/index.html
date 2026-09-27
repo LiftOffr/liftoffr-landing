@@ -581,11 +581,11 @@ a{color:inherit}
         <div><div>Stance</div><div id="abStance">—</div></div>
         <div><div>Score · vs yesterday</div><div><span id="abScore">—</span> <span id="abScoreD" style="font-size:13px;font-weight:600"></span></div></div>
         <div><div>BTC · vs 200W MA</div><div><span id="abBtc">—</span> <span id="abMaD" style="font-size:13px;font-weight:600"></span></div></div>
-        <div><div>Next tier</div><div id="abTier" style="font-size:15px!important;line-height:1.35">—</div></div>
+        <div><div>Highest manual limit</div><div id="abTier" style="font-size:15px!important;line-height:1.35">—</div></div>
         <!-- plan budget minus deployed. NOT the same number as the hero's
              "Dry Powder", which is live USDC on Coinbase — labelled distinctly
              so the two never read as a contradiction. -->
-        <div><div>Plan remaining</div><div id="abDry">—</div></div>
+        <div><div>Coinbase cash</div><div id="abDry">—</div></div>
       </div>
 
       <div class="today-call" id="todayCall" style="display:none"></div>
@@ -939,10 +939,7 @@ function renderTodayCall(){
   else if(score>=15)posture='Accumulation — among the lower readings in a cycle';
   else posture='Deep accumulation — the lowest band the Score produces';
   let maStr='';if(LIVE_PRICE&&MA200W){const d=(LIVE_PRICE-MA200W)/MA200W*100;maStr=` · BTC ${FUSD(LIVE_PRICE)}, ${d>=0?'+':''}${d.toFixed(0)}% vs 200W MA`;}
-  let nextStr='';try{const fills=lumpFills(),nt=buyTiers().find(t=>(fills[t.tier]||0)<(t.target||0)*0.97);
-    if(nt){const px=effPrice(nt),hit=LIVE_PRICE!=null&&px!=null&&LIVE_PRICE<=px;
-      nextStr=nt.tier==='IMMEDIATE'?` · Plan: fire ${nt.tier} now`:hit?` · Plan: ${nt.tier} HIT at ${FUSD(px)} — deploy`:` · Plan: next ${nt.tier} at ${FUSD(px)}`;}
-    else nextStr=' · Plan: fully deployed';}catch(e){}
+  const nextStr=' · Plan: $600 daily budget plus existing $75K/$70K/$65K limits; verify order status before acting';
   el.innerHTML=`<span class="tc-tag" style="background:${c}1f;color:${c};border-color:${c}">TODAY'S CALL</span><span class="tc-body"><b style="color:${c}">${zone||zLabel(score)}</b> · cycle ${score.toFixed(0)}/100${maStr}${nextStr}. <span style="color:${c}">${posture}.</span></span>`;
 }
 const PILLARS={Cycle:{keys:['PiCycle','RHODL','Confidence'],wt:30,icon:'◴'},Valuation:{keys:['RUPL','Puell','MVRV','ReserveRisk'],wt:30,icon:'⊙'},Technical:{keys:['2YMA','Trolololo','Woobull'],wt:25,icon:'∿'},Sentiment:{keys:['F&G'],wt:15,icon:'☷'}};
@@ -1340,7 +1337,7 @@ function finRows(cat){const F=fin(),key=FKEY[cat],list=F[cat],esc=s=>(s||'').rep
   if(cat==='assets'){if(LIVE_PF.btcVal>0)html+=`<div class="nw-row"><span class="nl auto">₿ Bitcoin (live)</span><span class="nv">${FMT_USD0.format(LIVE_PF.btcVal)}</span></div>`;
     if(LIVE_PF.cash>1)html+=`<div class="nw-row"><span class="nl auto">💰 USDC (Coinbase) <span style="${sub}">buying power</span></span><span class="nv">${FMT_USD0.format(LIVE_PF.cash)}</span></div>`;
     html+=`<div class="nw-row"><span class="nl auto">🚗 ${VEHICLE.label} <span style="${sub}">est.</span></span><span class="nv">${FMT_USD0.format(LIAB.car)}</span></div>`;
-    BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)} ${x.type==='depository'?`<span style="${sub}">DCA reserve</span>`:''}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
+    BANK.assets.forEach(x=>html+=`<div class="nw-row"><span class="nl auto">🏦 ${esc(x.name)} ${x.type==='depository'?`<span style="${sub}">unallocated cash</span>`:''}</span><span class="nv">${FMT_USD0.format(+x.value||0)}</span></div>`);}
   if(cat==='debts'){
     const macanDup=bankLooksLike(LOAN_AUTO.name,BANK.debts),personalDup=bankLooksLike(LOAN_PERSONAL.name,BANK.debts);
     if(!macanDup)html+=`<div class="nw-row"><span class="nl auto">🚗 Macan loan <span style="${sub}">$915.03/mo · next ${fmtDate(nextPayment(LOAN_AUTO,now))}</span></span><span class="nv">${FMT_USD0.format(LIAB.macan)}</span></div>`;
@@ -1369,7 +1366,7 @@ function renderFinances(){const F=fin();computeLiab();
     <div class="pstat"><div class="psl">Total Debts</div><div class="psv" style="color:${totalDebts>0?'#FF453A':'var(--ink)'}">${FMT_USD0.format(totalDebts)}</div><div class="pss">${FMT_USD0.format(autoDebts)} loans + ${F.debts.length} manual</div></div>
     <div class="pstat"><div class="psl">Monthly Income</div><div class="psv">${FMT_USD0.format(income)}</div><div class="pss">${income>0?FMT_USD0.format(income*12)+' / yr':'add sources'}</div></div>
     <div class="pstat"><div class="psl">Buying Power</div><div class="psv" style="color:#30D158">${FMT_USD0.format(buyingPower)}</div><div class="pss">USDC on Coinbase — ready now</div></div>
-    <div class="pstat"><div class="psl">DCA Reserve</div><div class="psv">${FMT_USD0.format(bankCash)}</div><div class="pss">bank cash — still needs moving</div></div>`;
+    <div class="pstat"><div class="psl">Bank Cash</div><div class="psv">${FMT_USD0.format(bankCash)}</div><div class="pss">not committed to this plan</div></div>`;
   document.getElementById('nwAssets').innerHTML=finRows('assets');
   document.getElementById('nwDebts').innerHTML=finRows('debts');
   document.getElementById('nwIncome').innerHTML=finRows('income');
@@ -1532,7 +1529,7 @@ if(window.location.href.includes('oauth_state_id=')){
     const finances={
       netWorth:Math.round(totalAssets-totalDebts),
       totalAssets:Math.round(totalAssets), totalDebts:Math.round(totalDebts),
-      btcValue:Math.round(btcValue), buyingPower:Math.round(cash), dcaReserve:Math.round(bankCash),
+      btcValue:Math.round(btcValue), buyingPower:Math.round(cash), unallocatedBankCash:Math.round(bankCash),
       carValue:Math.round(LIAB.car), macanLoan:Math.round(LIAB.macan), personalLoan:Math.round(LIAB.personal),
       grandparentsLoan:Math.round(LIAB.grandparents), grandparentsPayoffTarget:LOAN_GRANDPARENTS.payoffTarget,
       monthlyDebtService:Math.round((915.03+620.30)*100)/100,
@@ -1750,7 +1747,7 @@ load().then(()=>maybeAutoSync());
       const d=wallet-B.btc;
       parts.push('Wallet holds '+Math.abs(d).toFixed(4)+' BTC '+(d>0?'more':'less')+' than the ledger explains — P/L is stated against the '+B.btc.toFixed(4)+' BTC the ledger covers.');
     }
-    if(cad)parts.push('Next-buy timing is inferred from your last '+cad.n+' fill days, not a stored schedule.');
+    parts.push('Daily budget is the configured cash-funded schedule. Separate bank-funded Coinbase recurring buys are not included.');
     $('heroNote').textContent=parts.join(' ');
   }
 
