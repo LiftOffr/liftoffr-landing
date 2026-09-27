@@ -31,6 +31,21 @@
   ],
   "redirects": [
     {
+      "source": "/ig-discord",
+      "destination": "https://discord.gg/yfdWQYbDTF",
+      "permanent": false
+    },
+    {
+      "source": "/discord-plan",
+      "destination": "/plan?utm_source=discord&utm_medium=community&utm_campaign=free_community&utm_content=plan_channel",
+      "permanent": false
+    },
+    {
+      "source": "/discord-system",
+      "destination": "/system?utm_source=discord&utm_medium=community&utm_campaign=free_community&utm_content=system_channel",
+      "permanent": false
+    },
+    {
       "source": "/ig",
       "destination": "/checklist?utm_source=instagram&utm_medium=bio&utm_campaign=checklist&utm_content=ig_bio",
       "permanent": false
