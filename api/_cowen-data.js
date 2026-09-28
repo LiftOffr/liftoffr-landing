@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "2C70_Ms3V9A",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Holds Slightly Above the May High",
+    "published": "2026-09-28T05:23:15+00:00",
+    "processed_at": "2026-09-28T07:35:32.696884+00:00",
+    "url": "https://www.youtube.com/watch?v=2C70_Ms3V9A",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      82800,
+      83000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average"
+    ],
+    "key_points": [
+      "Bitcoin closed above the May high, shifting the burden of proof from bulls to bears after months of lower-high rallies",
+      "Post-breakout momentum has been weaker than the 2019 and 2023 analogs, where price extended 24-40% above the 50-week MA within two weeks, versus about 10% this time",
+      "Historically, retests of the 50-week MA shortly after breaking above it tend to be bearish signals rather than healthy bullish retests, based on 2019/2023 precedent where retests took a year or more",
+      "Q4 in midterm election years has historically been weak, but even a repeat of an FTX-style ~26% drawdown would only revisit prior range lows in the low 60s, not make new lows",
+      "Having a predefined plan for both upside continuation and downside retracement scenarios matters more than trying to predict short-term direction, especially after being wrong about this rally's strength"
+    ],
+    "summary": "Bitcoin's close above the May high shifts the technical burden of proof onto the bears, even though the rally's strength so far has lagged prior post-breakout precedents from 2019 and 2023. A retest of the 50-week moving average from here would likely be bearish rather than a healthy pullback, while continued acceptance above the May high keeps the bullish case intact; near-term direction remains uncertain heading into the Q4 monthly close."
+  },
+  {
     "video_id": "gvvMvW7AGE4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1499,34 +1527,5 @@ export default [
       "Industry maturation crisis with focus on memecoin speculation rather than technology development has eroded retail credibility; recovery requires genuine utility focus, not new financial products"
     ],
     "summary": "Bitcoin and crypto remain trapped in a prolonged bear market cycle structurally identical to 2019, driven by extended higher interest rates and quantitative tightening with no imminent Fed pivot visible. Social interest continues bleeding out with retail departing across all engagement metrics, preventing the euphoric rallies typical of cycle tops and positioning crypto as a vulnerable risk asset until monetary policy loosens materially. Recovery hinges on stock market weakness forcing Fed action, likely in late 2025, but extended weakness is probable given the AI trade's continued dominance."
-  },
-  {
-    "video_id": "zKPohkQdq_Q",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Kevin Warsh's First FOMC as Fed Chair",
-    "published": "2026-06-18T04:29:37+00:00",
-    "processed_at": "2026-06-18T04:44:36.110598+00:00",
-    "url": "https://www.youtube.com/watch?v=zKPohkQdq_Q",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "2-year yield",
-      "10-year yield",
-      "30-year yield",
-      "Fed funds rate",
-      "CME FedWatch Tool",
-      "XLE (Energy Select Sector ETF)"
-    ],
-    "key_points": [
-      "Fed rate hike probability elevated with 15% market pricing for no hike by December; 2-year yield moving higher historically precedes Fed rate increases",
-      "Tightening monetary policy and rate hike expectations remain a structural headwind for Bitcoin and risk assets; crypto underperformance linked to pricing in future rate hikes",
-      "Long-end yields (10-year, 30-year) likely continue moving higher given inflation concerns and unwillingness to allow lower asset prices; bond vigilantes will emerge if rates are cut or held",
-      "Dollar forming massive base with likely breakout imminent, creating additional headwind for risk assets including Bitcoin",
-      "Energy sector historically tops after stock market peaks; current elevated energy prices may persist until market correction occurs over 6-12 month period"
-    ],
-    "summary": "Elevated rate hike expectations and rising 2-year yields present significant headwinds for Bitcoin and risk assets over coming months. The Fed's shift away from forward guidance under new leadership creates uncertainty, but inflation persistence and potential dollar strength breakout suggest monetary conditions will remain challenging for crypto. Long-duration yields are likely to continue higher absent a meaningful economic downturn."
   }
 ];
