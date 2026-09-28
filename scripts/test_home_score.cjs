@@ -1,6 +1,6 @@
 const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/strict');
 const script=fs.readFileSync('js/home-score.js','utf8');
-async function run(data,ok=true){const nodes={'home-score':{},'home-score-status':{}};await vm.runInNewContext(script,{document:{getElementById:id=>nodes[id]},fetch:async()=>({ok,json:async()=>data}),AbortSignal,Date,Number,Error});return nodes;}
+async function run(data,ok=true){const nodes={'home-score':{},'home-score-status':{}};await vm.runInNewContext(script,{window:{addEventListener(){}},document:{getElementById:id=>nodes[id]},fetch:async()=>({ok,json:async()=>data}),AbortSignal,Date,Number,Error});await new Promise(resolve=>setImmediate(resolve));return nodes;}
 (async()=>{
  let n=await run({score:51.6,zone:'mid-cycle',asOf:new Date().toISOString()});assert.equal(n['home-score'].textContent,'51.6 / 100');
  n=await run({score:51.6,zone:'mid-cycle',asOf:'2020-01-01'});assert.match(n['home-score-status'].textContent,/Older reading/);
