@@ -239,8 +239,17 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <link rel="manifest" href="/site.webmanifest">
 <script defer src="/js/consent.js?v=20260820"></script>
   <script src="/js/attribution.js?v=20260825" defer></script>
+<link rel="stylesheet" href="/css/site.css?v=20260928">
 </head>
-<body>
+<body class="lo-public">
+<!-- shared-site-header:start -->
+<div class="lo-site-header" role="banner"><div class="lo-header-inner">
+<a href="/" class="lo-home" aria-label="LiftOffr home"><span class="lo-logo"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
+<div class="lo-desktop-links"><a href="/cycle">Live Score</a><a href="/indicators">The method</a><a href="/receipts">Track record</a><a href="/system">The course</a></div>
+<a class="lo-nav-cta" href="/plan" data-cta-slot="shared_nav">Explore the Plan</a>
+<details class="lo-menu"><summary>Menu</summary><div><a href="/cycle">Live Score</a><a href="/indicators">The method</a><a href="/receipts">Track record</a><a href="/system">The course</a><a href="/ig-discord" data-dest="discord">Free Discord</a><a href="/about">About Torin</a><a href="/faq">FAQ</a></div></details>
+</div></div>
+<!-- shared-site-header:end -->
 <!-- PROOF NAV (action #15) — four pages, one record. /receipts is canonical;
      the others are views onto it. Keep this block identical across all four. -->
 <div style="max-width:900px;margin:0 auto;padding:18px 20px 0;">
@@ -258,14 +267,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K5B4BX46" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- Top nav -->
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="nav-back"><span class="nav-back-arrow">←</span>Back to LiftOffr</a>
-    <a href="/" aria-label="LiftOffr home" style="text-decoration:none;"><span class="lo-logo" style="font-size:18px;"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
-    <a href="/receipts" class="nav-back">Signal history</a>
-    <a href="/plan" class="nav-cta">Get the plan — $29 once →</a>
-  </div>
-</nav>
+
 
 <div class="wrap">
 

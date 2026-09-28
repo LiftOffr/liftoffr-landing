@@ -120,10 +120,12 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
   committed unignored; `product/` and `*.paid.pdf` are excluded in `.vercelignore` for that
   reason. Before committing any binary, ask whether someone paid for it.
 
-## Design language (preserve — never break)
-- Homepage/blog/links: near-black `#080808`, cards `#111111`, borders `#1e1e1e`, **brand red `#e63946`**, muted `#777`.
-- /cycle + /dashboard: navy `#060910` glass — frosted cards, backdrop-blur(14px), radial glows; green `#26d07c`, amber `#e8b339`, blue `#4d8df0`. Semicircular verdict gauge + Four Pillars.
-- Loud CTAs = solid red. Proof accents = green. Apple-level hierarchy: big numbers, generous whitespace.
+## Design language
+- All public pages share `css/site.css`, sourced from `~/liftoffr-brand/tokens.json`: black #080808, cards #111111, red #e63946, Inter body, Archivo Black display.
+- Shared static navigation source: `scripts/shared-site-header.html`. Run `python3 scripts/sync_site_header.py` after editing it; `--check` detects drift. Keep one header per public page.
+- Homepage sales layout: `css/home.css`; live public Score panel: `js/home-score.js`. No private account data.
+- Private `/dashboard` keeps its existing design and authentication. Public `/cycle` uses the shared public theme.
+- Solid red primary actions, green data accents. Do not add personal portfolio balances, order levels or gains/loss stories to public or paid copy.
 
 ## Brand voice (see BRAND_VOICE.md if present)
 - First-person "I" (Torin). Story-driven: 2017 mining rig (Minnesota, caught fire) → $30K round-trip loss 2022 "between two college classes" → personal exits began after June 27, 2025; unaudited and not a claim of selling the October top.

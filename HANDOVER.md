@@ -1,3 +1,7 @@
+## September 28: sales homepage and consistent public theme
+
+Shared public navigation/theme now lives in `css/site.css` and `scripts/shared-site-header.html` (44 HTML files). Sync with `python3 scripts/sync_site_header.py`; verify with `--check`. Homepage uses `css/home.css` and `js/home-score.js` and routes visitors to the actual Plan preview or free Discord. Research/validation: `/Users/torin/Documents/liftoffr-site-redesign-2026-09-28/RESEARCH.md`. Conversion uplift unproven. Paid Plan artifact migration remains separate and unfinished; do not infer it from the website redesign.
+
 ## September 21 UTC: competitor-informed funnel refinement
 
 Current research and release evidence: `/Users/torin/Documents/liftoffr-competitor-research-2026-09-21/RESEARCH.md`. Look Into Bitcoin, Checkonchain and Lyn Alden inspected directly. No competitor revenue/conversion claim verified. Quiz results and immediate email copy now teach a useful exercise and offer a relevant next step; beginners stay on the free method. Plan page clarifies first use and the free/paid boundary. Prices and payment settings preserved. Revenue uplift is unproven; observe this revision before further copy churn.
