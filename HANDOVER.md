@@ -1,3 +1,7 @@
+## September 28 product-page conversion follow-up
+
+Plan purchase action now sits directly after the product preview (`after_preview`). Plan/System pre-purchase help and Plan access troubleshooting use contact.liftoffr@gmail.com. `js/product-help.js` records bounded help clicks and once-only demo starts through existing analytics; neither means a purchase or an email sent. Evidence: `/Users/torin/Documents/liftoffr-site-redesign-2026-09-28/CONVERSION-FOLLOWUP.md`. Paid-document migration remains unfinished.
+
 ## September 28: sales homepage and consistent public theme
 
 Shared public navigation/theme now lives in `css/site.css` and `scripts/shared-site-header.html` (44 HTML files). Sync with `python3 scripts/sync_site_header.py`; verify with `--check`. Homepage uses `css/home.css` and `js/home-score.js` and routes visitors to the actual Plan preview or free Discord. Research/validation: `/Users/torin/Documents/liftoffr-site-redesign-2026-09-28/RESEARCH.md`. Conversion uplift unproven. Paid Plan artifact migration remains separate and unfinished; do not infer it from the website redesign.
