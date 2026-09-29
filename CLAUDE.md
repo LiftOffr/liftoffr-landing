@@ -125,7 +125,8 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 - Shared static navigation source: `scripts/shared-site-header.html`. Run `python3 scripts/sync_site_header.py` after editing it; `--check` detects drift. Keep one header per public page.
 - Homepage sales layout: `css/home.css`; live public Score panel: `js/home-score.js`. No private account data.
 - Private `/dashboard` keeps its existing design and authentication. Public `/cycle` uses the shared public theme.
-- Solid red primary actions, green data accents. Do not add personal portfolio balances, order levels or gains/loss stories to public or paid copy.
+- Solid red primary actions, green data accents.
+- Privacy clarification from Torin, September 29: verified historical biography, past experiences and historical gains/loss stories may appear in public and paid content. Keep current financial circumstances private: balances, account values, holdings, allocations, live orders and current personal execution plans. Historical examples must be clearly dated and supported by evidence or Torin confirmation; do not imply past results describe his current position. This supersedes the earlier blanket ban on personal-finance stories.
 
 ## Brand voice (see BRAND_VOICE.md if present)
 - First-person "I" (Torin). Story-driven: 2017 mining rig (Minnesota, caught fire) → $30K round-trip loss 2022 "between two college classes" → personal exits began after June 27, 2025; unaudited and not a claim of selling the October top.

@@ -12,9 +12,6 @@
 .lo-homepage .lo-button{display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:13px 22px;background:var(--lo-red);color:var(--lo-text);border-radius:8px;text-decoration:none;font-weight:700;font-size:14px}
 .lo-homepage .lo-secondary{background:transparent;border:1px solid var(--lo-border)}
 .lo-homepage .lo-fine{font-size:12px;line-height:1.65}
-.lo-preview{border:1px solid var(--lo-border);border-radius:var(--lo-radius);background:var(--lo-card);padding:32px;position:relative}
-.lo-preview-top{display:flex;justify-content:space-between;gap:18px;border-bottom:1px solid var(--lo-border);padding-bottom:20px;margin-bottom:24px;font:11px var(--lo-mono);color:var(--lo-text_muted)}
-.lo-preview h2{font-size:30px}.lo-preview ol{list-style:none;padding:0;margin:0;counter-reset:steps}.lo-preview li{counter-increment:steps;border-top:1px solid var(--lo-border);padding:18px 0;font-size:15px}.lo-preview li::before{content:'0' counter(steps);color:var(--lo-red);font:12px var(--lo-mono);margin-right:18px}
 .lo-homepage .lo-strip{display:flex;gap:24px;justify-content:space-between;border-block:1px solid var(--lo-border);padding:22px 0;color:var(--lo-text_muted);font-size:13px;flex-wrap:wrap}.lo-strip strong{color:var(--lo-text)}
 .lo-homepage .lo-section{padding:72px 0;border-bottom:1px solid var(--lo-border)}
 .lo-homepage .lo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -26,4 +23,25 @@
 .lo-evidence strong{display:block;font:40px var(--lo-mono);margin-bottom:12px}.lo-evidence a{font-size:14px}
 .lo-homepage details.lo-faq{border-bottom:1px solid var(--lo-border);padding:22px 0}.lo-faq summary{cursor:pointer;font-weight:600;font-size:17px}.lo-faq p{padding-top:18px;max-width:720px}
 .lo-founder{display:flex;align-items:center;gap:20px}.lo-founder img{border-radius:50%;object-fit:cover}.lo-founder p{margin:0;font-size:14px}
-@media(max-width:760px){.lo-homepage .lo-hero{grid-template-columns:1fr;gap:32px;padding:40px 0}.lo-homepage .lo-grid,.lo-homepage .lo-two{grid-template-columns:1fr;gap:20px}.lo-homepage .lo-section{padding:44px 0}.lo-preview{padding:24px}.lo-homepage h1{font-size:38px}.lo-actions .lo-button{flex:1}.lo-homepage .lo-strip{gap:12px;font-size:12px}}
+@media(max-width:760px){.lo-homepage .lo-hero{grid-template-columns:1fr;gap:32px;padding:40px 0}.lo-homepage .lo-grid,.lo-homepage .lo-two{grid-template-columns:1fr;gap:20px}.lo-homepage .lo-section{padding:44px 0}.lo-homepage .lo-strip{gap:12px;font-size:12px}}
+/* September 29: founder-led editorial direction. */
+.lo-homepage .lo-hero{grid-template-columns:1.08fr 1fr;gap:64px;padding:48px 0 56px}
+.lo-homepage .lo-hero h1{font-size:clamp(40px,4.7vw,66px);line-height:1.06;letter-spacing:-.045em;margin:22px 0 28px;text-wrap:initial}
+.lo-homepage .lo-hero .lo-intro{font-size:17px;line-height:1.8;max-width:480px}
+.lo-homepage .lo-hero .lo-actions{gap:22px;align-items:center;margin:28px 0 18px}
+.lo-homepage .lo-button{gap:20px;border-radius:5px;min-height:52px}
+.lo-homepage .lo-text-link{font-size:14px;font-weight:600;text-decoration:none;border-bottom:1px solid var(--lo-text_muted);padding-bottom:4px}
+.lo-homepage .lo-story-link{display:inline-flex;gap:24px;font-size:12px;text-decoration:none;color:var(--lo-text_muted);margin-top:20px}
+.lo-portrait{margin:0;position:relative;min-width:0}
+.lo-portrait>img{display:block;width:100%;height:600px;object-fit:cover;object-position:50% 35%;border-radius:3px}
+.lo-portrait figcaption{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:3px solid var(--lo-red);padding:15px 0 0;font-size:11px;color:var(--lo-text_muted)}
+.lo-portrait figcaption span:first-child{font-weight:600;color:var(--lo-text)}
+.lo-homepage .lo-strip{font-size:12px;padding:25px 0}
+.lo-homepage .lo-offer{border-radius:5px;padding:30px}
+.lo-homepage .lo-story{display:grid;grid-template-columns:.8fr 1fr;gap:100px;align-items:center}
+.lo-story figure{margin:0;max-width:400px}
+.lo-story img{display:block;width:100%;height:440px;object-fit:cover;object-position:50% 20%;border-radius:3px}
+.lo-homepage .lo-story p{font-size:16px;line-height:1.85;max-width:500px}
+.lo-author-signoff{font-size:18px;font-weight:600;margin:26px 0}.lo-author-signoff span{display:block;font:12px var(--lo-body);color:var(--lo-text_muted);margin-top:5px}
+@media(max-width:1000px) and (min-width:761px){.lo-homepage .lo-hero{gap:32px}.lo-portrait>img{height:540px}.lo-homepage .lo-story{gap:48px}.lo-homepage .lo-hero h1{font-size:46px}}
+@media(max-width:760px){.lo-homepage .lo-hero{grid-template-columns:1fr;gap:30px;padding:24px 0 36px}.lo-portrait{grid-row:1}.lo-portrait>img{height:290px;object-position:50% 29%}.lo-portrait figcaption{font-size:10px;padding-top:9px}.lo-homepage .lo-hero h1{font-size:clamp(35px,8.8vw,48px);margin:14px 0 18px}.lo-homepage .lo-hero .lo-intro{font-size:15px;line-height:1.7}.lo-homepage .lo-hero .lo-actions{gap:20px;margin-top:22px}.lo-homepage .lo-hero .lo-actions .lo-button{flex:initial}.lo-homepage .lo-hero-copy>.lo-kicker{font-size:9px;letter-spacing:.08em}.lo-homepage .lo-story{grid-template-columns:1fr;gap:30px}.lo-story figure{max-width:none}.lo-story img{height:360px;object-position:50% 20%}.lo-homepage .lo-offer{padding:25px}.lo-homepage .lo-story-link{margin-top:5px}}

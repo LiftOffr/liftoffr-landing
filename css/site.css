@@ -35,3 +35,11 @@ body.lo-public{--bg:var(--lo-bg);--card:var(--lo-card);--red:var(--lo-red);--gre
 @media(max-width:380px){.lo-header-inner{gap:12px;padding:12px 16px}.lo-site-header .lo-logo{font-size:19px}}
 @media(prefers-reduced-motion:reduce){.lo-public *{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 @media print{.lo-site-header{display:none}}
+/* The same founder identity follows readers between products and research. */
+.lo-brand-lockup{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.lo-site-header .lo-brand-name{font:9px/1.2 var(--lo-body);letter-spacing:.015em;color:var(--lo-text_muted)}
+.lo-public .lo-product-author{display:inline-flex;align-items:center;gap:12px;margin:0 0 26px;text-align:left;text-decoration:none;font:12px/1.5 var(--lo-body);color:var(--lo-text_muted)}
+.lo-product-author img{border-radius:50%;object-fit:cover;object-position:50% 22%;flex-shrink:0}
+.lo-product-author strong{color:var(--lo-text)}.lo-product-author small{display:block;font-size:11px}
+
+.lo-author-photo{display:block;width:48px;height:48px;overflow:hidden;border-radius:50%;flex-shrink:0}.lo-author-photo img{transform:scale(1.65);transform-origin:50% 20%}

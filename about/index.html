@@ -246,6 +246,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     text-shadow: 0 1px 8px rgba(0,0,0,0.6);
   }
   .hero-img-tag span { color: var(--red); }
+  .lo-public .hero-img{aspect-ratio:auto;border-radius:3px;overflow:hidden;box-shadow:none;}
+  .lo-public .hero-img img{height:auto;aspect-ratio:4/5;transform:none;}
+  .lo-public .hero-img::after{display:none;}
+  .lo-public .hero-img-tag{position:static;background:#080808;border-top:3px solid #e63946;padding:14px 0;color:#9ca3af;letter-spacing:0;text-transform:none;text-shadow:none;font-weight:400;}
+  .lo-public .hero-img-tag span{color:#fff;font-weight:600;}
 
   /* Inline polaroid (mid-page photo) */
   .polaroid {
@@ -322,12 +327,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 <script defer src="/js/consent.js?v=20260820"></script>
 <script src="/js/attribution.js?v=20260825" defer></script>
-<link rel="stylesheet" href="/css/site.css?v=20260928">
+<link rel="stylesheet" href="/css/site.css?v=20260929">
 </head>
 <body class="lo-public">
 <!-- shared-site-header:start -->
 <div class="lo-site-header" role="banner"><div class="lo-header-inner">
-<a href="/" class="lo-home" aria-label="LiftOffr home"><span class="lo-logo"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span></a>
+<a href="/" class="lo-home" aria-label="LiftOffr home"><span class="lo-brand-lockup"><span class="lo-logo"><span class="lo-lift">lift</span><span class="lo-offr">offr</span></span><span class="lo-brand-name">by Torin Christianson</span></span></a>
 <div class="lo-desktop-links"><a href="/cycle">Live Score</a><a href="/indicators">The method</a><a href="/receipts">Track record</a><a href="/system">The course</a></div>
 <a class="lo-nav-cta" href="/plan" data-cta-slot="shared_nav">Explore the Plan</a>
 <details class="lo-menu"><summary>Menu</summary><div><a href="/cycle">Live Score</a><a href="/indicators">The method</a><a href="/receipts">Track record</a><a href="/system">The course</a><a href="/ig-discord" data-dest="discord">Free Discord</a><a href="/about">About Torin</a><a href="/faq">FAQ</a></div></details>
@@ -361,8 +366,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
          a yacht or rooftop cocktails; the two that show work were the only candidates
          and both are now in use. Do not put a car back in this slot. -->
     <div class="hero-img">
-      <img src="/img/torin-about.jpg" alt="Torin Christianson, founder of LiftOffr, carrying a laptop in Tampa" fetchpriority="high">
-      <div class="hero-img-tag"><span>Tampa &middot;</span> Nine years of decisions, written down.</div>
+      <img src="/img/torin-walking-1000.webp" width="1000" height="1250" alt="Torin Christianson walking outside with a laptop and coffee" fetchpriority="high">
+      <div class="hero-img-tag"><span>Torin Christianson</span> &middot; Founder of LiftOffr</div>
     </div>
   </div>
 

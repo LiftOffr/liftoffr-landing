@@ -1,3 +1,7 @@
+## September 29: founder-led visual design
+
+Homepage now features Torin's real café and smiling portraits, first-person introduction and founder section. About uses the walking portrait; Plan/System carry author bylines. Shared header names Torin on all 44 public pages. Research, photo provenance and verification: `/Users/torin/Documents/liftoffr-personal-brand-2026-09-29/RESEARCH-AND-RELEASE.md`. Historical story allowed; current finances stay private. No paid-artifact migration in this release.
+
 ## September 28 product-page conversion follow-up
 
 Plan purchase action now sits directly after the product preview (`after_preview`). Plan/System pre-purchase help and Plan access troubleshooting use contact.liftoffr@gmail.com. `js/product-help.js` records bounded help clicks and once-only demo starts through existing analytics; neither means a purchase or an email sent. Evidence: `/Users/torin/Documents/liftoffr-site-redesign-2026-09-28/CONVERSION-FOLLOWUP.md`. Paid-document migration remains unfinished.
