@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "ZH5ivfBD-KQ",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold: Dubious Speculation",
+    "published": "2026-09-29T18:47:00+00:00",
+    "processed_at": "2026-09-29T19:36:23.508426+00:00",
+    "url": "https://www.youtube.com/watch?v=ZH5ivfBD-KQ",
+    "outlook": "bullish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      4100
+    ],
+    "indicators_mentioned": [
+      "Seasonality",
+      "10-year yield",
+      "30-year yield",
+      "Fed funds rate",
+      "2-year yield",
+      "DXY (US Dollar Index)",
+      "Year-to-date ROI comparison"
+    ],
+    "key_points": [
+      "Gold typically bottoms in summer of midterm years, sometimes forming a lower low or higher low into October-November, and current price action mirrors 2014, 2018, and 2022 analogs",
+      "Gold historically bottoms shortly before the long end of the yield curve tops, and that divergence (yields rising while gold strengthens) is the key signal to watch for",
+      "Rising 10-year and 30-year yields plus a strengthening dollar are the main near-term bearish forces on gold, with a local yield top estimated around 5.1-5.2% on the 10-year and roughly 6% on the 30-year",
+      "Long end yields are rising not just due to Middle East oil conflict but because the Fed funds rate sits well below the neutral rate (approximated by the 2-year yield), keeping policy insufficiently restrictive against rising inflation concerns",
+      "Stock market resilience so far mirrors prior midterm-year cycles where equities held up until the 10-year yield topped and a growth scare emerged, meaning a correction, if any, would likely form a higher low rather than a major top"
+    ],
+    "summary": "Gold's decline since late August fits a recurring midterm-year seasonal pattern where it bottoms in summer, bounces, and revisits lows into the September-November window before turning higher. The current pressure from a rising dollar and a parabolic long end of the yield curve\u2014driven both by energy market uncertainty and an insufficiently restrictive Fed funds rate\u2014should persist until yields show signs of topping, at which point gold is expected to show strength first and carve out its low, potentially over the next few weeks into early November."
+  },
+  {
     "video_id": "2C70_Ms3V9A",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1496,36 +1528,5 @@ export default [
       "Current trajectory suggests potential reset incoming, which historically marks the beginning of new bull market phases"
     ],
     "summary": "The MVRV Zcore is currently at 3.5 and approaching the zero level where it historically resets approximately every four years. Previous resets below zero have consistently preceded 5-12 month accumulation zones that then launched new bull markets, suggesting the current positioning presents an emerging opportunity as the indicator approaches reset levels."
-  },
-  {
-    "video_id": "gAf6tPzkcgg",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Social Risk",
-    "published": "2026-06-19T05:18:39+00:00",
-    "processed_at": "2026-06-19T06:22:31.338136+00:00",
-    "url": "https://www.youtube.com/watch?v=gAf6tPzkcgg",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Social Risk metric",
-      "Bitcoin dominance",
-      "Google Trends",
-      "Coinbase app rankings",
-      "YouTube subscribers",
-      "YouTube views",
-      "Twitter followers",
-      "Wikipedia page views"
-    ],
-    "key_points": [
-      "Social interest remains structurally depressed since 2021 peak, mirroring post-2019 dynamics with prolonged retail absence indicating weakness ahead",
-      "Current monetary policy environment (higher rates, quantitative tightening) mirrors 2019 conditions, positioning crypto as frothy risk-curve assets vulnerable to continued capital outflows",
-      "Altcoin market in post-euphoric digestion phase with YouTube channels losing subscribers on average and views declining from 3-4M daily to significantly lower levels, signaling structural demand destruction",
-      "Bitcoin strength dependent on Fed pivot to looser monetary policy, which requires stock market weakness in late Q3/early Q4 to trigger; AI trade continuation prevents rate cuts currently",
-      "Industry maturation crisis with focus on memecoin speculation rather than technology development has eroded retail credibility; recovery requires genuine utility focus, not new financial products"
-    ],
-    "summary": "Bitcoin and crypto remain trapped in a prolonged bear market cycle structurally identical to 2019, driven by extended higher interest rates and quantitative tightening with no imminent Fed pivot visible. Social interest continues bleeding out with retail departing across all engagement metrics, preventing the euphoric rallies typical of cycle tops and positioning crypto as a vulnerable risk asset until monetary policy loosens materially. Recovery hinges on stock market weakness forcing Fed action, likely in late 2025, but extended weakness is probable given the AI trade's continued dominance."
   }
 ];
