@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "kDJcse482Eo",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Payrolls Come in Weak, Unemployment Ticks Higher",
+    "published": "2026-10-02T18:25:45+00:00",
+    "processed_at": "2026-10-02T18:38:06.258229+00:00",
+    "url": "https://www.youtube.com/watch?v=kDJcse482Eo",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Unemployment rate",
+      "Non-farm payroll",
+      "Labor force participation rate",
+      "10-year yield",
+      "20-year yield",
+      "30-year yield",
+      "Credit spreads (CCC, investment grade, high yield)",
+      "MOVE index",
+      "PCE",
+      "CPI",
+      "Recession risk dashboard",
+      "Job quits",
+      "Layoffs and discharges",
+      "Job openings"
+    ],
+    "key_points": [
+      "The rise in unemployment is driven mainly by more people entering the labor force rather than layoffs, with layoffs and job losses actually trending down",
+      "Younger workers (16-24) face a materially harder job market with unemployment near 8-14%, while prime-age workers (25-54) remain stable at 3.6%, splitting the economy into divergent segments",
+      "Non-farm payroll growth came in weak and is approaching levels historically associated with recession risk, though not yet negative year-over-year",
+      "Yields and credit spreads are rising despite soft labor and inflation prints, suggesting markets remain concerned about inflation (reinforced by a hot Tokyo CPI print), creating a critical divergence between equities at all-time highs and weakening credit/rate signals",
+      "A split is emerging between small caps (Russell 2000, down ~10%) and mega-cap-driven indices (S&P, Nasdaq) at record highs, with either the Russell needing to recover or the broader market needing to catch down, a dynamic that remains unresolved and keeps the near-term outlook uncertain"
+    ],
+    "summary": "The labor market and credit/yield backdrop present a mixed and unresolved picture, with softening payrolls and rising unemployment offset by rising yields and widening credit spreads that signal lingering inflation concerns rather than growth fears. Equity markets remain split, with mega-cap strength masking weakness in small caps and equal-weight indices, leaving the direction of a broader correction versus continued highs undetermined until yields and credit spreads show a clearer resolution."
+  },
+  {
     "video_id": "ZH5ivfBD-KQ",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1504,29 +1541,5 @@ export default [
       "Social interest and retail participation metrics are declining sharply, potentially limiting altcoin demand while Bitcoin remains relatively stable, though this could mask underlying weakness"
     ],
     "summary": "Bitcoin is positioned between declining resistance and rising support with elevated risk of lower prices in the second half of the year, consistent with midterm bear market cycles. While countertrend rallies are likely before any breakdown, the realized price has not yet tested historical bear market lows, suggesting downside remains probable. The path and timing of this move remain uncertain, but ignoring price action through mid-year and reassessing in H2 appears prudent."
-  },
-  {
-    "video_id": "hXlR5xu0HK4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: MVRV Z-Score",
-    "published": "2026-06-21T04:42:30+00:00",
-    "processed_at": "2026-06-21T05:23:28.142163+00:00",
-    "url": "https://www.youtube.com/watch?v=hXlR5xu0HK4",
-    "outlook": "bullish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "MVRV Zcore"
-    ],
-    "key_points": [
-      "MVRV Zcore currently at 3.5, approaching the zero reset level that historically signals attractive accumulation zones",
-      "Below-zero MVRV Zcore levels have historically preceded multi-month accumulation periods (6 months in 2022, 5 months in 2018, 12 months in 2014-2015) followed by new bull markets",
-      "MVRV Zcore resets approximately every four years and aligns with Bitcoin's cycle structure",
-      "Extended time below zero (not single-day dips) creates the best accumulation opportunities as market sentiment is ignored",
-      "Current trajectory suggests potential reset incoming, which historically marks the beginning of new bull market phases"
-    ],
-    "summary": "The MVRV Zcore is currently at 3.5 and approaching the zero level where it historically resets approximately every four years. Previous resets below zero have consistently preceded 5-12 month accumulation zones that then launched new bull markets, suggesting the current positioning presents an emerging opportunity as the indicator approaches reset levels."
   }
 ];
