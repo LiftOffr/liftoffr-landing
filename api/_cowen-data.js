@@ -3,6 +3,32 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "FVcHFIPVI40",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "When Will Interest Rates Drop?",
+    "published": "2026-10-05T04:17:33+00:00",
+    "processed_at": "2026-10-05T07:39:52.327352+00:00",
+    "url": "https://www.youtube.com/watch?v=FVcHFIPVI40",
+    "outlook": "neutral",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "10-year yield",
+      "2-year yield",
+      "Fed Funds Futures / rate hike probability"
+    ],
+    "key_points": [
+      "The 10-year yield has already spiked to around 5.3%, overshooting the prior soft target of 5%, with further upside toward 5.3-5.6% not ruled out",
+      "Seasonal/historical patterns from the 2018 and 2022 midterm years suggest yields typically top between early October and mid-November before declining into year-end",
+      "Rising yields are partly driven by the market pricing out expected rate cuts, since the probability of an October rate cut has collapsed from 64% to below 18%",
+      "Peak fear and uncertainty around rates is expected near the late-October FOMC meeting, especially if a weak inflation print emerges and the Fed still declines to cut",
+      "Once peak fear passes, likely around mid-November post-midterms, rates are expected to start declining, which would be a tailwind for risk assets including Bitcoin"
+    ],
+    "summary": "Long-term interest rates appear to be entering a topping process, with the 10-year yield already overshooting prior targets near 5.3% and potential for a slightly higher peak around the late-October Fed meeting amid rate-cut repricing and inflation uncertainty. Historical midterm-year patterns suggest yields should begin declining by mid-November, which would mark a shift in the macro backdrop favorable for risk assets going into year-end."
+  },
+  {
     "video_id": "kDJcse482Eo",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1512,34 +1538,5 @@ export default [
       "Long-term accumulation opportunity may emerge in second half of year if S&P takes out March lows or experiences 20%+ correction"
     ],
     "summary": "SpaceX IPO has followed historical patterns of initial 50% rally followed by 34% retracement toward IPO lows. Whether this establishes a durable low depends on broader S&P 500 weakness; midterm year corrections typically occur in second half, creating potential accumulation zones. The trajectory remains uncertain near-term but historical precedent with similar company launches suggests extended sideways consolidation before sustained appreciation."
-  },
-  {
-    "video_id": "d71wYhwKpFY",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Bear Market Resistance Band",
-    "published": "2026-06-22T05:04:33+00:00",
-    "processed_at": "2026-06-22T07:11:03.846463+00:00",
-    "url": "https://www.youtube.com/watch?v=d71wYhwKpFY",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      70000,
-      74000
-    ],
-    "indicators_mentioned": [
-      "bear market resistance band",
-      "200-week moving average",
-      "realized price",
-      "social risk"
-    ],
-    "key_points": [
-      "Bitcoin is trapped between the downward-trending bear market resistance band (70-74k) and the upward-trending 200-week moving average, with historical four-year cycle patterns suggesting eventual breakdown likely in second half of the year",
-      "Realized price has not yet traded below its typical bear market level, indicating further downside is probable before year-end based on cyclical precedent from 2014, 2018, and 2022",
-      "Historical pattern suggests a market low forms in early summer (June) followed by countertrend rallies in late July/August, but timing is difficult to predict and multiple rejection cycles from the resistance band are typical in bear markets",
-      "Social interest and retail participation metrics are declining sharply, potentially limiting altcoin demand while Bitcoin remains relatively stable, though this could mask underlying weakness"
-    ],
-    "summary": "Bitcoin is positioned between declining resistance and rising support with elevated risk of lower prices in the second half of the year, consistent with midterm bear market cycles. While countertrend rallies are likely before any breakdown, the realized price has not yet tested historical bear market lows, suggesting downside remains probable. The path and timing of this move remain uncertain, but ignoring price action through mid-year and reassessing in H2 appears prudent."
   }
 ];
