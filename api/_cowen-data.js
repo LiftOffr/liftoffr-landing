@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "s4U8s754p9w",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Silver: Dubious Speculation",
+    "published": "2026-10-06T04:23:59+00:00",
+    "processed_at": "2026-10-06T07:40:32.614892+00:00",
+    "url": "https://www.youtube.com/watch?v=s4U8s754p9w",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "10-year yield",
+      "DXY (US Dollar Index)"
+    ],
+    "key_points": [
+      "Silver's decline is driven by a rising dollar and rising 10-year yields, mirroring the same dynamic seen in 2018 and 2022",
+      "Yields typically top after midterm elections, and silver historically bottoms before or around that yield top, suggesting a low forming between September and November",
+      "The current downturn is best explained as a consolidation/digestion phase following a parabolic advance, similar to the 1974 pattern, which can last about a year",
+      "A break below the 60 level would open a move toward prior highs near 50 as a potential sweep, but this is only expected to occur within the next couple of months or not at all",
+      "Bitcoin and silver produced similar total returns over the same three-year cycle window, just with returns front-loaded for Bitcoin and back-loaded for silver"
+    ],
+    "summary": "Silver's correction is viewed as a digestion phase following a parabolic advance, compounded by near-term pressure from a rising dollar and rising 10-year yields. A low is expected to form within the next few weeks to couple of months, likely before or around when yields top post-midterms, followed by a longer base-building consolidation before another potential parabolic move later in the decade."
+  },
+  {
     "video_id": "FVcHFIPVI40",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1516,27 +1541,5 @@ export default [
       "Current on-chain risk metrics (0.195) suggest room for further decline toward historical bottom levels (~0.1), indicating bear market likely not yet complete"
     ],
     "summary": "Bitcoin is expected to form a market cycle bottom in late Q3 to early Q4 based on 4-year cycle time analysis, with a counter-trend relief rally anticipated in mid to late July. Price targets include the realized price around 53K and potentially the balance price near 38K, which would signal full price-based capitulation. Multiple on-chain indicators including MVRV Z-score, volume patterns, and on-chain risk metrics remain in ranges consistent with mid-cycle bear markets rather than final capitulation, suggesting the bear market has several more months to play out."
-  },
-  {
-    "video_id": "xK6bqL-QNE4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "SpaceX Retraces IPO Gains - What Next?",
-    "published": "2026-06-23T22:42:26+00:00",
-    "processed_at": "2026-06-23T23:11:57.470341+00:00",
-    "url": "https://www.youtube.com/watch?v=xK6bqL-QNE4",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [],
-    "key_points": [
-      "IPO typically rallies 50-60% initially, then retraces back toward or below IPO opening price within days to weeks",
-      "SpaceX has already retraced 34% from highs over 4-6 days, following similar pattern to Tesla IPO in 2010",
-      "S&P 500 midterm year weakness pattern suggests second half correction likely; unclear if major pullback has occurred yet",
-      "Historical precedent shows successful IPOs like Tesla and Apple form accumulation zones for extended periods after initial pullback before sustained uptrend",
-      "Long-term accumulation opportunity may emerge in second half of year if S&P takes out March lows or experiences 20%+ correction"
-    ],
-    "summary": "SpaceX IPO has followed historical patterns of initial 50% rally followed by 34% retracement toward IPO lows. Whether this establishes a durable low depends on broader S&P 500 weakness; midterm year corrections typically occur in second half, creating potential accumulation zones. The trajectory remains uncertain near-term but historical precedent with similar company launches suggests extended sideways consolidation before sustained appreciation."
   }
 ];
