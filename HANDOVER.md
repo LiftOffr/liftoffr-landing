@@ -844,3 +844,7 @@ server now refers to another message above it.
 It also records a real sequencing dependency: the notices in `⚡・urgent-alerts` and
 `⚙️・indicator-readings` must NOT be deleted until the fleet bots that feed those channels are
 stopped, or members will meet retired content with no explanation.
+
+## 2026-10-05 public motion and interaction layer
+
+Shared `js/site-motion.js` is synchronized through `scripts/shared-site-header.html` on 44 public pages. Progressive enhancement, reduced-motion support, keyboard-safe native menu, sticky header, active-page links. Homepage adds an optional product chooser and published-data Score dial (`js/home-score.js`), preserving dated/stale/unavailable states. No private finance data or offer changes. Release evidence: `/Users/torin/Documents/liftoffr-motion-2026-10-05/RELEASE.md`.

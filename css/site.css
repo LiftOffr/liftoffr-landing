@@ -43,3 +43,15 @@ body.lo-public{--bg:var(--lo-bg);--card:var(--lo-card);--red:var(--lo-red);--gre
 .lo-product-author strong{color:var(--lo-text)}.lo-product-author small{display:block;font-size:11px}
 
 .lo-author-photo{display:block;width:48px;height:48px;overflow:hidden;border-radius:50%;flex-shrink:0}.lo-author-photo img{transform:scale(1.65);transform-origin:50% 20%}
+
+/* Shared motion language: short, deliberate responses; no looping effects. */
+.lo-site-header{position:sticky;top:0;background:rgba(8,8,8,.97);isolation:isolate}
+html{scroll-padding-top:110px}
+.lo-desktop-links a{position:relative;padding:8px 0}
+.lo-desktop-links a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--lo-red);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.lo-desktop-links a:hover::after,.lo-desktop-links a[aria-current=page]::after{transform:scaleX(1)}
+.lo-menu a[aria-current=page]{color:var(--lo-text);background:#ffffff0a;border-left:2px solid var(--lo-red)}
+.lo-public :is(.lo-button,.lo-nav-cta){transition:transform .2s ease,background-color .2s ease}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.lo-public :is(.lo-button,.lo-nav-cta):hover{transform:translateY(-3px)}.lo-public :is(.lo-button,.lo-nav-cta):active{transform:translateY(0)}}
+@media(max-height:500px){.lo-site-header{position:relative}.lo-menu>div{max-height:65vh;overflow:auto}}
+@media print{.lo-site-header{display:none}}
