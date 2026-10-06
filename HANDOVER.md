@@ -848,3 +848,7 @@ stopped, or members will meet retired content with no explanation.
 ## 2026-10-05 public motion and interaction layer
 
 Shared `js/site-motion.js` is synchronized through `scripts/shared-site-header.html` on 44 public pages. Progressive enhancement, reduced-motion support, keyboard-safe native menu, sticky header, active-page links. Homepage adds an optional product chooser and published-data Score dial (`js/home-score.js`), preserving dated/stale/unavailable states. No private finance data or offer changes. Release evidence: `/Users/torin/Documents/liftoffr-motion-2026-10-05/RELEASE.md`.
+
+## 2026-10-05 crypto sales and lifestyle follow-up
+
+Primary-source crypto seller and ecommerce usability refresh: `/Users/torin/Documents/liftoffr-crypto-sales-2026-10-05/RESEARCH-AND-RELEASE.md`. Homepage thinking sample -> actual Plan preview; Plan/System fit and delivery summaries; authentic car/golf/marina photo gallery on Home and About. Responsive metadata-free images `img/torin-{drive,golf,marina}-{480,900}.webp`. Product chooser counts allowlisted interest via `product_path_selected`, not conversions. Prior paid-product migration remains unresolved; this is a website release.

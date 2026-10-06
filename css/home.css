@@ -74,3 +74,10 @@
 .lo-evidence #home-score{font:400 clamp(38px,5vw,58px)/1.2 var(--lo-display);letter-spacing:-.05em;display:block;margin:18px 0 12px}
 @media(max-width:760px){.lo-path-buttons{display:grid;grid-template-columns:1fr}.lo-path-buttons button{text-align:left}.lo-score-dial{max-width:290px}.lo-portrait::before{left:-8px;top:12px;width:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){#home-score-needle{transition:none}}
+
+.lo-sample{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.lo-sample-sheet{padding:32px;background:var(--lo-card);border:1px solid var(--lo-border);border-top:3px solid var(--lo-red);border-radius:4px}
+.lo-sample-sheet h3{font:500 12px/1.5 var(--lo-mono);color:var(--lo-text_muted);margin:24px 0 8px;text-transform:uppercase}
+.lo-sample-sheet p{font-size:18px;color:var(--lo-text);border-bottom:1px solid #303030;padding-bottom:18px;margin:0}
+.lo-sample-sheet small{display:block;margin-top:20px;color:var(--lo-text_muted);font-size:11px;line-height:1.6}
+@media(max-width:760px){.lo-sample{grid-template-columns:1fr;gap:28px}.lo-sample-sheet{padding:24px}}

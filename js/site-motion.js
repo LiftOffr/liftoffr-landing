@@ -52,5 +52,6 @@
     picker.querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
     document.querySelectorAll('[data-offer]').forEach(card => card.classList.toggle('lo-selected', card.dataset.offer === choice));
     document.getElementById('lo-path-description').textContent = descriptions[choice];
+    if (typeof window.track === 'function') window.track('product_path_selected', {path_choice: choice, page: location.pathname});
   });
 })();

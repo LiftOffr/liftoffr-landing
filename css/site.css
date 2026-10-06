@@ -55,3 +55,23 @@ html{scroll-padding-top:110px}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){.lo-public :is(.lo-button,.lo-nav-cta):hover{transform:translateY(-3px)}.lo-public :is(.lo-button,.lo-nav-cta):active{transform:translateY(0)}}
 @media(max-height:500px){.lo-site-header{position:relative}.lo-menu>div{max-height:65vh;overflow:auto}}
 @media print{.lo-site-header{display:none}}
+
+/* Founder lifestyle editorial and concise product-fit summaries. */
+.lo-life{max-width:1120px;margin:0 auto;padding:54px 24px;border-top:1px solid var(--lo-border)}
+.lo-homepage .lo-life{padding-left:0;padding-right:0}
+.lo-life-heading{display:flex;justify-content:space-between;gap:32px;align-items:end;margin-bottom:24px}
+.lo-life-heading h2{font-size:clamp(27px,3.5vw,42px);line-height:1.15;margin:12px 0 0}
+.lo-life-heading p{max-width:290px;color:var(--lo-text_muted);font-size:15px}
+.lo-life-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.lo-life-grid figure{margin:0;min-width:0}
+.lo-life-grid img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;display:block;border-radius:4px}
+.lo-life-grid figcaption{font:11px/1.6 var(--lo-mono);padding:12px 0;color:var(--lo-text_muted);border-bottom:1px solid var(--lo-border)}
+.lo-fit{margin:32px 0;padding:26px;border:1px solid var(--lo-border);border-radius:12px;background:var(--lo-card);text-align:left}
+.lo-fit h2{margin:10px 0 24px;font-size:clamp(23px,3vw,30px);line-height:1.25}
+.lo-fit-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.lo-fit h3{font-size:17px;margin:0 0 8px}.lo-fit p{font-size:15px;color:var(--lo-text_muted);line-height:1.7;margin:0}
+.lo-fit a{color:var(--lo-text);text-decoration:underline;text-underline-offset:4px}
+.lo-fit .lo-fit-note{font-size:12px;margin-top:24px;padding-top:16px;border-top:1px solid var(--lo-border)}
+@media(max-width:600px){.lo-life-heading{display:block}.lo-life-grid{grid-template-columns:1fr;gap:24px}.lo-life-grid img{max-height:460px;object-position:center}.lo-fit{padding:22px}.lo-fit-grid{grid-template-columns:1fr;gap:22px}}
+@media(max-width:600px){.lo-life-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.lo-life-grid figure:first-child{grid-column:1/-1}.lo-life-grid figure:first-child img{aspect-ratio:1/1;max-height:380px;object-position:50% 45%}.lo-life-grid figcaption{font-size:10px}}
+.lo-fit>.lo-kicker,.lo-life .lo-kicker{font:500 11px/1.6 var(--lo-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lo-red)}
