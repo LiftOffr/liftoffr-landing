@@ -1,0 +1,51 @@
+/* Photo-led founder theme; palette and type inherit canonical brand tokens. */
+.lo-lifestyle .lo-site-header{background:var(--lo-bg);border-bottom-color:#ffffff14}
+.lo-lifestyle :is(.lo-button,.lo-nav-cta){border-radius:2px}
+.lo-homepage.lo-lifestyle main{max-width:none;padding:0}
+.lo-homepage.lo-lifestyle main>:not(.lo-hero){max-width:1072px;margin-left:auto;margin-right:auto}
+.lo-homepage.lo-lifestyle .lo-hero{isolation:isolate;display:flex;align-items:center;min-height:740px;padding:72px max(24px,calc((100% - 1072px)/2));margin:0;overflow:hidden;background:var(--lo-bg)}
+.lo-lifestyle .lo-hero-copy{position:relative;z-index:2;width:53%;max-width:610px}
+.lo-homepage.lo-lifestyle .lo-hero h1{font-size:clamp(42px,4.7vw,70px);letter-spacing:-.045em;line-height:1.03;text-wrap:balance}
+.lo-lifestyle .lo-hero .lo-portrait{position:absolute;inset:0 0 0 37%;z-index:0;margin:0}
+.lo-lifestyle .lo-hero .lo-portrait>img{width:100%;height:100%;object-fit:cover;object-position:50% 0%;border-radius:0}
+.lo-lifestyle .lo-hero .lo-portrait::before{inset:0;width:auto;height:auto;border:0;background:linear-gradient(90deg,var(--lo-bg) 0%,#080808cc 16%,#08080820 48%,#08080800 75%),linear-gradient(0deg,#080808b3,transparent 30%);z-index:1}
+.lo-lifestyle .lo-hero .lo-portrait figcaption{position:absolute;bottom:28px;right:32px;z-index:2;border:0;padding:0;font:10px var(--lo-mono);letter-spacing:.1em;text-transform:uppercase}
+.lo-homepage.lo-lifestyle .lo-hero .lo-intro{color:#ddd;max-width:420px}
+.lo-lifestyle .lo-hero .lo-fine{color:#b8b8b8}
+.lo-lifestyle .lo-hero-copy>.lo-kicker{color:#ddd;letter-spacing:.16em}
+.lo-lifestyle .lo-life{padding-top:64px;padding-bottom:64px}
+.lo-lifestyle .lo-life-heading>p:empty{display:none}
+.lo-lifestyle .lo-life-grid{gap:12px}
+.lo-lifestyle .lo-life-grid img{border-radius:0}
+.lo-lifestyle .lo-life-grid figcaption{color:#c7c7c7;letter-spacing:.06em}
+.lo-lifestyle .lo-life-heading h2{font-size:clamp(30px,4vw,48px)}
+.lo-scene-banner{position:relative;isolation:isolate;height:220px;overflow:hidden;border-bottom:1px solid var(--lo-border);background:var(--lo-bg)}
+.lo-scene-banner>img{position:absolute;inset:0 0 0 auto;width:58%;height:100%;object-fit:cover;object-position:50% 30%;z-index:-2}
+.lo-scene-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--lo-bg) 25%,#08080899 55%,#08080800 85%);z-index:-1}
+.lo-scene-banner>div{max-width:1072px;margin:auto;padding:60px 24px}
+.lo-scene-banner span{font:10px/1.6 var(--lo-mono);letter-spacing:.15em;color:#d3d3d3}
+.lo-scene-banner p{font:400 clamp(28px,4vw,46px)/1.15 var(--lo-display);letter-spacing:-.03em;color:var(--lo-text);margin:14px 0 0}
+@media(max-width:1120px){.lo-homepage.lo-lifestyle main>:not(.lo-hero){margin-left:24px;margin-right:24px}}
+@media(max-width:760px){
+ .lo-homepage.lo-lifestyle .lo-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:0 24px 36px;overflow:visible}
+ .lo-lifestyle .lo-hero .lo-portrait{position:relative;inset:auto;order:-1;margin:0 -24px 24px;height:390px}
+ .lo-lifestyle .lo-hero .lo-portrait>img{object-position:50% 27%}
+ .lo-lifestyle .lo-hero .lo-portrait::before{background:linear-gradient(0deg,var(--lo-bg),#08080800 30%)}
+ .lo-lifestyle .lo-hero .lo-portrait figcaption{bottom:18px;right:24px}
+ .lo-lifestyle .lo-hero-copy{width:100%;max-width:none}
+ .lo-homepage.lo-lifestyle .lo-hero h1{font-size:clamp(36px,9vw,52px);text-wrap:initial;margin-top:14px}
+ .lo-homepage.lo-lifestyle .lo-hero .lo-intro{font-size:15px}
+ .lo-scene-banner{height:170px}
+ .lo-scene-banner>img{width:66%;object-position:50% 27%}
+ .lo-scene-banner>div{padding:44px 24px}
+ .lo-scene-banner p{font-size:27px;max-width:210px}
+ .lo-scene-banner span{font-size:8px}
+ .lo-lifestyle .lo-life{padding-top:40px;padding-bottom:40px}
+}
+@media(prefers-reduced-motion:reduce){.lo-lifestyle *{scroll-behavior:auto!important}}
+
+.lo-scene-banner>img[src*="marina"]{object-position:50% 7%}
+/* Keep portrait scale consistent across wide product-page headers. */
+.lo-scene-banner>img{width:380px;max-width:55%;right:max(0px,calc((100% - 1072px)/2));mask-image:linear-gradient(90deg,transparent,#000 18%,#000 90%,transparent);object-position:50% 35%}
+.lo-lifestyle .hero .lo-product-author{display:flex;width:fit-content;margin:0 auto 24px}
+@media(max-width:760px){.lo-scene-banner>img{right:0;width:55%;object-position:50% 30%}}

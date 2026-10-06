@@ -852,3 +852,7 @@ Shared `js/site-motion.js` is synchronized through `scripts/shared-site-header.h
 ## 2026-10-05 crypto sales and lifestyle follow-up
 
 Primary-source crypto seller and ecommerce usability refresh: `/Users/torin/Documents/liftoffr-crypto-sales-2026-10-05/RESEARCH-AND-RELEASE.md`. Homepage thinking sample -> actual Plan preview; Plan/System fit and delivery summaries; authentic car/golf/marina photo gallery on Home and About. Responsive metadata-free images `img/torin-{drive,golf,marina}-{480,900}.webp`. Product chooser counts allowlisted interest via `product_path_selected`, not conversions. Prior paid-product migration remains unresolved; this is a website release.
+
+## 2026-10-05 lifestyle theme
+
+`css/lifestyle.css` unifies Home, About, Plan, System and Playbook using boat/car imagery, full-width homepage portrait and consistent sales-page banners. User confirmed the system funded his lifestyle; homepage story reflects his stated experience, without current financial data or expected buyer results. Photo of him walking from a helicopter not found; user permits omission. Release/source provenance: `/Users/torin/Documents/liftoffr-lifestyle-theme-2026-10-05/RELEASE.md`.
