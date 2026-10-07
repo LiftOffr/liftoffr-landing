@@ -16,10 +16,10 @@ DOCS = {
         'out':   '~/Desktop/My-Bear-Market-Buy-Plan.pdf',
         'title': 'My Bear Market Buy Plan',
         'h1':    'My Bear Market<br>Buy Plan',
-        'sub':   "The exact ladder I'm buying this bear market with.<br>"
-                 'Not a course. A plan &mdash; with the receipts attached.',
-        'upd':   'Plan reference: 20 August 2026<br>'
-                 'Corrections: 15 September 2026<br>'
+        'sub':   'A Bitcoin planning method.<br>'
+                 'Fictional examples. Your own worksheet.',
+        'upd':   'Educational edition<br>'
+                 'Document revision: 7 October 2026<br>'
                  'Lifetime updates for this bear market included',
     },
     'magnet': {
@@ -54,6 +54,9 @@ lines = src.split('\n')
 out, i, in_cover = [], 0, False
 while i < len(lines):
     l = lines[i].rstrip()
+
+    if l.startswith('# '):
+        i += 1; continue
 
     if l.startswith('## __COVER__'):          # skip the whole cover block; it is templated
         in_cover = True; i += 1; continue

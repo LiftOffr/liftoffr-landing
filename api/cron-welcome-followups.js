@@ -163,7 +163,7 @@ function plan7HTML() {
      <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <div style="border-top:1px solid #eee;margin:22px 0 0;padding-top:18px;">
        <p style="margin:0 0 12px;font-size:13px;color:#888;">First and only time I'll mention this in a week. Then it lives in the footer where you can ignore it.</p>
-       <p style="margin:0 0 12px;">Here's the honest limit of what you bought. The plan is a <em>snapshot</em> — my levels, my ladder, this cycle. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's what <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system" style="color:#e63946;">The Cycle System</a> is: the framework rather than the snapshot, $197 once, and your $29 counts toward it.</p>
+       <p style="margin:0 0 12px;">Here's the honest limit of what you bought. The Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's what <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system" style="color:#e63946;">The Cycle System</a> is: the full course rather than the focused document, $197 once, and your $29 counts toward it.</p>
        <p style="margin:0;font-size:13px;color:#666;">If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.</p>
      </div>
      <p style="margin:24px 0 0;">— Torin</p>`,
@@ -179,7 +179,7 @@ function plan7Text() {
     "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
     "---","",
     "First and only time I'll mention this in a week, then it lives in the footer where you can ignore it.","",
-    "The honest limit of what you bought: the plan is a snapshot — my levels, my ladder, this cycle. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's The Cycle System: the framework rather than the snapshot, $197 once, and your $29 counts toward it.",
+    "The honest limit of what you bought: the Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's The Cycle System: the full course rather than the focused document, $197 once, and your $29 counts toward it.",
     "  https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system","",
     "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
     "— Torin"].join("\n");
@@ -298,12 +298,12 @@ function email3HTML() {
   <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.65;">
     <p style="margin:0 0 16px;">Last email in the welcome sequence.</p>
     <p style="margin:0 0 16px;">From now on you'll get one email from me every Sunday morning — the LiftOffr Score, the zone, and a one-line read on what it means this week. That's the ongoing relationship. No daily spam, no sales sequences, no recycled Twitter takes.</p>
-    <p style="margin:0 0 16px;">You can absolutely DIY this. Read the Score each Sunday, run the Checklist yourself, build your own discipline. That alone puts you ahead of 99% of crypto investors.</p>
-    <p style="margin:0 0 16px;">But if you want the shortcut — <strong>My Bear Market Buy Plan</strong> is the exact nine-tier ladder I'm executing with my own money, with a timestamped receipt on every fire. It's <strong>$29, once</strong>. No subscription.</p>
+    <p style="margin:0 0 16px;">You can absolutely DIY this. Read the Score each Sunday, run the Checklist yourself, build your own discipline. It gives you a consistent process to review.</p>
+    <p style="margin:0 0 16px;">If you want a structured worksheet — <strong>My Bear Market Buy Plan</strong> contains fictional budget examples, execution checks and blank worksheets for your own decisions. It's <strong>$29, once</strong>. No subscription.</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
-      <div>• Nine buy tiers — the exact levels I'm executing</div>
-      <div>• Timestamped receipts on every fire</div>
-      <div>• #plan-updates Discord channel — every move, live</div>
+      <div>• Fictional budget examples, execution checks and your own worksheet</div>
+      <div>• Worked scenarios and execution checks</div>
+      <div>• #plan-updates Discord channel for document updates</div>
       <div>• Updated for the rest of this bear</div>
       <div>• Your $29 always counts toward The Cycle System</div>
     </div>
@@ -326,13 +326,13 @@ function email3Text() {
     "",
     "From now on you'll get one email from me every Sunday morning — the LiftOffr Score, the zone, and a one-line read on what it means this week. That's the ongoing relationship. No daily spam, no sales sequences.",
     "",
-    "You can absolutely DIY this. That alone puts you ahead of 99% of crypto investors.",
+    "You can absolutely DIY this. It gives you a consistent process to review.",
     "",
-    "But if you want the shortcut — My Bear Market Buy Plan is the exact nine-tier ladder I'm executing with my own money, receipts on every fire. $29, once. No subscription.",
+    "If you want a structured worksheet — My Bear Market Buy Plan contains fictional budget examples, execution checks and blank worksheets for your own decisions. $29, once. No subscription.",
     "",
-    "  • Nine buy tiers — the exact levels I'm executing",
-    "  • Timestamped receipts on every fire",
-    "  • #plan-updates Discord channel — every move, live",
+    "  • Fictional budget examples, execution checks and your own worksheet",
+    "  • Worked scenarios and execution checks",
+    "  • #plan-updates Discord channel for document updates",
     "  • Updated for the rest of this bear",
     "  • Your $29 always counts toward The Cycle System",
     "",
@@ -401,13 +401,13 @@ function proofText() {
 // Non-buyers are the majority forever, and this is the one email that earns
 // from them without asking them for anything. Affiliate status is disclosed on
 // the page itself, per link, and the email says so before the click.
-const SUBJECT_STACK = "The 5 tools I actually run this on";
+const SUBJECT_STACK = "Custody, records and charting: tools to compare";
 function stackHTML() {
   return shell("LiftOffr · the stack",
     `<p style="margin:0 0 16px;">Most-asked question in my DMs, and it isn't about Bitcoin's price. It's "what do you actually use?"</p>
-     <p style="margin:0 0 16px;">Five tools. That's the whole operation:</p>
+     <p style="margin:0 0 16px;">Three areas worth understanding:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;color:#333;">
-       <div><strong>Two hardware wallets</strong> — every tier that fires ends with coins off the exchange, same week</div>
+       <div><strong>Custody checks</strong> — understand backups, address verification and network compatibility</div>
        <div><strong>Two tax tools</strong> — because a year of laddered buys is unreconstructable in April</div>
        <div><strong>One charting app</strong> — for drawing my tier levels and setting my own price notifications. Nothing else.</div>
      </div>
@@ -418,8 +418,8 @@ function stackHTML() {
 }
 function stackText() {
   return ["Most-asked question in my DMs, and it isn't about Bitcoin's price. It's 'what do you actually use?'","",
-    "Five tools. That's the whole operation:",
-    "  • Two hardware wallets — every tier that fires ends with coins off the exchange, same week",
+    "Three areas worth understanding:",
+    "  • Custody checks — understand backups, address verification and network compatibility",
     "  • Two tax tools — a year of laddered buys is unreconstructable in April",
     "  • One charting app — for drawing tier levels and setting my own price notifications. Nothing else.","",
     "What's NOT on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.","",
@@ -452,7 +452,7 @@ function reengageHTML(sc) {
   return shell("LiftOffr · checking in",
     `<p style="margin:0 0 16px;">I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.</p>
      ${bandHTML}
-     <p style="margin:0 0 16px;">If you'd rather not freelance the accumulation side of it, the buy ladder I'm running with my own money — nine tiers, timestamped receipts on every fire, and a worksheet for building your own at whatever size you're actually working with — is $29, once. No subscription. It's a description of what I did, not an instruction for what you should.</p>
+     <p style="margin:0 0 16px;">If you want a structured way to review your decisions, the Plan includes fictional examples, execution checks and blank worksheets. $29 at checkout, plus tax where it applies. It is a thinking tool, not a set of orders to copy.</p>
      <p style="margin:0 0 16px;">If now's not the time, no worries — you'll still get the Score every Sunday.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See the plan — $29 once →", "https://liftoffr.com/plan");
@@ -464,7 +464,7 @@ function reengageText(sc) {
     : [];
   return ["I went quiet after the welcome series on purpose — no daily spam. But this one's worth a nudge.","",
     ...band,
-    "If you'd rather not freelance the accumulation side of it, the buy ladder I'm running with my own money - nine tiers, timestamped receipts, and a worksheet for building your own - is $29, once. No subscription. It's a description of what I did, not an instruction for what you should.","",
+    "If you want a structured way to review your decisions, the Plan includes fictional examples, execution checks and blank worksheets. $29 at checkout, plus tax where it applies. It is a thinking tool, not a set of orders to copy.","",
     "If now's not the time, no worries — you'll still get the Score every Sunday.","",
     "See the plan ($29, once): https://liftoffr.com/plan","","— Torin"].join("\n");
 }
@@ -626,7 +626,7 @@ function trial4Text() {
 const QSUBJECT_2 = "i built this because i lost $30,000";
 const QSUBJECT_3 = "don't trust my backtest";
 const QSUBJECT_4 = "the two-sided problem nobody sells a fix for";
-const QSUBJECT_5 = "the nine levels i'm actually buying at";
+const QSUBJECT_5 = "a buying plan you can inspect before deciding";
 const QSUBJECT_6 = "no. (a reply to the most common question i get)";
 const QSUBJECT_7 = "last one from me about this";
 
@@ -734,13 +734,13 @@ function quiz4Text(seg, sc) {
 function quiz5HTML(seg, sc) {
   return shell("Day 7",
     `<p style="margin:0 0 16px;">Everything I've sent you so far is free and stays free. <strong>This is the one email where I tell you about the thing that isn't.</strong></p>
-     <p style="margin:0 0 16px;">I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When the plan changes, you get the revised document and its reasoning.</p>
+     <p style="margin:0 0 16px;">The Plan walks through a fictional budget, compares scheduled purchases with conditional orders, and gives you worksheets for your own decisions. Material document updates remain included for this bear market.</p>
      <p style="margin:0 0 16px;">It's <strong>$29 at checkout, plus tax where it applies.</strong> One payment. Nothing renews.</p>
      <p style="margin:0 0 10px;"><strong>What it isn't</strong>, because this matters more than what it is:</p>
      <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.75;color:#333;">
-       <div style="margin-bottom:10px;">It isn't a course. The full course is available separately in The Cycle System. This document shows what my money does, at what price, and what happens next.</div>
-       <div style="margin-bottom:10px;">It isn't a prediction that those levels get hit. It's a decision I made while I was calm instead of while I was scared. That's the part that survives being wrong.</div>
-       <div>It isn't advice for you. It's a record of what I'm doing, published with timestamps. You decide what to do with your own money.</div>
+       <div style="margin-bottom:10px;">It isn't a course. The full course is available separately in The Cycle System. This document teaches planning with fictional examples, execution checks and blank worksheets.</div>
+       <div style="margin-bottom:10px;">It does not predict which orders will fill. It gives you a review process for a changed assumption or an unfilled order.</div>
+       <div>It isn't advice for you. It uses fictional examples and worksheets for your own review. You decide what to do with your own money.</div>
      </div>
      ${QSEG_E5[seg] ? `<p style="margin:0 0 16px;color:#555;font-style:italic;">${QSEG_E5[seg]}</p>` : ""}
      <p style="margin:0 0 16px;"><strong>And the direct version:</strong> if $29 is money you'd notice missing right now, don't spend it here. I mean that. The free side has the score, the brief and the framework, and it isn't going anywhere.</p>
@@ -750,12 +750,12 @@ function quiz5HTML(seg, sc) {
 }
 function quiz5Text(seg, sc) {
   return tjoin(["Everything I've sent you so far is free and stays free. This is the one email where I tell you about the thing that isn't.","",
-    "I keep a document with nine price levels — the exact prices I'm buying at through the rest of this bear market, the reason each level exists, and what I actually do when one hits. When the plan changes, you get the revised document and its reasoning.","",
+    "The Plan walks through a fictional budget, compares scheduled purchases with conditional orders, and gives you worksheets for your own decisions. Material document updates remain included for this bear market.","",
     "It's $29 at checkout, plus tax where it applies. One payment. Nothing renews.","",
     "WHAT IT ISN'T, because this matters more than what it is:",
-    "  It isn't a course. The full course is available separately in The Cycle System. This document shows what my money does, at what price, and what happens next.",
-    "  It isn't a prediction that those levels get hit. It's a decision I made while calm instead of scared.",
-    "  It isn't advice for you. It's a record of what I'm doing, published with timestamps.","",
+    "  It isn't a course. The full course is available separately in The Cycle System. This document teaches planning with fictional examples, execution checks and blank worksheets.",
+    "  It does not predict which orders will fill. It gives you a review process for changed assumptions and unfilled orders.",
+    "  It isn't advice for you. It uses fictional examples and worksheets for your own review.","",
     QSEG_E5[seg] || null, QSEG_E5[seg] ? "" : null,
     "And the direct version: if $29 is money you'd notice missing right now, don't spend it here. I mean that. The free side has the score, the brief and the framework, and it isn't going anywhere.","",
     "If it's useful: " + QL("/plan", "e5_plan"),
@@ -766,7 +766,7 @@ function quiz6HTML(seg, sc) {
   return shell("Day 10",
     `<p style="margin:0 0 16px;">Three things people write back with. All fair.</p>
      <p style="margin:0 0 8px;"><strong>"I can get these indicators free."</strong></p>
-     <p style="margin:0 0 16px;color:#555;">You can, and you should. CBBI, LookIntoBitcoin and Bitbo are free and they're good — my score is built on the same public data. I'm not selling you the numbers. What none of those sites will give you is a verdict, because none of them has a person attached who can be held to one. I publish one number, what I think it means, and what I'm doing about it with my own money, with my name on it.</p>
+     <p style="margin:0 0 16px;color:#555;">You can, and you should. CBBI, LookIntoBitcoin and Bitbo are free and they're good — my score is built on the same public data. I'm not selling you the numbers. What none of those sites will give you is a verdict, because none of them has a person attached who can be held to one. I publish one number, what I think it means, and the calculation behind it, with my name on it.</p>
      <p style="margin:0 0 8px;"><strong>"How do I know this isn't a scam?"</strong></p>
      <p style="margin:0 0 16px;color:#555;">You don't, yet, and that's the correct default for a faceless crypto account asking you for money. So check before you pay. The score is public. The receipts are public and the losses are on them. The Discord is free to read. And I'll never tell you what you'll make, because I don't know and neither does anyone who says otherwise.</p>
      <p style="margin:0 0 8px;"><strong>"What if the levels never get hit?"</strong></p>
@@ -791,7 +791,7 @@ function quiz7HTML(seg, sc) {
   return shell("Day 14 · last one",
     `<p style="margin:0 0 16px;">This is the last email I'll send you about the $29 plan. After this you'll get the Sunday score and nothing else, unless you ask.</p>
      <p style="margin:0 0 16px;">Where things stand: the score is ${zone}.</p>
-     <p style="margin:0 0 16px;">If you want the levels I'm buying at, they're <a href="${QL("/plan", "e7_plan")}" style="color:#e63946;">here</a> — $29 once, 30 days to change your mind.</p>
+     <p style="margin:0 0 16px;">If you want the planning examples and worksheets, they're <a href="${QL("/plan", "e7_plan")}" style="color:#e63946;">here</a> — $29 once, 30 days to change your mind.</p>
      <p style="margin:0 0 16px;">If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up including the ones that went the wrong way. That was all true before you got this email and it'll be true in six months.</p>
      <p style="margin:0 0 16px;">The only thing I'd actually push you on, and it costs nothing: <strong>write down the price you'd sell at.</strong> Not the price you think it'll hit — the price at which you'd take money off the table. Put it in your notes app. Do it on a boring day when nothing's happening, because that's the only time anyone can think clearly about it.</p>
      <p style="margin:0 0 16px;">That one habit is worth more than anything I sell.</p>
@@ -802,7 +802,7 @@ function quiz7Text(seg, sc) {
   const zone = sc && typeof sc.score === "number" ? `${sc.score.toFixed(1)}, which is ${sc.zone}` : "on the dashboard";
   return tjoin(["This is the last email I'll send you about the $29 plan. After this you'll get the Sunday score and nothing else, unless you ask.","",
     `Where things stand: the score is ${zone}.`,"",
-    "If you want the levels I'm buying at: " + QL("/plan", "e7_plan") + " — $29 once, 30 days to change your mind.","",
+    "If you want the planning examples and worksheets: " + QL("/plan", "e7_plan") + " — $29 once, 30 days to change your mind.","",
     "If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up including the ones that went the wrong way. That was all true before you got this email and it'll be true in six months.","",
     "The only thing I'd actually push you on, and it costs nothing: WRITE DOWN THE PRICE YOU'D SELL AT. Not the price you think it'll hit — the price at which you'd take money off the table. Put it in your notes app. Do it on a boring day when nothing's happening, because that's the only time anyone can think clearly about it.","",
     "That one habit is worth more than anything I sell.","","— Torin"]);

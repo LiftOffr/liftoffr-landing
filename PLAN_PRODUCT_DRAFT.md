@@ -1,264 +1,236 @@
-<!-- PRODUCT SOURCE. Everything below this line is customer-facing. Do not add production
-     notes, review gates or bracket placeholders to this file — the renderer no longer strips
-     them, deliberately, because relying on strip regexes is how internal notes shipped to
-     page 7 of the 20 Aug build. -->
+# My Bear Market Buy Plan
 
 ## __COVER__
+My Bear Market Buy Plan
+A Bitcoin planning method. Fictional examples. Your own worksheet.
+Torin Christianson | LiftOffr
+Educational edition: 7 October 2026.
 
-**My Bear Market Buy Plan**
-The exact ladder I'm buying this bear market with. Not a course. A plan — with the receipts attached.
+## Start here: a plan you can inspect
 
-by Torin — LiftOffr
-Plan reference: 20 August 2026 · Corrections: 15 September 2026 · Lifetime updates for this bear market included
+This document teaches a Bitcoin planning method with fictional examples and blank worksheets. It does not disclose my account balances, holdings, orders, buy levels, trading schedule or allocation. The useful output is a written budget, schedule, order checklist and review rule. Completing it does not require buying Bitcoin.
 
-*20 August 2026 revision: corrected the component count to nine (the Score has always
-used nine weighted components; an earlier draft said eight), and added the exit thresholds,
-the whipsaw rule and the recompute sheet — three things the sales page commits to that the
-previous revision did not contain.*
+**The method:** compare calendar-based purchases with conditional limit orders, then write down what you will review if the original assumption fails. There is no single allocation or set of prices that is correct for every reader.
 
----
+**Your first session:** read the one-page plan, work through the small fictional budget, then complete the blank worksheet. Check that scheduled budgets, limit-order budgets and a buffer add up to the amount you chose. If they do not, stop and reconcile them.
 
-## Read this first
-This document is a record of my personal Bitcoin accumulation plan — what I am doing with my own money, published as a receipt. It is not financial advice, not a recommendation, and not personalized to you. I am not a registered investment adviser, and nothing here creates an adviser relationship. I don't know your finances, your risk tolerance, or your situation, and nothing here tells you what you should do. The worksheet shows how I would think through sizing at different stack sizes; it is a thinking tool, not an allocation recommendation. Bitcoin can go down more than you think it can, stay down longer than you think it can, and can go to zero. My plan can be wrong — I've been wrong before; 2021 cost me $30K because I ignored my own indicators. Do your own research. Never invest money you can't afford to lose. Education, not advice.
+This is general education using hypothetical decisions, not a recommendation that you copy an example as your own allocation. I do not know your finances. Bitcoin is volatile; losses can be substantial, including your entire allocation. No level, indicator or calendar date establishes a market bottom. There is no guaranteed return or fully invested outcome.
 
----
+**Contents:** planning framework; thesis review; budget example; your worksheet; execution checks; unfilled-order review; scenario practice; Score arithmetic; records and verification; document access and revision history.
 
-## 1. THE LADDER (what I'm actually doing)
+## 1. A planning framework on one page
 
-**What's already fired — real dollars, timestamped (receipts):**
+**All examples in this edition are fictional.** None are a disclosure of my finances or an instruction to place a trade.
 
-| Tier | Amount | Trigger | Status |
-|---|---|---|---|
-| IMMEDIATE | $15,000 | Market, the day the plan was written (May 28 2026) | ✅ FIRED |
-| T1 | $15,000 | $68,000 (1.10× the 200-week MA) | ✅ FIRED |
-| T2 | $28,000 | $60,000 (0.97× the 200-week MA) | ✅ FIRED  |
+| Component | Decision to write down | What it does not establish |
+|---|---|---|
+| Calendar purchases | Your own cash cap and start/end dates | A guaranteed exact debit or a bottom date |
+| Conditional limit A | Your own price, budget and reason | That it will fill or is appropriate for you |
+| Conditional limit B | Your own price, budget and reason | That a chart touching it proves execution |
+| Conditional limit C | Your own price, budget and reason | A floor below which Bitcoin cannot fall |
+| Reserve review | Your own date to reassess unfilled orders | Automatic cancellation or reserve recycling |
+| Schedule end | What you will check when your schedule ends | Full deployment if orders remain open |
 
-**What's still armed — as a share of my remaining planned deployment** (I publish the live trigger prices in #plan-updates; sizing my remaining tranches in percentages is deliberate — the plan's shape is the product, my net worth isn't):
+Three blank limit rows make the worksheet easy to inspect; they are not a recommendation to place three orders. You can choose fewer, more, or no orders. No part of the method requires using every available dollar.
 
-| Tier | Share of remaining | Trigger price | Status |
-|---|---|---|---|
-| T3a | 19% | $55,000 | ⏳ ARMED |
-| T3b | 19% | $52,500 | ⏳ ARMED |
-| T4a | 9% | $50,500 | Waiting |
-| T4b | 9% | $48,000 | Waiting |
-| T5a | 4% | $40,000 | Waiting |
-| T5b | 4% | $38,000 | Waiting |
-| Weekly DCA + deep-panic reserve | 36% | Ongoing / discretionary | Running |
+Calendar buying spreads execution over selected dates. A limit order waits for a specified execution price. Combining the two creates a tradeoff: some exposure can be acquired while some cash stays available for a condition that may never occur. Neither method avoids investment risk.
 
-Three phases behind the table: **Bear Grind** (now through ~Aug 31), **Capitulation** (Sep–Dec 2026, where T3 lives), **Post-Bottom Recovery** (early 2027, T4/T5). The deeper tiers are deliberately smaller — by T5 I'm buying insurance-priced Bitcoin, not making the core position.
+If you use automation, verify which actions it actually implements. A worksheet or calendar reminder does not program catch-up purchases, order cancellations, reserve recycling or rate changes.
 
-When a tier fires or the ladder recalibrates, you get the updated doc and an alert in #plan-updates (Discord role comes with this purchase).
+## 2. When a thesis fails
 
-## 2. WHY EACH LEVEL (the logic, in plain English)
+A useful market thesis includes a condition that could disprove it. If a thesis depends on price failing to exceed a prior high and price exceeds that high, the ceiling assumption no longer holds. It does not establish where or when the final low will occur.
 
-- **Why a ladder at all:** I don't know where the bottom is. Nobody does. A ladder means I never need to be right about the bottom — I need the bear to happen, which is the one thing bears reliably do.
-- **The 200-week moving average is the spine.** Every Bitcoin bear in history has bottomed at or below it. My mid-ladder tiers aren't static prices — they're multiples of the 200W MA (T1 at 1.10×, T2 at 0.97×), so the ladder walks down WITH the market instead of anchoring to prices I picked months ago.
-- **Front-half heavier than back-half.** More than a third of my planned deployment fires in the first two phases. If the bear is shallow, I still built most of the position. If it's deep, the back tiers buy the panic.
-- **Every tier has a fallback date.** If a price never hits by its date, the money deploys anyway (DCA'd over the following weeks). A plan that can leave you 100% in cash for an entire cycle isn't a plan — it's a hope with a spreadsheet.
-- **Why these specific multiples:** derived from how the last three bears actually bottomed against the 200-week MA. My framework owes a lot to Benjamin Cowen's work on that average; the calibration and the sizing are mine. 
+For example, a thesis that depends on a prior high holding must be reconsidered when that high breaks. Write down the failed condition before searching for a replacement forecast.
 
-## 3. BUILD YOUR OWN LADDER — the 30-minute worksheet
+Separate three questions: What changed in the evidence? What does your written plan say about that change? Do your current finances still support the risk you chose? A new forecast cannot answer the third question for you.
 
-This is how I'd think it through at any stack size. It is a thinking tool, not a recommendation, and the numbers you write in it are yours. I don't know your finances and nothing here is personalised to you.
+Calendar purchases can create exposure over time; conditional orders can reserve cash for a different price. Both can disappoint: price can rise while limits never fill, or fall after scheduled purchases. The purpose of a written review is to make that tradeoff visible.
 
-Set a timer for 30 minutes. It genuinely does not take longer, and the reason to do it in one sitting is that a ladder written across three weeks is a ladder you renegotiated with yourself twice.
+A schedule end date is an operational choice, not a forecast bottom date. A review date is a decision checkpoint, not proof that anything will execute automatically.
 
----
+Check publication dates before using market commentary. CBBI and the LiftOffr Score are not Cowen's proprietary ITC risk score. This workbook does not present a calibrated forecast of the market bottom.
 
-### Step 1 — The number that can go to war
+## 3. Worked example: an invented 1,000-unit budget
 
-```
-Cash I will not need for 3+ years:              $ ______________
+**Practice only. These are fictional amounts, not my balance and not an allocation recommendation.** The purpose is to show the arithmetic and expose where cash can be counted twice.
 
-  Not my savings. Not my emergency fund. Not next year's tuition.
-  The amount that could go to zero and change nothing about how
-  I live. Write it down before you look at a single chart.
+| Bucket | Budget | Arithmetic |
+|---|---|---|
+| Calendar | 700.00 | 70 fictional scheduled days; 700 / 70 = 10 per day |
+| Pullback A | 100.00 | Separate fee-inclusive cash budget |
+| Pullback B | 100.00 | Separate fee-inclusive cash budget |
+| Pullback C | 100.00 | Separate fee-inclusive cash budget |
+| Total | 1,000.00 | 700 + 100 + 100 + 100 |
 
-Do I have a separate emergency fund?     ☐ yes   ☐ no
+The invented calendar budget is 10 per day over 70 dates. Fees must fit inside that cash cap: it does not mean all 10 purchases Bitcoin. If fees or order mechanics reduce actual spending, some cash can remain. With other chosen totals, rounding down can also create a remainder.
 
-  If no: stop. The first tier of any real ladder is three months
-  of expenses in cash. Everything below assumes that already exists.
-  This isn't a moral point, it's a mechanical one — people without
-  a cash buffer sell their Bitcoin at the bottom, every time,
-  because the bottom is when the boiler breaks.
-```
+**Do not double-count held cash.** If 300 is reserved by open limit orders, it is not also available for 300 of extra calendar buys. Exchange screens may show both total and available cash; understand which field you are reading.
 
-That number is your **total budget**. Every percentage below is a share of it, never of your net worth.
+**New start dates change the math.** Someone starting later cannot assume the same number of remaining days. Count their own eligible dates inclusively. Missed dates are not automatically caught up. Rounding, minimum-order sizes and actual fees can leave money unused.
 
-### Step 2 — Split it using the same shape as mine
+**Check:** if 10 scheduled days each debit 9.90, actual calendar spend is 99.00. It is not 100.00 merely because that amount was scheduled. Record the difference; do not create a top-up order by assumption.
 
-I'm giving you the *shape*, in coarse fractions rather than exact percentages, because the shape is the part that's transferable. My exact dollar amounts are a function of my situation, which isn't yours.
+## 4. Your worksheet: decide before sizing
 
-| Rung | Roughly | Fires when | Your number |
-|---|---|---|---|
-| **Immediate** | about a tenth | The day you finish this worksheet. Market order. | $ ________ |
-| **First MA tier** | about a tenth | Price near 1.10× the 200-week MA | $ ________ |
-| **Capitulation tier** | about a fifth | Price near or just under the 200-week MA | $ ________ |
-| **Two mid rungs** | about a quarter, split | Below the MA, stepping down | $ ________ / $ ________ |
-| **Two deep rungs** | a small slice each | Deep-value territory | $ ________ / $ ________ |
-| **Weekly DCA + panic reserve** | the rest | Ongoing, plus discretionary | $ ________ |
-| | | **Total (must equal Step 1)** | **$ ________** |
-
-Three things about that shape, because they're the parts people get wrong:
-
-**The immediate tier is not optional.** Its job is not returns, it's psychology. A ladder with nothing filled is a spreadsheet you'll abandon the first time price runs away from you. Getting something on the board makes the rest executable.
-
-**The front half is heavier than the back half.** Roughly two fifths of the budget deploys in the first three rungs. If the bear is shallow you still built part of the position; if it's deep, the back rungs buy the panic. The alternative — back-loading, waiting for the real bottom — is the version where the bear ends 20% above your lowest rung and you own almost nothing.
-
-**The deep rungs are deliberately small.** By the bottom rungs you're buying insurance-priced Bitcoin, not building the core position. Sizing them large is how "I'll go all in at the bottom" becomes "I have 80% of my budget in cash and Bitcoin is at a new high."
-
-### Step 3 — Set your trigger prices
+Keep this page private. It is a thinking tool. You can finish it by choosing not to allocate anything.
 
 ```
-Current 200-week MA:                             $ ______________
-   (I publish the live figure in #plan-updates. It moves. That's
-    the point — see below.)
-
-  Immediate ......... market, today
-  First MA tier ..... 200W MA × 1.10  =           $ ______________
-  Capitulation ...... 200W MA × 0.97  =           $ ______________
-  Mid rung A ........ 200W MA × ____  =           $ ______________
-  Mid rung B ........ 200W MA × ____  =           $ ______________
-  Deep rung A ....... $ ______________
-  Deep rung B ....... $ ______________
+Money needed for essentials and foreseeable obligations: __________
+Separate emergency cash I will preserve:                __________
+Maximum amount I choose to expose to Bitcoin losses:    __________
+Reasons this amount fits my situation:                  __________
+Circumstances that would make me stop or reduce it:      __________
 ```
 
-**Why multiples of the moving average instead of round numbers.** A tier set at "$50,000" is a bet on a price I picked on a Tuesday. A tier set at "0.97× the 200-week MA" walks down with the market — as the average falls through a long bear, so does the trigger, and the ladder keeps meaning the same thing in October that it meant in June. Every previous Bitcoin bear has bottomed at or below that average. That is the entire reason it's the spine.
-
-Recalculate the multiples monthly. Ten minutes.
-
-### Step 4 — Pick your fallback dates
-
-This is the step everyone skips and it's the one that saves the plan.
+Now choose your own split. The blank fields are intentional; a fictional example does not know your needs.
 
 ```
-  Phase 1 ends ......... ______________  unfilled tiers → DCA over 4 weeks
-  Phase 2 ends ......... ______________  unfilled tiers → DCA over 4 weeks
-  Phase 3 ends ......... ______________  unfilled tiers → DCA over 4 weeks
+A. Calendar budget, including fees:                     __________
+B. Combined limit-order cash budgets, including fees:   __________
+C. Uncommitted buffer:                                 __________
+Total A + B + C:                                       __________
+Does this equal the allocation I chose above?          yes / no
 ```
 
-A plan that can leave you 100% in cash for an entire cycle isn't a plan, it's a hope with a spreadsheet. If a level never hits by its date, the money deploys anyway, spread over the following weeks. You are allowed to be wrong about the price. You are not allowed to be wrong forever.
-
-### Step 5 — Execution, tonight
+Write your own dates and amounts before considering any execution.
 
 ```
-  ☐ Limit orders placed for every tier I can pre-place
-  ☐ Fallback dates in my calendar, with alerts
-  ☐ Custody threshold decided: move to hardware wallet above $ ________
-  ☐ Hardware wallet ordered / seed backed up / recovery tested
-  ☐ Told the one other person who needs to know
+First scheduled date / final scheduled date:           __________
+Number of eligible dates, counted inclusively:         __________
+A divided by eligible dates:                           __________
+Rounded cash budget per date:                          __________
+Rounding remainder:                                   __________
+Review date for any unfilled limits:                   __________
 ```
 
-**Place the orders the same night you write the plan.** That is the whole point of writing it — you are deciding while you're calm, and then removing your own ability to renegotiate at 2am when price is doing something dramatic. Orders sitting on an exchange execute whether you're at work, asleep, or convinced this time is different.
+Do not treat bank balances, salary, borrowed money or other recurring purchases as part of this worksheet unless you deliberately include them. Reconcile those separately. A new plan should not accidentally duplicate an existing recurring buy.
 
-**Test the seed phrase recovery before the wallet matters.** An untested backup is not a backup. Do it with $50 on it, once, and never think about it again.
+## 5. Your order and execution sheet
 
----
+Prices below are blank because this is your worksheet, not an instruction to copy the example.
+
+| Order | Your limit price | Cash cap including fees | Current verified status | Check date |
+|---|---|---|---|---|
+| A | ______ | ______ | ______ | ______ |
+| B | ______ | ______ | ______ | ______ |
+| C | ______ | ______ | ______ | ______ |
+
+Before submitting any order, inspect the exchange preview. Check the asset and quote currency, side, order type, quantity, estimated fees, total cash impact and existing open orders. A limit price is not a guarantee of execution or a stop against further losses.
+
+After submission, record the order identifier privately. Distinguish submitted, open, partially filled, filled, canceled and rejected. Inspect actual filled quantity and commissions. A successful request, notification or chart crossing does not prove a fill.
+
+```
+Check date | Scheduled cash | Actual debit | BTC filled | Fees | Status
+__________ | ______________ | ____________ | __________ | ____ | ______
+__________ | ______________ | ____________ | __________ | ____ | ______
+__________ | ______________ | ____________ | __________ | ____ | ______
+```
+
+Do not infer a manual limit fill from unrelated small DCA transactions. Multiple small fills can belong to one order. Never retry an uncertain submission until you reconcile the exchange's order history.
+
+Custody is a separate decision: understand exchange risk, wallet backups, address verification and network compatibility. Never send seed phrases or API secrets to a support account, form, Discord channel or direct message. Use the provider's current instructions for any transfer.
+
+## 6. What if the limits never fill?
+
+A limit order is conditional exposure. If the condition never occurs, that cash stays undeployed. A schedule plus open limits is not a promise to be fully invested by a date.
+
+At a review, choose deliberately among keeping the existing orders, revising the plan, reducing the allocation, or canceling orders and reallocating some released cash. A reader must verify what their chosen tools actually do. No automation is supplied with this document. There is no standing instruction in this document to cancel a limit and convert it into four weekly buys.
+
+Before changing anything:
+
+1. Read current orders, partial fills, fees and available cash.
+2. Separate cash held by orders from cash free to use.
+3. Review the assumption that changed and your financial circumstances.
+4. Write the proposed change and its budget effect before acting.
+5. Verify any cancellation completed before counting the funds as available.
+6. Check that a new schedule does not overlap the existing one.
 
 ### The override log
 
 ```
-If I change or skip a tier, I write the reason here BEFORE I act:
-
-  Tier: ______  Date: __________
-  Reason: ______________________________________________
-
-  Tier: ______  Date: __________
-  Reason: ______________________________________________
+Date and document version:                             __________
+Original assumption or rule:                           __________
+New evidence, including its date and source:            __________
+Decision: keep / revise / reduce / stop                 __________
+Cash already spent / held / available:                  __________
+Proposed change and maximum additional cash involved:   __________
+How I will verify the outcome:                          __________
+Next review date:                                      __________
 ```
 
-Overriding isn't forbidden. Overriding *silently* is. Writing the reason first turns an impulse into an argument, and about half of impulses don't survive being written down.
+Changing a plan is not proof the new forecast is right. The value of the log is that it makes the decision auditable rather than rewriting the story after the outcome.
 
----
+## 7. Three scenarios to rehearse
 
-*This worksheet is a thinking tool, not an allocation recommendation. It is not financial advice, I am not a registered investment adviser, and nothing in it is personalised to you. Bitcoin can go down further than you expect, stay down longer than you expect, and can go to zero. Do your own research. Never deploy money you can't afford to lose.*
+### Price keeps rising
 
-## 4. EXECUTION MECHANICS
+Calendar buys can add exposure while the limits remain unfilled. The tradeoff is unused pullback cash. At the chosen review date, inspect current circumstances instead of chasing a missed level automatically. A higher price alone does not identify the best next action.
 
-- **Limit ladder, not market orders:** the orders sit on the exchange waiting. You don't watch charts. The plan executes whether you're at work or asleep.
-- **The fallback rule in practice:** phase date passes with the tier unfilled → cancel the limit, deploy that tranche as 4 weekly DCA buys.
-- **Custody flow (non-negotiable for me):** buys accumulate on-exchange only until they cross ~$5K, then move to hardware wallet. The bear market is exactly when exchanges die.
-- **What I don't do:** no leverage, ever (the liquidation math killed better traders than me in every bear). No yield on the stack during accumulation. No alts in this ladder — this plan is Bitcoin-only; alt decisions are a separate, later decision.
+### Price falls through a limit
 
-## 5. THE RECEIPTS
+Read the actual order. Was it filled, partially filled, rejected or still open? A limit buy caps its execution price subject to order mechanics; it does not prevent further drawdown. Verify remaining held cash before interpreting available buying power.
 
-- **I got out early, and it cost me.** The model crossed into its exit zone on 27 June 2025 at
-  $107,091, and I began laddering out from there over the following weeks. Bitcoin went on to peak
-  at $124,824 on 6 October. So the ladder was early, and being early cost me the last leg — which
-  is exactly what a threshold model does and exactly what this plan is written to survive. That is
-  my own account of my own conduct: I am not putting a number on it, you cannot audit it, and it
-  is not evidence the model works. It sits outside the published record. What you *can* check is
-  the crossing itself and every other one the model produced — liftoffr.com/receipts. Judge the
-  method on that, not on this paragraph.
-- The miss that built the system: **November 2021** — indicators flagged the top, I didn't follow them, round-tripped $30K. The rules exist because I paid for them.
-- This plan's fires so far: IMMEDIATE — 29 May 2026 at $73,425 · T1 — 2 June 2026 at $68,025 · T2 — filled 5–25 June 2026 at ~$60.4K blended.
-- Everything timestamped: liftoffr.com/receipts and /track-record.
+### A scheduled purchase does not execute
 
-## 5b. THE EXIT SIDE — what puts me on alert, and the whipsaw rule
+Check the schedule date, activation state, account balance, exchange response and existing order identifiers. Do not assume the system will catch up. Avoid submitting a second purchase merely because a notification is missing.
 
-*(/plan items 7 and 8. Everything here is already public on /receipts and /score.)*
+### Practice answers
 
-- **The bands that put me on alert.** The Score runs 0–100 on six bands: 85+ exit zone,
-  70–85 warning, 50–70 mid-cycle, 30–50 re-accumulation, 15–30 accumulation, below 15 deep
-  accumulation. Every cycle top since 2013 printed with the Score in the 85+ band — and the
-  Score has also sat in that band for months while price kept rising. Both halves are true and
-  both matter.
-- **The whipsaw rule, which is the part people miss.** Between 16 Nov 2024 and 21 Oct 2025 the
-  Score entered the exit zone three times and dropped back out of it three times — six
-  transitions in twelve months (in 16 Nov 2024, out 18 Feb 2025; in 8 May, out 19 Jun; in
-  27 Jun, out 21 Oct). The top was 6 October, and the model left the zone for the last time
-  fifteen days after it.
-- **So the rule I follow is a fraction per crossing, not a decision per crossing.** Acting in
-  full on each of those six transitions would have meant six reversals in a year. Acting on a
-  fraction at each, and not reversing on the way back, is what makes a threshold model
-  survivable. That is why the plan is a ladder and not a date.
-- The Cycle System explains how to build your own exit ladder, including the whipsaw rule and a worksheet for choosing your own fractions.
+- A chart touched a limit: **fill status is still unknown until the order is checked.**
+- The schedule ends with cash in open orders: **the plan is not fully deployed.**
+- A daily budget is 200 including fees and the order debits 198: **actual spend is 198; the 2 is not automatically owed to the market.**
+- A forecast fails: **identify the failed condition, review the plan, and document any change. It does not prove the opposite forecast.**
 
-**Corrections: 15 September 2026.** The first three worksheet fractions on page 6 add to roughly two fifths, not more than half. The explanatory wording has been corrected; the worksheet fractions are unchanged. An earlier version also said the System supplied a full four-tranche ladder with numerical fractions. The current lesson teaches the method and provides blank rungs for your own fractions. These corrections change the arithmetic wording and cross-reference; the Plan's strategy, levels, allocations and execution record are unchanged.
+Your turn: write what you would check first in each scenario. If the answer is “buy immediately,” identify which verified fact supports that action and which uncertainty remains.
 
-## 5c. THE RECOMPUTE SHEET — rebuild my number yourself
+## 8. Use the Score as context
 
-*(/plan item 9. All of this is free and public; it is here so the document is self-contained.)*
+The LiftOffr Score summarizes historical price and on-chain inputs. It is not an account execution log, a price forecast, or an automatic instruction to trade.
 
-- **The nine weighted components:** RHODL Ratio 20%, Puell Multiple 20%, Trolololo trend line 15%,
-  MVRV Z-Score 15%, Pi Cycle Top 10%, 2-Year MA Multiplier 5%, Reserve Risk 5%, Woobull Top Cap 5%,
-  RUPL 5%. They sum to 100%.
-- **The source:** CBBI's public daily data at colintalkscrypto.com/cbbi — free, no account.
-- **The arithmetic:** take each component's 0–100 reading, multiply by its weight, add them up,
-  then divide by the weight you actually used.
-- **The one rule that trips people up:** if the source publishes no reading for one of the nine on
-  a given day, that component is left out and the divisor drops to match — 0.95 instead of 1.00,
-  say. It is never counted as a zero. A recompute that always divides by 1.00 will disagree with
-  my number, and it will be the one that is wrong.
-- Live worked arithmetic, updated daily: liftoffr.com/score. Every crossing the model has ever
-  produced, wins and losses in the same table: liftoffr.com/receipts.
+The six bands are: below 15 deep accumulation; 15 to below 30 accumulation; 30 to below 50 re-accumulation; 50 to below 70 mid-cycle; 70 to below 85 warning; 85 and above exit zone. A label does not establish what happens next.
 
-## 6. WHAT YOU GET GOING FORWARD
+| Component | Weight |
+|---|---|
+| RHODL Ratio | 20% |
+| Puell Multiple | 20% |
+| Trolololo | 15% |
+| MVRV-Z | 15% |
+| Pi Cycle Top | 10% |
+| 2-Year MA Multiplier | 5% |
+| Reserve Risk | 5% |
+| Woobull Top Cap | 5% |
+| RUPL | 5% |
 
-- **#plan-updates** (Discord): when a tier fires, when the MA recalibrates the trigger prices, when a fallback date deploys. What I did, when I did it.
-- **The updated doc** every time the plan materially changes, for the rest of this bear market.
-- What this is NOT: a signals service, a chat with me, or the full LiftOffr system. This is my buy plan, kept live.
+Fear & Greed is context and has zero weight. Use the normalized component readings published with the Score, not raw ratios in unrelated units. Multiply each available reading by its weight, add the products, then divide by the sum of weights actually used. Missing values are omitted from both sums, not treated as zero.
 
-The plan tells you what I'm buying. The System — the nine weighted components behind these levels, and the exit ladder for the other side of the cycle — is at liftoffr.com/system. Your $29 always counts toward it.
+Practice: readings 40 and 60 with weights 20 and 10 give (40 × 20 + 60 × 10) / 30 = 46.7. These are invented practice readings. Live inputs and source dates: liftoffr.com/score. Original component source: colintalkscrypto.com/cbbi.
 
----
+## 9. Records you can and cannot verify
 
-**One more time, because it matters more than anything else in here.**
+The public pages at liftoffr.com/receipts and liftoffr.com/track-record show model calculations against historical data. They are not my exchange statements, a record of calls published at the time, or proof that a reader would achieve those results. Use the full record, including adverse outcomes, rather than one favorable crossing.
 
-This document is a record of my personal Bitcoin accumulation plan — what I am doing with my own
-money, published as a receipt. It is not financial advice, not a recommendation, and not
-personalised to you. I am not a registered investment adviser and nothing here creates an adviser
-relationship. I do not know your finances, your risk tolerance or your situation, and nothing in
-this document tells you what you should do.
+A model signal does not prove anyone traded it. A document revision does not prove an order executed. This edition contains no personal exchange records or order status.
 
-The worksheet shows how I would think through sizing at different stack sizes. It is a thinking
-tool, not an allocation recommendation.
+Earlier versions used a personal-ladder presentation. This educational edition replaces that presentation with fictional arithmetic and private worksheets. Do not treat an older version as current instructions. Preserve it only as a dated archive, not a current plan.
 
-Bitcoin can go down further than you think it can, stay down longer than you think it can, and
-can go to zero. My plan can be wrong — I have been wrong before, and 2021 cost me $30,000 because
-I ignored my own indicators. Every dated signal referenced here is the LiftOffr Score computed
-over historical data: a backtest, not a record of trades placed at the time.
+The exit side is a separate decision. The Cycle System explains how to reason about an exit ladder and provides a worksheet for choosing your own fractions. This Plan does not supply personalized sell instructions or imply that every high Score reading correctly predicts a top.
 
-Do your own research. Never invest money you can't afford to lose. Education, not advice.
+Sources for execution and security checks: docs.cdp.coinbase.com/api-reference/advanced-trade-api/rest-api/orders/preview-orders ; help.coinbase.com/en/coinbase/privacy-and-security/data-privacy/how-can-i-make-my-account-more-secure . Verify current exchange behavior rather than relying on a screenshot from this document.
 
----
+## 10. Access, updates and your first useful result
+
+Keep this educational PDF in your Whop library. Its existing Content item is the delivery location for the current document. Connect Discord through Whop for the paid Plan area and #plan-updates. Never share credentials or private account records to obtain access.
+
+Document revisions for material changes remain included for the rest of this bear market. The current version and change summary identify what changed. Notifications and model-threshold messages are not proof of an executed trade. The Plan is a document and worksheet, not an automated trading service, personal advice, or the full Cycle System course.
+
+**A useful first result:** you can explain the calendar/limit tradeoff, complete a budget that adds up, distinguish held from available cash, and write a review rule without placing a trade. If one step is unclear, ask about that step without posting your balance or order identifiers.
+
+Support: contact.liftoffr@gmail.com. The existing 30-day refund terms remain unchanged. The free Score, checklist and public method remain available without buying the document.
+
+### Edition history
+
+- Earlier editions presented a dated personal ladder and later wording corrections.
+- October 7: educational edition with fictional budget arithmetic, blank order worksheets, scenario answers, and a thesis-review method. No personal balances, holdings, actual buy levels, allocation or schedule is disclosed.
+
+Education, not personalized financial advice. No outcome is guaranteed. The version date belongs with any excerpt.

@@ -129,7 +129,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
     <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64, including the ones that went the wrong way &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
 
-    <p style="margin:18px 0 0;">Want the exact plan I'm executing against this Score &mdash; nine buy tiers, the exit thresholds that put me on alert, and the whipsaw rule? It's $29, once. The Cycle System separately explains how to build your own exit ladder, with a worksheet for choosing your own fractions.</p>
+    <p style="margin:18px 0 0;">Want a worksheet for turning research into a written plan? The Plan includes fictional budget examples, execution checks and review rules. $29 at checkout, plus tax where it applies. The Cycle System separately explains how to build your own exit ladder, with a worksheet for choosing your own fractions.</p>
   </div>
 
   <div style="padding:0 28px 32px;">
@@ -170,7 +170,7 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     "Every signal this model has produced - all 64, including the ones that went the wrong way: https://liftoffr.com/receipts",
     "",
-    "Want the exact plan I'm executing against this Score? $29, once:",
+    "Want planning examples and worksheets? $29 at checkout, plus applicable tax:",
     "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
     "",
     "— Torin",
@@ -389,10 +389,10 @@ function zoneChangeText({ from, to, score, date }) {
     ``,
     `Score now: ${score.toFixed(1)} / 100`,
     ``,
-    `Zone changes are rare — this is the signal the weekly email exists for. Members got the full read and what I'm doing about it in this morning's brief.`,
+    `Zone changes are rare — this is the signal the weekly email exists for. Members got the full read and the source context in the market brief.`,
     ``,
     `See the live score: https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert`,
-    `The exact plan I'm executing — $29, once: https://liftoffr.com/plan`,
+    `Planning examples and worksheets — $29 at checkout, plus applicable tax: https://liftoffr.com/plan`,
     ``,
     `— Torin`,
     ``,
@@ -410,7 +410,7 @@ function zoneChangeHTML(p) {
       <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:${color};">${zoneLabel(p.to)}</div>
       <div style="font-size:12px;color:#888;margin-top:6px;">was ${zoneLabel(p.from)} · crossed ${p.date}</div>
     </div>
-    <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and what I'm doing about it in this morning's brief.</p>
+    <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and the source context in the market brief.</p>
     <a href="https://liftoffr.com/plan?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Get the plan — $29 once →</a>
     <p style="text-align:center;font-size:12px;"><a href="https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert" style="color:#888;">or watch the live score →</a></p>
     <p style="font-size:11px;color:#999;margin-top:22px;">Educational content only — not financial advice. <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
