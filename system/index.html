@@ -230,7 +230,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <p class="lede" style="font-size:15px;color:#9a9a9a;">You'll be able to run the whole thing without me — the weights are public, the data source is public, and the point of the course is that <strong style="color:#ddd;">you can explain the reasoning behind your own framework.</strong></p>
 
   <p><a class="btn" href="#system-price" data-dest="system_price" data-cta-slot="hero">See access and pricing</a></p><p class="muted">46 lessons · 6 modules · Workbook included · 30-day refund</p>
-  <section class="lo-fit" aria-labelledby="system-fit-title"><span class="lo-kicker">Choose by what you want to learn</span><h2 id="system-fit-title">Go from reading the Score to explaining it.</h2><div class="lo-fit-grid"><div><h3>Work through the method</h3><p>Learn the components, reproduce the calculation, examine historical misses and complete your own exit-method workbook.</p></div><div><h3>Try the public material first</h3><p><a href="/indicators" data-dest="indicators" data-cta-slot="system_method_sample">Read the indicator explanations</a>, then <a href="#learning-path" data-dest="course_curriculum" data-cta-slot="system_curriculum">inspect the course learning path</a>. The free research remains open.</p></div></div><p class="lo-fit-note">46 lessons across six modules · Course access through Whop and Discord · One payment · 30-day refund</p></section>
+  <section class="lo-fit" aria-labelledby="system-fit-title"><span class="lo-kicker">Choose by what you want to learn</span><h2 id="system-fit-title">Go from reading the Score to explaining it.</h2><div class="lo-fit-grid"><div><h3>Work through the method</h3><p>Learn the components, reproduce the calculation, examine historical misses and complete your own exit-method workbook.</p></div><div><h3>Try the public material first</h3><p><a href="#course-sample" data-dest="course_sample" data-cta-slot="system_method_sample">Try a course lesson below</a>, then <a href="#learning-path" data-dest="course_curriculum" data-cta-slot="system_curriculum">inspect the course learning path</a>. The free research remains open.</p></div></div><p class="lo-fit-note">46 lessons across six modules · Course access through Whop and Discord · One payment · 30-day refund</p></section>
+  <section class="lo-fit" id="course-sample" aria-labelledby="sample-title" style="scroll-margin-top:110px">
+    <span class="lo-kicker">Try the teaching before you buy</span>
+    <h2 id="sample-title">One missing reading should not become a zero.</h2>
+    <p><strong>From Module 4, “The divisor rule”:</strong> when a component has no reading, exclude it from the weighted sum and remove its weight from the divisor. Otherwise, missing data pulls the Score downward.</p>
+    <p>That is one of the checks the course teaches you to reproduce, instead of taking a number on trust.</p>
+    <div class="card"><h3>Try it yourself</h3><p>Two available readings are 40 and 60, with weights of 20 and 10. A third reading, with a weight of 5, is missing. What is the weighted average?</p>
+    <details id="course-sample-answer"><summary style="cursor:pointer;padding:12px 0;font-weight:700">Reveal the calculation</summary><p>(40 × 20 + 60 × 10) ÷ (20 + 10) = <strong>46.7</strong>.</p><p>Including the missing component’s weight would give 1,400 ÷ 35 = 40. The data did not change; the wrong divisor changed the result.</p><p class="muted">Illustrative practice numbers, not the current Score or a trade recommendation. Lesson summary above; this practice example is added for the preview.</p></details></div>
+    <p>The full course connects this arithmetic to the nine components, their historical limitations and your own written review and exit framework.</p>
+    <p><a href="#learning-path" data-dest="course_curriculum" data-cta-slot="sample_curriculum">Explore the six modules →</a></p>
+  </section>
   <h2>What's in it</h2>
   <div class="card">
     <ul>
@@ -311,10 +321,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <h2>Should you buy this or the $29 plan?</h2>
   <p>
-    <strong>Buy the $29 plan</strong> if what you want is the levels I'm buying at,
-    kept current. It's a document, it stands alone, and most people should start there.
+    <strong>Buy the $29 plan</strong> if you want a worked buying ladder, its reasoning and a worksheet.
+    It is a standalone document you can preview before buying.
     <!-- Positioning rationale lives in SYSTEM_POSITIONING.md, not in shipped HTML. -->
-    <strong>Buy this</strong> if you want to stop needing my levels at all. The Score
+    <strong>Buy this</strong> if you want to learn how to build and review your own framework. The Score
     itself is free at <a href="/score" style="color:#d9a441;">/score</a> — the live
     number, all nine weights, and how to recompute it. This is the part that isn't:
     <strong>how to derive your own levels when this cycle ends and every number has
@@ -349,5 +359,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="/js/reviews.js" defer></script>
 <script defer src="/js/checkout-context.js?v=20260915"></script>
 <script src="/js/product-help.js" defer></script>
+<script>
+(function(){
+  var answer = document.getElementById('course-sample-answer');
+  if (!answer) return;
+  var recorded = false;
+  answer.addEventListener('toggle', function(){
+    if (!answer.open || recorded) return;
+    recorded = true;
+    if (typeof window.track === 'function') window.track('course_sample_opened', {page: '/system', sample: 'divisor_rule'});
+  });
+})();
+</script>
 </body>
 </html>

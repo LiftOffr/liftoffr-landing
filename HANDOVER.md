@@ -856,3 +856,7 @@ Primary-source crypto seller and ecommerce usability refresh: `/Users/torin/Docu
 ## 2026-10-05 lifestyle theme
 
 `css/lifestyle.css` unifies Home, About, Plan, System and Playbook using boat/car imagery, full-width homepage portrait and consistent sales-page banners. User confirmed the system funded his lifestyle; homepage story reflects his stated experience, without current financial data or expected buyer results. Photo of him walking from a helicopter not found; user permits omission. Release/source provenance: `/Users/torin/Documents/liftoffr-lifestyle-theme-2026-10-05/RELEASE.md`.
+
+## 2026-10-07 content-matched funnel
+
+Checklist -> direct Plan preview, optional direct Discord and Sunday email. System includes a real lesson summary plus illustrative divisor exercise and `course_sample_opened` engagement event. Research, analytics limitations, content routing and unresolved paid-delivery work: `/Users/torin/Documents/liftoffr-funnel-2026-10-07/RESEARCH-AND-RELEASE.md`. No bio/caption changes or payment configuration changes.
