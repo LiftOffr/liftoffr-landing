@@ -3,6 +3,41 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "se6UlLbDTEo",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Q4 2026",
+    "published": "2026-10-08T16:59:27+00:00",
+    "processed_at": "2026-10-08T17:42:01.159443+00:00",
+    "url": "https://www.youtube.com/watch?v=se6UlLbDTEo",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      81000,
+      82000,
+      66000,
+      60000,
+      57000
+    ],
+    "indicators_mentioned": [
+      "10-year Treasury yield",
+      "Bitcoin/Gold ratio",
+      "seasonality",
+      "ROI from low to low",
+      "standard deviation bands",
+      "50-week moving average"
+    ],
+    "key_points": [
+      "Bitcoin historically finds lows in February, summer, and Q4 of midterm years, and the current rally above range highs may be a fake-out similar to past upside traps rather than a genuine breakout",
+      "The 10-year yield tends to top in October-November, and Bitcoin has historically stalled or dropped around that time, suggesting renewed weakness could still arrive in Q4 despite the recent higher high",
+      "Gold typically bottoms before Bitcoin in these cycles, implying gold is closer to a low while Bitcoin's outperformance versus gold could reverse and bleed back toward range lows",
+      "Post rate-hike price action in prior midterm years shows Bitcoin holding steady for 40-50 days before breaking down, meaning current strength doesn't rule out a delayed decline",
+      "If Bitcoin accepts back below the recent trading range, it likely revisits range lows near the 57,000-60,000 area, while a close back above the range would support continuation higher into the next phase of the four-year cycle"
+    ],
+    "summary": "Bitcoin's rally above prior range highs is being treated with suspicion as a potential fake-out, mirroring historical patterns where midterm-year Q4 weakness arrives after the market lulls participants into complacency. Cross-asset signals from yields and gold suggest gold is closer to a cycle low than Bitcoin, raising the risk that the Bitcoin/Gold ratio and price action revert back toward range lows before any resumption of the broader uptrend tied to the four-year cycle thesis."
+  },
+  {
     "video_id": "s4U8s754p9w",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1500,46 +1535,5 @@ export default [
       "Historical cycle patterns suggest Bitcoin likely bottoms later in the year before initiating the next bull market into 2027, mirroring the structure of prior cycles"
     ],
     "summary": "Bitcoin's current performance reflects macro headwinds rather than political factors, with dollar strength likely to remain a headwind through late 2026. If current cycle mirrors historical patterns, a bottom is expected later this year followed by initiation of the next bull market into 2027."
-  },
-  {
-    "video_id": "g4FiHz14W14",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Bottom Indicators to Watch",
-    "published": "2026-06-25T20:10:10+00:00",
-    "processed_at": "2026-06-25T21:13:01.492957+00:00",
-    "url": "https://www.youtube.com/watch?v=g4FiHz14W14",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      53000,
-      38000,
-      58000
-    ],
-    "indicators_mentioned": [
-      "ROI from the low",
-      "MVRV Z-score",
-      "Running one-year ROI",
-      "Realized price",
-      "Balance price",
-      "On-chain risk",
-      "Peel multiple",
-      "MVRV score",
-      "Transaction fees",
-      "Terminal price",
-      "Miner cap to thermocap",
-      "Market cap to thermocap",
-      "R huddle ratio",
-      "Supply in profit and loss"
-    ],
-    "key_points": [
-      "Time-based capitulation suggests market cycle bottom occurs in late Q3 to early Q4 (approximately 100-110 days out), based on 4-year cycle pattern matching of prior lows at days 1432 and 1424",
-      "Price-based capitulation would be confirmed by Bitcoin dropping below realized price (~53K) and especially below balance price (~38K), which historically occurs only briefly during market bottoms",
-      "A counter-trend rally should occur before final bottom, likely starting mid to late July into August, with potential for relief bounces before the final capitulation drop into Q4",
-      "Volume spike capitulation indicator remains important\u2014historically, bottoms are marked by prolonged low volume followed by massive volume spike, similar to 2018 and 2022 patterns",
-      "Current on-chain risk metrics (0.195) suggest room for further decline toward historical bottom levels (~0.1), indicating bear market likely not yet complete"
-    ],
-    "summary": "Bitcoin is expected to form a market cycle bottom in late Q3 to early Q4 based on 4-year cycle time analysis, with a counter-trend relief rally anticipated in mid to late July. Price targets include the realized price around 53K and potentially the balance price near 38K, which would signal full price-based capitulation. Multiple on-chain indicators including MVRV Z-score, volume patterns, and on-chain risk metrics remain in ranges consistent with mid-cycle bear markets rather than final capitulation, suggesting the bear market has several more months to play out."
   }
 ];
