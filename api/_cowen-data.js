@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "-eKtrrN5P48",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Dominance",
+    "published": "2026-10-12T21:18:08+00:00",
+    "processed_at": "2026-10-12T22:13:42.912882+00:00",
+    "url": "https://www.youtube.com/watch?v=-eKtrrN5P48",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Bitcoin dominance",
+      "Fed funds rate",
+      "2-year yield",
+      "DXY (US Dollar Index)",
+      "Total3 minus USDT divided by Bitcoin"
+    ],
+    "key_points": [
+      "Bitcoin dominance historically rises when monetary policy becomes restrictive (Fed funds rate above 2-year yield) and falls when policy loosens",
+      "Interest rates are heading back toward a more restrictive stance as the Fed funds rate rises, while the 2-year yield may drop after the midterms, potentially restoring restrictive conditions sooner than expected",
+      "The dollar index is tracing a path similar to Trump's first term, falling in year one and rising through the midterm year, supporting further dollar strength and higher Bitcoin dominance",
+      "Altcoin pairs against Bitcoin are likely to keep underperforming until monetary policy eases later in the cycle, delaying any durable altseason",
+      "Dominance including stablecoins should push back up toward 2025 highs before eventually declining into the low 50s or upper 40s later in the cycle"
+    ],
+    "summary": "Bitcoin dominance, now near 60%, is expected to rise further as monetary policy drifts back toward a more restrictive stance and the dollar continues a pattern reminiscent of 2017-2018. Unlike the prior cycle, dominance is not expected to climb indefinitely\u2014altcoin pairs should remain weak until looser monetary policy returns later in the cycle, after which dominance could eventually fall toward the low 50s or upper 40s."
+  },
+  {
     "video_id": "se6UlLbDTEo",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1511,29 +1539,5 @@ export default [
       "DCA strategy in second half of midterm years has historically worked well despite interim volatility, as the longer time horizon absorbs lower lows that may occur"
     ],
     "summary": "Bitcoin's break below the 200E moving average signals entry into typical midterm year bear market dynamics. The most probable scenario involves early summer lows followed by a counter-trend rally and final capitulation in Q3/early Q4 2026, unless a major price-based capitulation event with exceptional volume occurs to reset onchain metrics earlier."
-  },
-  {
-    "video_id": "OYcGIifaO4Q",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Returns Under Various US Presidents",
-    "published": "2026-06-28T03:48:35+00:00",
-    "processed_at": "2026-06-28T04:13:55.917608+00:00",
-    "url": "https://www.youtube.com/watch?v=OYcGIifaO4Q",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      105000,
-      106000
-    ],
-    "indicators_mentioned": [],
-    "key_points": [
-      "Bitcoin's performance under Biden and Trump's second term has been remarkably similar to each other and markedly weaker than previous bull cycles, with returns near -41% to -44% after 524 days",
-      "Dollar strength (DXY) is acting as a macro headwind for crypto assets, with historical patterns suggesting dollar may rally toward 105-106 area later in the year",
-      "Bitcoin performance correlates more strongly with macro conditions (inflation concerns, unemployment trends) than political leadership; current macro environment differs significantly from Obama and Trump's first term when inflation was less of a concern",
-      "Historical cycle patterns suggest Bitcoin likely bottoms later in the year before initiating the next bull market into 2027, mirroring the structure of prior cycles"
-    ],
-    "summary": "Bitcoin's current performance reflects macro headwinds rather than political factors, with dollar strength likely to remain a headwind through late 2026. If current cycle mirrors historical patterns, a bottom is expected later this year followed by initiation of the next bull market into 2027."
   }
 ];
