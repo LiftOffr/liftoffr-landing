@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "qWXGEl-ojx4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Inflation Comes in Hot",
+    "published": "2026-10-14T14:47:02+00:00",
+    "processed_at": "2026-10-14T15:14:44.609808+00:00",
+    "url": "https://www.youtube.com/watch?v=qWXGEl-ojx4",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      103000,
+      105000,
+      106000
+    ],
+    "indicators_mentioned": [
+      "CPI inflation rate",
+      "2-year yield",
+      "Fed funds rate",
+      "10-year yield",
+      "20-year yield",
+      "30-year yield",
+      "World Uncertainty Index",
+      "Economic Policy Uncertainty Index",
+      "weekly closes"
+    ],
+    "key_points": [
+      "Hotter-than-expected CPI print, driven heavily by housing and transportation (energy-linked) categories, raises the odds the Fed stays restrictive",
+      "Oil prices are trending higher due to the Middle East conflict and are likely to keep pushing inflation up until either the war ends or a recession occurs",
+      "Long-end yields and the 2-year yield are expected to stay elevated through the midterms, pressuring rate-sensitive assets like small caps (Russell) and metals",
+      "Rate hike odds for the October Fed meeting are now near a coin flip, reflecting elevated macro uncertainty and more violent market swings",
+      "83K is the line in the sand for Bitcoin, with weekly closes more important than daily price action for gauging near-term direction, while the dollar is expected to continue higher toward 105-106"
+    ],
+    "summary": "Hotter inflation data, driven by housing and oil-linked transportation costs, is forcing the Fed into a difficult position of potentially hiking into a supply-shock-driven inflation spike rather than cutting as many expected. This keeps long-end yields elevated through the midterms, pressuring rate-sensitive assets including small caps and metals, while the dollar continues an uptrend toward 105-106; for Bitcoin, 83K remains the key level to watch, with weekly closes mattering more than daily volatility for near-term direction."
+  },
+  {
     "video_id": "-eKtrrN5P48",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1511,33 +1548,5 @@ export default [
       "Late September to early October represents historical low point for S&P 500 in midterm years, likely resetting metrics for next cycle"
     ],
     "summary": "Midterm year patterns suggest the June correction was shallow as expected, setting up a summer drift higher on reduced volume followed by a more significant 10-20% correction in the August-September timeframe. Historical precedent from 2014, 2018, and 2022 shows similar patterns with the larger correction typically bottoming in late September or early October, which would facilitate a reset in market euphoria metrics."
-  },
-  {
-    "video_id": "1LI9wfqxOmc",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Falls Below the 200 Week Moving Average",
-    "published": "2026-06-29T01:52:03+00:00",
-    "processed_at": "2026-06-29T02:14:27.983148+00:00",
-    "url": "https://www.youtube.com/watch?v=1LI9wfqxOmc",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000
-    ],
-    "indicators_mentioned": [
-      "200E moving average",
-      "onchain metrics",
-      "volume"
-    ],
-    "key_points": [
-      "Bitcoin has fallen below the 200E moving average for the first time this cycle, consistent with historical midterm year bear market patterns seen in 2018 and 2022",
-      "Without a price-based capitulation event (sudden massive volume spike resetting onchain metrics), a time-based capitulation scenario is most likely with lows forming early summer, counter-trend rally mid-to-late summer, and final drop in Q3/early Q4",
-      "A drop below $60,000 level would significantly increase likelihood of the market cycle bottom forming, drawing parallel to the $6,000 levels that preceded bottoms in 2018 and 2019",
-      "Price-based capitulation would require a major catalyst (financial crisis event) to end the bear market prematurely; without it, the cycle continues as historically typical",
-      "DCA strategy in second half of midterm years has historically worked well despite interim volatility, as the longer time horizon absorbs lower lows that may occur"
-    ],
-    "summary": "Bitcoin's break below the 200E moving average signals entry into typical midterm year bear market dynamics. The most probable scenario involves early summer lows followed by a counter-trend rally and final capitulation in Q3/early Q4 2026, unless a major price-based capitulation event with exceptional volume occurs to reset onchain metrics earlier."
   }
 ];
