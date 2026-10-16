@@ -3,6 +3,53 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "H_JhpNaRPl8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Extreme Uncertainty",
+    "published": "2026-10-16T16:09:37+00:00",
+    "processed_at": "2026-10-16T16:40:53.286974+00:00",
+    "url": "https://www.youtube.com/watch?v=H_JhpNaRPl8",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      87000,
+      57000,
+      53000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "RSI",
+      "MACD",
+      "Golden Cross",
+      "50-day moving average",
+      "50-week moving average",
+      "MVRV Z-score",
+      "Supply in Profit or Loss",
+      "Realized Price",
+      "10-year yield",
+      "3-month/10-year yield spread",
+      "Initial Claims",
+      "S&P/M2 ratio",
+      "S&P/Gold ratio",
+      "Bitcoin/Gold ratio",
+      "Bitcoin/Silver ratio",
+      "World Uncertainty Index",
+      "Economic Policy Uncertainty Index",
+      "ROI from cycle low"
+    ],
+    "key_points": [
+      "Technical indicators (golden cross, RSI, position above the 50-week and 50-day moving averages) all favor the bulls and mirror patterns seen at the end of prior bear markets",
+      "A key structural concern is that on-chain metrics like MVRV Z-score never reset to historically bearish extremes, raising doubt that the cycle low is truly in, similar to the 2019 apathetic-top scenario that preceded a recession-driven collapse",
+      "Price action is at a decision point around the 83K-87K range; a weekly close below 83K would likely trigger a rapid, sharp unwind rather than a slow multi-month decline, mirroring the fast breakdowns seen in 2015 and 2020 fake-outs",
+      "Macro signals are conflicting: rate hike odds, a potential topping 10-year yield, rising oil and inflation pressures, and historical post-rate-hike equity weakness argue for caution, while low initial claims and recession-risk dashboards argue against an imminent recession",
+      "A false-breakout scenario that fools bulls back toward prior lows (e.g., 60K) is considered the worst outcome, as it could inflict multi-year psychological damage on the market versus a clean new low or a sustained breakout"
+    ],
+    "summary": "Bitcoin sits at a critical decision point where bullish technical signals (golden cross, RSI, moving average support) directly conflict with bearish macro and on-chain arguments (unreset MVRV, rising yields and inflation, recession risk). The resolution is expected to come quickly \u2014 either a breakout to new local highs above 87K within weeks, or a swift breakdown below 83K that unwinds within days rather than months. The most damaging scenario would be a fake breakout that later reverses, as it could undermine confidence in technical signals for years rather than simply producing another cyclical low."
+  },
+  {
     "video_id": "qWXGEl-ojx4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1524,29 +1571,5 @@ export default [
       "Macro variables and narrative complexity are secondary to cyclical seasonal patterns; the 4-year cycle has repeated despite varying economic conditions"
     ],
     "summary": "Bitcoin appears to be tracking historical midterm year bear market patterns with a low at 57,000 on July 1st mirroring 2018's low at 5,700. A counter-trend rally into late summer is probable but would likely be rejected near the 200-day moving average before renewed capitulation occurs in Q4. Dollar-cost averaging throughout the second half of the midterm year is the recommended strategy rather than timing exact bottoms."
-  },
-  {
-    "video_id": "Wef7vP6ffBM",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "S&P 500: Outlook for the Rest of 2026 [Update]",
-    "published": "2026-06-30T14:23:04+00:00",
-    "processed_at": "2026-06-30T15:07:53.154600+00:00",
-    "url": "https://www.youtube.com/watch?v=Wef7vP6ffBM",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "21-week EMA"
-    ],
-    "key_points": [
-      "Shallow June correction of 5-8% aligns with historical midterm year patterns observed in 2014, 2018, and 2022",
-      "Summer drift higher expected on low volume as market consolidates before larger correction",
-      "Larger 10-20% correction anticipated in August-September timeframe consistent with prior midterm year cycles",
-      "Dollar strength persisting as headwind despite policy intentions, contributing to late-year weakness pattern",
-      "Late September to early October represents historical low point for S&P 500 in midterm years, likely resetting metrics for next cycle"
-    ],
-    "summary": "Midterm year patterns suggest the June correction was shallow as expected, setting up a summer drift higher on reduced volume followed by a more significant 10-20% correction in the August-September timeframe. Historical precedent from 2014, 2018, and 2022 shows similar patterns with the larger correction typically bottoming in late September or early October, which would facilitate a reset in market euphoria metrics."
   }
 ];
