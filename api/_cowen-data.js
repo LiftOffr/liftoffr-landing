@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "VA_Qr4-s994",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Has the Q4 Equity Correction Finally Arrived?",
+    "published": "2026-10-18T14:05:02+00:00",
+    "processed_at": "2026-10-19T07:07:07.752688+00:00",
+    "url": "https://www.youtube.com/watch?v=VA_Qr4-s994",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "10-year yield",
+      "Year-to-date ROI seasonality"
+    ],
+    "key_points": [
+      "A typical Q4 midterm-year equity correction appears to be unfolding, starting with riskier/rate-sensitive markets (South Korea down ~24%, Russell 2000 down ~11%, Dow down 7-8%, Nasdaq down ~7%) before working down the risk curve to the S&P 500, which is still only ~2% off highs",
+      "The Fed is likely to skip a rate hike in October despite hot inflation prints (~84.5% probability), which could cause the 10-year yield to bounce again into the midterms, pressuring rate-sensitive sectors like the Russell and Dow further, echoing the 2018 pattern of hike-skip-hike",
+      "Rising oil prices (WTI potentially testing $107, Brent already above September highs) provide a clean narrative catalyst for a Q4 correction, especially as markets grow skeptical of unfulfilled ceasefire headlines and begin pricing in reality rather than narratives",
+      "Historically, equity corrections precede and drive Bitcoin weakness in Q4; if the S&P correction continues, it could stall the current Bitcoin breakout/rotation attempt the same way Bitcoin's bear market previously killed alt season",
+      "The most likely scenario is a continued drop, a bounce into the midterms, and then another leg down afterward, similar to the 2018 playbook, though timing such moves precisely is highly uncertain"
+    ],
+    "summary": "Equity markets are showing early signs of a typical Q4 midterm-year correction, with weakness spreading from riskier indices (South Korea, Russell, Dow, Nasdaq) toward the still-resilient S&P 500. Rising oil prices and a likely Fed pause in October could further pressure rate-sensitive sectors and bond yields, reinforcing a corrective narrative that, if it deepens, may also stall Bitcoin's attempted breakout by pulling liquidity down the risk curve."
+  },
+  {
     "video_id": "H_JhpNaRPl8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1541,35 +1566,5 @@ export default [
       "The 4-year cycle pattern has held consistently across multiple cycles and macro relationships (ISM, money supply) have proven unreliable as predictors compared to cyclical timing"
     ],
     "summary": "Bitcoin's 2026 price action mirrors 2018 bear market structure with near-identical timing of lows and highs, suggesting the 4-year cycle continues to govern market bottoms. A brief strength window in July precedes further weakness into October-November for the final low, with the pattern suggesting a retest of the 200-day moving average before eventual capitulation rather than immediate recovery to previous highs."
-  },
-  {
-    "video_id": "8TmOvGK235I",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Simulation Confirmed",
-    "published": "2026-07-01T19:19:32+00:00",
-    "processed_at": "2026-07-01T20:08:32.376222+00:00",
-    "url": "https://www.youtube.com/watch?v=8TmOvGK235I",
-    "outlook": "neutral",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      57000,
-      60000,
-      65000,
-      55000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "bear market resistance band"
-    ],
-    "key_points": [
-      "Bitcoin's current price action at 57,000 mirrors 2018 bear market lows at 5,700, suggesting cyclical pattern confirmation with a 10x scaling",
-      "A counter-trend rally into late July or late August is plausible, likely rejected near the 200-day moving average, followed by renewed weakness in Q4 driven by equity market correction",
-      "Time-based capitulation likely concludes in Q3, with the actual market cycle bottom expected in Q4 as part of the typical bear market trajectory for midterm years",
-      "Attempting to precisely time the exact bottom between 30K-60K is futile; dollar-cost averaging through the second half of midterm years has historically proven more effective than tactical trading",
-      "Macro variables and narrative complexity are secondary to cyclical seasonal patterns; the 4-year cycle has repeated despite varying economic conditions"
-    ],
-    "summary": "Bitcoin appears to be tracking historical midterm year bear market patterns with a low at 57,000 on July 1st mirroring 2018's low at 5,700. A counter-trend rally into late summer is probable but would likely be rejected near the 200-day moving average before renewed capitulation occurs in Q4. Dollar-cost averaging throughout the second half of the midterm year is the recommended strategy rather than timing exact bottoms."
   }
 ];
