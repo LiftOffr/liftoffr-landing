@@ -3,6 +3,32 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "WAMu9tSOyyY",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "What will the Federal Reserve Do Next?",
+    "published": "2026-10-19T17:48:56+00:00",
+    "processed_at": "2026-10-20T07:04:03.061883+00:00",
+    "url": "https://www.youtube.com/watch?v=WAMu9tSOyyY",
+    "outlook": "neutral",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "2-year yield",
+      "Fed funds rate",
+      "Summary of Economic Projections (SEP)"
+    ],
+    "key_points": [
+      "Current macro setup closely mirrors 2018: a midterm-year rate hike in September followed by an expected pause in October/November",
+      "Market pricing shows roughly 80% odds the Fed holds rates steady at the October meeting despite hot CPI and PPI prints",
+      "The 2-year yield historically leads Fed policy, and in 2018 it topped right around the November FOMC meeting before falling, suggesting a similar pattern could repeat into 2026 midterms",
+      "If the 2-year yield declines after the midterms while the Fed hikes once more in December, the Fed funds rate would converge with the yield, removing the need for further hikes in 2027",
+      "The Fed and market projections for future hikes are historically unreliable, as seen in 2019 when projected hikes never materialized and cuts began instead"
+    ],
+    "summary": "The current rate cycle appears to be closely tracking the 2018 midterm-year playbook, with a September hike, a likely pause in October, and a possible final hike in December. If the 2-year yield behaves as it did in 2018\u2014peaking near the midterms before declining\u2014the Fed funds rate could converge with the neutral rate proxy, reducing the likelihood of additional hikes through 2027 and potentially setting up a prolonged hold period."
+  },
+  {
     "video_id": "VA_Qr4-s994",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1534,37 +1560,5 @@ export default [
       "Four-year cycle framework suggests market cycle bottom occurs in Q4 of midterm years; current pattern continuation indicates further downside after July-early August counter-move"
     ],
     "summary": "Bitcoin is expected to stage a brief counter-trend rally into late July or mid-August before reversing, consistent with historical midterm year patterns from 2018 and 2022. August-September should see renewed weakness as gains from the counter-rally are given back, ultimately leading to the market cycle bottom in Q4 later this year. The 200-day moving average declining toward 70K serves as resistance on any bounces within the broader midterm year downtrend."
-  },
-  {
-    "video_id": "sy6AxBbgico",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Four Year Cycle Strikes Again",
-    "published": "2026-07-06T04:11:15+00:00",
-    "processed_at": "2026-07-06T05:10:07.563368+00:00",
-    "url": "https://www.youtube.com/watch?v=sy6AxBbgico",
-    "outlook": "mixed",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [
-      63000,
-      64000,
-      57000,
-      60000,
-      126000
-    ],
-    "indicators_mentioned": [
-      "200 day moving average",
-      "4-year cycle",
-      "year-to-date ROI"
-    ],
-    "key_points": [
-      "Bitcoin is replicating 2018 bear market structure with remarkable precision: February low, higher low in late March/early April, lower high in May at 200-day MA, and June low sweep at 57,000 (matching 5,700 in 2018 adjusted for 10x growth)",
-      "A window of strength likely forms in July before capitulation resumes in August-September, with a final bottom expected in October or November rather than December as in 2018",
-      "The current bear market feels more severe than 2018 because it lacked the euphoric top that would have driven a final altcoin rotation; topping on apathy rather than euphoria created different psychology",
-      "DCA strategy optimal for second half of midterm years; picking up Bitcoin near current levels avoids missing the low while preserving dry powder for potential drops through Q4",
-      "The 4-year cycle pattern has held consistently across multiple cycles and macro relationships (ISM, money supply) have proven unreliable as predictors compared to cyclical timing"
-    ],
-    "summary": "Bitcoin's 2026 price action mirrors 2018 bear market structure with near-identical timing of lows and highs, suggesting the 4-year cycle continues to govern market bottoms. A brief strength window in July precedes further weakness into October-November for the final low, with the pattern suggesting a retest of the 200-day moving average before eventual capitulation rather than immediate recovery to previous highs."
   }
 ];
