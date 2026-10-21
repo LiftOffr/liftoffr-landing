@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "oYPawyUxnnE",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Holds Above $83k",
+    "published": "2026-10-21T20:04:34+00:00",
+    "processed_at": "2026-10-21T21:04:46.943840+00:00",
+    "url": "https://www.youtube.com/watch?v=oYPawyUxnnE",
+    "outlook": "bullish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      81700,
+      84000
+    ],
+    "indicators_mentioned": [
+      "50-day moving average",
+      "weekly close",
+      "Bitcoin dominance"
+    ],
+    "key_points": [
+      "Bitcoin has defended the 83K level, which corresponds to the prior May high, keeping the burden of proof on the bears",
+      "Only one weekly close below 83K occurred, which is insufficient to signal a shift to bearish control; multiple closes below would be needed",
+      "Bitcoin is showing relative strength versus altcoins, with ETH and broader altcoin indices losing their 50-day moving averages while Bitcoin holds above it",
+      "Tighter monetary policy expectations support continued Bitcoin dominance gains relative to altcoins",
+      "A recurring monthly pattern of mid-month lows and rallies peaking around the 21st suggests potential short-term cooling followed by renewed strength, with FOMC as the next major catalyst"
+    ],
+    "summary": "Bitcoin continues to hold above the critical 83K support level, keeping bulls in control as long as this level is not decisively broken on a weekly closing basis. Relative strength against altcoins and rising Bitcoin dominance are expected to persist amid a backdrop of tightening monetary policy, with FOMC serving as the next key catalyst."
+  },
+  {
     "video_id": "WAMu9tSOyyY",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1529,36 +1559,5 @@ export default [
       "Social interest and retail engagement remain at multi-year lows with no volume spike capitulation signal yet, indicating time-based capitulation into late 2024 is most likely outcome"
     ],
     "summary": "Bitcoin is in a midterm year bear market with structural weakness that should persist through Q4, with a likely bottoming window in late September through early October. The realized price near 53k and balance price near 38k represent potential support levels if the cycle follows historical precedent from 2014, 2018, and 2022. DCA accumulation in the second half of midterm years has historically led to strong bull markets beginning in late 2024 or early 2025."
-  },
-  {
-    "video_id": "n9yTkx3r904",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Brief Window of Strength",
-    "published": "2026-07-08T12:21:50+00:00",
-    "processed_at": "2026-07-08T12:37:12.361653+00:00",
-    "url": "https://www.youtube.com/watch?v=n9yTkx3r904",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      74000,
-      70000,
-      57000
-    ],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "200-week moving average",
-      "21-week EMA",
-      "20-week SMA"
-    ],
-    "key_points": [
-      "July historically shows brief counter-trend rallies in midterm years before larger declines resume in August-September, as demonstrated in 2018 and 2022",
-      "Current price action mirrors 2018 pattern: low near 57K, counter-rally into late July, then pullback to form higher/lower low structure before larger weakness",
-      "200-day moving average declining from 74K toward 70K by mid-August provides resistance; Bitcoin trapped between 200-week MA support and bear market resistance band, forcing decision later in cycle",
-      "Midterm year weakness windows contain pockets of strength that trap retail traders into FOMO buying rallies only to sell local tops as larger downtrends resume",
-      "Four-year cycle framework suggests market cycle bottom occurs in Q4 of midterm years; current pattern continuation indicates further downside after July-early August counter-move"
-    ],
-    "summary": "Bitcoin is expected to stage a brief counter-trend rally into late July or mid-August before reversing, consistent with historical midterm year patterns from 2018 and 2022. August-September should see renewed weakness as gains from the counter-rally are given back, ultimately leading to the market cycle bottom in Q4 later this year. The 200-day moving average declining toward 70K serves as resistance on any bounces within the broader midterm year downtrend."
   }
 ];
