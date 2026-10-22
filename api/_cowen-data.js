@@ -3,6 +3,37 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "KZ1Jro92t48",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Bull Market Support Band",
+    "published": "2026-10-22T14:32:40+00:00",
+    "processed_at": "2026-10-22T15:05:19.633600+00:00",
+    "url": "https://www.youtube.com/watch?v=KZ1Jro92t48",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      82000,
+      83000,
+      75000,
+      76000
+    ],
+    "indicators_mentioned": [
+      "50-day moving average",
+      "21-week EMA",
+      "bull market support band"
+    ],
+    "key_points": [
+      "Bitcoin has bounced off the 50-day moving average but is struggling again below $82-83K, with a daily close below the 50-day flagged as the first warning sign of a move toward the 21-week EMA",
+      "Most other major assets (Nasdaq, S&P, Dow, Ethereum, Total2, Total3, MicroStrategy) have already tested their bull market support bands while Bitcoin has not in about 9 weeks, raising the odds of a retest",
+      "Apathetic tops can lead to either shorter, shallower bear markets or more prolonged ones riddled with fake breakouts, since insufficient selling pressure fails to fully reset the market",
+      "A loss of the $83K level points to the bull market support band (low-to-mid $70s) as the next stop, with a break below that risking a retest of range lows",
+      "Current weakness is attributed primarily to macro/stock market conditions rather than Bitcoin-specific issues, consistent with historical Q4 midterm-year pullbacks driven by equities"
+    ],
+    "summary": "Bitcoin is caught between bullish technical setups and a bearish macro backdrop, with weakness below the 50-day moving average likely opening the door to a retest of the 21-week EMA bull market support band in the low-to-mid $70s. The broader risk is that an apathetic market top could produce a more prolonged bear market with repeated fake breakouts rather than a quick capitulation, especially if stock market declines continue to drag Bitcoin lower into year-end."
+  },
+  {
     "video_id": "oYPawyUxnnE",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1517,47 +1548,5 @@ export default [
       "Falling housing and transportation contributions were the main drivers of the inflation drop, though a potential oil price bounce is a risk to watch for renewed inflationary pressure"
     ],
     "summary": "Bitcoin is tracking historical mid-term year seasonality, rallying on a cooler CPI print while getting squeezed between the 200-week moving average and the bear market resistance band, much like the 2018 cycle. This compression is expected to resolve directionally between August and Q4, with a breakdown scenario aligning with a typical market cycle low later in the year."
-  },
-  {
-    "video_id": "sigSZCnSa6M",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Dubious Speculation",
-    "published": "2026-07-10T15:21:55+00:00",
-    "processed_at": "2026-07-10T16:09:04.150254+00:00",
-    "url": "https://www.youtube.com/watch?v=sigSZCnSa6M",
-    "outlook": "bearish",
-    "confidence": "high",
-    "timeframe": "months",
-    "key_levels": [
-      53000,
-      38000,
-      70000,
-      80000,
-      90000
-    ],
-    "indicators_mentioned": [
-      "50-week moving average",
-      "200-day moving average",
-      "200-week moving average",
-      "MVRV Z-score",
-      "realized price",
-      "balance price",
-      "bull market support band",
-      "bare market resistance band",
-      "ROI from the low",
-      "advanced decline index",
-      "Bitcoin dominance",
-      "terminal price",
-      "volume spike"
-    ],
-    "key_points": [
-      "Bitcoin is squeezed between the 200-week moving average and bare market resistance band with resolution likely in Q4, historically resulting in capitulation similar to 2014, 2018, and 2022",
-      "On-chain indicators including MVRV Z-score and realized price have not fully reset and historically go below current levels during midterm year bear markets",
-      "Four-year cycle analysis shows February lows, summer sweeps of prior cycle lows, and late September/early October bottoming window consistent with 2014, 2018, and 2022 patterns",
-      "Bitcoin underperformed against gold, S&P 500, energy, and major equities by 13-44% in the first half of the midterm year, validating the weakness pattern",
-      "Social interest and retail engagement remain at multi-year lows with no volume spike capitulation signal yet, indicating time-based capitulation into late 2024 is most likely outcome"
-    ],
-    "summary": "Bitcoin is in a midterm year bear market with structural weakness that should persist through Q4, with a likely bottoming window in late September through early October. The realized price near 53k and balance price near 38k represent potential support levels if the cycle follows historical precedent from 2014, 2018, and 2022. DCA accumulation in the second half of midterm years has historically led to strong bull markets beginning in late 2024 or early 2025."
   }
 ];
