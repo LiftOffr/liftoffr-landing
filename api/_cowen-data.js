@@ -3,6 +3,41 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "eN6dpreDIk4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: A Precarious Position",
+    "published": "2026-10-24T00:47:58+00:00",
+    "processed_at": "2026-10-24T07:06:12.309057+00:00",
+    "url": "https://www.youtube.com/watch?v=eN6dpreDIk4",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      75000,
+      82000
+    ],
+    "indicators_mentioned": [
+      "MACD",
+      "RSI",
+      "golden cross",
+      "50-day moving average",
+      "bull market support band",
+      "BTC/USDT dominance chart",
+      "10-year yield"
+    ],
+    "key_points": [
+      "A weekly close below 83K has already occurred, and a second such close would shift the burden of proof to the bulls and suggest the breakout was a fake out",
+      "Macro conditions (rising dollar, surging energy prices, stock market correction spreading from small caps to the Nasdaq) are playing out as previously expected, supporting the bearish case",
+      "A seasonal pattern shows Bitcoin rallies in midterm years topping out around October 21st-November 3rd, aligning with a potential FOMC/PCE-driven move in long-end yields that could pressure risk assets",
+      "Historical fake-out analogs (2015, 2020) show that once confirmed, unwinds happen quickly within a few weeks rather than slowly bleeding out",
+      "Losing and failing to reclaim the 50-day moving average is a warning shot; repeated rejection at this level would embolden the bearish scenario",
+      "A reclaim of weekly closes above 83K would invalidate the bearish checklist and support the bullish continuation case"
+    ],
+    "summary": "Bitcoin sits in a precarious technical position after a weekly close below 83K and a failure to hold the 50-day moving average, with macro conditions\u2014rising dollar, surging energy prices, and a developing equity market correction\u2014aligning with a bearish seasonal pattern tied to midterm-year cycles. A second weekly close below 83K, combined with potential Fed inaction and hot PCE data pushing long-end yields higher, could trigger a rapid unwind similar to past fake-out patterns, while a reclaim above 83K would negate this bearish setup entirely."
+  },
+  {
     "video_id": "KZ1Jro92t48",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1520,33 +1555,5 @@ export default [
       "No price-based capitulation has occurred (unlike 2019/2020), suggesting the base case remains time-based capitulation rather than a sharp capitulation low, with social interest metrics closer to 2018 levels than 2022"
     ],
     "summary": "Current price behavior closely parallels prior Bitcoin market cycles and election-cycle patterns, pointing to a potential bottoming process unfolding over the coming months rather than a sharp price-based capitulation. Dollar strength later in the year could remain a headwind, while low social interest readings suggest sentiment resembles 2018 more than 2022, even as liquidity conditions echo 2019. The overall structure suggests dollar-cost averaging is more reliable than attempting to precisely time a bottom."
-  },
-  {
-    "video_id": "rWfLRMiyQVY",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Inflation and Bitcoin",
-    "published": "2026-07-15T02:14:08+00:00",
-    "processed_at": "2026-07-15T07:53:05.224177+00:00",
-    "url": "https://www.youtube.com/watch?v=rWfLRMiyQVY",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "200-week moving average",
-      "bear market resistance band",
-      "CPI",
-      "core inflation",
-      "inflation rate year-over-year"
-    ],
-    "key_points": [
-      "Cooler than expected headline and core inflation readings are fueling a short-term Bitcoin rally consistent with prior mid-term year seasonality",
-      "Price action is closely mirroring the 2018 cycle pattern: a June/July low sweep, a smaller rally, then a squeeze between the 200-week moving average and bear market resistance band",
-      "The current setup is a compression between key moving averages that should force a directional resolution between August and Q4",
-      "A breakdown from this squeeze would align with market cycle theory and produce a cycle low later in the year",
-      "Falling housing and transportation contributions were the main drivers of the inflation drop, though a potential oil price bounce is a risk to watch for renewed inflationary pressure"
-    ],
-    "summary": "Bitcoin is tracking historical mid-term year seasonality, rallying on a cooler CPI print while getting squeezed between the 200-week moving average and the bear market resistance band, much like the 2018 cycle. This compression is expected to resolve directionally between August and Q4, with a breakdown scenario aligning with a typical market cycle low later in the year."
   }
 ];
