@@ -3,6 +3,45 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "bWdXPK3Hlok",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Bears Regaining Control",
+    "published": "2026-10-25T22:24:26+00:00",
+    "processed_at": "2026-10-25T23:07:06.396022+00:00",
+    "url": "https://www.youtube.com/watch?v=bWdXPK3Hlok",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      82000,
+      80000,
+      76000,
+      72000,
+      60000,
+      90000
+    ],
+    "indicators_mentioned": [
+      "50-day moving average",
+      "bull market support band",
+      "21-week EMA",
+      "realized price",
+      "MVRV",
+      "advance decline index",
+      "Pi Cycle (implied via indicators comment)",
+      "four-year cycle"
+    ],
+    "key_points": [
+      "Two consecutive weekly closes below 83K would confirm a fake-out above the prior May high, suggesting bears are regaining control",
+      "Other risk assets (NASDAQ, Dow, Russell, ETH, Total2, Total3, MicroStrategy) have already broken below their 50-day moving averages and moved toward or below their bull market support bands, implying Bitcoin may follow the same path toward 72-76K",
+      "Historically (2014, 2018, 2022) Bitcoin's final cycle bottom occurred after the midterm elections, not before, arguing against a simple pre-midterm rally thesis",
+      "Macro variables (Fed rate decision, PCE inflation print, 10-year yield, oil prices) could drive a risk-off move where Bitcoin and stocks drop together before a potential December Fed hike",
+      "Without price-based capitulation similar to 2020 that forces a monetary policy response, the bullish post-QT fractal comparison is unlikely to fully replay, making a deeper drawdown (toward realized price near 60K or lower) a real possibility even if delayed"
+    ],
+    "summary": "Bitcoin's rejection below the May high and repeated acceptance under 83K on weekly closes signals a possible fake-out, mirroring broader risk-asset weakness already seen in equities and altcoins that broke below their 50-day moving averages toward bull market support bands. Historical midterm-year patterns and the absence of a capitulation event that would force looser monetary policy argue for further downside risk toward the 72-76K support band or lower, though a long-term bullish stance remains intact beyond this near-term bearish phase."
+  },
+  {
     "video_id": "eN6dpreDIk4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1524,36 +1563,5 @@ export default [
       "A potential catalyst for the anticipated correction could be weakness in the semiconductor sector after its elevated run"
     ],
     "summary": "Seasonal patterns from the last three midterm years point to a 10-20% S&P 500 correction likely developing in the August-September timeframe, following the current relief rally. Because Bitcoin's four-year cycle low has historically aligned with these stock market corrections in the back half of midterm years, a synchronized downturn across both markets is expected, potentially marking Bitcoin's major cycle bottom."
-  },
-  {
-    "video_id": "XQN1M-sIuGs",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Market Cycles",
-    "published": "2026-07-16T19:48:27+00:00",
-    "processed_at": "2026-07-16T20:53:56.284588+00:00",
-    "url": "https://www.youtube.com/watch?v=XQN1M-sIuGs",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      64000
-    ],
-    "indicators_mentioned": [
-      "ROI from low",
-      "ROI after cycle peak",
-      "Presidential/election cycle model",
-      "DXY (Dollar Index)",
-      "Social interest/risk metric",
-      "YouTube views metric"
-    ],
-    "key_points": [
-      "Cycle timing charts (ROI from low, ROI from peak) suggest a bottom could form roughly 100 days out from the current point, based on alignment with prior two cycles",
-      "Price action closely mirrors Trump's first term and Biden's term patterns, including a summer decline, a rally, giveback in August/September, and a Q4 bottom",
-      "The dollar (DXY) is tracking similarly to Trump's first term and could move higher later in the year, acting as a continued headwind for Bitcoin",
-      "Midterm-year bear market comparisons (2014, 2018, 2022) show current price behavior is not unusual, with historical tendency for relief rallies in July",
-      "No price-based capitulation has occurred (unlike 2019/2020), suggesting the base case remains time-based capitulation rather than a sharp capitulation low, with social interest metrics closer to 2018 levels than 2022"
-    ],
-    "summary": "Current price behavior closely parallels prior Bitcoin market cycles and election-cycle patterns, pointing to a potential bottoming process unfolding over the coming months rather than a sharp price-based capitulation. Dollar strength later in the year could remain a headwind, while low social interest readings suggest sentiment resembles 2018 more than 2022, even as liquidity conditions echo 2019. The overall structure suggests dollar-cost averaging is more reliable than attempting to precisely time a bottom."
   }
 ];
