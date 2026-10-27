@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "4oHSuPTr8H0",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold: Dubious Speculation",
+    "published": "2026-10-27T19:56:01+00:00",
+    "processed_at": "2026-10-27T20:04:02.098412+00:00",
+    "url": "https://www.youtube.com/watch?v=4oHSuPTr8H0",
+    "outlook": "neutral",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Bull market support band (20-month SMA / 21-month EMA)",
+      "Year-to-date ROI comparison",
+      "Presidential term return paths",
+      "DXY (Dollar Index)"
+    ],
+    "key_points": [
+      "Gold is going through a multi-stage bottoming process similar to other markets, with lows forming in Q1, summer, and now potentially Q4",
+      "A rising dollar, driven by typical presidential-cycle seasonality and potential further Fed rate hikes, remains a near-term headwind for gold",
+      "Historical parallels to 2018 suggest gold could remain weak into December or even January before turning higher, mirroring a roughly one-year digestion after a parabolic advance",
+      "Gold is currently testing its monthly bull market support band, a level that has historically held during ongoing bull markets except during the 2008 financial crisis",
+      "Seasonal patterns show midterm years tend to produce strong gold returns, and historical analogues (e.g., 1974) show sharp mid-year drawdowns followed by new highs by year-end"
+    ],
+    "summary": "Gold appears to be in a bottoming process following its 2025 parabolic advance, with near-term headwinds from a strengthening dollar and potential additional Fed rate hikes. The bull market support band is being tested and has historically provided a floor, suggesting the broader uptrend remains intact even if a slightly lower low occurs before year-end or into early next year. The base case favors renewed upside once the bottom is confirmed, with new all-time highs expected within a few months of the eventual turn."
+  },
+  {
     "video_id": "bWdXPK3Hlok",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1538,30 +1565,5 @@ export default [
       "The outcome is expected to fall somewhere between the 2018 (~80% drop) and 2022 (~40% drop) scenarios, with the key test period being August through October"
     ],
     "summary": "Ethereum's price action for the rest of the year is expected to hinge on Bitcoin's performance during the seasonal window of weakness in August-September, with low current social participation raising the risk of a deeper pullback than 2022 but not as severe as 2018. A drop of roughly 40% from a local high, potentially sweeping toward the April 2025 low, is viewed as the more likely outcome, with a possible additional leg down against Bitcoin around a September-October rate hike scare before a durable higher low and eventual break above the bear market resistance band, likely not until next year."
-  },
-  {
-    "video_id": "q0-LgUAyf-o",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "S&P 500: Seasonal Correction Starting in August/September?",
-    "published": "2026-07-19T00:48:37+00:00",
-    "processed_at": "2026-07-19T01:54:51.127939+00:00",
-    "url": "https://www.youtube.com/watch?v=q0-LgUAyf-o",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Year-to-date ROI seasonality",
-      "Four-year cycle"
-    ],
-    "key_points": [
-      "Historical midterm-year seasonality shows the S&P 500 typically tops in August or September before dropping 10-20%",
-      "The last three midterm years (2022, 2018, 2014) all followed a pattern of early correction, summer rally, then a larger back-half-of-year decline",
-      "Current price action mirrors this pattern, with a shallow June correction followed by a July rally, suggesting a bigger correction is likely in August-September",
-      "Bitcoin's market cycle bottom has historically coincided with this seasonal stock market correction in the back half of midterm years",
-      "A potential catalyst for the anticipated correction could be weakness in the semiconductor sector after its elevated run"
-    ],
-    "summary": "Seasonal patterns from the last three midterm years point to a 10-20% S&P 500 correction likely developing in the August-September timeframe, following the current relief rally. Because Bitcoin's four-year cycle low has historically aligned with these stock market corrections in the back half of midterm years, a synchronized downturn across both markets is expected, potentially marking Bitcoin's major cycle bottom."
   }
 ];
