@@ -3,6 +3,41 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "21mBnslOLd0",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Post-FOMC",
+    "published": "2026-10-29T03:32:05+00:00",
+    "processed_at": "2026-10-29T07:04:52.884021+00:00",
+    "url": "https://www.youtube.com/watch?v=21mBnslOLd0",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      87000,
+      90000,
+      120000
+    ],
+    "indicators_mentioned": [
+      "50-day moving average",
+      "RSI",
+      "MACD",
+      "10-year yield",
+      "PPI",
+      "PCE"
+    ],
+    "key_points": [
+      "Rising oil prices and a hot PPI print suggest PCE inflation data could also surprise to the upside, pressuring the Fed and long-end yields higher",
+      "Historical midterm-year patterns (2018, 2022) show the 10-year yield bottoming in late October before rallying into/after the midterms, which would pressure risk assets including Bitcoin",
+      "Multiple global markets (gold, South Korea, Hang Seng/China) are tracing a three-low pattern in 2026 (Q1 low, summer low, forming Q4 low), and Bitcoin may follow the same structure",
+      "Seasonal/historical precedent shows Bitcoin's major cycle-bottom drops have consistently occurred after midterm elections (2014, 2018, 2022)",
+      "A repeating pattern tied to the upcoming Anthropic IPO (similar to the SpaceX IPO drawdown) could pull liquidity from crypto markets and pressure Bitcoin lower into November",
+      "Bitcoin is stalling at its 50-day moving average after reclaiming it, and historically Bitcoin tends to drop roughly 50 days after a September rate decision in midterm years (currently on day 43)"
+    ],
+    "summary": "The bias remains tilted toward a Q4 drop for Bitcoin, supported by seasonal patterns around midterm elections, a likely hot PCE print pushing long-end yields higher, and cross-market evidence of a three-low structure in 2026 (Q1, summer, and a forming Q4 low). While a bullish breakout to new highs cannot be ruled out, the weight of historical precedent and macro data favors one more bounce followed by a final leg down into the midterms before any sustained recovery."
+  },
+  {
     "video_id": "4oHSuPTr8H0",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1536,34 +1571,5 @@ export default [
       "A break below 50 per ounce in silver would represent a deep value zone, though a bottom may lead to prolonged consolidation rather than an immediate rally, similar to the 1970s pattern"
     ],
     "summary": "Gold is in a seasonal midterm-year correction that should find a bottom between July and October, with the bull market support band near 3,800 serving as a key level to watch. Silver continues to underperform gold but could regain relative strength once gold's low is confirmed, with a deep value zone emerging below 50 per ounce, though any bottom may be followed by an extended consolidation rather than an immediate breakout."
-  },
-  {
-    "video_id": "OZAQDVkVuG8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Ethereum: Dubious Speculation",
-    "published": "2026-07-20T01:24:49+00:00",
-    "processed_at": "2026-07-20T01:55:32.583337+00:00",
-    "url": "https://www.youtube.com/watch?v=OZAQDVkVuG8",
-    "outlook": "mixed",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Bull Market Support Band",
-      "Bear Market Resistance Band",
-      "20-month moving average",
-      "Social risk/social participation indicator",
-      "On-chain indicators",
-      "Year-to-date ROI comparison"
-    ],
-    "key_points": [
-      "Ethereum does not always bottom in sync with Bitcoin, as seen in 2022 when it printed a higher low while Bitcoin made a lower low",
-      "Structural similarities between 2026 and 2018 (same election cycle timing, similar low and sweep pattern) raise the risk that Ethereum could break down hard in August-September like it did in 2018, unlike the milder 2022 outcome",
-      "Low social participation and interest in crypto currently resembles 2018 conditions more than 2022, increasing risk of a deeper altcoin selloff due to lack of buyers",
-      "A potential rate hike scare in the September-October window could trigger one more leg down in the ETH/BTC pair before a macro higher low forms",
-      "The outcome is expected to fall somewhere between the 2018 (~80% drop) and 2022 (~40% drop) scenarios, with the key test period being August through October"
-    ],
-    "summary": "Ethereum's price action for the rest of the year is expected to hinge on Bitcoin's performance during the seasonal window of weakness in August-September, with low current social participation raising the risk of a deeper pullback than 2022 but not as severe as 2018. A drop of roughly 40% from a local high, potentially sweeping toward the April 2025 low, is viewed as the more likely outcome, with a possible additional leg down against Bitcoin around a September-October rate hike scare before a durable higher low and eventual break above the bear market resistance band, likely not until next year."
   }
 ];
