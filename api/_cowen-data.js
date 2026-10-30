@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "bekghgecip8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Q4 Dump is Here",
+    "published": "2026-10-30T14:12:39+00:00",
+    "processed_at": "2026-10-30T15:05:52.601313+00:00",
+    "url": "https://www.youtube.com/watch?v=bekghgecip8",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      77000,
+      60000
+    ],
+    "indicators_mentioned": [
+      "21-week EMA",
+      "20-week SMA",
+      "RSI",
+      "MACD",
+      "Golden Cross",
+      "Bull Market Support Band",
+      "MVRV"
+    ],
+    "key_points": [
+      "Bitcoin is lagging other markets (Total2, Total3, MicroStrategy, S&P, NASDAQ, gold, silver) that have already tested or completed their bull market support band retests, suggesting Bitcoin is likely to catch down",
+      "Historical midterm-year structure shows three lows (Q1, summer, Q4), and multiple macro markets are currently tracing this same pattern into a Q4 low",
+      "Post-rate-hike historical analogs (2018, 2022) show Bitcoin holding up for about six weeks before a final drop into Q4, and that window is now arriving",
+      "Two scenarios for the Q4 drop: a fast capitulation event before the midterms (rip-the-band-aid-off, like FTX in 2022) or a drop-bounce-final-drop pattern (like 2015/2020) with the ultimate low occurring after the midterms",
+      "Apathetic market tops (as opposed to euphoric ones) create bear markets more prone to fake-outs in either direction because retail sell-pressure from FOMO buyers is largely absent, delaying full capitulation"
+    ],
+    "summary": "Bitcoin appears to be entering the historically typical Q4 capitulation phase of a midterm year, lagging other risk assets that have already retested their bull market support bands. The base case favors a drop toward or through the bull market support band, potentially bouncing and then making a final low shortly after the midterm elections, consistent with the 2014-15, 2018, and 2022 cycle patterns, though a sharp, fast capitulation before the midterms remains a possible alternative outcome."
+  },
+  {
     "video_id": "21mBnslOLd0",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1546,30 +1580,5 @@ export default [
       "Social interest is expected to continue declining before potentially bottoming in the next 6-12 months, setting up conditions for the next cycle"
     ],
     "summary": "Bitcoin's price action and social interest metrics are tracking closely with the 2018 bear market pattern, suggesting a similar structural phase rather than a new bullish cycle. Extremely depressed social engagement across YouTube, X, and search data indicates most participants have left the space, explaining weak altcoin rotation and rising Bitcoin dominance. A bottom in social interest may form within the next 6-12 months, potentially setting the stage for renewed growth heading into the pre-halving period."
-  },
-  {
-    "video_id": "jpQb-Aia57k",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Gold: Midterm Year Weakness",
-    "published": "2026-07-22T02:04:38+00:00",
-    "processed_at": "2026-07-22T02:57:00.328330+00:00",
-    "url": "https://www.youtube.com/watch?v=jpQb-Aia57k",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Bull Market Support Band",
-      "Year-to-date ROI seasonality"
-    ],
-    "key_points": [
-      "Gold is undergoing a typical midterm-year correction, currently down about 30% from highs, consistent with historical midterm-year drawdowns of 22-34%",
-      "Historical seasonality suggests the low likely forms between July and October, based on averaging prior midterm-year bottoms (2018 and 2022)",
-      "The gold bull market support band sits near 3,800, roughly 4% below current price, and is the key level to watch for a potential bottom",
-      "Silver is underperforming gold due to a prior low gold-silver ratio call, and this underperformance may persist until gold's bottom is confirmed",
-      "A break below 50 per ounce in silver would represent a deep value zone, though a bottom may lead to prolonged consolidation rather than an immediate rally, similar to the 1970s pattern"
-    ],
-    "summary": "Gold is in a seasonal midterm-year correction that should find a bottom between July and October, with the bull market support band near 3,800 serving as a key level to watch. Silver continues to underperform gold but could regain relative strength once gold's low is confirmed, with a deep value zone emerging below 50 per ounce, though any bottom may be followed by an extended consolidation rather than an immediate breakout."
   }
 ];
