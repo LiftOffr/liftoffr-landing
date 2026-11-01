@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "VWU9sgbvnzw",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Dooobious Spookulation",
+    "published": "2026-11-01T03:18:25+00:00",
+    "processed_at": "2026-11-01T07:59:50.145057+00:00",
+    "url": "https://www.youtube.com/watch?v=VWU9sgbvnzw",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      83000,
+      78000,
+      40000
+    ],
+    "indicators_mentioned": [
+      "MVRV",
+      "Realized Price",
+      "Balance Price",
+      "Bull Market Support Band",
+      "MACD",
+      "RSI",
+      "Bitcoin Gold Ratio",
+      "Bitcoin Silver Ratio",
+      "200-week MA",
+      "10-year yield"
+    ],
+    "key_points": [
+      "Bitcoin has broken back below the prior all-time high on multiple weekly closes, a pattern that historically preceded fake-outs and capitulation moves in 2015, 2019-2020, and 2022",
+      "Seasonal and cyclical analogs (post-rate-hike performance in midterm years, historical ROI windows) suggest Bitcoin is entering the window for a four-year cycle low, with a 20% drop from current levels implying a move to range lows",
+      "Cross-asset weakness (NASDAQ, South Korean, Chinese, and gold markets) shows a consistent Q1-summer-Q4 low pattern this year, supporting the case for a Q4 low in Bitcoin as equities correct",
+      "Historical precedent shows Bitcoin has always traded below the realized price before a bear market ends, and the balance price (~$38k) has marked the terminal low of every prior cycle, both of which remain unmet",
+      "Silver's steep decline off a similar cycle peak may be a leading indicator for Bitcoin, as metals have historically bottomed before Bitcoin in prior midterm-year cycles, and the Bitcoin/Gold ratio sweep could imply a drop toward $40k"
+    ],
+    "summary": "Bitcoin's breakdown below its prior all-time high fits a historical pattern of fake-outs following apathetic tops, raising the risk of a deeper move toward the range lows or even the balance price near $38-40k before this cycle's bear market concludes. Cross-market signals in equities, gold, and silver all point to a Q4 low still forming, with the ultimate bottom likely occurring below the realized price as in every prior cycle. While a direct repeat of past patterns could resolve quickly, historical analogs with silver suggest the process could instead drag out over an extended multi-year base before a sustainable recovery."
+  },
+  {
     "video_id": "bekghgecip8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1548,37 +1585,5 @@ export default [
       "The current setup closely mirrors 2018, described as a less volatile version of that cycle, with a time-based capitulation expected later in the year if on-chain indicators fail to fully reset beforehand."
     ],
     "summary": "Bitcoin is caught between the 200-week moving average as support and the bear market resistance band as resistance, with a brief seasonal rally window expected before gains are likely reversed into August-September. The broader thesis points to a later-year breakdown coinciding with a stock market correction, forming the market cycle bottom before the next bull phase, though if this doesn't materialize by year-end, a bullish pivot would be warranted."
-  },
-  {
-    "video_id": "UIv9IQ4uXEA",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Social Interest: Dozens of us Left",
-    "published": "2026-07-23T10:53:23+00:00",
-    "processed_at": "2026-07-23T11:57:48.920354+00:00",
-    "url": "https://www.youtube.com/watch?v=UIv9IQ4uXEA",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      64000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "Social interest/social risk index",
-      "Google Trends",
-      "Advance-Decline Index",
-      "Bitcoin Dominance",
-      "Wikipedia page views",
-      "Crypto asset weighted sentiment"
-    ],
-    "key_points": [
-      "Social interest metrics (Google Trends, YouTube views/subscribers, X followers) have collapsed to a fraction of 2021 levels, signaling extremely low market participation",
-      "Current market structure and social interest closely mirror the 2018 bear market cycle, with similar support levels, lower highs, and higher lows patterns",
-      "Bitcoin dominance excluding stablecoins continues rising because so few participants remain to rotate into altcoins",
-      "Many altcoins never made new highs this cycle and now trade below their 2022 lows, unlike the broad rotation seen in prior cycles",
-      "Social interest is expected to continue declining before potentially bottoming in the next 6-12 months, setting up conditions for the next cycle"
-    ],
-    "summary": "Bitcoin's price action and social interest metrics are tracking closely with the 2018 bear market pattern, suggesting a similar structural phase rather than a new bullish cycle. Extremely depressed social engagement across YouTube, X, and search data indicates most participants have left the space, explaining weak altcoin rotation and rising Bitcoin dominance. A bottom in social interest may form within the next 6-12 months, potentially setting the stage for renewed growth heading into the pre-halving period."
   }
 ];
