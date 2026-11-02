@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "FoneKiojzzg",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Beauty of Mathematics (Part 74)",
+    "published": "2026-11-02T04:37:44+00:00",
+    "processed_at": "2026-11-02T08:21:05.466014+00:00",
+    "url": "https://www.youtube.com/watch?v=FoneKiojzzg",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      87000
+    ],
+    "indicators_mentioned": [
+      "Logistic regression trend line",
+      "MVRV-like fair value model",
+      "Golden cross",
+      "MACD",
+      "RSI",
+      "21-week EMA",
+      "Bull market support band"
+    ],
+    "key_points": [
+      "Bitcoin continues trading well below fair value models yet above the lower logistic regression trend line, with expectations to spend the rest of the year near the lower band",
+      "This cycle never achieved a durable euphoric rally above fair value, mirroring the apathetic 2019 top rather than a 2017-style blow-off",
+      "Undervaluation does not preclude further downside; markets can remain mispriced for extended periods before reverting",
+      "Q4 weakness is being driven primarily by broader stock market declines (NASDAQ down ~10%, in line with a forecasted 10-20% drop) rather than isolated crypto news events like the exchange hack",
+      "Historical pattern shows that after two weekly closes below the prior range high, price drops quickly to the bull market support band, which has already occurred, and further downside is possible if equities weaken further"
+    ],
+    "summary": "Bitcoin remains undervalued relative to fair-value models but this reflects a structurally weaker cycle lacking a euphoric rally, meaning further downside into year-end is plausible rather than an immediate reversal. The recent decline is attributed more to macro and equity market weakness than to the exchange hack narrative, with risk of deeper drops into the bull market support band if the NASDAQ continues falling. Longer-term, the broader crypto market is still expected to grow toward a multi-trillion dollar valuation over the cycle."
+  },
+  {
     "video_id": "VWU9sgbvnzw",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1557,33 +1589,5 @@ export default [
       "Historically Bitcoin doesn't durably break above this resistance band until sometime in the post-halving year (ranging from June to January depending on cycle), implying the current resistance test is likely to fail"
     ],
     "summary": "Bitcoin's price structure this year mirrors 2018 closely, with a rally into resistance expected to get rejected in the late July/early August timeframe before a pullback into August-September. Retail apathy and historically slow post-halving-year breakouts suggest the bear market resistance band will likely hold for now, with the possibility of a final Q4 drop still on the table before a durable cycle low is confirmed."
-  },
-  {
-    "video_id": "JY_wY8XXjYU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Between a Rock and a Hard Place",
-    "published": "2026-07-24T13:10:27+00:00",
-    "processed_at": "2026-07-25T15:08:13.149464+00:00",
-    "url": "https://www.youtube.com/watch?v=JY_wY8XXjYU",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      57000
-    ],
-    "indicators_mentioned": [
-      "bear market resistance band",
-      "200-week moving average",
-      "on-chain indicators"
-    ],
-    "key_points": [
-      "Bitcoin is range-bound between the 200-week moving average as support and the bear market resistance band as resistance, unable to durably break either.",
-      "Seasonal midterm-year patterns suggest a brief window of strength lasting two to four weeks following the summer low, similar to July rallies in 2014, 2018, and 2022.",
-      "Gains from this rally are expected to be given back into August and September, echoing the pattern seen in prior midterm cycle years.",
-      "A stock market correction of 10-20% has historically preceded Bitcoin's cycle bottom, and this correction has not yet occurred, suggesting a later breakdown once the S&P tops in August or September.",
-      "The current setup closely mirrors 2018, described as a less volatile version of that cycle, with a time-based capitulation expected later in the year if on-chain indicators fail to fully reset beforehand."
-    ],
-    "summary": "Bitcoin is caught between the 200-week moving average as support and the bear market resistance band as resistance, with a brief seasonal rally window expected before gains are likely reversed into August-September. The broader thesis points to a later-year breakdown coinciding with a stock market correction, forming the market cycle bottom before the next bull phase, though if this doesn't materialize by year-end, a bullish pivot would be warranted."
   }
 ];
