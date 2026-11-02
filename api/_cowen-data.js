@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "BBgxp2SvLuU",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Stock Market Correction: Q4 2026",
+    "published": "2026-11-02T21:06:05+00:00",
+    "processed_at": "2026-11-02T21:21:30.092216+00:00",
+    "url": "https://www.youtube.com/watch?v=BBgxp2SvLuU",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "50-day moving average",
+      "200-day moving average",
+      "21-week EMA",
+      "bull market support band"
+    ],
+    "key_points": [
+      "Equities are undergoing the typical Q4 midterm-year correction, mirroring patterns seen in 2014, 2018, and 2022",
+      "The current cycle closely tracks the 2018 analog (and Trump's first-term return path), with corrections aligning in both Q1 and Q4",
+      "The Nasdaq, Russell, and Dow have already dropped meaningfully while the S&P 500 has lagged and is expected to catch down, likely testing its 200-day moving average near 7,300",
+      "Market narratives claiming a widely-expected correction 'won't happen because everyone expects it' have repeatedly been proven wrong, a pattern also seen in Bitcoin's seasonal Q4 lows",
+      "Ongoing geopolitical uncertainty (Iran war headlines, midterm elections) adds volatility, with markets likely to eventually stop believing unresolved 'deal' narratives over the next 12-18 months"
+    ],
+    "summary": "Equities are in the midst of a typical Q4 midterm-year correction that closely resembles the 2018 pattern, with further downside likely before a low forms in the coming months. The S&P 500 has lagged other indices in its decline but is expected to continue falling toward its 200-day moving average, with a broader bounce expected only after this correction phase completes."
+  },
+  {
     "video_id": "FoneKiojzzg",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1559,35 +1586,5 @@ export default [
       "A rising 10-year yield topping around October, echoing the October 2023 pattern, lines up with a potential Bitcoin market cycle bottom around the same period, after which conditions could improve into 2027"
     ],
     "summary": "The Fed's decision not to hike rates is triggering a bond market revolt, pushing the 30-year and 10-year yields higher as inflation risk resurfaces amid a tightening labor market. This yield spike is expected to trigger a 10-20% equity correction in the historically weak midterm-year August-October window, with a likely Fed rate hike by year-end, before conditions stabilize and risk assets, including Bitcoin, potentially bottom around October ahead of improvement into 2027."
-  },
-  {
-    "video_id": "lfYYC7qxDQ8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Bear Market Resistance Band",
-    "published": "2026-07-27T02:29:51+00:00",
-    "processed_at": "2026-07-27T03:09:03.701543+00:00",
-    "url": "https://www.youtube.com/watch?v=lfYYC7qxDQ8",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      64000,
-      65000,
-      67000,
-      63700
-    ],
-    "indicators_mentioned": [
-      "year-to-date ROI",
-      "on-chain indicators"
-    ],
-    "key_points": [
-      "Bitcoin is following the same seasonal/structural playbook as 2018 and other midterm years: a February low, higher low in spring, a sweep of the low in late June/early July, and a rally into the bear market resistance band by late July/early August",
-      "In prior analogous years (2018, 2022, 2014), August and September turned red after the July rally, suggesting a similar rejection and pullback is likely this time",
-      "Historically Q4 is when on-chain indicators reset and market cycle bottoms tend to form, so a final drop later in the year remains a real possibility",
-      "Retail participation is notably absent this cycle, evidenced by declining crypto YouTube viewership, since the market topped on apathy rather than euphoria, unlike 2017 which had a euphoric blow-off top",
-      "Historically Bitcoin doesn't durably break above this resistance band until sometime in the post-halving year (ranging from June to January depending on cycle), implying the current resistance test is likely to fail"
-    ],
-    "summary": "Bitcoin's price structure this year mirrors 2018 closely, with a rally into resistance expected to get rejected in the late July/early August timeframe before a pullback into August-September. Retail apathy and historically slow post-halving-year breakouts suggest the bear market resistance band will likely hold for now, with the possibility of a final Q4 drop still on the table before a durable cycle low is confirmed."
   }
 ];
