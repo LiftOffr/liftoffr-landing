@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "krNe11F52PI",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The United States Midterms and Markets",
+    "published": "2026-11-03T19:27:12+00:00",
+    "processed_at": "2026-11-03T20:22:03.955003+00:00",
+    "url": "https://www.youtube.com/watch?v=krNe11F52PI",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Sharpe ratio",
+      "Sortino ratio"
+    ],
+    "key_points": [
+      "Historical data shows a Republican president with a full Democratic Congress has produced the weakest forward returns since 1953, while sweeps (Republican or Democratic) tend to perform better",
+      "Prediction markets currently favor a split or Democratic Congress outcome, which historically correlates with weaker annualized returns than the Republican sweep seen over the past two years",
+      "The S&P 500's current path closely mirrors Trump's first term, suggesting a similar trajectory including the possibility of a deeper correction if history repeats",
+      "Bitcoin's returns under the current term and the prior term have been notably weaker than under earlier cycles (Trump's first term, Obama's second term), attributed to macro headwinds like inflation and labor market issues since 2020-2021",
+      "If Bitcoin follows a pattern similar to the prior presidential term, price could begin moving higher again around 2027 after an extended period of underperformance"
+    ],
+    "summary": "Historical political-regime return data suggests markets and Bitcoin have underperformed during the current cycle relative to prior comparable periods, largely due to macro pressures like inflation rather than political composition alone. Based on historical patterns tied to shifting congressional control after midterms, elevated uncertainty and softer returns are plausible in the near term, with a potential turn higher resembling prior cycle patterns emerging around 2027."
+  },
+  {
     "video_id": "BBgxp2SvLuU",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1554,37 +1579,5 @@ export default [
       "If the cycle continues to track prior bear markets, a cycle bottom could form around November, with a DCA approach favored over precise bottom-timing"
     ],
     "summary": "Bitcoin's July strength follows a well-worn seasonal pattern of midterm-year relief rallies after a June low, but historical analogs from 2014, 2018, 2022, and 2023 point to renewed weakness emerging in August and September, reinforced by rising 10-year yields signaling bond market stress. The path forward is uncertain in terms of exact timing and whether resistance levels get tagged, but if the cycle continues to mirror prior bear markets, a cyclical low could form around November."
-  },
-  {
-    "video_id": "uJ0DsQCvY7s",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "The Fed Holds Rates Steady | Bond Market Revolts",
-    "published": "2026-07-29T21:28:02+00:00",
-    "processed_at": "2026-07-29T22:24:02.386664+00:00",
-    "url": "https://www.youtube.com/watch?v=uJ0DsQCvY7s",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "30-year yield",
-      "10-year yield",
-      "2-year yield",
-      "TLT",
-      "initial jobless claims",
-      "unemployment rate",
-      "Fed funds rate",
-      "neutral rate",
-      "XLE"
-    ],
-    "key_points": [
-      "The Fed held rates steady despite the bond market signaling that inflation risk, not labor market weakness, is the bigger concern, causing the 30-year yield to break out above a multi-year ceiling",
-      "The 2-year yield has risen above the Fed funds rate, implying the neutral rate has effectively increased and current policy is now more accommodative than restrictive despite unchanged rates",
-      "A rate hike is likely in September, October, or December 2026 as the labor market tightens (low layoffs, low initial claims) and wage/inflation pressures risk re-accelerating similar to the 1970s pattern",
-      "Historical midterm-year seasonality (2014, 2018, 2022) shows 10-20% equity corrections starting in the August-September window, often tied to rising yields, and a similar setup is forming now",
-      "A rising 10-year yield topping around October, echoing the October 2023 pattern, lines up with a potential Bitcoin market cycle bottom around the same period, after which conditions could improve into 2027"
-    ],
-    "summary": "The Fed's decision not to hike rates is triggering a bond market revolt, pushing the 30-year and 10-year yields higher as inflation risk resurfaces amid a tightening labor market. This yield spike is expected to trigger a 10-20% equity correction in the historically weak midterm-year August-October window, with a likely Fed rate hike by year-end, before conditions stabilize and risk assets, including Bitcoin, potentially bottom around October ahead of improvement into 2027."
   }
 ];
