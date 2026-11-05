@@ -3,6 +3,28 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "aYrDQOrtY3A",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The Stock Market Faces Reality",
+    "published": "2026-11-05T15:37:08+00:00",
+    "processed_at": "2026-11-05T16:22:56.997178+00:00",
+    "url": "https://www.youtube.com/watch?v=aYrDQOrtY3A",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [],
+    "key_points": [
+      "The current macro backdrop mirrors 2018: a hawkish Federal Reserve signaling continued tightening despite weakening equity markets and cooling data",
+      "Escalating trade wars and tariffs are compressing corporate profit margins, similar to Caterpillar, 3M, and Ford warnings in 2018",
+      "Rising regulatory scrutiny on major tech/AI valuations parallels the FAANG stock reversals seen in 2018",
+      "The Iran war adds an additional layer of uncertainty beyond 2018's conditions, with no clear resolution timeline and political incentives to continue it past the midterms",
+      "If the Nasdaq is retesting its July lows under these pressures, Bitcoin could plausibly do the same, with capitulation likely coming from investors who stayed bullish all year before a new bull market begins"
+    ],
+    "summary": "Post-midterm market conditions in 2025 closely resemble 2018, with a hawkish Fed, escalating trade wars, and regulatory scrutiny on tech combining with the added uncertainty of the Iran war to pressure risk assets lower into Q4. Given equities are already retesting key lows, Bitcoin is vulnerable to a similar drawdown, with a capitulation event among previously bullish holders potentially marking the transition into the next bull market."
+  },
+  {
     "video_id": "krNe11F52PI",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1551,33 +1573,5 @@ export default [
       "Long-term thesis remains intact for the asset class eventually reaching a multi-trillion dollar valuation, roughly around 10 trillion, once it moves past this weak phase"
     ],
     "summary": "Bitcoin continues trading far below its fair value trend line, a divergence not seen since the asset's earliest days in 2010, and the four-year cycle framework points to further undervaluation over the coming months before any recovery. Scandals, rug pulls, and security breaches are compounding weakness by eroding retail trust and participation, representing necessary growing pains for the industry. The long-term outlook remains constructive, with an eventual multi-trillion dollar valuation still expected once this apathetic phase concludes."
-  },
-  {
-    "video_id": "7vNA0geUryY",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The End of July",
-    "published": "2026-07-30T20:25:26+00:00",
-    "processed_at": "2026-07-30T21:24:49.393933+00:00",
-    "url": "https://www.youtube.com/watch?v=7vNA0geUryY",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "200-day moving average",
-      "bear market resistance band",
-      "10-year yield",
-      "ROI from low chart",
-      "monthly returns seasonality"
-    ],
-    "key_points": [
-      "July's rally in midterm years historically acts as temporary relief following a June low, mirroring patterns from 2014, 2018, and 2022",
-      "Historical analogs suggest a renewed window of weakness typically emerges in August and September of midterm years, even when July closes green",
-      "Rising 10-year yields signal bond market stress, which previously coincided with Bitcoin downturns in 2023 and similar cycles",
-      "Uncertain whether price will tag the bear market resistance band or 200-day moving average before turning down again, as historical precedent is inconsistent",
-      "If the cycle continues to track prior bear markets, a cycle bottom could form around November, with a DCA approach favored over precise bottom-timing"
-    ],
-    "summary": "Bitcoin's July strength follows a well-worn seasonal pattern of midterm-year relief rallies after a June low, but historical analogs from 2014, 2018, 2022, and 2023 point to renewed weakness emerging in August and September, reinforced by rising 10-year yields signaling bond market stress. The path forward is uncertain in terms of exact timing and whether resistance levels get tagged, but if the cycle continues to mirror prior bear markets, a cyclical low could form around November."
   }
 ];
