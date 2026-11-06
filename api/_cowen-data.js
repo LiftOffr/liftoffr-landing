@@ -3,6 +3,45 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "szWg0zCAbF0",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Bears Strike Back",
+    "published": "2026-11-06T15:05:37+00:00",
+    "processed_at": "2026-11-06T15:23:35.277214+00:00",
+    "url": "https://www.youtube.com/watch?v=szWg0zCAbF0",
+    "outlook": "bearish",
+    "confidence": "high",
+    "timeframe": "weeks",
+    "key_levels": [
+      76000,
+      74900,
+      72000,
+      73000,
+      68000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "200-week moving average",
+      "20-week moving average",
+      "200-day moving average",
+      "RSI",
+      "MACD",
+      "volume",
+      "stablecoin market cap",
+      "Bitcoin/USDT dominance",
+      "credit spreads"
+    ],
+    "key_points": [
+      "The current breakout above the 50-week moving average lacks the strong follow-through rallies seen in 2019 and 2023, and unlike those cycles, price has already retested a downward-sloping 50-week average, signaling a structurally weaker setup",
+      "Prior bear-market lows were typically accompanied by a volume capitulation spike, which has not occurred this cycle, suggesting the bottoming process is incomplete",
+      "Bitcoin and other global risk assets (NASDAQ, South Korea, China, gold, silver) have historically bottomed in a Q1/summer/Q4 cadence, and most of these markets are currently making or approaching Q4 lows, implying crypto should follow",
+      "Stablecoin market cap and BTC/USDT dominance have broken below prior 2025 lows, mirroring the price action pattern seen at previous Bitcoin bottoms, indicating further downside before a durable low forms",
+      "Macro conditions (hawkish Fed, high probability of another rate hike, tariff-driven inflation, geopolitical conflict, AI-sector regulatory risk) closely parallel 2018, where Bitcoin's final capitulation came after the midterm elections amid similar rate-hike and trade-war dynamics"
+    ],
+    "summary": "Bitcoin is likely entering its final Q4 capitulation leg of the midterm-year bear market, mirroring the 2018 and 2019 cycles where lows formed in a seasonal Q1/summer/Q4 pattern. A loss of the recent swing low near $74.9K would likely trigger a swift move back toward range lows or the 200-week moving average, consistent with macro parallels to 2018 including a hawkish Fed, trade wars, and stalling mega-cap tech leadership."
+  },
+  {
     "video_id": "aYrDQOrtY3A",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1548,30 +1587,5 @@ export default [
       "Short-term price action remains unpredictable, but once the resistance band/200-week MA decision resolves, volatility is expected to increase sharply"
     ],
     "summary": "Bitcoin is caught between a falling bear market resistance band and a rising 200-week moving average, and this compression must resolve within the next couple of months. Historical seasonality and on-chain metrics suggest a likely move lower into August before any sustainable bottom, consistent with prior midterm-year cycles in 2014, 2018, and 2022. Once the decision between these two levels is made, volatility is expected to increase significantly."
-  },
-  {
-    "video_id": "2o0qSlwjkv8",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Beauty of Mathematics (Part 72)",
-    "published": "2026-08-02T02:32:22+00:00",
-    "processed_at": "2026-08-02T02:40:49.580879+00:00",
-    "url": "https://www.youtube.com/watch?v=2o0qSlwjkv8",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "logarithmic regression trend line",
-      "four-year cycle"
-    ],
-    "key_points": [
-      "Bitcoin remains well below its fair value logarithmic regression trend line, and since that trend line rises over time, sideways price action would make the asset even more undervalued",
-      "Current deviation from fair value is comparable only to levels seen in 2010, shortly after the asset's inception",
-      "The four-year cycle pattern suggests continued weakness for at least a few more months before any recovery begins",
-      "Repeated scams, memecoin rug pulls, and cold storage hacks are driving retail interest and YouTube engagement down, reflecting growing pains in industry maturation",
-      "Long-term thesis remains intact for the asset class eventually reaching a multi-trillion dollar valuation, roughly around 10 trillion, once it moves past this weak phase"
-    ],
-    "summary": "Bitcoin continues trading far below its fair value trend line, a divergence not seen since the asset's earliest days in 2010, and the four-year cycle framework points to further undervaluation over the coming months before any recovery. Scandals, rug pulls, and security breaches are compounding weakness by eroding retail trust and participation, representing necessary growing pains for the industry. The long-term outlook remains constructive, with an eventual multi-trillion dollar valuation still expected once this apathetic phase concludes."
   }
 ];
