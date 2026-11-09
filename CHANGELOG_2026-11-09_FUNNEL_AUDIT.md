@@ -60,3 +60,12 @@ Source: `~/liftoffr-video/LOGS/chatgpt_context.txt` (read-only audit of Torin's 
 | 11 | Other phrasings in the audit ("framework I used to fund this lifestyle", "system directly paid for the lifestyle I live", "living the results", "creates millionaires") | Not present anywhere in this repo or its history, and not in the two visible Whop listings. Hidden or archived Whop products still carry old claims ("$24K in -> $1.88M out", "used by high-income players"); not public, left for Torin. Caption and story-reel claims live outside this repo. |
 | 12 | Ladder | Live: Free / $29 Plan / $197 Course. $497 Playbook hidden on Whop since 2026-08-22 (Codex). Reports corrected. |
 | 13 | Codex coordination | Fetched origin before each push; no Codex commits since 2026-10-07 and none overwritten. Codex auto-publish (LIFTOFFR_AUTO_PUBLISH_CLEAN=1, 2026-10-30) and the idle Higgsfield story-reel automation were not touched. |
+
+---
+
+# 2026-11-09: bio link -> liftoffr.com/bio (Torin's choice)
+
+| # | Item | Result |
+|---|---|---|
+| 14 | `/bio` in production | Verified: one 307 hop to `/?utm_source=instagram&utm_medium=bio&utm_campaign=profile&utm_content=home`, final 200 with an iPhone Instagram in-app user agent; `www.liftoffr.com/bio` 308s to the apex first. Homepage loads GA4 and fires `utm_landing` for tagged visits (consented visitors only). |
+| 15 | Set IG bio website via Claude in Chrome | NOT DONE. The Claude in Chrome extension was not connected (2 attempts). The built-in browser is logged out of Instagram, and signing in for Torin is off limits. No retries, given Meta's earlier link flag. Torin sets it in the app: Edit profile -> Links -> replace the website with https://liftoffr.com/bio. Nothing else in the profile was touched. |
