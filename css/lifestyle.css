@@ -28,8 +28,8 @@
 @media(max-width:1120px){.lo-homepage.lo-lifestyle main>:not(.lo-hero){margin-left:24px;margin-right:24px}}
 @media(max-width:760px){
  .lo-homepage.lo-lifestyle .lo-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:0 24px 36px;overflow:visible}
- .lo-lifestyle .lo-hero .lo-portrait{position:relative;inset:auto;order:-1;margin:0 -24px 24px;height:390px}
- .lo-lifestyle .lo-hero .lo-portrait>img{object-position:50% 27%}
+ .lo-lifestyle .lo-hero .lo-portrait{position:relative;inset:auto;order:-1;margin:0 -24px 18px;height:min(240px,32vh)}
+ .lo-lifestyle .lo-hero .lo-portrait>img{object-position:50% 20%}
  .lo-lifestyle .lo-hero .lo-portrait::before{background:linear-gradient(0deg,var(--lo-bg),#08080800 30%)}
  .lo-lifestyle .lo-hero .lo-portrait figcaption{bottom:18px;right:24px}
  .lo-lifestyle .lo-hero-copy{width:100%;max-width:none}

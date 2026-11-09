@@ -51,6 +51,11 @@
       "permanent": false
     },
     {
+      "source": "/bio",
+      "destination": "/?utm_source=instagram&utm_medium=bio&utm_campaign=profile&utm_content=home",
+      "permanent": false
+    },
+    {
       "source": "/yt",
       "destination": "/links?utm_source=youtube&utm_medium=bio&utm_campaign=links&utm_content=yt_bio",
       "permanent": false
