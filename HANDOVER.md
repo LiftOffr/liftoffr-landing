@@ -1,3 +1,7 @@
+## November 9: funnel audit, views without sales
+
+Zero Whop payments since Sept 1 and no checkout attempts since then. Engaged IG audience is 65.7% India, 1.5% US, 26.6% aged 13-17. Reels were all Trial Reels with manual graduation (now auto). Mobile hero shortened; `/bio` tagged shortlink added. Waiting on Torin: set bio link to liftoffr.com/bio, graduate top reels in the app, decide content/offer direction. Record: `CHANGELOG_2026-11-09_FUNNEL_AUDIT.md`.
+
 ## September 29: founder-led visual design
 
 Homepage now features Torin's real café and smiling portraits, first-person introduction and founder section. About uses the walking portrait; Plan/System carry author bylines. Shared header names Torin on all 44 public pages. Research, photo provenance and verification: `/Users/torin/Documents/liftoffr-personal-brand-2026-09-29/RESEARCH-AND-RELEASE.md`. Historical story allowed; current finances stay private. No paid-artifact migration in this release.
