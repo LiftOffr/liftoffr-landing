@@ -24,3 +24,25 @@ nightly-synced `~/liftoffr-video/REEL_LEDGER.csv` (spot-checked against the API)
 - Captioner CTA rules: untouched (Torin's voice rules). Keyword CTAs are recommended for retirement.
 - Bio text and bio link: need the Instagram app (not possible via API, and not logged in on web).
 - The $497 Playbook plan shows `visibility: hidden` on Whop. Not tested whether its direct checkout link still works.
+
+---
+
+# 2026-11-09 (later): audience geography follow-up
+
+Torin: "my reels use this cringe audio from my editor and my fanbase is out of india and doesnt convert to buyers".
+Report (PDF): `~/Documents/liftoffr-funnel-audit-2026-11-09/LiftOffr-Audience-Geography-2026-11-09.pdf`.
+Evidence and scripts: `~/Documents/liftoffr-funnel-audit-2026-11-09/data/`.
+
+## Findings (live 2026-11-09)
+- 99.0% of views Aug 30-Nov 9 came from non-followers (10,390,479 vs 105,351). Engaged audience this week: 68.1% India, 1.8% US+UK+CA+AU, 28.2% aged 13-17. Followers: 15.8% US+UK+CA+AU.
+- The API has no per-reel country or audio data (probed: breakdown=country rejected on media; audio fields absent). Per-reel geography was estimated from commenter names/language (272 of 1,628 commenters classifiable; 86% South Asian).
+- No feature (audio track, loudness, face, caption, hashtags, post hour) separates Western-named commenter share beyond noise (~13%). Lead only: school/job + relationship overlays 19.4% vs lifestyle + money 10.0% (Fisher p=0.038, ~13 features tested).
+- Audio, fingerprinted from all 251 published reels (47 reused tracks): reuse and loudness track reach (4+ uses median 48.0K views vs one-off 8.4K; quiet mixes 11.1K), not geography.
+
+## Decisions and changes
+| # | Where | Change | Why |
+|---|---|---|---|
+| 6 | discord-rebuild `scripts/audience_geo_snapshot.py` + `~/Library/LaunchAgents/com.liftoffr.audience-geo.plist` (commit 8d97326, workspace repo) | Daily 23:30 read-only snapshot of engaged/follower country and age, follower vs non-follower views, follower count, to `data/audience_geo_daily.jsonl` | Country is only available per account per week; daily rows make week-vs-week tests measurable. |
+| 7 | discord-rebuild `src/drive_to_instagram.py` (commit 8d97326) | `IG_REGULAR_WEEKS` (default 47,49): those ISO weeks post regular reels, others stay trial | Test whether follower-first distribution raises the US share. Decision rule: keep regular if tier-1 engaged share >= 3.6% with >= 50% of trial-week views. Empty value disables. |
+| 8 | `~/liftoffr-video/LOGS/audience_audio_findings.json`, `audience_reel_features.json`, `audience_audio_tracks/*.mp3` | Findings for the editor session (data files only; no editor code touched) | Requested by Torin. |
+| - | Not changed | Post schedule (already US daytime), captioner rules, pricing | Post time showed no geography effect for trial reels; test it only after the trial/regular result. |
