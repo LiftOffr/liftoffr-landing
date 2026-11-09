@@ -46,3 +46,17 @@ Evidence and scripts: `~/Documents/liftoffr-funnel-audit-2026-11-09/data/`.
 | 7 | discord-rebuild `src/drive_to_instagram.py` (commit 8d97326) | `IG_REGULAR_WEEKS` (default 47,49): those ISO weeks post regular reels, others stay trial | Test whether follower-first distribution raises the US share. Decision rule: keep regular if tier-1 engaged share >= 3.6% with >= 50% of trial-week views. Empty value disables. |
 | 8 | `~/liftoffr-video/LOGS/audience_audio_findings.json`, `audience_reel_features.json`, `audience_audio_tracks/*.mp3` | Findings for the editor session (data files only; no editor code touched) | Requested by Torin. |
 | - | Not changed | Post schedule (already US daytime), captioner rules, pricing | Post time showed no geography effect for trial reels; test it only after the trial/regular result. |
+
+---
+
+# 2026-11-09 (later still): reconciliation with the ChatGPT/Codex audit
+
+Source: `~/liftoffr-video/LOGS/chatgpt_context.txt` (read-only audit of Torin's ChatGPT/Codex agent).
+
+| # | Item | Action |
+|---|---|---|
+| 9 | Torin to Codex, 2026-10-30 (verbatim, Codex session log): "Remember the Instagram posts should be posted to trial reels then I manually graduate them" | Entries 1 and 7 contradicted this. Reverted both defaults (workspace commit cc0904e): graduation back to MANUAL, `IG_REGULAR_WEEKS` empty. Both stay as opt-in env switches. No reel published while SS_PERFORMANCE was the default (last post 2026-11-08). |
+| 10 | Homepage founder section: "I used this Bitcoin system to fund the lifestyle you see here." Added 2026-10-05 in 5ea0860 (Codex). Live until today. | Replaced (a2cc8c3) with "I've followed this framework through two Bitcoin cycles, including the calls it got early or wrong. I built LiftOffr to explain it." Consistent with the 2026-08-16 no-income-claims rule, the 2026-09-29 "historical story allowed, current finances private" rule, and /about. Verified in production. |
+| 11 | Other phrasings in the audit ("framework I used to fund this lifestyle", "system directly paid for the lifestyle I live", "living the results", "creates millionaires") | Not present anywhere in this repo or its history, and not in the two visible Whop listings. Hidden or archived Whop products still carry old claims ("$24K in -> $1.88M out", "used by high-income players"); not public, left for Torin. Caption and story-reel claims live outside this repo. |
+| 12 | Ladder | Live: Free / $29 Plan / $197 Course. $497 Playbook hidden on Whop since 2026-08-22 (Codex). Reports corrected. |
+| 13 | Codex coordination | Fetched origin before each push; no Codex commits since 2026-10-07 and none overwritten. Codex auto-publish (LIFTOFFR_AUTO_PUBLISH_CLEAN=1, 2026-10-30) and the idle Higgsfield story-reel automation were not touched. |
