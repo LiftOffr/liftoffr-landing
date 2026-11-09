@@ -3,6 +3,36 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "0AGXzdZNwq0",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Falls to the Bull Market Support Band",
+    "published": "2026-11-09T03:16:26+00:00",
+    "processed_at": "2026-11-09T13:06:22.692360+00:00",
+    "url": "https://www.youtube.com/watch?v=0AGXzdZNwq0",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      73500,
+      70000
+    ],
+    "indicators_mentioned": [
+      "20-week moving average",
+      "21-week EMA",
+      "50-week moving average",
+      "bull market support band"
+    ],
+    "key_points": [
+      "Bitcoin has tagged the 20-week moving average/bull market support band, mirroring prior moves in Nasdaq, S&P, Ethereum, and Total2/Total3, suggesting it will likely lose this support as those other markets did",
+      "The market is still within a historically weak Q4 window for midterm years, which typically precedes a larger capitulation event",
+      "The recent close back below the 50-week moving average is significant since the breakout above it earlier lacked the strong follow-through (30%+ rallies) seen in true breakouts like 2019 and 2023, making it look like a false breakout",
+      "Bitcoin appears to be stair-stepping down through panic selling and relief rallies, consistent with a base case of a February low, summer low, and still-unfound Q4 low",
+      "Historical post-rate-hike patterns suggest a bottom could form around day 94 of the cycle (roughly December), coinciding with the next Fed meeting, similar to the December 2018 bottom"
+    ],
+    "summary": "Bitcoin has reached the bull market support band but is expected to lose it, following the same pattern seen across Nasdaq, Ethereum, and other risk assets. The combination of a weak Q4 midterm-year seasonality, a failed 50-week moving average breakout, and ongoing equity market correction points to further downside before a final capitulation low, potentially forming around December near the next Fed meeting."
+  },
+  {
     "video_id": "szWg0zCAbF0",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1555,37 +1585,5 @@ export default [
       "A deeper S&P correction toward its long-term trendline (potentially down to 6000) could break Bitcoin support near 60000, similar to how Bitcoin fell far more than equities in 2018 despite a modest equity pullback"
     ],
     "summary": "Equity markets are extending new highs in classic midterm-year fashion, with historical precedent suggesting a correction won't begin until mid-August to late September, tied closely to Fed policy decisions and rising bond yields. This delayed equity correction is expected to precede and trigger Bitcoin's actual market cycle bottom later in the year, meaning near-term bullishness in stocks does not preclude a coming deeper drawdown that could pressure Bitcoin below its current support near 60000."
-  },
-  {
-    "video_id": "WRftdLFrepU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: A Decision Will be Forced",
-    "published": "2026-08-03T12:13:58+00:00",
-    "processed_at": "2026-08-03T13:31:25.443729+00:00",
-    "url": "https://www.youtube.com/watch?v=WRftdLFrepU",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      63500,
-      63700,
-      69000,
-      60000
-    ],
-    "indicators_mentioned": [
-      "Bear market resistance band",
-      "200-week moving average",
-      "MVRV Z-score",
-      "Year-to-date ROI seasonality model"
-    ],
-    "key_points": [
-      "Bitcoin is squeezed between a declining bear market resistance band (~69k) and a rising 200-week moving average (~63.7k), forcing a directional decision within the next couple of months",
-      "On-chain indicators like the MVRV Z-score have not fully reset, suggesting another leg lower is likely before a sustainable bottom forms",
-      "Historical midterm-year patterns (2014, 2018, 2022) show a window of strength in July followed by a consistently red August, with drawdowns of 5-18%",
-      "Seasonality analysis shows Bitcoin tracking the average midterm-year path, currently entering the historical window of weakness that typically opens by mid-to-late August",
-      "Short-term price action remains unpredictable, but once the resistance band/200-week MA decision resolves, volatility is expected to increase sharply"
-    ],
-    "summary": "Bitcoin is caught between a falling bear market resistance band and a rising 200-week moving average, and this compression must resolve within the next couple of months. Historical seasonality and on-chain metrics suggest a likely move lower into August before any sustainable bottom, consistent with prior midterm-year cycles in 2014, 2018, and 2022. Once the decision between these two levels is made, volatility is expected to increase significantly."
   }
 ];
