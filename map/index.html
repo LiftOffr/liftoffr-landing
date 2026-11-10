@@ -204,7 +204,7 @@ body.lo-public{background:var(--bg);color:var(--text);font-family:Inter,'Helveti
     .then(function(x){
       if (!x.ok) throw new Error((x.d && x.d.error) || 'failed');
       if (typeof window.track === 'function') window.track('lead_captured', { source: 'map_page', page: location.pathname, magnet: 'map' });
-      location.href = '/map/thanks/';
+      location.href = '/map/thanks';
     }).catch(function(){ btn.disabled = false; btn.textContent = old; err.style.display = 'block'; });
     return false;
   }
