@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "5ngeTxfAGOM",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Gold: Dubious Speculation",
+    "published": "2026-11-10T01:38:33+00:00",
+    "processed_at": "2026-11-10T22:58:52.328374+00:00",
+    "url": "https://www.youtube.com/watch?v=5ngeTxfAGOM",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "Bull market support band",
+      "20-month SMA",
+      "21-month EMA",
+      "2-year yield minus interest rates"
+    ],
+    "key_points": [
+      "Gold is testing its long-term bull market support band and showing early signs of reclaiming it after a monthly close below, mirroring 2008 price action that preceded a recovery into new highs",
+      "The current rate hiking cycle is expected to be short, possibly just one more hike, which would remove a key headwind and support a gold recovery into year-end",
+      "Gold historically bottoms before risk assets like stocks and Bitcoin, so a gold low could signal that a bottom in equities and Bitcoin is approaching, though with a lag of weeks to months",
+      "Bitcoin is expected to continue underperforming gold and revisit prior range lows in the Bitcoin/gold ratio, similar to how altcoins bled against Bitcoin last cycle",
+      "Silver's roughly 60% correction appears large enough to mark a durable low, with gold likely to outperform silver until gold reaches new all-time highs"
+    ],
+    "summary": "Gold appears to be carving out a bottom near its bull market support band, with historical analogues suggesting a recovery into year-end as the current rate hiking cycle nears its end. Bitcoin is expected to keep underperforming gold and retest prior lows in the Bitcoin/gold ratio, with risk assets likely bottoming only after gold's own low is confirmed, though an upcoming inflation report could temporarily disrupt this setup."
+  },
+  {
     "video_id": "cpjk4LSO6dg",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1564,32 +1591,5 @@ export default [
       "The market is estimated to be in the final ~30% of the bear market, with accumulation considered reasonable for long-term positioning despite possible further short-term downside"
     ],
     "summary": "Bitcoin is judged to be late in its historical four-year bear market cycle, with multiple independent measures (days from low, days from peak, moving average breakdowns, and comparison to the 2019 macro analog) all pointing to a bottom forming between late September and December. The bear market is expected to persist a bit longer before transitioning into the next bull phase, and current price weakness is viewed as a normal, recurring feature of the cycle rather than a sign of structural change."
-  },
-  {
-    "video_id": "mo9PUWbEJ-4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Gold Path for 2026 [Update]",
-    "published": "2026-08-05T19:05:17+00:00",
-    "processed_at": "2026-08-05T19:49:27.315488+00:00",
-    "url": "https://www.youtube.com/watch?v=mo9PUWbEJ-4",
-    "outlook": "bullish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "20-month simple moving average",
-      "21-month EMA",
-      "bull market support band",
-      "year-to-date ROI comparison"
-    ],
-    "key_points": [
-      "Gold's recent ~30% correction from highs is consistent with normal pullbacks seen in prior bull markets and does not necessarily signal a bull market top",
-      "Historical midterm-year seasonality shows gold typically bottoms between June and October, with the average bottom occurring in early July",
-      "Year-to-date price action in 2026 closely tracks the paths seen in 2022 and 2018, both midterm years that preceded strong rallies in subsequent years",
-      "A stronger dollar, mirroring its 2018 pattern of a begrudging grind higher, could create residual weakness in gold before a bottom is confirmed",
-      "The current consolidation resembles the 2022 consolidation phase, suggesting one more leg up is likely before a more significant long-term top forms later in the decade"
-    ],
-    "summary": "Gold's pullback appears to be typical midterm-year weakness rather than the end of the broader bull market, with historical seasonality pointing to a bottom forming between June and October. Comparisons to 2018 and 2022 suggest a rebound into the pre-election year is likely, with a potential final major upleg still ahead before a more lasting top forms later in the decade."
   }
 ];
