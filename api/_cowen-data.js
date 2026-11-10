@@ -3,6 +3,43 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "cpjk4LSO6dg",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Investing Through the Cycles Conference (A Preview): Live with the Speakers",
+    "published": "2026-11-10T18:12:31+00:00",
+    "processed_at": "2026-11-10T22:58:37.271638+00:00",
+    "url": "https://www.youtube.com/watch?v=cpjk4LSO6dg",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [
+      63000,
+      64000,
+      87000,
+      100000,
+      50900
+    ],
+    "indicators_mentioned": [
+      "Global M2",
+      "Elliot Wave Theory",
+      "Benner Cycle",
+      "Realized Cap",
+      "ETF flows correlation",
+      "Dow Theory",
+      "Long-term holder supply percentage",
+      "Bitcoin priced in NASDAQ ratio"
+    ],
+    "key_points": [
+      "Bitcoin's year-on-year performance tends to lead global M2 growth by roughly 44 days, and the current underperformance phase resembles typical late-bear-market divergence rather than a structural breakdown",
+      "Elliott Wave and long-cycle frameworks (Benner Cycle) suggest the broader multi-decade bull market may be approaching a wave-five top sometime between now and 2027, coinciding with risk-off conditions across stocks and housing",
+      "Historical post-decline S&P statistics and seasonal strength (Santa rally, post-midterm election patterns) argue for continued equity and Bitcoin upside into 2027 as long as key index support levels hold",
+      "A Dow Theory sell signal would be triggered if the S&P, NASDAQ, and Dow break recent lows (Dow below ~50,900), sharply raising recession/bear-market probability and dragging Bitcoin down as a correlated risk asset",
+      "Long-term holder conviction, shrinking liquid supply, and Bitcoin's tiny share of global invested capital support a bullish multi-year asymmetric case, with new all-time highs expected in 2027 even amid near-term weakness tied to AI-driven capital rotation and IPO liquidity events"
+    ],
+    "summary": "Bitcoin is viewed as being in a typical late-cycle underperformance phase relative to global liquidity and AI-driven speculative markets, with near-term risk skewed toward further weakness if equities break key support levels (particularly Dow/S&P/NASDAQ lows), potentially triggering a broader bear market. Despite this, structural factors\u2014shrinking liquid supply, institutional adoption, and Bitcoin's small share of global capital\u2014support a base case of new all-time highs in 2027, contingent on equities stabilizing and capital rotating back into risk assets after a possibly choppy Q4/Q1 period."
+  },
+  {
     "video_id": "0AGXzdZNwq0",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1554,36 +1591,5 @@ export default [
       "The current consolidation resembles the 2022 consolidation phase, suggesting one more leg up is likely before a more significant long-term top forms later in the decade"
     ],
     "summary": "Gold's pullback appears to be typical midterm-year weakness rather than the end of the broader bull market, with historical seasonality pointing to a bottom forming between June and October. Comparisons to 2018 and 2022 suggest a rebound into the pre-election year is likely, with a potential final major upleg still ahead before a more lasting top forms later in the decade."
-  },
-  {
-    "video_id": "3yiYSG8sOFE",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Stocks Hit New Highs",
-    "published": "2026-08-04T20:15:28+00:00",
-    "processed_at": "2026-08-04T22:48:40.902910+00:00",
-    "url": "https://www.youtube.com/watch?v=3yiYSG8sOFE",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000
-    ],
-    "indicators_mentioned": [
-      "Bull Market Support Band",
-      "Year-to-date ROI comparison",
-      "10-year yield",
-      "30-year yield",
-      "DXY",
-      "Fed funds rate probability"
-    ],
-    "key_points": [
-      "Midterm year seasonality in prior cycles (2014, 2018, 2022) shows stock market corrections typically begin between mid-August and late September, often coinciding with a Fed meeting",
-      "The S&P is currently making new all-time highs, mirroring 2014 and 2018 patterns rather than the 2022 bear market setup, suggesting bullish continuation for several more weeks before any correction",
-      "A rate hike or continued rise in long-term yields (10-year approaching 5%, 30-year already breaking above late-2023 levels) could trigger the anticipated correction later in the year",
-      "Bitcoin's market cycle bottom historically forms during the second, deeper stock market correction of a midterm year, not the first, implying Bitcoin's cycle low is still ahead in Q3/Q4",
-      "A deeper S&P correction toward its long-term trendline (potentially down to 6000) could break Bitcoin support near 60000, similar to how Bitcoin fell far more than equities in 2018 despite a modest equity pullback"
-    ],
-    "summary": "Equity markets are extending new highs in classic midterm-year fashion, with historical precedent suggesting a correction won't begin until mid-August to late September, tied closely to Fed policy decisions and rising bond yields. This delayed equity correction is expected to precede and trigger Bitcoin's actual market cycle bottom later in the year, meaning near-term bullishness in stocks does not preclude a coming deeper drawdown that could pressure Bitcoin below its current support near 60000."
   }
 ];
