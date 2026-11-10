@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>The Bitcoin Cycle Map — LiftOffr</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+@page{size:Letter;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:8.5in;height:11in;font:9.2pt/1.42 Inter,Helvetica,sans-serif;color:#111;background:#fff;padding:.42in .5in .36in}
+.top{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #e63946;padding-bottom:8px}
+.logo{display:inline-block;background:#e63946;color:#fff;font:italic 900 15pt Helvetica,sans-serif;padding:2px 8px;border-radius:3px;letter-spacing:-.5px}.logo b{color:#000}
+.kick{font:600 7.5pt 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#e63946}
+h1{font:24pt/1 'Archivo Black',sans-serif;letter-spacing:-.02em;margin-top:6px}
+.sub{color:#555;font-size:9pt;margin-top:4px}
+h2{font:11pt 'Archivo Black',sans-serif;margin:12px 0 5px}
+.mono,td.n{font-family:'JetBrains Mono',monospace}
+table{width:100%;border-collapse:collapse;font-size:8.3pt}
+th{text-align:left;font-weight:700;border-bottom:1.5px solid #111;padding:3px 4px;font-size:7.6pt;text-transform:uppercase;letter-spacing:.04em}
+td{border-bottom:1px solid #e4e4e4;padding:4px 4px;vertical-align:top}
+td.n{font-size:7.9pt;white-space:nowrap}
+tr.now td{background:#fff4f4}
+.grid{display:grid;grid-template-columns:1.18fr 1fr;gap:16px}
+.box{border:1.5px solid #111;border-radius:6px;padding:9px 11px}
+.score{display:flex;gap:12px;align-items:center}
+.score .num{font:700 30pt/1 'JetBrains Mono',monospace;letter-spacing:-.04em}
+.zone{display:inline-block;background:#4d8df0;color:#fff;font:700 7.5pt 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border-radius:3px}
+.bands div{display:flex;gap:8px;padding:2.2px 0;font-size:8.1pt;border-bottom:1px dotted #ddd}
+.bands b{font-family:'JetBrains Mono',monospace;min-width:52px}
+.bands .on{background:#eef4ff;font-weight:700}
+.limits{background:#f6f6f6;border-left:4px solid #e63946;padding:8px 11px;font-size:8.2pt}
+ol{padding-left:16px}li{margin:2px 0}
+.foot{position:absolute;left:.5in;right:.5in;bottom:.3in;font-size:6.9pt;color:#666;border-top:1px solid #ddd;padding-top:5px;line-height:1.45}
+.cta{font-size:8.4pt;margin-top:8px}
+svg text{font-family:Inter,sans-serif}
+</style></head><body>
+<div class="top"><div><div class="kick">Free one-pager · data as of 9 Nov 2026</div><h1>The Bitcoin Cycle Map</h1><div class="sub">Four halving cycles on one page, and where the live LiftOffr Score reads today. History, not a forecast.</div></div><span class="logo">lift<b>offr</b></span></div>
+
+<h2>The shape every cycle has followed so far</h2>
+<svg viewBox="0 0 740 118" width="100%" height="118" aria-label="Cycle phases">
+  <path d="M10 92 C 120 92, 160 86, 230 60 S 330 12, 360 14 S 420 70, 470 92 S 560 100, 610 96 S 700 88, 730 80" fill="none" stroke="#111" stroke-width="2.4"/>
+  <line x1="10" y1="104" x2="730" y2="104" stroke="#bbb"/>
+  <circle cx="20" cy="92" r="5" fill="#e63946"/><text x="12" y="116" font-size="9" font-weight="700">Halving</text>
+  <text x="40" y="34" font-size="9.5" font-weight="700">1 · Expansion</text><text x="40" y="46" font-size="8.2" fill="#555">halving → top: 525–546 days</text><text x="40" y="57" font-size="8.2" fill="#555">in the last three cycles</text>
+  <circle cx="360" cy="14" r="5" fill="#e63946"/><text x="330" y="38" font-size="9" font-weight="700">Top</text>
+  <text x="590" y="22" font-size="9.5" font-weight="700">2 · Contraction</text><text x="590" y="34" font-size="8.2" fill="#555">top → lowest close: 364–378</text><text x="590" y="45" font-size="8.2" fill="#555">days in the last two cycles</text>
+  <text x="590" y="62" font-size="9.5" font-weight="700">3 · Accumulation</text><text x="590" y="74" font-size="8.2" fill="#555">base before the next</text><text x="590" y="85" font-size="8.2" fill="#555">halving (~2028)</text>
+  <line x1="505" y1="8" x2="505" y2="104" stroke="#e63946" stroke-dasharray="3 3" stroke-width="1.6"/>
+  <rect x="452" y="2" width="106" height="15" rx="3" fill="#e63946"/><text x="458" y="13" font-size="8.4" font-weight="700" fill="#fff">Today: day 399 after top</text>
+</svg>
+
+<h2>The measured cycles</h2>
+<table>
+<tr><th>Cycle</th><th>Halving</th><th>Top (daily close)</th><th>Halving → top</th><th>Lowest close after top</th><th>Top → low</th><th>Top-to-low fall</th></tr>
+<tr><td>2012–2015</td><td class="n">28 Nov 2012</td><td>late 2013</td><td class="n">~1 yr</td><td>early 2015</td><td class="n">~1 yr</td><td>before this data set</td></tr>
+<tr><td>2016–2018</td><td class="n">9 Jul 2016</td><td class="n">16 Dec 2017 · $19,650</td><td class="n">525 d</td><td class="n">15 Dec 2018 · $3,183</td><td class="n">364 d</td><td class="n">−84%</td></tr>
+<tr><td>2020–2022</td><td class="n">11 May 2020</td><td class="n">8 Nov 2021 · $67,555</td><td class="n">546 d</td><td class="n">21 Nov 2022 · $15,760</td><td class="n">378 d</td><td class="n">−77%</td></tr>
+<tr class="now"><td><b>2024–now</b></td><td class="n">20 Apr 2024</td><td class="n">6 Oct 2025 · $124,720</td><td class="n">534 d</td><td class="n">30 Jun 2026 · $58,524 <i>(so far)</i></td><td class="n">267 d <i>(so far)</i></td><td class="n">−53% <i>(so far)</i></td></tr>
+</table>
+<div style="font-size:7.6pt;color:#555;margin-top:3px">Close on 9 Nov 2026: <span class="mono">$75,259</span>, 39.7% below the October 2025 top. Day 933 since the 2024 halving. Nobody knows yet whether 30 June 2026 was this cycle's low.</div>
+
+<div class="grid" style="margin-top:10px">
+<div>
+<h2 style="margin-top:0">Where the LiftOffr Score reads</h2>
+<div class="box"><div class="score"><div class="num">47.1</div><div><span class="zone">Re-accumulation</span><div style="font-size:8pt;color:#555;margin-top:3px">9 Nov 2026 · nine public on-chain and price components, weights published at liftoffr.com/score</div></div></div>
+<div class="bands" style="margin-top:6px">
+<div><b>85–100</b><span>Exit zone. Every cycle top since 2013 printed here.</span></div>
+<div><b>70–85</b><span>Warning. Has preceded exit-zone readings, not every time.</span></div>
+<div><b>50–70</b><span>Mid-cycle. Historically the least informative band.</span></div>
+<div class="on"><b>30–50</b><span>Re-accumulation. Has resolved upward more often than not at 180 days. Does not establish that a bottom has passed.</span></div>
+<div><b>15–30</b><span>Accumulation. Among the lower readings in a cycle.</span></div>
+<div><b>&lt;15</b><span>Deep accumulation. The lowest band the Score produces.</span></div>
+</div>
+<div style="font-size:7.4pt;color:#666;margin-top:4px">Descriptions of what the bands have done historically. Not instructions, not a forecast. Live reading: liftoffr.com/cycle</div>
+</div>
+</div>
+<div>
+<h2 style="margin-top:0">Three questions to answer in writing</h2>
+<ol>
+<li><b>What would make me review my plan, other than price?</b> A Score band change, a new low, a date, or a change in my own situation.</li>
+<li><b>How long could this money sit untouched?</b> Past cycles took years to recover their highs. Money you might need sooner is a different decision.</li>
+<li><b>What will I do if this time is different?</b> Write the rule now, while nothing is forcing you to.</li>
+</ol>
+<div class="limits" style="margin-top:9px"><b>What this map can't tell you.</b> Two to three measured cycles is a tiny sample. Timings have varied and may not repeat; the halving's role is debated. The Score is computed over public historical data (a backtest), not a record of trades. Nothing here predicts a price or a date.</div>
+<div class="cta">Want to turn this into a written plan? The <b>$29 Bear Market Buy Plan</b> is a planning document and worksheet: <b>liftoffr.com/plan</b>. Live Score, free: <b>liftoffr.com/cycle</b>.</div>
+</div>
+</div>
+
+<div class="foot">Sources: daily closes, Coinbase BTC-USD (UTC), retrieved 10 Nov 2026; halving dates from the Bitcoin block schedule (blocks 210,000 / 420,000 / 630,000 / 840,000); LiftOffr Score from liftoffr.com/api/cycle-score, 9 Nov 2026. Other sources quote slightly different highs (e.g. intraday). Education, not financial advice. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Past performance does not predict future results. 18+ only. LiftOffr LLC · liftoffr.com · contact.liftoffr@gmail.com</div>
+</body></html>

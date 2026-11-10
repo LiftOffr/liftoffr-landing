@@ -60,6 +60,77 @@ const MAGNETS = {
   buyzone: READ_THE_CYCLE,
 };
 
+// ── CYCLE MAP (magnet: "map") ───────────────────────────────────────────────
+// The free one-page Bitcoin Cycle Map at /map (added 2026-11-10). Instagram's
+// CYCLE keyword and the /bio link both land there. Day 0 is pure delivery: the
+// $29 Plan is offered on /map/thanks, and the $197 Course in map emails 1-3
+// (api/cron-welcome-followups.js). The Resend account is capped at 3 audiences,
+// so map sign-ups stay in the Free audience and are marked with the contact
+// property lead_magnet=map, which the follow-up cron reads.
+const MAP_PDF = "https://liftoffr.com/lead-magnet/bitcoin-cycle-map.pdf?utm_source=resend&utm_medium=email&utm_campaign=map&utm_content=welcome_pdf";
+const ML = (path, content) => `https://liftoffr.com${path}${path.includes("?") ? "&" : "?"}utm_source=resend&utm_medium=email&utm_campaign=map&utm_content=${content}`;
+
+function mapWelcomeHTML({ score, zone }) {
+  return `<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"><style>:root{color-scheme:light only;supported-color-schemes:light only}</style></head><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
+<div style="max-width:560px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5;">
+  <div style="background:#080808;padding:28px;text-align:center;">
+    <div style="display:inline-block;background:#e63946;color:#fff;padding:5px 12px;border-radius:4px;font-family:Helvetica,sans-serif;font-style:italic;font-size:22px;font-weight:900;letter-spacing:-0.5px;">lift<span style="color:#000;">offr</span></div>
+    <div style="margin-top:14px;color:#999;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;">Your Bitcoin Cycle Map</div>
+  </div>
+  <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.7;">
+    <p style="margin:0 0 16px;">Here's the map you asked for.</p>
+    <p style="margin:0 0 20px;"><a href="${MAP_PDF}" style="background:#e63946;color:#fff;text-decoration:none;padding:12px 18px;border-radius:8px;display:inline-block;font-weight:800;">Download the Cycle Map (PDF)</a></p>
+    <p style="margin:0 0 16px;">One page: the four halving cycles, how long each took from halving to top and from top to low, and where the LiftOffr Score reads. It's history, not a forecast. Three measured cycles is a small sample, and the map says so.</p>
+    <div style="background:#080808;color:#fff;border-radius:10px;padding:20px;margin:20px 0;text-align:center;">
+      <div style="font-size:11px;color:#999;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">Today's Score</div>
+      <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:52px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${fmtScore(score)}</div>
+      <div style="margin-top:8px;font-size:13px;font-weight:700;color:#e63946;letter-spacing:1.5px;text-transform:uppercase;">${zone || ""}</div>
+    </div>
+    <p style="margin:0 0 16px;">Every Sunday you'll get the Score in your inbox: the number, the band, and what that band has meant before. The live reading is always at <a href="${ML("/cycle", "welcome_cycle")}" style="color:#e63946;">liftoffr.com/cycle</a>, and the free Discord is at <a href="${ML("/ig-discord", "welcome_discord")}" style="color:#e63946;">liftoffr.com/ig-discord</a>.</p>
+    <p style="margin:0 0 16px;">Tomorrow: the one habit that keeps the map from fooling you.</p>
+    <p style="margin:24px 0 0;">— Torin</p>
+  </div>
+  <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
+    ${disclosureHTML("You requested the free Bitcoin Cycle Map at liftoffr.com/map.")}
+    <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
+  </div>
+</div></body></html>`;
+}
+
+function mapWelcomeText({ score, zone }) {
+  return [
+    "Here's the map you asked for.",
+    "",
+    `Download the Cycle Map (PDF): ${MAP_PDF}`,
+    "",
+    "One page: the four halving cycles, how long each took from halving to top and from top to low, and where the LiftOffr Score reads. It's history, not a forecast. Three measured cycles is a small sample, and the map says so.",
+    "",
+    `Today's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}`,
+    "",
+    `Every Sunday you'll get the Score in your inbox. Live reading: ${ML("/cycle", "welcome_cycle")}`,
+    `Free Discord: ${ML("/ig-discord", "welcome_discord")}`,
+    "",
+    "Tomorrow: the one habit that keeps the map from fooling you.",
+    "",
+    "— Torin",
+    "",
+    disclosureText("You requested the free Bitcoin Cycle Map at liftoffr.com/map."),
+  ].join("\n");
+}
+
+// Mark the contact so the follow-up cron sends map emails 1-3 instead of the
+// generic free sequence. Failure is logged, not fatal: the subscriber still gets
+// the map, and the cron falls back to the generic sequence for them.
+async function markMapContact(email, apiKey) {
+  const r = await resendRequest(`https://api.resend.com/contacts/${encodeURIComponent(email)}`, {
+    method: "PATCH",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ properties: { lead_magnet: "map" } }),
+  });
+  if (!r.ok) throw new Error(`contact property update failed (${r.status})`);
+}
+
 // ── QUIZ (magnet: "quiz") ────────────────────────────────────────────────────
 // The cycle-position quiz at /quiz is the single free step in front of the $29
 // plan. Its result is a segment tag, and that tag is what makes the 7-email
@@ -393,10 +464,15 @@ export default async function handler(req, res) {
     // The quiz takes its own branch: different email, and it carries a segment
     // tag that the follow-up cron reads to pick emails 2-7.
     const isQuiz = body.magnet === "quiz";
+    const isMap = !isQuiz && body.magnet === "map";
     const segmentKey = isQuiz ? normaliseSegment(body.segment) : null;
-    const magnetKey = isQuiz ? "quiz" : body.magnet === "buyzone" ? "buyzone" : "checklist";
+    const magnetKey = isQuiz ? "quiz" : isMap ? "map" : body.magnet === "buyzone" ? "buyzone" : "checklist";
     const magnet = MAGNETS[magnetKey] || MAGNETS.checklist;
-    const subject = isQuiz ? "your cycle position" : magnet.subject;
+    const subject = isQuiz ? "your cycle position" : isMap ? "Your Bitcoin Cycle Map" : magnet.subject;
+    if (isMap) {
+      try { await markMapContact(email, apiKey); }
+      catch (e) { console.error("subscribe: map marker failed", e.message); }
+    }
     const uu = unsubUrl(email);
 
     // Segment routing. Each quiz segment can have its own Resend audience so the
@@ -428,10 +504,10 @@ export default async function handler(req, res) {
         to: [email],
         reply_to: REPLY_TO,
         subject,
-        text: (isQuiz ? quizText(score, segmentKey) : welcomeText(score, magnet) || "") + `\n\nUnsubscribe: ${uu}`,
-        html: (isQuiz ? quizHTML(score, segmentKey) : welcomeHTML(score, magnet)).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
+        text: (isQuiz ? quizText(score, segmentKey) : isMap ? mapWelcomeText(score) : welcomeText(score, magnet) || "") + `\n\nUnsubscribe: ${uu}`,
+        html: (isQuiz ? quizHTML(score, segmentKey) : isMap ? mapWelcomeHTML(score) : welcomeHTML(score, magnet)).replace(/\{\{\{RESEND_UNSUBSCRIBE_URL\}\}\}/g, uu),
         tags: [
-          { name: "campaign", value: isQuiz ? "quiz" : "welcome" },
+          { name: "campaign", value: isQuiz ? "quiz" : isMap ? "map" : "welcome" },
           { name: "magnet", value: magnetKey },
           { name: "segment", value: segmentKey || "none" },
           { name: "utm_source", value: utm_source },

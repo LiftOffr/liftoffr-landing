@@ -52,7 +52,7 @@
     },
     {
       "source": "/bio",
-      "destination": "/?utm_source=instagram&utm_medium=bio&utm_campaign=profile&utm_content=home",
+      "destination": "/map?utm_source=instagram&utm_medium=bio&utm_campaign=cycle_map&utm_content=bio_link",
       "permanent": false
     },
     {

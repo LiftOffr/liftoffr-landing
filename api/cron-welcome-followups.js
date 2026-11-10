@@ -483,6 +483,9 @@ const TSUBJECT_3 = "Your trial ends tomorrow (here's what happens)";
 
 const TRIAL_CHECKOUT = "https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=keep_pro";
 
+// The footer menu below rides on every nurture email. Live ladder only (Torin,
+// 2026-11-10): Free -> $29 Plan -> $197 Course. The $497 tier is hidden on Whop
+// since 2026-08-22; do not link it from this menu.
 function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   return `<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><meta name="color-scheme" content="light only"><meta name="supported-color-schemes" content="light only"><style>:root{color-scheme:light only;supported-color-schemes:light only}</style></head><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">
@@ -494,13 +497,10 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.65;">${bodyHTML}</div>
   ${ctaText ? `<div style="padding:0 28px 32px;"><a href="${ctaHref}" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">${ctaText}</a></div>` : ""}
   <div style="padding:20px 28px 4px;border-top:1px solid #eee;font-size:13px;color:#666;line-height:1.7;">
-    <!-- This menu rides on every plan-buyer email, including the two whose whole
-         job is selling the System — which was the one rung missing from it. -->
-    <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 4 ways I can help:</p>
+    <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 3 ways I can help:</p>
     <p style="margin:0 0 2px;">1. <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_cycle" style="color:#e63946;">Check the live cycle dashboard</a> — free, always current</p>
     <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_plan" style="color:#e63946;">Get My Bear Market Buy Plan</a> — $29, once</p>
-    <p style="margin:0 0 2px;">3. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_system" style="color:#e63946;">Learn the whole framework</a> — The Cycle System, $197 once</p>
-    <p style="margin:0 0 14px;">4. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
+    <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=nurture&utm_content=menu_system" style="color:#e63946;">Learn the whole framework</a> — the Course, $197 once</p>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
     ${disclosureHTML("")}<a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a>
@@ -509,6 +509,144 @@ function trialShell(eyebrow, bodyHTML, ctaText, ctaHref) {
 }
 
 const shell = trialShell; // shared branded template, also used by the new free-list emails above
+
+// ── CYCLE MAP SEQUENCE (added 2026-11-10) ────────────────────────────────────
+// For sign-ups from /map (contact property lead_magnet=map, set in subscribe.js).
+// Day 0 delivery lives in subscribe.js; the $29 Plan is offered on /map/thanks.
+// These three emails teach one thing each and offer the $197 Course. Map contacts
+// skip the generic free sequence; afterwards they stay on the Sunday Score.
+// Facts used: Coinbase BTC-USD daily closes (2025 top 6 Oct 2025; lowest close
+// since, 30 Jun 2026) and the published exit-zone crossings in READ-THE-CYCLE.md.
+const MSUBJECT_1 = "how to read the cycle map without fooling yourself";
+const MSUBJECT_2 = "three exit readings, one top";
+const MSUBJECT_3 = "the Course, plainly";
+const MAP_TOP = Date.UTC(2025, 9, 6);
+const ML = (path, content) => `https://liftoffr.com${path}?utm_source=resend&utm_medium=email&utm_campaign=map&utm_content=${content}`;
+function daysSinceTop() { return Math.floor((Date.now() - MAP_TOP) / 86400000); }
+function mapScoreHTML(sc) {
+  return sc && typeof sc.score === "number"
+    ? `<p style="margin:0 0 16px;">Today's Score: <strong>${sc.score.toFixed(1)}</strong>${sc.zone ? ` (${sc.zone})` : ""}. Live at <a href="${ML("/cycle", "m_score")}" style="color:#e63946;">liftoffr.com/cycle</a>.</p>`
+    : `<p style="margin:0 0 16px;">The live Score is at <a href="${ML("/cycle", "m_score")}" style="color:#e63946;">liftoffr.com/cycle</a>.</p>`;
+}
+function mapScoreText(sc) {
+  return sc && typeof sc.score === "number" ? `Today's Score: ${sc.score.toFixed(1)}${sc.zone ? ` (${sc.zone})` : ""}. Live: ${ML("/cycle", "m_score")}` : `Live Score: ${ML("/cycle", "m_score")}`;
+}
+function map1HTML(sc) {
+  const d = daysSinceTop();
+  return shell("Cycle Map · 1 of 3", `
+    <p style="margin:0 0 16px;">One habit makes the Cycle Map useful: <strong>read the ranges, not the dates.</strong></p>
+    <p style="margin:0 0 16px;">The last three tops came 525 to 546 days after a halving. The last two lows came 364 and 378 days after the top. Those ranges are tight, and it's tempting to turn them into a calendar. Three cycles can't carry that much weight.</p>
+    <p style="margin:0 0 16px;">This cycle is the live test. Its top came on day 534 after the halving, inside the range. Today is day ${d} after that top, later than either of the last two lows. Its lowest close so far was 30 June 2026, on day 267. Either the low came early this time or it hasn't happened yet. The map can't tell you which, and neither can anyone else.</p>
+    <p style="margin:0 0 16px;">That's why the map pairs the calendar with the Score: nine measurements of what the market is doing, instead of what day it is.</p>
+    ${mapScoreHTML(sc)}
+    <p style="margin:0 0 16px;">If you want to rebuild that number yourself and explain each of its nine parts, that's what the Course teaches. I'll explain it properly in a few days. For now, compare today's Score with the band on your map.</p>
+    <p style="margin:24px 0 0;">— Torin</p>`, "See what the Course covers →", ML("/system", "m1_cta"));
+}
+function map1Text(sc) {
+  const d = daysSinceTop();
+  return [
+    "One habit makes the Cycle Map useful: read the ranges, not the dates.",
+    "",
+    "The last three tops came 525 to 546 days after a halving. The last two lows came 364 and 378 days after the top. Those ranges are tight, and it's tempting to turn them into a calendar. Three cycles can't carry that much weight.",
+    "",
+    `This cycle is the live test. Its top came on day 534 after the halving, inside the range. Today is day ${d} after that top, later than either of the last two lows. Its lowest close so far was 30 June 2026, on day 267. Either the low came early this time or it hasn't happened yet. The map can't tell you which, and neither can anyone else.`,
+    "",
+    "That's why the map pairs the calendar with the Score: nine measurements of what the market is doing, instead of what day it is.",
+    "",
+    mapScoreText(sc),
+    "",
+    "If you want to rebuild that number yourself and explain each of its nine parts, that's what the Course teaches. I'll explain it properly in a few days. For now, compare today's Score with the band on your map.",
+    "",
+    `What the Course covers: ${ML("/system", "m1_cta")}`,
+    "",
+    "— Torin",
+  ].join("\n");
+}
+function map2HTML(sc) {
+  return shell("Cycle Map · 2 of 3", `
+    <p style="margin:0 0 16px;">Here's the part most cycle content leaves out.</p>
+    <p style="margin:0 0 16px;">Between November 2024 and October 2025, the LiftOffr Score entered its exit zone three times:</p>
+    <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px 18px;margin:0 0 16px;font-family:'JetBrains Mono',Menlo,monospace;font-size:13px;line-height:1.8;color:#333;">
+      16 Nov 2024 · BTC $90,568<br>8 May 2025 · BTC $103,070<br>27 Jun 2025 · BTC $107,091
+    </div>
+    <p style="margin:0 0 16px;">The top came on 6 October 2025. Two of those three entries did not contain a top. Anyone who treated the first one as a timestamp would have been months early.</p>
+    <p style="margin:0 0 16px;"><strong>A threshold is a reason to review your plan, not a date to act on.</strong> That's true of the Score, of the halving ranges on your map, and of any indicator you'll ever read.</p>
+    <p style="margin:0 0 16px;">All of this is public, with every miss, at <a href="${ML("/receipts", "m2_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
+    ${mapScoreHTML(sc)}
+    <p style="margin:0 0 16px;">The Course spends real time here. You learn the components, reproduce the calculation, examine the historical misses, and write your own framework for what you'll do when a reading changes. There's a free sample lesson on the page.</p>
+    <p style="margin:24px 0 0;">— Torin</p>`, "Try the free sample lesson →", ML("/system", "m2_cta"));
+}
+function map2Text(sc) {
+  return [
+    "Here's the part most cycle content leaves out.",
+    "",
+    "Between November 2024 and October 2025, the LiftOffr Score entered its exit zone three times:",
+    "  16 Nov 2024 · BTC $90,568",
+    "  8 May 2025 · BTC $103,070",
+    "  27 Jun 2025 · BTC $107,091",
+    "",
+    "The top came on 6 October 2025. Two of those three entries did not contain a top. Anyone who treated the first one as a timestamp would have been months early.",
+    "",
+    "A threshold is a reason to review your plan, not a date to act on. That's true of the Score, of the halving ranges on your map, and of any indicator you'll ever read.",
+    "",
+    `All of this is public, with every miss: ${ML("/receipts", "m2_receipts")}`,
+    "",
+    mapScoreText(sc),
+    "",
+    "The Course spends real time here. You learn the components, reproduce the calculation, examine the historical misses, and write your own framework for what you'll do when a reading changes. There's a free sample lesson on the page.",
+    "",
+    `Free sample lesson: ${ML("/system", "m2_cta")}`,
+    "",
+    "— Torin",
+  ].join("\n");
+}
+function map3HTML() {
+  return shell("Cycle Map · 3 of 3", `
+    <p style="margin:0 0 16px;">Last email in this short series, so here's the Course, plainly.</p>
+    <p style="margin:0 0 6px;"><strong>What it is</strong></p>
+    <p style="margin:0 0 16px;">46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components and their limits, reproduce the calculation from free public data, study where it missed, and write your own framework.</p>
+    <p style="margin:0 0 6px;"><strong>What it isn't</strong></p>
+    <p style="margin:0 0 16px;">Signals, trade alerts, someone telling you when to buy or sell, or a promise of returns. If that's what you want, this isn't for you, and that's fine.</p>
+    <p style="margin:0 0 6px;"><strong>Price</strong></p>
+    <p style="margin:0 0 16px;">$197, one payment, lifetime updates. Checkout fees and tax where it applies are extra. If you've bought the $29 Plan, it counts toward the Course. 30-day refund.</p>
+    <p style="margin:0 0 16px;">You'll keep getting the Score every Sunday either way.</p>
+    <p style="margin:24px 0 0;">— Torin</p>`, "See the Course →", ML("/system", "m3_cta"));
+}
+function map3Text() {
+  return [
+    "Last email in this short series, so here's the Course, plainly.",
+    "",
+    "WHAT IT IS",
+    "46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components and their limits, reproduce the calculation from free public data, study where it missed, and write your own framework.",
+    "",
+    "WHAT IT ISN'T",
+    "Signals, trade alerts, someone telling you when to buy or sell, or a promise of returns. If that's what you want, this isn't for you, and that's fine.",
+    "",
+    "PRICE",
+    "$197, one payment, lifetime updates. Checkout fees and tax where it applies are extra. If you've bought the $29 Plan, it counts toward the Course. 30-day refund.",
+    "",
+    `See the Course: ${ML("/system", "m3_cta")}`,
+    "",
+    "You'll keep getting the Score every Sunday either way.",
+    "",
+    "— Torin",
+  ].join("\n");
+}
+const MAP_STEPS = [
+  { lo: 1.0, hi: 2.0, subj: MSUBJECT_1, html: map1HTML, text: map1Text, key: "m1" },
+  { lo: 3.0, hi: 4.0, subj: MSUBJECT_2, html: map2HTML, text: map2Text, key: "m2" },
+  { lo: 5.0, hi: 6.0, subj: MSUBJECT_3, html: map3HTML, text: map3Text, key: "m3" },
+];
+// Reads the lead_magnet contact property. Throws on API failure so the caller can
+// fail closed (skip the contact this run) rather than send the wrong sequence.
+async function leadMagnetOf(contactId) {
+  const r = await resendRequest(`https://api.resend.com/contacts/${encodeURIComponent(contactId)}`, {
+    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, Accept: "application/json" },
+  });
+  if (!r.ok) throw new Error(`contact read failed (${r.status})`);
+  const c = await r.json();
+  return c?.properties?.lead_magnet?.value || null;
+}
 function trial1HTML() {
   return trialShell("Trial · Day 1",
     `<p style="margin:0 0 16px;">You're in — no card, no catch. Full access for 7 days, so let's make this week count.</p>
@@ -955,6 +1093,7 @@ export default async function handler(req, res) {
       q4: () => quiz4HTML("ROUNDTRIPPED", null), q5: () => quiz5HTML("NEW", null),
       q6: () => quiz6HTML("SITTING", null), q7: () => quiz7HTML("ACCUMULATING", null),
       t1: trial1HTML, t2: trial2HTML, t3: trial3HTML, t4: trial4HTML,
+      m1: () => map1HTML({ score: 47.1, zone: "re-accumulation" }), m2: () => map2HTML({ score: 47.1, zone: "re-accumulation" }), m3: map3HTML,
     };
     const fn = map[preview];
     if (!fn) return res.status(400).json({ error: "unknown preview", options: Object.keys(map) });
@@ -1018,7 +1157,10 @@ export default async function handler(req, res) {
     // One fetch for the whole run. reengageHTML/Text are the only templates that
     // reference the live number; they render without the band claim if this is null.
     const liveScore = await fetchScoreSafe();
-    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, stack_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, stack_failed: 0, reengage_failed: 0, skipped: 0, errors: [] };
+    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, stack_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, stack_failed: 0, reengage_failed: 0, map_sent: 0, map_failed: 0, map_lookup_failed: 0, skipped: 0, errors: [] };
+    // Map emails are commercial (they offer the Course), so they follow the same
+    // mailing-address rule as the quiz sequence.
+    const mapReady = Boolean(process.env.LIFTOFFR_MAILING_ADDRESS?.trim());
 
     // Fire one email for a contact, dedupe via idempotency key, then pace 600ms.
     const fire = async (c, subject, text, html, key, tag, okCounter, badCounter) => {
@@ -1034,6 +1176,20 @@ export default async function handler(req, res) {
 
     for (const c of contacts) {
       const age = ageDays(c.created_at);
+      // Map sign-ups (lead_magnet=map) get map emails 1-3 instead of the generic
+      // sequence. Only contacts inside a sending window are looked up. A failed
+      // lookup skips the contact this run rather than risk the wrong sequence.
+      if (age >= 1.0 && age < 19.0) {
+        let lm;
+        try { lm = await leadMagnetOf(c.id); }
+        catch (e) { results.map_lookup_failed++; results.errors.push({ id: c.id, step: "lead_magnet", err: String(e).slice(0, 200) }); continue; }
+        if (lm === "map") {
+          const step = MAP_STEPS.find((st) => age >= st.lo && age < st.hi);
+          if (!step || !mapReady) { results.skipped++; continue; }
+          await fire(c, step.subj, step.text(liveScore), step.html(liveScore), `map-${step.key}`, step.key, "map_sent", "map_failed");
+          continue;
+        }
+      }
       // Day 1 — quick win (1.0–2.0)
       if (age >= 1.0 && age < 2.0) { await fire(c, SUBJECT_QW, quickWinText(), quickWinHTML(), "welcome-qw", "day1", "qw_sent", "qw_failed"); continue; }
       // Day 3 — how to use the Score (3.0–4.0)
