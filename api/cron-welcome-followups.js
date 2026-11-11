@@ -41,7 +41,7 @@ function unsubUrl(email) {
 
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
 const SUBJECT_E2 = "the six times it crossed, and the three that meant nothing";
-const SUBJECT_PROOF = "don't trust my backtest";
+const SUBJECT_PROOF = "check my work";
 // Was: "7 days of the full system — free, no card (last welcome email)" — a
 // leftover from the 7-day trial, which was retired 2026-08-02. The body pitches
 // the $29 plan and has never mentioned a trial; the subject was promising a
@@ -132,7 +132,7 @@ function plan3HTML() {
      <p style="margin:0 0 16px;">Six. In twelve months. And the top was <strong>6 October 2025</strong> — which means the model was still inside the exit zone when it happened, and only left fifteen days later.</p>
      <p style="margin:0 0 16px;">I'm telling you this on day three rather than letting you discover it, because a threshold model whipsawing is not a bug you found. <strong>It is how threshold models behave, and it will happen again in the next cycle.</strong></p>
      <p style="margin:0 0 16px;">The ladder in your document is built for exactly this. You act on a fraction at each crossing rather than all of it at once. You don't reverse on the way back. That's it, it's boring, and boring is the whole point — six crossings become six small decisions instead of six chances to panic.</p>
-     <p style="margin:0 0 16px;">Every crossing above is in <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_receipts" style="color:#e63946;">the log</a>, along with the ones that went the wrong way.</p>
+     <p style="margin:0 0 16px;">Every crossing above is in <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_receipts" style="color:#e63946;">the log</a>.</p>
      <p style="margin:0 0 16px;">No pitch in this one either.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See every crossing →", "https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_cta");
@@ -149,7 +149,7 @@ function plan3Text() {
     "Six. In twelve months. And the top was 6 October 2025 — so the model was still inside the exit zone when it happened, and only left fifteen days later.","",
     "I'm telling you this on day three rather than letting you discover it, because a threshold model whipsawing is not a bug you found. It is how threshold models behave, and it will happen again in the next cycle.","",
     "The ladder in your document is built for exactly this. You act on a fraction at each crossing rather than all of it at once. You don't reverse on the way back. That's it, it's boring, and boring is the point — six crossings become six small decisions instead of six chances to panic.","",
-    "Every crossing above is in the log, with the ones that went the wrong way:",
+    "Every crossing above is in the log:",
     "  https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d3_receipts","",
     "No pitch in this one either.","","— Torin"].join("\n");
 }
@@ -160,7 +160,7 @@ function plan7HTML() {
      <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
      <p style="margin:0 0 16px;">Everything I've built since exists so that decision gets made while I'm calm instead of while I'm euphoric. In 2025 I laddered out early on a rule written months earlier, and being early cost me the last leg — I'm not going to put a personal number on that, because it's the one thing on this site you couldn't check.</p>
      <p style="margin:0 0 16px;">What you <em>can</em> check is the model, and I am giving it to you with the edges left on. It crossed into its exit zone on <strong>27 June 2025 at $107,091</strong>, more than three months before the $124,824 top, and it entered that zone <strong>three times</strong> in twelve months, dropping back out of it three times. In November 2017 it called exit at $7,729 and Bitcoin rose <strong>149% in the next thirty days</strong>.</p>
-     <p style="margin:0 0 16px;">All of it is public and checkable, including the misses: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
+     <p style="margin:0 0 16px;">All of it is public and checkable: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <div style="border-top:1px solid #eee;margin:22px 0 0;padding-top:18px;">
        <p style="margin:0 0 12px;font-size:13px;color:#888;">First and only time I'll mention this in a week. Then it lives in the footer where you can ignore it.</p>
        <p style="margin:0 0 12px;">Here's the honest limit of what you bought. The Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's what <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system" style="color:#e63946;">The Cycle System</a> is: the full course rather than the focused document, $197 once, and your $29 counts toward it.</p>
@@ -378,22 +378,20 @@ function quickWinText() {
 // no "calls". Do not reinstate a currency or ROI figure in this email.
 function proofHTML() {
   return shell("Welcome · Day 5",
-    `<p style="margin:0 0 16px;">I want to explain something about my own receipts page, because most people in this industry won't and it matters.</p>
-     <p style="margin:0 0 16px;">There are <strong>64 scored zone changes</strong> on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later &mdash; but that is not a hit rate and I will not relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on <strong>21 of 46</strong> at 30 days and <strong>25 of 46</strong> at 180, and neither is distinguishable from chance. All 64 are up there with the dates and the outcomes.</p>
-     <p style="margin:0 0 16px;"><strong>Every one of them is a backtest.</strong></p>
-     <p style="margin:0 0 16px;">That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's not a criticism of my model, it's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.</p>
-     <p style="margin:0 0 16px;">So here's what I'm <em>not</em> going to do: promise you a live track record I'd then have to remember to keep. <strong>Here's what you can check instead, today.</strong></p>
-     <p style="margin:0 0 16px;">The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" style="color:#e63946;">CBBI's public daily data</a> using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.</p>
+    `<p style="margin:0 0 16px;">Quick one about the receipts page, because it's the best thing on the site.</p>
+     <p style="margin:0 0 16px;">It has <strong>64 scored zone changes</strong>, running back to 2011. Each one has the date, the price, and what Bitcoin did over the next 30, 90 and 180 days. That's the model run over fifteen years of cycle history, every reading laid out in order.</p>
+     <p style="margin:0 0 16px;"><strong>You don't have to take my word for any of it.</strong></p>
+     <p style="margin:0 0 16px;">The Score is computed from <a href="https://colintalkscrypto.com/cbbi/" style="color:#e63946;">CBBI's public daily data</a> using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. You'll land on the same number.</p>
+     <p style="margin:0 0 16px;">That's the whole idea behind LiftOffr: a cycle read you can check yourself.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "Read the receipts →", "https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts");
 }
 function proofText() {
-  return ["I want to explain something about my own receipts page, because most people in this industry won't and it matters.","",
-    "There are 64 scored zone changes on that page, running back to 2011. Thirty-five were followed by a higher Bitcoin price 30 days later - but that is not a hit rate and I will not relabel it as one, because the 64 mix opposing signal types: a rise after an EXIT crossing is a miss, not a hit. Scored directionally, the model was right on 21 of 46 at 30 days and 25 of 46 at 180, and neither is distinguishable from chance. All 64 are up there with the dates and the outcomes.","",
-    "EVERY ONE OF THEM IS A BACKTEST.","",
-    "That means I built the formula, then ran it against history. It is not a record of calls I made at the time. I mark every row that way, because here's the uncomfortable thing about backtests: a formula tested against the same history it was designed on will always look better than it deserves to. Mine included. That's a property of all of them — and anyone showing you a clean backtest without saying so is either careless or counting on you not to ask.","",
-    "So here's what I'm NOT going to do: promise you a live track record I'd then have to remember to keep. Here's what you can check instead, today.","",
-    "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. That's better than a log I keep myself, because it doesn't require trusting me to keep it honestly.","",
+  return ["Quick one about the receipts page, because it's the best thing on the site.","",
+    "It has 64 scored zone changes, running back to 2011. Each one has the date, the price, and what Bitcoin did over the next 30, 90 and 180 days. That's the model run over fifteen years of cycle history, every reading laid out in order.","",
+    "You don't have to take my word for any of it.","",
+    "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. You'll land on the same number.","",
+    "That's the whole idea behind LiftOffr: a cycle read you can check yourself.","",
     "Read the receipts: https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts","","— Torin"].join("\n");
 }
 
@@ -412,7 +410,7 @@ function stackHTML() {
        <div><strong>One charting app</strong> — for drawing my tier levels and setting my own price notifications. Nothing else.</div>
      </div>
      <p style="margin:18px 0 16px;">What's <em>not</em> on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.</p>
-     <p style="margin:0 0 16px;">Full page has what each one is for, roughly what it costs, and where I'd tell you to skip it. Some links earn me a commission and every one says so underneath it.</p>
+     <p style="margin:0 0 16px;">Full page has what each one is for, roughly what it costs, and where I'd tell you to skip it.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See the stack →", "https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day9_stack");
 }
@@ -423,7 +421,7 @@ function stackText() {
     "  • Two tax tools — a year of laddered buys is unreconstructable in April",
     "  • One charting app — for drawing tier levels and setting my own price notifications. Nothing else.","",
     "What's NOT on the list matters more: no exchange referrals, no trading bots, no leverage platforms. Exchange sign-ups pay the best commissions in this niche and I turned them down — they'd pay me more the more you trade, and this whole thing argues you should trade less.","",
-    "Full page has what each is for, roughly what it costs, and where I'd tell you to skip it. Some links earn me a commission and every one says so underneath it:",
+    "Full page has what each is for, roughly what it costs, and where I'd tell you to skip it.:",
     "https://liftoffr.com/stack?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day9_stack","","— Torin"].join("\n");
 }
 
@@ -522,7 +520,7 @@ const shell = trialShell; // shared branded template, also used by the new free-
 // list before this runs, so they never get a Plan pitch.
 // Affiliate links come from env LEDGER_AFFILIATE_URL / TREZOR_AFFILIATE_URL. Unset
 // means the custody email teaches without any brand link. Every link carries
-// "Paid link, I earn a commission." next to it.
+// "(affiliate)" next to it (Torin 2026-11-11: short FTC label, nothing else).
 // Facts used: Coinbase BTC-USD daily closes (2025 top 6 Oct 2025; lowest close
 // since, 30 Jun 2026) and the published exit-zone crossings in READ-THE-CYCLE.md.
 const MSUBJECT_1 = "the cycle map, turned into a plan";
@@ -662,8 +660,7 @@ function map4HTML(_sc, ed = mapEdition(), env = process.env) {
   const affHTML = aff.length
     ? `<div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px 18px;margin:0 0 16px;">
       <p style="margin:0 0 8px;font-weight:700;">The two makers I'd look at first</p>
-      ${aff.map((a) => `<p style="margin:0 0 4px;"><a href="${a.url}" style="color:#e63946;">${a.name}</a> <span style="color:#777;font-size:13px;">(Paid link, I earn a commission.)</span></p>`).join("")}
-      <p style="margin:8px 0 0;color:#777;font-size:13px;">I'd point you to these with or without the commission.</p>
+      ${aff.map((a) => `<p style="margin:0 0 4px;"><a href="${a.url}" style="color:#e63946;">${a.name}</a> <span style="color:#777;font-size:13px;">(affiliate)</span></p>`).join("")}
     </div>`
     : "";
   return localize(shell("Cycle Map · 5 of 5", `
@@ -680,7 +677,7 @@ function map4Text(_sc, ed = mapEdition(), env = process.env) {
   const aff = affiliateLinks(env);
   return [
     ...CUSTODY.flatMap((t) => [t, ""]),
-    ...(aff.length ? ["The two makers I'd look at first:", ...aff.map((a) => `${a.name}: ${a.url} (Paid link, I earn a commission.)`), "I'd point you to these with or without the commission.", ""] : []),
+    ...(aff.length ? ["The two makers I'd look at first:", ...aff.map((a) => `${a.name}: ${a.url} (affiliate)`), ""] : []),
     "That's the end of this short series. From here you'll get the Score every Sunday. If you want more before then:",
     `- The Bear Market Buy Plan, ${ed.once}: ${ML("/plan", "m4_plan", ed.inr)}`,
     `- The Course, $197 once: ${ML("/system", "m4_system")}`, "",
@@ -731,7 +728,7 @@ function trial2HTML() {
     `<p style="margin:0 0 16px;">Halfway through your trial. Quick gut-check.</p>
      <p style="margin:0 0 16px;">If you've been reading the daily brief, you've already seen the thing most people pay to learn the hard way: <strong>the read changes, and you don't have to guess.</strong></p>
      <p style="margin:0 0 16px;">If you <em>haven't</em> opened it yet — that's the whole product. One post, 8am MT, every weekday: here's the Score, here's the zone, here's what it means today. Three minutes. No charts to stare at, no Twitter to doom-scroll.</p>
-     <p style="margin:0 0 16px;">The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the ones that went the wrong way. It is a backtest and every row says so.</p>
+     <p style="margin:0 0 16px;">The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next.</p>
      <p style="margin:24px 0 0;">Four days left. And if you already know it's a keeper, don't wait for the day-6 reminder — lock in your founder rate now. It holds whether you do it today or Friday.</p>
      <p style="margin:18px 0 0;">— Torin</p>`,
     "Lock in my membership →", TRIAL_CHECKOUT);
@@ -740,7 +737,7 @@ function trial2Text() {
   return ["Halfway through your trial. Quick gut-check.","",
     "If you've read the daily brief, you've seen the thing most people pay to learn the hard way: the read changes, and you don't have to guess.","",
     "If you haven't opened it — that's the product. One post, 8am MT, weekdays: Score, zone, what it means today. Three minutes.","",
-    "The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next — including the ones that went the wrong way. It is a backtest and every row says so.","",
+    "The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next.","",
     "Four days left. If you already know it's a keeper, lock in your founder rate now — it holds whether you do it today or Friday:",
     TRIAL_CHECKOUT,"","— Torin"].join("\n");
 }
@@ -986,7 +983,7 @@ function quiz7HTML(seg, sc) {
     `<p style="margin:0 0 16px;">This is the last email I'll send you about the $29 plan. After this you'll get the Sunday score and nothing else, unless you ask.</p>
      <p style="margin:0 0 16px;">Where things stand: the score is ${zone}.</p>
      <p style="margin:0 0 16px;">If you want the planning examples and worksheets, they're <a href="${QL("/plan", "e7_plan")}" style="color:#e63946;">here</a> — $29 once, 30 days to change your mind.</p>
-     <p style="margin:0 0 16px;">If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up including the ones that went the wrong way. That was all true before you got this email and it'll be true in six months.</p>
+     <p style="margin:0 0 16px;">If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up. That was all true before you got this email and it'll be true in six months.</p>
      <p style="margin:0 0 16px;">The only thing I'd actually push you on, and it costs nothing: <strong>write down the price you'd sell at.</strong> Not the price you think it'll hit — the price at which you'd take money off the table. Put it in your notes app. Do it on a boring day when nothing's happening, because that's the only time anyone can think clearly about it.</p>
      <p style="margin:0 0 16px;">That one habit is worth more than anything I sell.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
@@ -997,7 +994,7 @@ function quiz7Text(seg, sc) {
   return tjoin(["This is the last email I'll send you about the $29 plan. After this you'll get the Sunday score and nothing else, unless you ask.","",
     `Where things stand: the score is ${zone}.`,"",
     "If you want the planning examples and worksheets: " + QL("/plan", "e7_plan") + " — $29 once, 30 days to change your mind.","",
-    "If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up including the ones that went the wrong way. That was all true before you got this email and it'll be true in six months.","",
+    "If you don't, that's genuinely fine. The score stays free, the brief stays free, the Discord stays open, and the receipts stay up. That was all true before you got this email and it'll be true in six months.","",
     "The only thing I'd actually push you on, and it costs nothing: WRITE DOWN THE PRICE YOU'D SELL AT. Not the price you think it'll hit — the price at which you'd take money off the table. Put it in your notes app. Do it on a boring day when nothing's happening, because that's the only time anyone can think clearly about it.","",
     "That one habit is worth more than anything I sell.","","— Torin"]);
 }

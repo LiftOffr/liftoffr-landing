@@ -19,10 +19,8 @@
 export const ENTITY = "LiftOffr LLC";
 export const CONTACT_EMAIL = "contact.liftoffr@gmail.com";
 
-// The one consolidated disclaimer (Torin, 2026-11-11: disclose once, sell everywhere
-// else). Same wording as the site footer. Email bodies carry no further hedges.
-export const DISCLOSURE = "Education, not individualized financial advice. LiftOffr Score signals are backtests over public price and on-chain data, not records of live trades, and past performance doesn't guarantee future results. Paid products are 18+.";
-
+// Torin, 2026-11-11: no disclaimer copy in emails. The footer keeps only what
+// CAN-SPAM needs: entity, mailing address, contact, unsubscribe.
 export function mailingAddress() {
   const a = (process.env.LIFTOFFR_MAILING_ADDRESS || "").trim();
   return a || null;
@@ -31,8 +29,6 @@ export function mailingAddress() {
 // Plain-text variant, for the text/* part of every send.
 export function disclosureText(listReason) {
   const lines = [
-    DISCLOSURE,
-    "",
     `${ENTITY}${listReason ? " - " + listReason : ""}`,
   ];
   const addr = mailingAddress();
@@ -45,7 +41,6 @@ export function disclosureText(listReason) {
 export function disclosureHTML(listReason) {
   const addr = mailingAddress();
   return `
-    ${DISCLOSURE}<br/><br/>
     ${ENTITY}${listReason ? " &middot; " + listReason : ""}<br/>
     ${addr ? addr + "<br/>" : ""}
     <a href="mailto:${CONTACT_EMAIL}" style="color:#999;">${CONTACT_EMAIL}</a>`;

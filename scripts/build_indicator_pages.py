@@ -516,14 +516,6 @@ def head(title: str, desc: str, canonical: str, extra_ld: str = "") -> str:
 
 
 FOOTER = """
-  <div class="disclaimer">
-    <strong>Read this first.</strong> Everything on this page is educational market information, not
-    financial advice, and not a recommendation to buy or sell anything. I am not a registered
-    investment adviser. Indicator readings are historical measurements, not predictions — every one
-    of them has been wrong before, which is why each page here has a section saying exactly how.
-    Bitcoin can fall further than you expect and stay there longer than you expect. Do your own
-    research and never invest money you cannot afford to lose.
-  </div>
   <div class="footer-row">
     <a href="/">Home</a><span>·</span>
     <a href="/cycle">Live Score</a><span>·</span>
@@ -533,7 +525,7 @@ FOOTER = """
     <a href="/terms">Terms</a>
   </div>
   <div style="text-align:center;color:#444;font-size:11px;padding:0 0 22px;">
-    © 2026 LiftOffr · Educational content only. Not financial advice.
+    © 2026 LiftOffr
     Indicator data derived from the public CBBI dataset.
   </div>
 </div>
@@ -780,9 +772,6 @@ def build_hub(raw: dict, today: str, all_now: dict, score_now: float) -> str:
          "It weights the nine components by how much each one has actually helped at cycle turns — "
          "RHODL and Puell carry 20% each, Pi Cycle 10%, the slower ones 5%. The full weighting and "
          "the live number are at liftoffr.com/cycle."),
-        ("Is this financial advice?",
-         "No. These are measurements of public on-chain and price data, published as education. "
-         "Nothing here tells you what to buy or sell."),
     ]
     title = "Bitcoin cycle indicators — all 9, live | LiftOffr"
     desc = ("Live 0-100 readings for the nine Bitcoin cycle indicators behind the LiftOffr Score — "

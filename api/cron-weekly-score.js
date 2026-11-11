@@ -19,7 +19,7 @@ import { unsubscribeHeaders } from "./_email-preferences.js";
 //   RESEND_AUDIENCE_ID    — UUID of the "LiftOffr Free" audience
 
 import crypto from "node:crypto";
-import { DISCLOSURE, disclosureHTML, disclosureText } from "./_disclosure.js";
+import { disclosureHTML, disclosureText } from "./_disclosure.js";
 import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE,
   DCA_MODE, DCA_STACK_USDC, DCA_START, DCA_HORIZON_END, DCA_DAILY_FILL_MAX, ladderFunding } from "./_buy-plan.js";
 import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
@@ -127,7 +127,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
       <div style="font-size:12px;color:#888;margin-top:10px;line-height:1.6;">All nine weights are published at <a href="https://liftoffr.com/indicators?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=recompute" style="color:#e63946;">liftoffr.com/indicators</a>. Pull the same free public data, run the same weights, and you should land on the number above.</div>
     </div>` : ""; })()}
 
-    <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64, including the ones that went the wrong way &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
+    <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64 &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
 
     <p style="margin:18px 0 0;">Want a worksheet for turning research into a written plan? The Plan includes fictional budget examples, execution checks and review rules. $29 at checkout, plus tax where it applies. The Cycle System separately explains how to build your own exit ladder, with a worksheet for choosing your own fractions.</p>
   </div>
@@ -168,7 +168,7 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
         "\n\nAll nine weights: https://liftoffr.com/indicators — pull the same free public data, run the same weights, and you should land on the number above."
       : ""; })(),
     "",
-    "Every signal this model has produced - all 64, including the ones that went the wrong way: https://liftoffr.com/receipts",
+    "Every signal this model has produced, all 64: https://liftoffr.com/receipts",
     "",
     "Want planning examples and worksheets? $29 at checkout, plus applicable tax:",
     "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
@@ -396,7 +396,7 @@ function zoneChangeText({ from, to, score, date }) {
     ``,
     `— Torin`,
     ``,
-    DISCLOSURE,
+    disclosureText(),
   ].join("\n");
 }
 
@@ -413,7 +413,7 @@ function zoneChangeHTML(p) {
     <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and the source context in the market brief.</p>
     <a href="https://liftoffr.com/plan?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Get the plan — $29 once →</a>
     <p style="text-align:center;font-size:12px;"><a href="https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert" style="color:#888;">or watch the live score →</a></p>
-    <p style="font-size:11px;color:#999;margin-top:22px;">${DISCLOSURE} <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
+    <p style="font-size:11px;color:#999;margin-top:22px;">${disclosureHTML()}<br/><a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
   </div>`;
 }
 

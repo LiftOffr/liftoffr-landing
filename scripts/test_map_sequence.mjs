@@ -93,11 +93,11 @@ test('map email 4 (day 8) teaches custody; affiliate links only when set, always
   const contacts = [{ id: 'd8', email: 'd8@example.test', created_at: iso(now - 8.5 * DAY), unsubscribed: false }];
   let { sends } = await runCron({ contacts, props: { d8: 'map' } });
   assert.equal(sends.length, 1); assert.equal(sends[0].key, 'map-m4-d8');
-  assert.match(sends[0].html, /recovery words/); assert.doesNotMatch(sends[0].html, /Paid link|ledger\.com|trezor\.io/);
+  assert.match(sends[0].html, /recovery words/); assert.doesNotMatch(sends[0].html, /\(affiliate\)|ledger\.com|trezor\.io/);
   process.env.LEDGER_AFFILIATE_URL = 'https://shop.ledger.com/?r=abc'; process.env.TREZOR_AFFILIATE_URL = 'http://evil.example/trezor';
   try { ({ sends } = await runCron({ contacts, props: { d8: 'map' } })); }
   finally { delete process.env.LEDGER_AFFILIATE_URL; delete process.env.TREZOR_AFFILIATE_URL; }
-  assert.match(sends[0].html, /shop\.ledger\.com\/\?r=abc/); assert.match(sends[0].html, /Paid link, I earn a commission\./);
+  assert.match(sends[0].html, /shop\.ledger\.com\/\?r=abc/); assert.match(sends[0].html, /\(affiliate\)/);
   assert.doesNotMatch(sends[0].html, /evil\.example/, 'non-maker or non-https link is dropped');
 });
 

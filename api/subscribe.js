@@ -49,7 +49,7 @@ const READ_THE_CYCLE = {
   itemTitle: "1. Read the Bitcoin Cycle Yourself:",
   itemTitleText: "1. READ THE BITCOIN CYCLE YOURSELF",
   pdfUrl: "https://liftoffr.com/lead-magnet/read-the-cycle.pdf?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=readcycle_link",
-  howTo: "It has the nine weighted components, what each one read at every cycle turn since 2013, the divisor rule, and the ten-minute exercise that ends with you computing the Score yourself from free public data. It also has the part most people leave out — 21 of 46 at 30 days, and the six exit-zone transitions in twelve months. No trigger prices, no allocations, nothing that goes stale.",
+  howTo: "It has the nine weighted components, what each one read at every cycle turn since 2013, the divisor rule, and the ten-minute exercise that ends with you computing the Score yourself from free public data. It also walks through the six exit-zone transitions in twelve months. No trigger prices, no allocations, nothing that goes stale.",
   footerLine: "You subscribed to the free LiftOffr Score email.",
 };
 
@@ -164,7 +164,7 @@ const SEGMENTS = {
   "NEW": {
     "label": "Early",
     "oneLine": "you are getting familiar with Bitcoin cycle data",
-    "angle": "You can explore the method before spending money. Start with the public Score, its explanation and the historical record.   Try this:  compare a model reading with what happened afterward. Read the limitations as carefully as the examples that worked. A historical result is not a forecast."
+    "angle": "You can explore the method before spending money. Start with the public Score, its explanation and the historical record.   Try this:  compare a model reading with what happened afterward."
   }
 };
 
@@ -203,10 +203,10 @@ function quizHTML({ score, zone }, segKey) {
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 18px;font-size:14px;line-height:1.8;color:#333;">
       <div><strong>The score</strong> — updated every morning, public, no account needed: <a href="${L("/cycle", "e1_cycle")}" style="color:#e63946;">liftoffr.com/cycle</a></div>
       <div><strong>The daily brief</strong> — 8am MT in the Discord: <a href="${L("/free", "e1_free")}" style="color:#e63946;">liftoffr.com/free</a></div>
-      <div><strong>The receipts</strong> — every zone change the model has produced across fifteen years, including the ones that went the wrong way: <a href="${L("/receipts", "e1_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a></div>
+      <div><strong>The receipts</strong> — every zone change the model has produced across fifteen years: <a href="${L("/receipts", "e1_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a></div>
     </div>
 
-    <p style="margin:0 0 16px;"><strong>Go look at the receipts page first.</strong> Read the label at the top of it. I'd rather you start there than anywhere else on the site.</p>
+    <p style="margin:0 0 16px;"><strong>Go look at the receipts page first.</strong> It's the best place to start.</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
   <div style="padding:0 28px 32px;">
@@ -236,9 +236,9 @@ function quizText({ score, zone }, segKey) {
     "THREE THINGS, ALL FREE, NO CARD:",
     `  The score, updated every morning: ${L("/cycle", "e1_cycle")}`,
     `  The daily brief, 8am MT in the Discord: ${L("/free", "e1_free")}`,
-    `  The receipts — every zone change across fifteen years, including the ones that went the wrong way: ${L("/receipts", "e1_receipts")}`,
+    `  The receipts — every zone change across fifteen years: ${L("/receipts", "e1_receipts")}`,
     "",
-    "Go look at the receipts page first. Read the label at the top of it. I'd rather you start there than anywhere else on the site.",
+    "Go look at the receipts page first. It's the best place to start.",
     "",
     "— Torin",
     "",
@@ -301,7 +301,6 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
       <div><strong>30–50</strong> → re-accumulation. Has resolved upward more often than not at 180 days.</div>
       <div><strong>15–30</strong> → accumulation. Among the lower readings in a cycle.</div>
       <div><strong>Below 15</strong> → deep accumulation. The lowest band the Score produces.</div>
-      <div style="margin-top:10px;color:#777;font-size:12.5px;">Descriptions of what these bands have done historically. Not instructions, and not a forecast.</div>
     </div>
 
     <div style="background:#080808;color:#fff;border-radius:10px;padding:22px;margin:20px 0;text-align:center;">
@@ -315,7 +314,7 @@ function welcomeHTML({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     <p style="margin:18px 0;">You'll get a fresh read every Sunday morning. No fluff, no charts to interpret, no Twitter takes. Just the number, the zone, and what the record says that band has meant before. What you do with it is yours.</p>
 
     <p style="margin:28px 0 10px;color:#555;"><strong style="color:#080808;">Why I built this:</strong></p>
-    <p style="margin:0 0 18px;color:#555;">Through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. A number you can recompute yourself, with its misses published next to it, is the thing I wish I'd had then.</p>
+    <p style="margin:0 0 18px;color:#555;">Through 2021 and 2022 I watched friends ride BTC from $20k → $69k → $16k. Round trip. Zero profit. They didn't have a system — they had hopium. A number you can recompute yourself, with every signal dated in public, is the thing I wish I'd had then.</p>
 
     <p style="margin:24px 0 0;">See you Sunday.</p>
     <p style="margin:6px 0 0;color:#555;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
@@ -356,14 +355,12 @@ function welcomeText({ score, zone, trendDelta7d, commentary }, m = MAGNETS.chec
     "  15-30  -> accumulation. Among the lower readings in a cycle.",
     "  <15    -> deep accumulation. The lowest band the Score produces.",
     "",
-    "Descriptions of what these bands have done historically. Not instructions, and not a forecast.",
-    "",
     `This week's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}${typeof score === "number" ? ` ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} 7d` : ""}`,
     commentary,
     "",
     "You'll get a fresh read every Sunday. No fluff. Just the number, the zone, and what the record says that band has meant before. What you do with it is yours.",
     "",
-    "Why I built this: through 2021 and 2022 I watched friends ride BTC from $20k -> $69k -> $16k. Round trip. Zero profit. A number you can recompute yourself, with its misses published next to it, is the thing I wish I'd had then.",
+    "Why I built this: through 2021 and 2022 I watched friends ride BTC from $20k -> $69k -> $16k. Round trip. Zero profit. A number you can recompute yourself, with every signal dated in public, is the thing I wish I'd had then.",
     "",
     "See you Sunday.",
     "— Torin",

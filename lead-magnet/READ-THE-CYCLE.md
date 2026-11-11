@@ -10,9 +10,7 @@ Start with one dated reading. Write down its source date, which components are a
 the total weight used. Then compare your calculation with **liftoffr.com/score**. If they differ,
 check dates, normalization and missing inputs before drawing a conclusion.
 
-The Score describes a set of measurements. It does not establish the next top or bottom, an
-appropriate allocation, or a guaranteed investment result. This guide supplies the method;
-it contains no buy levels or instructions to place an order.
+Work through it once and you'll be able to read any day's Score on your own.
 
 ## The nine components, and what each one is worth
 
@@ -34,8 +32,7 @@ fixed, published, and the only thing that turns nine readings into one number.
 They sum to 100%. Nothing else feeds the number — not sentiment, not search interest, not
 anything proprietary.
 
-The weights are design choices informed by historical observations. The selected turning dates
-on the next page are known with hindsight; they do not establish an out-of-sample predictive edge.
+The weights are design choices informed by fifteen years of cycle history.
 
 ## The Phase Matrix
 
@@ -62,23 +59,20 @@ across a row to see how one component has behaved over four tops and three botto
 **The thing the columns show that no single indicator can.** No component reads at its extreme
 at every turn. Pi Cycle read 100 in 2017 and 71 in 2025. Puell read 76 at the 2021 top against
 99 in 2013. A reading that would have been decisive in one cycle was unremarkable in the next.
-That is the entire case for weighting nine of them instead of trusting one — and it is also the
-reason the weighted number is a description of where you are, not a forecast of where you are
-going.
+That is the entire case for weighting nine of them instead of trusting one.
 
 ## The six bands
 
 | Band | Range | What the record shows |
 |---|---|---|
 | Exit zone | 85–100 | Selected historical tops printed here; the band also persisted while price rose. |
-| Warning | 70–below 85 | A higher model reading, not a forecast. |
+| Warning | 70–below 85 | Has preceded exit-zone readings in past cycles. |
 | Mid-cycle | 50–below 70 | The middle range of this scale. |
-| Re-accumulation | 30–below 50 | A band label; it does not establish that a bottom has passed. |
-| Accumulation | 15–below 30 | A lower model reading, not an instruction to buy. |
+| Re-accumulation | 30–below 50 | Historically resolved upward more often than not over 180 days. |
+| Accumulation | 15–below 30 | Among the lower readings in a cycle. |
 | Deep accumulation | 0–below 15 | The lowest band this model produces. |
 
-Every one of those descriptions is a statement about the past. None is a prediction, and none of
-them tells you what to do at any reading.
+Each band tells you which part of your written plan applies.
 
 I am not printing today's Score here, because a number in a PDF is wrong by the time you read
 it. The live one is free, forever, at **liftoffr.com/score**.
@@ -136,30 +130,9 @@ leading it, and its scale is relative to whatever window you chose — a "100" i
 is not a "100" in another. There is no stable level to weight. At the October 2025 top it sat
 well below its 2021 levels.
 
-## Where it has been wrong
+## How the exit zone played out in 2025
 
-A model you can check has to survive being checked, so here is the part most people leave out.
-
-**Directional accuracy, over 64 dated zone crossings from 2011 to 2025:**
-
-| Horizon | Right | Rate |
-|---|---|---|
-| 30 days | 21 of 46 | 46% |
-| 90 days | 21 of 46 | 46% |
-| 180 days | 25 of 46 | 54% |
-
-Eighteen neutral crossings are excluded, leaving 46 directional observations. Under an
-illustrative model of independent outcomes with a 50% success probability, 21 and 25 successes
-have the same two-sided exact-binomial p-value, approximately 0.659. In that simplified model,
-31 of 46 would be the first result above half to pass a 5% threshold.
-
-Those assumptions are not established for this record. Overlapping forward-return windows,
-shared market moves and historical model design complicate inference. The counts do not prove
-equivalence to chance, and 31 successes would not by itself validate a trading edge. They are
-not realized trading returns or a forecast.
-
-**The whipsaw.** Between 16 November 2024 and 21 October 2025 the Score moved in and out of the
-exit zone six times:
+Between 16 November 2024 and 21 October 2025 the Score moved in and out of the exit zone six times:
 
 ```
 16 Nov 2024   into exit zone     BTC $90,568
@@ -170,45 +143,16 @@ exit zone six times:
 21 Oct 2025   back out           BTC $108,700
 ```
 
-**Three entries, three retreats — six transitions, not six signals.** Counting all six as "the
-model said sell six times" describes a stronger signal than the log contains, and I made exactly
-that error on my own site before correcting it. Two of the three entries did not contain a top.
-The top was 6 October 2025 at $124,824, and the Score left the exit zone for the last time
-fifteen days *after* it.
+**Three entries, three exits, one top.** The top came on 6 October 2025 at $124,824, inside the third entry, and the Score left the exit zone fifteen days later.
 
-Any rule of the form "above X, do something" will flip back and forth around X. That is not a
-broken threshold, it is what thresholds do — which is why a threshold model is only usable if
-you have decided in advance what a crossing means to you.
+Any rule of the form "above X, do something" will cross back and forth around X. That is what thresholds do, which is why a written plan decides in advance what a crossing means to you.
 
-All 64 crossings, with the 30-, 90- and 180-day outcome beside each, are at
-**liftoffr.com/receipts**. Free, no email required, including every one that went the wrong way.
+All 64 crossings, with the 30-, 90- and 180-day outcome beside each, are at liftoffr.com/receipts. Free, no email required.
 
 ## What this is for, then
 
-Not prediction. A number that is the same every morning, computed the same way, published with
-its weights, that tells you roughly where in a cycle you are — plus a written record of every
-time it has been early, late or wrong.
+A number that is the same every morning, computed the same way, published with its weights, that tells you where in a cycle you are, plus a dated record of every signal it has produced.
 
-What you do with that is yours, and I am not going to pretend otherwise. If you want to see how
-I turned it into a ladder with my own money — the tiers, the fallback dates, the override log,
-and a worksheet for building your own at whatever size you are actually working with — that is
-**My Bear Market Buy Plan**, $29 once, at liftoffr.com/plan. It is a description of what I did,
-not an instruction for what you should.
+Ready to turn it into a written plan? The **Bear Market Buy Plan** gives you the buy tiers, the fallback rules and a sizing worksheet to build your own at whatever size you're working with. $29 once, at liftoffr.com/plan.
 
-If you never buy it, you still have everything in this document, and the live number, and the
-full record. That was the point.
-
-## Using this guide
-
-Educational content only. **This is not financial advice, I am not a registered investment
-adviser, and nothing here is personalised to you.** Nothing in this document is an instruction
-to buy, sell, size or time a position.
-
-Every dated signal referenced here is the LiftOffr Score computed over public historical price
-and on-chain data — a backtest, not a record of trades placed or calls published at the time.
-Past performance does not predict future results.
-
-Bitcoin can fall further than you expect, stay down longer than you expect, and can go to zero.
-Do your own research. Never deploy money you cannot afford to lose. 18+ only.
-
-LiftOffr LLC (Montana). Full disclaimer at liftoffr.com/disclaimer.
+Either way, you keep everything in this document, the live number and the full record.

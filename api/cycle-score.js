@@ -179,7 +179,7 @@ function commentary(score, trendDir) {
   if (score >= 85) return "Exit zone. Every cycle top since 2013 occurred with the Score in this band — and the Score has also sat here for months without a top, and crossed in and out of it six times between Nov 2024 and Oct 2025.";
   if (score >= 70) return "Warning band. Historically this band has preceded exit-zone readings, though not every time, and some readings have fallen back to neutral without going higher.";
   if (score >= 50) return "Mid-cycle. Historically the least informative band — the record shows roughly as many moves up from here as down.";
-  if (score >= 30) return "Re-accumulation band. Historically this band has resolved upward more often than not over a 180-day window, which is a description of the record and not a forecast.";
+  if (score >= 30) return "Re-accumulation band. Historically this band has resolved upward more often than not over a 180-day window.";
   if (score >= 15) return "Accumulation zone. Historically among the lower readings in a cycle. The 2022 signals in this band were both still underwater 180 days later.";
   return "Deep accumulation. The lowest band the Score produces. The 2018 crossing here was +102% at 180 days; that is one instance, not a pattern.";
 }
@@ -309,7 +309,7 @@ async function readRawBody(req) {
   return Buffer.concat(chunks).toString("utf8");
 }
 
-const FOOTER = { text: "LiftOffr · education, not financial advice · liftoffr.com" };
+const FOOTER = { text: "LiftOffr · liftoffr.com" };
 
 function scoreEmbed(score, z, trend, trendDelta, components, asOfTs) {
   const btc = components._btc_price?.value;
@@ -449,8 +449,8 @@ export default async function handler(req, res) {
           title: "When will Bitcoin bottom?",
           url: "https://liftoffr.com/when-will-bitcoin-bottom",
           description:
-            "**Nobody knows the date, and anyone who gives you one is guessing.**\n\n" +
-            "What can be measured: the last three bear markets bottomed **363-410 days** after " +
+            "**Here's what the record shows.**\n\n" +
+            "The last three bear markets bottomed **363-410 days** after " +
             "their cycle top, with drawdowns of **76-84%** — and every drawdown has been " +
             "shallower than the one before it, so applying an old percentage understates the floor.\n\n" +
             `The Score reads **${score.toFixed(1)}** today (${ZONE_LABELS[z] || z}). Past cycle ` +

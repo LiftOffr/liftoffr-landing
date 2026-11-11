@@ -215,16 +215,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="crumb"><a href="/">Home</a> › My stack</div>
   <h1>The exact stack I run this on</h1>
   <p>Five tools. That's the whole operation — no exchange referrals, no trading bots, no leverage
-     platforms. If a tool isn't on this page, I don't use it, and I'm not going to pretend otherwise
-     for a commission.</p>
-
-  <div class="disclose">
-    <strong>Disclosure:</strong> where a link on this page earns me a commission it says
-    <em>“Affiliate link”</em> directly underneath it, and where it doesn't it says
-    <em>“Direct link — no commission”</em>. Either way it costs you nothing extra and it does not
-    change what I recommend: the honest limits of every tool are written under it, including the
-    reasons you might skip it. Nothing on this page is financial or tax advice.
-  </div>
+     platforms. If a tool isn't on this page, I don't use it.</p>
 
   <h2>Custody — the part that actually matters</h2>
   <p>Everything else on this page is convenience. This part is the difference between owning Bitcoin
@@ -246,7 +237,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       failure was real and I'd rather you hear it from me.</div>
     <a class="go" href="https://www.ledger.com/" rel="sponsored nofollow noopener" target="_blank"
        data-dest="aff_ledger" data-aff="pending">Ledger →</a>
-    <div class="affnote" data-affnote>Direct link — no commission</div>
+    <div class="affnote" data-affnote></div>
   </div>
 
   <div class="tool">
@@ -263,7 +254,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       audience.</div>
     <a class="go" href="https://trezor.io/" rel="sponsored nofollow noopener" target="_blank"
        data-dest="aff_trezor" data-aff="pending">Trezor →</a>
-    <div class="affnote" data-affnote>Direct link — no commission</div>
+    <div class="affnote" data-affnote></div>
   </div>
 
   <h2>Tax — the bill that shows up whether you planned for it or not</h2>
@@ -284,7 +275,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       transactions a year, a spreadsheet is genuinely fine and free.</div>
     <a class="go" href="https://koinly.io/" rel="sponsored nofollow noopener" target="_blank"
        data-dest="aff_koinly" data-aff="pending">Koinly →</a>
-    <div class="affnote" data-affnote>Direct link — no commission</div>
+    <div class="affnote" data-affnote></div>
   </div>
 
   <div class="tool">
@@ -300,7 +291,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       local rules better.</div>
     <a class="go" href="https://coinledger.io/" rel="sponsored nofollow noopener" target="_blank"
        data-dest="aff_coinledger" data-aff="pending">CoinLedger →</a>
-    <div class="affnote" data-affnote>Direct link — no commission</div>
+    <div class="affnote" data-affnote></div>
   </div>
 
   <h2>Charts — for looking, not for trading</h2>
@@ -319,7 +310,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       paid tier. Free alerts are enough for a ladder that fires a few times a year.</div>
     <a class="go" href="https://www.tradingview.com/" rel="sponsored nofollow noopener" target="_blank"
        data-dest="aff_tradingview" data-aff="pending">TradingView →</a>
-    <div class="affnote" data-affnote>Direct link — no commission</div>
+    <div class="affnote" data-affnote></div>
   </div>
 
   <h2>What's deliberately not on this list</h2>
@@ -344,16 +335,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <p>The Bear Market Buy Plan turns planning into a practical exercise: fictional budget examples, execution checks and worksheets for your own decisions. $29 at checkout, plus applicable tax.</p>
     <a class="btn" href="/plan" data-dest="plan" data-cta-slot="stack_page">Get my plan — $29, once →</a>
     <div class="fine">Or start free — <a href="/free" data-dest="free">the live Score, the daily brief, the open Discord →</a></div>
-  </div>
-
-  <div class="disclaimer">
-    <strong>Read this first.</strong> This page lists tools I personally use and is educational
-    content, not financial, tax, or investment advice. I am not a registered investment adviser and
-    I am not a tax professional — crypto tax software produces a report, it does not replace an
-    accountant who knows your situation. No link on this page is currently an affiliate link &mdash; every one goes straight to the manufacturer. If that ever changes the link will say &ldquo;Affiliate link&rdquo; directly underneath it, and I may
-    earn a commission if you buy through them at no additional cost to you. Prices shown are
-    approximate and change without notice. Bitcoin can lose most of its value; never invest money
-    you cannot afford to lose.
   </div>
 
   <div class="footer-row">
@@ -386,7 +367,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       a.href = cfg.url;
       a.setAttribute('data-aff', 'live');
       var note = a.parentNode.querySelector('[data-affnote]');
-      if (note) note.textContent = 'Affiliate link';
+      if (note) note.textContent = '(affiliate)';
     });
   })();
 </script>
@@ -414,10 +395,5 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }, true);
 </script>
 
-<!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
-     the site-wide disclosure surface; body copy sells. Keep verbatim. -->
-<div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Education, not individualized financial advice. LiftOffr Score signals are backtests over public price and on-chain data, not records of live trades, and past performance doesn&rsquo;t guarantee future results. Paid products are 18+. LiftOffr LLC (Montana). <a href="/disclaimer" style="color:#6a6a6a;">Full terms</a>.
-</div>
 </body>
 </html>
