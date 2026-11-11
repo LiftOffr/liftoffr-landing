@@ -1,7 +1,7 @@
 # 2026-11-10: Cycle Map follower-to-buyer funnel
 
 Torin, verbatim: "Yeah do what we need to do man don't stop till it's done". Ladder: Free / $29 Plan / $197 Course (no $497, no $997).
-Docs for Torin (PDF): `~/Documents/liftoffr-funnel-2026-11-10/` (01 what's live + to-do, 02 affiliates, 03-05 editing offer, 06 India test, 07 emails as sent).
+Docs for Torin (PDF): `~/Documents/liftoffr-funnel-2026-11-10/` (01 what's live + to-do, 02 affiliates, 06 India test + INR Plan spec, 07 emails as sent).
 Shared board: `~/liftoffr-video/LOGS/AGENT_BOARD.md` jobs J18-J24.
 
 | # | Change | Where | Verified |
@@ -16,3 +16,9 @@ Shared board: `~/liftoffr-video/LOGS/AGENT_BOARD.md` jobs J18-J24.
 | 8 | ManyChat "CYCLE map | November 2026" LIVE: any post/reel, keyword CYCLE, public reply, opener "Send me the map", DM 2 button "Get the Cycle Map" -> `/map?utm_medium=dm`. | ManyChat (Chrome) | Live in list; needs a test comment from a second account |
 
 Not changed: prices, plans, Whop products, the consent banner. Affiliate forms: nothing entered (Ledger behind Cloudflare; Trezor needs Torin's login, address, agreements). India: recommendation only.
+
+## Scope change (same day, Torin)
+"we need to stay on track and not have me doing other jobs to make money. Liftoffr needs to make money, not me making an editing agency."
+- Editing-services offer DROPPED: board J23 closed with that reason; draft portfolio, rate sheet and outreach PDFs deleted.
+- Ledger/Trezor affiliates (J22) reframed as LiftOffr revenue: after approval, links go only inside LiftOffr content (Cycle Map, emails, /stack, self-custody reels), each with "Paid link, I earn a commission." No links added yet.
+- India recommendation (06 PDF) now also specs an INR-priced edition of the $29 Plan: hidden INR plan on the same Whop product, India-only display, and the 4 code paths that hard-code the Plan ID. Torin decides pricing; nothing created.

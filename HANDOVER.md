@@ -1,6 +1,6 @@
 ## November 10: Cycle Map funnel
 
-Live: `/map` (free one-page Bitcoin Cycle Map, email capture) -> `/map/thanks` ($29 Plan) -> map emails 1-3 ($197 Course); `/bio` now points at `/map`; ManyChat comment CYCLE -> map. Map sign-ups are marked with the Resend contact property `lead_magnet=map` (3-audience cap). The nurture footer no longer links the hidden $497 tier. Waiting on Torin: paste bio, test CYCLE, affiliate submissions, editing-offer sign-off, India decision. Record: `CHANGELOG_2026-11-10_CYCLE_MAP_FUNNEL.md`; board J18-J24.
+Live: `/map` (free one-page Bitcoin Cycle Map, email capture) -> `/map/thanks` ($29 Plan) -> map emails 1-3 ($197 Course); `/bio` now points at `/map`; ManyChat comment CYCLE -> map. Map sign-ups are marked with the Resend contact property `lead_magnet=map` (3-audience cap). The nurture footer no longer links the hidden $497 tier. Waiting on Torin: paste bio, test CYCLE, affiliate submissions (LiftOffr revenue, disclosed links in LiftOffr content), India + INR Plan decision. Editing-services offer dropped by Torin. Record: `CHANGELOG_2026-11-10_CYCLE_MAP_FUNNEL.md`; board J18-J24.
 
 ## November 9: funnel audit, views without sales
 
