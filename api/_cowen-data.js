@@ -3,6 +3,39 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "j-JVi02_C88",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Falls Below the 50W Moving Average",
+    "published": "2026-11-11T18:55:32+00:00",
+    "processed_at": "2026-11-11T19:59:25.619078+00:00",
+    "url": "https://www.youtube.com/watch?v=j-JVi02_C88",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      72000,
+      69000,
+      63000,
+      57000
+    ],
+    "indicators_mentioned": [
+      "50-week moving average",
+      "20-week moving average",
+      "Bitcoin dominance",
+      "Stablecoin market cap"
+    ],
+    "key_points": [
+      "The break back below the 50-week moving average after a weak follow-through rally (only 9-10% versus 30-40% in prior cycles like 2019 and 2023) suggests the recent move was a fake-out rather than a new bull phase",
+      "Historical analogues (2015, 2019, 2022) show Bitcoin repeatedly sweeping prior highs only to reverse hard, especially during apathetic-top market structures prone to fake-out moves",
+      "Bitcoin's weakness mirrors behavior after the first rate hike of prior hiking cycles (Dec 2018, March 2022), where initial rallies were fully given back in the following weeks",
+      "Capital rotation into major AI-related IPOs (SpaceX, Anthropic, and eventually OpenAI) appears to be draining liquidity from crypto, pressuring Bitcoin lower into those IPO dates",
+      "Declining stablecoin market cap and rising Bitcoin dominance point to a broader risk-off rotation within crypto, reinforcing the case for further downside before a Q4 low forms"
+    ],
+    "summary": "Bitcoin's rejection at the 50-week moving average and failure to sustain its breakout above prior highs point to a fake-out similar to past apathetic-top market structures (2018-2019 blend). Weakness is likely to persist into the December FOMC meeting and possibly through the Anthropic/OpenAI IPO cycle, with key support zones near 72-73K, 69K, and 63-64K, before a Q4 low sets up renewed bullish potential heading into 2027."
+  },
+  {
     "video_id": "5ngeTxfAGOM",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1558,38 +1591,5 @@ export default [
       "A stock market correction is expected to begin by late September into October, consistent with prior midterm-year seasonal patterns, coinciding with the September Fed meeting uncertainty"
     ],
     "summary": "The labor market shows genuine but gradual weakening\u2014stalling job growth and rising unemployment duration\u2014yet layoffs and claims remain too low to confirm recession, leaving the Fed in a difficult position between hiking risk and slowing growth. Bitcoin and crypto remain pressured by a stalled global easing cycle and risk-off rotation into blue chips, while a seasonal equity correction is anticipated around September before markets likely resume climbing the wall of worry given the absence of nationwide economic distress."
-  },
-  {
-    "video_id": "CmGkfyot8qY",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Where in the Cycle Are We?",
-    "published": "2026-08-06T23:38:34+00:00",
-    "processed_at": "2026-08-07T00:34:28.054749+00:00",
-    "url": "https://www.youtube.com/watch?v=CmGkfyot8qY",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000
-    ],
-    "indicators_mentioned": [
-      "50-week moving average",
-      "100-week moving average",
-      "200-week moving average",
-      "MVRV",
-      "days-from-low cycle model",
-      "days-from-peak cycle model",
-      "halving cycle comparison",
-      "year-to-date ROI seasonality"
-    ],
-    "key_points": [
-      "Bitcoin continues to follow its historical four-year cycle, with lows consistently forming roughly every four years regardless of narrative differences this cycle",
-      "Measured from both the prior low and prior peak, the current bear market is tracking closely with the two previous cycles, suggesting a bottom is likely between late September and mid-December",
-      "Price action mirrors 2019 macro conditions (top near QT ending, three Fed rate cuts, no altcoin rotation, apathetic sentiment), reinforcing that the current downtrend is a normal midterm-year weak period rather than something structurally different",
-      "The moving average breakdown sequence (50-week, then 100-week, then 200-week) has repeated exactly as in prior bear markets, arguing against the idea that 'this time is different'",
-      "The market is estimated to be in the final ~30% of the bear market, with accumulation considered reasonable for long-term positioning despite possible further short-term downside"
-    ],
-    "summary": "Bitcoin is judged to be late in its historical four-year bear market cycle, with multiple independent measures (days from low, days from peak, moving average breakdowns, and comparison to the 2019 macro analog) all pointing to a bottom forming between late September and December. The bear market is expected to persist a bit longer before transitioning into the next bull phase, and current price weakness is viewed as a normal, recurring feature of the cycle rather than a sign of structural change."
   }
 ];
