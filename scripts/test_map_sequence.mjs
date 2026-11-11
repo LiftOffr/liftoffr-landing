@@ -106,7 +106,7 @@ test('India sign-ups get the INR Plan in map emails', async () => {
   const contacts = [1.5, 3.5, 5.5].map((d, i) => ({ id: 'in' + i, email: `in${i}@example.test`, created_at: iso(now - d * DAY), unsubscribed: false }));
   const { sends } = await runCron({ contacts, props: { in0: 'map:IN', in1: 'map:IN', in2: 'map:IN' } });
   const m1 = sends.find(s => s.key === 'map-m1-in0'), m2 = sends.find(s => s.key === 'map-m2-in1'), m3 = sends.find(s => s.key === 'map-m3-in2');
-  for (const m of [m1, m2]) { assert.match(m.html, /₹799/); assert.match(m.html, /price=inr/); assert.doesNotMatch(m.html.split('Whenever you')[0], /\$29/); }
+  for (const m of [m1, m2]) { assert.match(m.html, /₹799/); assert.match(m.html, /price=inr/); assert.doesNotMatch(m.html, /\$29/); assert.match(m.html, /menu_plan&price=inr/); }
   assert.match(m3.html, /an \$8 credit toward the Course/);
 });
 

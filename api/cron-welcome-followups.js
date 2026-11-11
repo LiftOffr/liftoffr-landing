@@ -538,6 +538,13 @@ export function mapEdition(country) {
     ? { inr: true, price: "₹799", credit: "an $8 credit toward the Course", once: "₹799 once" }
     : { inr: false, price: "$29", credit: "the full $29 toward the Course", once: "$29 once" };
 }
+// The shared footer menu (trialShell) is written in USD; India sign-ups get the
+// INR Plan price and a link that forces INR pricing.
+function localize(html, ed) {
+  if (!ed || !ed.inr) return html;
+  return html.replace("Get My Bear Market Buy Plan</a> — $29, once", "Get My Bear Market Buy Plan</a> — ₹799, once")
+    .replace("utm_content=menu_plan", "utm_content=menu_plan&price=inr");
+}
 function mapScoreHTML(sc) {
   return sc && typeof sc.score === "number"
     ? `<p style="margin:0 0 16px;">Today's Score: <strong>${sc.score.toFixed(1)}</strong>${sc.zone ? ` (${sc.zone})` : ""}. Live at <a href="${ML("/cycle", "m_score")}" style="color:#e63946;">liftoffr.com/cycle</a>.</p>`
@@ -581,10 +588,10 @@ function map1Body(sc, ed) {
     ].join("\n"),
   };
 }
-function map1HTML(sc, ed = mapEdition()) { return shell("Cycle Map · 2 of 5", map1Body(sc, ed).html, `See the Plan, ${ed.once} →`, ML("/plan", "m1_cta", ed.inr)); }
+function map1HTML(sc, ed = mapEdition()) { return localize(shell("Cycle Map · 2 of 5", map1Body(sc, ed).html, `See the Plan, ${ed.once} →`, ML("/plan", "m1_cta", ed.inr)), ed); }
 function map1Text(sc, ed = mapEdition()) { return map1Body(sc, ed).text; }
 function map2HTML(sc, ed = mapEdition()) {
-  return shell("Cycle Map · 3 of 5", `
+  return localize(shell("Cycle Map · 3 of 5", `
     <p style="margin:0 0 16px;">Here's the part most cycle content leaves out.</p>
     <p style="margin:0 0 16px;">Between November 2024 and October 2025, the LiftOffr Score entered its exit zone three times:</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px 18px;margin:0 0 16px;font-family:'JetBrains Mono',Menlo,monospace;font-size:13px;line-height:1.8;color:#333;">
@@ -595,7 +602,7 @@ function map2HTML(sc, ed = mapEdition()) {
     <p style="margin:0 0 16px;">All of this is public, with every miss, at <a href="${ML("/receipts", "m2_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
     ${mapScoreHTML(sc)}
     <p style="margin:0 0 16px;">Which raises the useful question: when the next reading changes, what will <em>you</em> do? If you'd rather answer that in writing now than in a hurry later, that's what the ${ed.price} Plan is for. One payment, 30-day refund.</p>
-    <p style="margin:24px 0 0;">— Torin</p>`, `Write your plan, ${ed.once} →`, ML("/plan", "m2_cta", ed.inr));
+    <p style="margin:24px 0 0;">— Torin</p>`, `Write your plan, ${ed.once} →`, ML("/plan", "m2_cta", ed.inr)), ed);
 }
 function map2Text(sc, ed = mapEdition()) {
   return [
@@ -612,7 +619,7 @@ function map2Text(sc, ed = mapEdition()) {
   ].join("\n");
 }
 function map3HTML(_sc, ed = mapEdition()) {
-  return shell("Cycle Map · 4 of 5", `
+  return localize(shell("Cycle Map · 4 of 5", `
     <p style="margin:0 0 16px;">The Plan is for this bear market. The Course is for every cycle after it, so here it is, plainly.</p>
     <p style="margin:0 0 6px;"><strong>What it is</strong></p>
     <p style="margin:0 0 16px;">46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components and their limits, reproduce the calculation from free public data, study where it missed, and write your own framework.</p>
@@ -621,7 +628,7 @@ function map3HTML(_sc, ed = mapEdition()) {
     <p style="margin:0 0 6px;"><strong>Price</strong></p>
     <p style="margin:0 0 16px;">$197, one payment, lifetime updates. Checkout fees and tax where it applies are extra. If you've bought the ${ed.price} Plan, it includes ${ed.credit}. 30-day refund.</p>
     <p style="margin:0 0 16px;">You'll keep getting the Score every Sunday either way.</p>
-    <p style="margin:24px 0 0;">— Torin</p>`, "See the Course →", ML("/system", "m3_cta"));
+    <p style="margin:24px 0 0;">— Torin</p>`, "See the Course →", ML("/system", "m3_cta")), ed);
 }
 function map3Text(_sc, ed = mapEdition()) {
   return [
@@ -646,8 +653,8 @@ export function affiliateLinks(env = process.env) {
   ].filter((a) => a.url);
 }
 const CUSTODY = [
-  "Most of the bitcoin people have lost in past cycles wasn't lost to a bad entry. It was lost to where they kept it. Mt. Gox stopped withdrawals in 2014. FTX did the same in 2022. People who held their own keys were not caught in either.",
-  "A hardware wallet keeps your keys on a small offline device. Basic models from the two best-known makers cost under $100, and it's the most boring, useful thing in this whole topic.",
+  "Some of the worst losses in past cycles had nothing to do with timing. They came from where people kept their coins. Mt. Gox stopped withdrawals in 2014. FTX did the same in 2022. Coins held in their owners' own wallets were not frozen by either.",
+  "A hardware wallet keeps your keys on a small offline device. Basic models from the best-known makers start under $100, and it's the most boring, useful thing in this whole topic.",
   "Three rules, whichever wallet you pick: buy it new from the maker, never secondhand. Write the recovery words on paper and never type them into a website or app. Nobody legitimate, me included, will ever ask for them.",
 ];
 function map4HTML(_sc, ed = mapEdition(), env = process.env) {
@@ -656,10 +663,10 @@ function map4HTML(_sc, ed = mapEdition(), env = process.env) {
     ? `<div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px 18px;margin:0 0 16px;">
       <p style="margin:0 0 8px;font-weight:700;">The two makers I'd look at first</p>
       ${aff.map((a) => `<p style="margin:0 0 4px;"><a href="${a.url}" style="color:#e63946;">${a.name}</a> <span style="color:#777;font-size:13px;">(Paid link, I earn a commission.)</span></p>`).join("")}
-      <p style="margin:8px 0 0;color:#777;font-size:13px;">The price is the same for you either way. I'd point you to these with or without the commission.</p>
+      <p style="margin:8px 0 0;color:#777;font-size:13px;">I'd point you to these with or without the commission.</p>
     </div>`
     : "";
-  return shell("Cycle Map · 5 of 5", `
+  return localize(shell("Cycle Map · 5 of 5", `
     ${CUSTODY.map(P).join("\n    ")}
     ${affHTML}
     <p style="margin:0 0 16px;">That's the end of this short series. From here you'll get the Score every Sunday. If you want more before then:</p>
@@ -667,13 +674,13 @@ function map4HTML(_sc, ed = mapEdition(), env = process.env) {
       <li style="margin:0 0 6px;"><a href="${ML("/plan", "m4_plan", ed.inr)}" style="color:#e63946;">The Bear Market Buy Plan</a>, ${ed.once}: write your plan for this bear market.</li>
       <li style="margin:0 0 6px;"><a href="${ML("/system", "m4_system")}" style="color:#e63946;">The Course</a>, $197 once: learn the whole framework.</li>
     </ul>
-    <p style="margin:24px 0 0;">— Torin</p>`, "", "");
+    <p style="margin:24px 0 0;">— Torin</p>`, "", ""), ed);
 }
 function map4Text(_sc, ed = mapEdition(), env = process.env) {
   const aff = affiliateLinks(env);
   return [
     ...CUSTODY.flatMap((t) => [t, ""]),
-    ...(aff.length ? ["The two makers I'd look at first:", ...aff.map((a) => `${a.name}: ${a.url} (Paid link, I earn a commission.)`), "The price is the same for you either way. I'd point you to these with or without the commission.", ""] : []),
+    ...(aff.length ? ["The two makers I'd look at first:", ...aff.map((a) => `${a.name}: ${a.url} (Paid link, I earn a commission.)`), "I'd point you to these with or without the commission.", ""] : []),
     "That's the end of this short series. From here you'll get the Score every Sunday. If you want more before then:",
     `- The Bear Market Buy Plan, ${ed.once}: ${ML("/plan", "m4_plan", ed.inr)}`,
     `- The Course, $197 once: ${ML("/system", "m4_system")}`, "",
