@@ -19,6 +19,10 @@
 export const ENTITY = "LiftOffr LLC";
 export const CONTACT_EMAIL = "contact.liftoffr@gmail.com";
 
+// The one consolidated disclaimer (Torin, 2026-11-11: disclose once, sell everywhere
+// else). Same wording as the site footer. Email bodies carry no further hedges.
+export const DISCLOSURE = "Education, not individualized financial advice. LiftOffr Score signals are backtests over public price and on-chain data, not records of live trades, and past performance doesn't guarantee future results. Paid products are 18+.";
+
 export function mailingAddress() {
   const a = (process.env.LIFTOFFR_MAILING_ADDRESS || "").trim();
   return a || null;
@@ -27,9 +31,7 @@ export function mailingAddress() {
 // Plain-text variant, for the text/* part of every send.
 export function disclosureText(listReason) {
   const lines = [
-    "Every dated signal from LiftOffr is the LiftOffr Score computed over public historical price and on-chain data - a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way: https://liftoffr.com/receipts",
-    "",
-    "18+ only. Educational content, not financial advice.",
+    DISCLOSURE,
     "",
     `${ENTITY}${listReason ? " - " + listReason : ""}`,
   ];
@@ -43,8 +45,7 @@ export function disclosureText(listReason) {
 export function disclosureHTML(listReason) {
   const addr = mailingAddress();
   return `
-    Every dated signal from LiftOffr is the LiftOffr Score computed over public historical price and on-chain data &mdash; a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="https://liftoffr.com/receipts" style="color:#999;">liftoffr.com/receipts</a>.<br/><br/>
-    <strong style="color:#888;">18+ only.</strong> Educational content, not financial advice.<br/>
+    ${DISCLOSURE}<br/><br/>
     ${ENTITY}${listReason ? " &middot; " + listReason : ""}<br/>
     ${addr ? addr + "<br/>" : ""}
     <a href="mailto:${CONTACT_EMAIL}" style="color:#999;">${CONTACT_EMAIL}</a>`;

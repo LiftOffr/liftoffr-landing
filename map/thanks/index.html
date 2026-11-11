@@ -149,7 +149,7 @@ body.lo-public{background:var(--bg);color:var(--text);font-family:Inter,'Helveti
 <p style="margin:0 0 30px"><a class="mp-btn" href="/lead-magnet/bitcoin-cycle-map.pdf?utm_source=liftoffr&utm_medium=thanks&utm_campaign=cycle_map&utm_content=direct_pdf" data-cta-slot="map_thanks_pdf" data-dest="map_pdf">Download the map (PDF)</a></p>
 
 <div class="mp-card">
-<div class="mp-price">Optional next step · $29 one payment</div>
+<div class="mp-price">Next step · $29 one payment</div>
 <h2 style="margin:10px 0 8px">Turn the map into a written plan</h2>
 <p style="color:#d6d6d6;line-height:1.65;margin:0 0 12px">The map shows what cycles have done. The <b>Bear Market Buy Plan</b> is a focused planning document and worksheet for writing down what <i>you</i> will do, before the market forces the decision.</p>
 <ul style="margin:0 0 16px">
@@ -159,15 +159,15 @@ body.lo-public{background:var(--bg);color:var(--text);font-family:Inter,'Helveti
 </ul>
 <p style="margin:0 0 12px"><a class="mp-btn" href="https://whop.com/checkout/plan_MntgjXJaQnGsW" rel="noopener" data-cta-slot="map_thanks_checkout" data-dest="plan_checkout">Get the Plan, $29 once</a></p>
 <p style="margin:0 0 14px"><a class="mp-link" href="/plan?utm_source=liftoffr&utm_medium=thanks&utm_campaign=cycle_map&utm_content=plan_offer#product-preview" data-cta-slot="map_thanks_plan" data-dest="plan">Or see inside the Plan first</a> (preview, no account needed)</p>
-<p class="mp-micro" style="margin:0">$29 at checkout, plus tax where it applies. One payment, nothing renews. 30-day refund. Your $29 counts toward the Course if you take it later.</p>
+<p class="mp-micro" style="margin:0">$29 at checkout, plus tax where it applies. One payment, nothing renews. 30-day refund. 18+. Your $29 counts toward the Course if you take it later.</p>
 </div>
 
-<p style="color:#bdbdbd;margin:26px 0 0;line-height:1.7">Not ready? That's fine. The live Score is always free at <a class="mp-link" href="/cycle?utm_source=liftoffr&utm_medium=thanks&utm_campaign=cycle_map&utm_content=cycle" data-cta-slot="map_thanks_cycle">liftoffr.com/cycle</a>, and so is the <a class="mp-link" href="/ig-discord" data-dest="discord" data-cta-slot="map_thanks_discord">Bitcoin Discord</a>.</p>
+<p style="color:#bdbdbd;margin:26px 0 0;line-height:1.7">Not today? The live Score is always free at <a class="mp-link" href="/cycle?utm_source=liftoffr&utm_medium=thanks&utm_campaign=cycle_map&utm_content=cycle" data-cta-slot="map_thanks_cycle">liftoffr.com/cycle</a>, and so is the <a class="mp-link" href="/ig-discord" data-dest="discord" data-cta-slot="map_thanks_discord">Bitcoin Discord</a>.</p>
 </main>
 <script>
   // CTA click tracking (same schema as /free).
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/cycle"], a[href*="whop.com/checkout"], a[href*="bitcoin-cycle-map.pdf"]');
+    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/cycle"], a[href^="/receipts"], a[href*="whop.com/checkout"], a[href*="bitcoin-cycle-map.pdf"]');
     if (!a || typeof window.track !== 'function') return;
     window.track('cta_clicked', { cta_text:(a.textContent||'').trim().slice(0,80), cta_position:a.getAttribute('data-cta-slot')||'map_page',
       destination:a.getAttribute('data-dest')||(a.getAttribute('href')||'').split('?')[0].replace(/^\//,'').replace(/\/$/,'')||'home', page:location.pathname });
@@ -186,7 +186,7 @@ body.lo-public{background:var(--bg);color:var(--text);font-family:Inter,'Helveti
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
+  Education, not individualized financial advice. LiftOffr Score signals are backtests over public price and on-chain data, not records of live trades, and past performance doesn&rsquo;t guarantee future results. Paid products are 18+. LiftOffr LLC (Montana). <a href="/disclaimer" style="color:#6a6a6a;">Full terms</a>.
 </div>
 <script defer src="/js/checkout-context.js?v=20261111"></script>
 <script defer src="/js/local-price.js?v=20261110"></script>

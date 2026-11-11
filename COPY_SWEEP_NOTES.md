@@ -53,7 +53,10 @@ Actual instances, in order of discovery:
 No instruction verbs in customer-facing copy: buy, sell, reduce, take profits, scale out,
 de-risk, DCA, hold. No quality claims about the product (institutional-grade, proven,
 best-in-class). No superlatives. Describe what the record did; never tell the reader what to
-do. Limitations are kept and framed as the reason to trust the rest — never deleted.
+do. **Superseded 2026-11-11 (Torin):** limitations and disclaimers live ONCE, in the footer
+block, /disclaimer, /terms, the email footer and one line at checkout. The full record stays
+on /receipts. Sales surfaces do not repeat hedges, "misses included" lines or "not financial
+advice" (BRAND_VOICE.md rule 6a).
 
 ---
 

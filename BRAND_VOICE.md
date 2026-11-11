@@ -6,7 +6,8 @@ STATUS: v1, 2026-07-01. Applies to: site, course, Discord, emails, IG captions. 
 2. Data + receipts, zero hype. Every claim is a number, a date, or a verifiable link (/track-record, /cycle).
 3. Anti-influencer positioning: we mock hopium, leverage, and lambo-promises — we never use them as promises.
 4. Story beats open big sections: 2017 mining rig → watching $30K disappear between two college classes (2022) → clean DCA exit at the Oct 6, 2025 top. Canonical phrasing: "between two college classes," never "dorm-room day."
-5. Education framing always: "historically X happened," never "you should buy/sell." End market content with "Not financial advice."
+5. Education framing always: "historically X happened," never "you should buy/sell."
+6a. **Disclose once, sell everywhere else (Torin, 2026-11-11: "all the disclaimers you give kill our credibility and shoot ourselves in the foot").** One consolidated disclaimer lives in the site footer block, /disclaimer and /terms, the email footer (`api/_disclosure.js` DISCLOSURE), and one compact line at each checkout button. Plus: a compact "Paid link, I earn a commission." next to affiliate links, and 18+ on paid tiers. Nowhere else: no "not financial advice" in body copy, headlines, CTAs or sign-offs, no "history, not a forecast", no "misses included" / "losers included", no apologetic proof ("you shouldn't trust me", "if $29 matters don't spend it"). Replace hedges with confident, accurate, benefit-led copy; never with income claims or invented biography.
 6. Short sentences. Fragments fine. Read it aloud — if you wouldn't say it to a friend, cut it.
 
 ## Words/patterns — BANNED

@@ -514,7 +514,7 @@ const shell = trialShell; // shared branded template, also used by the new free-
 // For sign-ups from /map (contact property lead_magnet=map, set in subscribe.js).
 // Five emails in all: the map itself on day 0 (subscribe.js), then:
 //   day 1  m1  ranges-not-dates, then a clear offer of the $29 Plan
-//   day 3  m2  three exit readings, one top (the misses), Plan as next step
+//   day 3  m2  three exit flags, one top (flags as review cues), Plan as next step
 //   day 5  m3  the $197 Course, plainly (the Plan counts toward it)
 //   day 8  m4  self-custody, with disclosed Ledger/Trezor links once they exist
 // India sign-ups (contact property country=IN) see the INR Plan (₹799, $8 Course
@@ -526,7 +526,7 @@ const shell = trialShell; // shared branded template, also used by the new free-
 // Facts used: Coinbase BTC-USD daily closes (2025 top 6 Oct 2025; lowest close
 // since, 30 Jun 2026) and the published exit-zone crossings in READ-THE-CYCLE.md.
 const MSUBJECT_1 = "the cycle map, turned into a plan";
-const MSUBJECT_2 = "three exit readings, one top";
+const MSUBJECT_2 = "three exit flags, one top";
 const MSUBJECT_3 = "the Course, plainly";
 const MSUBJECT_4 = "where your bitcoin lives";
 const MAP_TOP = Date.UTC(2025, 9, 6);
@@ -556,7 +556,7 @@ function mapScoreText(sc) {
 const P = (t) => `<p style="margin:0 0 16px;">${t}</p>`;
 const PLAN_BULLETS = [
   "The written framework and the reasoning behind each level",
-  "What to do if a level is wrong: the fallback rule, written down first",
+  "What to do if price skips a level: the fallback rule, written down first",
   "A worksheet for your own numbers, so the plan is yours, not mine",
   "Revisions to the document during this bear market",
 ];
@@ -564,25 +564,25 @@ function map1Body(sc, ed) {
   const d = daysSinceTop();
   return {
     html: [
-      P("Yesterday's map shows what past cycles did. One habit keeps it honest: <strong>read the ranges, not the dates.</strong>"),
-      P("The last three tops came 525 to 546 days after a halving. The last two lows came 364 and 378 days after the top. Tight ranges, but three cycles can't carry a calendar."),
-      P(`This cycle is the live test. Its top came on day 534 after the halving, inside the range. Today is day ${d} after that top, later than either of the last two lows. Its lowest close so far was 30 June 2026, on day 267. Either the low came early this time or it hasn't happened yet. Nobody knows which.`),
+      P("Yesterday's map shows what past cycles did. One habit makes it useful: <strong>read the ranges, not the dates.</strong>"),
+      P("The last three tops came 525 to 546 days after a halving. The last two lows came 364 and 378 days after the top. Tight ranges, which is why the map gives you ranges, not dates."),
+      P(`This cycle is the live test. Its top came on day 534 after the halving, inside the range. Today is day ${d} after that top, later than either of the last two lows. Its lowest close so far was 30 June 2026, on day 267. Either the low came early this time or it's still ahead. A written plan covers both.`),
       mapScoreHTML(sc),
-      P(`That uncertainty is the reason I wrote the <strong>Bear Market Buy Plan</strong>. It's a ${ed.price} planning document and worksheet for deciding, before the market decides for you, what you'll do at each level and what you'll do if you're wrong:`),
+      P(`That's exactly why I wrote the <strong>Bear Market Buy Plan</strong>. It's a ${ed.price} planning document and worksheet for deciding, before the market decides for you, what you'll do at each level and what you'll do if price runs past it:`),
       `<ul style="margin:0 0 16px;padding-left:20px;">${PLAN_BULLETS.map((b) => `<li style="margin:0 0 6px;">${b}</li>`).join("")}</ul>`,
       P(`${ed.price}, one payment, nothing renews. 30-day refund. It includes ${ed.credit} if you take it later. You can read a preview on the page before you buy, no account needed.`),
-      P("It isn't signals or a promise of returns. It's a plan you write once, so you aren't improvising in a drawdown."),
+      P("It's a plan you write once, so you aren't improvising in a drawdown."),
       `<p style="margin:24px 0 0;">— Torin</p>`,
     ].join("\n    "),
     text: [
-      "Yesterday's map shows what past cycles did. One habit keeps it honest: read the ranges, not the dates.", "",
-      "The last three tops came 525 to 546 days after a halving. The last two lows came 364 and 378 days after the top. Tight ranges, but three cycles can't carry a calendar.", "",
-      `This cycle is the live test. Its top came on day 534 after the halving, inside the range. Today is day ${d} after that top, later than either of the last two lows. Its lowest close so far was 30 June 2026, on day 267. Either the low came early this time or it hasn't happened yet. Nobody knows which.`, "",
+      "Yesterday's map shows what past cycles did. One habit makes it useful: read the ranges, not the dates.", "",
+      "The last three tops came 525 to 546 days after a halving. The last two lows came 364 and 378 days after the top. Tight ranges, which is why the map gives you ranges, not dates.", "",
+      `This cycle is the live test. Its top came on day 534 after the halving, inside the range. Today is day ${d} after that top, later than either of the last two lows. Its lowest close so far was 30 June 2026, on day 267. Either the low came early this time or it's still ahead. A written plan covers both.`, "",
       mapScoreText(sc), "",
-      `That uncertainty is the reason I wrote the Bear Market Buy Plan. It's a ${ed.price} planning document and worksheet for deciding, before the market decides for you, what you'll do at each level and what you'll do if you're wrong:`,
+      `That's exactly why I wrote the Bear Market Buy Plan. It's a ${ed.price} planning document and worksheet for deciding, before the market decides for you, what you'll do at each level and what you'll do if price runs past it:`,
       ...PLAN_BULLETS.map((b) => `- ${b}`), "",
       `${ed.price}, one payment, nothing renews. 30-day refund. It includes ${ed.credit} if you take it later. You can read a preview on the page before you buy, no account needed.`, "",
-      "It isn't signals or a promise of returns. It's a plan you write once, so you aren't improvising in a drawdown.", "",
+      "It's a plan you write once, so you aren't improvising in a drawdown.", "",
       `See the Plan (${ed.once}): ${ML("/plan", "m1_cta", ed.inr)}`, "",
       "— Torin",
     ].join("\n"),
@@ -592,26 +592,26 @@ function map1HTML(sc, ed = mapEdition()) { return localize(shell("Cycle Map · 2
 function map1Text(sc, ed = mapEdition()) { return map1Body(sc, ed).text; }
 function map2HTML(sc, ed = mapEdition()) {
   return localize(shell("Cycle Map · 3 of 5", `
-    <p style="margin:0 0 16px;">Here's the part most cycle content leaves out.</p>
-    <p style="margin:0 0 16px;">Between November 2024 and October 2025, the LiftOffr Score entered its exit zone three times:</p>
+    <p style="margin:0 0 16px;">Here's how the exit zone behaved on the way to the last top.</p>
+    <p style="margin:0 0 16px;">Between November 2024 and October 2025, the LiftOffr Score flagged its exit zone three times:</p>
     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px 18px;margin:0 0 16px;font-family:'JetBrains Mono',Menlo,monospace;font-size:13px;line-height:1.8;color:#333;">
       16 Nov 2024 · BTC $90,568<br>8 May 2025 · BTC $103,070<br>27 Jun 2025 · BTC $107,091
     </div>
-    <p style="margin:0 0 16px;">The top came on 6 October 2025. Two of those three entries did not contain a top. Anyone who treated the first one as a timestamp would have been months early.</p>
-    <p style="margin:0 0 16px;"><strong>A threshold is a reason to review your plan, not a date to act on.</strong> That's true of the Score, of the halving ranges on your map, and of any indicator you'll ever read.</p>
-    <p style="margin:0 0 16px;">All of this is public, with every miss, at <a href="${ML("/receipts", "m2_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
+    <p style="margin:0 0 16px;">The top came on 6 October 2025, at $124,720. Three flags, one top: the exit zone marks the stretch where tops form, not the exact day.</p>
+    <p style="margin:0 0 16px;"><strong>A flag is your cue to review your plan, so the plan has to exist before the flag.</strong> That's true of the Score, of the halving ranges on your map, and of any indicator you'll ever read.</p>
+    <p style="margin:0 0 16px;">Every flag since 2011 is dated at <a href="${ML("/receipts", "m2_receipts")}" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
     ${mapScoreHTML(sc)}
     <p style="margin:0 0 16px;">Which raises the useful question: when the next reading changes, what will <em>you</em> do? If you'd rather answer that in writing now than in a hurry later, that's what the ${ed.price} Plan is for. One payment, 30-day refund.</p>
     <p style="margin:24px 0 0;">— Torin</p>`, `Write your plan, ${ed.once} →`, ML("/plan", "m2_cta", ed.inr)), ed);
 }
 function map2Text(sc, ed = mapEdition()) {
   return [
-    "Here's the part most cycle content leaves out.", "",
-    "Between November 2024 and October 2025, the LiftOffr Score entered its exit zone three times:",
+    "Here's how the exit zone behaved on the way to the last top.", "",
+    "Between November 2024 and October 2025, the LiftOffr Score flagged its exit zone three times:",
     "  16 Nov 2024 · BTC $90,568", "  8 May 2025 · BTC $103,070", "  27 Jun 2025 · BTC $107,091", "",
-    "The top came on 6 October 2025. Two of those three entries did not contain a top. Anyone who treated the first one as a timestamp would have been months early.", "",
-    "A threshold is a reason to review your plan, not a date to act on. That's true of the Score, of the halving ranges on your map, and of any indicator you'll ever read.", "",
-    `All of this is public, with every miss: ${ML("/receipts", "m2_receipts")}`, "",
+    "The top came on 6 October 2025, at $124,720. Three flags, one top: the exit zone marks the stretch where tops form, not the exact day.", "",
+    "A flag is your cue to review your plan, so the plan has to exist before the flag. That's true of the Score, of the halving ranges on your map, and of any indicator you'll ever read.", "",
+    `Every flag since 2011, dated: ${ML("/receipts", "m2_receipts")}`, "",
     mapScoreText(sc), "",
     `Which raises the useful question: when the next reading changes, what will you do? If you'd rather answer that in writing now than in a hurry later, that's what the ${ed.price} Plan is for. One payment, 30-day refund.`, "",
     `The Plan: ${ML("/plan", "m2_cta", ed.inr)}`, "",
@@ -622,9 +622,9 @@ function map3HTML(_sc, ed = mapEdition()) {
   return localize(shell("Cycle Map · 4 of 5", `
     <p style="margin:0 0 16px;">The Plan is for this bear market. The Course is for every cycle after it, so here it is, plainly.</p>
     <p style="margin:0 0 6px;"><strong>What it is</strong></p>
-    <p style="margin:0 0 16px;">46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components and their limits, reproduce the calculation from free public data, study where it missed, and write your own framework.</p>
-    <p style="margin:0 0 6px;"><strong>What it isn't</strong></p>
-    <p style="margin:0 0 16px;">Signals, trade alerts, someone telling you when to buy or sell, or a promise of returns. If that's what you want, this isn't for you, and that's fine.</p>
+    <p style="margin:0 0 16px;">46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components, reproduce the calculation from free public data, study how it behaved at every turn since 2013, and write your own framework.</p>
+    <p style="margin:0 0 6px;"><strong>Who it's for</strong></p>
+    <p style="margin:0 0 16px;">You want to understand the number, not just read it, and you want a framework you can run yourself next cycle and the one after.</p>
     <p style="margin:0 0 6px;"><strong>Price</strong></p>
     <p style="margin:0 0 16px;">$197, one payment, lifetime updates. Checkout fees and tax where it applies are extra. If you've bought the ${ed.price} Plan, it includes ${ed.credit}. 30-day refund.</p>
     <p style="margin:0 0 16px;">You'll keep getting the Score every Sunday either way.</p>
@@ -634,9 +634,9 @@ function map3Text(_sc, ed = mapEdition()) {
   return [
     "The Plan is for this bear market. The Course is for every cycle after it, so here it is, plainly.", "",
     "WHAT IT IS",
-    "46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components and their limits, reproduce the calculation from free public data, study where it missed, and write your own framework.", "",
-    "WHAT IT ISN'T",
-    "Signals, trade alerts, someone telling you when to buy or sell, or a promise of returns. If that's what you want, this isn't for you, and that's fine.", "",
+    "46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components, reproduce the calculation from free public data, study how it behaved at every turn since 2013, and write your own framework.", "",
+    "WHO IT'S FOR",
+    "You want to understand the number, not just read it, and you want a framework you can run yourself next cycle and the one after.", "",
     "PRICE",
     `$197, one payment, lifetime updates. Checkout fees and tax where it applies are extra. If you've bought the ${ed.price} Plan, it includes ${ed.credit}. 30-day refund.`, "",
     `See the Course: ${ML("/system", "m3_cta")}`, "",

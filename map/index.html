@@ -72,12 +72,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Bitcoin Cycle Map (free) — LiftOffr</title>
-<meta name="description" content="Free one-page Bitcoin Cycle Map: all four halving cycles, the days from halving to top and top to low, and where the live LiftOffr Score reads today. History, not a forecast.">
+<meta name="description" content="Free one-page Bitcoin Cycle Map: all four halving cycles, the days from halving to top and top to low, and where the live LiftOffr Score reads today.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://liftoffr.com/map">
 <meta property="og:type" content="website"><meta property="og:site_name" content="LiftOffr">
 <meta property="og:url" content="https://liftoffr.com/map"><meta property="og:title" content="The Bitcoin Cycle Map (free) — LiftOffr">
-<meta property="og:description" content="Free one-page Bitcoin Cycle Map: all four halving cycles, the days from halving to top and top to low, and where the live LiftOffr Score reads today. History, not a forecast.">
+<meta property="og:description" content="Free one-page Bitcoin Cycle Map: all four halving cycles, the days from halving to top and top to low, and where the live LiftOffr Score reads today.">
 <meta property="og:image" content="https://liftoffr.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -159,19 +159,19 @@ html[data-v="b"] .vb{display:block}
 <div class="mp-kick">Free · one page · PDF</div>
 <h1 class="va">The Bitcoin Cycle Map</h1>
 <h1 class="vb">Day <span class="mpDaysB">401</span> after the top.</h1>
-<p class="mp-lede va">All four halving cycles on one page, plus where the live LiftOffr Score reads today. History, not a forecast.</p>
-<p class="mp-lede vb">Every past Bitcoin cycle on one page, so you can see where each one was at this point, and where the live Score reads today. History, not a forecast.</p>
+<p class="mp-lede va">All four halving cycles on one page, plus where the live LiftOffr Score reads today.</p>
+<p class="mp-lede vb">Every past Bitcoin cycle on one page, so you can see where each one was at this point, and where the live Score reads today.</p>
 <form class="mp-form" id="mapForm" onsubmit="return submitMapForm(this);" novalidate>
 <label for="mapEmail" class="sr-only" style="position:absolute;left:-9999px">Email address</label>
 <input id="mapEmail" type="email" name="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" placeholder="Your email" required>
 <button type="submit">Send me the free map</button>
 </form>
 <div class="mp-err" id="mapError">That didn't go through. Check the address and try again.</div>
-<p class="mp-micro">Free PDF in your inbox in about a minute, plus the Score every Sunday. Unsubscribe in one click. 18+.</p>
+<p class="mp-micro">Free PDF in your inbox in about a minute, plus the Score every Sunday. Unsubscribe in one click.</p>
 <ul class="mp-proof">
 <li>10,000+ follow Torin on Instagram</li>
 <li>Built from Coinbase daily closes and the halving schedule</li>
-<li>Every past reading, misses included, is <a href="/receipts" data-cta-slot="map_proof_receipts">public</a></li>
+<li>Every dated Score reading on the <a href="/receipts" data-cta-slot="map_proof_receipts">public record</a></li>
 </ul>
 <div class="mp-score" aria-live="polite"><b id="mpScore">47.1</b><div><span class="mp-zone" id="mpZone">re-accumulation</span><small>Today's LiftOffr Score · day <span id="mpDays">400</span> after the October 2025 top</small></div></div>
 </div>
@@ -182,16 +182,16 @@ html[data-v="b"] .vb{display:block}
 <ul>
 <li>The shape every cycle has followed so far: halving, expansion, top, contraction, base.</li>
 <li>A table of the measured cycles: halving dates, the top and the lowest close after it, and the days between.</li>
-<li>Where this cycle stands, including its lowest close so far and what nobody knows yet.</li>
+<li>Where this cycle stands today, including its lowest close so far.</li>
 <li>The six Score bands, what each has meant historically, and today's reading.</li>
 <li>Three questions to answer in writing before the market makes you answer them.</li>
 </ul>
-<div class="mp-note"><b>What it isn't.</b> No price targets, no dates to buy or sell, no signals. Two to three measured cycles is a small sample and the map says so. Education, not financial advice.</div>
+<div class="mp-note"><b>Why it helps.</b> When the market gets loud, one look shows where this cycle sits against the four before it.</div>
 </main>
 <script>
   // CTA click tracking (same schema as /free).
   document.addEventListener('click', function(e){
-    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/cycle"], a[href*="whop.com/checkout"], a[href*="bitcoin-cycle-map.pdf"]');
+    var a = e.target.closest('a[data-dest], a[data-cta], a[href^="/plan"], a[href^="/system"], a[href^="/cycle"], a[href^="/receipts"], a[href*="whop.com/checkout"], a[href*="bitcoin-cycle-map.pdf"]');
     if (!a || typeof window.track !== 'function') return;
     window.track('cta_clicked', { cta_text:(a.textContent||'').trim().slice(0,80), cta_position:a.getAttribute('data-cta-slot')||'map_page',
       destination:a.getAttribute('data-dest')||(a.getAttribute('href')||'').split('?')[0].replace(/^\//,'').replace(/\/$/,'')||'home', page:location.pathname });
@@ -232,7 +232,7 @@ html[data-v="b"] .vb{display:block}
 <!-- STANDARD FOOTER DISCLOSURE — identical wording on every public page. This is
      the site-wide disclosure surface; body copy sells. Keep verbatim. -->
 <div style="max-width:680px;margin:0 auto;padding:20px 22px 28px;font-size:10.5px;color:#5a5a5a;line-height:1.65;text-align:center;">
-  Every dated signal on this site is the LiftOffr Score computed over public historical price and on-chain data — a backtest, not a record of trades placed or calls published at the time. Past performance does not predict future results. Torin Christianson is not a registered investment adviser and nothing here is personalised to you. Full record, including every signal that went the wrong way, at <a href="/receipts" style="color:#6a6a6a;">/receipts</a>. LiftOffr LLC (Montana). <strong style="color:#6a6a6a;">18+ only.</strong> Full income and performance disclaimer at <a href="/disclaimer" style="color:#6a6a6a;">/disclaimer</a>.
+  Education, not individualized financial advice. LiftOffr Score signals are backtests over public price and on-chain data, not records of live trades, and past performance doesn&rsquo;t guarantee future results. Paid products are 18+. LiftOffr LLC (Montana). <a href="/disclaimer" style="color:#6a6a6a;">Full terms</a>.
 </div>
 </body>
 </html>

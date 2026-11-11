@@ -131,7 +131,7 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 ## Brand voice (see BRAND_VOICE.md if present)
 - First-person "I" (Torin). Story-driven: 2017 mining rig (Minnesota, caught fire) → $30K round-trip loss 2022 "between two college classes" → personal exits began after June 27, 2025; unaudited and not a claim of selling the October top.
 - Anti-influencer, anti-leverage, anti-hype. Data + receipts, not lambos-and-hopium. Hardware-wallet custody discipline non-negotiable.
-- No AI filler ("moreover", "furthermore"). No fabricated testimonials/results. No "guaranteed returns" or price predictions as certainty — education framing, "not financial advice."
+- No AI filler ("moreover", "furthermore"). No fabricated testimonials/results. No "guaranteed returns" or price predictions as certainty. Disclose once (footer block, /disclaimer, /terms, email footer via `api/_disclosure.js`, one line at checkout, affiliate disclosure, 18+ on paid); body copy, headlines and CTAs sell without hedges. See BRAND_VOICE.md rule 6a (Torin, 2026-11-11).
 - Exception: single-slide IG "banger" proof drops get cocky Tate-coded edge (asymmetry flex). Site/course/email copy stays grounded.
 
 ## Analytics

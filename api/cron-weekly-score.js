@@ -19,7 +19,7 @@ import { unsubscribeHeaders } from "./_email-preferences.js";
 //   RESEND_AUDIENCE_ID    — UUID of the "LiftOffr Free" audience
 
 import crypto from "node:crypto";
-import { disclosureHTML, disclosureText } from "./_disclosure.js";
+import { DISCLOSURE, disclosureHTML, disclosureText } from "./_disclosure.js";
 import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE,
   DCA_MODE, DCA_STACK_USDC, DCA_START, DCA_HORIZON_END, DCA_DAILY_FILL_MAX, ladderFunding } from "./_buy-plan.js";
 import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
@@ -396,7 +396,7 @@ function zoneChangeText({ from, to, score, date }) {
     ``,
     `— Torin`,
     ``,
-    `Educational content only — not financial advice.`,
+    DISCLOSURE,
   ].join("\n");
 }
 
@@ -413,7 +413,7 @@ function zoneChangeHTML(p) {
     <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and the source context in the market brief.</p>
     <a href="https://liftoffr.com/plan?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Get the plan — $29 once →</a>
     <p style="text-align:center;font-size:12px;"><a href="https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert" style="color:#888;">or watch the live score →</a></p>
-    <p style="font-size:11px;color:#999;margin-top:22px;">Educational content only — not financial advice. <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
+    <p style="font-size:11px;color:#999;margin-top:22px;">${DISCLOSURE} <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
   </div>`;
 }
 

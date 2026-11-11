@@ -82,14 +82,14 @@ function mapWelcomeHTML({ score, zone }) {
   <div style="padding:32px 28px;color:#222;font-size:15px;line-height:1.7;">
     <p style="margin:0 0 16px;">Here's the map you asked for.</p>
     <p style="margin:0 0 20px;"><a href="${MAP_PDF}" style="background:#e63946;color:#fff;text-decoration:none;padding:12px 18px;border-radius:8px;display:inline-block;font-weight:800;">Download the Cycle Map (PDF)</a></p>
-    <p style="margin:0 0 16px;">One page: the four halving cycles, how long each took from halving to top and from top to low, and where the LiftOffr Score reads. It's history, not a forecast. Three measured cycles is a small sample, and the map says so.</p>
+    <p style="margin:0 0 16px;">One page: the four halving cycles, how long each took from halving to top and from top to low, and where the LiftOffr Score reads today. Two minutes to read, and you'll know where this cycle sits against every one before it.</p>
     <div style="background:#080808;color:#fff;border-radius:10px;padding:20px;margin:20px 0;text-align:center;">
       <div style="font-size:11px;color:#999;letter-spacing:1.5px;font-weight:700;text-transform:uppercase;">Today's Score</div>
       <div style="font-family:'JetBrains Mono',Menlo,monospace;font-size:52px;font-weight:700;line-height:1;letter-spacing:-2px;margin-top:8px;">${fmtScore(score)}</div>
       <div style="margin-top:8px;font-size:13px;font-weight:700;color:#e63946;letter-spacing:1.5px;text-transform:uppercase;">${zone || ""}</div>
     </div>
     <p style="margin:0 0 16px;">Every Sunday you'll get the Score in your inbox: the number, the band, and what that band has meant before. The live reading is always at <a href="${ML("/cycle", "welcome_cycle")}" style="color:#e63946;">liftoffr.com/cycle</a>, and the free Discord is at <a href="${ML("/ig-discord", "welcome_discord")}" style="color:#e63946;">liftoffr.com/ig-discord</a>.</p>
-    <p style="margin:0 0 16px;">Tomorrow: the one habit that keeps the map from fooling you.</p>
+    <p style="margin:0 0 16px;">Tomorrow: the one habit that makes the map useful.</p>
     <p style="margin:24px 0 0;">— Torin</p>
   </div>
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;line-height:1.6;">
@@ -105,14 +105,14 @@ function mapWelcomeText({ score, zone }) {
     "",
     `Download the Cycle Map (PDF): ${MAP_PDF}`,
     "",
-    "One page: the four halving cycles, how long each took from halving to top and from top to low, and where the LiftOffr Score reads. It's history, not a forecast. Three measured cycles is a small sample, and the map says so.",
+    "One page: the four halving cycles, how long each took from halving to top and from top to low, and where the LiftOffr Score reads today. Two minutes to read, and you'll know where this cycle sits against every one before it.",
     "",
     `Today's Score: ${fmtScore(score)}${zone ? ` (${zone})` : ""}`,
     "",
     `Every Sunday you'll get the Score in your inbox. Live reading: ${ML("/cycle", "welcome_cycle")}`,
     `Free Discord: ${ML("/ig-discord", "welcome_discord")}`,
     "",
-    "Tomorrow: the one habit that keeps the map from fooling you.",
+    "Tomorrow: the one habit that makes the map useful.",
     "",
     "— Torin",
     "",
