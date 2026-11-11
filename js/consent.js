@@ -26,6 +26,11 @@
 (function () {
   var C = window.__loConsent;
   if (!C || C.state) return;               // no snippet, or already decided
+  // A page can hold the banner back (window.__loConsentDefer, set inline). /map
+  // does: on a phone the banner covered the sign-up box, the one thing an
+  // Instagram visitor came for. Undecided means consent-denied, so nothing extra
+  // is collected meanwhile; the banner shows on the next page (/map/thanks).
+  if (window.__loConsentDefer) return;
   if (!document.body) {
     document.addEventListener('DOMContentLoaded', function () { render(); });
   } else {

@@ -54,7 +54,8 @@
     plan_MntgjXJaQnGsW: 'bear-market-buy-plan',
     plan_WHByzwILskLsc: 'cycle-system',
     plan_3SEycpErj9Zk7: 'cycle-system-founding',
-    plan_uIpPdsPTSHdTp: 'cycle-playbook'
+    plan_uIpPdsPTSHdTp: 'cycle-playbook',
+    plan_5oqMUKkQjazTX: 'bear-market-buy-plan-inr'
   };
 
   function planIdFrom(href) {

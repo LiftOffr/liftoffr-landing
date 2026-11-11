@@ -19,7 +19,8 @@ async function runCron({ contacts, props, failLookup = new Set(), address = 'Exa
     if (u.pathname.startsWith('/contacts/')) {
       const id = decodeURIComponent(u.pathname.split('/')[2]);
       if (failLookup.has(id)) return { ok: false, status: 500, json: async () => ({}) };
-      return { ok: true, json: async () => ({ id, properties: props[id] ? { lead_magnet: { value: props[id], type: 'string' } } : {} }) };
+      const v = props[id], [lm, country] = String(v || '').split(':');
+      return { ok: true, json: async () => ({ id, properties: v ? { lead_magnet: { value: lm, type: 'string' }, ...(country ? { country: { value: country, type: 'string' } } : {}) } : {} }) };
     }
     if (u.pathname === '/emails') { const b = JSON.parse(opts.body); sends.push({ to: b.to[0], subject: b.subject, html: b.html, key: opts.headers['Idempotency-Key'] }); return { ok: true, json: async () => ({ id: 'e' }) }; }
     return { ok: false, status: 404, json: async () => ({}) };
@@ -40,7 +41,7 @@ test('map contact gets map email 1 and no generic email; other contacts keep the
   assert.equal(r.code, 200);
   const toMap = sends.filter(s => s.to === 'map@example.test'), toGen = sends.filter(s => s.to === 'gen@example.test');
   assert.equal(toMap.length, 1); assert.match(toMap[0].subject, /cycle map/); assert.match(toMap[0].key, /^map-m1-map1$/);
-  assert.match(toMap[0].html, /47\.1/); assert.match(toMap[0].html, /\/system\?/);
+  assert.match(toMap[0].html, /47\.1/); assert.match(toMap[0].html, /\/plan\?/); assert.match(toMap[0].html, /\$29/); assert.doesNotMatch(toMap[0].html, /price=inr|₹/);
   assert.equal(toGen.length, 1); assert.doesNotMatch(toGen[0].key, /^map-/);
   for (const s of sends) assert.doesNotMatch(s.html, /playbook/i, 'no $497 Playbook link in any nurture email');
 });
@@ -77,12 +78,50 @@ test('subscribe with magnet=map marks the contact and sends the map welcome', as
     return { ok: false, status: 404, json: async () => ({}) };
   };
   const r = res();
-  try { await subscribe({ method: 'POST', url: '/api/subscribe', headers: { host: 'liftoffr.com' }, body: { email: 'New@Example.test', magnet: 'map', utm_source: 'instagram' } }, r); }
+  try { await subscribe({ method: 'POST', url: '/api/subscribe', headers: { host: 'liftoffr.com', 'x-vercel-ip-country': 'in' }, body: { email: 'New@Example.test', magnet: 'map', v: 'b', utm_source: 'instagram', utm_medium: 'bio' } }, r); }
   finally { process.env = oldEnv; global.fetch = oldFetch; }
   assert.equal(r.code, 200);
   const patch = calls.find(c => c.path.startsWith('/contacts/'));
-  assert.equal(patch.method, 'PATCH'); assert.deepEqual(JSON.parse(patch.body), { properties: { lead_magnet: 'map' } });
+  assert.equal(patch.method, 'PATCH'); assert.deepEqual(JSON.parse(patch.body), { properties: { lead_magnet: 'map', country: 'IN', map_variant: 'b', signup_medium: 'bio' } });
   const email = JSON.parse(calls.find(c => c.path === '/emails').body);
   assert.equal(email.subject, 'Your Bitcoin Cycle Map'); assert.match(email.html, /bitcoin-cycle-map\.pdf/); assert.match(email.html, /47\.1/);
   assert.doesNotMatch(email.html, /playbook/i); assert.ok(email.tags.some(t => t.name === 'magnet' && t.value === 'map'));
+});
+
+test('map email 4 (day 8) teaches custody; affiliate links only when set, always disclosed', async () => {
+  const now = Date.now();
+  const contacts = [{ id: 'd8', email: 'd8@example.test', created_at: iso(now - 8.5 * DAY), unsubscribed: false }];
+  let { sends } = await runCron({ contacts, props: { d8: 'map' } });
+  assert.equal(sends.length, 1); assert.equal(sends[0].key, 'map-m4-d8');
+  assert.match(sends[0].html, /recovery words/); assert.doesNotMatch(sends[0].html, /Paid link|ledger\.com|trezor\.io/);
+  process.env.LEDGER_AFFILIATE_URL = 'https://shop.ledger.com/?r=abc'; process.env.TREZOR_AFFILIATE_URL = 'http://evil.example/trezor';
+  try { ({ sends } = await runCron({ contacts, props: { d8: 'map' } })); }
+  finally { delete process.env.LEDGER_AFFILIATE_URL; delete process.env.TREZOR_AFFILIATE_URL; }
+  assert.match(sends[0].html, /shop\.ledger\.com\/\?r=abc/); assert.match(sends[0].html, /Paid link, I earn a commission\./);
+  assert.doesNotMatch(sends[0].html, /evil\.example/, 'non-maker or non-https link is dropped');
+});
+
+test('India sign-ups get the INR Plan in map emails', async () => {
+  const now = Date.now();
+  const contacts = [1.5, 3.5, 5.5].map((d, i) => ({ id: 'in' + i, email: `in${i}@example.test`, created_at: iso(now - d * DAY), unsubscribed: false }));
+  const { sends } = await runCron({ contacts, props: { in0: 'map:IN', in1: 'map:IN', in2: 'map:IN' } });
+  const m1 = sends.find(s => s.key === 'map-m1-in0'), m2 = sends.find(s => s.key === 'map-m2-in1'), m3 = sends.find(s => s.key === 'map-m3-in2');
+  for (const m of [m1, m2]) { assert.match(m.html, /₹799/); assert.match(m.html, /price=inr/); assert.doesNotMatch(m.html.split('Whenever you')[0], /\$29/); }
+  assert.match(m3.html, /an \$8 credit toward the Course/);
+});
+
+test('funnel ping: 204, forwards an anonymous country-only count, ignores bots', async () => {
+  const oldEnv = process.env, oldFetch = global.fetch, calls = [];
+  process.env = { ...oldEnv, GA4_MEASUREMENT_ID: 'G-TEST', GA4_API_SECRET: 'x' };
+  global.fetch = async (url, opts = {}) => { calls.push({ url, body: JSON.parse(opts.body) }); return { ok: true, status: 204 }; };
+  const run = async (ua, body) => { const r = res(); r.end = function () { return this; }; await subscribe({ method: 'POST', url: '/api/subscribe', headers: { 'user-agent': ua, 'x-vercel-ip-country': 'US' }, body }, r); return r; };
+  try {
+    const r = await run('Mozilla/5.0 (iPhone) Instagram 300', JSON.stringify({ ping: 'map_view', v: 'a', m: 'bio', p: '/map' }));
+    assert.equal(r.code, 204); assert.equal(calls.length, 1);
+    const b = calls[0].body; assert.equal(b.events[0].name, 'fp_map_view_a'); assert.deepEqual(b.user_location, { country_id: 'US' });
+    assert.equal(b.events[0].params.medium, 'bio'); assert.ok(!('user_id' in b)); assert.doesNotMatch(JSON.stringify(b), /@/);
+    await run('facebookexternalhit/1.1', { ping: 'map_view', v: 'a' });
+    await run('Mozilla/5.0', { ping: 'evil_step', v: 'a' });
+    assert.equal(calls.length, 1, 'bot and unknown step are not forwarded');
+  } finally { process.env = oldEnv; global.fetch = oldFetch; }
 });

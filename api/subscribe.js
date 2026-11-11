@@ -15,6 +15,7 @@ import { enrollAudience, resendRequest } from "./_email-routing.js";
 import crypto from "node:crypto";
 import { validUnsubscribeToken, unsubscribeFromAudiences, unsubscribeHeaders } from "./_email-preferences.js";
 import { disclosureHTML, disclosureText } from "./_disclosure.js";
+import { sendFunnelEvent, isBot, countryFrom, mediumFrom } from "./_funnel.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -122,11 +123,13 @@ function mapWelcomeText({ score, zone }) {
 // Mark the contact so the follow-up cron sends map emails 1-3 instead of the
 // generic free sequence. Failure is logged, not fatal: the subscriber still gets
 // the map, and the cron falls back to the generic sequence for them.
-async function markMapContact(email, apiKey) {
+// country / map_variant / signup_medium (added 2026-11-11) feed the daily funnel
+// report and let map emails show the INR Plan to India sign-ups.
+async function markMapContact(email, apiKey, extra = {}) {
   const r = await resendRequest(`https://api.resend.com/contacts/${encodeURIComponent(email)}`, {
     method: "PATCH",
     headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ properties: { lead_magnet: "map" } }),
+    body: JSON.stringify({ properties: { lead_magnet: "map", ...extra } }),
   });
   if (!r.ok) throw new Error(`contact property update failed (${r.status})`);
 }
@@ -427,6 +430,17 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  const body = await readJsonBody(req);
+
+  // Anonymous funnel count (api/_funnel.js). Lives here because the project is
+  // at Vercel's 12-function cap. Always 204, never an error the page could see.
+  if (typeof body.ping === "string") {
+    if (!isBot(req.headers["user-agent"])) {
+      await sendFunnelEvent({ step: body.ping, variant: body.v, medium: body.m, page: body.p, country: countryFrom(req) });
+    }
+    return res.status(204).end();
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const audId = process.env.RESEND_AUDIENCE_ID;
   if (!apiKey || !audId) {
@@ -434,7 +448,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Server misconfigured" });
   }
 
-  const body = await readJsonBody(req);
   const email = (body.email || "").trim().toLowerCase();
   if (!email || !EMAIL_RE.test(email)) {
     return res.status(400).json({ error: "Invalid email" });
@@ -470,8 +483,11 @@ export default async function handler(req, res) {
     const magnet = MAGNETS[magnetKey] || MAGNETS.checklist;
     const subject = isQuiz ? "your cycle position" : isMap ? "Your Bitcoin Cycle Map" : magnet.subject;
     if (isMap) {
-      try { await markMapContact(email, apiKey); }
+      const country = countryFrom(req);
+      const variant = body.v === "a" || body.v === "b" ? body.v : "x";
+      try { await markMapContact(email, apiKey, { country: country || "unknown", map_variant: variant, signup_medium: mediumFrom(utm_medium) }); }
       catch (e) { console.error("subscribe: map marker failed", e.message); }
+      await sendFunnelEvent({ step: "map_signup", variant, medium: utm_medium, page: "/map", country });
     }
     const uu = unsubUrl(email);
 
