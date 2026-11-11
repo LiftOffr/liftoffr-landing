@@ -928,6 +928,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="/js/reviews.js" defer></script>
 <script defer src="/js/checkout-context.js?v=20260915"></script>
 <script defer src="/js/funnel.js?v=20261111"></script>
+<style>
+/* 2026-11-11: on phones the decorative scene banner pushed the first "Get the plan"
+   button below the fold (button top 734px at 390x664). Instagram DM and email
+   clicks land here, so the price and button come first on small screens. */
+@media (max-width:600px){ .lo-scene-banner{display:none} }
+</style>
 <script defer src="/js/local-price.js?v=20261110"></script>
 </body>
 </html>
