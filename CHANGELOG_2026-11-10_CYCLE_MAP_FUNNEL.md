@@ -22,3 +22,14 @@ Not changed: prices, plans, Whop products, the consent banner. Affiliate forms: 
 - Editing-services offer DROPPED: board J23 closed with that reason; draft portfolio, rate sheet and outreach PDFs deleted.
 - Ledger/Trezor affiliates (J22) reframed as LiftOffr revenue: after approval, links go only inside LiftOffr content (Cycle Map, emails, /stack, self-custody reels), each with "Paid link, I earn a commission." No links added yet.
 - India recommendation (06 PDF) now also specs an INR-priced edition of the $29 Plan: hidden INR plan on the same Whop product, India-only display, and the 4 code paths that hard-code the Plan ID. Torin decides pricing; nothing created.
+
+## Round 3 (same day): Torin "Do what you think is best"
+
+| # | Change | Verified |
+|---|---|---|
+| 9 | **INR edition of the Plan, ₹799** (Torin approved; ₹499 comparison later). Whop variant `plan_5oqMUKkQjazTX`: hidden, INR, UPI + card, on the Plan product so it inherits the Plan document and Plan Discord experience. Base ₹760.95 so checkout shows ₹799 before tax (same 5% fee convention as $27.62 -> $29). 18+ in its description. USD plan unchanged. | Whop readback; checkout page shows UPI; USD plan diff empty |
+| 10 | Code (b5bfec0): `PLAN_EDITIONS` in `api/_plan-credit.js` (USD $29 credit, INR $8 credit, rounded down from ₹799 at ₹93.93/USD); credit email states the amount; webhook role/label/GA4 maps; checkout attribution lists; `js/local-price.js` swaps price text and Plan checkout links for India-timezone visitors on /, /plan, /system, /map/thanks (`?price=inr|usd` for QA). Worker (workspace bc67d34): `PLAN_CURRENCIES`. | `scripts/test_inr_plan.mjs` 6/6 incl. signed webhook + fulfillment end to end on fixtures; all existing suites pass; prod ?price=inr shows 19x ₹799, 0x $29, 4 INR links; default prod unchanged |
+| 11 | Montage captions lead with "comment CYCLE for the free bitcoin cycle map." on every reel (montage engine in ~/liftoffr-video). Codex auto-captioner change specified on the board (J19). | 96/96 captions pass checks; 34/34 tests |
+| 12 | ManyChat CYCLE flow checked in preview; DM link resolves. Ledger + Trezor applications pre-filled (business fields only) in Chrome tabs. | — |
+
+Still open (Torin): one real ₹799 purchase + refund to prove live delivery; first real CYCLE comment; finishing the two affiliate forms.

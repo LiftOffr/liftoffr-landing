@@ -1,3 +1,7 @@
+## November 10 (later): India pricing live
+
+India-timezone visitors see the Plan at ₹799 (hidden Whop plan `plan_5oqMUKkQjazTX`, UPI + card, $8 Course credit). A new Plan edition must be added in 6 places (see AGENT_BOARD "Plan editions"). Montage captions now lead with "comment CYCLE". Open: one real ₹799 purchase + refund, Ledger/Trezor forms (tabs pre-filled), Codex captioner switch (J19).
+
 ## November 10: Cycle Map funnel
 
 Live: `/map` (free one-page Bitcoin Cycle Map, email capture) -> `/map/thanks` ($29 Plan) -> map emails 1-3 ($197 Course); `/bio` now points at `/map`; ManyChat comment CYCLE -> map. Map sign-ups are marked with the Resend contact property `lead_magnet=map` (3-audience cap). The nurture footer no longer links the hidden $497 tier. Waiting on Torin: paste bio, test CYCLE, affiliate submissions (LiftOffr revenue, disclosed links in LiftOffr content), India + INR Plan decision. Editing-services offer dropped by Torin. Record: `CHANGELOG_2026-11-10_CYCLE_MAP_FUNNEL.md`; board J18-J24.
