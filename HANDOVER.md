@@ -1,3 +1,7 @@
+## November 10: Cycle Map funnel
+
+Live: `/map` (free one-page Bitcoin Cycle Map, email capture) -> `/map/thanks` ($29 Plan) -> map emails 1-3 ($197 Course); `/bio` now points at `/map`; ManyChat comment CYCLE -> map. Map sign-ups are marked with the Resend contact property `lead_magnet=map` (3-audience cap). The nurture footer no longer links the hidden $497 tier. Waiting on Torin: paste bio, test CYCLE, affiliate submissions, editing-offer sign-off, India decision. Record: `CHANGELOG_2026-11-10_CYCLE_MAP_FUNNEL.md`; board J18-J24.
+
 ## November 9: funnel audit, views without sales
 
 Zero Whop payments since Sept 1 and no checkout attempts since then. Engaged IG audience is 65.7% India, 1.5% US, 26.6% aged 13-17. Reels were all Trial Reels with manual graduation (now auto). Mobile hero shortened; `/bio` tagged shortlink added. Waiting on Torin: set bio link to liftoffr.com/bio, graduate top reels in the app, decide content/offer direction. Record: `CHANGELOG_2026-11-09_FUNNEL_AUDIT.md`.
