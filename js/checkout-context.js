@@ -6,7 +6,7 @@
 (function () {
   if (window.__loCheckoutContextStarted) return;
   window.__loCheckoutContextStarted = true;
-  var enabledPlans = ['plan_MntgjXJaQnGsW', 'plan_WHByzwILskLsc'];
+  var enabledPlans = ['plan_MntgjXJaQnGsW', 'plan_5oqMUKkQjazTX', 'plan_WHByzwILskLsc'];
   var utmFields = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
   var busy = false;
   window.addEventListener('pageshow', function () { busy = false; });

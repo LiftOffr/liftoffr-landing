@@ -148,6 +148,7 @@ const ADDON_ROLES = {
 };
 const PLAN_ADDON = {
   plan_MntgjXJaQnGsW: "plan",   // My Bear Market Buy Plan, $29 one-time
+  plan_5oqMUKkQjazTX: "plan",   // Same Plan, INR edition (hidden, ₹799; India visitors only), 2026-11-10
   // The Cycle System (prod_b4DoR00YHuysT), created 2026-08-08. Both plans grant
   // the same @System role — the only difference is the price and the 50-seat cap.
   // Addon, not a tier: a System buyer who also owns the $29 plan must keep @Plan,
@@ -367,6 +368,7 @@ async function sendWelcomeDM(botToken, discordId, username) {
 // sends only the bare plan id string, which rendered as "Plan: ?" in alerts).
 const PLAN_LABELS = {
   plan_MntgjXJaQnGsW: "My Bear Market Buy Plan ($29 one-time)",
+  plan_5oqMUKkQjazTX: "My Bear Market Buy Plan (₹799 India edition)",
   plan_WHByzwILskLsc: "The Cycle System ($197)",
   plan_3SEycpErj9Zk7: "The Cycle System — FOUNDING ($147)",
   plan_uIpPdsPTSHdTp: "Cycle Playbook 1:1 ($497)",
@@ -432,6 +434,7 @@ async function postChurnAlertToDiscord(webhookUrl, eventType, data, roleResult) 
 // Send a `purchase` event to GA4 via Measurement Protocol.
 const GA4_ITEM_IDS = {
   plan_MntgjXJaQnGsW: "bear-market-buy-plan",
+  plan_5oqMUKkQjazTX: "bear-market-buy-plan-inr",
   plan_WHByzwILskLsc: "cycle-system",
   plan_3SEycpErj9Zk7: "cycle-system-founding",
   plan_uIpPdsPTSHdTp: "cycle-playbook",

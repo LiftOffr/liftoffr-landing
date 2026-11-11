@@ -28,13 +28,16 @@ function emailHTML(text) {
 
 export function planCreditEmail(credit) {
   if (credit.status !== 'ready' || !/^LPC[A-F0-9]{24}$/.test(credit.code || '')) throw new Error('Invalid private credit');
+  // $29 for the USD edition, $8 for the INR edition (see PLAN_EDITIONS in _plan-credit.js).
+  const amount = credit.amountOff ?? 29;
+  if (!Number.isInteger(amount) || amount <= 0 || amount > 29) throw new Error('Invalid private credit amount');
   const text = ['Your included Plan upgrade credit','',
-    'Your Plan purchase includes a $29 credit toward The Cycle System. Keep this private code:',credit.code,'',
-    'If you choose The Cycle System later, enter the code in the promo-code field at checkout for $29 off its standard price, before fees and applicable tax. It can be used once. Nothing starts or renews automatically.','',
+    'Your Plan purchase includes a $' + amount + ' credit toward The Cycle System. Keep this private code:',credit.code,'',
+    'If you choose The Cycle System later, enter the code in the promo-code field at checkout for $' + amount + ' off its standard price, before fees and applicable tax. It can be used once. Nothing starts or renews automatically.','',
     'System checkout: https://whop.com/checkout/plan_WHByzwILskLsc','',
     'This is the credit included with your purchase. Your Plan document and access instructions are in the separate access email.','',
     'Reply if you need help with the code.','', 'Torin','LiftOffr'].join('\n');
-  return {subject:'Your included $29 Plan credit',text,html:emailHTML(text)};
+  return {subject:'Your included $' + amount + ' Plan credit',text,html:emailHTML(text)};
 }
 
 async function sendTransactional(email, message, paymentId, step, request) {

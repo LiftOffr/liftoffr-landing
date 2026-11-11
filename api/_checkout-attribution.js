@@ -3,7 +3,7 @@
 // public reviews router and the signed payment webhook (no extra function).
 import crypto from 'node:crypto';
 
-export const CHECKOUT_PLANS = Object.freeze(['plan_MntgjXJaQnGsW', 'plan_WHByzwILskLsc']);
+export const CHECKOUT_PLANS = Object.freeze(['plan_MntgjXJaQnGsW', 'plan_5oqMUKkQjazTX', 'plan_WHByzwILskLsc']);
 const COMPANY = 'biz_1PHI81i7fkqRUZ';
 const CLIENT = /^\d{1,20}\.\d{1,20}$/;
 const SESSION = /^\d{9,11}$/;

@@ -7,16 +7,31 @@ import crypto from "node:crypto";
 export const CREDIT_COMPANY = "biz_1PHI81i7fkqRUZ";
 export const CREDIT_PLAN = "plan_MntgjXJaQnGsW";
 export const CREDIT_PLAN_PRODUCT = "prod_qkbRaW1vFT2cM";
+// Every purchasable edition of the Plan, on the same Whop product. The INR
+// edition (hidden; shown on the site only to India-timezone visitors) was
+// approved by Torin 2026-11-10 at ₹799 at checkout. Its System credit is $8,
+// about what ₹799 is worth (₹93.93/USD on 10 Nov 2026), rounded down so the
+// credit never exceeds what the buyer paid. Credits are USD because the System
+// is priced in USD. One deterministic code per Whop user: if a person buys both
+// editions, the first credit issued stands.
+export const PLAN_EDITIONS = Object.freeze({
+  plan_MntgjXJaQnGsW: Object.freeze({ currency: "usd", creditUsd: 29 }),
+  plan_5oqMUKkQjazTX: Object.freeze({ currency: "inr", creditUsd: 8 }),
+});
+export const CREDIT_PLANS = Object.freeze(Object.keys(PLAN_EDITIONS));
+const CREDIT_AMOUNTS = new Set(Object.values(PLAN_EDITIONS).map(e => e.creditUsd));
+const edition = planId => Object.prototype.hasOwnProperty.call(PLAN_EDITIONS, planId) ? PLAN_EDITIONS[planId] : null;
 export const CREDIT_SYSTEM = "plan_WHByzwILskLsc";
 export const CREDIT_SYSTEM_PRODUCT = "prod_b4DoR00YHuysT";
 const API = "https://api.whop.com/api/v1";
 const id = value => typeof value === "string" ? value : value?.id;
 
 export function creditEligibility(payment, membership) {
-  if (id(payment?.company) !== CREDIT_COMPANY || id(payment?.plan) !== CREDIT_PLAN || id(payment?.product) !== CREDIT_PLAN_PRODUCT) {
+  const ed = edition(id(payment?.plan));
+  if (id(payment?.company) !== CREDIT_COMPANY || !ed || id(payment?.product) !== CREDIT_PLAN_PRODUCT) {
     return { eligible: false, reason: "not_plan_payment" };
   }
-  if (payment.status !== "paid" || payment.currency !== "usd" || !Number.isFinite(payment.subtotal) || payment.subtotal <= 0) {
+  if (payment.status !== "paid" || payment.currency !== ed.currency || !Number.isFinite(payment.subtotal) || payment.subtotal <= 0) {
     return { eligible: false, reason: "not_positive_paid_payment" };
   }
   // Whop retains status=paid after refunds. The refund fields are essential.
@@ -26,13 +41,13 @@ export function creditEligibility(payment, membership) {
   }
   const userId = id(payment.user);
   if (!userId || id(membership?.user) !== userId || id(payment.membership) !== membership?.id ||
-      id(membership.company) !== CREDIT_COMPANY || id(membership.plan) !== CREDIT_PLAN || id(membership.product) !== CREDIT_PLAN_PRODUCT) {
+      id(membership.company) !== CREDIT_COMPANY || id(membership.plan) !== id(payment.plan) || id(membership.product) !== CREDIT_PLAN_PRODUCT) {
     throw new Error("Plan credit identity or membership could not be verified");
   }
   if (!["active", "completed"].includes(membership.status)) return { eligible: false, reason: "plan_not_active" };
   const email = payment.user?.email || membership.user?.email;
   if (typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Verified buyer email is unavailable");
-  return { eligible: true, userId, email: email.toLowerCase() };
+  return { eligible: true, userId, email: email.toLowerCase(), amountOff: ed.creditUsd };
 }
 
 export function planCreditCode(userId, secret) {
@@ -42,9 +57,10 @@ export function planCreditCode(userId, secret) {
   return "LPC" + crypto.createHmac("sha256", secret).update(`plan-credit-v1:${userId}`).digest("hex").slice(0, 24).toUpperCase();
 }
 
-export function creditPromoRequest(code) {
+export function creditPromoRequest(code, amountOff = 29) {
+  if (!CREDIT_AMOUNTS.has(amountOff)) throw new Error("Unsupported Plan credit amount");
   return {
-    account_id: CREDIT_COMPANY, amount_off: 29, base_currency: "usd", code,
+    account_id: CREDIT_COMPANY, amount_off: amountOff, base_currency: "usd", code,
     new_users_only: false, churned_users_only: false, existing_memberships_only: false,
     promo_duration_months: 1, promo_type: "flat_amount", one_per_customer: true,
     product_id: CREDIT_SYSTEM_PRODUCT, plan_ids: [CREDIT_SYSTEM], stock: 1, unlimited_stock: false,
@@ -53,7 +69,7 @@ export function creditPromoRequest(code) {
 
 function validatePromoShape(promo, code) {
   if (!promo?.id || promo.code !== code || id(promo.product) !== CREDIT_SYSTEM_PRODUCT ||
-      promo.promo_type !== "flat_amount" || promo.amount_off !== 29 || promo.currency !== "usd" ||
+      promo.promo_type !== "flat_amount" || !CREDIT_AMOUNTS.has(promo.amount_off) || promo.currency !== "usd" ||
       promo.unlimited_stock !== false || promo.one_per_customer !== true ||
       promo.new_users_only !== false || promo.churned_users_only !== false || promo.existing_memberships_only !== false ||
       !Number.isInteger(promo.stock) || !Number.isInteger(promo.uses) || promo.stock < 0 || promo.stock > 1 ||
@@ -67,7 +83,7 @@ export function validateCreditPromo(promo, code) {
   validatePromoShape(promo, code);
   if (promo.uses === 1) return { status: "used", promoId: promo.id };
   if (promo.status !== "active" || promo.expires_at) throw new Error("Plan credit promo is unavailable; review before reissuing");
-  return { status: "ready", promoId: promo.id, code, amountOff: 29, checkoutUrl: `https://whop.com/checkout/${CREDIT_SYSTEM}` };
+  return { status: "ready", promoId: promo.id, code, amountOff: promo.amount_off, checkoutUrl: `https://whop.com/checkout/${CREDIT_SYSTEM}` };
 }
 
 async function responseJson(response, action) {
@@ -83,7 +99,7 @@ export async function verifyPlanPayment({ paymentId, apiKey = process.env.WHOP_A
   const payment = await read(`payments/${paymentId}`);
   if (payment.id !== paymentId) throw new Error("Whop returned an unexpected payment");
   // Exit before any membership/coupon calls for nonqualifying payments.
-  if (id(payment.plan) !== CREDIT_PLAN || payment.status !== "paid" || payment.subtotal <= 0 ||
+  if (!edition(id(payment.plan)) || payment.status !== "paid" || payment.subtotal <= 0 ||
       payment.refunded_amount !== 0 || payment.refunded_at || payment.auto_refunded) {
     return { status: "ineligible", reason: "not_unrefunded_paid_plan" };
   }
@@ -92,6 +108,7 @@ export async function verifyPlanPayment({ paymentId, apiKey = process.env.WHOP_A
   const eligibility = creditEligibility(payment, await read(`memberships/${membershipId}`));
   if (!eligibility.eligible) return { status: "ineligible", reason: eligibility.reason };
   return { status: "verified", email: eligibility.email, userId: eligibility.userId, paymentId, membershipId,
+    planId: id(payment.plan), amountOff: eligibility.amountOff,
     subtotal: payment.subtotal, currency: payment.currency.toUpperCase(),
     checkoutMetadata: payment.metadata, paidAt: payment.paid_at };
 }
@@ -131,7 +148,7 @@ export async function ensurePlanCredit({ paymentId, apiKey = process.env.WHOP_AP
     try {
       promo = await responseJson(await request(`${API}/promo_codes`, {
         method: "POST", headers: { ...headers, "Content-Type": "application/json" },
-        body: JSON.stringify(creditPromoRequest(code)), signal: AbortSignal.timeout(10000),
+        body: JSON.stringify(creditPromoRequest(code, eligibility.amountOff)), signal: AbortSignal.timeout(10000),
       }), "credit creation");
     } catch (error) {
       // A timeout or concurrent creator must not mint a fresh second code.
@@ -151,13 +168,13 @@ export async function revokePlanCreditForRefund({ paymentId, apiKey = process.en
   const read = async path => responseJson(await request(`${API}/${path}`, { headers, signal: AbortSignal.timeout(10000) }), "refund credit lookup");
   const payment = await read(`payments/${paymentId}`);
   if (payment.id !== paymentId) throw new Error("Whop returned an unexpected payment");
-  if (id(payment.company) !== CREDIT_COMPANY || id(payment.plan) !== CREDIT_PLAN || id(payment.product) !== CREDIT_PLAN_PRODUCT) return { status: "not_plan_payment", paymentId };
+  if (id(payment.company) !== CREDIT_COMPANY || !edition(id(payment.plan)) || id(payment.product) !== CREDIT_PLAN_PRODUCT) return { status: "not_plan_payment", paymentId };
   // Require positive, explicit API refund evidence, not merely an expired membership.
   if (typeof payment.refunded_amount !== "number" || !Number.isFinite(payment.refunded_amount) || payment.refunded_amount <= 0) return { status: "not_refunded", paymentId };
   const userId = id(payment.user), membershipId = id(payment.membership);
   if (!/^mem_[A-Za-z0-9]+$/.test(membershipId || "")) throw new Error("Refunded payment membership is unavailable");
   const member = await read(`memberships/${membershipId}`);
-  if (member.id !== membershipId || id(member.user) !== userId || id(member.company) !== CREDIT_COMPANY || id(member.plan) !== CREDIT_PLAN || id(member.product) !== CREDIT_PLAN_PRODUCT) throw new Error("Refund credit identity could not be verified");
+  if (member.id !== membershipId || id(member.user) !== userId || id(member.company) !== CREDIT_COMPANY || id(member.plan) !== id(payment.plan) || id(member.product) !== CREDIT_PLAN_PRODUCT) throw new Error("Refund credit identity could not be verified");
   const code = planCreditCode(userId, secret);
   let promo = await findCredit(read, code);
   if (!promo) return { status: "no_credit", paymentId };
@@ -167,7 +184,7 @@ export async function revokePlanCreditForRefund({ paymentId, apiKey = process.en
   if (["inactive", "archived"].includes(promo.status)) return result("already_inactive");
   if (promo.status !== "active") throw new Error("Refund credit promo status is unknown");
   for (const other of await listComplete(read, "payments")) {
-    if (other.id === paymentId || id(other.plan) !== CREDIT_PLAN) continue;
+    if (other.id === paymentId || !edition(id(other.plan))) continue;
     if (!id(other.user)) throw new Error("Plan payment inventory user identity is incomplete");
     if (id(other.user) !== userId) continue;
     // Detail verification handles money, refund fields, membership, product and user.
