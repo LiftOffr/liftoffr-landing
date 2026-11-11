@@ -53,3 +53,14 @@ traffic. Everything approved except purchases. No USD price changes.
 ## Pinned-comment script (Torin pins by hand; the API cannot pin)
 "Free Bitcoin Cycle Map: comment CYCLE and I'll DM it to you. Every halving
 cycle on one page. History, not a forecast. 18+"
+
+## Later the same night
+- 70106fe: map emails show ₹799 in the shared footer menu for India sign-ups;
+  custody email no longer claims "most" losses were custody or that affiliate
+  prices are unchanged (unverified).
+- 0e75da7: /plan hides the decorative scene banner on phones so the price and
+  "Get the plan" button sit in the first screen (button bottom 626px at 390x664).
+- Verified in production: ping 204, fp_map_signup_b / fp_thanks_view_x arrive
+  in GA4 realtime with country; a test sign-up (delivered@resend.dev) stored
+  country=US, map_variant=b, signup_medium=bio and was then deleted. These QA
+  events add 1 sign-up and 1 thank-you view to Nov 11 counts.
