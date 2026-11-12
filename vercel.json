@@ -31,6 +31,16 @@
   ],
   "redirects": [
     {
+      "source": "/playbook",
+      "destination": "/system",
+      "permanent": true
+    },
+    {
+      "source": "/playbook/",
+      "destination": "/system",
+      "permanent": true
+    },
+    {
       "source": "/ig-discord",
       "destination": "https://discord.gg/yfdWQYbDTF",
       "permanent": false

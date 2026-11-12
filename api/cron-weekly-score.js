@@ -140,7 +140,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
     <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 3 ways I can help:</p>
     <p style="margin:0 0 2px;">1. <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_cycle" style="color:#e63946;">Check the live cycle dashboard</a> — free, always current</p>
     <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_plan" style="color:#e63946;">Get My Bear Market Buy Plan</a> — $29, once</p>
-    <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_playbook" style="color:#e63946;">Build your exact cycle plan with me</a> — the Cycle Playbook</p>
+    <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_system" style="color:#e63946;">Take the Course</a> — The Cycle System, $197 once</p>
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;">

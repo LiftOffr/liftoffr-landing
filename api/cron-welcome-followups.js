@@ -190,8 +190,8 @@ function plan14HTML() {
     `<p style="margin:0 0 16px;">Last email in this sequence. After today you're just on the Sunday Score with everyone else.</p>
      <p style="margin:0 0 16px;">Two things worth knowing before I stop:</p>
      <p style="margin:0 0 14px;"><strong>1. The Cycle System.</strong> The framework behind the plan: how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and your $29 still credits toward it, permanently. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system" style="color:#e63946;">What's in it.</a></p>
-     <p style="margin:0 0 14px;"><strong>2. If you'd rather I just do it with you.</strong> The Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio, and you leave with the document and the recording. Four a month, because it's my calendar. <a href="https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook" style="color:#e63946;">Details here.</a></p>
-     <p style="margin:0 0 16px;">And if the answer to both is no — that's a normal outcome and the plan you already have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.</p>
+     <p style="margin:0 0 14px;"><strong>2. What the Course adds that the Plan doesn't.</strong> 46 lessons. The full Score build, every indicator and every weight, so you can recompute the number yourself. The record: every crossing, including the ones that went the wrong way. And the exit ladder worksheet, so the selling half gets written down before the euphoria shows up. The Plan gets you through this bear. The Course is how you build the next plan on your own. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_course" style="color:#e63946;">See the Course.</a></p>
+     <p style="margin:0 0 16px;">And if the Plan is all you want, that's a complete purchase. It keeps updating for the rest of this bear regardless. Nothing behind a second paywall.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See The Cycle System &rarr;", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_button");
 }
@@ -199,9 +199,9 @@ function plan14Text() {
   return ["Last email in this sequence. After today you're on the Sunday Score with everyone else.","",
     "1. THE CYCLE SYSTEM: the framework behind the plan, how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and your $29 still credits toward it, permanently.",
     "   https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system","",
-    "2. IF YOU'D RATHER I DID IT WITH YOU: the Cycle Playbook is a private 90-minute session where we build your ladder and your exit ladder against your actual portfolio. You leave with the doc and the recording. Four a month.",
-    "   https://liftoffr.com/playbook?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_playbook","",
-    "If the answer to both is no, that's a normal outcome — the plan you have keeps updating for the rest of this bear regardless. Nothing behind a second paywall.","",
+    "2. WHAT THE COURSE ADDS THAT THE PLAN DOESN'T: 46 lessons. The full Score build, every indicator and every weight, so you can recompute the number yourself. The record: every crossing, including the ones that went the wrong way. And the exit ladder worksheet, so the selling half gets written down before the euphoria shows up. The Plan gets you through this bear. The Course is how you build the next plan on your own.",
+    "   https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_course","",
+    "If the Plan is all you want, that's a complete purchase. It keeps updating for the rest of this bear regardless. Nothing behind a second paywall.","",
     "— Torin"].join("\n");
 }
 
@@ -467,20 +467,6 @@ function reengageText(sc) {
     "See the plan ($29, once): https://liftoffr.com/plan","","— Torin"].join("\n");
 }
 
-// ─────────────────────────────────────────────────────────────────────────
-// TRIAL NURTURE — for members inside the 7-day CARDLESS free trial.
-// Fed by the Whop webhook (begin_trial → adds contact to the trial audience).
-// The trial takes NO card and charges NOTHING — Whop just auto-revokes access
-// at day 7. So the goal is to get them active fast, then earn an *active*
-// upgrade decision (keep it on a paid tier) before access lapses.
-// Feature-flagged: dormant unless RESEND_TRIAL_AUDIENCE_ID is set.
-// ─────────────────────────────────────────────────────────────────────────
-const TSUBJECT_1 = "You're in — here's exactly where to start";
-const TSUBJECT_2 = "Day 3: are you actually using this?";
-const TSUBJECT_3 = "Your trial ends tomorrow (here's what happens)";
-
-const TRIAL_CHECKOUT = "https://whop.com/checkout/plan_JnWiKWtwzlTVR?utm_source=resend&utm_medium=email&utm_campaign=trial&utm_content=keep_pro";
-
 // The footer menu below rides on every nurture email. Live ladder only (Torin,
 // 2026-11-10): Free -> $29 Plan -> $197 Course. The $497 tier is hidden on Whop
 // since 2026-08-22; do not link it from this menu.
@@ -700,101 +686,6 @@ async function mapContactOf(contactId) {
   const c = await r.json();
   return { leadMagnet: c?.properties?.lead_magnet?.value || null, country: c?.properties?.country?.value || null };
 }
-function trial1HTML() {
-  return trialShell("Trial · Day 1",
-    `<p style="margin:0 0 16px;">You're in — no card, no catch. Full access for 7 days, so let's make this week count.</p>
-     <p style="margin:0 0 16px;">Here's the honest truth: people who poke around for 20 minutes and leave never convert, and they shouldn't. People who actually <em>use</em> it figure out fast whether it's worth keeping. So here's your 10-minute first session:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.8;">
-       <div>1. Open Discord → <strong>#how-to-use-this-course</strong>, read the 3 pins</div>
-       <div>2. Check the live dashboard — see today's Score and what zone we're in</div>
-       <div>3. Read the 8am daily brief. That's the whole product in 3 minutes a day.</div>
-     </div>
-     <p style="margin:18px 0 16px;">That's it. Do those three things today and you'll know by Wednesday whether this belongs in your routine.</p>
-     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">I read every reply. Hit me with questions.</em></p>`,
-    "Join the Discord →", "https://liftoffr.com/discord");
-}
-function trial1Text() {
-  return ["You're in — no card, no catch. Full access for 7 days, so let's make this week count.","",
-    "People who poke around for 20 min and leave never convert. People who actually USE it figure out fast whether it's worth keeping. Your 10-minute first session:","",
-    "1. Discord -> #how-to-use-this-course, read the 3 pins",
-    "2. Check the live dashboard — today's Score and zone",
-    "3. Read the 8am daily brief. That's the whole product in 3 min/day.","",
-    "Do those three today and you'll know by Wednesday.","","— Torin (I read every reply)",
-    "Join the Discord: https://liftoffr.com/discord"].join("\n");
-}
-
-function trial2HTML() {
-  return trialShell("Trial · Day 3",
-    `<p style="margin:0 0 16px;">Halfway through your trial. Quick gut-check.</p>
-     <p style="margin:0 0 16px;">If you've been reading the daily brief, you've already seen the thing most people pay to learn the hard way: <strong>the read changes, and you don't have to guess.</strong></p>
-     <p style="margin:0 0 16px;">If you <em>haven't</em> opened it yet — that's the whole product. One post, 8am MT, every weekday: here's the Score, here's the zone, here's what it means today. Three minutes. No charts to stare at, no Twitter to doom-scroll.</p>
-     <p style="margin:0 0 16px;">The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next.</p>
-     <p style="margin:24px 0 0;">Four days left. And if you already know it's a keeper, don't wait for the day-6 reminder — lock in your founder rate now. It holds whether you do it today or Friday.</p>
-     <p style="margin:18px 0 0;">— Torin</p>`,
-    "Lock in my membership →", TRIAL_CHECKOUT);
-}
-function trial2Text() {
-  return ["Halfway through your trial. Quick gut-check.","",
-    "If you've read the daily brief, you've seen the thing most people pay to learn the hard way: the read changes, and you don't have to guess.","",
-    "If you haven't opened it — that's the product. One post, 8am MT, weekdays: Score, zone, what it means today. Three minutes.","",
-    "The record is public if you want to check it: all 64 scored zone changes since 2011, with what BTC actually did next.","",
-    "Four days left. If you already know it's a keeper, lock in your founder rate now — it holds whether you do it today or Friday:",
-    TRIAL_CHECKOUT,"","— Torin"].join("\n");
-}
-
-function trial3HTML() {
-  return trialShell("Trial · Day 6 · ends tomorrow",
-    `<p style="margin:0 0 14px;">Straight with you: <strong>tomorrow your free week ends and access just switches off.</strong> No card on file, so nothing gets charged — it simply lapses unless you choose to keep it.</p>
-     <p style="margin:0 0 8px;">Tomorrow you lose access to:</p>
-     <div style="background:#fff5f5;border:1px solid #f3c0c5;border-radius:10px;padding:16px 20px;margin:0 0 16px;font-size:14px;line-height:1.8;color:#333;">
-       <div>✕ The daily 8am market brief</div>
-       <div>✕ The live cycle dashboard + Score</div>
-       <div>✕ Real-time signal alerts</div>
-       <div>✕ The 36-lesson course</div>
-       <div>✕ The private Discord community</div>
-     </div>
-     <p style="margin:0 0 8px;">Two options:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:0 0 16px;font-size:14px;line-height:1.7;color:#333;">
-       <div style="margin-bottom:10px;"><strong>1. Keep it.</strong> Keep all of the above — <strong>Pro at $99/mo</strong>, or Core at $49/mo if you mostly want the daily read. Button below.</div>
-       <div><strong>2. Let it lapse.</strong> Do nothing and access ends tomorrow. Nothing charged, no clawback, no hard feelings — that's the deal I promised.</div>
-     </div>
-     <p style="margin:18px 0 16px;">No trick, no auto-charge waiting to bite you. But if the daily read has been worth three minutes of your morning this week — keep it before it ends.</p>
-     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>
-     <p style="margin:18px 0 0;font-size:13px;color:#888;">P.S. Want to go deeper than the membership? The <a href="https://liftoffr.com/playbook" style="color:#e63946;">Cycle Playbook</a> is a private session where we build your full buy + sell plan together.</p>`,
-    "Keep my access — go Pro →", TRIAL_CHECKOUT);
-}
-function trial3Text() {
-  return ["Straight with you: tomorrow your free week ends and access just switches off. No card on file, so nothing gets charged — it simply lapses unless you keep it.","",
-    "Tomorrow you lose: the daily 8am brief, the live dashboard + Score, real-time signal alerts, the 36-lesson course, and the private Discord.","",
-    "1. KEEP IT — keep all of it with Pro ($99/mo; or Core $49 if you mostly want the daily read):",
-    "   " + TRIAL_CHECKOUT,
-    "2. LET IT LAPSE — do nothing, access ends tomorrow. Nothing charged, no hard feelings.","",
-    "No trick, no auto-charge waiting to bite you. But if the daily read's been worth 3 minutes of your morning — keep it before it ends.","","— Torin, Founder LiftOffr","",
-    "P.S. Want to go deeper? The Cycle Playbook — a private session: https://liftoffr.com/playbook"].join("\n");
-}
-
-const TSUBJECT_4 = "Your LiftOffr access just lapsed";
-function trial4HTML() {
-  return shell("Trial · ended",
-    `<p style="margin:0 0 16px;">Your free week's up, so access switched off — exactly as promised. No card, nothing charged.</p>
-     <p style="margin:0 0 16px;">If you got busy and meant to keep it, the door's still open. Pick up right where you left off:</p>
-     <div style="background:#fafafa;border:1px solid #eee;border-radius:10px;padding:18px 20px;margin:16px 0;font-size:14px;line-height:1.7;color:#333;">
-       <div><strong>Pro — $99/mo:</strong> daily brief, live dashboard, signal alerts, full course, community.</div>
-       <div style="margin-top:8px;"><strong>Core — $49/mo:</strong> the lighter set if you just want the read.</div>
-     </div>
-     <p style="margin:0 0 16px;">Cancel anytime, 30-day refund. One honest heads-up: founder pricing holds for now, but it goes up as we add tiers — reactivating today locks your rate.</p>
-     <p style="margin:24px 0 0;">— Torin<br/><em style="color:#999;">Founder, LiftOffr</em></p>`,
-    "Reactivate my access →", TRIAL_CHECKOUT);
-}
-function trial4Text() {
-  return ["Your free week's up, so access switched off — exactly as promised. No card, nothing charged.","",
-    "If you got busy and meant to keep it, the door's still open:",
-    "  • Pro $99/mo — daily brief, dashboard, signal alerts, course, community",
-    "  • Core $49/mo — the lighter set if you just want the read","",
-    "Cancel anytime, 30-day refund. Heads-up: founder pricing goes up as we add tiers — reactivating today locks your rate.","",
-    "Reactivate: " + TRIAL_CHECKOUT,"","— Torin, Founder LiftOffr"].join("\n");
-}
-
 // ═════════════════════════════════════════════════════════════════════════════
 // QUIZ SEQUENCE — the segmented 7-email nurture (04-email-sequence.md)
 //
@@ -1145,7 +1036,6 @@ export default async function handler(req, res) {
       q2: () => quiz2HTML("ROUNDTRIPPED", null), q3: () => quiz3HTML("ROUNDTRIPPED", null),
       q4: () => quiz4HTML("ROUNDTRIPPED", null), q5: () => quiz5HTML("NEW", null),
       q6: () => quiz6HTML("SITTING", null), q7: () => quiz7HTML("ACCUMULATING", null),
-      t1: trial1HTML, t2: trial2HTML, t3: trial3HTML, t4: trial4HTML,
       m1: () => map1HTML({ score: 47.1, zone: "re-accumulation" }), m2: () => map2HTML({ score: 47.1, zone: "re-accumulation" }), m3: () => map3HTML(), m4: () => map4HTML(),
       m1_inr: () => map1HTML({ score: 47.1, zone: "re-accumulation" }, mapEdition("IN")), m4_aff: () => map4HTML(null, mapEdition(), { LEDGER_AFFILIATE_URL: "https://shop.ledger.com/?r=example", TREZOR_AFFILIATE_URL: "https://affil.trezor.io/aff_c?offer_id=example" }),
     };
@@ -1357,43 +1247,6 @@ export default async function handler(req, res) {
       }
     }
 
-    // ── Trial nurture — RETIRED 2026-08-02. The 7-day trial is dead (LIFTOFFR_MASTER_PLAN.md).
-    // Hard-disabled regardless of env: RESEND_TRIAL_AUDIENCE_ID may still exist in Vercel.
-    const trialAud = null;
-    let trial = null;
-    if (trialAud) {
-      trial = { t1_sent: 0, t2_sent: 0, t3_sent: 0, t4_sent: 0, failed: 0, skipped: 0, total: 0, errors: [] };
-      const trialContacts = await fetchAudience(trialAud);
-      trial.total = trialContacts.length;
-      const steps = [
-        { lo: 0.0, hi: 1.0, subj: TSUBJECT_1, html: trial1HTML, text: trial1Text, key: "t1", k: "t1_sent" },
-        { lo: 3.0, hi: 4.0, subj: TSUBJECT_2, html: trial2HTML, text: trial2Text, key: "t2", k: "t2_sent" },
-        { lo: 5.5, hi: 6.5, subj: TSUBJECT_3, html: trial3HTML, text: trial3Text, key: "t3", k: "t3_sent" },
-        { lo: 8.0, hi: 9.5, subj: TSUBJECT_4, html: trial4HTML, text: trial4Text, key: "t4", k: "t4_sent" },
-      ];
-      for (const c of trialContacts) {
-        const age = ageDays(c.created_at);
-        const step = steps.find((s) => age >= s.lo && age < s.hi);
-        if (!step) { trial.skipped++; continue; }
-        try {
-          await sendResend({
-            to: c.email,
-            subject: step.subj,
-            text: step.text(),
-            html: step.html(),
-            idempotencyKey: `trial-${step.key}-${c.id}`,
-            tag: step.key,
-            campaign: "trial",
-          });
-          trial[step.k]++;
-        } catch (e) {
-          trial.failed++;
-          trial.errors.push({ id: c.id, step: step.key, err: String(e).slice(0, 200) });
-        }
-        await new Promise((r) => setTimeout(r, 600));
-      }
-    }
-
     // Independent DCA absence check (read-only). Never let it break the email run.
     let dcaWatch = null;
     try {
@@ -1410,7 +1263,6 @@ export default async function handler(req, res) {
       results,
       plan: planSeq,
       quiz: quizSeq,
-      trial,
       dca_watchdog: dcaWatch,
     });
   } catch (err) {

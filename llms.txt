@@ -6,7 +6,7 @@ LiftOffr is for crypto investors who want to read cycle zones using on-chain dat
 
 All 64 zone crossings the Score has produced (23 Sep 2011 to 30 Nov 2025) are published at /receipts, including the ones that went the wrong way. Scored directionally, the model was right on 21 of 46 directional crossings at 30 and 90 days and 25 of 46 at 180 days. That is not published as a win rate and must not be described as one; it is a multi-month cycle-zone tool, not a short-horizon direction predictor. Every dated signal is a backtest, not a record of trades placed at the time.
 
-Founded by Torin Christianson. No subscriptions. Offers: My Bear Market Buy Plan ($29 one-time — Torin's exact tier-by-tier accumulation plan with timestamped receipts, at /plan), The Cycle System ($197 one-time — the full indicator course + exit ladder, lifetime updates), and The Cycle Playbook ($497 — a private 1:1 session, 4 spots/month). The scoreboard layer (live Score, daily brief, Sunday Score email, open Discord) is free at /free.
+Founded by Torin Christianson. No subscriptions. Offers: My Bear Market Buy Plan ($29 one-time — Torin's exact tier-by-tier accumulation plan with timestamped receipts, at /plan), and The Cycle System ($197 one-time — the full indicator course + exit ladder, lifetime updates). The scoreboard layer (live Score, daily brief, Sunday Score email, open Discord) is free at /free.
 
 ## Core pages
 - [Homepage](https://liftoffr.com/): Product overview, live Score, receipts, lead magnet
