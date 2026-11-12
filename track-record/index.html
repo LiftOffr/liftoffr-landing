@@ -312,9 +312,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       which means <strong style="color:#fff;">it does not cover the 2013 turn</strong>. The signal log does.</li>
     </ul>
     <p style="color:#ccc;font-size:15px;line-height:1.75;margin:0;">
-      <strong style="color:#fff;">That's the caveat, stated once.</strong> Underneath it is a fully specified method:
-      every input, every weight, every signal it produced &mdash; and every one of them is recomputable from
-      CBBI's free public data.
+      <strong style="color:#fff;">The method is fully specified:</strong> every input, every weight, every signal it
+      produced, and every one of them is recomputable from CBBI's free public data.
     </p>
   </div>
 
@@ -425,10 +424,6 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
     <p style="margin-top:12px;font-size:13px;color:#888;">One-time payment, no subscription. <a href="/free" style="color:#aaa;">The scoreboard is free →</a></p>
   </div>
 
-  <p class="disclaimer">
-    The DCA simulation on this page is based on historical BTC prices and on-chain indicator data (CBBI components from colintalkscrypto.com) from January 2017 through 12 May 2026. The separate 64-crossing signal log at /receipts runs from September 2011 to November 2025.
-    Backtest does not include taxes, exchange fees, or slippage.
-  </p>
 
 </div>
 
@@ -437,7 +432,7 @@ const chartData = [{"date": "2017-01-01", "btc_price": 997.0}, {"date": "2017-01
 // Only the fields this page actually renders. The dollar `amount`, `btc_after`
 // and `cash_after` fields were removed 2026-08-20: nothing on the page read them,
 // but they shipped in the page source and carried the banned portfolio-value
-// figures (the $1.88M terminal balance among them) straight past the sitewide
+// figures (the terminal balance among them) straight past the sitewide
 // income-claim sweep. Do not put currency balances back into this payload.
 const tradesData = [{"date": "2017-12-01", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 1 (40% of position)", "price": 10808.9583}, {"date": "2017-12-09", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 3 (20%, d8)", "price": 15050.022}, {"date": "2017-12-11", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 2 (30%, d10)", "price": 16873.4978}, {"date": "2018-01-17", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 4 (remaining, off after 47d)", "price": 11159.6086}, {"date": "2018-12-15", "type": "signal_buy", "action": "SIGNAL BUY \u2014 Tier 1 (40% of cash)", "price": 3185.074}, {"date": "2018-12-17", "type": "signal_buy", "action": "SIGNAL BUY \u2014 Tier 3 (20%, d2)", "price": 3499.1565}, {"date": "2018-12-17", "type": "signal_buy", "action": "SIGNAL BUY \u2014 Tier 4 (remaining, off after 2d)", "price": 3499.1565}, {"date": "2021-02-21", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 1 (40% of position)", "price": 57500.7161}, {"date": "2021-02-23", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 3 (20%, d2)", "price": 48560.489}, {"date": "2021-02-27", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 4 (remaining, off after 6d)", "price": 45834.5134}, {"date": "2022-11-26", "type": "signal_buy", "action": "SIGNAL BUY \u2014 Tier 1 (40% of cash)", "price": 16448.6413}, {"date": "2022-11-27", "type": "signal_buy", "action": "SIGNAL BUY \u2014 Tier 4 (remaining, off after 1d)", "price": 16436.0708}, {"date": "2024-12-15", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 1 (40% of position)", "price": 104551.3671}, {"date": "2024-12-18", "type": "sell", "action": "SIGNAL SELL \u2014 Tier 4 (remaining, off after 3d)", "price": 100469.7707}];
 
