@@ -1,5 +1,6 @@
 import { listAudienceContacts, quizBuckets, quizEligible, emailKey, resendRequest } from "./_email-routing.js";
 import { planAccessEmail } from "./_plan-fulfillment.js";
+import { PLAN_EDITIONS } from "./_plan-credit.js";
 import { unsubscribeHeaders } from "./_email-preferences.js";
 // Welcome sequence follow-up cron — Day 3 and Day 7 emails.
 //
@@ -78,7 +79,7 @@ const SUBJECT_REENGAGE = "still here, and the number moved";
 // every future whipsaw. It is the single most trust-building thing in the sequence
 // and it costs nothing to send. Do not move a pitch earlier than D7.
 const PSUBJECT_0  = "Your LiftOffr Plan is ready";
-const PSUBJECT_1  = "Start with one level and its reasoning";
+const PSUBJECT_1  = "Start with tier 1 of your worksheet";
 const PSUBJECT_3  = "the six times my own model flipped";
 const PSUBJECT_7  = "The 2022 round-trip that built this — and the receipts since";
 const PSUBJECT_14 = "Two things before I stop";
@@ -88,6 +89,32 @@ const PSUBJECT_14 = "Two things before I stop";
 // the unattributed testimonials off /playbook. No incentive is offered, because
 // an incentive conditioned on sentiment is the same problem wearing a hat.
 const PSUBJECT_21 = "three weeks in — worth it or not?";
+
+// Plan edition for the credit line in p7/p14. Amounts come from PLAN_EDITIONS
+// (api/_plan-credit.js), the same table the credit code is issued from. The
+// Plan Buyers contact carries no edition today, so this reads a plan_edition
+// property if one exists, else the sign-up country (as map emails do). With
+// neither, the line names both editions instead of guessing.
+const USD_CREDIT = PLAN_EDITIONS.plan_MntgjXJaQnGsW.creditUsd;
+const INR_CREDIT = PLAN_EDITIONS.plan_5oqMUKkQjazTX.creditUsd;
+export function planEdition({ planEdition: pe = null, country = null } = {}) {
+  const v = String(pe || "").toLowerCase();
+  const inr = v === "inr" || v === "plan_5oqmujkqjaztx" ? true
+    : v === "usd" || v === "plan_mntgjxjaqngsw" ? false
+    : country === "IN" ? true : country && country !== "unknown" ? false : null;
+  if (inr === true) return { edition: "inr", counts: `your Plan's $${INR_CREDIT} credit counts toward it`, still: `your Plan's $${INR_CREDIT} credit still applies` };
+  if (inr === false) return { edition: "usd", counts: `your $${USD_CREDIT} counts toward it`, still: `your $${USD_CREDIT} still credits toward it` };
+  const both = `($${USD_CREDIT} for the USD edition, $${INR_CREDIT} for the INR edition)`;
+  return { edition: null, counts: `your Plan purchase credits toward it ${both}`, still: `your Plan purchase still credits toward it ${both}` };
+}
+async function planContactEdition(contactId) {
+  const r = await resendRequest(`https://api.resend.com/contacts/${encodeURIComponent(contactId)}`, {
+    headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, Accept: "application/json" },
+  });
+  if (!r.ok) throw new Error(`contact read failed (${r.status})`);
+  const c = await r.json();
+  return planEdition({ planEdition: c?.properties?.plan_edition?.value || null, country: c?.properties?.country?.value || null });
+}
 
 function planShell(eyebrow, bodyHTML, ctaText, ctaHref) {
   return trialShell(eyebrow, bodyHTML, ctaText, ctaHref);
@@ -99,20 +126,20 @@ function plan0Text() { return planAccessEmail().text; }
 
 function plan1HTML() {
   return planShell("Plan · Day 1",
-    `<p style="margin:0 0 16px;">One useful way to work through the document: choose a single level and follow the reasoning all the way through.</p>
-     <p style="margin:0 0 16px;"><strong>The trigger:</strong> what condition does that level describe, and why did I include it?</p>
-     <p style="margin:0 0 16px;"><strong>The fallback:</strong> what does my plan say if that condition never arrives?</p>
-     <p style="margin:0 0 16px;"><strong>The execution and custody sections:</strong> how do the order mechanics and storage process fit the written rule?</p>
-     <p style="margin:0 0 16px;">Use the worksheet to note any assumption you would want to check. You do not need to place a trade or share your balances to use this exercise.</p>
+    `<p style="margin:0 0 16px;">Best way into the document: fill in tier 1 of the worksheet. That's the first limit row, order A on the execution sheet in section 5. Then follow it all the way through.</p>
+     <p style="margin:0 0 16px;"><strong>The trigger:</strong> what price goes in that row, and what has to be true for it to make sense to you?</p>
+     <p style="margin:0 0 16px;"><strong>The fallback:</strong> what does your plan say if that price never arrives? Section 6 walks through it.</p>
+     <p style="margin:0 0 16px;"><strong>The budget:</strong> does the cash for tier 1 fit inside the total you chose in section 4, without being counted twice?</p>
+     <p style="margin:0 0 16px;">Write down one assumption you'd want to check. You don't need to place a trade or share your balances to do any of this.</p>
      <p style="margin:0 0 16px;">Reply with the section heading if something is unclear. If you cannot open the document or see the paid Plan channels, include your Whop order ID so I can help with access.</p>
      <p>Torin</p>`, "Open your Plan", "https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/");
 }
 function plan1Text() {
-  return ["Choose one level in the document and follow its reasoning.", "",
-    "1. The trigger: what condition does it describe, and why did I include it?",
-    "2. The fallback: what does my plan say if that condition never arrives?",
-    "3. Execution and custody: how do the order mechanics and storage process fit the written rule?", "",
-    "Use the worksheet to note any assumption you would want to check. You do not need to place a trade or share your balances to use this exercise.", "",
+  return ["Fill in tier 1 of the worksheet: the first limit row, order A on the execution sheet in section 5. Then follow it all the way through.", "",
+    "1. The trigger: what price goes in that row, and what has to be true for it to make sense to you?",
+    "2. The fallback: what does your plan say if that price never arrives? Section 6 walks through it.",
+    "3. The budget: does the cash for tier 1 fit inside the total you chose in section 4, without being counted twice?", "",
+    "Write down one assumption you'd want to check. You don't need to place a trade or share your balances to do any of this.", "",
     "Reply with the section heading if something is unclear. For access problems, include your Whop order ID.", "",
     "Open your Plan: https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/", "", "Torin"].join("\n");
 }
@@ -154,7 +181,7 @@ function plan3Text() {
     "No pitch in this one either.","","— Torin"].join("\n");
 }
 
-function plan7HTML() {
+function plan7HTML(ed = planEdition()) {
   return planShell("Plan · Day 7",
     `<p style="margin:0 0 16px;">The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.</p>
      <p style="margin:0 0 16px;">In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly <strong>$30,000</strong> — the entire gain — because I had conviction and no written exit.</p>
@@ -163,13 +190,13 @@ function plan7HTML() {
      <p style="margin:0 0 16px;">All of it is public and checkable: <a href="https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_receipts" style="color:#e63946;">the receipts</a> and <a href="https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track" style="color:#e63946;">the full backtest</a>.</p>
      <div style="border-top:1px solid #eee;margin:22px 0 0;padding-top:18px;">
        <p style="margin:0 0 12px;font-size:13px;color:#888;">First and only time I'll mention this in a week. Then it lives in the footer where you can ignore it.</p>
-       <p style="margin:0 0 12px;">Here's the honest limit of what you bought. The Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's what <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system" style="color:#e63946;">The Cycle System</a> is: the full course rather than the focused document, $197 once, and your $29 counts toward it.</p>
+       <p style="margin:0 0 12px;">Here's the honest limit of what you bought. The Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's what <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system" style="color:#e63946;">The Cycle System</a> is: the full course rather than the focused document, $197 once, and ${ed.counts}.</p>
        <p style="margin:0;font-size:13px;color:#666;">If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.</p>
      </div>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See the receipts →", "https://liftoffr.com/receipts.html?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_cta");
 }
-function plan7Text() {
+function plan7Text(ed = planEdition()) {
   return ["The thing that makes this plan worth anything isn't the wins. It's that the losses are on the same page.","",
     "In 2021 my own indicators told me to scale out. I didn't. Through 2022 I round-tripped roughly $30,000 — the entire gain — because I had conviction and no written exit.","",
     "Everything since exists so that decision gets made while I'm calm instead of euphoric. In 2025 I laddered out early on a rule written months earlier, and being early cost me the last leg — no personal number on that, because it's the one thing here you couldn't check.","",
@@ -179,25 +206,25 @@ function plan7Text() {
     "  https://liftoffr.com/track-record?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_track","",
     "---","",
     "First and only time I'll mention this in a week, then it lives in the footer where you can ignore it.","",
-    "The honest limit of what you bought: the Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's The Cycle System: the full course rather than the focused document, $197 once, and your $29 counts toward it.",
+    `The honest limit of what you bought: the Plan focuses on worked examples, budget arithmetic and a review process. What it doesn't teach is how to derive your own levels when this cycle ends and every number is different. That's The Cycle System: the full course rather than the focused document, $197 once, and ${ed.counts}.`,
     "  https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d7_system","",
     "If the plan alone is what you wanted, that's a complete purchase. Nothing in it expires and nothing is held back.","",
     "— Torin"].join("\n");
 }
 
-function plan14HTML() {
+function plan14HTML(ed = planEdition()) {
   return planShell("Plan · Day 14 · last dedicated email",
     `<p style="margin:0 0 16px;">Last email in this sequence. After today you're just on the Sunday Score with everyone else.</p>
      <p style="margin:0 0 16px;">Two things worth knowing before I stop:</p>
-     <p style="margin:0 0 14px;"><strong>1. The Cycle System.</strong> The framework behind the plan: how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and your $29 still credits toward it, permanently. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system" style="color:#e63946;">What's in it.</a></p>
+     <p style="margin:0 0 14px;"><strong>1. The Cycle System.</strong> The framework behind the plan: how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and ${ed.still}, permanently. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system" style="color:#e63946;">What's in it.</a></p>
      <p style="margin:0 0 14px;"><strong>2. What the Course adds that the Plan doesn't.</strong> 46 lessons. The full Score build, every indicator and every weight, so you can recompute the number yourself. The record: every crossing, including the ones that went the wrong way. And the exit ladder worksheet, so the selling half gets written down before the euphoria shows up. The Plan gets you through this bear. The Course is how you build the next plan on your own. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_course" style="color:#e63946;">See the Course.</a></p>
      <p style="margin:0 0 16px;">And if the Plan is all you want, that's a complete purchase. It keeps updating for the rest of this bear regardless. Nothing behind a second paywall.</p>
      <p style="margin:24px 0 0;">— Torin</p>`,
     "See The Cycle System &rarr;", "https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_button");
 }
-function plan14Text() {
+function plan14Text(ed = planEdition()) {
   return ["Last email in this sequence. After today you're on the Sunday Score with everyone else.","",
-    "1. THE CYCLE SYSTEM: the framework behind the plan, how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and your $29 still credits toward it, permanently.",
+    `1. THE CYCLE SYSTEM: the framework behind the plan, how to derive your own levels when this cycle ends, and the exit half the plan doesn't contain. $197 once, and ${ed.still}, permanently.`,
     "   https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_system","",
     "2. WHAT THE COURSE ADDS THAT THE PLAN DOESN'T: 46 lessons. The full Score build, every indicator and every weight, so you can recompute the number yourself. The record: every crossing, including the ones that went the wrong way. And the exit ladder worksheet, so the selling half gets written down before the euphoria shows up. The Plan gets you through this bear. The Course is how you build the next plan on your own.",
     "   https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=plan&utm_content=d14_course","",
@@ -1032,7 +1059,7 @@ export default async function handler(req, res) {
     const map = {
       qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML,
       stack: stackHTML, reengage: reengageHTML,
-      p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: plan7HTML, p14: plan14HTML, p21: plan21HTML,
+      p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: () => plan7HTML(), p14: () => plan14HTML(), p7_inr: () => plan7HTML(planEdition({ planEdition: "inr" })), p14_usd: () => plan14HTML(planEdition({ planEdition: "usd" })), p21: plan21HTML,
       q2: () => quiz2HTML("ROUNDTRIPPED", null), q3: () => quiz3HTML("ROUNDTRIPPED", null),
       q4: () => quiz4HTML("ROUNDTRIPPED", null), q5: () => quiz5HTML("NEW", null),
       q6: () => quiz6HTML("SITTING", null), q7: () => quiz7HTML("ACCUMULATING", null),
@@ -1171,12 +1198,19 @@ export default async function handler(req, res) {
         const age = ageDays(c.created_at);
         const step = steps.find((s) => age >= s.lo && age < s.hi);
         if (!step) { planSeq.skipped++; continue; }
+        // Only the credit emails need the edition. A failed lookup falls back to
+        // the both-editions line, which is true for every buyer.
+        let ed = planEdition();
+        if (step.key === "p7" || step.key === "p14") {
+          try { ed = await planContactEdition(c.id); }
+          catch (e) { planSeq.errors.push({ id: c.id, step: "edition", err: String(e).slice(0, 200) }); }
+        }
         try {
           await sendResend({
             to: c.email,
             subject: step.subj,
-            text: step.text(),
-            html: step.html(),
+            text: step.text(ed),
+            html: step.html(ed),
             idempotencyKey: `plan-${step.key}-${c.id}`,
             tag: step.key,
             campaign: "plan",
