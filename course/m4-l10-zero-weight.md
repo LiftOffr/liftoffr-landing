@@ -24,8 +24,6 @@ Nine components. Plenty of well-known Bitcoin indicators are not among them, and
 
 Verify every weight free at **liftoffr.com/score**, and check what each component read at every cycle turn since 2013 at **liftoffr.com/indicators**.
 
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
-
 ───
 ◀ **Previous:** <#1540324399645990992> · **Next:** <#1443377913239044267>, then Module 5 ▶
 ↩ **Module 4 overview:** <#1443375956835303535> · 🗺️ **Course map:** <#1442207394439626802>

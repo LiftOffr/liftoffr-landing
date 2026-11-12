@@ -23,7 +23,6 @@ These are the real decisions. The subject is not moving to another module — it
 lesson is deleted outright rather than deprecated — there is no buyer mid-lesson to strand. The
 new curriculum contains no Market Cipher material at all.
 
-
 ---
 
 ## 2. Lessons replaced, with the subject intact
@@ -93,7 +92,6 @@ gives harm-reduction guardrails for the rest. It stays untouched.
 Ship the new curriculum, retire old Module 4 entirely, and post a short note saying the indicator
 module was rebuilt on the nine weighted components and what changed. The note costs you nothing
 and it is the same move that makes Broadcast 1 worth sending: the correction is the credibility.
-
 
 ---
 

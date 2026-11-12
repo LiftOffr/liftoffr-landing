@@ -18,7 +18,7 @@ DOCS = {
         'h1':    'My Bear Market<br>Buy Plan',
         'sub':   'A Bitcoin planning method.<br>'
                  'Fictional examples. Your own worksheet.',
-        'upd':   'Educational edition<br>'
+        'upd':   'Current edition<br>'
                  'Document revision: 7 October 2026<br>'
                  'Lifetime updates for this bear market included',
     },

@@ -233,4 +233,4 @@ Support: contact.liftoffr@gmail.com. The existing 30-day refund terms remain unc
 - Earlier editions presented a dated personal ladder and later wording corrections.
 - October 7: educational edition with fictional budget arithmetic, blank order worksheets, scenario answers, and a thesis-review method. No personal balances, holdings, actual buy levels, allocation or schedule is disclosed.
 
-Education, not personalized financial advice. No outcome is guaranteed. The version date belongs with any excerpt.
+The version date belongs with any excerpt.

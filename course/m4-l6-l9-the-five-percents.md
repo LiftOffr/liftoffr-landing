@@ -32,8 +32,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 
 Live reading, and this table in full: **liftoffr.com/indicators/2-year-ma-multiplier**
 
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
-
 ───
 ◀ **Previous:** <#1540324251008245770> · **Next:** <#1540324343635255398> ▶
 ↩ **Module 4 overview:** <#1443375956835303535> · 🗺️ **Course map:** <#1442207394439626802>
@@ -63,8 +61,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 **Where it has been wrong.** It depends on coin-day metrics that exchange and ETF custody distort — coins moving between custodial wallets look like holders capitulating when nothing changed hands economically. Custody changes can complicate interpretation; this lesson does not quantify a post-2024 causal effect.
 
 Live reading, and this table in full: **liftoffr.com/indicators/reserve-risk**
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540324284759674931> · **Next:** <#1540324377378164736> ▶
@@ -98,8 +94,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 
 Live reading, and this table in full: **liftoffr.com/indicators/woobull-top-cap**
 
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
-
 ───
 ◀ **Previous:** <#1540324343635255398> · **Next:** <#1540324399645990992> ▶
 ↩ **Module 4 overview:** <#1443375956835303535> · 🗺️ **Course map:** <#1442207394439626802>
@@ -131,8 +125,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 That is the last of the nine. Together they are the whole model: RHODL 20, Puell 20, Trolololo 15, MVRV 15, Pi Cycle 10, then 2Y MA, Reserve Risk, Woobull and RUPL at 5 each. Nothing else feeds the number.
 
 Live reading, and this table in full: **liftoffr.com/indicators/rupl**
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540324377378164736> · **Next:** <#1540324493707444307> ▶

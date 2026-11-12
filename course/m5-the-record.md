@@ -24,8 +24,6 @@ Every zone crossing the model has ever produced is at **liftoffr.com/receipts** 
 
 The next two lessons are about what the numbers on that page do and do not mean. They are the least comfortable lessons in this course and they are the reason the rest of it is worth anything.
 
-*Educational content only. Not financial advice, and nothing here is personalised to you. Backtested results are historical; past performance does not guarantee future results.*
-
 ───
 ◀ *First lesson in this module* · **Next:** <#1540313214028619806> ▶
 ↩ **Module 5 overview:** <#1443375980294049854> · 🗺️ **Course map:** <#1442207394439626802>
@@ -47,8 +45,6 @@ Run it backwards and the problem is obvious: if the model had produced nothing b
 **If you ever see "29 of 64" quoted anywhere as this model's error rate, it is wrong** — including where I had it wrong myself before catching it. A model whose selling point is that you can check it has to survive being checked, and that includes being checked by me.
 
 The honest scoring is in the next lesson.
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540313188782968893> · **Next:** <#1540313246488330341> ▶
@@ -74,7 +70,6 @@ A stronger evaluation would predefine rules and horizons, preserve information a
 
 Next: <#1540313273784864838> · Course map: <#1442207394439626802>
 
-
 ## `#m5-l4-so-what-is-it-for` — So what is it for?
 
 # Lesson 4 — So what is it for?
@@ -90,8 +85,6 @@ The honest description is that this is a **cycle-position instrument on a multi-
 **What you get from that.** A number that is the same every morning, computed the same way, published with its weights, that tells you roughly where in a cycle you are — and a written record of every time it has been early, late or wrong.
 
 What you do with that is yours. Nothing on this server, in this course, or on the site will tell you what to do with a position, because none of it knows your size, your timeline or your tax situation — and anyone who hands you a percentage without knowing those is guessing at your expense.
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540313246488330341> · **Next:** <#1540313303480275055> ▶
@@ -120,8 +113,6 @@ Date          Transition        BTC
 **This is what a threshold model does.** Any rule of the form "above X, do something" will flip back and forth around X. The lesson is not that thresholds are broken — it is that a threshold model is only usable if you have decided in advance what a crossing means to you, because acting in full on each of those six transitions would have meant six reversals in a year.
 
 All six transitions are dated in the public log at **liftoffr.com/receipts**.
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ## The other side: a written rule still needs scrutiny
 
@@ -170,8 +161,6 @@ What I can give you is the shape of a decision that survives contact with a whip
 **5. Re-read lesson 3 before you commit to anything.** 21 of 46 at 30 days, 25 of 46 at 180, neither establishes a validated predictive edge. Whatever you decide should still make sense given that — because that is the model you actually have, not the one the marketing of every other service implies you are buying.
 
 The next lesson turns all of that into a worksheet you can fill in.
-
-*Educational content only. Not financial advice, and nothing here is personalised to you. Nothing in this lesson is an instruction to buy, sell or size anything.*
 
 ───
 ◀ **Previous:** <#1540313303480275055> · **Next:** <#1540313367422443601> ▶

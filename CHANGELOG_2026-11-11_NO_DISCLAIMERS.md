@@ -45,3 +45,6 @@ from earlier the same day. Rule: BRAND_VOICE.md 6a.
 ## Not touched
 - Paid deliverables (Plan PDF, Course lessons) still carry their own disclaimer sections.
 - IG captions/on-screen text: done by a parallel Claude session (AGENT_BOARD 07:27 MT).
+
+## Paid deliverables (later, Claude IG session)
+- Course lessons (course/*.md, 9 files): footer lines removed. Plan source + PDF: closing hedge removed, re-rendered (liftoffr-plan-product). Reference sheets re-rendered. Desktop course PDFs redacted. Whop still serves the old files until re-uploaded. Details: liftoffr-video LOGS/AGENT_BOARD.md.

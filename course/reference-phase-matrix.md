@@ -55,11 +55,10 @@ top against 99 in 2013. A reading that would have been decisive in one cycle was
 another — which is the entire case for weighting nine of them rather than trusting one, and also
 the reason the weighted number is not a prediction.
 
-**What this sheet does not do.** It does not tell you what to do at any reading, it does not
-forecast, and it is not personalised. It is a record of what nine public measurements read on
+**What this sheet does not do.** It does not tell you what to do at any reading, and it does not
+forecast. It is a record of what nine public measurements read on
 seven specific days.
 
 ---
 
-*Every figure traceable to `liftoffr.com/indicators`. Educational content only, not financial
-advice. Backtested readings are historical; past performance does not guarantee future results.*
+*Every figure traceable to `liftoffr.com/indicators`.*

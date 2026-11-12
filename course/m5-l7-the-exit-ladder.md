@@ -142,8 +142,6 @@ Overriding is not forbidden. Overriding **silently** is how a plan quietly stops
 
 That is not caution. It is the rule the whole product runs on, applied to the half where it is hardest to hold.
 
-*Educational content only. Not financial advice, and nothing here is personalised to you. Nothing in this lesson is an instruction to buy, sell or size anything. Backtested results are historical; past performance does not guarantee future results.*
-
 ───
 ◀ **Previous:** <#1540313337802395699> · **Next:** <#1443377941735149620> ▶
 ↩ **Module 5 overview:** <#1443375980294049854> · 🗺️ **Course map:** <#1442207394439626802>

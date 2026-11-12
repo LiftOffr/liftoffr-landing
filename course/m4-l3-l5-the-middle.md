@@ -34,8 +34,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 
 Live reading, and this table in full: **liftoffr.com/indicators/rainbow-chart**
 
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
-
 ───
 ◀ **Previous:** <#1540324141092053042> · **Next:** <#1540324228057006191> ▶
 ↩ **Module 4 overview:** <#1443375956835303535> · 🗺️ **Course map:** <#1442207394439626802>
@@ -65,8 +63,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 **Where it has been wrong.** Its peak readings have fallen every cycle as the asset matured — 2013's extreme is a level 2021 never came close to. Waiting for an old absolute number to print again is how people held through the last two tops.
 
 Live reading, and this table in full: **liftoffr.com/indicators/mvrv-z-score**
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540324171504947271> · **Next:** <#1540324251008245770> ▶
@@ -99,8 +95,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 This is the lesson that most justifies weighting nine components rather than trusting one. Pi Cycle is the most famous top indicator in Bitcoin and it carries 10%, not 50%, precisely because of the 2025 row above.
 
 Live reading, and this table in full: **liftoffr.com/indicators/pi-cycle-top**
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540324228057006191> · **Next:** <#1540324284759674931> ▶

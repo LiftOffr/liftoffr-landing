@@ -32,8 +32,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 
 Live reading, and this table in full: **liftoffr.com/indicators/rhodl-ratio**
 
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
-
 ───
 ◀ **Previous:** <#1540323997940711494> · **Next:** <#1540324141092053042> ▶
 ↩ **Module 4 overview:** <#1443375956835303535> · 🗺️ **Course map:** <#1442207394439626802>
@@ -63,8 +61,6 @@ Cycle turn   Date         BTC close  Reading (0–100)
 **Where it has been wrong.** Each halving cuts issuance in half overnight, which mechanically drops the multiple without anything changing about demand. Readings across a halving boundary are not like-for-like, and this is the single most common way people misread it.
 
 Live reading, and this table in full: **liftoffr.com/indicators/puell-multiple**
-
-*Educational content only. Not financial advice, and nothing here is personalised to you.*
 
 ───
 ◀ **Previous:** <#1540324063832969256> · **Next:** <#1540324171504947271> ▶
