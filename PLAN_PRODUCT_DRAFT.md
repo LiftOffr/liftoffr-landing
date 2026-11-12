@@ -4,25 +4,25 @@
 My Bear Market Buy Plan
 A Bitcoin planning method. Fictional examples. Your own worksheet.
 Torin Christianson | LiftOffr
-Educational edition: 7 October 2026.
+Edition: 12 November 2026.
 
 ## Start here: a plan you can inspect
 
-This document teaches a Bitcoin planning method with fictional examples and blank worksheets. It does not disclose my account balances, holdings, orders, buy levels, trading schedule or allocation. The useful output is a written budget, schedule, order checklist and review rule. Completing it does not require buying Bitcoin.
+This document teaches the Bitcoin planning method I use, with fictional examples and blank worksheets. My own balances, holdings, orders and allocation stay private; the numbers that matter here are yours. The useful output is a written budget, schedule, order checklist and review rule. Completing it does not require buying Bitcoin.
 
 **The method:** compare calendar-based purchases with conditional limit orders, then write down what you will review if the original assumption fails. There is no single allocation or set of prices that is correct for every reader.
 
 **Your first session:** read the one-page plan, work through the small fictional budget, then complete the blank worksheet. Check that scheduled budgets, limit-order budgets and a buffer add up to the amount you chose. If they do not, stop and reconcile them.
 
-This is general education using hypothetical decisions, not a recommendation that you copy an example as your own allocation. I do not know your finances. Bitcoin is volatile; losses can be substantial, including your entire allocation. No level, indicator or calendar date establishes a market bottom. There is no guaranteed return or fully invested outcome.
+I don't know your finances, so every amount in this document is yours to choose. Bitcoin is volatile. That is exactly why the plan gets written before the market moves, not during.
 
-**Contents:** planning framework; thesis review; budget example; your worksheet; execution checks; unfilled-order review; scenario practice; Score arithmetic; records and verification; document access and revision history.
+**Contents:** planning framework; thesis review; budget example; your worksheet; execution checks; unfilled-order review; scenario practice; Score arithmetic; records and verification; access and updates; next step: The Cycle System.
 
 ## 1. A planning framework on one page
 
-**All examples in this edition are fictional.** None are a disclosure of my finances or an instruction to place a trade.
+**All examples in this edition are fictional.** They show the mechanics. Your worksheet holds the real numbers.
 
-| Component | Decision to write down | What it does not establish |
+| Component | Decision to write down | What it can't promise |
 |---|---|---|
 | Calendar purchases | Your own cash cap and start/end dates | A guaranteed exact debit or a bottom date |
 | Conditional limit A | Your own price, budget and reason | That it will fill or is appropriate for you |
@@ -33,13 +33,13 @@ This is general education using hypothetical decisions, not a recommendation tha
 
 Three blank limit rows make the worksheet easy to inspect; they are not a recommendation to place three orders. You can choose fewer, more, or no orders. No part of the method requires using every available dollar.
 
-Calendar buying spreads execution over selected dates. A limit order waits for a specified execution price. Combining the two creates a tradeoff: some exposure can be acquired while some cash stays available for a condition that may never occur. Neither method avoids investment risk.
+Calendar buying spreads execution over selected dates. A limit order waits for a specified execution price. Combining the two creates a tradeoff: some exposure can be acquired while some cash stays available for a condition that may never occur.
 
 If you use automation, verify which actions it actually implements. A worksheet or calendar reminder does not program catch-up purchases, order cancellations, reserve recycling or rate changes.
 
 ## 2. When a thesis fails
 
-A useful market thesis includes a condition that could disprove it. If a thesis depends on price failing to exceed a prior high and price exceeds that high, the ceiling assumption no longer holds. It does not establish where or when the final low will occur.
+A useful market thesis includes a condition that could disprove it. If a thesis depends on price failing to exceed a prior high and price exceeds that high, the ceiling assumption no longer holds. That alone tells you nothing yet about where or when the final low lands.
 
 For example, a thesis that depends on a prior high holding must be reconsidered when that high breaks. Write down the failed condition before searching for a replacement forecast.
 
@@ -49,11 +49,11 @@ Calendar purchases can create exposure over time; conditional orders can reserve
 
 A schedule end date is an operational choice, not a forecast bottom date. A review date is a decision checkpoint, not proof that anything will execute automatically.
 
-Check publication dates before using market commentary. CBBI and the LiftOffr Score are not Cowen's proprietary ITC risk score. This workbook does not present a calibrated forecast of the market bottom.
+Check publication dates before using market commentary. CBBI and the LiftOffr Score are not Cowen's proprietary ITC risk score.
 
 ## 3. Worked example: an invented 1,000-unit budget
 
-**Practice only. These are fictional amounts, not my balance and not an allocation recommendation.** The purpose is to show the arithmetic and expose where cash can be counted twice.
+**Practice numbers.** Fictional amounts, built to show the arithmetic and expose where cash gets counted twice.
 
 | Bucket | Budget | Arithmetic |
 |---|---|---|
@@ -108,7 +108,7 @@ Do not treat bank balances, salary, borrowed money or other recurring purchases 
 
 ## 5. Your order and execution sheet
 
-Prices below are blank because this is your worksheet, not an instruction to copy the example.
+Prices below are blank because this is your worksheet.
 
 | Order | Your limit price | Cash cap including fees | Current verified status | Check date |
 |---|---|---|---|---|
@@ -116,7 +116,7 @@ Prices below are blank because this is your worksheet, not an instruction to cop
 | B | ______ | ______ | ______ | ______ |
 | C | ______ | ______ | ______ | ______ |
 
-Before submitting any order, inspect the exchange preview. Check the asset and quote currency, side, order type, quantity, estimated fees, total cash impact and existing open orders. A limit price is not a guarantee of execution or a stop against further losses.
+Before submitting any order, inspect the exchange preview. Check the asset and quote currency, side, order type, quantity, estimated fees, total cash impact and existing open orders. A limit price caps what you pay. It does not guarantee a fill, and it does not stop a further drop.
 
 After submission, record the order identifier privately. Distinguish submitted, open, partially filled, filled, canceled and rejected. Inspect actual filled quantity and commissions. A successful request, notification or chart crossing does not prove a fill.
 
@@ -135,7 +135,7 @@ Custody is a separate decision: understand exchange risk, wallet backups, addres
 
 A limit order is conditional exposure. If the condition never occurs, that cash stays undeployed. A schedule plus open limits is not a promise to be fully invested by a date.
 
-At a review, choose deliberately among keeping the existing orders, revising the plan, reducing the allocation, or canceling orders and reallocating some released cash. A reader must verify what their chosen tools actually do. No automation is supplied with this document. There is no standing instruction in this document to cancel a limit and convert it into four weekly buys.
+At a review, choose deliberately among keeping the existing orders, revising the plan, reducing the allocation, or canceling orders and reallocating some released cash. A reader must verify what their chosen tools actually do. No automation is supplied with this document.
 
 Before changing anything:
 
@@ -186,9 +186,9 @@ Your turn: write what you would check first in each scenario. If the answer is �
 
 ## 8. Use the Score as context
 
-The LiftOffr Score summarizes historical price and on-chain inputs. It is not an account execution log, a price forecast, or an automatic instruction to trade.
+The LiftOffr Score summarizes price and on-chain inputs into one number. It tells you where the cycle sits. Your written plan tells you what you do about it.
 
-The six bands are: below 15 deep accumulation; 15 to below 30 accumulation; 30 to below 50 re-accumulation; 50 to below 70 mid-cycle; 70 to below 85 warning; 85 and above exit zone. A label does not establish what happens next.
+The six bands are: below 15 deep accumulation; 15 to below 30 accumulation; 30 to below 50 re-accumulation; 50 to below 70 mid-cycle; 70 to below 85 warning; 85 and above exit zone.
 
 | Component | Weight |
 |---|---|
@@ -208,29 +208,45 @@ Practice: readings 40 and 60 with weights 20 and 10 give (40 × 20 + 60 × 10) /
 
 ## 9. Records you can and cannot verify
 
-The public pages at liftoffr.com/receipts and liftoffr.com/track-record show model calculations against historical data. They are not my exchange statements, a record of calls published at the time, or proof that a reader would achieve those results. Use the full record, including adverse outcomes, rather than one favorable crossing.
+The public pages at liftoffr.com/receipts and liftoffr.com/track-record are backtests: the model run over historical data, every crossing included, the ones that went the wrong way too. Judge it on the full record, not one good crossing.
 
 A model signal does not prove anyone traded it. A document revision does not prove an order executed. This edition contains no personal exchange records or order status.
 
-Earlier versions used a personal-ladder presentation. This educational edition replaces that presentation with fictional arithmetic and private worksheets. Do not treat an older version as current instructions. Preserve it only as a dated archive, not a current plan.
+Earlier versions used a personal-ladder presentation. This edition replaces it with fictional arithmetic and private worksheets. If you kept an older copy, treat it as a dated archive and work from this one.
 
-The exit side is a separate decision. The Cycle System explains how to reason about an exit ladder and provides a worksheet for choosing your own fractions. This Plan does not supply personalized sell instructions or imply that every high Score reading correctly predicts a top.
+The exit side is its own decision, and it is the one most people never write down. The Cycle System teaches the exit ladder and gives you a worksheet for choosing your own fractions. The last page covers it.
 
 Sources for execution and security checks: docs.cdp.coinbase.com/api-reference/advanced-trade-api/rest-api/orders/preview-orders ; help.coinbase.com/en/coinbase/privacy-and-security/data-privacy/how-can-i-make-my-account-more-secure . Verify current exchange behavior rather than relying on a screenshot from this document.
 
 ## 10. Access, updates and your first useful result
 
-Keep this educational PDF in your Whop library. Its existing Content item is the delivery location for the current document. Connect Discord through Whop for the paid Plan area and #plan-updates. Never share credentials or private account records to obtain access.
+Keep this PDF in your Whop library. Its existing Content item is the delivery location for the current document. Connect Discord through Whop for the paid Plan area and #plan-updates. Never share credentials or private account records to obtain access.
 
-Document revisions for material changes remain included for the rest of this bear market. The current version and change summary identify what changed. Notifications and model-threshold messages are not proof of an executed trade. The Plan is a document and worksheet, not an automated trading service, personal advice, or the full Cycle System course.
+Document revisions for material changes stay included for the rest of this bear market. The current version and change summary show what changed. The Plan gets you through this bear market with a buy plan you wrote yourself. The Cycle System is where you learn to build the next one on your own, exit side included.
 
 **A useful first result:** you can explain the calendar/limit tradeoff, complete a budget that adds up, distinguish held from available cash, and write a review rule without placing a trade. If one step is unclear, ask about that step without posting your balance or order identifiers.
 
-Support: contact.liftoffr@gmail.com. The existing 30-day refund terms remain unchanged. The free Score, checklist and public method remain available without buying the document.
+Support: contact.liftoffr@gmail.com. 30-day refund, as always. The free Score, checklist and public method stay free.
 
 ### Edition history
 
 - Earlier editions presented a dated personal ladder and later wording corrections.
-- October 7: educational edition with fictional budget arithmetic, blank order worksheets, scenario answers, and a thesis-review method. No personal balances, holdings, actual buy levels, allocation or schedule is disclosed.
+- October 7: fictional budget arithmetic, blank order worksheets, scenario answers, and a thesis-review method.
+- November 12: tighter wording throughout and a closing page on The Cycle System and your Plan credit.
 
 The version date belongs with any excerpt.
+
+## Next: The Cycle System
+
+This Plan gets the buying side written down. The Cycle System is the full course, and it is where the rest of the method lives.
+
+**What the $197 Course adds:**
+
+- **46 lessons** covering the whole framework.
+- **The full Score build.** Every indicator and every weight, so you can rebuild the number yourself instead of relying on mine.
+- **The record.** Every zone crossing the model has produced, the ones that went the wrong way included.
+- **The exit ladder worksheet.** The selling half of the plan, written down while you are calm, with your own fractions at each band.
+
+**Your Plan purchase credits toward it.** The USD edition of the Plan credits $29. The INR edition credits $8. You do not need to ask for it: a private, single-use code arrives by email after your Plan purchase. Enter it at checkout and the credit comes off the $197.
+
+When you're ready: **liftoffr.com/system**

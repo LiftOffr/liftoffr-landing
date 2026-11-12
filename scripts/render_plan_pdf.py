@@ -19,7 +19,7 @@ DOCS = {
         'sub':   'A Bitcoin planning method.<br>'
                  'Fictional examples. Your own worksheet.',
         'upd':   'Current edition<br>'
-                 'Document revision: 7 October 2026<br>'
+                 'Document revision: 12 November 2026<br>'
                  'Lifetime updates for this bear market included',
     },
     'magnet': {
