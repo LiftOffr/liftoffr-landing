@@ -384,8 +384,8 @@ function ladderEmbed() {
     color: 0xe63946,
     fields: [
       { name: "Free — forever", value: "The live Score, the daily brief, all 9 indicator pages, every timestamped receipt, and this Discord.\n[liftoffr.com/free](https://liftoffr.com/free)" },
-      { name: "$29 · My Bear Market Buy Plan", value: "The nine-tier ladder I'm actually executing. Every level, what has to be true at each one, a receipt when it fires, and the `#plan-updates` channel.\n[liftoffr.com/plan](https://liftoffr.com/plan)" },
-      { name: "$197 · The Cycle System", value: "Why those levels — all nine weighted indicators, the method, and the exit ladder.\n[liftoffr.com/system](https://liftoffr.com/system)" },
+      { name: "$29 · My Bear Market Buy Plan", value: "The planning method I use, a worked example, blank worksheets to write your own tiers, the execution checklist and the override log. Plus the live Score and the `#plan-updates` channel.\n[liftoffr.com/plan](https://liftoffr.com/plan)" },
+      { name: "$197 · The Cycle System", value: "The full framework: all nine weighted indicators, the method, and the exit ladder. Your Plan purchase credits toward it.\n[liftoffr.com/system](https://liftoffr.com/system)" },
     ],
     footer: FOOTER,
   };
