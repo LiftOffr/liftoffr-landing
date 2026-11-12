@@ -453,7 +453,7 @@ export default async function handler(req, res) {
             "their cycle top, with drawdowns of **76-84%** — and every drawdown has been " +
             "shallower than the one before it, so applying an old percentage understates the floor.\n\n" +
             `The Score reads **${score.toFixed(1)}** today (${ZONE_LABELS[z] || z}). Past cycle ` +
-            "bottoms printed composite readings in the low teens.",
+            "bottoms printed composite readings in the single digits (2015: 0.2, 2018: 3.4, 2022: 5.1).",
           color: ZONE_INT[z] || 0x8793a8,
           fields: [{
             name: "​",
