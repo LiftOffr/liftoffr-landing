@@ -42,13 +42,18 @@ function unsubUrl(email) {
 
 const SUBJECT_QW = "See today's Bitcoin cycle Score in 10 seconds";
 const SUBJECT_E2 = "the six times it crossed, and the three that meant nothing";
-const SUBJECT_PROOF = "check my work";
+const SUBJECT_PROOF = "pick any date since 2011. you'll get my number";
 // Was: "7 days of the full system — free, no card (last welcome email)" — a
 // leftover from the 7-day trial, which was retired 2026-08-02. The body pitches
 // the $29 plan and has never mentioned a trial; the subject was promising a
 // product that no longer exists.
 const SUBJECT_E3 = "The shortcut, if you want it (last welcome email)";
-const SUBJECT_REENGAGE = "still here, and the number moved";
+const SUBJECT_REENGAGE = "what the score's band has meant at every turn since 2011";
+// D18 subject carries the live number when the Score fetch worked.
+function reengageSubject(sc) {
+  const b = reengageBand(sc);
+  return b ? `the score is ${b.score} now. here's what that band has meant` : SUBJECT_REENGAGE;
+}
 
 // ── Plan-buyer sequence (LIFTOFFR_MASTER_PLAN.md §5) ──
 // Audience: Resend "LiftOffr Plan Buyers", populated by api/whop-webhook.js on
@@ -420,6 +425,38 @@ function proofText() {
     "The Score is computed from CBBI's public daily data (colintalkscrypto.com/cbbi) using the weights published on every indicator page. Pick any date on the receipts page, pull the same source, and recompute it. You'll land on the same number.","",
     "That's the whole idea behind LiftOffr: a cycle read you can check yourself.","",
     "Read the receipts: https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=day5_receipts","","— Torin"].join("\n");
+}
+
+// ── Day 12: the Course, plainly (generic free list) ──
+// Same approach as map m3. The credit line follows mapEdition(country): India
+// sign-ups see the ₹799 Plan and its $8 credit, everyone else $29.
+const SUBJECT_COURSE = "the Course, plainly";
+const NL = (path, content, inr) => `https://liftoffr.com${path}?utm_source=resend&utm_medium=email&utm_campaign=welcome&utm_content=${content}${inr ? "&price=inr" : ""}`;
+const COURSE_WHAT = "46 lessons in six modules, delivered in Discord through Whop, plus a blank exit-method workbook. You learn the nine Score components, reproduce the calculation from free public data, study how it behaved at every turn since 2013, and write your own framework.";
+const COURSE_WHO = "You want to understand the number, not just read it, and you want a framework you can run yourself next cycle and the one after.";
+const coursePrice = (ed) => `$197, one payment, lifetime updates. Checkout fees and tax where it applies are extra. If you take the ${ed.price} Plan first, it includes ${ed.credit}. 30-day refund.`;
+export function courseHTML(_sc, ed = mapEdition()) {
+  return localize(shell("Welcome · Day 12", `
+    <p style="margin:0 0 16px;">You've had the Score for almost two weeks. If you want to stop reading my number and start running your own, that's what the Course is for. Here it is, plainly.</p>
+    <p style="margin:0 0 6px;"><strong>What it is</strong></p>
+    <p style="margin:0 0 16px;">${COURSE_WHAT}</p>
+    <p style="margin:0 0 6px;"><strong>Who it's for</strong></p>
+    <p style="margin:0 0 16px;">${COURSE_WHO}</p>
+    <p style="margin:0 0 6px;"><strong>Price</strong></p>
+    <p style="margin:0 0 16px;">${coursePrice(ed)}</p>
+    <p style="margin:0 0 16px;">You'll keep getting the Score every Sunday either way.</p>
+    <p style="margin:24px 0 0;">Torin</p>`, "See the Course →", NL("/system", "day12_course", ed.inr)), ed);
+}
+export function courseText(_sc, ed = mapEdition()) {
+  return [
+    "You've had the Score for almost two weeks. If you want to stop reading my number and start running your own, that's what the Course is for. Here it is, plainly.", "",
+    "WHAT IT IS", COURSE_WHAT, "",
+    "WHO IT'S FOR", COURSE_WHO, "",
+    "PRICE", coursePrice(ed), "",
+    `See the Course: ${NL("/system", "day12_course", ed.inr)}`, "",
+    "You'll keep getting the Score every Sunday either way.", "",
+    "Torin",
+  ].join("\n");
 }
 
 // ── Day 9: The stack (goodwill + the affiliate layer) ──
@@ -1058,7 +1095,7 @@ export default async function handler(req, res) {
     if (!authed) return res.status(401).json({ error: "Unauthorized" });
     const map = {
       qw: quickWinHTML, e2: email2HTML, proof: proofHTML, e3: email3HTML,
-      stack: stackHTML, reengage: reengageHTML,
+      stack: stackHTML, course: () => courseHTML(), course_inr: () => courseHTML(null, mapEdition("IN")), reengage: reengageHTML,
       p0: plan0HTML, p1: plan1HTML, p3: plan3HTML, p7: () => plan7HTML(), p14: () => plan14HTML(), p7_inr: () => plan7HTML(planEdition({ planEdition: "inr" })), p14_usd: () => plan14HTML(planEdition({ planEdition: "usd" })), p21: plan21HTML,
       q2: () => quiz2HTML("ROUNDTRIPPED", null), q3: () => quiz3HTML("ROUNDTRIPPED", null),
       q4: () => quiz4HTML("ROUNDTRIPPED", null), q5: () => quiz5HTML("NEW", null),
@@ -1128,7 +1165,7 @@ export default async function handler(req, res) {
     // One fetch for the whole run. reengageHTML/Text are the only templates that
     // reference the live number; they render without the band claim if this is null.
     const liveScore = await fetchScoreSafe();
-    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, stack_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, stack_failed: 0, reengage_failed: 0, map_sent: 0, map_failed: 0, map_lookup_failed: 0, skipped: 0, errors: [] };
+    const results = { qw_sent: 0, e2_sent: 0, proof_sent: 0, e3_sent: 0, stack_sent: 0, course_sent: 0, reengage_sent: 0, qw_failed: 0, e2_failed: 0, proof_failed: 0, e3_failed: 0, stack_failed: 0, course_failed: 0, reengage_failed: 0, map_sent: 0, map_failed: 0, map_lookup_failed: 0, skipped: 0, errors: [] };
     // Map emails are commercial (they offer the Course), so they follow the same
     // mailing-address rule as the quiz sequence.
     const mapReady = Boolean(process.env.LIFTOFFR_MAILING_ADDRESS?.trim());
@@ -1150,10 +1187,12 @@ export default async function handler(req, res) {
       // Map sign-ups (lead_magnet=map) get map emails 1-3 instead of the generic
       // sequence. Only contacts inside a sending window are looked up. A failed
       // lookup skips the contact this run rather than risk the wrong sequence.
+      let country = null;
       if (age >= 1.0 && age < 19.0) {
         let mc;
         try { mc = await mapContactOf(c.id); }
         catch (e) { results.map_lookup_failed++; results.errors.push({ id: c.id, step: "lead_magnet", err: String(e).slice(0, 200) }); continue; }
+        country = mc.country;
         if (mc.leadMagnet === "map") {
           const step = MAP_STEPS.find((st) => age >= st.lo && age < st.hi);
           if (!step || !mapReady) { results.skipped++; continue; }
@@ -1172,8 +1211,10 @@ export default async function handler(req, res) {
       if (age >= 7.0 && age < 8.0) { await fire(c, SUBJECT_E3, email3Text(), email3HTML(), "welcome-e3", "day7", "e3_sent", "e3_failed"); continue; }
       // Day 9 — the stack (goodwill + affiliate layer) (9.0–10.0)
       if (age >= 9.0 && age < 10.0) { await fire(c, SUBJECT_STACK, stackText(), stackHTML(), "welcome-stack", "day9", "stack_sent", "stack_failed"); continue; }
+      // Day 12 — the Course, plainly (12.0–13.0)
+      if (age >= 12.0 && age < 13.0) { const ed = mapEdition(country); await fire(c, SUBJECT_COURSE, courseText(liveScore, ed), courseHTML(liveScore, ed), "welcome-course", "day12", "course_sent", "course_failed"); continue; }
       // Day 18 — re-engagement (18.0–19.0)
-      if (age >= 18.0 && age < 19.0) { await fire(c, SUBJECT_REENGAGE, reengageText(liveScore), reengageHTML(liveScore), "welcome-reengage", "day18", "reengage_sent", "reengage_failed"); continue; }
+      if (age >= 18.0 && age < 19.0) { await fire(c, reengageSubject(liveScore), reengageText(liveScore), reengageHTML(liveScore), "welcome-reengage", "day18", "reengage_sent", "reengage_failed"); continue; }
       results.skipped++;
     }
 

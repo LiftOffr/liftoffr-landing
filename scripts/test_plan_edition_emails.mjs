@@ -37,3 +37,13 @@ test('p1 points at tier 1 of the worksheet, not a level in the document', async 
   assert.match(p1, /tier 1 of the worksheet/);
   assert.doesNotMatch(p1, /Choose one level|choose a single level/);
 });
+
+test('free D12 Course email is INR-aware and links /system', async () => {
+  const { courseHTML, courseText, mapEdition } = await import('../api/cron-welcome-followups.js');
+  const inr = courseHTML(null, mapEdition('IN')), usd = courseHTML(null, mapEdition('US'));
+  assert.match(inr, /an \$8 credit toward the Course/);
+  assert.match(inr, /system\?[^"]*utm_content=day12_course&price=inr/);
+  assert.match(usd, /the full \$29 toward the Course/);
+  assert.match(courseText(null, mapEdition()), /liftoffr\.com\/system/);
+  for (const body of [inr, usd]) assert.doesNotMatch(body, /playbook|\$497/i);
+});
