@@ -5,6 +5,14 @@ Per master plan §9: this is a parallel revenue line, not a fallback. One deal a
 
 ---
 
+## 2026-11-12 REFRESH (read first)
+- `[VERIFY]` fields now filled from IG Insights: 10,090 followers; engaged audience 65.7% India, 1.5% US, 26.6% aged 13-17. Last 30 days: 4,015,921 views, 1,222,245 reach. The one-pager below is superseded by `~/Documents/liftoffr-full-audit-2026-11-12/brand/MEDIA_KIT.md`.
+- **NEW India-audience rates (proposed, need Torin's approval):** integrated $400, dedicated $650, dedicated + stories $800, 3-reel package $1,100, with a 100K-view make-good. Basis: blended planning CPM ~$2.60 ($2-4) on this geo mix vs the $10 CPM this card assumes. These sit below the $1,200 floor in "Pricing discipline"; keep the card rates for brands buying US/global reach.
+- Raise trigger ("300K twice in a quarter"): one reel cleared 300K in the last 30 days (320,034 on 2026-11-05). Not yet met.
+- The 13-17 share makes 18+ categories (exchanges, trading apps, alcohol, gambling) a poor or prohibited fit; hardware-wallet posts need an 18+ age restriction.
+
+---
+
 ## The one-page version (this is what you send)
 
 **LiftOffr — Torin Christianson**
@@ -69,7 +77,6 @@ Say this out loud in the first email. It is the reason a serious brand pays a pr
 
 1. **Disclosure is mine to control.** Label goes in the platform's native disclosure tool AND the first line of the caption. If a brand asks me to soften it, that's a decline.
 2. **No performance claims about the brand's product.** I can show what a hardware wallet does. I cannot say it will make anyone money.
-3. **Nothing that reads as personalized financial advice.** Brand copy gets the same treatment as site copy — education framing, "not financial advice," no "you should buy."
 4. **Securities-attorney consult triggers at the first ~$2K revenue month** (master plan constraint floor). Brand-deal income counts toward that trigger.
 5. **Affiliate links are disclosed as affiliate links** — separate from #ad, both stated.
 6. Keep every signed brief and invoice. This is 1099 income against the EIN.

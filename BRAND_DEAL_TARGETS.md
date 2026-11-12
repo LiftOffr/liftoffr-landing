@@ -7,6 +7,45 @@ Send with `RATE_CARD.md`. Cadence per master plan §9: outreach week 3, then one
 
 ---
 
+## 2026-11-12 REFRESH: re-ranked for the real audience (supersedes the outreach order below)
+
+Audience facts (IG Insights, engaged accounts, Nov 2026): **65.7% India, 1.5% US, 26.6% aged 13-17**; 99% of views from non-followers. Last 30 days: 4,015,921 views, 1,222,245 reach, 10,090 followers. Media kit: `~/Documents/liftoffr-full-audit-2026-11-12/brand/MEDIA_KIT.md`. Pitches: `.../brand/PITCH_DRAFTS.md`.
+
+What changed: the August list assumed a US finance audience. With 1.5% US and over a quarter under 18, US-only and 18+ brands drop out, and India-selling consumer, auto and creator-tool brands move to the top. Hardware wallets stay but need an 18+ age restriction on the post and an ASCI check (see blockers).
+
+### Top 12 (research 2026-11-12; UNVERIFIED = not confirmed on the brand's own site)
+| # | Brand | Category | Why it fits this audience | Runs creator campaigns? | Partnerships route |
+|---|---|---|---|---|---|
+| 1 | **Insta360** | Action/POV cameras | The product is the camera format the top reels already use; sold in India | Yes: global pay-per-sale affiliate program; Insta360 Awards (India eligible, prize includes creator partnership); region-limited creator programs (US campus, UK moto). No India-specific program found | Insta360 affiliate program (insta360.com); Insta360 India marketing contact UNVERIFIED |
+| 2 | **boAt** | Audio/wearables (India) | India's mass youth audio brand; under-18 friendly | Yes: festive campaigns with Samay Raina, Ranveer Allahabadia and others; has used agency Dot Media | GRIN brand page accepts direct pitches + media kit. Otto-listed affiliate program requires India residence, India bank/UPI and 18+, so Torin is not eligible for the affiliate route. No published partnerships email found |
+| 3 | **70mai** | Dashcams | Product mounts in the shot already being filmed; sold in India | Yes globally ("Creators Hub", "Drive With 70mai" UGC campaign); India coverage UNVERIFIED | India sales/service via distributor Nexdigitron (Nex Digitronix LLP, Pune, nexdigitron.com); Creators Hub on 70mai store. Partnership contact UNVERIFIED |
+| 4 | **Portronics** | Car + phone accessories (India) | Tyre inflators, car chargers, car Bluetooth; India price points | Yes: ~50 sponsored creator posts tracked by Modash, latest 2026-10-13 (third-party) | No published creator route found; portronics.com contact page UNVERIFIED |
+| 5 | **DJI India** (Osmo Pocket / Action) | Creator cameras | India creator push (Osmo Pocket 4 at AYC Mumbai) | Yes globally (DJI affiliate program, UGC campaigns); India program not found | @djiindia.official; DJI affiliate (u.dji.com). India partnerships email UNVERIFIED |
+| 6 | **Wavex** | Car care/detailing (India) | Indian detailing brand expanding retail (100-store franchise target by end 2026) | UNVERIFIED: no creator program found | wavex.in contact; IG. UNVERIFIED |
+| 7 | **Ledger** | Hardware wallet | Affiliate already live on liftoffr.com (commit 2ba2b12) | Yes: large YouTube sponsorship roster (CreatorDB: 252 creators; SponsorRadar: 24, deals to June 2026; third-party, figures disagree) | Existing affiliate relationship (affiliate.ledger.com). Paid-content contact UNVERIFIED. Post must be age-restricted 18+ |
+| 8 | **FamPay** | Teen payments/money app (India) | Built for under-18s in India; the 13-17 share is an asset here | Likely: June 2026 Brand Marketing Manager listing covers influencer campaigns. No campaign confirmed | No published route found. UNVERIFIED |
+| 9 | **Noise (gonoise.com)** | Wearables (India) | Same buyer as boAt | UNVERIFIED (search results conflated it with the US "Noise" creator platform) | gonoise.com contact UNVERIFIED |
+| 10 | **Trezor** | Hardware wallet | Affiliate application pending | Yes: affiliate program aimed at creators; also SatoshiLabs ambassador track | partners.trezor.io (apply with content/audience/channels). Same 18+ and ASCI caveats as Ledger |
+| 11 | **Logitech G / Cosmic Byte / Redgear** | Gaming peripherals | Young male India audience; weaker content fit (car POV, not gaming) | Logitech: influencer program page (US) and G creator program (UK). Cosmic Byte: team sponsorship (Velocity Gaming). Redgear: nothing found | Logitech influencers-creators-program page; others UNVERIFIED |
+| 12 | **Spigen / ESR** | Phone cases, car mounts | Phone-in-car shots; sold in India | NOT RESEARCHED this pass | UNVERIFIED |
+
+### Dropped or demoted (and why)
+- **Excluded as competitor-adjacent:** Glassnode, CryptoQuant (sell on-chain cycle metrics, the same job as the LiftOffr Score). TradingView demoted to bench (indicator marketplace overlaps).
+- **US-only and 18+:** Swan, River, Fold, Rocket Money, Empower. Poor fit: 1.5% US, and minors cannot use them.
+- **18+ tax software:** Koinly, CoinTracker. Bench only; US/UK adult product.
+- **US-audience lifestyle:** Ridge, Adam's Polishes, Chemical Guys. Product fits the format, audience does not: ~1,500 US views per 100K. Pitch only on the NEW rate, or skip.
+- **Other hardware wallets** (BitBox, Coldcard, Foundation, Blockstream, Tangem): keep on bench behind Ledger/Trezor; same 18+ and ASCI constraints.
+- **Never:** exchanges, trading/brokerage apps (Zerodha, Groww, Upstox etc.), alcohol, gambling, betting, prediction markets. CapCut is banned in India; skip.
+
+### Blockers before anything is sent
+1. Torin approves the NEW India rates (below the $1,200 floor in RATE_CARD.md).
+2. Paid Partnership label on **Trial Reels**: not verified that the label and branded-content age gate work on trial reels. Sponsored reels may need to post as regular reels.
+3. Crypto posts in India: ASCI's 2022 VDA guidelines require a fixed risk disclaimer on VDA ads and bar minors in them. Whether a hardware-wallet reel counts as a VDA ad is unclear, and the standing no-disclaimer rule conflicts. Torin's call; current text of the guidelines not checked.
+4. The old template below claims "I publicly called the October 2025 top at $124,824." Not verified in this pass; do not use it until checked against /receipts.
+5. Every route marked UNVERIFIED must be confirmed on the brand's own site the day of sending.
+
+---
+
 ## The strategic split
 
 The pivot audit found the audience is **lifestyle-first, not finance-first** (1.3M views → 8 email captures). That diagnosis drives this list:
