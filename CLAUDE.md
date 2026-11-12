@@ -28,8 +28,8 @@ CRO/UX sweep in progress — read `AUDIT_NOTES.md`, `COMPETITOR_INTEL.md`, `OPTI
 | `/checklist` | free, ungated five-step checklist; IG bio `/ig` points here. Other bio shortlinks retain `/links`. |
 | `/cycle` | PUBLIC live cycle dashboard (gauge, Four Pillars, indicators) |
 | `/track-record` | backtest proof: $50/wk → $1.88M vs $217K DCA, +7,602%, 417 start dates |
-| `/playbook` | $497 Cycle Playbook 1:1 sales page (indexed since 2026-08-16, 4 spots/month; linked from home footer + ladder, /plan, /faq, /links, /system, /welcome-plan) |
-| `/system` | $197 "The Cycle System" sales page (noindex — warm list only; founding offer retired; stock 0) |
+| `/playbook` | RETIRED 2026-11-12: 308 -> /system (vercel.json). Never link $497. |
+| `/system` | $197 "The Cycle System" sales page (indexable since 2026-11-12; founding $147 offer retired) |
 | `/blog/*` | 9 indicator SEO posts |
 | `/welcome` | generic post-checkout success → Discord |
 | `/plan` | $29 one-time "My Bear Market Buy Plan" sales page (plan_MntgjXJaQnGsW) |
