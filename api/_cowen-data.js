@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "QcJlPjcOZjw",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Q4 Dump Came Just the Same",
+    "published": "2026-11-12T19:00:13+00:00",
+    "processed_at": "2026-11-12T19:13:11.911830+00:00",
+    "url": "https://www.youtube.com/watch?v=QcJlPjcOZjw",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      72000,
+      60000,
+      80000,
+      54000
+    ],
+    "indicators_mentioned": [
+      "21-week EMA",
+      "20-week SMA",
+      "200-day moving average",
+      "50-week moving average",
+      "realized price",
+      "on-chain indicators"
+    ],
+    "key_points": [
+      "Current price action mirrors prior fake-out patterns (2015, 2019, 2020, 2022) where a sweep above a prior high and the 50-week moving average was rejected, leading to brutal downside",
+      "Historical post-rate-hike seasonality for midterm years shows Bitcoin holding for about a month and a half before dropping into a Q4 low, consistent with the current setup",
+      "Bitcoin historically bottoms below the realized price (around 54K), and there is no clear reason this cycle should be different",
+      "A choppy range-bound scenario (down to 60K, back up to 80K, down again) tied to competing liquidity demand from major IPOs is a low-probability but real risk that would delay resolution",
+      "Whether the eventual low is a higher low or a lower low determines the strength of a prospective 2027 bull market, with a lower low (full on-chain reset) setting up a stronger rally"
+    ],
+    "summary": "Bitcoin is in a weakening phase that resembles historical fake-out patterns following a break above prior highs and the 50-week moving average, with weakness likely persisting for a few more weeks into the December FOMC. The key question is whether the market forms a higher low or a lower low relative to current levels, since a lower low that reaches toward the realized price near 54K would reset on-chain metrics and set up a stronger bull market in 2027, while a higher low would be bullish short-term but likely postpone a final test of the realized price to later in the cycle."
+  },
+  {
     "video_id": "j-JVi02_C88",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1554,42 +1588,5 @@ export default [
       "Based on historical analogues (2015, 2018, 2022), late August through October is the most probable window for the next major low, with October viewed as the most likely month"
     ],
     "summary": "Bitcoin is approaching a historically significant decision point where price has stalled between key moving averages, mirroring prior midterm cycle years like 2018 and 2022. Onchain and social sentiment indicators suggest the bottom is not yet confirmed, favoring a final capitulation event\u2014most likely in October\u2014before the next bull market begins."
-  },
-  {
-    "video_id": "Ju6Q-D9GZZU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Something Strange Is Happening in the Labor Market",
-    "published": "2026-08-09T03:21:42+00:00",
-    "processed_at": "2026-08-09T03:34:28.470219+00:00",
-    "url": "https://www.youtube.com/watch?v=Ju6Q-D9GZZU",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Non-farm payroll",
-      "Unemployment rate",
-      "Labor force participation rate",
-      "Initial jobless claims",
-      "Job openings",
-      "2-year yield",
-      "Fed funds rate",
-      "US-Japan interest rate differential",
-      "Macro recession risk dashboard",
-      "Liquidity risk dashboard",
-      "Bitcoin dominance",
-      "GDP-weighted global interest rates",
-      "Global inflation rate"
-    ],
-    "key_points": [
-      "Non-farm payroll growth has slowed dramatically from 4-5% annually in 2022 to near 0% now, leaving little margin for error if the Fed missteps",
-      "Falling unemployment rate is misleading since it is driven largely by a declining labor force participation rate rather than job creation strength",
-      "Layoffs and initial claims remain near pre-pandemic lows, indicating no recessionary feedback loop has started despite headline weakness",
-      "Regional and sector-level divergence (crypto/altcoins weak, AI/semis strong) means the market keeps climbing the wall of worry rather than pricing in recession, unlike 2008 or 2001 when weakness was nationwide",
-      "Global monetary easing has stalled and GDP-weighted rates are ticking back up, which is cited as a contributing factor to crypto's continued underperformance this year",
-      "A stock market correction is expected to begin by late September into October, consistent with prior midterm-year seasonal patterns, coinciding with the September Fed meeting uncertainty"
-    ],
-    "summary": "The labor market shows genuine but gradual weakening\u2014stalling job growth and rising unemployment duration\u2014yet layoffs and claims remain too low to confirm recession, leaving the Fed in a difficult position between hiking risk and slowing growth. Bitcoin and crypto remain pressured by a stalled global easing cycle and risk-off rotation into blue chips, while a seasonal equity correction is anticipated around September before markets likely resume climbing the wall of worry given the absence of nationwide economic distress."
   }
 ];
