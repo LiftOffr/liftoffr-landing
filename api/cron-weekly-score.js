@@ -23,6 +23,7 @@ import { disclosureHTML, disclosureText } from "./_disclosure.js";
 import { BUY_PLAN, dcaForToday, dcaForDate, PLAN_START, effectiveTriggerPrice, DCA_MAX_QUOTE_SIZE,
   DCA_MODE, DCA_STACK_USDC, DCA_START, DCA_HORIZON_END, DCA_DAILY_FILL_MAX, ladderFunding } from "./_buy-plan.js";
 import { postToChannel, AUTO_BUY_LOG_CHANNEL } from "./_alerts.js";
+import { listAudienceContacts, emailKey } from "./_email-routing.js";
 
 export const config = { runtime: "nodejs" };
 
@@ -93,7 +94,12 @@ function topContributors(components, n = 3) {
     .slice(0, n);
 }
 
-function emailHTML({ score, zone, trend, trendDelta7d, commentary, components }) {
+// Plan buyers (Resend "Plan Buyers" audience) already own the $29 Plan, so their
+// Sunday email pitches the Course and reminds them of the credit instead.
+const WS = (path, content) => `https://liftoffr.com${path}?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=${content}`;
+const BUYER_OFFER_TEXT = "You already have the Plan. The next step is The Cycle System: 46 lessons, the full Score build, the record and the exit ladder worksheet. Your Plan purchase credits toward the $197: $29 for the USD edition, $8 for the INR edition. The private code came by email after your purchase. Can't find it? Reply to this email and I'll resend it.";
+
+export function emailHTML({ score, zone, trend, trendDelta7d, commentary, components }, { planBuyer = false } = {}) {
   const price = components?._btc_price?.value;
   const trendArrow = trend === "rising" ? "▲" : trend === "falling" ? "▼" : "◆";
   const trendStr = `${trendArrow} ${trendDelta7d >= 0 ? "+" : ""}${trendDelta7d} over last 7 days`;
@@ -129,18 +135,22 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 
     <p style="margin:0 0 12px;font-size:13px;color:#666;">Every signal this model has produced &mdash; all 64 &mdash; is at <a href="https://liftoffr.com/receipts?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=receipts" style="color:#e63946;">liftoffr.com/receipts</a>.</p>
 
-    <p style="margin:18px 0 0;">Want a worksheet for turning research into a written plan? The Plan includes fictional budget examples, execution checks and review rules. $29 at checkout, plus tax where it applies. The Cycle System separately explains how to build your own exit ladder, with a worksheet for choosing your own fractions.</p>
+    ${planBuyer ? `<p style="margin:18px 0 0;">${BUYER_OFFER_TEXT}</p>` : `<p style="margin:18px 0 0;">Want a worksheet for turning research into a written plan? The Plan includes fictional budget examples, execution checks and review rules. $29 at checkout, plus tax where it applies. The Cycle System separately explains how to build your own exit ladder, with a worksheet for choosing your own fractions.</p>`}
   </div>
 
   <div style="padding:0 28px 32px;">
-    <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Get the plan — $29 once →</a>
+    ${planBuyer
+      ? `<a href="${WS("/system", "cta_buyer")}" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">See The Cycle System →</a>`
+      : `<a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=cta" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:8px;font-weight:800;font-size:15px;">Get the plan — $29 once →</a>`}
   </div>
 
   <div style="padding:20px 28px 4px;border-top:1px solid #eee;font-size:13px;color:#666;line-height:1.7;">
     <p style="margin:0 0 6px;font-weight:700;color:#444;">Whenever you're ready, 3 ways I can help:</p>
     <p style="margin:0 0 2px;">1. <a href="https://liftoffr.com/cycle?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_cycle" style="color:#e63946;">Check the live cycle dashboard</a> — free, always current</p>
-    <p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_plan" style="color:#e63946;">Get My Bear Market Buy Plan</a> — $29, once</p>
-    <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_system" style="color:#e63946;">Take the Course</a> — The Cycle System, $197 once</p>
+    ${planBuyer
+      ? `<p style="margin:0 0 2px;">2. <a href="https://whop.com/liftoffr/content-JnPHMvgbjjhcD9/app/" style="color:#e63946;">Open your Plan</a>: it lives in your Whop library</p>`
+      : `<p style="margin:0 0 2px;">2. <a href="https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_plan" style="color:#e63946;">Get My Bear Market Buy Plan</a> — $29, once</p>`}
+    <p style="margin:0 0 14px;">3. <a href="https://liftoffr.com/system?utm_source=resend&utm_medium=email&utm_campaign=weekly_score&utm_content=menu_system" style="color:#e63946;">Take the Course</a>: The Cycle System, $197 once</p>
   </div>
 
   <div style="padding:18px 28px;background:#fafafa;border-top:1px solid #eee;font-size:11px;color:#999;text-align:center;">
@@ -152,7 +162,7 @@ function emailHTML({ score, zone, trend, trendDelta7d, commentary, components })
 </body></html>`;
 }
 
-function emailText({ score, zone, trend, trendDelta7d, commentary, components }) {
+export function emailText({ score, zone, trend, trendDelta7d, commentary, components }, { planBuyer = false } = {}) {
   const price = components?._btc_price?.value;
   return [
     `LiftOffr Score this week: ${score.toFixed(1)} (${zoneLabel(zone)})`,
@@ -170,8 +180,13 @@ function emailText({ score, zone, trend, trendDelta7d, commentary, components })
     "",
     "Every signal this model has produced, all 64: https://liftoffr.com/receipts",
     "",
-    "Want planning examples and worksheets? $29 at checkout, plus applicable tax:",
-    "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
+    ...(planBuyer
+      ? [BUYER_OFFER_TEXT, WS("/system", "cta_buyer")]
+      : ["Want planning examples and worksheets? $29 at checkout, plus applicable tax:",
+         "https://liftoffr.com/plan?utm_source=resend&utm_medium=email&utm_campaign=weekly_score",
+         "",
+         "Or take the Course, The Cycle System, $197 once:",
+         WS("/system", "menu_system")]),
     "",
     "— Torin",
     "",
@@ -187,6 +202,13 @@ async function fetchResendAudienceContacts() {
   });
   const data = await r.json();
   return (data.data || []).filter((c) => c.email && !c.unsubscribed);
+}
+
+// One read of the Plan Buyers audience per run. Unsubscribed records count too:
+// they are still buyers, and the free-list send already skips its own opt-outs.
+export async function fetchPlanBuyerEmails(env = process.env, request) {
+  const rows = await listAudienceContacts(env.RESEND_PLAN_AUDIENCE_ID, env.RESEND_API_KEY, request);
+  return new Set(rows.map(emailKey).filter(Boolean));
 }
 
 async function fetchScore(baseUrl) {
@@ -389,7 +411,7 @@ function zoneChangeText({ from, to, score, date }) {
     ``,
     `Score now: ${score.toFixed(1)} / 100`,
     ``,
-    `Zone changes are rare — this is the signal the weekly email exists for. Members got the full read and the source context in the market brief.`,
+    `Zone changes are rare. This is the signal the weekly email exists for. Every component behind the move is on the live dashboard.`,
     ``,
     `See the live score: https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert`,
     `Planning examples and worksheets — $29 at checkout, plus applicable tax: https://liftoffr.com/plan`,
@@ -410,7 +432,7 @@ function zoneChangeHTML(p) {
       <div style="font-size:12px;font-weight:800;letter-spacing:1.5px;color:${color};">${zoneLabel(p.to)}</div>
       <div style="font-size:12px;color:#888;margin-top:6px;">was ${zoneLabel(p.from)} · crossed ${p.date}</div>
     </div>
-    <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare — this is the moment the framework exists for. Members got the full read and the source context in the market brief.</p>
+    <p style="font-size:14.5px;line-height:1.6;">Zone changes are rare. This is the moment the framework exists for. Every component behind the move is on the live dashboard.</p>
     <a href="https://liftoffr.com/plan?utm_source=email&utm_medium=zone_alert" style="display:block;background:#e63946;color:#fff;text-decoration:none;text-align:center;padding:14px;border-radius:9px;font-weight:800;font-size:15px;margin:18px 0 10px;">Get the plan — $29 once →</a>
     <p style="text-align:center;font-size:12px;"><a href="https://liftoffr.com/cycle?utm_source=email&utm_medium=zone_alert" style="color:#888;">or watch the live score →</a></p>
     <p style="font-size:11px;color:#999;margin-top:22px;">${disclosureHTML()}<br/><a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999;">Unsubscribe</a></p>
@@ -1715,11 +1737,21 @@ export default async function handler(req, res) {
       ]);
       const subject = `${SUBJECT_BASE}: ${score.score.toFixed(1)} (${score.zone})`;
       score.commentary = await aiWeeklyRead(score);
-      const text = emailText(score);
-      const html = emailHTML(score);
+      const variants = {
+        free:  { text: emailText(score), html: emailHTML(score) },
+        buyer: { text: emailText(score, { planBuyer: true }), html: emailHTML(score, { planBuyer: true }) },
+      };
+      // If the buyer list cannot be read, everyone gets the free variant (the
+      // pre-split behaviour) rather than skipping the week.
+      let buyers = new Set(), buyerListError = null;
+      try { buyers = await fetchPlanBuyerEmails(); }
+      catch (e) { buyerListError = String(e.message || e).slice(0, 120); }
 
-      const results = { sent: 0, failed: 0, total: subs.length, errors: [] };
+      const results = { sent: 0, failed: 0, total: subs.length, buyers: 0, buyerListError, errors: [] };
       for (const s of subs) {
+        const isBuyer = buyers.has(emailKey(s));
+        const { text, html } = isBuyer ? variants.buyer : variants.free;
+        if (isBuyer) results.buyers++;
         try {
           await sendResend(s.email, subject, text, html);
           results.sent++;
