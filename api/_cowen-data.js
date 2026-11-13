@@ -3,6 +3,40 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "7XTLBzDzOHA",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Drops Below $70k",
+    "published": "2026-11-13T17:00:11+00:00",
+    "processed_at": "2026-11-13T17:13:57.569910+00:00",
+    "url": "https://www.youtube.com/watch?v=7XTLBzDzOHA",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      83000,
+      70000,
+      40000
+    ],
+    "indicators_mentioned": [
+      "200-week moving average",
+      "50-week moving average",
+      "MVRV Z-Score",
+      "Realized Price",
+      "Onchain Risk Metric",
+      "Social Risk Score",
+      "Year-to-date ROI"
+    ],
+    "key_points": [
+      "Bitcoin is testing the 200-week moving average after a confirmed fake-out below 83K on weekly closes, a pattern historically seen in 2015 and 2020 that preceded fast, sharp capitulations",
+      "Four-year cycle lows historically occur in Q4 of midterm years shortly after the midterms, with capitulation typically finalizing near the December FOMC meeting",
+      "Prior fake-out capitulations in 2015 and 2020 both breached the 200-week moving average by roughly 30%, suggesting a similar move could push price into the 40s",
+      "Onchain indicators like MVRV Z-Score and the aggregated onchain risk metric remain far above prior cycle-low readings, implying a deeper reset may still be needed for a healthier 2027 bull market",
+      "Extremely low social interest/risk score (lowest of the cycle, comparable only to late 2018) suggests apathy consistent with a final capitulation phase rather than mid-bull-market conditions"
+    ],
+    "summary": "Bitcoin's breakdown below prior range highs and the 83K level signals a classic fake-out pattern consistent with prior four-year cycle tops, pointing toward a final capitulation phase into Q4 of this midterm year. A deeper flush toward or below the realized price and 200-week moving average, potentially into the 40s, would reset onchain indicators and set up a stronger 2027 bull market, whereas holding the 200-week MA into year-end would flip the outlook bullish."
+  },
+  {
     "video_id": "QcJlPjcOZjw",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1558,35 +1592,5 @@ export default [
       "On-chain risk indicators (MVRV-Z, on-chain risk composite) typically reset to cycle-low levels near the end of midterm-year bear markets, and confirmation of that reset is needed before conviction increases"
     ],
     "summary": "The next 60 days are viewed as pivotal because they align both with the seasonally weakest stretch of the year for Bitcoin and with the historical timing window for four-year cycle lows, pointing toward an October low as the base case. Structural similarities to the 2018 bear market\u2014same pattern of higher lows followed by a final flush, just at a higher price scale\u2014support the idea of an approximately one-year bear market, though a sideways grind near current levels could push the eventual low out toward November instead."
-  },
-  {
-    "video_id": "zsnxQO7tC9M",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: It's Almost Crunch Time",
-    "published": "2026-08-10T15:39:31+00:00",
-    "processed_at": "2026-08-11T01:21:40.876441+00:00",
-    "url": "https://www.youtube.com/watch?v=zsnxQO7tC9M",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      64000,
-      70000
-    ],
-    "indicators_mentioned": [
-      "MVRV Z-Score",
-      "200-day moving average",
-      "Bear market resistance band",
-      "Social interest/social dominance"
-    ],
-    "key_points": [
-      "Bitcoin historically forms a low in the summer during midterm cycle years, followed by a period of low volatility, then a sharp final drop later in the year triggered by some catalyst before the next bull market begins",
-      "Social interest metrics are currently at levels similar to August 2018 and less than half of where they were at the same point in the 2022 cycle, suggesting waning retail attention consistent with pre-bottom conditions",
-      "Onchain indicators like the MVRV Z-Score have not yet dropped below zero, a level historically associated with cycle bottoms, implying further downside risk is still possible",
-      "Price is currently trapped between the 200-day moving average and the bear market resistance band, and this range is expected to resolve soon with a decisive breakout or breakdown",
-      "Based on historical analogues (2015, 2018, 2022), late August through October is the most probable window for the next major low, with October viewed as the most likely month"
-    ],
-    "summary": "Bitcoin is approaching a historically significant decision point where price has stalled between key moving averages, mirroring prior midterm cycle years like 2018 and 2022. Onchain and social sentiment indicators suggest the bottom is not yet confirmed, favoring a final capitulation event\u2014most likely in October\u2014before the next bull market begins."
   }
 ];
