@@ -3,6 +3,42 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "hj5ySVDYASI",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Capitulation Spiral",
+    "published": "2026-11-14T20:51:00+00:00",
+    "processed_at": "2026-11-14T22:14:40.172645+00:00",
+    "url": "https://www.youtube.com/watch?v=hj5ySVDYASI",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      66000,
+      65000
+    ],
+    "indicators_mentioned": [
+      "200-week moving average",
+      "50-week moving average",
+      "200-day moving average",
+      "realized price",
+      "balanced price",
+      "MVRV Z-score",
+      "on-chain risk indicator",
+      "whale watching dashboard",
+      "year-to-date ROI",
+      "social interest"
+    ],
+    "key_points": [
+      "Bitcoin is in a capitulation spiral similar to 2015 and 2020, following a fake-out above a prior cycle high after a long bear market, with price now below the 200-week moving average, which historically does not guarantee a bottom since prior cycles saw drops of roughly 30% below it",
+      "Price action is tracking closely with historical post-rate-hike patterns and midterm-year seasonality, which typically show a bounce, a drop, another bounce, and a final low around day 90-95 after the first hike, putting a potential low about 35 days out",
+      "Midterm-year cycles historically produce a final capitulation low after the midterm elections (2014, 2018, 2022), and this year is following the same pattern",
+      "Whale activity, which has historically spiked near major cycle lows (2014, 2018, 2022), has been notably absent this year including at the February and summer lows, suggesting the real bottom has not yet occurred and should appear near the Q4 low",
+      "Bitcoin has underperformed major benchmarks this year (down against S&P 500, gold, and energy), reinforcing that this is a weak, bearish period rather than a continuation of a bull market"
+    ],
+    "summary": "Bitcoin is in a capitulation spiral consistent with prior post-rate-hike and midterm-year cycle patterns, with the 200-week and 200-day moving averages failing to provide support, signaling further downside before a final low. Confluence across on-chain risk metrics, realized price, MVRV Z-score, and the notable absence of whale accumulation this year suggests the true cycle bottom likely forms in Q4 after the midterms, potentially within the next several weeks."
+  },
+  {
     "video_id": "7XTLBzDzOHA",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1553,44 +1589,5 @@ export default [
       "Absence of a current spike in whale activity suggests the market is not yet at an extreme, though this could change within a few months as volatility increases"
     ],
     "summary": "Whale activity across transaction counts, exchange flows, and holder positioning remains historically low, mirroring quiet periods like August 2018 rather than conditions typically seen near cycle extremes. Because whale activity tends to spike at both tops and bottoms during volatile moves, the current lack of spikes suggests the market is not presently at a major inflection point, though this could shift in the coming months as supply distribution among mid-sized holders continues to evolve."
-  },
-  {
-    "video_id": "6V6rlIV2Zek",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Next 60 Days",
-    "published": "2026-08-13T01:17:13+00:00",
-    "processed_at": "2026-08-13T01:58:51.257185+00:00",
-    "url": "https://www.youtube.com/watch?v=6V6rlIV2Zek",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      63000,
-      60000,
-      56000,
-      50000
-    ],
-    "indicators_mentioned": [
-      "ROI from the low",
-      "MVRV-Z score",
-      "PEL multiple",
-      "MVRV",
-      "transaction fees",
-      "terminal price",
-      "miner cap to thermocap ratio",
-      "market cap to thermal cap ratio",
-      "social interest/social risk",
-      "monthly seasonality returns",
-      "presidential returns comparison"
-    ],
-    "key_points": [
-      "August to mid-October is historically one of the weakest seasonal windows for Bitcoin in midterm years, with average drawdowns of roughly 10% in August and 8% in September",
-      "The ROI-from-low cycle timing analysis suggests the four-year cycle low should land within a week or two of prior cycle lows, projecting into mid-to-late October",
-      "Structural comparison to the 2018 bear market shows a similar pattern of low, higher low, then lower low, just at 10x higher prices, supporting the idea of a roughly one-year bear market",
-      "If price instead grinds sideways near 60K as it did in 2018 rather than breaking down, the eventual low could be pushed later, potentially into November",
-      "On-chain risk indicators (MVRV-Z, on-chain risk composite) typically reset to cycle-low levels near the end of midterm-year bear markets, and confirmation of that reset is needed before conviction increases"
-    ],
-    "summary": "The next 60 days are viewed as pivotal because they align both with the seasonally weakest stretch of the year for Bitcoin and with the historical timing window for four-year cycle lows, pointing toward an October low as the base case. Structural similarities to the 2018 bear market\u2014same pattern of higher lows followed by a final flush, just at a higher price scale\u2014support the idea of an approximately one-year bear market, though a sideways grind near current levels could push the eventual low out toward November instead."
   }
 ];
