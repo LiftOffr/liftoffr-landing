@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "HcruM-mYz5E",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: Dubious Speculation",
+    "published": "2026-11-16T14:52:38+00:00",
+    "processed_at": "2026-11-16T15:15:27.205658+00:00",
+    "url": "https://www.youtube.com/watch?v=HcruM-mYz5E",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      65000,
+      54000,
+      83000,
+      87000
+    ],
+    "indicators_mentioned": [
+      "Realized Price",
+      "Four-Year Cycle",
+      "Rate Hike Cycle Comparison",
+      "Head and Shoulders Pattern"
+    ],
+    "key_points": [
+      "A fake-out above a prior high that confirms below often leads to a quick retracement back to the lows, as seen with the move above $83,000 followed by a sharp drop",
+      "Sentiment among previously bullish voices turning bearish suggests the bear market is nearing its end in time, even if not yet in price",
+      "Comparing current price action to prior post-rate-hike cycles (2015-2016 analog) suggests a window of weakness over the next one to two months where a lower low could still occur",
+      "The realized price near $54,000 remains a historically relevant downside target if a deeper capitulation unfolds",
+      "Historical fake-out patterns (2015, 2019-2020, March 2020) show capitulation candles producing 30-50% drops within one to two weeks, meaning a lack of bounce at expected mid-month timing could signal an imminent capitulation event, with mid-December (FOMC and government funding deadline) flagged as a key potential turning point"
+    ],
+    "summary": "Bitcoin is caught between two scenarios following its rejection from the $87,000 fake-out high: either an imminent capitulation flush toward the realized price near $54,000 if no relief bounce occurs soon, or a choppier path with a lower high followed by a final leg down into the December FOMC meeting. Shifting sentiment from bullish to bearish among market participants suggests a cycle low is approaching in time, even though the exact price floor remains uncertain, with mid-December highlighted as a critical window based on historical analogs."
+  },
+  {
     "video_id": "hj5ySVDYASI",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1559,35 +1591,5 @@ export default [
       "Bitcoin has historically diverged from stock market performance during its own bear markets (2014, 2018), meaning a stock correction is not required for a Bitcoin bottom to form"
     ],
     "summary": "Bitcoin remains stuck in a low-volatility, low-interest phase reminiscent of prior midterm-year bear markets, particularly 2018, as it consolidates between the 200-week moving average and bear market resistance band. A further breakdown is likely to trigger the final capitulation needed to reset on-chain metrics and mark the cycle bottom, after which volatility should expand sharply and the market should begin transitioning toward a new bull phase within the next few months."
-  },
-  {
-    "video_id": "3f7iDFfYAeg",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Whale Watching",
-    "published": "2026-08-14T17:41:53+00:00",
-    "processed_at": "2026-08-14T18:25:36.016757+00:00",
-    "url": "https://www.youtube.com/watch?v=3f7iDFfYAeg",
-    "outlook": "neutral",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "Whale transaction score",
-      "Exchange activity score",
-      "Exchange inflow composition",
-      "Whale holder positioning",
-      "Advance decline index of top 100 cryptocurrencies",
-      "Bitcoin supply by address balance",
-      "Bitcoin address count by balance"
-    ],
-    "key_points": [
-      "Whale activity metrics are currently subdued, showing little large-holder transaction activity, similar to conditions seen in August 2018",
-      "Spikes in whale activity historically occur near both major tops and major bottoms, making the metric more useful for timing turning points than predicting direction",
-      "Exchange activity scores tend to spike more at market lows, while whale transaction scores tend to spike more at market tops, and combining them creates a broader activity signal",
-      "There is an ongoing redistribution of Bitcoin supply, with holdings in the 1,000-10,000 BTC bracket declining while the 100-1,000 BTC bracket has grown since 2021",
-      "Absence of a current spike in whale activity suggests the market is not yet at an extreme, though this could change within a few months as volatility increases"
-    ],
-    "summary": "Whale activity across transaction counts, exchange flows, and holder positioning remains historically low, mirroring quiet periods like August 2018 rather than conditions typically seen near cycle extremes. Because whale activity tends to spike at both tops and bottoms during volatile moves, the current lack of spikes suggests the market is not presently at a major inflection point, though this could shift in the coming months as supply distribution among mid-sized holders continues to evolve."
   }
 ];
