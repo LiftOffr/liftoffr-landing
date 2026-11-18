@@ -3,6 +3,49 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "HNuV6mayKmk",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Bull's Dilemma",
+    "published": "2026-11-18T15:36:39+00:00",
+    "processed_at": "2026-11-18T16:19:42.394743+00:00",
+    "url": "https://www.youtube.com/watch?v=HNuV6mayKmk",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      60000,
+      54000,
+      40000,
+      37000,
+      80000
+    ],
+    "indicators_mentioned": [
+      "USDT dominance",
+      "Stablecoin market cap",
+      "MVRV Z-Score",
+      "Realized price",
+      "Balance price",
+      "Puell Multiple",
+      "Market cap to thermal cap ratio",
+      "Miner cap to thermal cap ratio",
+      "HODL ratio",
+      "Supply in profit and loss",
+      "DXY",
+      "Bitcoin/Gold ratio",
+      "Bitcoin/Silver ratio",
+      "Onchain risk indicator"
+    ],
+    "key_points": [
+      "Bitcoin priced against USDT dominance and stablecoin market cap shows liquidity leaving the system, with stablecoin market cap failing to hold prior support levels seen in February and July",
+      "Onchain indicators such as MVRV Z-Score, realized price, and balance price have historically needed to reset (go negative or below realized/balance price) before major cycle lows form, and none of these resets have occurred yet",
+      "Commodities like gold and silver typically bottom before Bitcoin in midterm years, and since they are still declining amid rising rate-hike expectations and a strengthening dollar, Bitcoin's bottom likely has not occurred",
+      "Historical patterns around government shutdowns, post-rate-hike cycles, and proxy assets (Coinbase, MicroStrategy, NASDAQ) suggest further downside risk into Q4 before any sustainable recovery",
+      "A scenario exists where Bitcoin holds near 60K, rallies, then fails a third time near 80K (echoing the 2011 silver pattern) before eventually setting a deeper low that fully resets onchain metrics, which would support a stronger rally in the following year"
+    ],
+    "summary": "Bitcoin has not yet satisfied the structural and onchain conditions that have historically preceded major cycle lows, including resets in MVRV Z-Score, realized price, and balance price, while stablecoin market cap and commodities like gold and silver are still declining, implying further downside risk. The current rate-hike cycle, dollar strength, and seasonal patterns around government shutdowns point to continued weakness into Q4 and potentially into early 2027, with a deeper flush toward the 40K region remaining a real possibility before a more durable bull phase can begin."
+  },
+  {
     "video_id": "G71pimAYMm4",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1548,39 +1591,5 @@ export default [
       "A stronger dollar driven by a potential rate hike is expected to act as a final headwind for Bitcoin and stocks, likely triggering a correction starting around August-September into the end of the year"
     ],
     "summary": "The dollar is poised for a substantial short-term rally, diverging from consensus, driven by rising 2-year yields, global central banks already hiking rates, and persistent inflation evidenced by new highs in energy stocks. This dollar strength is expected to act as a headwind for Bitcoin and equities, likely triggering a correction before the end of the midterm year, following a pattern similar to Trump's first term and the 1990s rate-hike cycle."
-  },
-  {
-    "video_id": "NxBLe5qTi_g",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "The Rate Cutting Cycle is Over",
-    "published": "2026-08-17T20:29:48+00:00",
-    "processed_at": "2026-08-17T22:16:55.820412+00:00",
-    "url": "https://www.youtube.com/watch?v=NxBLe5qTi_g",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "non-farm payrolls",
-      "unemployment rate",
-      "labor force participation rate",
-      "initial claims",
-      "job openings",
-      "job openings per unemployed worker",
-      "CPI/headline inflation",
-      "30-year yield",
-      "10-year yield",
-      "Fed funds rate",
-      "GDP weighted policy rate"
-    ],
-    "key_points": [
-      "The rate cutting cycle appears over, with a realistic chance of a 25 basis point rate hike occurring in September or December as labor market tightness and sticky inflation risks resurface",
-      "Multiple global central banks (Europe, Australia, Japan, New Zealand) have already begun hiking rates again after cutting, suggesting the US could follow the same pattern",
-      "Rising 30-year and 10-year yields signal markets are more worried about inflation reacceleration than an imminent recession, since yields fall ahead of recessions rather than rise",
-      "A stock market correction of 10-20% is expected to begin around September/October, but this is not expected to be a full recession, and historically rate hikes have preceded further market strength rather than collapse",
-      "This anticipated correction is expected to be the catalyst that allows Bitcoin to find its market cycle bottom before the next cycle begins"
-    ],
-    "summary": "The rate cutting cycle is likely over, with rising yields and mixed labor/inflation data pointing to a possible token rate hike later this year, mirroring rate hiking cycles already underway in several other countries. This macro backdrop is expected to produce a 10-20% stock market correction starting around September or October, which would likely serve as the catalyst for Bitcoin to establish its market cycle bottom rather than signal a deeper recession."
   }
 ];
