@@ -3,6 +3,31 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "G71pimAYMm4",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Stock Market: The Breakdown Continues",
+    "published": "2026-11-17T23:29:04+00:00",
+    "processed_at": "2026-11-18T00:19:13.163809+00:00",
+    "url": "https://www.youtube.com/watch?v=G71pimAYMm4",
+    "outlook": "bearish",
+    "confidence": "high",
+    "timeframe": "weeks",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "10-year yield",
+      "Year-to-date ROI"
+    ],
+    "key_points": [
+      "Equity correction is expected to continue through the December FOMC, mirroring seasonal midterm-year patterns of early and late-year selloffs seen in 2018, 2022, and 2014",
+      "Bitcoin remains bearish, particularly in Q4 of a midterm year, with proxies like Coinbase and MicroStrategy stock breaking down to new lower lows",
+      "Metals (gold and silver) are hitting new local lows, and historically stocks bottom after metals do, suggesting more downside ahead before a durable low forms",
+      "Rising energy prices and a rising dollar are pushing long-end yields higher, pressuring long-duration risk assets like the NASDAQ and growth stocks",
+      "Current conditions resemble a worse version of 2018 given a hawkish Fed, trade wars, and added geopolitical conflict, reinforcing the case for continued weakness"
+    ],
+    "summary": "The equity and crypto correction is viewed as an ongoing process rather than a completed event, with further downside likely into the December FOMC before any durable bounce. Bitcoin and its proxies remain bearish as metals continue making new lows and rising yields pressure risk assets, with conditions compared unfavorably to the 2018 midterm-year selloff."
+  },
+  {
     "video_id": "HcruM-mYz5E",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1557,39 +1582,5 @@ export default [
       "This anticipated correction is expected to be the catalyst that allows Bitcoin to find its market cycle bottom before the next cycle begins"
     ],
     "summary": "The rate cutting cycle is likely over, with rising yields and mixed labor/inflation data pointing to a possible token rate hike later this year, mirroring rate hiking cycles already underway in several other countries. This macro backdrop is expected to produce a 10-20% stock market correction starting around September or October, which would likely serve as the catalyst for Bitcoin to establish its market cycle bottom rather than signal a deeper recession."
-  },
-  {
-    "video_id": "OXUeLGbMKyU",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: The Winds of Winter",
-    "published": "2026-08-16T10:28:00+00:00",
-    "processed_at": "2026-08-16T10:47:53.587639+00:00",
-    "url": "https://www.youtube.com/watch?v=OXUeLGbMKyU",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      60000,
-      62000,
-      63000
-    ],
-    "indicators_mentioned": [
-      "200-week moving average",
-      "bear market resistance band",
-      "social risk metric",
-      "volatility (60-day, 30-day, 180-day)",
-      "on-chain risk indicators",
-      "four-year cycle",
-      "Bitcoin ROI from bottom"
-    ],
-    "key_points": [
-      "Bitcoin is being squeezed between the 200-week moving average and the bear market resistance band, which will force a decisive breakout in either direction",
-      "Volatility has compressed to historically low levels (60-day at 1.47%, 30-day at 1.16%), and such compression historically precedes a sharp volatility expansion",
-      "Current market structure closely mirrors 2018, with social interest and risk metrics declining in similar fashion during the back half of a midterm year",
-      "A further drawdown would likely reset on-chain indicators completely, removing the justification for continued lower prices and setting up a market cycle bottom",
-      "Bitcoin has historically diverged from stock market performance during its own bear markets (2014, 2018), meaning a stock correction is not required for a Bitcoin bottom to form"
-    ],
-    "summary": "Bitcoin remains stuck in a low-volatility, low-interest phase reminiscent of prior midterm-year bear markets, particularly 2018, as it consolidates between the 200-week moving average and bear market resistance band. A further breakdown is likely to trigger the final capitulation needed to reset on-chain metrics and mark the cycle bottom, after which volatility should expand sharply and the market should begin transitioning toward a new bull phase within the next few months."
   }
 ];
