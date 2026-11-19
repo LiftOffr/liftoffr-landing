@@ -3,6 +3,34 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "ixMSi_KX89s",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "The Anthropic IPO",
+    "published": "2026-11-19T14:18:17+00:00",
+    "processed_at": "2026-11-19T15:20:16.274958+00:00",
+    "url": "https://www.youtube.com/watch?v=ixMSi_KX89s",
+    "outlook": "mixed",
+    "confidence": "low",
+    "timeframe": "weeks",
+    "key_levels": [
+      63562,
+      63995
+    ],
+    "indicators_mentioned": [
+      "RSI",
+      "ETF flows"
+    ],
+    "key_points": [
+      "Major IPOs (SpaceX, Tesla, Coinbase, Rivian, Apple) historically surge on launch before dropping roughly 50%, with the post-drop level often providing a more viable entry than the initial spike",
+      "Bitcoin is trading at valuations similar to the SpaceX IPO period, and ETF outflows coinciding with large IPOs suggest liquidity is being pulled from crypto into these offerings",
+      "A recurring pattern of local tops forming around the 21st of each month since July suggests a possible short-term high around November 21st, with a subsequent low potentially aligning with the December 9th FOMC meeting",
+      "Oversold RSI conditions (currently around 24) do not guarantee a bounce, as historical precedent (2018) shows deeper crashes can originate from already oversold readings",
+      "A potential government shutdown around December 12th and historical shutdown patterns add additional downside risk into early-to-mid December before a possible recovery into 2027"
+    ],
+    "summary": "The dominant pattern across major IPOs is an initial surge followed by a pullback of around 50%, and the Anthropic IPO is expected to follow this script, with ripple effects on Bitcoin and the Nasdaq. Bitcoin's monthly cycle of local tops near the 21st, combined with ETF outflows and a cautious reading of oversold RSI, points to potential further downside into early-to-mid December around the next FOMC meeting and possible government shutdown, before conditions could improve heading into 2027."
+  },
+  {
     "video_id": "HNuV6mayKmk",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1558,38 +1586,5 @@ export default [
       "A sustained hold above the 200-day moving average over a couple of weeks after the next retracement would meaningfully raise confidence that the cycle low is already in"
     ],
     "summary": "The recent rally above the 200-day moving average shows both bullish and bearish precedents, with the closest historical analog being October 2019, when a similar apathetic-top rally preceded one more leg down before the true cycle low. Structural similarities\u2014apathetic top, QT ending near the top, three Fed cuts, no altcoin rotation\u2014support caution despite the temptation to call the bottom, and confirmation would require Bitcoin holding above the 200-day moving average through a retracement in the coming weeks. Until that happens, a final Q4 flush lower remains a real possibility even as the dominant strategy remains dollar-cost averaging into weakness."
-  },
-  {
-    "video_id": "-mx3UwwJ5P4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "The Market is Wrong About the US Dollar",
-    "published": "2026-08-18T20:42:44+00:00",
-    "processed_at": "2026-08-18T21:08:13.612239+00:00",
-    "url": "https://www.youtube.com/watch?v=-mx3UwwJ5P4",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      105000,
-      106000
-    ],
-    "indicators_mentioned": [
-      "DXY",
-      "2-year yield",
-      "Fed funds rate",
-      "Fed watch tool",
-      "XLE",
-      "presidential term return paths",
-      "risk metric (Bitcoin)"
-    ],
-    "key_points": [
-      "The dollar is expected to rally significantly in the near term, contrary to consensus expectations of continued decline",
-      "Historical parallels with Trump's first term and prior presidential cycles suggest the dollar bottoms in the first half of the midterm year before trending higher",
-      "Rising 2-year yields alongside global central banks already hiking rates (Europe, Japan, New Zealand, Australia) suggest the US may be forced into a rate hike rather than further cuts",
-      "Energy prices/XLE making new highs historically precede Fed rate hikes and signal inflation is not yet tamed, reinforcing the case for higher rates and a stronger dollar",
-      "A stronger dollar driven by a potential rate hike is expected to act as a final headwind for Bitcoin and stocks, likely triggering a correction starting around August-September into the end of the year"
-    ],
-    "summary": "The dollar is poised for a substantial short-term rally, diverging from consensus, driven by rising 2-year yields, global central banks already hiking rates, and persistent inflation evidenced by new highs in energy stocks. This dollar strength is expected to act as a headwind for Bitcoin and equities, likely triggering a correction before the end of the midterm year, following a pattern similar to Trump's first term and the 1990s rate-hike cycle."
   }
 ];
