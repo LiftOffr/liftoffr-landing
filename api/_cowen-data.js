@@ -3,6 +3,44 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "6EpZVnKKrOE",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin Drops Below $60k",
+    "published": "2026-11-20T16:03:54+00:00",
+    "processed_at": "2026-11-20T16:20:57.031390+00:00",
+    "url": "https://www.youtube.com/watch?v=6EpZVnKKrOE",
+    "outlook": "bearish",
+    "confidence": "high",
+    "timeframe": "weeks",
+    "key_levels": [
+      60000,
+      54000,
+      50000,
+      40000,
+      30000
+    ],
+    "indicators_mentioned": [
+      "MVRV Z-Score",
+      "realized price",
+      "balance price",
+      "onchain risk metric",
+      "Bitcoin percentage of supply in profit or loss",
+      "RSI",
+      "MACD",
+      "ETF flows"
+    ],
+    "key_points": [
+      "Bitcoin historically dumps in Q4 of midterm years, and the current decline mirrors prior cyclical patterns rather than representing something new",
+      "Gold and other commodities tend to bottom before Bitcoin in midterm years, and since metals are still making lower lows, it is premature to turn bullish on Bitcoin",
+      "Onchain risk metrics and MVRV Z-Score remain well above historical capitulation levels, implying further downside is likely before a true cycle low forms",
+      "Bitcoin is trading just above the realized price (~$54,000), and prior bear markets saw price fall below this level before bottoming, suggesting a drop into the low 50s or even 30-40k range would be historically normal",
+      "Price action after the first rate hike of a hiking cycle, September rate hikes in midterm years, and government shutdowns all show Bitcoin behaving in line with historical averages, reinforcing that the current weakness is not unusual",
+      "Other risk assets and commodities (S&P, Nasdaq, gold, silver, stablecoin market cap) are all breaking below their summer lows, raising the question of why Bitcoin would be exempt from the same behavior"
+    ],
+    "summary": "Bitcoin's current Q4 midterm-year decline below $60,000 closely matches historical seasonal and macro patterns, including post-rate-hike drawdowns, government shutdown reactions, and prior bear market structures. Onchain risk indicators and the realized price (~$54,000) suggest the market has not yet reached historical capitulation extremes, implying further downside toward the low 50s or even the 30-40k range would be consistent with past cycles rather than an anomaly."
+  },
+  {
     "video_id": "ixMSi_KX89s",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1552,39 +1590,5 @@ export default [
       "Short-term follow-through in Bitcoin's weekly/two-week candle and a breakdown in stablecoin dominance are key confirming signals for whether the broader crypto low is truly in, with parallels drawn to the 2022 cycle bottom"
     ],
     "summary": "Ethereum has rallied back to fair value on its long-term regression model and is showing tentative signs of strength against Bitcoin, but the sustainability of this move hinges on whether the stock market undergoes a seasonal correction in the back half of the year. A mild 10% equity pullback would likely confirm the low is already in, while a deeper 20% correction could produce one more leg down before a durable bull market resumes into 2027-2028; underlying weakness against gold and silver still tempers the bullish case near-term."
-  },
-  {
-    "video_id": "mnCn7NzuzKA",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin: Dubious Speculation",
-    "published": "2026-08-21T04:36:48+00:00",
-    "processed_at": "2026-08-21T05:37:57.669095+00:00",
-    "url": "https://www.youtube.com/watch?v=mnCn7NzuzKA",
-    "outlook": "mixed",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [
-      60000,
-      70000,
-      80000,
-      90000
-    ],
-    "indicators_mentioned": [
-      "MVRV Z-score",
-      "Terminal Price",
-      "200-day moving average",
-      "Risk metric (0.3 risk)",
-      "Realized Price",
-      "Balanced Price"
-    ],
-    "key_points": [
-      "Bitcoin topped on apathy rather than euphoria this cycle, mirroring 2019, which raises the question of whether a full on-chain reset to prior lows is necessary before the bottom is in",
-      "Multiple macro and structural parallels to 2019 exist, including QT ending roughly two months after the top, three Fed rate cuts, and no rotation into altcoins after the top",
-      "The current rally above the 200-day moving average resembles the October 2019 rally, which was followed by a new low about 53 days later before the cycle bottom was set",
-      "Historical midterm-year patterns (2018, 2022) show sharp short-term rallies of 20%+ that reversed and were followed by further downside into Q4, suggesting the market sometimes has to rally before making a final low",
-      "A sustained hold above the 200-day moving average over a couple of weeks after the next retracement would meaningfully raise confidence that the cycle low is already in"
-    ],
-    "summary": "The recent rally above the 200-day moving average shows both bullish and bearish precedents, with the closest historical analog being October 2019, when a similar apathetic-top rally preceded one more leg down before the true cycle low. Structural similarities\u2014apathetic top, QT ending near the top, three Fed cuts, no altcoin rotation\u2014support caution despite the temptation to call the bottom, and confirmation would require Bitcoin holding above the 200-day moving average through a retracement in the coming weeks. Until that happens, a final Q4 flush lower remains a real possibility even as the dominant strategy remains dollar-cost averaging into weakness."
   }
 ];
