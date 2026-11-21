@@ -3,6 +3,38 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "ZNy4XdW59dc",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin: The Lower Low",
+    "published": "2026-11-21T05:01:55+00:00",
+    "processed_at": "2026-11-21T05:21:24.615251+00:00",
+    "url": "https://www.youtube.com/watch?v=ZNy4XdW59dc",
+    "outlook": "mixed",
+    "confidence": "medium",
+    "timeframe": "weeks",
+    "key_levels": [
+      55000,
+      41000,
+      37000
+    ],
+    "indicators_mentioned": [
+      "realized price",
+      "balance price",
+      "onchain risk metric",
+      "liquidity risk metric",
+      "MVRV-style price/realized price ratio"
+    ],
+    "key_points": [
+      "Bitcoin is capitulating into a lower low on the same seasonal timing as 2018, with current price action closely mirroring that cycle's Q4 midterm-year drop",
+      "The decline is driven by weakness in equities (NASDAQ down ~20%, echoing 2018's ~23% drop) since Bitcoin behaves as a risk asset tied to liquidity rather than a risk-off hedge",
+      "A deep stock market correction is actually needed to loosen tight liquidity conditions and get rate hikes priced out, which historically precedes Bitcoin bottoming and re-accelerating",
+      "Onchain valuation metrics (realized price, balance price) are approaching historically significant capitulation zones, with onchain risk near levels that have marked past cycle lows",
+      "Silver's bull run mirrored Bitcoin's and is capitulating first, consistent with commodities bottoming before crypto in midterm years, suggesting Bitcoin's low may follow within weeks"
+    ],
+    "summary": "Bitcoin's drop to the $55,000 area represents a textbook midterm-year capitulation that parallels 2018 both in timing and in its link to an equity market correction. This reset of onchain valuation metrics, while painful short-term, is viewed as a necessary and ultimately bullish precondition for a renewed uptrend into the following year, with a cycle low likely forming within the next several weeks."
+  },
+  {
     "video_id": "6EpZVnKKrOE",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1558,37 +1590,5 @@ export default [
       "Bitcoin already showed early relative topping behavior against gold in 2024, which could be a warning sign that a similar early top plays out against the dollar in the next cycle"
     ],
     "summary": "Bitcoin is likely to see a further rally off a 2025 low, but diminishing returns and a maturing macro cycle suggest the move higher will be far smaller than prior bull runs, potentially just reaching modest new highs. The broader real estate and credit cycle appears to be topping, historically leading stock and commodity market peaks by months to years, implying Bitcoin's next cycle could top earlier (left-translated) than the typical post-halving pattern before broader economic contraction sets in around 2027-2029."
-  },
-  {
-    "video_id": "w1lRJhw37h4",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Ethereum: Dubious Speculation",
-    "published": "2026-08-24T04:08:49+00:00",
-    "processed_at": "2026-08-24T05:02:53.667160+00:00",
-    "url": "https://www.youtube.com/watch?v=w1lRJhw37h4",
-    "outlook": "mixed",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [],
-    "indicators_mentioned": [
-      "regression band",
-      "20-month moving average",
-      "ETH/BTC ratio",
-      "200-week moving average",
-      "USDT dominance",
-      "ETH/gold valuation",
-      "ETH/silver valuation",
-      "bull market support band",
-      "ROI charts"
-    ],
-    "key_points": [
-      "Ethereum's recent rally has brought it back to the 'fair value' area of its long-term regression band, and price action against Bitcoin shows early signs of a potential breakout after a false attempt in September 2025",
-      "Historical seasonality suggests stock market corrections in the back half of midterm years (2014, 2018, 2022) have coincided with sharp ETH drawdowns, with a 20% S&P drop historically producing roughly 50% ETH declines while a 10% drop tends to produce milder pullbacks and higher lows",
-      "Whether the cycle low is already in for Ethereum depends heavily on the depth of any upcoming stock market correction, with no correction implying high odds the low is in and a 20% correction risking a marginally lower low",
-      "Despite ETH's rally, its valuation against gold and silver remains historically weak, continuing a multi-year bleed since 2021 that undermines the strength of the recovery narrative",
-      "Short-term follow-through in Bitcoin's weekly/two-week candle and a breakdown in stablecoin dominance are key confirming signals for whether the broader crypto low is truly in, with parallels drawn to the 2022 cycle bottom"
-    ],
-    "summary": "Ethereum has rallied back to fair value on its long-term regression model and is showing tentative signs of strength against Bitcoin, but the sustainability of this move hinges on whether the stock market undergoes a seasonal correction in the back half of the year. A mild 10% equity pullback would likely confirm the low is already in, while a deeper 20% correction could produce one more leg down before a durable bull market resumes into 2027-2028; underlying weakness against gold and silver still tempers the bullish case near-term."
   }
 ];
