@@ -3,6 +3,35 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "mPDwkBYWJo8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "Bitcoin and the Realized Price",
+    "published": "2026-11-25T19:00:14+00:00",
+    "processed_at": "2026-11-25T19:19:30.709744+00:00",
+    "url": "https://www.youtube.com/watch?v=mPDwkBYWJo8",
+    "outlook": "bearish",
+    "confidence": "high",
+    "timeframe": "weeks",
+    "key_levels": [
+      58000,
+      53000,
+      53200
+    ],
+    "indicators_mentioned": [
+      "realized price",
+      "balance price"
+    ],
+    "key_points": [
+      "Bitcoin is trading around $58,000 while the realized price sits near $53,200, and history shows this level typically gets tested or breached during bear markets",
+      "In nearly every major cycle (2018, 2020, 2022) price eventually dropped below the realized price, with 2020's apathetic top being the closest analog to current conditions since neither reached the terminal price to the upside",
+      "Arguments that this cycle is different because Bitcoin didn't reach the terminal price, or because fewer coins are moving due to lost keys, mirror arguments made in every prior bear market that still saw price fall below the realized price",
+      "Gold and silver both broke through levels that initially looked like convincing lows, suggesting metals and Bitcoin remain in outright capitulation and that similar levels in Bitcoin may not hold either",
+      "Historically metals tend to bottom before Bitcoin, and since silver and gold are still declining, it is hard to argue Bitcoin has already bottomed"
+    ],
+    "summary": "Bitcoin is approaching its realized price near $53,200, a level that has historically been breached in every major bear market despite various arguments for why this cycle might be different. With metals like gold and silver also breaking through seemingly strong support levels, the broader market appears to be in capitulation, reinforcing the likelihood that Bitcoin will trade below its realized price before any durable bottom forms."
+  },
+  {
     "video_id": "ZNy4XdW59dc",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1555,40 +1584,5 @@ export default [
       "Historically the correct approach has been to begin accumulating after the summer low regardless of further downside, since waiting for the exact bottom has proven costly in prior cycles"
     ],
     "summary": "Bitcoin's rally to the 50-week moving average closely resembles the 2018 bear market pattern, both in price structure and time-based symmetry, suggesting the current bounce may stall and lead to a lower low later in the year, likely after the midterm elections. While a decisive weekly close above the 50-week MA would flip the outlook bullish, the historical precedent of summer rallies failing before eventual capitulation supports continued caution and gradual accumulation rather than assuming the bear market has ended."
-  },
-  {
-    "video_id": "b9eeSm_z4fw",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "US Real Estate Cycles: Dubious Speculation with Jason Pizzino",
-    "published": "2026-08-25T12:20:26+00:00",
-    "processed_at": "2026-08-25T12:34:17.737588+00:00",
-    "url": "https://www.youtube.com/watch?v=b9eeSm_z4fw",
-    "outlook": "mixed",
-    "confidence": "low",
-    "timeframe": "months",
-    "key_levels": [
-      57000,
-      100000,
-      120000,
-      150000,
-      180000,
-      126000
-    ],
-    "indicators_mentioned": [
-      "18-year real estate cycle",
-      "Schmita cycle (7-year cycle)",
-      "diminishing returns model",
-      "DCA strategy",
-      "Fibonacci 50% retracement"
-    ],
-    "key_points": [
-      "Bitcoin can still rally from current lows but diminishing returns make a repeat of prior cycles' multi-hundred percent gains unlikely",
-      "A doubling from a ~57k low would only reach roughly a new all-time high near 120k, a much smaller move than past cycles",
-      "The broader real estate and business cycle appears to be topping now, with real estate historically peaking before stocks, metals, and commodities, suggesting the current macro backdrop is closer to the end than the beginning of the cycle",
-      "This cycle is expected to be left-translated, with a potential top earlier than the typical Q4 post-halving pattern, possibly around 2026-2028 as credit and liquidity conditions deteriorate",
-      "Bitcoin already showed early relative topping behavior against gold in 2024, which could be a warning sign that a similar early top plays out against the dollar in the next cycle"
-    ],
-    "summary": "Bitcoin is likely to see a further rally off a 2025 low, but diminishing returns and a maturing macro cycle suggest the move higher will be far smaller than prior bull runs, potentially just reaching modest new highs. The broader real estate and credit cycle appears to be topping, historically leading stock and commodity market peaks by months to years, implying Bitcoin's next cycle could top earlier (left-translated) than the typical post-halving pattern before broader economic contraction sets in around 2027-2029."
   }
 ];
