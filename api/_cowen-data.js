@@ -3,6 +3,33 @@
 // Updated by youtube_intel.py LaunchAgent on torin's Mac.
 export default [
   {
+    "video_id": "q0KSyXCVBr8",
+    "channel_name": "Benjamin Cowen",
+    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
+    "title": "A Bitcoin Thanksgiving",
+    "published": "2026-11-26T19:48:20+00:00",
+    "processed_at": "2026-11-27T00:00:59.582338+00:00",
+    "url": "https://www.youtube.com/watch?v=q0KSyXCVBr8",
+    "outlook": "bearish",
+    "confidence": "medium",
+    "timeframe": "months",
+    "key_levels": [],
+    "indicators_mentioned": [
+      "ROI around Thanksgiving chart",
+      "drawdown comparison",
+      "FOMC"
+    ],
+    "key_points": [
+      "Bitcoin historically sells off heading into and after Thanksgiving during midterm years (2014, 2018, 2022), and 2026 is tracking this seasonal pattern closely",
+      "Current drawdown normalized to 60 days before Thanksgiving is about 28.4%, well below the ~52-53% drawdowns seen in 2014-15 and 2018, suggesting further downside risk remains possible but isn't guaranteed",
+      "On average Bitcoin has bottomed roughly 22-48 days after Thanksgiving in prior midterm cycles, implying a continued low could form later in Q4 or even into early next year",
+      "Broader cyclical pattern of a February low, summer low, and Q4 low is playing out again this year, consistent with prior cycle structure",
+      "An upcoming FOMC meeting with potential hawkish Fed commentary adds near-term macro risk, and comparisons to NASDAQ price action in 2018 show similar behavior",
+      "Short-term bounces are possible but a more durable, sustained recovery isn't expected until sometime in 2027"
+    ],
+    "summary": "Bitcoin's current price action heading into Thanksgiving closely mirrors prior midterm-year seasonal patterns from 2014, 2018, and 2022, where drawdowns intensified into and after the holiday before bottoming weeks later. With the current drawdown still shallower than historical analogs and macro risk from an upcoming FOMC decision, further downside or a prolonged bottoming process into late 2026 or early 2027 is the base case, with any near-term bounce unlikely to mark a durable trend reversal until 2027."
+  },
+  {
     "video_id": "mPDwkBYWJo8",
     "channel_name": "Benjamin Cowen",
     "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
@@ -1557,32 +1584,5 @@ export default [
       "Pre-election year seasonality has historically been bullish for gold, supporting expectations for a strong 2027 if the current pattern plays out"
     ],
     "summary": "Gold is viewed as being in a temporary consolidation and pullback phase within an ongoing secular bull market, with the actual top still ahead. Short-term weakness driven by a dollar resurgence is expected to persist into mid-September or mid-October before gold forms a higher low (assigned a 65% probability) and resumes its upward trend into year-end and 2027."
-  },
-  {
-    "video_id": "xCF8xZQcVfc",
-    "channel_name": "Benjamin Cowen",
-    "channel_id": "UCRvqjQPSeaWn-uEx-w0XOIg",
-    "title": "Bitcoin Stalls at the 50 Week Moving Average",
-    "published": "2026-08-30T23:32:40+00:00",
-    "processed_at": "2026-08-31T00:18:02.702643+00:00",
-    "url": "https://www.youtube.com/watch?v=xCF8xZQcVfc",
-    "outlook": "bearish",
-    "confidence": "medium",
-    "timeframe": "months",
-    "key_levels": [
-      57000
-    ],
-    "indicators_mentioned": [
-      "50-week moving average",
-      "200-day moving average"
-    ],
-    "key_points": [
-      "Bitcoin has stalled at the 50-week moving average, historically the key line separating bull and bear markets",
-      "The current rally closely mirrors 2018's structure, including matching low levels, a similar 40% counter-trend rally off the summer low, and an identical 51 four-hour-candle move from breakout to rejection at the 50-week MA",
-      "Prior cycles show 40% summer rallies have occurred before within bear markets without ending them, contradicting claims this move is unprecedented",
-      "In the last three cycles the actual market cycle low did not form until after the midterm election, suggesting a possible bottom in Q4 (October or later) rather than an immediate bull resumption",
-      "Historically the correct approach has been to begin accumulating after the summer low regardless of further downside, since waiting for the exact bottom has proven costly in prior cycles"
-    ],
-    "summary": "Bitcoin's rally to the 50-week moving average closely resembles the 2018 bear market pattern, both in price structure and time-based symmetry, suggesting the current bounce may stall and lead to a lower low later in the year, likely after the midterm elections. While a decisive weekly close above the 50-week MA would flip the outlook bullish, the historical precedent of summer rallies failing before eventual capitulation supports continued caution and gradual accumulation rather than assuming the bear market has ended."
   }
 ];
